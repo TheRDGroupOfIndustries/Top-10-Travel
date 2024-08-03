@@ -110,12 +110,7 @@ function HomeHero() {
       className="relative w-full pt-10 lg:pt-0 md:min-h-screen px-2 md:px-3 lg:px-6 xl:px-8"
     >
       <div className="absolute -z-10 right-0 h-[85%] w-[45%] lg:w-[35%] xl:w-[30%]">
-        <Image
-          src={HeroEllipse}
-          alt="Hero Image"
-          height={912}
-          width={562}
-        />
+        <Image src={HeroEllipse} alt="Hero Image" height={912} width={562} />
         <div className="absolute xl:top-[22%] lg:top-[18%] md:top-[12%] sm:top-[10%] top-[8%] xl:-left-24 lg:-left-20 md:-left-16 sm:-left-12 -left-8 w-[40%] xl:h-[35%] lg:h-[30%] md:h-[25%] sm:h-[20%] h-[15%]">
           <Image
             src={Hot_Air_Balloon}
@@ -191,10 +186,7 @@ function HomeHero() {
                 </SelectTrigger>
                 <SelectContent>
                   {allCountries?.map((country) => (
-                    <SelectItem
-                      key={country}
-                      value={country}
-                    >
+                    <SelectItem key={country} value={country}>
                       {country}
                     </SelectItem>
                   ))}
@@ -211,10 +203,7 @@ function HomeHero() {
                 </SelectTrigger>
                 <SelectContent>
                   {allCities?.map((city) => (
-                    <SelectItem
-                      key={city}
-                      value={city}
-                    >
+                    <SelectItem key={city} value={city}>
                       {city}
                     </SelectItem>
                   ))}
