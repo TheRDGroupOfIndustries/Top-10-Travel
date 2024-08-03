@@ -48,12 +48,7 @@ const CarouselCard = ({ dmc }: { dmc: any }) => (
 );
 
 const TopTenDMC = () => {
-  const {
-    selectedCountry,
-    selectedCity,
-
-    visible,
-  } = useContext(HomeContext);
+  const { selectedCountry, selectedCity, visible } = useContext(HomeContext);
   const { data, isLoading } = useAxios({
     url: `/api/home?country=${selectedCountry}&city=${selectedCity}&role=DMC`,
   });
@@ -67,7 +62,7 @@ const TopTenDMC = () => {
     >
       <div className="w-full flex flex-col items-center justify-center gap-4">
         <h1 className="text-xl sm:text-4xl font-bold text-center">
-          TOP 10 DMC
+          TOP 10 DMC {selectedCity && ", " + selectedCity.toUpperCase()}
         </h1>
         <p className="text-base sm:text-lg text-center mb-8">
           Experience Hassle-Free Room Hunting with Our Comprehensive Listing
