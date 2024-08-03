@@ -270,11 +270,10 @@ export async function GET() {
   //   });
   //   i++;
   // }
-  // const cdata = await db.companyData.findMany();
-  // for(const data of cdata){
-  //   await db.company.update({where:{id:data.companyId}, data:{city:data.city}});
+  // const c = await db.company.findMany();
+  // for(const data of c){
+  //   await db.user.update({where:{id:data.userId}, data:{role:"COMPANY"}});
   // }
-  
 
   return NextResponse.json("hi");
 }
