@@ -6,7 +6,7 @@ import AdminNotifications from "./AdminNotifications";
 function AdminHeader() {
   return (
     <div className="w-full lg:px-2">
-      <div className="w-full lg:h-14 flex flex-col lg:flex-row lg:items-center items-start justify-between gap-3 border border-black">
+      <div className="w-full lg:h-14 flex flex-col lg:flex-row lg:items-center items-start justify-between gap-3">
         <div className="pt-2 lg:pt-0">
           <BreadcrumbLinks />
         </div>
