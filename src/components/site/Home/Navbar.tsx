@@ -67,8 +67,14 @@ function Navbar() {
           ))}
         </ul>
 
-        <div className="flex items-center gap-2 md:hidden">
-          {session.status === "authenticated" && (
+        <div className="flex items-center gap-2 lg:hidden">
+          {session.status !== "authenticated" ? (
+            <div onClick={() => signIn("google")}>
+              <ButtonFancy className="bg-transparent hover:text-white">
+                <FcGoogle className="text-xl mr-2" /> Login
+              </ButtonFancy>
+            </div>
+          ) : (
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Avatar className="bg-slate-400 cursor-pointer">
@@ -119,7 +125,7 @@ function Navbar() {
           </div>
         </div>
 
-        <div className="md:flex gap-5 hidden">
+        <div className="lg:flex gap-5 hidden">
           {session.status !== "authenticated" ? (
             <div onClick={() => signIn("google")}>
               <ButtonFancy className="bg-transparent hover:text-white">
