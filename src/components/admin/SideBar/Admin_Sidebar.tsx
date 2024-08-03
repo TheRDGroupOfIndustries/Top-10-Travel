@@ -13,13 +13,14 @@ import {
   LogOut,
 } from "react-feather";
 import { usePathname } from "next/navigation";
+import { signOut } from "next-auth/react";
 
 function AdminSidebar() {
   const pathname = usePathname();
   const menuItems = [
     { name: "Dashboard", icon: Home, href: "/admin" },
     { name: "Users", icon: Users, href: "/admin/users" },
-    { name: "Package", icon: List, href: "/admin/package-listings" },
+    { name: "Listings", icon: List, href: "/admin/package-listings" },
     { name: "Help Desk", icon: HelpCircle, href: "/admin/help-desk" },
     { name: "Settings", icon: Settings, href: "/admin/settings" },
   ];
@@ -49,7 +50,10 @@ function AdminSidebar() {
         </ul>
       </nav>
       <div className="p-4">
-        <button className="flex items-center text-black hover:text-white transition-colors duration-200">
+        <button
+          onClick={() => signOut()}
+          className="flex items-center text-black hover:text-white transition-colors duration-200"
+        >
           <LogOut className="w-5 h-5 mr-3" />
           Logout
         </button>

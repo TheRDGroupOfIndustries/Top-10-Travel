@@ -1,6 +1,7 @@
 import { Bell } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import BreadcrumbLinks from "../Breadcrumb/BreadcrumbLinks";
+import AdminNotifications from "./AdminNotifications";
 
 function AdminHeader() {
   return (
@@ -11,7 +12,7 @@ function AdminHeader() {
         </div>
         <div className="flex flex-row-reverse lg:flex-row items-center lg:justify-center justify-between gap-3">
           <div className=" relative cursor-pointer">
-            <Bell className="w-6 h-6 stroke-black" />
+            <AdminNotifications />
             <div className="absolute  top-0 right-0">
               <span className="relative flex h-3 w-3">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-yellow-400 opacity-75"></span>
