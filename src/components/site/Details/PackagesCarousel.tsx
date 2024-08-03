@@ -15,7 +15,7 @@ import Image from "next/image";
 
 const PackageCard = ({ data }: { data: Package }) => {
   return (
-    <Card className="w-full max-w-sm mx-auto transition-all duration-300 hover:shadow-lg">
+    <Card className="w-full min-h-[520px] rounded-xl max-w-sm mx-auto transition-all duration-300 hover:shadow-lg">
       <div className="relative h-64 md:h-72">
         <Image
           layout="fill"
@@ -39,10 +39,7 @@ const PackageCard = ({ data }: { data: Package }) => {
         </p>
         <p className="text-gray-500 text-sm md:text-base text-left font-semibold mb-4">
           {data.amenities.map((amenity, ind) => (
-            <span
-              key={ind}
-              className=""
-            >
+            <span key={ind} className="">
               {amenity}
               {ind !== data.amenities.length - 1 && ", "}
             </span>
