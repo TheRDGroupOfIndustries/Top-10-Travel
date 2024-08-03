@@ -1,0 +1,4 @@
+-- AlterTable
+ALTER TABLE "Company" ADD COLUMN     "description" TEXT,
+ADD COLUMN     "rating" DOUBLE PRECISION NOT NULL DEFAULT 0.0,
+ADD COLUMN     "reviews" INTEGER NOT NULL DEFAULT 0;

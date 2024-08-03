@@ -1,0 +1,185 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// User ralated and company related schemas
+
+enum Role {
+  USER
+  COMPANY
+  ADMIN
+  Influencer
+}
+
+enum CompanyRole {
+  DMC
+  AGENCY
+  HOTEL
+}
+
+enum RequestStatus {
+  PENDING
+  ACCEPTED
+  REJECTED
+}
+
+enum HelpDeskStatus {
+  PENDING
+  RESOLVED
+}
+
+model User {
+  id             String          @id @default(cuid())
+  username       String
+  email          String          @unique
+  image          String?
+  role           Role            @default(USER)
+  createdAt      DateTime?       @default(now())
+  updatedAt      DateTime?       @updatedAt
+  company        Company?
+  helpdesks      HelpDesk[]
+  influencerData InfluencerData?
+}
+
+model Company {
+  id              String         @id @default(cuid())
+  isSuspended     Boolean        @default(false)
+  isCertified     Boolean        @default(false)
+  user            User           @relation(fields: [userId], references: [id])
+  userId          String         @unique
+  legalName       String         @unique
+  priority        Int
+  state_priority  Int           @default(0)        
+  image           String?
+  country         String
+  state           String
+  city            String
+  companyRole     CompanyRole
+  rating          Float          @default(0.0)
+  reviews         Int            @default(0)
+  methodology     String?
+  createdAt       DateTime?      @default(now())
+  updatedAt       DateTime?      @updatedAt
+  packages        Package[]
+  notifications   Notification[]
+  company_reviews Reviews[]
+  requests        Request[]
+  enquiries Enquiry[]
+  companyData     CompanyData?
+}
+
+model CompanyData {
+  id                  String   @id @default(cuid())
+  company             Company  @relation(fields: [companyId], references: [id])
+  companyId           String   @unique
+  business_reg_number String   @unique
+  ownerContact        String?
+  companyEmail        String?
+  pincode             String
+  phone               String
+  ownerName           String
+  companyContact      String
+  address             String
+  images              String[]
+  socialLinks         String[]
+  agencyGroup         String?
+  iata_number         String?
+  abta_number         String?
+  clia_number         String?
+  tids_number         String?
+  description         String?
+}
+
+model InfluencerData {
+  id          String    @id @default(cuid())
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId      String    @unique
+  name        String
+  image       String
+  description String
+  speciality  String
+  state       String
+  country     String
+  priority    Int   @default(0)
+  state_priority Int @default(0)
+  socialLinks String[]
+  createdAt   DateTime? @default(now())
+}
+
+model Package {
+  id        String    @id @default(cuid())
+  company   Company   @relation(fields: [companyId], references: [id])
+  companyId String
+  amenities String[]
+  title     String
+  desc      String
+  image     String
+  duration  String
+  price     Float
+  createdAt DateTime? @default(now())
+}
+
+model HelpDesk {
+  id          String         @id @default(cuid())
+  user        User           @relation(fields: [userId], references: [id])
+  userId      String
+  title       String
+  description String
+  status      HelpDeskStatus
+  createdAt   DateTime?      @default(now())
+}
+
+model Notification {
+  id        String    @id @default(cuid())
+  company   Company   @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  companyId String
+  message   String
+  type      String
+  createdAt DateTime? @default(now())
+}
+
+model Reviews {
+  id        String  @id @default(cuid())
+  ip        String?
+  name      String
+  rating    Int     @default(1)
+  review    String  @db.Text
+  company   Company @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  companyId String
+
+  @@unique([ip, companyId])
+}
+
+// Admin related schemas
+
+model Request {
+  id        String        @id @default(cuid())
+  company   Company       @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  companyId String
+  message   String
+  status    RequestStatus @default(PENDING)
+  createdAt DateTime?     @default(now())
+}
+
+// unauth user
+model Enquiry {
+  id        String    @id @default(cuid())
+  company   Company   @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  companyId String
+  name      String
+  email     String    
+  message   String
+  createdAt DateTime? @default(now())
+  @@unique([email, companyId])
+}
