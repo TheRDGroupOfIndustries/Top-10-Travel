@@ -44,7 +44,7 @@ const InfluencerForm = () => {
       socialLinks: linksArray,
     });
     if (success) {
-      await update({ role: "Influencer" });
+      // await update({ role: "Influencer" });
       toast.success(success);
     } else if (error) toast.error(error);
   };
@@ -221,8 +221,16 @@ const InfluencerForm = () => {
           >
             Create Account
           </Button>
-          <Link href="/" className="ml-8">
-            <Button type="button" variant="secondary">Cancel</Button>
+          <Link
+            href="/"
+            className="ml-8"
+          >
+            <Button
+              type="button"
+              variant="secondary"
+            >
+              Cancel
+            </Button>
           </Link>
         </form>
       </div>
