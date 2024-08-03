@@ -188,13 +188,6 @@ function Navbar() {
               {el.title}
             </Link>
           ))}
-          {session.status === "authenticated" && (
-            <div onClick={() => signOut()}>
-              <ButtonFancy className="bg-transparent hover:text-white">
-                <LogOut className="text-xl mr-2" /> Logout
-              </ButtonFancy>
-            </div>
-          )}
         </div>
       </div>
 
