@@ -72,12 +72,14 @@ const InfluencerDetails = ({ data }: { data: InfluencerData }) => {
 
             <div className="rounded-2xl flex lg:hidden flex-col gap-6 py-12 sm:px-8 px-4 border-[1px] border-black">
               <div className="flex flex-col gap-5">
-                <h2 className="text-[32px] font-bold leading-6">
-                  {data?.state}
+                <div>
+                  <h3 className="text-[32px] font-bold leading-tight xl:leading-6">
+                    {data?.name}
+                  </h3>
                   <p className="text-sm mt-3 leading-4 font-medium">
                     {data.speciality}
                   </p>
-                </h2>
+                </div>
               </div>
 
               <div className="flex flex-col gap-4">
@@ -172,22 +174,21 @@ const InfluencerDetails = ({ data }: { data: InfluencerData }) => {
           <div className="flex-1 lg:flex hidden flex-col gap-5 max-w-[509px]">
             <div className="rounded-2xl lg:flex hidden flex-col xl:gap-10 lg:gap-6 xl:py-16 lg:py-10 px-8 border-[1px] border-black">
               <div className="flex flex-col gap-5">
-                <h2 className="text-[32px] font-bold leading-6">
-                  {data?.name}
+                <div>
+                  <h3 className="text-[32px] font-bold leading-tight xl:leading-6">
+                    {data?.name}
+                  </h3>
                   <p className="text-sm mt-3 leading-4 font-medium">
                     {data?.speciality}
                   </p>
-                </h2>
+                </div>
                 <p className="text-xl leading-5 font-medium text-slate-600">
                   @Travelwithshivangi_
                 </p>
               </div>
 
               <div className="flex flex-col gap-4">
-                <h4 className="font-medium text-2xl leading-6">
-                  {/* Key Highlights */}
-                  Introduction
-                </h4>
+                <h4 className="font-medium text-2xl leading-6">Introduction</h4>
                 <p className="text-base leading-[22px] text-justify font-medium">
                   {data?.description}
                 </p>
