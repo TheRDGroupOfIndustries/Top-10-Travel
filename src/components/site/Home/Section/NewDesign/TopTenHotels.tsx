@@ -49,12 +49,7 @@ const CarouselCard = ({ hotel }: { hotel: any }) => (
 );
 
 function TopTenHotels() {
-  const {
-    selectedCountry,
-    selectedCity,
-
-    visible,
-  } = useContext(HomeContext);
+  const { selectedCountry, selectedCity, visible } = useContext(HomeContext);
   const { data, isLoading } = useAxios({
     url: `/api/home?country=${selectedCountry}&city=${selectedCity}&role=HOTEL`,
   });
@@ -68,7 +63,7 @@ function TopTenHotels() {
     >
       <div className="w-full flex flex-col items-center justify-center gap-4">
         <h1 className="text-xl sm:text-4xl font-bold text-center">
-          TOP 10 HOTELS
+          TOP 10 HOTELS {selectedCity && ", " + selectedCity.toUpperCase()}
         </h1>
         <p className="text-base sm:text-lg text-center mb-8">
           Experience Hassle-Free Room Hunting with Our Comprehensive listing
