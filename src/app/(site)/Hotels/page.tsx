@@ -14,10 +14,10 @@ const Page = async () => {
       isSuspended: false,
     },
     select: {
-      id:true,
+      id: true,
       legalName: true,
       image: true,
-      state: true,
+      city: true,
       country: true,
       methodology: true,
       rating: true,

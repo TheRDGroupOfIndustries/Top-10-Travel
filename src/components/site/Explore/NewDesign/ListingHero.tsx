@@ -93,7 +93,7 @@ function ListingHero({
               onClick={() => setIsStateOpen(!isStateOpen)}
               className="w-[180px] bg-white border border-gray-300 rounded-md px-4 py-2 inline-flex items-center justify-between gap-2 text-black/50 text-sm"
             >
-              {selectedState || "Select State"}
+              {selectedState || "Select City"}
               <ChevronDown
                 className={`w-5 h-5 stroke-black/50 transition-transform duration-300 ${
                   isStateOpen ? "rotate-180" : ""
@@ -105,7 +105,7 @@ function ListingHero({
                 <ScrollArea className="h-[250px] rounded-md">
                   {!states.length && (
                     <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer text-xs">
-                      No States
+                      No Cities
                     </li>
                   )}
                   {states.map((state) => (

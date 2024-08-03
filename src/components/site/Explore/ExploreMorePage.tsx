@@ -11,7 +11,7 @@ type Data = {
   legalName: string;
   image: string | null;
   country: string;
-  state: string;
+  city: string;
   rating: number;
   methodology: string | null;
 }[];
@@ -29,17 +29,17 @@ const ExploreMore = ({
 
   const filteredData = data?.filter((item) => {
     if (selectedCountry && selectedState) {
-      return item.country === selectedCountry && item.state === selectedState;
+      return item.country === selectedCountry && item.city === selectedState;
     } else if (selectedCountry) {
       return item.country === selectedCountry;
     } else if (selectedState) {
-      return item.state === selectedState;
+      return item.city === selectedState;
     }
     return true;
   });
 
   const countriesData = useMemo(
-    () => Array.from(data.map((d) => ({ country: d.country, state: d.state }))),
+    () => Array.from(data.map((d) => ({ country: d.country, state: d.city }))),
     [data]
   );
 

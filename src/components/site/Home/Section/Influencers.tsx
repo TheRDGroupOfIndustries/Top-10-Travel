@@ -26,20 +26,13 @@ const Influencers = () => {
   const {
     selectedCountry,
     selectedCity,
-    updateAllCities,
-    updateAllCountries,
+
     visible,
   } = useContext(HomeContext);
   const { data, isLoading } = useAxios({
     url: `/api/influencers?country=${selectedCountry}&city=${selectedCity}`,
   });
-  useEffect(() => {
-    if (data) {
-      updateAllCountries(data.map((c) => c.country));
-      // @ts-expect-error
-      updateAllCities(data.map((c) => c.state));
-    }
-  }, [data]);
+
   return (
     <main
       className={cn(

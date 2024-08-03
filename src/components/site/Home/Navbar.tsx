@@ -8,16 +8,20 @@ import { FcGoogle } from "react-icons/fc";
 
 const navMenus = [
   {
-    title: "Hotels",
-    link: "/Hotels",
-  },
-  {
     title: "Agencies",
     link: "/Agency",
   },
   {
+    title: "Hotels",
+    link: "/Hotels",
+  },
+  {
     title: "DMC's",
     link: "/DMC",
+  },
+  {
+    title: "Influencers",
+    link: "/Influencers",
   },
   {
     title: "Contact us",
@@ -54,6 +58,25 @@ function Navbar() {
             </Link>
           ))}
         </ul>
+        {session.status !== "authenticated" ? (
+          <div
+            className="md:hidden ml-auto mr-4"
+            onClick={() => signIn("google")}
+          >
+            <ButtonFancy className="bg-transparent hover:text-white">
+              <FcGoogle className="text-xl mr-2" /> Login
+            </ButtonFancy>
+          </div>
+        ) : (
+          <Link
+            className="md:hidden ml-auto mr-4"
+            href="/auth/get-started"
+          >
+            <ButtonFancy className="bg-transparent hover:text-white">
+              Get Certified
+            </ButtonFancy>
+          </Link>
+        )}
         <div className="inline-block md:hidden">
           <MenuIcon
             onClick={toggleSidebar}
@@ -100,6 +123,13 @@ function Navbar() {
               {el.title}
             </Link>
           ))}
+          {session.status === "authenticated" && (
+            <div onClick={() => signOut()}>
+              <ButtonFancy className="bg-transparent hover:text-white">
+                <LogOut className="text-xl mr-2" /> Logout
+              </ButtonFancy>
+            </div>
+          )}
         </div>
       </div>
 

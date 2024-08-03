@@ -15,7 +15,7 @@ const CompanyPage = async ({ params }: { params: { companyId: string } }) => {
       id: true,
       country: true,
       state: true,
-      city:true,
+      city: true,
       companyRole: true,
       image: true,
       methodology: true,
@@ -32,6 +32,7 @@ const CompanyPage = async ({ params }: { params: { companyId: string } }) => {
           socialLinks: true,
         },
       },
+      packages: true,
     },
   });
 
@@ -40,7 +41,10 @@ const CompanyPage = async ({ params }: { params: { companyId: string } }) => {
 
   return (
     <div>
-      <Details data={company} role={company.companyRole} />
+      <Details
+        data={company}
+        role={company.companyRole}
+      />
     </div>
   );
 };

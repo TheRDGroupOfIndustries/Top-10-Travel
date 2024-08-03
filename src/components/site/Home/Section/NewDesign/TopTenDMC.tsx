@@ -51,19 +51,13 @@ const TopTenDMC = () => {
   const {
     selectedCountry,
     selectedCity,
-    updateAllCities,
-    updateAllCountries,
+
     visible,
   } = useContext(HomeContext);
   const { data, isLoading } = useAxios({
     url: `/api/home?country=${selectedCountry}&city=${selectedCity}&role=DMC`,
   });
-  useEffect(() => {
-    if (data) {
-      updateAllCountries(data.map((dmc) => dmc.country));
-      updateAllCities(data.map((dmc) => dmc.city));
-    }
-  }, [data]);
+
   return (
     <section
       className={cn(

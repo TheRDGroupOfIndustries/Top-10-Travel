@@ -52,19 +52,13 @@ function TopTenHotels() {
   const {
     selectedCountry,
     selectedCity,
-    updateAllCities,
-    updateAllCountries,
+
     visible,
   } = useContext(HomeContext);
   const { data, isLoading } = useAxios({
     url: `/api/home?country=${selectedCountry}&city=${selectedCity}&role=HOTEL`,
   });
-  useEffect(() => {
-    if (data) {
-      updateAllCountries(data.map((c) => c.country));
-      updateAllCities(data.map((c) => c.city));
-    }
-  }, [data]);
+
   return (
     <main
       className={cn(
