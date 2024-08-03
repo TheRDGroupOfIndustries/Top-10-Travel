@@ -1,10 +1,18 @@
 "use client";
 import ButtonFancy from "@/components/reusable/ButtonFancy";
-import { LogOut, MenuIcon } from "lucide-react";
+import { LogOut, LogOutIcon, MenuIcon, User } from "lucide-react";
 import { signIn, signOut, useSession } from "next-auth/react";
 import Link from "next/link";
 import React, { useState } from "react";
 import { FcGoogle } from "react-icons/fc";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import {
+  DropdownMenu,
+  DropdownMenuTrigger,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+} from "@/components/ui/dropdown-menu";
 
 const navMenus = [
   {
@@ -35,15 +43,15 @@ function Navbar() {
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
   };
+
   const session = useSession();
+  console.log(session);
+
   return (
     <>
       <nav className="flex w-full bg-white/80 backdrop-blur-sm justify-between items-center h-[60px] fixed z-40 px-2 md:px-3 lg:px-6 xl:px-8">
         <div className="navbar-start">
-          <Link
-            href="/"
-            className="text-2xl font-bold"
-          >
+          <Link href="/" className="text-2xl font-bold">
             LOGO
           </Link>
         </div>
@@ -58,31 +66,59 @@ function Navbar() {
             </Link>
           ))}
         </ul>
-        {session.status !== "authenticated" ? (
-          <div
-            className="md:hidden ml-auto mr-4"
-            onClick={() => signIn("google")}
-          >
-            <ButtonFancy className="bg-transparent hover:text-white">
-              <FcGoogle className="text-xl mr-2" /> Login
-            </ButtonFancy>
+
+        <div className="flex items-center gap-2 md:hidden">
+          {session.status === "authenticated" && (
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Avatar className="bg-slate-400 cursor-pointer">
+                  <AvatarImage src={session?.data?.user?.image} />
+                  <AvatarFallback>
+                    {session.data.user.name
+                      .split(" ")
+                      .map((word) => word[0].toUpperCase())
+                      .join("")}
+                  </AvatarFallback>
+                </Avatar>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent className="w-56">
+                <DropdownMenuItem className="cursor-pointer">
+                  <Link href="/">
+                    <div className="flex items-center gap-2">
+                      <span>
+                        <User size={18} />
+                      </span>
+                      <span>My Accout</span>
+                    </div>
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem
+                  className="cursor-pointer"
+                  onClick={() => signOut()}
+                >
+                  <Link href="/">
+                    <div className="flex items-center gap-2">
+                      <span>
+                        <LogOutIcon size={18} />
+                      </span>
+                      <span>Log Out</span>
+                    </div>
+                  </Link>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          )}
+
+          <div className="flex items-center">
+            <MenuIcon
+              onClick={toggleSidebar}
+              size={26}
+              className="cursor-pointer"
+            />
           </div>
-        ) : (
-          <Link
-            className="md:hidden ml-auto mr-4"
-            href="/auth/get-started"
-          >
-            <ButtonFancy className="bg-transparent hover:text-white">
-              Get Certified
-            </ButtonFancy>
-          </Link>
-        )}
-        <div className="inline-block md:hidden">
-          <MenuIcon
-            onClick={toggleSidebar}
-            className="cursor-pointer"
-          />
         </div>
+
         <div className="md:flex gap-5 hidden">
           {session.status !== "authenticated" ? (
             <div onClick={() => signIn("google")}>
@@ -92,16 +128,45 @@ function Navbar() {
             </div>
           ) : (
             <>
-              <Link href="/auth/get-started">
-                <ButtonFancy className="bg-transparent hover:text-white">
-                  Get Certified
-                </ButtonFancy>
-              </Link>
-              <div onClick={() => signOut()}>
-                <ButtonFancy className="bg-transparent hover:text-white">
-                  <LogOut className="text-xl mr-2" /> Logout
-                </ButtonFancy>
-              </div>
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Avatar className="bg-slate-400 cursor-pointer">
+                    <AvatarImage src={session?.data?.user?.image} />
+                    <AvatarFallback>
+                      {session.data.user.name
+                        .split(" ")
+                        .map((word) => word[0].toUpperCase())
+                        .join("")}
+                    </AvatarFallback>
+                  </Avatar>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent className="w-56">
+                  <DropdownMenuItem className="cursor-pointer">
+                    <Link href="/">
+                      <div className="flex items-center gap-2">
+                        <span>
+                          <User size={18} />
+                        </span>
+                        <span>My Accout</span>
+                      </div>
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem
+                    className="cursor-pointer"
+                    onClick={() => signOut()}
+                  >
+                    <Link href="/">
+                      <div className="flex items-center gap-2">
+                        <span>
+                          <LogOutIcon size={18} />
+                        </span>
+                        <span>Log Out</span>
+                      </div>
+                    </Link>
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
             </>
           )}
         </div>
