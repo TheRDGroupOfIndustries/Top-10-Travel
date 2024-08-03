@@ -83,12 +83,12 @@ function Navbar() {
               </DropdownMenuTrigger>
               <DropdownMenuContent className="w-56">
                 <DropdownMenuItem className="cursor-pointer">
-                  <Link href="/">
+                  <Link href="/admin">
                     <div className="flex items-center gap-2">
                       <span>
                         <User size={18} />
                       </span>
-                      <span>My Accout</span>
+                      <span>My Account</span>
                     </div>
                   </Link>
                 </DropdownMenuItem>
@@ -142,12 +142,12 @@ function Navbar() {
                 </DropdownMenuTrigger>
                 <DropdownMenuContent className="w-56">
                   <DropdownMenuItem className="cursor-pointer">
-                    <Link href="/">
+                    <Link href="/admin">
                       <div className="flex items-center gap-2">
                         <span>
                           <User size={18} />
                         </span>
-                        <span>My Accout</span>
+                        <span>My Account</span>
                       </div>
                     </Link>
                   </DropdownMenuItem>
