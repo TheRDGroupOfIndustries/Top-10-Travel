@@ -39,7 +39,10 @@ const PackageCard = ({ data }: { data: Package }) => {
         </p>
         <p className="text-gray-500 text-sm md:text-base text-left font-semibold mb-4">
           {data.amenities.map((amenity, ind) => (
-            <span className="">
+            <span
+              key={ind}
+              className=""
+            >
               {amenity}
               {ind !== data.amenities.length - 1 && ", "}
             </span>
