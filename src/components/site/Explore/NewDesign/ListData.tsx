@@ -14,7 +14,7 @@ type Data = {
   legalName: string;
   image: string | null;
   country: string;
-  state: string;
+  city: string;
   rating: number;
   methodology: string | null;
 }[];
@@ -55,7 +55,7 @@ function ListData({
               <div className="w-full flex items-center justify-between">
                 <h1 className="text-2xl font-semibold">{item?.legalName}</h1>
               </div>
-              <p className="text-sm">{`${item?.state}, ${item?.country}`}</p>
+              <p className="text-sm">{`${item?.city}, ${item?.country}`}</p>
               <div className="flex gap-2">
                 <StarRating
                   maxRating={5}

@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import { useContext, useMemo, useState } from "react";
+import { useContext, useEffect, useMemo, useRef, useState } from "react";
 import HeroEllipse from "@/resources/images/Hero_Ellipse.png";
 import Hot_Air_Balloon from "@/resources/images/Hot_Air_Balloon_Hero.png";
 import { Button } from "@/components/ui/button";
@@ -13,6 +13,7 @@ import {
 } from "@/components/ui/select";
 import { ChevronDownIcon, SearchIcon } from "lucide-react";
 import { HomeContext } from "@/hooks/context/HomeContext";
+import axios from "axios";
 
 const MobileDropdown = ({ items, visible, toggle }: any) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -49,8 +50,7 @@ const MobileDropdown = ({ items, visible, toggle }: any) => {
 };
 
 function HomeHero() {
-  const [activeBox, setActiveBox] = useState("Hotels");
-
+  const divref = useRef<HTMLDivElement>(null);
   const {
     visible,
     selectedCity,
@@ -60,13 +60,23 @@ function HomeHero() {
     toggleVisible,
     allCities,
     allCountries,
+    updateAllCities,
+    updateAllCountries,
   } = useContext(HomeContext);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await axios.get("/api/filter");
+        updateAllCities(res.data.cities);
+        updateAllCountries(res.data.countries);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchData();
+  }, []);
 
   const boxItems = [
-    {
-      key: "DMC",
-      text: "DMC's",
-    },
     {
       key: "AGENCY",
       text: "Agencies",
@@ -74,6 +84,10 @@ function HomeHero() {
     {
       key: "HOTEL",
       text: "Hotels",
+    },
+    {
+      key: "DMC",
+      text: "DMC's",
     },
     {
       key: "Influencer",
@@ -85,15 +99,23 @@ function HomeHero() {
     toggleVisible(key);
   };
   const handleFind = () => {
-    window.scrollTo({
-      top: window.innerHeight + 150,
+    window.scrollBy({
+      top: divref.current?.clientHeight,
       behavior: "smooth",
     });
   };
   return (
-    <div className="relative w-full pt-10 lg:pt-0 md:min-h-screen px-2 md:px-3 lg:px-6 xl:px-8">
+    <div
+      ref={divref}
+      className="relative w-full pt-10 lg:pt-0 md:min-h-screen px-2 md:px-3 lg:px-6 xl:px-8"
+    >
       <div className="absolute -z-10 right-0 h-[85%] w-[45%] lg:w-[35%] xl:w-[30%]">
-        <Image src={HeroEllipse} alt="Hero Image" height={912} width={562} />
+        <Image
+          src={HeroEllipse}
+          alt="Hero Image"
+          height={912}
+          width={562}
+        />
         <div className="absolute xl:top-[22%] lg:top-[18%] md:top-[12%] sm:top-[10%] top-[8%] xl:-left-24 lg:-left-20 md:-left-16 sm:-left-12 -left-8 w-[40%] xl:h-[35%] lg:h-[30%] md:h-[25%] sm:h-[20%] h-[15%]">
           <Image
             src={Hot_Air_Balloon}
@@ -169,7 +191,10 @@ function HomeHero() {
                 </SelectTrigger>
                 <SelectContent>
                   {allCountries?.map((country) => (
-                    <SelectItem key={country} value={country}>
+                    <SelectItem
+                      key={country}
+                      value={country}
+                    >
                       {country}
                     </SelectItem>
                   ))}
@@ -186,7 +211,10 @@ function HomeHero() {
                 </SelectTrigger>
                 <SelectContent>
                   {allCities?.map((city) => (
-                    <SelectItem key={city} value={city}>
+                    <SelectItem
+                      key={city}
+                      value={city}
+                    >
                       {city}
                     </SelectItem>
                   ))}

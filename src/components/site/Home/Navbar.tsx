@@ -16,16 +16,20 @@ import {
 
 const navMenus = [
   {
-    title: "Hotels",
-    link: "/Hotels",
-  },
-  {
     title: "Agencies",
     link: "/Agency",
   },
   {
+    title: "Hotels",
+    link: "/Hotels",
+  },
+  {
     title: "DMC's",
     link: "/DMC",
+  },
+  {
+    title: "Influencers",
+    link: "/Influencers",
   },
   {
     title: "Contact us",

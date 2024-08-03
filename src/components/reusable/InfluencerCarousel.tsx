@@ -20,8 +20,8 @@ function InfluencerCarousel({
         description: string;
         speciality: string;
         socialLinks: string[];
-        country:string;
-        state:string
+        country: string;
+        state: string;
       }[]
     | null;
 }) {
@@ -44,25 +44,36 @@ function InfluencerCarousel({
         <CarouselNext className="hidden sm:flex" />
       </div>
       <CarouselContent className="hidden sm:flex gap-1 w-full mx-auto">
-        {data?.map((inf) => (
-          <CarouselItem
-            key={inf.id}
-            className="sm:basis-1/2 lg:basis-1/3 xl:basis-1/4"
-          >
-            <div className="w-full">
-              <InfluencerCard data={inf} />
-            </div>
-          </CarouselItem>
-        ))}
+        {data && data.length > 0 ? (
+          data.map((inf) => (
+            <CarouselItem
+              key={inf.id}
+              className="sm:basis-1/2 lg:basis-1/3 xl:basis-1/4"
+            >
+              <div className="w-full">
+                <InfluencerCard data={inf} />
+              </div>
+            </CarouselItem>
+          ))
+        ) : (
+          <div className="w-full text-center py-10">No Influencers found</div>
+        )}
       </CarouselContent>
       <div className="grid grid-cols-1 sm:hidden">
-        {data?.map((inf) => (
-          <CarouselItem key={inf.id} className="p-0">
-            <div className="p-1 w-full">
-              <InfluencerCard data={inf} />
-            </div>
-          </CarouselItem>
-        ))}
+        {data && data.length > 0 ? (
+          data.map((inf) => (
+            <CarouselItem
+              key={inf.id}
+              className="p-0"
+            >
+              <div className="p-1 w-full">
+                <InfluencerCard data={inf} />
+              </div>
+            </CarouselItem>
+          ))
+        ) : (
+          <div className="w-full text-center py-10">No Influencers found</div>
+        )}
       </div>
     </Carousel>
   );

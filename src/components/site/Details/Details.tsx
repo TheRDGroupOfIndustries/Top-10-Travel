@@ -6,8 +6,9 @@ import Image from "next/image";
 import { FaFacebook, FaGoogle, FaInstagram, FaYoutube } from "react-icons/fa6";
 import ReviewsComponent from "./ReviewComp";
 import ServicesNearbyCarousel from "./ServicesNearbyCarousel";
-import { $Enums } from "@prisma/client";
+import { $Enums, Package } from "@prisma/client";
 import ReviewSSR from "./ReviewSSR";
+import PackagesCarousel from "./PackagesCarousel";
 
 type CompanyType = {
   reviews: number;
@@ -28,6 +29,7 @@ type CompanyType = {
     phone: string;
     socialLinks: string[];
   } | null;
+  packages: Package[];
 };
 
 const Details = ({
@@ -39,7 +41,10 @@ const Details = ({
 }) => {
   return (
     <div className="mb-10">
-      <HeroHeading title={data?.legalName} className="uppercase" />
+      <HeroHeading
+        title={data?.legalName}
+        className="uppercase"
+      />
       <div className="px-2 md:px-3 lg:px-6 xl:px-8">
         <div className="w-full flex xl:gap-12 gap-6 pb-16 border-b-black border-b-[1px]">
           <div className="flex flex-col gap-10 flex-1">
@@ -236,7 +241,10 @@ const Details = ({
             </div>
 
             <div className="lg:hidden">
-              <ReviewSSR name={data?.legalName} companyId={data?.id} />
+              <ReviewSSR
+                name={data?.legalName}
+                companyId={data?.id}
+              />
             </div>
           </div>
 
@@ -358,13 +366,20 @@ const Details = ({
             )} */}
 
             {/* {role !== "Influencers" && ( */}
-            <ReviewSSR name={data?.legalName} companyId={data?.id} />
+            <ReviewSSR
+              name={data?.legalName}
+              companyId={data?.id}
+            />
             {/* // )} */}
           </div>
         </div>
       </div>
-      <HeroHeading title="Packages" className="uppercase" />
-      <ServicesNearbyCarousel />
+      <HeroHeading
+        title="Packages"
+        className="uppercase"
+      />
+      {/* <ServicesNearbyCarousel /> */}
+      <PackagesCarousel packages={data.packages} />
     </div>
   );
 };
