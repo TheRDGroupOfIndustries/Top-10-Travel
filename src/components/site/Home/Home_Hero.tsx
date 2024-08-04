@@ -109,7 +109,7 @@ function HomeHero() {
       ref={divref}
       className="relative w-full pt-10 lg:pt-0 md:min-h-screen px-2 md:px-3 lg:px-6 xl:px-8"
     >
-      <div className="absolute -z-10 right-0 h-[85%] w-[45%] lg:w-[35%] xl:w-[30%]">
+      <div className="absolute -z-10 right-0 h-[85%] w-[45%] lg:w-[38%] xl:w-[33%]">
         <Image src={HeroEllipse} alt="Hero Image" height={912} width={562} />
         <div className="absolute xl:top-[22%] lg:top-[18%] md:top-[12%] sm:top-[10%] top-[8%] xl:-left-24 lg:-left-20 md:-left-16 sm:-left-12 -left-8 w-[40%] xl:h-[35%] lg:h-[30%] md:h-[25%] sm:h-[20%] h-[15%]">
           <Image
@@ -128,14 +128,15 @@ function HomeHero() {
           />
         </div>
       </div>
-      <div className="h-full flex md:gap-0 gap-1 flex-col justify-start lg:pt-28 pt-16 w-ful">
-        <h3 className="lg:text-[32px] md:text-[24px] sm:text-[16px] text-[12px] leading-[23px] md:leading-[35px] lg:leading-[43px] font-cinzel">
+      
+      <div className="h-full flex flex-col md:gap-0 lg:gap-0 gap-1 justify-start pt-16  lg:pt-28 xl:pt-40 w-full">
+        <h3 className="xl:text-4xl lg:text-[32px] md:text-[24px] sm:text-[16px] text-[12px] leading-[23px] md:leading-[35px] lg:leading-[43px] font-cinzel">
           Welcome To
         </h3>
-        <h1 className="uppercase font-cinzel font-bold lg:text-6xl sm:text-4xl text-2xl md:text-4xl leading-[50px] sm:leading-[65px] md:leading-[80px] lg:leading-[129px]">
+        <h1 className="uppercase font-cinzel font-bold text-2xl sm:text-4xl md:text-4xl lg:text-6xl xl:text-7xl xl:leading-loose leading-[50px] sm:leading-[65px] md:leading-[80px] lg:leading-[129px]">
           Top 10 <span className="text-[#FFC658]">travel</span>
         </h1>
-        <p className="font-semibold leading-[20px] sm:leading-6 md:leading-[30px] lg:leading-[39px] text-[12px] sm:text-lg md:text-xl w-52 sm:w-64 md:w-80 lg:w-full">
+        <p className="font-semibold leading-[20px] sm:leading-6 md:leading-[30px] lg:leading-[39px] text-[12px] sm:text-lg md:text-xl lg:text-2xl xl:text-3xl w-52 sm:w-64 md:w-80 lg:w-full">
           The only place where you can find Top 10{" "}
           <span className="text-[#FFC658] mr-1">
             Hotels, Agencies,
@@ -143,7 +144,7 @@ function HomeHero() {
           </span>
           all around the world.
         </p>
-        <div className="w-full mt-20 md:mt-10 lg:mt-20 md:max-w-[380px] lg:max-w-[730px]">
+        <div className="w-full pt-20 md:pt-10 lg:pt-24 md:max-w-[380px] lg:max-w-[730px]">
           <div className="w-full flex items-end justify-start">
             <div className="box min-w-52 h-6 sm:h-10 flex items-center justify-center bg-gray-200">
               <span className="text-black text-xs font-semibold ">
