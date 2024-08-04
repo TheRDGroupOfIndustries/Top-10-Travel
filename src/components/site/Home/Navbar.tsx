@@ -83,7 +83,8 @@ function Navbar() {
                     {session.data.user.name
                       .split(" ")
                       .map((word) => word[0].toUpperCase())
-                      .join("")}
+                      .join("")
+                      .slice(0, 2)}
                   </AvatarFallback>
                 </Avatar>
               </DropdownMenuTrigger>
@@ -142,7 +143,8 @@ function Navbar() {
                       {session.data.user.name
                         .split(" ")
                         .map((word) => word[0].toUpperCase())
-                        .join("")}
+                        .join("")
+                        .slice(0, 2)}
                     </AvatarFallback>
                   </Avatar>
                 </DropdownMenuTrigger>
