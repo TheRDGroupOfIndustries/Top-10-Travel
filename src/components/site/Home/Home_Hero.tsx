@@ -128,9 +128,9 @@ function HomeHero() {
           />
         </div>
       </div>
-      
-      <div className="h-full flex flex-col md:gap-0 lg:gap-0 gap-1 justify-start pt-16  lg:pt-28 xl:pt-40 w-full">
-        <h3 className="xl:text-4xl lg:text-[32px] md:text-[24px] sm:text-[16px] text-[12px] leading-[23px] md:leading-[35px] lg:leading-[43px] font-cinzel">
+
+      <div className="h-full flex flex-col md:gap-0 lg:gap-0 gap-1 justify-start pt-16 md:pt-24 lg:pt-32 xl:pt-40 w-full">
+        <h3 className="xl:text-4xl lg:text-[32px] md:text-2xl sm:text-xl text-lg font-medium leading-[23px] sm:leading-[30px] md:leading-[35px] lg:leading-[43px] font-cinzel">
           Welcome To
         </h3>
         <h1 className="uppercase font-cinzel font-bold text-2xl sm:text-4xl md:text-4xl lg:text-6xl xl:text-7xl xl:leading-loose leading-[50px] sm:leading-[65px] md:leading-[80px] lg:leading-[129px]">
