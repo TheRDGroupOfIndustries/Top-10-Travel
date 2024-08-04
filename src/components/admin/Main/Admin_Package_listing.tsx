@@ -63,7 +63,7 @@ export const columns: ColumnDef<Company>[] = [
     accessorKey: "image",
     header: "Image",
     cell: ({ row }) => (
-      <div className="w-24 h-16 overflow-hidden rounded-lg">
+      <div className="w-20 h-14 overflow-hidden rounded-lg">
         <Image
           src={row.getValue("image")}
           alt={`${row.getValue("name")} package`}
@@ -88,11 +88,11 @@ export const columns: ColumnDef<Company>[] = [
   },
   {
     accessorKey: "priority",
-    header: "Priority(Country)",
+    header: "Priority (Country)",
   },
   {
     accessorKey: "state_priority",
-    header: "Priority(city)",
+    header: "Priority (city)",
   },
   {
     accessorKey: "isCertified",
