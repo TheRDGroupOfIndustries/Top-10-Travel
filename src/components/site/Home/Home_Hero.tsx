@@ -111,7 +111,7 @@ function HomeHero() {
     >
       <div className="absolute -z-10 right-0 h-[85%] w-[45%] lg:w-[38%] xl:w-[33%]">
         <Image src={HeroEllipse} alt="Hero Image" height={912} width={562} />
-        <div className="absolute xl:top-[22%] lg:top-[18%] md:top-[12%] sm:top-[10%] top-[8%] xl:-left-24 lg:-left-20 md:-left-16 sm:-left-12 -left-8 w-[40%] xl:h-[35%] lg:h-[30%] md:h-[25%] sm:h-[20%] h-[15%]">
+        <div className="absolute animate-upDown xl:top-[22%] lg:top-[18%] md:top-[12%] sm:top-[10%] top-[8%] xl:-left-24 lg:-left-20 md:-left-16 sm:-left-12 -left-8 w-[40%] xl:h-[35%] lg:h-[30%] md:h-[25%] sm:h-[20%] h-[15%]">
           <Image
             src={Hot_Air_Balloon}
             alt="Hero Image"
@@ -119,7 +119,7 @@ function HomeHero() {
             width={250}
           />
         </div>
-        <div className="absolute xl:top-[60%] lg:top-[65%] md:top-[50%] sm:top-[40%] top-[30%] xl:-left-40 lg:-left-20 md:-left-16 sm:-left-12 -left-8 w-[75%] xl:h-[32%] lg:h-[27%] md:h-[22%] sm:h-[17%] h-[12%]">
+        <div className="absolute animate-upDown duration-[4000] xl:top-[60%] lg:top-[65%] md:top-[50%] sm:top-[40%] top-[30%] xl:-left-40 lg:-left-20 md:-left-16 sm:-left-12 -left-8 w-[75%] xl:h-[32%] lg:h-[27%] md:h-[22%] sm:h-[17%] h-[12%]">
           <Image
             src={Hot_Air_Balloon}
             alt="Hero Image"
