@@ -75,7 +75,7 @@ function Navbar() {
               </ButtonFancy>
             </div>
           ) : (
-            <DropdownMenu>
+            <DropdownMenu modal={false}>
               <DropdownMenuTrigger asChild>
                 <Avatar className="bg-slate-400 cursor-pointer">
                   <AvatarImage src={session?.data?.user?.image} />
@@ -135,7 +135,7 @@ function Navbar() {
             </div>
           ) : (
             <>
-              <DropdownMenu>
+              <DropdownMenu modal={false}>
                 <DropdownMenuTrigger asChild>
                   <Avatar className="bg-slate-400 cursor-pointer">
                     <AvatarImage src={session?.data?.user?.image} />
