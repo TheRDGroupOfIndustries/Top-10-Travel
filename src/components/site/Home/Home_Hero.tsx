@@ -119,7 +119,7 @@ function HomeHero() {
             width={250}
           />
         </div>
-        <div className="absolute animate-upDown duration-[4000] xl:top-[60%] lg:top-[65%] md:top-[50%] sm:top-[40%] top-[30%] xl:-left-40 lg:-left-20 md:-left-16 sm:-left-12 -left-8 w-[75%] xl:h-[32%] lg:h-[27%] md:h-[22%] sm:h-[17%] h-[12%]">
+        <div className="absolute animate-upDown xl:top-[60%] lg:top-[65%] md:top-[50%] sm:top-[40%] top-[30%] xl:-left-40 lg:-left-20 md:-left-16 sm:-left-12 -left-8 w-[75%] xl:h-[32%] lg:h-[27%] md:h-[22%] sm:h-[17%] h-[12%]">
           <Image
             src={Hot_Air_Balloon}
             alt="Hero Image"
