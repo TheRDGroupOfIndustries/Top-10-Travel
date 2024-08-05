@@ -212,7 +212,7 @@ function HomeHero() {
           <span className="text-[#FFC658] mr-1">
             Hotels, Agencies,
             <br /> DMC&apos;s
-          </span>
+          </span>{" "}
           all around the world.
         </p>
         <div className="w-full pt-20 md:pt-10 lg:pt-24 md:max-w-[380px] lg:max-w-[730px]">
