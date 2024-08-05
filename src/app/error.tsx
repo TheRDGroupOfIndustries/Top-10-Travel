@@ -39,10 +39,13 @@ export default function Error({
               <RotateCw className="w-5 h-5 group-hover:animate-spin" />
               Try again
             </Button>
-            <Button variant={"outline"} asChild>
+            <Button
+              variant={"outline"}
+              asChild
+            >
               <Link
                 href="/"
-                className="text-black inline-flex items-center justify-center gap-1 group"
+                className="text-primary inline-flex items-center justify-center gap-1 group"
               >
                 <ChevronLeft className="w-5 h-5 group-hover:-translate-x-3 duration-500" />
                 Go home

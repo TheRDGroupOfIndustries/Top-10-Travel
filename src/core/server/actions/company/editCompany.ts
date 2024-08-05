@@ -25,7 +25,7 @@ export const editCompanyActionAdmin = async (
       data: { ...values },
       select: { id: true },
     });
-    revalidatePath("/admin/package-listings");
+    revalidatePath("/admin/listings");
     return { success: "Company edited successfully.", companyId: res.id };
   } catch (error) {
     console.log(error);

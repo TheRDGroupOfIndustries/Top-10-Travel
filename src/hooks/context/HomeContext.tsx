@@ -14,8 +14,7 @@ type Homecontext = {
   setCity: (state: string) => void;
   allCities: string[];
   allCountries: string[];
-  updateAllCities: (cities: string[]) => void;
-  updateAllCountries: (countries: string[]) => void;
+  updateAllData: (data: any) => void;
 };
 
 export const HomeContext = createContext<Homecontext>({} as Homecontext);
@@ -31,16 +30,17 @@ export const HomeContextProvider = ({ children }: { children: ReactNode }) => {
   const [selectedCity, setSelectedCity] = useState("");
   const [allCities, setAllCities] = useState<string[]>([]);
   const [allCountries, setAllCountries] = useState<string[]>([]);
-  const updateAllCities = (cities: string[]) => {
-    setAllCities((prev) => {
-      return Array.from(new Set([...prev, ...cities]));
-    });
+  const [data, setData] = useState<any>();
+
+  const updateAllData = (data: any) => {
+    setData(data);
+    const countries = Object.keys(data);
+    Object.keys(data);
+    setAllCountries(countries);
+    setSelectedCountry(countries[0]);
+    setAllCities(data[countries[0]]);
   };
-  const updateAllCountries = (countries: string[]) => {
-    setAllCountries((prev) => {
-      return Array.from(new Set([...prev, ...countries]));
-    });
-  };
+
   const toggleVisible = (tag: "DMC" | "AGENCY" | "HOTEL" | "Influencer") => {
     setVisible((prev) => {
       const allOthersFalse = Object.keys(prev)
@@ -57,6 +57,7 @@ export const HomeContextProvider = ({ children }: { children: ReactNode }) => {
   };
   const setCountry = (country: string) => {
     setSelectedCountry(country);
+    if (data) setAllCities([...data[country]]);
     setSelectedCity("");
   };
   const setCity = (city: string) => {
@@ -73,8 +74,7 @@ export const HomeContextProvider = ({ children }: { children: ReactNode }) => {
         setCity,
         allCities,
         allCountries,
-        updateAllCities,
-        updateAllCountries,
+        updateAllData,
       }}
     >
       {children}
