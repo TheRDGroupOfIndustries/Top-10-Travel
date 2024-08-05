@@ -13,6 +13,8 @@ import {
   DropdownMenuItem,
   DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu";
+import { usePathname } from "next/navigation";
+import { cn } from "@/lib/utils";
 
 const navMenus = [
   {
@@ -39,6 +41,8 @@ const navMenus = [
 
 function Navbar() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const route = usePathname();
+  console.log(route);
 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
@@ -61,7 +65,10 @@ function Navbar() {
               href={el.link}
               key={i}
               // className="border-b-2 border-transparent font-medium text-md hover:border-b-2 hover:border-sky-600 cursor-pointer"
-              className="cool-link group"
+              className={cn(
+                "text-lg font-medium",
+                route === el.link ? "text-[#E87A1F]" : "cool-link"
+              )}
             >
               {el.title}
             </Link>
@@ -121,7 +128,7 @@ function Navbar() {
           <div className="flex items-center">
             <MenuIcon
               onClick={toggleSidebar}
-              size={26}
+              size={30}
               className="cursor-pointer"
             />
           </div>
@@ -180,6 +187,7 @@ function Navbar() {
           )}
         </div>
       </nav>
+
       {/* Sidebar */}
       <div
         className={` rounded-lg font-bold text-gray-900 fixed top-0 right-0 bg-white opacity-80 backdrop-blur-sm transform ${
@@ -187,12 +195,15 @@ function Navbar() {
         } transition-transform duration-300 ease-in-out z-40 p-6`}
         style={{ width: "auto", height: "auto" }}
       >
-        <div className="flex flex-col items-start p-6">
+        <div className="flex flex-col items-start p-8">
           {navMenus.map((el, i) => (
             <Link
               key={i}
               href={el.link}
-              className="py-2 text-lg hover:text-yellow-600 "
+              className={cn(
+                "my-3 text-lg font-medium",
+                route === el.link ? "text-[#E87A1F]" : "cool-link"
+              )}
             >
               {el.title}
             </Link>

@@ -145,7 +145,7 @@ function TopTenHotels() {
         </div>
         <Link
           href={`/Hotels`}
-          className="bg-black px-5 py-2 text-white font-bold rounded-full w-fit mt-6 mb-10 mx-auto hover:bg-gray-800 transition-colors"
+          className="bg-black px-5 py-2 text-white font-bold rounded-md w-fit mt-6 mb-10 mx-auto hover:bg-gray-800 transition-colors"
         >
           View more
         </Link>

@@ -62,11 +62,11 @@ function ListDataInfluencer({
               </div>
               <Button
                 asChild
-                className="bg-[#FFDB80] hover:bg-[#ffdb80d0] text-black rounded-full px-5"
+                className="bg-[#FFDB80] hover:bg-[#ffdb80d0] text-black rounded-xl px-5"
               >
                 <Link
                   href={`/Influencers/${item?.id}`}
-                  className="text-xs"
+                  className="md:text-sm font-medium text-xs"
                 >
                   View Profile
                 </Link>

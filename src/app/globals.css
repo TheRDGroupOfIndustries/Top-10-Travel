@@ -66,7 +66,7 @@
 }
 
 .cool-link {
-  @apply inline-block text-black no-underline relative;
+  @apply inline-block no-underline relative;
 }
 
 .cool-link::after {
@@ -82,6 +82,26 @@
 }
 
 .cool-link:hover::after {
+  width: 100%;
+}
+
+.cool-link-black {
+  @apply inline-block text-black no-underline relative;
+}
+
+.cool-link-black::after {
+  content: "";
+  display: block;
+  width: 0;
+  height: 1px;
+  background: black;
+  transition: width 0.3s;
+  position: absolute;
+  left: 0;
+  bottom: -1px;
+}
+
+.cool-link-black:hover::after {
   width: 100%;
 }
 

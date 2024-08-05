@@ -71,7 +71,7 @@ const Influencers = () => {
         </div>
         <Link
           href={`/Influencers`}
-          className="bg-black px-5 py-2 text-white font-bold rounded-full w-fit mt-10 mx-auto"
+          className="bg-black px-5 py-2 text-white font-bold rounded-md w-fit mt-10 mx-auto"
         >
           View more
         </Link>

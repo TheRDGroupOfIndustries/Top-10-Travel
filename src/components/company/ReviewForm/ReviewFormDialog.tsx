@@ -49,7 +49,7 @@ export default function ReviewDialog({
       <DialogTrigger asChild>
         <Button
           variant="outline"
-          className="rounded-full w-fit text-white hover:text-white bg-[#ffce51] hover:bg-[#f8c239]"
+          className="rounded-md w-fit text-white hover:text-white bg-[#ffce51] hover:bg-[#f8c239]"
         >
           <PlusCircle className="mr-2" />
           Add a Review
@@ -70,10 +70,7 @@ export default function ReviewDialog({
           className="flex items-start flex-col gap-4"
         >
           <div className="w-full">
-            <label
-              className="font-semibold"
-              htmlFor="name"
-            >
+            <label className="font-semibold" htmlFor="name">
               Rating
             </label>
             <div className="flex gap-1">
@@ -96,10 +93,7 @@ export default function ReviewDialog({
             </div>
           </div>
           <div className="w-full">
-            <label
-              className="font-semibold"
-              htmlFor="name"
-            >
+            <label className="font-semibold" htmlFor="name">
               Name
             </label>
             <Input
@@ -112,10 +106,7 @@ export default function ReviewDialog({
           </div>
 
           <div className="w-full flex flex-col gap-[2px]">
-            <label
-              htmlFor="review"
-              className="block"
-            >
+            <label htmlFor="review" className="block">
               Review
             </label>
             <textarea
@@ -127,10 +118,7 @@ export default function ReviewDialog({
             />
           </div>
           <DialogFooter>
-            <Button
-              disabled={isPending}
-              type="submit"
-            >
+            <Button disabled={isPending} type="submit">
               {isPending ? "Adding Review..." : "Add Review"}
             </Button>
           </DialogFooter>

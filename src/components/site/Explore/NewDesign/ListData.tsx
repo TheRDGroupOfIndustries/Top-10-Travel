@@ -72,10 +72,10 @@ function ListData({
               </div>
               <Button
                 asChild
-                className="bg-[#FFDB80] hover:bg-[#ffdb80d0] text-black rounded-full px-5"
+                className="bg-[#FFDB80] hover:bg-[#ffdb80d0] text-black rounded-xl px-5"
               >
-                <Link href={`/companies/${item.id}`} className="text-xs">
-                  View More...
+                <Link href={`/companies/${item.id}`} className="md:text-sm font-medium text-xs">
+                  View More
                 </Link>
               </Button>
             </div>
