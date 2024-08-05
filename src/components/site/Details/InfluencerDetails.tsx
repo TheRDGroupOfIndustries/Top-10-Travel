@@ -8,6 +8,7 @@ import ReviewsComponent from "./ReviewComp";
 import ServicesNearbyCarousel from "./ServicesNearbyCarousel";
 import { $Enums, type InfluencerData } from "@prisma/client";
 import ReviewSSR from "./ReviewSSR";
+import ShareButton from "@/components/reusable/shareButton";
 
 const InfluencerDetails = ({ data }: { data: InfluencerData }) => {
   console.log(data);
@@ -97,12 +98,7 @@ const InfluencerDetails = ({ data }: { data: InfluencerData }) => {
                   className="flex-1 border-black border-[1px] py-3 rounded-full text-xl leading-6 font-medium"
                 />
 
-                <Button
-                  className="flex-1 border-black border-[1px] py-3 rounded-full text-xl leading-6 font-medium"
-                  variant="outline"
-                >
-                  Share Link
-                </Button>
+              <ShareButton />
               </div>
             </div>
 
@@ -183,14 +179,14 @@ const InfluencerDetails = ({ data }: { data: InfluencerData }) => {
                   </p>
                 </div>
                 <p className="text-xl leading-5 font-medium text-slate-600">
-                  @Travelwithshivangi_
+                  
                 </p>
               </div>
 
               <div className="flex flex-col gap-4">
                 <h4 className="font-medium text-2xl leading-6">Introduction</h4>
                 <p className="text-base leading-[22px] text-justify font-medium">
-                  {data?.description}
+                  {data?.introduction}
                 </p>
               </div>
 
@@ -201,12 +197,7 @@ const InfluencerDetails = ({ data }: { data: InfluencerData }) => {
                   name={data?.name}
                   className="flex-1 border-black border-[1px] py-3 rounded-full text-xl leading-6 font-medium"
                 />
-                <Button
-                  className="flex-1 border-black border-[1px] py-3 rounded-full text-xl leading-6 font-medium"
-                  variant="outline"
-                >
-                  Share Link
-                </Button>
+                <ShareButton/>
               </div>
             </div>
 
@@ -264,8 +255,7 @@ const InfluencerDetails = ({ data }: { data: InfluencerData }) => {
           </div>
         </div>
       </div>
-      <HeroHeading title="Packages" className="uppercase" />
-      <ServicesNearbyCarousel />
+
     </div>
   );
 };

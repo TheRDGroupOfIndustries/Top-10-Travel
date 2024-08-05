@@ -9,6 +9,7 @@ import ServicesNearbyCarousel from "./ServicesNearbyCarousel";
 import { $Enums, Package } from "@prisma/client";
 import ReviewSSR from "./ReviewSSR";
 import PackagesCarousel from "./PackagesCarousel";
+import ShareButton from "@/components/reusable/shareButton";
 
 type CompanyType = {
   reviews: number;
@@ -156,12 +157,7 @@ const Details = ({
                   className="flex-1 border-black border-[1px] py-3 rounded-full text-xl leading-6 font-medium"
                 />
 
-                <Button
-                  className="flex-1 border-black border-[1px] py-3 rounded-full text-xl leading-6 font-medium"
-                  variant="outline"
-                >
-                  Share Link
-                </Button>
+               <ShareButton/>
               </div>
             </div>
 
@@ -236,12 +232,7 @@ const Details = ({
                   name={data?.legalName}
                   className="flex-1 border-black border-[1px] py-3 rounded-full text-xl leading-6 font-medium"
                 />
-                <Button
-                  className="flex-1 border-black border-[1px] py-3 rounded-full text-xl leading-6 font-medium"
-                  variant="outline"
-                >
-                  Share Link
-                </Button>
+               <ShareButton/>
               </div>
             </div>
 
