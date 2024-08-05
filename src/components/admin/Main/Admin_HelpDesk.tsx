@@ -68,7 +68,7 @@ const HelpDeskDashboard: React.FC<HelpDeskDashboardProps> = ({
           ticket.title.toLowerCase().includes(searchTerm.toLowerCase()) &&
           (filterStatus === "All" || ticket.status === filterStatus)
       ),
-    [searchTerm, filterStatus]
+    [searchTerm, filterStatus, tickets]
   );
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -108,27 +108,6 @@ const HelpDeskDashboard: React.FC<HelpDeskDashboardProps> = ({
 
   return (
     <div className="space-y-6">
-      {/* <Card>
-        <CardHeader>
-          <CardTitle>Help Desk Statistics</CardTitle>
-        </CardHeader>
-        <CardContent className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div className="bg-primary/10 p-4 rounded-lg">
-            <h3 className="text-lg font-semibold">Open Tickets</h3>
-            <p className="text-3xl font-bold">
-              {tickets.filter((t) => t.status === "PENDING").length}
-            </p>
-          </div>
-          <div className="bg-primary/10 p-4 rounded-lg">
-            <h3 className="text-lg font-semibold">Avg. Response Time</h3>
-            <p className="text-3xl font-bold">2.5h</p>
-          </div>
-          <div className="bg-primary/10 p-4 rounded-lg">
-            <h3 className="text-lg font-semibold">Customer Satisfaction</h3>
-            <p className="text-3xl font-bold">92%</p>
-          </div>
-        </CardContent>
-      </Card> */}
 
       <Card>
         <CardHeader>
