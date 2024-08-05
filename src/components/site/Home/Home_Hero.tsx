@@ -1,6 +1,13 @@
 "use client";
 import Image from "next/image";
-import { useContext, useEffect, useMemo, useRef, useState } from "react";
+import {
+  useContext,
+  useEffect,
+  useLayoutEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import HeroEllipse from "@/resources/images/Hero_Ellipse.png";
 import Hot_Air_Balloon from "@/resources/images/Hot_Air_Balloon_Hero.png";
 import { Button } from "@/components/ui/button";
@@ -14,6 +21,7 @@ import {
 import { ChevronDownIcon, SearchIcon } from "lucide-react";
 import { HomeContext } from "@/hooks/context/HomeContext";
 import axios from "axios";
+import { useAnimate } from "framer-motion";
 import { motion, AnimatePresence } from "framer-motion";
 
 const MobileDropdown = ({ items, visible, toggle }: any) => {
@@ -52,6 +60,7 @@ const MobileDropdown = ({ items, visible, toggle }: any) => {
 
 function HomeHero() {
   const divref = useRef<HTMLDivElement>(null);
+  const [scope, animate] = useAnimate();
   const {
     visible,
     selectedCity,
@@ -104,29 +113,70 @@ function HomeHero() {
       behavior: "smooth",
     });
   };
+
+  useLayoutEffect(() => {
+    const handleAnimate = async () => {
+      animate(
+        "#smallBalloon",
+        { y: [50, -20, 0], opacity: [0, 1], rotate: [0, -3, 2, 0] },
+        { duration: 1.5, ease: "linear" }
+      );
+
+      await animate(
+        "#bigBalloon",
+        { y: [50, -30, 0], opacity: [0, 1], rotate: [0, -5, 5, 0] },
+        { duration: 1.5, delay: 0.5, ease: "linear" }
+      );
+
+      animate(
+        "#smallBalloon",
+        {
+          y: [0, -25, 0], // Define the y-axis keyframes for the animation
+          opacity: 1, // Define the opacity keyframes for the animation
+          rotate: [0, -3, 2, 0], // Define the rotation keyframes for the animation
+        },
+        {
+          duration: 4, // Duration of one animation cycle
+          repeat: Infinity, // Run the animation infinitely
+          repeatType: "loop", // Loop the animation
+          ease: "linear",
+        }
+      );
+
+      animate(
+        "#bigBalloon",
+        {
+          y: [0, -50, 0], // Define the y-axis keyframes for the animation
+          opacity: 1, // Define the opacity keyframes for the animation
+          rotate: [0, -5, 5, 0], // Define the rotation keyframes for the animation
+        },
+        {
+          duration: 6, // Duration of one animation cycle
+          delay: 1,
+          repeat: Infinity, // Run the animation infinitely
+          repeatType: "loop", // Loop the animation
+          ease: "linear",
+        }
+      );
+    };
+    handleAnimate();
+  }, []);
+
   return (
     <div
       ref={divref}
       className="relative w-full pt-10 lg:pt-0 md:min-h-screen px-2 md:px-3 lg:px-6 xl:px-8"
     >
-      <div className="absolute -z-10 right-0 h-[85%] w-[45%] lg:w-[38%] xl:w-[33%]">
+      <div
+        ref={scope}
+        className="absolute -z-10 right-0 h-[85%] w-[45%] lg:w-[38%] xl:w-[33%]"
+      >
         <Image src={HeroEllipse} alt="Hero Image" height={912} width={562} />
         <AnimatePresence>
           <motion.div
-            initial={{
-              scale: 0,
-              y: 100,
-            }}
-            animate={{
-              scale: 1,
-              y: 0,
-            }}
-            transition={{
-              duration: 1.5,
-              ease: "anticipate",
-              // times: [0, 0.25, 0.5, 0.85, 1],
-            }}
+            id="smallBalloon"
             className="absolute xl:top-[22%] lg:top-[18%] md:top-[12%] sm:top-[10%] top-[8%] xl:-left-24 lg:-left-20 md:-left-16 sm:-left-12 -left-8 w-[40%] xl:h-[35%] lg:h-[30%] md:h-[25%] sm:h-[20%] h-[15%]"
+            style={{ opacity: 0 }}
           >
             <Image
               src={Hot_Air_Balloon}
@@ -136,20 +186,9 @@ function HomeHero() {
             />
           </motion.div>
           <motion.div
-            initial={{
-              scale: 0,
-              y: 100,
-            }}
-            animate={{
-              scale: 1,
-              y: 0,
-            }}
-            transition={{
-              duration: 1.5,
-              ease: "anticipate",
-              // times: [0, 0.25, 0.5, 0.85, 1],
-            }}
-            className="absolute xl:top-[60%] lg:top-[65%] md:top-[50%] sm:top-[40%] top-[30%] xl:-left-28 lg:-left-20 md:-left-16 sm:-left-12 -left-8 w-[75%] xl:h-[32%] lg:h-[27%] md:h-[22%] sm:h-[17%] h-[12%]"
+            id="bigBalloon"
+            className="absolute xl:top-[60%] lg:top-[65%] md:top-[50%] sm:top-[45%] top-[35%] xl:-left-28 lg:-left-20 md:-left-16 sm:-left-12 -left-8 w-[75%] xl:h-[32%] lg:h-[27%] md:h-[22%] sm:h-[17%] h-[12%]"
+            style={{ opacity: 0 }}
           >
             <Image
               src={Hot_Air_Balloon}
