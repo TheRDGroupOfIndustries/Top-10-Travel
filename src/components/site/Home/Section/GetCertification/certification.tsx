@@ -67,7 +67,7 @@ function CountUp({ target }: { target: number }) {
 
 function Certification() {
   return (
-    <div className="w-full h-[60vh] mt-5 py-5 bg-[#FFC658]">
+    <div className="w-full h-[60vh] mt-10 py-5 bg-[#FFC658]">
       <div className="px-2 md:px-3 lg:px-6 xl:px-8 w-full h-full flex flex-col items-center justify-between">
         <h1 className="font-bold md:text-4xl text-xl">Our legacy</h1>
         <div className="w-full grid grid-cols-3 gap-2 md:gap-10 lg:px-40">

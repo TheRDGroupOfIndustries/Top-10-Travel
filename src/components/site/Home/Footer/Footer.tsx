@@ -45,7 +45,7 @@ function Footer() {
                   width="95"
                   height="94"
                   viewBox="0 0 95 94"
-                  className="h-auto w-5 text-white"
+                  className="h-auto w-5 text-black"
                   fill="currentColor"
                   xmlns="http://www.w3.org/2000/svg"
                 >
@@ -55,7 +55,7 @@ function Footer() {
               </Link>
             </div>
 
-            <p className="mb-6 sm:pr-8 font-semibold">
+            <p className="mb-6 cursor-default sm:pr-8 font-semibold">
               Experience the Extraordinary: Top Travel Experts, Hotels, and
               Agencies at Your Fingertips
             </p>
@@ -64,9 +64,9 @@ function Footer() {
               {contactInfo?.map((item, index) => (
                 <div
                   key={index}
-                  className="flex items-center justify-center gap-2 font-semibold"
+                  className="flex hover:scale-110 transition-all duration-500 cursor-pointer items-center justify-center gap-2 font-semibold"
                 >
-                  <item.icon className="w-5 h-5 stroke-white" />
+                  <item.icon className="w-5 h-5 stroke-black" />
                   {item.text}
                 </div>
               ))}
@@ -114,14 +114,14 @@ function Footer() {
               {socialIcons?.map((Icon, index) => (
                 <Icon
                   key={index}
-                  className="w-5 h-5 hover:scale-150 transition duration-300 cursor-pointer"
+                  className="w-5 h-5 hover:scale-150 transition-all duration-300 cursor-pointer"
                 />
               ))}
             </nav>
           </div>
         </div>
 
-        <div className="border-t py-8 text-center text-sm font-semibold">
+        <div className="cursor-default select-none border-t py-8 text-center text-sm font-semibold">
           All rights Reserved © Your Company, 2021
         </div>
       </footer>

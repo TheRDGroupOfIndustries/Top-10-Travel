@@ -73,12 +73,12 @@
   content: "";
   display: block;
   width: 0;
-  height: 3px;
+  height: 2px;
   background: gold;
   transition: width 0.3s;
   position: absolute;
   left: 0;
-  bottom: -3px;
+  bottom: -2px;
 }
 
 .cool-link:hover::after {

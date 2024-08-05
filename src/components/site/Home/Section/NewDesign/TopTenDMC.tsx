@@ -57,7 +57,7 @@ const TopTenDMC = () => {
   return (
     <section
       className={cn(
-        "w-full mt-5 px-2 md:px-3 lg:px-6 xl:px-8",
+        "w-full mt-10 px-2 md:px-3 lg:px-6 xl:px-8",
         visible.DMC ? "" : "hidden"
       )}
     >
