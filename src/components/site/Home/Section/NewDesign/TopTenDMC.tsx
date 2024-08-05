@@ -14,6 +14,7 @@ import HomeCompanySkeleton from "@/components/reusable/HomeCompanySkeleton";
 import Autoplay from "embla-carousel-autoplay";
 import { HomeContext } from "@/hooks/context/HomeContext";
 import { cn } from "@/lib/utils";
+import { motion } from "framer-motion";
 
 const CarouselCard = ({ dmc }: { dmc: any }) => (
   <div className="flex flex-col h-full">
@@ -135,12 +136,14 @@ const TopTenDMC = () => {
             )}
           </div>
         </div>
-        <Link
-          href={`/DMC`}
-          className="bg-black px-5 py-2 text-white font-bold rounded-md w-fit mt-6 mb-5 mx-auto hover:bg-gray-800 transition-colors"
+
+        <motion.div
+          className="bg-black px-5 py-2 rounded-md mt-6 mb-5 mx-auto hover:bg-gray-800 w-fit transition-colors text-white font-bold"
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.9 }}
         >
-          View more
-        </Link>
+          <Link href={`/DMC`}>View more</Link>
+        </motion.div>
       </div>
     </section>
   );
