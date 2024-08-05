@@ -58,9 +58,56 @@ const MobileDropdown = ({ items, visible, toggle }: any) => {
   );
 };
 
+type AnimatedTextProps = {
+  text: string;
+  el?: keyof JSX.IntrinsicElements;
+  className?: string;
+};
+
+const defaultTextAnimations = {
+  hidden: {
+    opacity: 0,
+    y: -30,
+    x: -30,
+  },
+  visible: {
+    opacity: 1,
+    y: 0,
+    x: 0,
+  },
+};
+
+export const AnimatedText = ({
+  text,
+  el: Wrapper = "p",
+  className,
+}: AnimatedTextProps) => {
+  return (
+    <Wrapper className={className}>
+      <span className="sr-only">{text}</span>
+      <motion.span
+        initial="hidden"
+        animate="visible"
+        transition={{ staggerChildren: 0.1 }}
+        aria-hidden
+      >
+        {text.split("").map((char) => (
+          <motion.span
+            className="inline-block"
+            key={char}
+            variants={defaultTextAnimations}
+          >
+            {char === " " ? "\u00A0" : char}
+          </motion.span>
+        ))}
+      </motion.span>
+    </Wrapper>
+  );
+};
+
 function HomeHero() {
   const divref = useRef<HTMLDivElement>(null);
-  const [scope, animate] = useAnimate();
+  const [scope, balloonAnimate] = useAnimate();
   const {
     visible,
     selectedCity,
@@ -116,19 +163,19 @@ function HomeHero() {
 
   useLayoutEffect(() => {
     const handleAnimate = async () => {
-      animate(
+      balloonAnimate(
         "#smallBalloon",
         { y: [50, -20, 0], opacity: [0, 1], rotate: [0, -3, 2, 0] },
         { duration: 1.5, ease: "linear" }
       );
 
-      await animate(
+      await balloonAnimate(
         "#bigBalloon",
         { y: [50, -30, 0], opacity: [0, 1], rotate: [0, -5, 5, 0] },
         { duration: 1.5, delay: 0.5, ease: "linear" }
       );
 
-      animate(
+      balloonAnimate(
         "#smallBalloon",
         {
           y: [0, -25, 0], // Define the y-axis keyframes for the animation
@@ -143,7 +190,7 @@ function HomeHero() {
         }
       );
 
-      animate(
+      balloonAnimate(
         "#bigBalloon",
         {
           y: [0, -50, 0], // Define the y-axis keyframes for the animation
@@ -202,7 +249,7 @@ function HomeHero() {
 
       <div className="h-full flex flex-col md:gap-0 lg:gap-0 gap-1 justify-start pt-16 md:pt-24 lg:pt-32 xl:pt-40 w-full">
         <h3 className="xl:text-4xl lg:text-[32px] md:text-2xl sm:text-xl text-lg font-medium leading-[23px] sm:leading-[30px] md:leading-[35px] lg:leading-[43px] font-cinzel">
-          Welcome To
+          <AnimatedText text="Welcome To" />
         </h3>
         <h1 className="uppercase font-cinzel font-bold text-2xl sm:text-4xl md:text-4xl lg:text-6xl xl:text-7xl xl:leading-loose leading-[50px] sm:leading-[65px] md:leading-[80px] lg:leading-[129px]">
           Top 10 <span className="text-[#FFC658]">travel</span>
