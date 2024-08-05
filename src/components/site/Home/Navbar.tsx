@@ -49,7 +49,6 @@ function Navbar() {
   };
 
   const session = useSession();
-  console.log(session);
 
   return (
     <>

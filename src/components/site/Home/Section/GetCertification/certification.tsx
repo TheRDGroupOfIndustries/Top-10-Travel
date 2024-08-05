@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import React, { useState, useEffect, useRef } from "react";
+import { motion } from "framer-motion";
 
 const data = [
   { id: 1, num: 1000, title: "Happy Agencies" },
@@ -85,12 +86,17 @@ function Certification() {
         <h2 className="font-bold md:text-4xl text-xl text-center">
           WANT TO GET CERTIFIED?
         </h2>
-        <Link
-          href={`#`}
-          className="bg-black px-5 py-2 text-white font-bold rounded-lg w-fit mx-auto"
+        <motion.div
+          className="bg-black px-5 py-2 rounded-md mt-6 mb-5 mx-auto hover:bg-gray-800 w-fit transition-colors text-white font-bold"
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.9 }}
         >
-          REGISTER
-        </Link>
+          <Link
+            href={`#`}
+          >
+            REGISTER
+          </Link>
+        </motion.div>
       </div>
     </div>
   );

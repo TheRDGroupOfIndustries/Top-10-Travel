@@ -9,6 +9,7 @@ import Link from "next/link";
 import { useContext, useEffect, useState } from "react";
 import { HomeContext } from "@/hooks/context/HomeContext";
 import useAxios from "@/hooks/useAxios";
+import { motion } from "framer-motion";
 
 type Data =
   | {
@@ -40,7 +41,7 @@ const Influencers = () => {
         visible.Influencer ? "" : "hidden"
       )}
     >
-      <div className="w-full flex flex-col items-center justify-center gap-2">
+      <div className="w-full flex flex-col items-center justify-center gap-4">
         <h1 className="text-xl sm:text-4xl font-bold text-center">
           {`TOP 10 INFLUENCERS${
             selectedCountry && ", " + selectedCountry.toUpperCase()
@@ -69,12 +70,16 @@ const Influencers = () => {
           )}
           {!isLoading && <InfluencerCarousel data={data as Data} />}
         </div>
-        <Link
-          href={`/Influencers`}
-          className="bg-black px-5 py-2 text-white font-bold rounded-md w-fit mt-10 mx-auto"
-        >
-          View more
-        </Link>
+
+        <motion.div 
+          className="bg-black px-5 py-2 rounded-md mt-6 mb-5 mx-auto hover:bg-gray-800 w-fit transition-colors text-white font-bold"
+          whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
+            <Link
+              href={`/Influencers`}
+            >
+              View more
+            </Link>
+        </motion.div>
       </div>
     </main>
   );

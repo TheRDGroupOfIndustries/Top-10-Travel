@@ -3,6 +3,7 @@ import useAxios from "@/hooks/useAxios";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useContext, useEffect } from "react";
+import { motion } from "framer-motion";
 import {
   Carousel,
   CarouselContent,
@@ -135,12 +136,13 @@ const TopTenAgencies = () => {
             )}
           </div>
         </div>
-        <Link
-          href={`/Agency`}
-          className="bg-black px-5 py-2 text-white font-bold rounded-md w-fit mt-6 mb-5 mx-auto hover:bg-gray-800 transition-colors"
+        <motion.div
+          className="bg-black px-5 py-2 rounded-md mt-6 mb-5 mx-auto hover:bg-gray-800 w-fit transition-colors text-white font-bold"
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.9 }}
         >
-          View more
-        </Link>
+          <Link href={`/Agency`}>View more</Link>
+        </motion.div>
       </div>
     </section>
   );

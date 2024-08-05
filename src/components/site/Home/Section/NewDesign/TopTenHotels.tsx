@@ -15,6 +15,7 @@ import {
 import Autoplay from "embla-carousel-autoplay";
 import { HomeContext } from "@/hooks/context/HomeContext";
 import { cn } from "@/lib/utils";
+import { motion } from "framer-motion";
 
 const CarouselCard = ({ hotel }: { hotel: any }) => (
   <div className="h-72 rounded-lg overflow-hidden relative">
@@ -143,12 +144,13 @@ function TopTenHotels() {
             )}
           </div>
         </div>
-        <Link
-          href={`/Hotels`}
-          className="bg-black px-5 py-2 text-white font-bold rounded-md w-fit mt-6 mb-10 mx-auto hover:bg-gray-800 transition-colors"
+        <motion.div
+          className="bg-black px-5 py-2 rounded-md mt-6 mb-5 mx-auto hover:bg-gray-800 w-fit transition-colors text-white font-bold"
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.9 }}
         >
-          View more
-        </Link>
+          <Link href={`/Hotels`}>View more</Link>
+        </motion.div>
       </div>
     </main>
   );
