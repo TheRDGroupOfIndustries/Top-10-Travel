@@ -5,13 +5,14 @@ import { Notification } from "@prisma/client";
 import { revalidatePath } from "next/cache";
 import getSessionorRedirect from "@/core/utils/getSessionorRedirect";
 
-export const createNotificationAction = async (values: Pick<Notification, "message"|"type">) => {
+export const createNotificationAction = async (values: Pick<Notification, "message"|"type"|"companyId">) => {
   const session = await getSessionorRedirect();
   try {
     await db.notification.create({
       data: {
-        ...values,
-        company: { connect: { id: session.user.companyId } },
+        message:values.message,
+        type:values.type,
+        company: { connect: { id: values.companyId } },
       },
     });
     // here we need to send email etc...

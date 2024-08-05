@@ -68,7 +68,7 @@ const HelpDeskDashboard: React.FC<HelpDeskDashboardProps> = ({
           ticket.title.toLowerCase().includes(searchTerm.toLowerCase()) &&
           (filterStatus === "All" || ticket.status === filterStatus)
       ),
-    [searchTerm, filterStatus]
+    [searchTerm, filterStatus, tickets]
   );
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
