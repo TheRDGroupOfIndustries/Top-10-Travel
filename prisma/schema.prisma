@@ -157,7 +157,7 @@ model Reviews {
   review    String  @db.Text
   company   Company @relation(fields: [companyId], references: [id], onDelete: Cascade)
   companyId String
-
+  createdAt DateTime? @default(now())
   @@unique([ip, companyId])
 }
 
