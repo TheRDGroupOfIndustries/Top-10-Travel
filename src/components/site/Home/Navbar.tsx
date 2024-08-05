@@ -70,8 +70,8 @@ function Navbar() {
         <div className="flex items-center gap-2 lg:hidden">
           {session.status !== "authenticated" ? (
             <div onClick={() => signIn("google")}>
-              <ButtonFancy className="bg-transparent hover:text-white">
-                <FcGoogle className="text-xl mr-2" /> Login
+              <ButtonFancy className="flex gap-1 items-center">
+                <FcGoogle className="text-xl" /> Login
               </ButtonFancy>
             </div>
           ) : (
@@ -129,8 +129,8 @@ function Navbar() {
         <div className="lg:flex gap-5 hidden">
           {session.status !== "authenticated" ? (
             <div onClick={() => signIn("google")}>
-              <ButtonFancy className="bg-transparent hover:text-white">
-                <FcGoogle className="text-xl mr-2" /> Login
+              <ButtonFancy className="flex gap-1 items-center">
+                <FcGoogle className="text-xl" /> Login
               </ButtonFancy>
             </div>
           ) : (
