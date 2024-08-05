@@ -44,7 +44,7 @@ const Influencers = () => {
         <h1 className="text-xl sm:text-4xl font-bold text-center">
           {`TOP 10 INFLUENCERS${
             selectedCountry && ", " + selectedCountry.toUpperCase()
-          }${selectedCity && ", " + selectedCity.toUpperCase()}`}
+          }${selectedCity && "-" + selectedCity.toUpperCase()}`}
         </h1>
         <p className="text-base sm:text-lg text-center mb-8">
           Experience Hassle-Free Room Hunting with Our Comprehensive listing

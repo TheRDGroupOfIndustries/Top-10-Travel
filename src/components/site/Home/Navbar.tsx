@@ -60,7 +60,8 @@ function Navbar() {
             <Link
               href={el.link}
               key={i}
-              className="border-b-2 border-transparent font-medium text-md hover:border-b-2 hover:border-sky-600 cursor-pointer"
+              // className="border-b-2 border-transparent font-medium text-md hover:border-b-2 hover:border-sky-600 cursor-pointer"
+              className="cool-link group"
             >
               {el.title}
             </Link>
