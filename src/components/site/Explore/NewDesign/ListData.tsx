@@ -75,7 +75,7 @@ function ListData({
                 className="bg-[#FFDB80] hover:bg-[#ffdb80d0] text-black rounded-xl px-5"
               >
                 <Link href={`/companies/${item.id}`} className="md:text-sm font-medium text-xs">
-                  View More...
+                  View More
                 </Link>
               </Button>
             </div>
