@@ -65,6 +65,26 @@
   }
 }
 
+.cool-link {
+  @apply inline-block text-black no-underline relative;
+}
+
+.cool-link::after {
+  content: "";
+  display: block;
+  width: 0;
+  height: 3px;
+  background: gold;
+  transition: width 0.3s;
+  position: absolute;
+  left: 0;
+  bottom: -3px;
+}
+
+.cool-link:hover::after {
+  width: 100%;
+}
+
 @layer base {
   * {
     @apply border-border;
