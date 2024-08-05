@@ -137,7 +137,7 @@ const TopTenAgencies = () => {
         </div>
         <Link
           href={`/Agency`}
-          className="bg-black px-5 py-2 text-white font-bold rounded-full w-fit mt-6 mb-5 mx-auto hover:bg-gray-800 transition-colors"
+          className="bg-black px-5 py-2 text-white font-bold rounded-md w-fit mt-6 mb-5 mx-auto hover:bg-gray-800 transition-colors"
         >
           View more
         </Link>

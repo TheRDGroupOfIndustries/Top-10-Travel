@@ -66,6 +66,7 @@ function Navbar() {
               key={i}
               // className="border-b-2 border-transparent font-medium text-md hover:border-b-2 hover:border-sky-600 cursor-pointer"
               className={cn(
+                "text-lg font-medium",
                 route === el.link ? "text-[#E87A1F]" : "cool-link"
               )}
             >
@@ -127,7 +128,7 @@ function Navbar() {
           <div className="flex items-center">
             <MenuIcon
               onClick={toggleSidebar}
-              size={26}
+              size={30}
               className="cursor-pointer"
             />
           </div>
@@ -200,7 +201,7 @@ function Navbar() {
               key={i}
               href={el.link}
               className={cn(
-                "my-3 text-lg",
+                "my-3 text-lg font-medium",
                 route === el.link ? "text-[#E87A1F]" : "cool-link"
               )}
             >
