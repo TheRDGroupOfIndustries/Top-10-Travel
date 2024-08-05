@@ -24,10 +24,13 @@ const AdminReport = ({ report }: { report: ReportData }) => {
     <div className="space-y-6">
       <Card>
         <CardHeader>
-          <CardTitle>Admin Report</CardTitle>
-          <CardDescription>
-            Manage report for all the companies.
-          </CardDescription>
+          <CardTitle>
+            Admin Report
+            <p className="text-sm">
+              <span className="font-bold">{report.length}</span> total listings
+            </p>
+          </CardTitle>
+          <CardDescription>See report for all the companies.</CardDescription>
         </CardHeader>
         <CardContent>
           <AdminReportDownload report={report} />

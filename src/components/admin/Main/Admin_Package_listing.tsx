@@ -179,14 +179,14 @@ export default function AdminPackagelisting({
             total listings
           </p>
         </div>
-        <Dialog
+        {/* <Dialog
           open={showAddUserForm}
           onOpenChange={setShowAddUserForm}
         >
           <Button asChild>
             <Link href="/admin/listings/add-company">Add package +</Link>
           </Button>
-        </Dialog>
+        </Dialog> */}
       </div>
       <div className="flex items-center">
         <Input
