@@ -274,6 +274,11 @@ export async function GET() {
   // for(const data of c){
   //   await db.user.update({where:{id:data.userId}, data:{role:"COMPANY"}});
   // }
-
+  // const users = await db.user.findMany({select:{id:true, role:true}})
+  // for(const user of users){
+  //   const description = "I am having trouble accessing my account. When I try to log in, I receive an error message stating that my username or password is incorrect. I have tried resetting my password, but I still cannot log in. Can you please assist me in resolving this issue?"
+  //   const title = "Unable to Access Account"
+  //   await db.helpDesk.create({data:{title, description, user:{connect:{id:user.id}}, status:"PENDING"}})
+  // }
   return NextResponse.json("hi");
 }

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import {
   Card,
   CardContent,
@@ -19,14 +19,12 @@ import {
 } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
-import { Search, Plus } from "lucide-react";
+import { Search } from "lucide-react";
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from "@/components/ui/dialog";
 import {
   Select,
@@ -37,68 +35,40 @@ import {
 } from "@/components/ui/select";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import type { HelpDesk } from "@prisma/client";
+import useMutation from "@/hooks/useMutation";
+import { updateHelpdeskAction } from "@/core/server/actions/helpdesk/editHelpdesk";
+import { toast } from "sonner";
 
-interface Ticket {
-  id: number;
-  title: string;
-  status: "Open" | "In Progress" | "Closed";
-  priority: "Low" | "Medium" | "High";
-  createdAt: string;
-  description: string;
+type Ticket = HelpDesk;
+
+interface HelpDeskDashboardProps {
+  initialTickets: Ticket[];
+  pending: number;
+  resolved: number;
 }
 
-interface NewTicket {
-  title: string;
-  description: string;
-  priority: "Low" | "Medium" | "High";
-  status: "Open" | "In Progress" | "Closed";
-}
-
-const initialTickets: Ticket[] = [
-  {
-    id: 1,
-    title: "Booking Issue",
-    status: "Open",
-    priority: "High",
-    createdAt: "2024-03-15",
-    description: "Customer unable to complete booking process",
-  },
-  {
-    id: 2,
-    title: "Refund Request",
-    status: "In Progress",
-    priority: "Medium",
-    createdAt: "2024-03-14",
-    description: "Customer requesting refund for cancelled trip",
-  },
-  {
-    id: 3,
-    title: "Package Inquiry",
-    status: "Closed",
-    priority: "Low",
-    createdAt: "2024-03-13",
-    description: "Customer asking about available travel packages",
-  },
-];
-
-const HelpDeskDashboard: React.FC = () => {
+const HelpDeskDashboard: React.FC<HelpDeskDashboardProps> = ({
+  initialTickets,
+  pending,
+  resolved,
+}) => {
   const [tickets, setTickets] = useState<Ticket[]>(initialTickets);
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [filterStatus, setFilterStatus] = useState<string>("All");
-  const [selectedTicket, setSelectedTicket] = useState<Ticket | null>(null);
-  const [isNewTicketDialogOpen, setIsNewTicketDialogOpen] =
+  const [isEditTicketDialogOpen, setIsEditTicketDialogOpen] =
     useState<boolean>(false);
-  const [newTicket, setNewTicket] = useState<NewTicket>({
-    title: "",
-    description: "",
-    priority: "Medium",
-    status: "Open",
-  });
 
-  const filteredTickets = tickets.filter(
-    (ticket) =>
-      ticket.title.toLowerCase().includes(searchTerm.toLowerCase()) &&
-      (filterStatus === "All" || ticket.status === filterStatus)
+  const [editTicket, setEditTicket] = useState<Ticket>({} as Ticket);
+
+  const filteredTickets = useMemo(
+    () =>
+      tickets.filter(
+        (ticket) =>
+          ticket.title.toLowerCase().includes(searchTerm.toLowerCase()) &&
+          (filterStatus === "All" || ticket.status === filterStatus)
+      ),
+    [searchTerm, filterStatus]
   );
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -109,58 +79,57 @@ const HelpDeskDashboard: React.FC = () => {
     setFilterStatus(value);
   };
 
-  const handleViewTicket = (ticket: Ticket) => {
-    setSelectedTicket(ticket);
+  const handleEditTicket = (ticket: Ticket) => {
+    setEditTicket(ticket);
+    setIsEditTicketDialogOpen(true);
   };
 
-  const handleCloseTicketView = () => {
-    setSelectedTicket(null);
-  };
-
-  const handleNewTicketChange = (
+  const handleEditTicketChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const { name, value } = e.target;
-    setNewTicket((prev) => ({ ...prev, [name]: value }));
+    setEditTicket((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleNewTicketSubmit = () => {
-    const id = tickets.length + 1;
-    const createdAt = new Date().toISOString().split("T")[0];
-    setTickets((prev) => [...prev, { ...newTicket, id, createdAt } as Ticket]);
-    setIsNewTicketDialogOpen(false);
-    setNewTicket({
-      title: "",
-      description: "",
-      priority: "Medium",
-      status: "Open",
-    });
-  };
-
-  const handleStatusChange = (
-    ticketId: number,
-    newStatus: "Open" | "In Progress" | "Closed"
-  ) => {
-    setTickets((prev) =>
-      prev.map((ticket) =>
-        ticket.id === ticketId ? { ...ticket, status: newStatus } : ticket
-      )
-    );
-  };
-
-  const handlePriorityChange = (
-    ticketId: number,
-    newPriority: "Low" | "Medium" | "High"
-  ) => {
-    setTickets((prev) =>
-      prev.map((ticket) =>
-        ticket.id === ticketId ? { ...ticket, priority: newPriority } : ticket
-      )
-    );
+  const { mutate, isPending } = useMutation(updateHelpdeskAction);
+  const handleEditTicketSubmit = async () => {
+    if (editTicket) {
+      const { success, error } = await mutate({
+        id: editTicket.id,
+        description: editTicket.description,
+        status: editTicket.status,
+      });
+      if (success) {
+        toast.success(success);
+        setIsEditTicketDialogOpen(false);
+      } else toast.error(error);
+    }
   };
 
   return (
     <div className="space-y-6">
+      {/* <Card>
+        <CardHeader>
+          <CardTitle>Help Desk Statistics</CardTitle>
+        </CardHeader>
+        <CardContent className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="bg-primary/10 p-4 rounded-lg">
+            <h3 className="text-lg font-semibold">Open Tickets</h3>
+            <p className="text-3xl font-bold">
+              {tickets.filter((t) => t.status === "PENDING").length}
+            </p>
+          </div>
+          <div className="bg-primary/10 p-4 rounded-lg">
+            <h3 className="text-lg font-semibold">Avg. Response Time</h3>
+            <p className="text-3xl font-bold">2.5h</p>
+          </div>
+          <div className="bg-primary/10 p-4 rounded-lg">
+            <h3 className="text-lg font-semibold">Customer Satisfaction</h3>
+            <p className="text-3xl font-bold">92%</p>
+          </div>
+        </CardContent>
+      </Card> */}
+
       <Card>
         <CardHeader>
           <CardTitle>Help Desk Dashboard</CardTitle>
@@ -169,6 +138,23 @@ const HelpDeskDashboard: React.FC = () => {
           </CardDescription>
         </CardHeader>
         <CardContent>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="bg-primary/10 p-4 rounded-lg">
+              <h3 className="text-lg font-semibold">Open Tickets</h3>
+              <p className="text-3xl font-bold">{pending}</p>
+            </div>
+            <div className="bg-primary/10 p-4 rounded-lg">
+              <h3 className="text-lg font-semibold">Resolved tickets</h3>
+              <p className="text-3xl font-bold">{resolved}</p>
+            </div>
+            <div className="bg-primary/10 p-4 rounded-lg">
+              <h3 className="text-lg font-semibold">Customer Satisfaction</h3>
+              <p className="text-3xl font-bold">
+                {Math.round((resolved * 100) / (pending + resolved))}%
+              </p>
+            </div>
+          </div>
+
           <div className="flex justify-between items-center mb-6">
             <div className="flex items-center space-x-2">
               <Input
@@ -188,78 +174,10 @@ const HelpDeskDashboard: React.FC = () => {
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="All">All</SelectItem>
-                  <SelectItem value="Open">Open</SelectItem>
-                  <SelectItem value="In Progress">In Progress</SelectItem>
-                  <SelectItem value="Closed">Closed</SelectItem>
+                  <SelectItem value="PENDING">PENDING</SelectItem>
+                  <SelectItem value="RESOLVED">RESOLVED</SelectItem>
                 </SelectContent>
               </Select>
-              <Dialog
-                open={isNewTicketDialogOpen}
-                onOpenChange={setIsNewTicketDialogOpen}
-              >
-                <DialogTrigger asChild>
-                  <Button>
-                    <Plus className="h-4 w-4 mr-2" /> New Ticket
-                  </Button>
-                </DialogTrigger>
-                <DialogContent>
-                  <DialogHeader>
-                    <DialogTitle>Create New Ticket</DialogTitle>
-                    <DialogDescription>
-                      Enter the details for the new help desk ticket.
-                    </DialogDescription>
-                  </DialogHeader>
-                  <div className="grid gap-4 py-4">
-                    <div className="grid grid-cols-4 items-center gap-4">
-                      <Label htmlFor="title" className="text-right">
-                        Title
-                      </Label>
-                      <Input
-                        id="title"
-                        name="title"
-                        className="col-span-3"
-                        value={newTicket.title}
-                        onChange={handleNewTicketChange}
-                      />
-                    </div>
-                    <div className="grid grid-cols-4 items-center gap-4">
-                      <Label htmlFor="description" className="text-right">
-                        Description
-                      </Label>
-                      <Textarea
-                        id="description"
-                        name="description"
-                        className="col-span-3"
-                        value={newTicket.description}
-                        onChange={handleNewTicketChange}
-                      />
-                    </div>
-                    <div className="grid grid-cols-4 items-center gap-4">
-                      <Label htmlFor="priority" className="text-right">
-                        Priority
-                      </Label>
-                      <Select
-                        name="priority"
-                        onValueChange={(value: "Low" | "Medium" | "High") =>
-                          handleNewTicketChange({
-                            target: { name: "priority", value },
-                          } as React.ChangeEvent<HTMLInputElement>)
-                        }
-                      >
-                        <SelectTrigger className="col-span-3">
-                          <SelectValue placeholder="Select priority" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="Low">Low</SelectItem>
-                          <SelectItem value="Medium">Medium</SelectItem>
-                          <SelectItem value="High">High</SelectItem>
-                        </SelectContent>
-                      </Select>
-                    </div>
-                  </div>
-                  <Button onClick={handleNewTicketSubmit}>Create Ticket</Button>
-                </DialogContent>
-              </Dialog>
             </div>
           </div>
           <Table>
@@ -268,9 +186,9 @@ const HelpDeskDashboard: React.FC = () => {
                 <TableHead>ID</TableHead>
                 <TableHead>Title</TableHead>
                 <TableHead>Status</TableHead>
-                <TableHead>Priority</TableHead>
                 <TableHead>Created At</TableHead>
-                <TableHead>Action</TableHead>
+                <TableHead>Description</TableHead>
+                <TableHead>Actions</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -279,65 +197,22 @@ const HelpDeskDashboard: React.FC = () => {
                   <TableCell>{ticket.id}</TableCell>
                   <TableCell>{ticket.title}</TableCell>
                   <TableCell>
-                    <Select
-                      onValueChange={(
-                        value: "Open" | "In Progress" | "Closed"
-                      ) => handleStatusChange(ticket.id, value)}
-                    >
-                      <SelectTrigger className="w-[150px] focus-visible:ring-none focus-visible:ring-0">
-                        <SelectValue>
-                          <Badge
-                            variant={
-                              ticket.status === "Open"
-                                ? "destructive"
-                                : ticket.status === "In Progress"
-                                ? "secondary"
-                                : "default"
-                            }
-                          >
-                            {ticket.status}
-                          </Badge>
-                        </SelectValue>
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="Open">Open</SelectItem>
-                        <SelectItem value="In Progress">In Progress</SelectItem>
-                        <SelectItem value="Closed">Closed</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </TableCell>
-                  <TableCell>
-                    <Select
-                      onValueChange={(value: "Low" | "Medium" | "High") =>
-                        handlePriorityChange(ticket.id, value)
+                    <Badge
+                      variant={
+                        ticket.status === "PENDING" ? "destructive" : "default"
                       }
                     >
-                      <SelectTrigger className="w-[150px] focus-visible:ring-none focus-visible:ring-0">
-                        <SelectValue>
-                          <Badge
-                            variant={
-                              ticket.priority === "High"
-                                ? "destructive"
-                                : ticket.priority === "Medium"
-                                ? "secondary"
-                                : "default"
-                            }
-                          >
-                            {ticket.priority}
-                          </Badge>
-                        </SelectValue>
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="Low">Low</SelectItem>
-                        <SelectItem value="Medium">Medium</SelectItem>
-                        <SelectItem value="High">High</SelectItem>
-                      </SelectContent>
-                    </Select>
+                      {ticket.status}
+                    </Badge>
                   </TableCell>
-                  <TableCell>{ticket.createdAt}</TableCell>
+                  <TableCell>{ticket.createdAt?.toString()}</TableCell>
+                  <TableCell>{ticket.description}</TableCell>
                   <TableCell>
-                    <Button size="sm" onClick={() => handleViewTicket(ticket)}>
-                      View
+                    <Button
+                      size="sm"
+                      onClick={() => handleEditTicket(ticket)}
+                    >
+                      Edit
                     </Button>
                   </TableCell>
                 </TableRow>
@@ -347,80 +222,64 @@ const HelpDeskDashboard: React.FC = () => {
         </CardContent>
       </Card>
 
-      <Card>
-        <CardHeader>
-          <CardTitle>Help Desk Statistics</CardTitle>
-        </CardHeader>
-        <CardContent className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div className="bg-primary/10 p-4 rounded-lg">
-            <h3 className="text-lg font-semibold">Open Tickets</h3>
-            <p className="text-3xl font-bold">
-              {tickets.filter((t) => t.status === "Open").length}
-            </p>
-          </div>
-          <div className="bg-primary/10 p-4 rounded-lg">
-            <h3 className="text-lg font-semibold">Avg. Response Time</h3>
-            <p className="text-3xl font-bold">2.5h</p>
-          </div>
-          <div className="bg-primary/10 p-4 rounded-lg">
-            <h3 className="text-lg font-semibold">Customer Satisfaction</h3>
-            <p className="text-3xl font-bold">92%</p>
-          </div>
-        </CardContent>
-      </Card>
-
-      {selectedTicket && (
-        <Dialog open={!!selectedTicket} onOpenChange={handleCloseTicketView}>
-          <DialogContent>
-            <DialogHeader>
-              <DialogTitle>Ticket Details</DialogTitle>
-            </DialogHeader>
-            <div className="grid gap-4 py-4">
-              <div>
-                <Label className="font-bold">Title</Label>
-                <p>{selectedTicket.title}</p>
-              </div>
-              <div>
-                <Label className="font-bold">Description</Label>
-                <p>{selectedTicket.description}</p>
-              </div>
-              <div>
-                <Label className="font-bold">Status</Label>
-                <Badge
-                  variant={
-                    selectedTicket.status === "Open"
-                      ? "destructive"
-                      : selectedTicket.status === "In Progress"
-                      ? "secondary"
-                      : "default"
-                  }
-                >
-                  {selectedTicket.status}
-                </Badge>
-              </div>
-              <div>
-                <Label className="font-bold">Priority</Label>
-                <Badge
-                  variant={
-                    selectedTicket.priority === "High"
-                      ? "destructive"
-                      : selectedTicket.priority === "Medium"
-                      ? "secondary"
-                      : "default"
-                  }
-                >
-                  {selectedTicket.priority}
-                </Badge>
-              </div>
-              <div>
-                <Label className="font-bold">Created At</Label>
-                <p>{selectedTicket.createdAt}</p>
-              </div>
+      <Dialog
+        open={isEditTicketDialogOpen}
+        onOpenChange={setIsEditTicketDialogOpen}
+      >
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Edit Ticket</DialogTitle>
+          </DialogHeader>
+          <div className="grid gap-4 py-4">
+            <div className="grid grid-cols-4 items-center gap-4">
+              <Label
+                htmlFor="description"
+                className="text-right"
+              >
+                Description
+              </Label>
+              <Textarea
+                id="description"
+                name="description"
+                className="col-span-3"
+                value={editTicket.description || ""}
+                onChange={handleEditTicketChange}
+              />
             </div>
-            <Button onClick={handleCloseTicketView}>Close</Button>
-          </DialogContent>
-        </Dialog>
-      )}
+            <div className="grid grid-cols-4 items-center gap-4">
+              <Label
+                htmlFor="status"
+                className="text-right"
+              >
+                Status
+              </Label>
+              <Select
+                name="status"
+                defaultValue={editTicket.status}
+                onValueChange={(value: "PENDING" | "RESOLVED") =>
+                  handleEditTicketChange({
+                    target: { name: "status", value },
+                  } as React.ChangeEvent<HTMLInputElement>)
+                }
+              >
+                <SelectTrigger className="col-span-3">
+                  <SelectValue>{editTicket.status || ""}</SelectValue>
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="PENDING">PENDING</SelectItem>
+                  <SelectItem value="RESOLVED">RESOLVED</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+          </div>
+          <Button
+            disabled={isPending}
+            onClick={handleEditTicketSubmit}
+          >
+            Save Changes
+          </Button>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };

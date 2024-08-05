@@ -60,15 +60,14 @@ function HomeHero() {
     toggleVisible,
     allCities,
     allCountries,
-    updateAllCities,
-    updateAllCountries,
+    updateAllData
   } = useContext(HomeContext);
+  
   useEffect(() => {
     const fetchData = async () => {
       try {
         const res = await axios.get("/api/filter");
-        updateAllCities(res.data.cities);
-        updateAllCountries(res.data.countries);
+        updateAllData(res.data.countries);
       } catch (error) {
         console.log(error);
       }

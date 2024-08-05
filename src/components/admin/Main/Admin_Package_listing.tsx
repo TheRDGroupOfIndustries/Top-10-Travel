@@ -119,7 +119,10 @@ export const columns: ColumnDef<Company>[] = [
       return (
         <Dialog>
           <DialogTrigger asChild>
-            <Button variant="ghost" className="h-8 w-8 p-0">
+            <Button
+              variant="ghost"
+              className="h-8 w-8 p-0"
+            >
               <SquarePen className="h-4 w-4" />
             </Button>
           </DialogTrigger>
@@ -176,11 +179,12 @@ export default function AdminPackagelisting({
             total listings
           </p>
         </div>
-        <Dialog open={showAddUserForm} onOpenChange={setShowAddUserForm}>
+        <Dialog
+          open={showAddUserForm}
+          onOpenChange={setShowAddUserForm}
+        >
           <Button asChild>
-            <Link href="/admin/package-listings/add-package">
-              Add package +
-            </Link>
+            <Link href="/admin/listings/add-company">Add package +</Link>
           </Button>
         </Dialog>
       </div>
@@ -197,7 +201,10 @@ export default function AdminPackagelisting({
         />
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="outline" className="ml-auto">
+            <Button
+              variant="outline"
+              className="ml-auto"
+            >
               Columns <ChevronDown className="ml-2 h-4 w-4" />
             </Button>
           </DropdownMenuTrigger>

@@ -2,8 +2,11 @@ import { Bell } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import BreadcrumbLinks from "../Breadcrumb/BreadcrumbLinks";
 import AdminNotifications from "./AdminNotifications";
+import getServersession from "@/core/utils/getServerSession";
+import { ThemeButton } from "@/components/reusable/ThemeButton";
 
-function AdminHeader() {
+async function AdminHeader() {
+  const session = await getServersession();
   return (
     <div className="w-full lg:px-2">
       <div className="w-full lg:h-14 flex flex-col lg:flex-row lg:items-center items-start justify-between gap-3">
@@ -13,23 +16,22 @@ function AdminHeader() {
         <div className="flex flex-row-reverse lg:flex-row items-center lg:justify-center justify-between gap-3">
           <div className=" relative cursor-pointer">
             <AdminNotifications />
-            <div className="absolute  top-0 right-0">
-              <span className="relative flex h-3 w-3">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-yellow-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-3 w-3 bg-yellow-500"></span>
-              </span>
-            </div>
           </div>
           <div className="flex items-center justify-center gap-1">
             <Avatar className="w-9 h-9">
-              <AvatarImage src="https://github.com/shadcn.png" />
-              <AvatarFallback>CN</AvatarFallback>
+              <AvatarImage src={session?.user.image} />
+              <AvatarFallback>{session?.user.name}</AvatarFallback>
             </Avatar>
             <div className="flex flex-col items-start justify-center">
-              <span className="text-[13px] font-semibold">Saksham Kamboj</span>
-              <span className="text-[11px] text-black/70">Owner</span>
+              <span className="text-[13px] font-semibold">
+                {session?.user.name}
+              </span>
+              <span className="text-[11px] text-black/70">
+                {session?.user.role}
+              </span>
             </div>
           </div>
+          <ThemeButton />
         </div>
       </div>
     </div>

@@ -28,8 +28,12 @@ function AddPackage() {
     <Card className="grid flex-1 items-start gap-4 px-4 py-2 mt-5">
       <div className="mx-auto grid flex-1 auto-rows-max gap-4">
         <div className="flex items-center gap-4">
-          <Link href="/admin/package-listings">
-            <Button variant="outline" size="icon" className="h-7 w-7">
+          <Link href="/admin/listings">
+            <Button
+              variant="outline"
+              size="icon"
+              className="h-7 w-7"
+            >
               <ChevronLeft className="h-4 w-4" />
               <span className="sr-only">Back</span>
             </Button>
@@ -38,7 +42,10 @@ function AddPackage() {
             Package Controller
           </h1>
           <div className="hidden items-center gap-2 md:ml-auto md:flex">
-            <Button variant="outline" size="sm">
+            <Button
+              variant="outline"
+              size="sm"
+            >
               Discard
             </Button>
             <Button size="sm">Save Product</Button>
@@ -202,7 +209,10 @@ function AddPackage() {
                   <div className="grid gap-3">
                     <Label htmlFor="category">Category</Label>
                     <Select>
-                      <SelectTrigger id="category" aria-label="Select category">
+                      <SelectTrigger
+                        id="category"
+                        aria-label="Select category"
+                      >
                         <SelectValue placeholder="Select category" />
                       </SelectTrigger>
                       <SelectContent>
@@ -242,7 +252,10 @@ function AddPackage() {
                   <div className="grid gap-3">
                     <Label htmlFor="status">Status</Label>
                     <Select>
-                      <SelectTrigger id="status" aria-label="Select status">
+                      <SelectTrigger
+                        id="status"
+                        aria-label="Select status"
+                      >
                         <SelectValue placeholder="Select status" />
                       </SelectTrigger>
                       <SelectContent>
@@ -255,7 +268,10 @@ function AddPackage() {
                 </div>
               </CardContent>
             </Card>
-            <Card className="overflow-hidden" x-chunk="dashboard-07-chunk-4">
+            <Card
+              className="overflow-hidden"
+              x-chunk="dashboard-07-chunk-4"
+            >
               <CardHeader>
                 <CardTitle>Product Images</CardTitle>
                 <CardDescription>
@@ -307,7 +323,10 @@ function AddPackage() {
               </CardHeader>
               <CardContent>
                 <div></div>
-                <Button size="sm" variant="secondary">
+                <Button
+                  size="sm"
+                  variant="secondary"
+                >
                   Archive Product
                 </Button>
               </CardContent>
@@ -315,7 +334,10 @@ function AddPackage() {
           </div>
         </form>
         <div className="flex items-center justify-center gap-2 md:hidden">
-          <Button variant="outline" size="sm">
+          <Button
+            variant="outline"
+            size="sm"
+          >
             Discard
           </Button>
           <Button size="sm">Save Product</Button>
