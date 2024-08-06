@@ -1,14 +1,12 @@
 import EnquireDialog from "@/components/company/EnquireDialogwButton/EnquireDialog";
 import HeroHeading from "@/components/reusable/HeroHeading";
-import StarRating from "@/components/reusable/StarRating";
+import ShareButton from "@/components/reusable/shareButton";
 import { Button } from "@/components/ui/button";
+import { type InfluencerData } from "@prisma/client";
 import Image from "next/image";
 import { FaFacebook, FaGoogle, FaInstagram, FaYoutube } from "react-icons/fa6";
-import ReviewsComponent from "./ReviewComp";
-import ServicesNearbyCarousel from "./ServicesNearbyCarousel";
-import { $Enums, type InfluencerData } from "@prisma/client";
-import ReviewSSR from "./ReviewSSR";
-import ShareButton from "@/components/reusable/shareButton";
+import AnimatedImage from "./AnimatedImage";
+
 
 const InfluencerDetails = ({ data }: { data: InfluencerData }) => {
   console.log(data);
@@ -21,7 +19,7 @@ const InfluencerDetails = ({ data }: { data: InfluencerData }) => {
             <div className="grid gap-4">
               {/* Main Image */}
               <div className="relative w-full h-64 md:h-96 lg:h-[450px]">
-                <Image
+                <AnimatedImage
                   className="rounded-lg object-cover"
                   src={data?.image!}
                   alt="main image"
@@ -78,7 +76,7 @@ const InfluencerDetails = ({ data }: { data: InfluencerData }) => {
                     {data?.name}
                   </h3>
                   <p className="text-sm mt-3 leading-4 font-medium">
-                    {data.speciality}
+                    {data?.speciality}
                   </p>
                 </div>
               </div>
@@ -86,7 +84,7 @@ const InfluencerDetails = ({ data }: { data: InfluencerData }) => {
               <div className="flex flex-col gap-4">
                 <h4 className="font-medium text-2xl leading-6">Introduction</h4>
                 <p className="text-base leading-[22px] text-justify font-medium">
-                  {data.description}
+                  {data?.description}
                 </p>
               </div>
 
@@ -98,7 +96,7 @@ const InfluencerDetails = ({ data }: { data: InfluencerData }) => {
                   className="flex-1 border-black border-[1px] py-3 rounded-full text-xl leading-6 font-medium"
                 />
 
-              <ShareButton />
+                <ShareButton />
               </div>
             </div>
 
@@ -178,15 +176,13 @@ const InfluencerDetails = ({ data }: { data: InfluencerData }) => {
                     {data?.speciality}
                   </p>
                 </div>
-                <p className="text-xl leading-5 font-medium text-slate-600">
-                  
-                </p>
+                <p className="text-xl leading-5 font-medium text-slate-600"></p>
               </div>
 
               <div className="flex flex-col gap-4">
                 <h4 className="font-medium text-2xl leading-6">Introduction</h4>
                 <p className="text-base leading-[22px] text-justify font-medium">
-                  {data?.introduction}
+                  {data?.description}
                 </p>
               </div>
 
@@ -197,7 +193,7 @@ const InfluencerDetails = ({ data }: { data: InfluencerData }) => {
                   name={data?.name}
                   className="flex-1 border-black border-[1px] py-3 rounded-full text-xl leading-6 font-medium"
                 />
-                <ShareButton/>
+                <ShareButton />
               </div>
             </div>
 
@@ -255,7 +251,6 @@ const InfluencerDetails = ({ data }: { data: InfluencerData }) => {
           </div>
         </div>
       </div>
-
     </div>
   );
 };

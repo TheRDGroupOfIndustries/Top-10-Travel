@@ -1,15 +1,14 @@
 import EnquireDialog from "@/components/company/EnquireDialogwButton/EnquireDialog";
 import HeroHeading from "@/components/reusable/HeroHeading";
+import ShareButton from "@/components/reusable/shareButton";
 import StarRating from "@/components/reusable/StarRating";
 import { Button } from "@/components/ui/button";
+import { $Enums, Package } from "@prisma/client";
 import Image from "next/image";
 import { FaFacebook, FaGoogle, FaInstagram, FaYoutube } from "react-icons/fa6";
-import ReviewsComponent from "./ReviewComp";
-import ServicesNearbyCarousel from "./ServicesNearbyCarousel";
-import { $Enums, Package } from "@prisma/client";
-import ReviewSSR from "./ReviewSSR";
 import PackagesCarousel from "./PackagesCarousel";
-import ShareButton from "@/components/reusable/shareButton";
+import ReviewSSR from "./ReviewSSR";
+import AnimatedImage from "./AnimatedImage";
 
 type CompanyType = {
   reviews: number;
@@ -48,13 +47,13 @@ const Details = ({
           <div className="flex flex-col gap-10 flex-1">
             <div className="grid gap-4">
               {/* Main Image */}
-              <div className="relative w-full h-64 md:h-96 lg:h-[450px]">
-                <Image
-                  className="rounded-lg object-cover"
-                  src={data?.image!}
+              <div className="relative rounded-lg w-full h-64 md:h-96 lg:h-[450px]">
+                <AnimatedImage
+                  src={data?.image || ""}
                   alt="main image"
                   layout="fill"
                   objectFit="cover"
+                  className="rounded-lg object-cover"
                 />
               </div>
 
@@ -65,14 +64,14 @@ const Details = ({
                     ind < 4 && (
                       <div
                         key={url + ind}
-                        className="relative w-full h-32 sm:h-40"
+                        className="relative rounded-lg w-full h-32 sm:h-40"
                       >
-                        <Image
+                        <AnimatedImage
                           src={url}
-                          className="rounded-lg cursor-pointer object-cover"
-                          alt="gallery-image-1"
+                          alt={`gallery-image-${ind + 1}`}
                           layout="fill"
                           objectFit="cover"
+                          className="rounded-lg object-cover"
                         />
                       </div>
                     )
@@ -157,7 +156,7 @@ const Details = ({
                   className="flex-1 border-black border-[1px] py-3 rounded-full text-xl leading-6 font-medium"
                 />
 
-               <ShareButton/>
+                <ShareButton />
               </div>
             </div>
 
@@ -232,7 +231,7 @@ const Details = ({
                   name={data?.legalName}
                   className="flex-1 border-black border-[1px] py-3 rounded-full text-xl leading-6 font-medium"
                 />
-               <ShareButton/>
+                <ShareButton />
               </div>
             </div>
 
