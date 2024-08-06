@@ -24,6 +24,7 @@ const InfluencerForm = () => {
     name: "",
     image: "",
     description: "",
+    introduction: "",
     speciality: "",
     socialLinks: "",
     country: "",
@@ -126,6 +127,21 @@ const InfluencerForm = () => {
               value={formData.description}
               onChange={handleInputChange}
               placeholder="Enter your description"
+              required
+            />
+            <label
+              htmlFor="introduction"
+              className="p-2"
+            >
+              Introduction
+            </label>
+            <Input
+              id="description"
+              name="description"
+              type="text"
+              value={formData.introduction}
+              onChange={handleInputChange}
+              placeholder="Enter your introduction"
               required
             />
           </div>

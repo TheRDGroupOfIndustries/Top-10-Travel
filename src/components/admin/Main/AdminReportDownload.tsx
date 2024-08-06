@@ -70,6 +70,6 @@ const AdminReportDownload = ({ report }: { report: ReportData }) => {
 
     doc.save("admin_report.pdf");
   };
-  return <Button onClick={generatePDF}>Download Pdf</Button>;
+  return <Button onClick={generatePDF}>Download pdf</Button>;
 };
 export default AdminReportDownload;

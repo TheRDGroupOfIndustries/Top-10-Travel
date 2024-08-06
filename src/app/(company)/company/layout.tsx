@@ -6,13 +6,13 @@ import getServersession from "@/core/utils/getServerSession";
 import { redirect } from "next/navigation";
 import { Toaster } from "sonner";
 
-export default async function AdminLayout({
+export default async function CompanyLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   const session = await getServersession();
-  // if (!session || session.user.role !== "ADMIN") return redirect("/");
+  // if (!session || session.user.role !== "COMPANY") return redirect("/");
   return (
     <main className="bg-[#FFDB80] dark:bg-[rgba(247,162,82,0.98)] h-screen w-full">
       <ThemeProvider
