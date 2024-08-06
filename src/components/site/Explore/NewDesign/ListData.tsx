@@ -73,7 +73,9 @@ function ListData({
               </div>
               <div className="flex flex-col gap-1">
                 <span className="text-xl">Methodology</span>
-                <p className="text-sm line-clamp-4">{item?.methodology}</p>
+                <p className="text-sm line-clamp-3 lg:line-clamp-4">
+                  {item?.methodology}
+                </p>
               </div>
               <Button
                 asChild

@@ -63,7 +63,7 @@ function ListDataInfluencer({
 
               <div className="flex flex-col gap-1">
                 <span className="text-xl">Introduction</span>
-                <p className="text-sm line-clamp-4">{item?.description}</p>
+                <p className="text-sm line-clamp-3 lg:line-clamp-4">{item?.description}</p>
               </div>
               <Button
                 asChild
