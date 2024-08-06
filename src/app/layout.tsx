@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import NextAuthProvider from "@/core/providers/NextauthProvider";
 import { Toaster } from "sonner";
+import Scroll from "@/components/reusable/scroll";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -26,6 +27,7 @@ export default function RootLayout({
         />
       </head>
       <body className={inter.className}>
+        <Scroll />
         <Toaster richColors />
         <NextAuthProvider>{children}</NextAuthProvider>
       </body>
