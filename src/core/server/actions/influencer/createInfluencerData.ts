@@ -13,6 +13,7 @@ export const createInfluencerDataAction = async (
     | "description"
     | "socialLinks"
     | "speciality"
+    | "introduction"
     | "country"
     | "state"
   >

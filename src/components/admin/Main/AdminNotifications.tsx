@@ -44,6 +44,7 @@ const AdminNotifications = async () => {
               className="flex flex-col p-2 gap-1 bg-secondary hover:bg:secondary/80"
               key={req.id}
             >
+              <p>{req.companyId}</p>
               {req.message}
               <AdminNotificationButtons id={req.id} />
             </div>

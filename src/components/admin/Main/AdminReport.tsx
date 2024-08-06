@@ -1,3 +1,5 @@
+"use client"
+import { useState } from "react";
 import { ReportData } from "@/app/(admin)/admin/report/page";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -8,7 +10,6 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-
 import {
   Table,
   TableBody,
@@ -19,25 +20,42 @@ import {
 } from "@/components/ui/table";
 import Image from "next/image";
 import AdminReportDownload from "./AdminReportDownload";
+import { Input } from "@/components/ui/input";
+
 const AdminReport = ({ report }: { report: ReportData }) => {
+  const [search, setSearch] = useState("");
+
+  // Filter report data based on search input
+  const filteredReport = report.filter(company =>
+    company.legalName.toLowerCase().includes(search.toLowerCase())
+  );
+
   return (
     <div className="space-y-6">
       <Card>
         <CardHeader>
           <CardTitle>
-            Admin Report
+            Company Report
             <p className="text-sm">
-              <span className="font-bold">{report.length}</span> total listings
+              <span className="font-bold my-4">{filteredReport.length}</span> total listings
             </p>
           </CardTitle>
           <CardDescription>See report for all the companies.</CardDescription>
         </CardHeader>
         <CardContent>
-          <AdminReportDownload report={report} />
+          <AdminReportDownload report={filteredReport} />
+        </CardContent>
+        <CardContent>
+          <Input
+            placeholder="Search by name..."
+            value={search}
+            onChange={(event) => setSearch(event.target.value)}
+            className="max-w-sm focus-visible:ring-none focus-visible:ring-0"
+          />
         </CardContent>
       </Card>
 
-      {report.map((company) => (
+      {filteredReport.map((company) => (
         <Card key={company.id}>
           <CardHeader className="flex flex-row gap-8 md:gap-24 items-center">
             <div className="flex flex-col">
@@ -92,4 +110,5 @@ const AdminReport = ({ report }: { report: ReportData }) => {
     </div>
   );
 };
+
 export default AdminReport;

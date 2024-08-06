@@ -108,6 +108,7 @@ model InfluencerData {
   name        String
   image       String
   description String
+  introduction String
   speciality  String
   state       String
   country     String
