@@ -2,6 +2,7 @@
 import { db } from "@/core/client/db";
 import getSessionorRedirect from "@/core/utils/getSessionorRedirect";
 import { Package } from "@prisma/client";
+import { revalidatePath } from "next/cache";
 
 export const editPackageAction = async (
   id: string,
@@ -37,6 +38,20 @@ export const deletePackageOwn = async (id: string) => {
     const res = await db.package.delete({
       where: { id, companyId: company.id },
     });
+    const leftpackages = await db.package.count({
+      where: { companyId: company.id },
+    });
+    if (leftpackages === 0) {
+      await db.company.update({
+        where: { id: company.id },
+        data: { isSuspended: true },
+      });
+      revalidatePath("/company/packages");
+      return {
+        success:
+          "Package deleted successfully. Your company has no packages left.",
+      };
+    }
     return { success: "Package deleted successfully.", packageId: res.id };
   } catch (error) {
     console.log(error);

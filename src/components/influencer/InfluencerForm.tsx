@@ -137,7 +137,7 @@ const InfluencerForm = () => {
             </label>
             <Input
               id="description"
-              name="description"
+              name="introduction"
               type="text"
               value={formData.introduction}
               onChange={handleInputChange}
