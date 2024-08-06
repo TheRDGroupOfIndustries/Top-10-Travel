@@ -13,7 +13,7 @@ import {
   DropdownMenuItem,
   DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu";
-import { usePathname } from "next/navigation";
+import { redirect, usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 
 const navMenus = [
@@ -97,15 +97,27 @@ function Navbar() {
               </DropdownMenuTrigger>
               <DropdownMenuContent className="w-56">
                 <DropdownMenuItem className="cursor-pointer">
-                  <Link href="/admin">
-                    <div className="flex items-center gap-2">
-                      <span>
-                        <User size={18} />
-                      </span>
-                      <span>My Account</span>
-                    </div>
-                  </Link>
+                  {session.data.user.role === "COMPANY" ? (
+                    <Link href="/company">
+                      <div className="flex items-center gap-2">
+                        <span>
+                          <User size={18} />
+                        </span>
+                        <span>My Account</span>
+                      </div>
+                    </Link>
+                  ) : (
+                    <Link href="/auth/company">
+                      <div className="flex items-center gap-2">
+                        <span>
+                          <User size={18} />
+                        </span>
+                        <span>Start as Company</span>
+                      </div>
+                    </Link>
+                  )}
                 </DropdownMenuItem>
+
                 <DropdownMenuSeparator />
                 <DropdownMenuItem
                   className="cursor-pointer"
@@ -189,9 +201,8 @@ function Navbar() {
 
       {/* Sidebar */}
       <div
-        className={` rounded-lg font-bold text-gray-900 fixed top-0 right-0 bg-white opacity-80 backdrop-blur-sm transform ${
-          isSidebarOpen ? "translate-x-0" : "translate-x-full"
-        } transition-transform duration-300 ease-in-out z-40 p-6`}
+        className={` rounded-lg font-bold text-gray-900 fixed top-0 right-0 bg-white opacity-80 backdrop-blur-sm transform ${isSidebarOpen ? "translate-x-0" : "translate-x-full"
+          } transition-transform duration-300 ease-in-out z-40 p-6`}
         style={{ width: "auto", height: "auto" }}
       >
         <div className="flex flex-col items-start p-8">
