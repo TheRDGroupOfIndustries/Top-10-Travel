@@ -4,14 +4,10 @@ import getSessionorRedirect from "@/core/utils/getSessionorRedirect";
 import { unstable_cache } from "next/cache";
 import { notFound } from "next/navigation";
 
-const dashboardData = unstable_cache(
-  async (userId: string) => {
+const dashboardData = async (userId: string) => {
     const company = await db.company.findUnique({ where: { userId: userId } });
     return { company };
-  },
-  undefined,
-  { tags: ["company-dashboard"] }
-);
+  }
 const getReviews = async (companyId: string) => {
   return await db.reviews.findMany({
     where: { companyId },

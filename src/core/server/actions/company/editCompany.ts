@@ -52,7 +52,7 @@ export const editCompanyAction = async (
       data: { ...values },
       select: { id: true },
     });
-    revalidateTag("company-dashboard");
+    revalidatePath("/company");
     return { success: "Company edited successfully.", companyId: res.id };
   } catch (error) {
     console.log(error);

@@ -4,6 +4,7 @@ import { Card, CardContent, CardDescription, CardHeader } from "../ui/card";
 import Image from "next/image";
 import InputWithSave from "../reusable/InputWithSave";
 import { Badge } from "../ui/badge";
+import Link from "next/link";
 
 const CompanyDashboard = ({
   data,
@@ -62,6 +63,24 @@ const CompanyDashboard = ({
                 <Badge className="text-base">
                   Total Reviews : {data.reviews}
                 </Badge>
+                {data.isSuspended && (
+                  <Badge
+                    className="text-base"
+                    variant="destructive"
+                    title="Create package to get unsuspended."
+                  >
+                    Suspended
+                  </Badge>
+                )}
+                {!data.isCertified && (
+                  <Badge
+                    className="text-base"
+                    variant="destructive"
+                    title="Contact admin to get certified."
+                  >
+                    <Link href="/company/request">Uncertified</Link>
+                  </Badge>
+                )}
               </div>
             </div>
           </div>
