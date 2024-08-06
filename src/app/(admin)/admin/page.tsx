@@ -1,22 +1,28 @@
 import AdminDashboard from "@/components/admin/Main/Admin_Dashboard";
 import { db } from "@/core/client/db";
 import { unstable_cache } from "next/cache";
-const Dashboard = unstable_cache(
+const dashboardData = unstable_cache(
   async () => {
-    const user:number = await db.user.count();
-    const company:number = await db.company.count();
-    const inflelance:number = await db.influencerData.count()
-    return {user,company,inflelance};
+    const [user, company, influencer] = await Promise.all([
+      db.user.count(),
+      db.company.count(),
+      db.influencerData.count(),
+    ]);
+    return { user, company, influencer };
   },
   undefined,
   { tags: ["admin-dashboard"] }
 );
 async function Page() {
-
-  const {user,company,inflelance}= await Dashboard();
-  return(<div>
-<AdminDashboard company={company} user={user} influencer={inflelance}/>
-  </div> 
+  const { user, company, influencer } = await dashboardData();
+  return (
+    <div>
+      <AdminDashboard
+        company={company}
+        user={user}
+        influencer={influencer}
+      />
+    </div>
   );
 }
 

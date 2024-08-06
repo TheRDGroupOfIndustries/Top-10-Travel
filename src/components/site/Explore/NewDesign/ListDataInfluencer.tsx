@@ -5,6 +5,7 @@ import StarRating from "@/components/reusable/StarRating";
 import { Button } from "@/components/ui/button";
 import type { InfluencerData } from "@prisma/client";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
@@ -35,7 +36,11 @@ function ListDataInfluencer({
     <main className="w-full mt-14 px-2 md:px-3 lg:px-6 xl:px-8">
       <div className="w-full flex flex-col gap-10">
         {currentItems?.map((item, index: number) => (
-          <div
+          <motion.div
+            initial={{ opacity: 0, translateY: -150 }}
+            whileInView={{ opacity: 1, translateY: 0 }}
+            transition={{ duration: 0.4, delay: index * 0.15 }}
+            viewport={{ once: true }}
             key={item.name}
             className="w-full lg:h-72 rounded-lg flex flex-col md:flex-row items-center justify-between gap-5 shadow shadow-black/10"
           >
@@ -58,7 +63,7 @@ function ListDataInfluencer({
 
               <div className="flex flex-col gap-1">
                 <span className="text-xl">Introduction</span>
-                <p className="text-sm line-clamp-4">{item?.description}</p>
+                <p className="text-sm line-clamp-3 lg:line-clamp-4">{item?.description}</p>
               </div>
               <Button
                 asChild
@@ -72,14 +77,17 @@ function ListDataInfluencer({
                 </Link>
               </Button>
             </div>
-          </div>
+          </motion.div>
         ))}
       </div>
       {data?.length > itemsPerPage && (
         <div className="mt-8 flex justify-center gap-4">
           <Button
             size={"icon"}
-            onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+            onClick={() => { 
+              setCurrentPage((prev) => Math.max(prev - 1, 1))
+              window.scrollTo({ top: 0 });
+            }}
             disabled={currentPage === 1}
             className="bg-[#FFDB80] hover:bg-[#ffdb80d0] text-black"
           >
@@ -90,10 +98,12 @@ function ListDataInfluencer({
           </span>
           <Button
             size={"icon"}
-            onClick={() =>
+            onClick={() => {
               setCurrentPage((prev) =>
                 Math.min(prev + 1, Math.ceil(data?.length / itemsPerPage))
               )
+               window.scrollTo({ top: 0 });
+            }
             }
             disabled={currentPage === Math.ceil(data?.length / itemsPerPage)}
             className="bg-[#FFDB80] hover:bg-[#ffdb80d0] text-black"

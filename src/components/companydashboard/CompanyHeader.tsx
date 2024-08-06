@@ -1,11 +1,10 @@
 import { Bell } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import BreadcrumbLinks from "../Breadcrumb/BreadcrumbLinks";
-import AdminNotifications from "./AdminNotifications";
 import getServersession from "@/core/utils/getServerSession";
 import { ThemeButton } from "@/components/reusable/ThemeButton";
+import BreadcrumbLinks from "../admin/Breadcrumb/BreadcrumbLinks";
 
-async function AdminHeader() {
+async function CompanyHeader() {
   const session = await getServersession();
   return (
     <div className="w-full lg:px-2">
@@ -14,19 +13,10 @@ async function AdminHeader() {
           <BreadcrumbLinks />
         </div>
         <div className="flex flex-row-reverse lg:flex-row items-center lg:justify-center justify-between gap-3">
-          <div className=" relative cursor-pointer">
-            <AdminNotifications />
-          </div>
           <div className="flex items-center justify-center gap-1">
             <Avatar className="w-9 h-9">
               <AvatarImage src={session?.user.image} />
-              <AvatarFallback>
-                {session?.user?.name
-                  .split(" ")
-                  .map((word) => word[0].toUpperCase())
-                  .join("")
-                  .slice(0, 2)}
-              </AvatarFallback>
+              <AvatarFallback>{session?.user.name}</AvatarFallback>
             </Avatar>
             <div className="flex flex-col items-start justify-center">
               <span className="text-[13px] font-semibold">
@@ -44,4 +34,4 @@ async function AdminHeader() {
   );
 }
 
-export default AdminHeader;
+export default CompanyHeader;

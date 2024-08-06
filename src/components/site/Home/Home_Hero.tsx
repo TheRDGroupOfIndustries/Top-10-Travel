@@ -108,6 +108,7 @@ export const AnimatedText = ({
 function HomeHero() {
   const divref = useRef<HTMLDivElement>(null);
   const [scope, balloonAnimate] = useAnimate();
+  const [headingScope, headingAnimate] = useAnimate();
   const {
     visible,
     selectedCity,
@@ -162,16 +163,16 @@ function HomeHero() {
   };
 
   useLayoutEffect(() => {
-    const handleAnimate = async () => {
+    const handleBalloonAnimate = async () => {
       balloonAnimate(
         "#smallBalloon",
-        { y: [50, -20, 0], opacity: [0, 1], rotate: [0, -3, 2, 0] },
+        { y: [50, -20, 0], opacity: [0, 1] },
         { duration: 1.5, ease: "linear" }
       );
 
       await balloonAnimate(
         "#bigBalloon",
-        { y: [50, -30, 0], opacity: [0, 1], rotate: [0, -5, 5, 0] },
+        { y: [50, -30, 0], opacity: [0, 1]},
         { duration: 1.5, delay: 0.5, ease: "linear" }
       );
 
@@ -180,10 +181,10 @@ function HomeHero() {
         {
           y: [0, -25, 0], // Define the y-axis keyframes for the animation
           opacity: 1, // Define the opacity keyframes for the animation
-          rotate: [0, -3, 2, 0], // Define the rotation keyframes for the animation
+          // Define the rotation keyframes for the animation
         },
         {
-          duration: 4, // Duration of one animation cycle
+          duration: 3, // Duration of one animation cycle
           repeat: Infinity, // Run the animation infinitely
           repeatType: "loop", // Loop the animation
           ease: "linear",
@@ -195,10 +196,10 @@ function HomeHero() {
         {
           y: [0, -50, 0], // Define the y-axis keyframes for the animation
           opacity: 1, // Define the opacity keyframes for the animation
-          rotate: [0, -5, 5, 0], // Define the rotation keyframes for the animation
+          // Define the rotation keyframes for the animation
         },
         {
-          duration: 6, // Duration of one animation cycle
+          duration: 5, // Duration of one animation cycle
           delay: 1,
           repeat: Infinity, // Run the animation infinitely
           repeatType: "loop", // Loop the animation
@@ -206,7 +207,7 @@ function HomeHero() {
         }
       );
     };
-    handleAnimate();
+    handleBalloonAnimate();
   }, []);
 
   return (
@@ -247,24 +248,79 @@ function HomeHero() {
         </AnimatePresence>
       </div>
 
-      <div className="h-full flex flex-col md:gap-0 lg:gap-0 gap-1 justify-start pt-16 md:pt-24 lg:pt-32 xl:pt-40 w-full">
-        <h3 className="xl:text-4xl lg:text-[32px] md:text-2xl sm:text-xl text-lg font-medium leading-[23px] sm:leading-[30px] md:leading-[35px] lg:leading-[43px] font-cinzel">
-          <AnimatedText text="Welcome To" />
+      <div
+        ref={headingScope}
+        className="h-full flex flex-col md:gap-0 lg:gap-0 gap-1 justify-start pt-16 md:pt-24 lg:pt-32 xl:pt-40 w-full"
+      >
+        <h3
+          id="firstLine"
+          aria-hidden
+          className="xl:text-4xl lg:text-[32px] md:text-2xl sm:text-xl text-lg font-medium leading-[23px] overflow-hidden sm:leading-[30px] md:leading-[35px] lg:leading-[43px] font-cinzel"
+        >
+          <motion.span
+            className="inline-block"
+            initial={{ y: 30, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ duration: 0.8, type: "spring" }}
+          >
+            Welcome To
+          </motion.span>
+          {/* <motion.span>
+            {"Welcome To".split("").map((char, i) => (
+              <motion.span
+                key={i}
+                variants={{
+                  initial: { x: 0 },
+                  animate: { x: 16 },
+                }}
+                transition={{ type: "spring" }}
+                className="inline-block"
+              >
+                {char}
+              </motion.span>
+            ))}
+          </motion.span> */}
         </h3>
-        <h1 className="uppercase font-cinzel font-bold text-2xl sm:text-4xl md:text-4xl lg:text-6xl xl:text-7xl xl:leading-loose leading-[50px] sm:leading-[65px] md:leading-[80px] lg:leading-[129px]">
-          Top 10 <span className="text-[#FFC658]">travel</span>
+        {/* <h3 className="sr-only">Welcome TO</h3> */}
+        <h1
+          id="secondLine"
+          className="uppercase font-cinzel font-bold text-2xl sm:text-4xl md:text-4xl lg:text-6xl xl:text-7xl overflow-hidden xl:leading-loose leading-[50px] sm:leading-[65px] md:leading-[80px] lg:leading-[129px]"
+        >
+          <motion.span
+            className="inline-block"
+            initial={{ y: 50, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ duration: 0.8, delay: 0.4, type: "spring" }}
+          >
+            Top 10 <span className="text-[#FFC658]">travel</span>
+          </motion.span>
         </h1>
-        <p className="font-semibold leading-[20px] sm:leading-6 md:leading-[30px] lg:leading-[39px] text-[12px] sm:text-lg md:text-xl lg:text-2xl xl:text-3xl w-52 sm:w-64 md:w-80 lg:w-full">
-          The only place where you can find Top 10{" "}
-          <span className="text-[#FFC658] mr-1">
-            Hotels, Agencies,
-            <br /> DMC&apos;s
-          </span>
-          &nbsp;all around the world.
+        <p
+          id="thirdLine"
+          className="font-semibold leading-[20px] overflow-hidden sm:leading-6 md:leading-[30px] lg:leading-[39px] text-[12px] sm:text-lg md:text-xl lg:text-2xl xl:text-3xl w-52 sm:w-64 md:w-80 lg:w-full"
+        >
+          <motion.span
+            className="inline-block"
+            initial={{ y: 50, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ duration: 0.8, delay: 1, type: "spring" }}
+          >
+            The only place where you can find Top 10{" "}
+            <span className="text-[#FFC658] mr-1">
+              Hotels, Agencies,
+              <br /> DMC&apos;s
+            </span>
+            &nbsp;all around the world.
+          </motion.span>
         </p>
-        <div className="w-full pt-20 md:pt-10 lg:pt-24 md:max-w-[380px] lg:max-w-[730px]">
+        <motion.div
+          initial={{ y: 50, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.8, delay: 1.4, type: "spring" }}
+          className="w-full pt-20 md:pt-10 lg:overflow-hidden lg:pt-24 md:max-w-[430px] lg:max-w-[730px]"
+        >
           <div className="w-full flex items-end justify-start">
-            <div className="box min-w-52 h-6 sm:h-10 flex items-center justify-center bg-gray-200">
+            <div className="box min-w-52 h-6 md:h-10 sm:h-8 flex items-center justify-center bg-gray-200">
               <span className="text-black text-xs font-semibold ">
                 FIND YOUR TOP 10
               </span>
@@ -295,7 +351,7 @@ function HomeHero() {
             </div>
           </div>
           <div className="w-full h-12 sm:h-14 flex items-center justify-between rounded-lg px-3 bg-gray-200">
-            <div className="flex items-center lg:gap-5 gap-1">
+            <div className="flex items-center lg:gap-5 md:gap-2 gap-1">
               <Select
                 value={selectedCountry}
                 onValueChange={(val) => setCountry(val)}
@@ -329,7 +385,7 @@ function HomeHero() {
                 </SelectContent>
               </Select>
             </div>
-            <div className="">
+            <div>
               <Button
                 onClick={handleFind}
                 className="bg-[#FFC658] hover:bg-[#ffcc66] inline-flex items-center lg:gap-2 px-2 py-1"
@@ -339,7 +395,7 @@ function HomeHero() {
               </Button>
             </div>
           </div>
-        </div>
+        </motion.div>
       </div>
     </div>
   );

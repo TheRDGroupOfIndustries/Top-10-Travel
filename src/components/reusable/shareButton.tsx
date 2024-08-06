@@ -1,13 +1,17 @@
+"use client";
 import React from "react";
 import { RWebShare } from "react-web-share";
-import { Button } from '../ui/button';
+import { Button } from "../ui/button";
 
-function ShareButton(){
+function ShareButton() {
+  // Get the current URL dynamically
+  const shareUrl = typeof window !== "undefined" ? window.location.href : "";
+
   return (
     <RWebShare
       data={{
-        text: "Share Link With Other",
-        url: window.location.href,
+        text: "Share Link With Others",
+        url: shareUrl,
         title: "Share",
       }}
       onClick={() => console.log("shared successfully!")}
@@ -20,6 +24,6 @@ function ShareButton(){
       </Button>
     </RWebShare>
   );
-};
+}
 
 export default ShareButton;
