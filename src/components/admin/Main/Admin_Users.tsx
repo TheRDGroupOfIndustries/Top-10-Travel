@@ -40,6 +40,23 @@ import EditUserForm from "./EditUserform";
 import AddUserForm from "./AddUserForm";
 import { Card } from "@/components/ui/card";
 import { $Enums, User } from "@prisma/client";
+import { FaTrashCan } from "react-icons/fa6";
+import { toast } from "sonner";
+import { deleteUser } from "@/core/server/actions/users/deleteUser";
+
+async function deleteProject(id:string) {
+  const res = await deleteUser(id);
+  console.log(res)
+  if (res.success) {
+    toast.success("Successfully deleted")
+  }else {
+      if(res.error){
+    toast.error(res.error)
+        
+      }
+  
+  }
+}
 
 export const columns: ColumnDef<User>[] = [
   {
@@ -81,6 +98,7 @@ export const columns: ColumnDef<User>[] = [
     accessorKey: "role",
     header: "Role",
   },
+  
   // {
   //   accessorKey: "status",
   //   header: "Status",
@@ -111,6 +129,15 @@ export const columns: ColumnDef<User>[] = [
       );
     },
   },
+  {
+    id: 'delete',
+    header: 'Delete',
+    cell: ({ row }) => (
+        <Button onClick={() => deleteProject(row.original.id)}>
+            <FaTrashCan />
+        </Button>
+    )
+}
 ];
 
 function AdminUsers({ users }: { users: User[] }) {

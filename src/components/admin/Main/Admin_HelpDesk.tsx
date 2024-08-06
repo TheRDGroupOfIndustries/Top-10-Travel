@@ -39,6 +39,8 @@ import type { HelpDesk } from "@prisma/client";
 import useMutation from "@/hooks/useMutation";
 import { updateHelpdeskAction } from "@/core/server/actions/helpdesk/editHelpdesk";
 import { toast } from "sonner";
+import { FaTrashCan } from "react-icons/fa6";
+import { deleteHelpdesk } from "@/core/server/actions/helpdesk/deleteHelpdesk";
 
 type Ticket = HelpDesk;
 
@@ -105,6 +107,19 @@ const HelpDeskDashboard: React.FC<HelpDeskDashboardProps> = ({
       } else toast.error(error);
     }
   };
+  async function deleteProject(id:string) {
+    const res = await deleteHelpdesk(id);
+    console.log(res)
+    if (res.success) {
+      toast.success("Successfully deleted")
+    }else {
+        if(res.error){
+      toast.error(res.error)
+          
+        }
+     toast.error("Record not Found ")
+    }
+  }
 
   return (
     <div className="space-y-6">
@@ -192,6 +207,14 @@ const HelpDeskDashboard: React.FC<HelpDeskDashboardProps> = ({
                       onClick={() => handleEditTicket(ticket)}
                     >
                       Edit
+                    </Button>
+                  </TableCell>
+                  <TableCell>
+                    <Button
+                      size="sm"
+                      onClick={()=> deleteProject(ticket.id)}
+                    >
+                      <FaTrashCan/>
                     </Button>
                   </TableCell>
                 </TableRow>

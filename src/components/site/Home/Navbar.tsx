@@ -168,8 +168,9 @@ function Navbar() {
                   </Avatar>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent className="w-56">
-                  <DropdownMenuItem className="cursor-pointer">
-                    <Link href="/admin">
+                <DropdownMenuItem className="cursor-pointer">
+                  {session.data.user.role === "COMPANY" ? (
+                    <Link href="/company">
                       <div className="flex items-center gap-2">
                         <span>
                           <User size={18} />
@@ -177,7 +178,17 @@ function Navbar() {
                         <span>My Account</span>
                       </div>
                     </Link>
-                  </DropdownMenuItem>
+                  ) : (
+                    <Link href="/auth/company">
+                      <div className="flex items-center gap-2">
+                        <span>
+                          <User size={18} />
+                        </span>
+                        <span>Start as Company</span>
+                      </div>
+                    </Link>
+                  )}
+                </DropdownMenuItem>
                   <DropdownMenuSeparator />
                   <DropdownMenuItem
                     className="cursor-pointer"

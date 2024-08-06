@@ -43,6 +43,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { $Enums } from "@prisma/client";
 import EditListingForm from "./EditListingForm";
+import { FaTrashCan } from "react-icons/fa6";
+import { toast } from "sonner";
+import { deleteCompany } from "@/core/server/actions/company/deleteCompany";
 
 export type Company = {
   id: string;
@@ -57,7 +60,19 @@ export type Company = {
   city: string;
   companyRole: $Enums.CompanyRole;
 };
-
+async function deleteProject(id:string) {
+  const res = await deleteCompany(id);
+  console.log(res)
+  if (res.success) {
+    toast.success("Successfully deleted")
+  }else {
+      if(res.error){
+    toast.error(res.error)
+        
+      }
+   toast.error("Record not Found ")
+  }
+}
 export const columns: ColumnDef<Company>[] = [
   {
     accessorKey: "image",
@@ -132,7 +147,15 @@ export const columns: ColumnDef<Company>[] = [
         </Dialog>
       );
     },
-  },
+  },{
+    id: 'delete',
+    header: 'Delete',
+    cell: ({ row }) => (
+        <Button onClick={() => deleteProject(row.original.id)}>
+            <FaTrashCan />
+        </Button>
+    )
+}
 ];
 
 export default function AdminPackagelisting({
