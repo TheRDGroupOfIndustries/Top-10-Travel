@@ -166,13 +166,13 @@ function HomeHero() {
     const handleBalloonAnimate = async () => {
       balloonAnimate(
         "#smallBalloon",
-        { y: [50, -20, 0], opacity: [0, 1], rotate: [0, -3, 2, 0] },
+        { y: [50, -20, 0], opacity: [0, 1] },
         { duration: 1.5, ease: "linear" }
       );
 
       await balloonAnimate(
         "#bigBalloon",
-        { y: [50, -30, 0], opacity: [0, 1], rotate: [0, -5, 5, 0] },
+        { y: [50, -30, 0], opacity: [0, 1]},
         { duration: 1.5, delay: 0.5, ease: "linear" }
       );
 
@@ -181,10 +181,10 @@ function HomeHero() {
         {
           y: [0, -25, 0], // Define the y-axis keyframes for the animation
           opacity: 1, // Define the opacity keyframes for the animation
-          rotate: [0, -3, 2, 0], // Define the rotation keyframes for the animation
+          // Define the rotation keyframes for the animation
         },
         {
-          duration: 4, // Duration of one animation cycle
+          duration: 3, // Duration of one animation cycle
           repeat: Infinity, // Run the animation infinitely
           repeatType: "loop", // Loop the animation
           ease: "linear",
@@ -196,10 +196,10 @@ function HomeHero() {
         {
           y: [0, -50, 0], // Define the y-axis keyframes for the animation
           opacity: 1, // Define the opacity keyframes for the animation
-          rotate: [0, -5, 5, 0], // Define the rotation keyframes for the animation
+          // Define the rotation keyframes for the animation
         },
         {
-          duration: 6, // Duration of one animation cycle
+          duration: 5, // Duration of one animation cycle
           delay: 1,
           repeat: Infinity, // Run the animation infinitely
           repeatType: "loop", // Loop the animation
@@ -208,11 +208,6 @@ function HomeHero() {
       );
     };
     handleBalloonAnimate();
-  }, []);
-
-  useLayoutEffect(() => {
-    const handleHeadingAnimate = async () => {};
-    handleHeadingAnimate();
   }, []);
 
   return (
