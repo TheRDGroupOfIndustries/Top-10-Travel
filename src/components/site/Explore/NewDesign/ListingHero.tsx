@@ -50,7 +50,7 @@ function ListingHero({
   return (
     <div className="w-full lg:h-36 pt-20">
       <div className="w-full h-full flex flex-col lg:flex-row lg:items-end lg:justify-between items-center justify-end gap-2 px-2 md:px-3 lg:px-6 xl:px-8">
-        <h1 className="md:text-2xl text-xl font-bold text-black">
+        <h1 className="md:text-2xl md:text-start text-balance text-center text-xl font-bold text-black">
           {`${title}${selectedCountry && ", " + selectedCountry.toUpperCase()}${
             selectedState && "-" + selectedState.toUpperCase()
           }`}
