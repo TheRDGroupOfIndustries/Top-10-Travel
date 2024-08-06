@@ -1,8 +1,9 @@
+"use client";
 import React from "react";
 import { RWebShare } from "react-web-share";
-import { Button } from '../ui/button';
+import { Button } from "../ui/button";
 
-function ShareButton(){
+function ShareButton() {
   return (
     <RWebShare
       data={{
@@ -20,6 +21,6 @@ function ShareButton(){
       </Button>
     </RWebShare>
   );
-};
+}
 
 export default ShareButton;

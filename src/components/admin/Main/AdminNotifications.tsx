@@ -17,7 +17,7 @@ const getRequests = unstable_cache(
     return await db.request.findMany({ where: { status: "PENDING" } });
   },
   undefined,
-  { tags: ["admin-requests"] }
+  { tags: ["admin-requests"], revalidate: 60 }
 );
 
 const AdminNotifications = async () => {
