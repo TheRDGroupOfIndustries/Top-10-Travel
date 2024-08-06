@@ -63,13 +63,37 @@ function TopTenHotels() {
       )}
     >
       <div className="w-full flex flex-col items-center justify-center gap-4">
-        <h1 className="text-xl sm:text-4xl font-bold text-center">
-          {`TOP 10 HOTELS${
-            selectedCountry && ", " + selectedCountry.toUpperCase()
-          }${selectedCity && "-" + selectedCity.toUpperCase()}`}
+        <h1 className="text-xl lg:overflow-hidden sm:text-4xl font-bold text-center">
+          <motion.span
+            className="inline-block"
+            initial={{ y: 30, opacity: 0 }}
+            whileInView={{ y: 0, opacity: 1 }}
+            transition={{
+              duration: 0.8,
+              delay: 0.3,
+              type: "spring",
+            }}
+            viewport={{ once: true }}
+          >
+            {`TOP 10 HOTELS${
+              selectedCountry && ", " + selectedCountry.toUpperCase()
+            }${selectedCity && "-" + selectedCity.toUpperCase()}`}
+          </motion.span>
         </h1>
         <p className="text-base sm:text-lg text-center mb-8">
-          Experience Hassle-Free Room Hunting with Our Comprehensive listing
+          <motion.span
+            className="inline-block"
+            initial={{ y: 30, opacity: 0 }}
+            whileInView={{ y: 0, opacity: 1 }}
+            transition={{
+              duration: 0.8,
+              delay: 0.4,
+              type: "spring",
+            }}
+            viewport={{ once: true }}
+          >
+            Experience Hassle-Free Room Hunting with Our Comprehensive listing
+          </motion.span>
         </p>
         <Carousel
           opts={{
