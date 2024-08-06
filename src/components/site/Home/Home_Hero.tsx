@@ -322,10 +322,10 @@ function HomeHero() {
           initial={{ y: 50, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.8, delay: 1.4, type: "spring" }}
-          className="w-full pt-20 md:pt-10 overflow-hidden lg:pt-24 md:max-w-[380px] lg:max-w-[730px]"
+          className="w-full pt-20 md:pt-10 lg:overflow-hidden lg:pt-24 md:max-w-[430px] lg:max-w-[730px]"
         >
           <div className="w-full flex items-end justify-start">
-            <div className="box min-w-52 h-6 sm:h-10 flex items-center justify-center bg-gray-200">
+            <div className="box min-w-52 h-6 md:h-10 sm:h-8 flex items-center justify-center bg-gray-200">
               <span className="text-black text-xs font-semibold ">
                 FIND YOUR TOP 10
               </span>
@@ -356,7 +356,7 @@ function HomeHero() {
             </div>
           </div>
           <div className="w-full h-12 sm:h-14 flex items-center justify-between rounded-lg px-3 bg-gray-200">
-            <div className="flex items-center lg:gap-5 gap-1">
+            <div className="flex items-center lg:gap-5 md:gap-2 gap-1">
               <Select
                 value={selectedCountry}
                 onValueChange={(val) => setCountry(val)}
