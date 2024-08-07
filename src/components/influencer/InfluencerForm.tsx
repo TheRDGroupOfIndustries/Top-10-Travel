@@ -49,6 +49,7 @@ const InfluencerForm = () => {
       toast.success(success);
     } else if (error) toast.error(error);
   };
+
   return (
     <div className="min-h-screen flex flex-row relative bg-white text-black">
       <Image
@@ -60,7 +61,7 @@ const InfluencerForm = () => {
       />
       <div className="w-[50%] min-h-full relative hidden md:block">
         <div className="absolute top-1/4 left-1/2 transform -translate-x-1/2 font-serif text-3xl font-bold text-center text-white z-20 border-white w-[110%] spa">
-          <p className="xl:text-[42px] lg:text-[38px] md:text-[32px] text-center text-wrap uppercase">
+          <p className="xl:text-[42px] lg:text-[38px] md:text-[28px] text-center text-wrap uppercase">
             LOGIN AS Influencer
           </p>
           <p className="text-[25px] font-[200] max-w-xs mx-auto mt-8">
