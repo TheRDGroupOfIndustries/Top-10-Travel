@@ -172,7 +172,7 @@ function HomeHero() {
 
       await balloonAnimate(
         "#bigBalloon",
-        { y: [50, -30, 0], opacity: [0, 1]},
+        { y: [50, -30, 0], opacity: [0, 1] },
         { duration: 1.5, delay: 0.5, ease: "linear" }
       );
 
@@ -320,7 +320,7 @@ function HomeHero() {
           className="w-full pt-20 md:pt-10 lg:overflow-hidden lg:pt-24 md:max-w-[430px] lg:max-w-[730px]"
         >
           <div className="w-full flex items-end justify-start">
-            <div className="box min-w-52 h-6 md:h-10 sm:h-8 flex items-center justify-center bg-gray-200">
+            <div className="box rounded-full min-w-52 h-6 md:h-10 sm:h-8 flex items-center justify-center bg-gray-200">
               <span className="text-black text-xs font-semibold ">
                 FIND YOUR TOP 10
               </span>
