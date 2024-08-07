@@ -43,6 +43,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { $Enums } from "@prisma/client";
 import EditListingForm from "./EditListingForm";
+import { FaTrashCan } from "react-icons/fa6";
+import { toast } from "sonner";
+import { deleteCompany } from "@/core/server/actions/company/deleteCompany";
 
 export type Company = {
   id: string;
@@ -57,7 +60,13 @@ export type Company = {
   city: string;
   companyRole: $Enums.CompanyRole;
 };
-
+async function deleteListing(id: string) {
+  const res = await deleteCompany(id);
+  console.log(res);
+  if (res.success) {
+    toast.success(res.success);
+  } else toast.error(res.error);
+}
 export const columns: ColumnDef<Company>[] = [
   {
     accessorKey: "image",
@@ -117,19 +126,42 @@ export const columns: ColumnDef<Company>[] = [
     cell: ({ row }) => {
       const listing = row.original;
       return (
-        <Dialog>
-          <DialogTrigger asChild>
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
             <Button
+              size="icon"
               variant="ghost"
-              className="h-8 w-8 p-0"
             >
               <SquarePen className="h-4 w-4" />
             </Button>
-          </DialogTrigger>
-          <DialogContent className="sm:max-w-[425px]">
-            <EditListingForm company={listing} />
-          </DialogContent>
-        </Dialog>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent>
+            <DropdownMenuLabel>Listing actions</DropdownMenuLabel>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem asChild>
+              <Dialog>
+                <DialogTrigger asChild>
+                  <Button
+                    variant="ghost"
+                    className="flex justify-between items-center gap-2 w-full"
+                  >
+                    Edit Info <SquarePen className="h-4 w-4" />
+                  </Button>
+                </DialogTrigger>
+                <DialogContent className="sm:max-w-[425px]">
+                  <EditListingForm company={listing} />
+                </DialogContent>
+              </Dialog>
+            </DropdownMenuItem>
+            <DropdownMenuItem
+              className="flex items-center justify-start gap-2"
+              onClick={() => deleteListing(row.original.id)}
+            >
+              Delete Company
+              <FaTrashCan />
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
       );
     },
   },

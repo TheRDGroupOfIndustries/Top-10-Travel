@@ -152,10 +152,10 @@ const Details = ({
 
               <div className="flex gap-1 py-4 w-full flex-grow">
                 <EnquireDialog
+                  images={data?.companyData?.images}
                   name={data?.legalName}
                   className="flex-1 border-black border-[1px] py-3 rounded-full text-xl leading-6 font-medium"
                 />
-
                 <ShareButton />
               </div>
             </div>
@@ -228,6 +228,7 @@ const Details = ({
 
               <div className="flex gap-1 py-4 w-full flex-grow">
                 <EnquireDialog
+                  images={data.companyData?.images}
                   name={data?.legalName}
                   className="flex-1 border-black border-[1px] py-3 rounded-full text-xl leading-6 font-medium"
                 />

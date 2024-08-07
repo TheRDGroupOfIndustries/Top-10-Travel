@@ -85,11 +85,13 @@ const MainForm: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col md:flex-row bg-white text-black pt-[2%]">
-      <div className="hidden md:block w-full md:w-[40%] min-h-screen mt-12 relative"> 
+    <div className="min-h-screen flex flex-col md:flex-row bg-white text-black">
+      <div className="hidden md:block w-full md:w-[40%] min-h-screen relative">
         <div className="absolute top-1/4 left-1/2 transform -translate-x-1/2 font-serif text-3xl font-bold text-center text-white z-20 border-white w-[110%] spa">
           <p className="lg:text-[50px] md:text-[40px]">LOGIN AS COMPANY</p>
-          <p className="text-[25px] font-[200]">Take your business to its peak</p>
+          <p className="text-[25px] font-[200]">
+            Take your business to its peak
+          </p>
         </div>
         <Image
           src={img}
@@ -99,9 +101,12 @@ const MainForm: React.FC = () => {
           className="object-cover"
         />
       </div>
-      <div className="w-full md:w-[60%] flex flex-col items-center justify-center mt-10 md:mt-0 border-black my-5"> 
-        <ProgressBar activeStep={activeTab} totalSteps={formElements.length} />
-        
+      <div className="w-full md:w-[60%] flex flex-col items-center justify-center border-black">
+        <ProgressBar
+          activeStep={activeTab}
+          totalSteps={formElements.length}
+        />
+
         {activeTab < formElements.length && (
           <>
             <form

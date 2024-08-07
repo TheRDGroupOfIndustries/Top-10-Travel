@@ -356,7 +356,7 @@ function HomeHero() {
                 value={selectedCountry}
                 onValueChange={(val) => setCountry(val)}
               >
-                <SelectTrigger className="lg:w-[280px] w-[160px] focus:ring-0 focus:ring-none focus:ring-offset-0 bg-gray-300/50 text-black/50 text-xs lg:text-base">
+                <SelectTrigger className="lg:w-[280px] md:w-[120px] w-[100px] focus:ring-0 focus:ring-none focus:ring-offset-0 bg-gray-300/50 text-black/50 text-xs lg:text-base">
                   <SelectValue placeholder="Select Country" />
                 </SelectTrigger>
                 <SelectContent>
@@ -373,7 +373,7 @@ function HomeHero() {
                   setCity(val);
                 }}
               >
-                <SelectTrigger className="lg:w-[280px] w-[160px] focus:ring-0 focus:ring-none focus:ring-offset-0 bg-gray-300/50 text-black/50 text-xs lg:text-base">
+                <SelectTrigger className="lg:w-[280px] md:w-[120px] w-[100px] focus:ring-0 focus:ring-none focus:ring-offset-0 bg-gray-300/50 text-black/50 text-xs lg:text-base">
                   <SelectValue placeholder="Select City" />
                 </SelectTrigger>
                 <SelectContent>

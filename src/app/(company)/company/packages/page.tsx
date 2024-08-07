@@ -66,9 +66,9 @@ const PackagesPage = async () => {
   });
   if (!company) return notFound();
 
-  const packages = await getPackages(company.id)
+  const packages = await getPackages(company.id);
   return (
-    <div className="flex flex-col items-center justify-center">
+    <div className="flex flex-col items-center justify-center relative">
       <h2 className="text-2xl font-bold my-10">All Your Packages:</h2>
       <div className="flex flex-wrap gap-8 pb-8">
         {packages.map((p) => (
@@ -77,15 +77,19 @@ const PackagesPage = async () => {
             data={p}
           />
         ))}
-        {packages.length === 0 && (
+        {packages.length === 0 ? (
           <div className="font-semibold text-lg text-center mt-20 max-w-sm">
             You dont have any packages, therefore your company will be in a
             suspended state, hence not visible to any users. Create a package to
             become active again
-            <Link href="/company/pacakge/create">
+            <Link href="/company/packages/create">
               <Button className="mt-6">Create Package</Button>
             </Link>
           </div>
+        ):(
+          <Link className="absolute top-0 right-8" href="/company/packages/create">
+              <Button className="mt-6">Create Package</Button>
+            </Link>
         )}
       </div>
     </div>

@@ -17,9 +17,18 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import {
+  DropdownMenu,
+  DropdownMenuCheckboxItem,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
-import { Search } from "lucide-react";
+import { Search, SquarePen } from "lucide-react";
 import {
   Dialog,
   DialogContent,
@@ -39,6 +48,8 @@ import type { HelpDesk } from "@prisma/client";
 import useMutation from "@/hooks/useMutation";
 import { updateHelpdeskAction } from "@/core/server/actions/helpdesk/editHelpdesk";
 import { toast } from "sonner";
+import { FaTrashCan } from "react-icons/fa6";
+import { deleteHelpdesk } from "@/core/server/actions/helpdesk/deleteHelpdesk";
 
 type Ticket = HelpDesk;
 
@@ -105,10 +116,15 @@ const HelpDeskDashboard: React.FC<HelpDeskDashboardProps> = ({
       } else toast.error(error);
     }
   };
+  async function deleteDesk(id: string) {
+    const res = await deleteHelpdesk(id);
+    if (res.success) {
+      toast.success(res.success);
+    } else toast.error(res.error);
+  }
 
   return (
     <div className="space-y-6">
-
       <Card>
         <CardHeader>
           <CardTitle>Help Desk Dashboard</CardTitle>
@@ -134,7 +150,7 @@ const HelpDeskDashboard: React.FC<HelpDeskDashboardProps> = ({
             </div>
           </div>
 
-          <div className="flex justify-between items-center mb-6">
+          <div className="flex justify-between items-center mb-6 mt-2">
             <div className="flex items-center space-x-2">
               <Input
                 placeholder="Search tickets..."
@@ -187,12 +203,31 @@ const HelpDeskDashboard: React.FC<HelpDeskDashboardProps> = ({
                   <TableCell>{ticket.createdAt?.toString()}</TableCell>
                   <TableCell>{ticket.description}</TableCell>
                   <TableCell>
-                    <Button
-                      size="sm"
-                      onClick={() => handleEditTicket(ticket)}
-                    >
-                      Edit
-                    </Button>
+                    <DropdownMenu>
+                      <DropdownMenuTrigger asChild>
+                        <Button
+                          size="icon"
+                          variant="ghost"
+                        >
+                          <SquarePen className="h-4 w-4" />
+                        </Button>
+                      </DropdownMenuTrigger>
+                      <DropdownMenuContent className="space-y-1">
+                        <DropdownMenuLabel>Listing actions</DropdownMenuLabel>
+                        <DropdownMenuSeparator />
+                        <DropdownMenuItem
+                          onClick={() => handleEditTicket(ticket)}
+                        >
+                          Edit Info
+                        </DropdownMenuItem>
+                        <DropdownMenuItem
+                          className="bg-destructive text-destructive-foreground focus:bg-destructive/80"
+                          onClick={() => deleteDesk(ticket.id)}
+                        >
+                          Delete Helpdesk
+                        </DropdownMenuItem>
+                      </DropdownMenuContent>
+                    </DropdownMenu>
                   </TableCell>
                 </TableRow>
               ))}
