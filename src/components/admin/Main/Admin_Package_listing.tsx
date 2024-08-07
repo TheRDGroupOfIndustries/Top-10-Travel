@@ -46,6 +46,7 @@ import EditListingForm from "./EditListingForm";
 import { FaTrashCan } from "react-icons/fa6";
 import { toast } from "sonner";
 import { deleteCompany } from "@/core/server/actions/company/deleteCompany";
+import AnimatedImage from "@/components/site/Details/AnimatedImage";
 
 export type Company = {
   id: string;
@@ -73,12 +74,12 @@ export const columns: ColumnDef<Company>[] = [
     header: "Image",
     cell: ({ row }) => (
       <div className="w-20 h-14 overflow-hidden rounded-lg">
-        <Image
+        <AnimatedImage
           src={row.getValue("image")}
           alt={`${row.getValue("name")} package`}
-          width={120}
-          height={120}
-          className="w-full h-full object-cover"
+          layout="fill"
+          objectFit="cover"
+          className="w-full h-full"
         />
       </div>
     ),
@@ -128,10 +129,7 @@ export const columns: ColumnDef<Company>[] = [
       return (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button
-              size="icon"
-              variant="ghost"
-            >
+            <Button size="icon" variant="ghost">
               <SquarePen className="h-4 w-4" />
             </Button>
           </DropdownMenuTrigger>
@@ -233,10 +231,7 @@ export default function AdminPackagelisting({
         />
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button
-              variant="outline"
-              className="ml-auto"
-            >
+            <Button variant="outline" className="ml-auto">
               Columns <ChevronDown className="ml-2 h-4 w-4" />
             </Button>
           </DropdownMenuTrigger>
