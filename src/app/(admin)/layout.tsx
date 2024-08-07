@@ -16,10 +16,7 @@ export default async function AdminLayout({
   // if (!session || session.user.role !== "ADMIN") return redirect("/");
   return (
     <main className="bg-[#FFDB80] dark:bg-[rgba(247,162,82,0.98)] h-screen w-full">
-      <ThemeProvider
-        attribute="class"
-        defaultTheme="system"
-      >
+      <ThemeProvider attribute="class" defaultTheme="system">
         <Toaster richColors />
 
         <div className="w-full h-full grid grid-cols-12 ">
@@ -27,10 +24,10 @@ export default async function AdminLayout({
             <AdminSidebar />
           </div>
           <div className="lg:col-span-10 col-span-12 p-2 lg:pl-0">
-            <ScrollArea className="w-full h-[97vh] bg-background text-foreground rounded-xl px-4">
+            {/* <ScrollArea className="w-full h-[97vh] bg-background text-foreground rounded-xl px-4"> */}
               <AdminHeader />
               {children}
-            </ScrollArea>
+            {/* </ScrollArea> */}
           </div>
         </div>
       </ThemeProvider>
