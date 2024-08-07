@@ -12,11 +12,11 @@ interface InputType{
 function InputCF({type,placeholder,name,value,onChange,required }: InputType) {
   return (
     <div>
-      <div className=' border-red-500 my-1'>
+      <div className=' border-red-500 my-1 text-[13px]'>
         <label htmlFor={name}
         className='text-black font-[500]  border-gray-950'>{placeholder} </label>
         <Input
-          className="rounded-lg placeholder-gray-500  bg-white"
+          className="rounded-lg placeholder-gray-500 h-8  bg-white"
           name={name}
           type={type}
           placeholder={placeholder}

@@ -14,7 +14,7 @@ export default async function AdminLayout({
   // if (!session || session.user.role !== "ADMIN") return redirect("/");
 
   return (
-    <main className="bg-[#FFDB80] dark:bg-[rgba(247,162,82,0.98)] min-h-screen w-full">
+    <main className="bg-[#FFDB80] min-h-screen w-full">
       <ThemeProvider attribute="class" defaultTheme="system">
         <Toaster richColors />
 
