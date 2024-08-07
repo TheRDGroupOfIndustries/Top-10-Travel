@@ -44,17 +44,14 @@ import { FaTrashCan } from "react-icons/fa6";
 import { toast } from "sonner";
 import { deleteUser } from "@/core/server/actions/users/deleteUser";
 
-async function deleteProject(id:string) {
+async function deleteProject(id: string) {
   const res = await deleteUser(id);
-  console.log(res)
   if (res.success) {
-    toast.success("Successfully deleted")
-  }else {
-      if(res.error){
-    toast.error(res.error)
-        
-      }
-  
+    toast.success("Successfully deleted");
+  } else {
+    if (res.error) {
+      toast.error(res.error);
+    }
   }
 }
 
@@ -98,14 +95,6 @@ export const columns: ColumnDef<User>[] = [
     accessorKey: "role",
     header: "Role",
   },
-  
-  // {
-  //   accessorKey: "status",
-  //   header: "Status",
-  //   cell: ({ row }) => (
-  //     <div className="capitalize">{row.getValue("status")}</div>
-  //   ),
-  // },
   {
     id: "actions",
     header: "Actions",
@@ -113,31 +102,45 @@ export const columns: ColumnDef<User>[] = [
     cell: ({ row }) => {
       const user = row.original;
       return (
-        <Dialog>
-          <DialogTrigger asChild>
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
             <Button
+              size="icon"
               variant="ghost"
-              className="h-8 w-8 p-0"
             >
               <SquarePen className="h-4 w-4" />
             </Button>
-          </DialogTrigger>
-          <DialogContent className="sm:max-w-[425px]">
-            <EditUserForm user={user} />
-          </DialogContent>
-        </Dialog>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent>
+            <DropdownMenuLabel>User actions</DropdownMenuLabel>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem asChild>
+              <Dialog>
+                <DialogTrigger asChild>
+                  <Button
+                    variant="ghost"
+                    className="flex items-center justify-between gap-2 w-full"
+                  >
+                    Edit <SquarePen className="h-4 w-4" />
+                  </Button>
+                </DialogTrigger>
+                <DialogContent className="sm:max-w-[425px]">
+                  <EditUserForm user={user} />
+                </DialogContent>
+              </Dialog>
+            </DropdownMenuItem>
+            <DropdownMenuItem
+              className="flex items-center justify-start gap-2"
+              onClick={() => deleteProject(row.original.id)}
+            >
+              Delete User
+              <FaTrashCan />
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
       );
     },
   },
-  {
-    id: 'delete',
-    header: 'Delete',
-    cell: ({ row }) => (
-        <Button onClick={() => deleteProject(row.original.id)}>
-            <FaTrashCan />
-        </Button>
-    )
-}
 ];
 
 function AdminUsers({ users }: { users: User[] }) {
@@ -156,9 +159,7 @@ function AdminUsers({ users }: { users: User[] }) {
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,
     getCoreRowModel: getCoreRowModel(),
-    getPaginationRowModel: getPaginationRowModel(
-      
-    ),
+    getPaginationRowModel: getPaginationRowModel(),
     getSortedRowModel: getSortedRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
     onColumnVisibilityChange: setColumnVisibility,
