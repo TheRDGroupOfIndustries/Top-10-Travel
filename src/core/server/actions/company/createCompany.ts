@@ -33,7 +33,7 @@ export const createCompanyAction = async (
       data: {
         ...company,
         isCertified: false,
-        isSuspended: false,
+        isSuspended: true,
         priority: 0,
         user: { connect: { id: session.user.id } },
       },

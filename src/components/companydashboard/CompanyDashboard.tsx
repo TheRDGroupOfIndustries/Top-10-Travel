@@ -86,8 +86,8 @@ const CompanyDashboard = ({
           </div>
         </CardContent>
       </Card>
-      <Card>
-        <CardHeader>Top {reviews.length} Reviews:</CardHeader>
+      <Card className="mt-4">
+        <CardHeader className="text-lg font-semibold">Top {reviews.length} Reviews:</CardHeader>
         <CardContent className="flex flex-col gap-4">
           {reviews.map((review) => (
             <div key={review.id}>
@@ -100,6 +100,7 @@ const CompanyDashboard = ({
               <p>{review.review}</p>
             </div>
           ))}
+          {reviews.length===0 && <h2 className="text-lg font-semibold">No Reviews to show.</h2>}
         </CardContent>
       </Card>
     </div>
