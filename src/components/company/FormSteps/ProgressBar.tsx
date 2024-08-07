@@ -14,7 +14,7 @@ const ProgressBar = ({ activeStep, totalSteps }: Bar) => {
   const progressPercentage = (activeStep / totalSteps) * 100;
 
   return (
-    <div className="relative w-[75%] sm:w-[70%] md:w-[70%] lg:w-[75%] max-w-[500px] mx-auto xl:mt-[8%] lg:mt-[7%] md:mt-[9%] sm:mt-[6%] mt-[11%] px-4 border-red-300">
+    <div className="relative w-[75%] sm:w-[70%] md:w-[70%] lg:w-[75%] max-w-[500px] mx-auto lg:mt-[6%] md:mt-[9%] sm:mt-[6%] mt-[11%] px-4 border-red-300">
       <div className="w-full h-2 bg-gray-200 rounded-full">
         <div
           className=" bg-[#FCB62E] h-full rounded-full transition-all duration-500"
