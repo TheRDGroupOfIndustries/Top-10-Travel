@@ -148,7 +148,7 @@ export default function EnquireDialog({
     <div className="flex items-center justify-center">
       <Modal>
         <ModalTrigger className="bg-black rounded-full dark:bg-white dark:text-black text-white flex justify-center group/modal-btn">
-          <span className="group-hover/modal-btn:translate-x-40 rounded-full text-center transition duration-500">
+          <span className="group-hover/modal-btn:translate-x-40 text-base rounded-full text-center transition duration-500">
             Contact Us
           </span>
           <div className="-translate-x-40 rounded-full group-hover/modal-btn:translate-x-0 flex items-center justify-center absolute inset-0 transition duration-500 text-white z-20">
@@ -156,14 +156,17 @@ export default function EnquireDialog({
           </div>
         </ModalTrigger>
         <ModalBody>
-          <form onSubmit={handleSubmit} className="flex items-start flex-col">
+          <form
+            onSubmit={handleSubmit}
+            className="flex justify-center flex-col"
+          >
             <ModalContent className="w-full">
-              <h4 className="text-lg md:text-2xl text-neutral-600 dark:text-neutral-100 font-bold text-center mb-8">
+              <h4 className="text-lg md:text-xl xl:text-2xl text-neutral-600 dark:text-neutral-100 font-bold text-center xl:mb-7 md:mb-5 mb-4">
                 Contact 
                 <span className="px-1 py-0.5 rounded-md bg-gray-100 dark:bg-neutral-800 dark:border-neutral-700 border border-gray-200">
                   {name}
                 </span>
-                  now! ✉️
+                &nbsp;✉️
               </h4>
               {/* {response.error && (
                 <span className="bg-destructive text-destructive-foreground rounded-md">
@@ -199,7 +202,7 @@ export default function EnquireDialog({
                         alt="bali images"
                         width="500"
                         height="500"
-                        className="rounded-lg h-20 w-20 md:h-40 md:w-40 object-cover flex-shrink-0"
+                        className="rounded-lg h-20 w-20 md:h-36 md:w-36 object-cover flex-shrink-0"
                       />
                     </motion.div>
                   ))}

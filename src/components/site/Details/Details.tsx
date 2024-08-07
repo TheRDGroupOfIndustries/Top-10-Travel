@@ -195,7 +195,7 @@ const Details = ({
           </div>
 
           <div className="flex-1 lg:flex hidden flex-col gap-5 max-w-[509px]">
-            <div className="rounded-2xl lg:flex hidden flex-col xl:gap-10 lg:gap-6 xl:py-16 lg:py-10 px-8 border-[1px] border-black">
+            <div className="rounded-2xl lg:flex hidden flex-col xl:gap-10 lg:gap-6 xl:py-16 lg:py-10 xl:px-8 lg:px-4 border-[1px] border-black">
               <div className="flex flex-col gap-5">
                 <div>
                   <h3 className="text-[32px] font-bold leading-tight xl:leading-6">
