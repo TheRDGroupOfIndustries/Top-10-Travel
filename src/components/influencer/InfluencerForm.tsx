@@ -49,6 +49,7 @@ const InfluencerForm = () => {
       toast.success(success);
     } else if (error) toast.error(error);
   };
+
   return (
     <div className="min-h-screen flex flex-row relative bg-white text-black">
       <Image
@@ -58,9 +59,11 @@ const InfluencerForm = () => {
         objectFit="cover"
         className="object-cover blur-sm absolute inset-0 md:hidden"
       />
-      <div className="w-[40%] min-h-full relative hidden md:block">
+      <div className="w-[50%] min-h-full relative hidden md:block">
         <div className="absolute top-1/4 left-1/2 transform -translate-x-1/2 font-serif text-3xl font-bold text-center text-white z-20 border-white w-[110%] spa">
-          <p className="lg:text-[50px] md:text-[40px]">LOGIN AS COMPANY</p>
+          <p className="xl:text-[42px] lg:text-[38px] md:text-[28px] text-center text-wrap uppercase">
+            LOGIN AS Influencer
+          </p>
           <p className="text-[25px] font-[200] max-w-xs mx-auto mt-8">
             Sharing your travel adventures and inspire others.
           </p>
@@ -80,10 +83,7 @@ const InfluencerForm = () => {
           className="w-full max-w-md m-2 rounded-lg bg-gray-200 p-8 space-y-4"
         >
           <div className="w-full">
-            <label
-              htmlFor="name"
-              className="p-2"
-            >
+            <label htmlFor="name" className="p-2">
               Name
             </label>
             <Input
@@ -97,10 +97,7 @@ const InfluencerForm = () => {
             />
           </div>
           <div className="w-full">
-            <label
-              htmlFor="image"
-              className="p-2"
-            >
+            <label htmlFor="image" className="p-2">
               Image
             </label>
             <Input
@@ -114,10 +111,7 @@ const InfluencerForm = () => {
             />
           </div>
           <div className="w-full">
-            <label
-              htmlFor="description"
-              className="p-2"
-            >
+            <label htmlFor="description" className="p-2">
               Description
             </label>
             <Input
@@ -129,10 +123,7 @@ const InfluencerForm = () => {
               placeholder="Enter your description"
               required
             />
-            <label
-              htmlFor="introduction"
-              className="p-2"
-            >
+            <label htmlFor="introduction" className="p-2">
               Introduction
             </label>
             <Input
@@ -146,10 +137,7 @@ const InfluencerForm = () => {
             />
           </div>
           <div className="w-full">
-            <label
-              htmlFor="speciality"
-              className="p-2"
-            >
+            <label htmlFor="speciality" className="p-2">
               Speciality
             </label>
             <Input
@@ -163,10 +151,7 @@ const InfluencerForm = () => {
             />
           </div>
           <div className="w-full">
-            <label
-              htmlFor="socialLinks"
-              className="p-2"
-            >
+            <label htmlFor="socialLinks" className="p-2">
               SocialLinks (comma separated)
             </label>
             <Input
@@ -194,10 +179,7 @@ const InfluencerForm = () => {
               </SelectTrigger>
               <SelectContent>
                 {countries.map((country) => (
-                  <SelectItem
-                    key={country.name}
-                    value={country.name}
-                  >
+                  <SelectItem key={country.name} value={country.name}>
                     {country.name}
                   </SelectItem>
                 ))}
@@ -219,10 +201,7 @@ const InfluencerForm = () => {
               </SelectTrigger>
               <SelectContent>
                 {cities.map((city) => (
-                  <SelectItem
-                    key={city}
-                    value={city}
-                  >
+                  <SelectItem key={city} value={city}>
                     {city}
                   </SelectItem>
                 ))}
@@ -237,14 +216,8 @@ const InfluencerForm = () => {
           >
             Create Account
           </Button>
-          <Link
-            href="/"
-            className="ml-8"
-          >
-            <Button
-              type="button"
-              variant="secondary"
-            >
+          <Link href="/" className="ml-8">
+            <Button type="button" variant="secondary">
               Cancel
             </Button>
           </Link>

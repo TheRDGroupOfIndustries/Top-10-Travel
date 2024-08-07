@@ -51,26 +51,33 @@ const Confirmation = ({ data }: { data: FormData }) => {
   };
   return (
     <>
-      <div className="row-span-2 col-span-2 max-w-xs md:max-w-sm lg:max-w-md">
+      <div className="font-normal flex px-3 py-4 rounded-lg flex-col gap-2 text-black bg-[#F3F3F3] w-full">
         {Object.keys(data).map((key) => (
           <p
             key={key}
-            className="my-[2%] p-4 border border-gray-500 rounded-md break-words"
+            className="break-words xl:text-lg md:text-base sm:text-sm text-xs py-1 grid grid-cols-3 gap-2"
           >
-            <span className="font-[600] mr-2">{key}</span>
-            <span>:</span>
+            <span className="font-medium">{key}</span>
             {
               // @ts-expect-error
-              <span className="ml-2 w-full">{data[key]}</span>
+              <span className="col-span-2 w-full">:&nbsp;{data[key]}</span>
             }
           </p>
         ))}
       </div>
 
-      <button
+      {/* <button
         onClick={handleCreateCompany}
         disabled={isPending}
         className="col-span-1 px-4 py-2 rounded-xl bg-blue-600 text-white disabled:opacity-50 mr-4 mt-4"
+      >
+        Create Company
+      </button> */}
+
+      <button
+        onClick={handleCreateCompany}
+        disabled={isPending}
+        className="px-8 py-2 col-span-1 mt-4 rounded-md bg-teal-500 text-white font-bold transition duration-200 hover:bg-white hover:text-black border-2 border-transparent hover:border-teal-500"
       >
         Create Company
       </button>
