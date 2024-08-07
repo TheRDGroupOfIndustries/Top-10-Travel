@@ -31,7 +31,7 @@ const MobileDropdown = ({ items, visible, toggle }: any) => {
     <div className="relative w-full">
       <div
         onClick={() => setIsOpen(!isOpen)}
-        className="box w-32 h-5 sm:h-7 flex items-center justify-center cursor-pointer bg-[#FFC658] text-white"
+        className="rounded-t-[16px] ml-4 w-28 h-7 flex items-center justify-center cursor-pointer bg-[#FFC658] text-white"
       >
         <span className="text-xs font-semibold">Select</span>
         <ChevronDownIcon className="w-4 h-4" />
@@ -319,9 +319,9 @@ function HomeHero() {
           transition={{ duration: 0.8, delay: 1.4, type: "spring" }}
           className="w-full pt-20 md:pt-10 lg:overflow-hidden lg:pt-24 md:max-w-[430px] lg:max-w-[730px]"
         >
-          <div className="w-full flex items-end justify-start">
-            <div className="box rounded-full min-w-52 h-6 md:h-10 sm:h-8 flex items-center justify-center bg-gray-200">
-              <span className="text-black text-xs font-semibold ">
+          <div className="w-full ml-4 flex items-end justify-start">
+            <div className="rounded-t-[24px] max-w-52 h-8 md:h-10 sm:h-9 flex items-center justify-center bg-gray-200">
+              <span className="text-black px-3 text-xs font-semibold ">
                 FIND YOUR TOP 10
               </span>
             </div>
@@ -332,11 +332,11 @@ function HomeHero() {
                 toggle={toggle}
               />
             </div>
-            <div className="hidden lg:flex">
+            <div className="hidden ml-2 lg:flex xl:gap-3 gap-2">
               {boxItems.map(({ key, text }) => (
                 <div
                   key={key}
-                  className={`box w-32 h-7 text-center cursor-pointer ${
+                  className={`rounded-t-[16px] w-24 h-7 text-center cursor-pointer ${
                     // @ts-expect-error
                     visible[key] ? "bg-[#FFC658] text-white" : "text-black"
                   }`}
