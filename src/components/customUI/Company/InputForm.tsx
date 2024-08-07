@@ -23,6 +23,7 @@ function InputCF({type,placeholder,name,value,onChange,required }: InputType) {
           value={value}
           onChange={onChange}
           required={required}
+          
         />
       </div>
     </div>

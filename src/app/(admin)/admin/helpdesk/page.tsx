@@ -14,7 +14,7 @@ const getTickets = unstable_cache(
     return { tickets: allTickets, resolved, pending };
   },
   undefined,
-  { tags: ["admin-helpdesk"] }
+  { tags: ["admin-helpdesk"], revalidate: 60 }
 );
 
 async function Page() {

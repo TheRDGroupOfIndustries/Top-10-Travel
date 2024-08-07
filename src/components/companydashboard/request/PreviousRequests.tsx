@@ -24,6 +24,7 @@ const PreviousRequests = ({ requests }: { requests: Request[] }) => {
           </Badge>
         </div>
       ))}
+      {requests.length===0 && <h2 className="text-lg font-semibold">No Previews requests to show.</h2>}
     </div>
   );
 };
