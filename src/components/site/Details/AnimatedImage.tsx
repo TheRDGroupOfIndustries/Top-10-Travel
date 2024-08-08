@@ -1,10 +1,10 @@
 "use client";
 import { motion } from "framer-motion";
-import Image from "next/image";
+import Image, { StaticImageData } from "next/image";
 import { FC } from "react";
 
 interface AnimatedImageProps {
-  src: string;
+  src: string | StaticImageData;
   alt: string;
   layout: "fill" | "fixed" | "intrinsic" | "responsive";
   objectFit: "contain" | "cover" | "fill" | "none" | "scale-down";

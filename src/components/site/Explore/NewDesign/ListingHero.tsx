@@ -1,8 +1,9 @@
 import { ChevronDown } from "lucide-react";
 import React, { useState, useEffect, useMemo } from "react";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import Image from "next/image";
+import Image, { StaticImageData } from "next/image";
 import hero from "@/resources/images/Agency-Hero.png";
+import AnimatedImage from "../../Details/AnimatedImage";
 
 function ListingHero({
   title,
@@ -50,14 +51,14 @@ function ListingHero({
   };
 
   return (
-    <div className="w-full  pt-20">
-      <div className="h-72 w-full mb-5">
-        <Image
+    <div className="w-full pt-20">
+      <div className="relative h-72 w-full mb-5">
+        <AnimatedImage
           src={hero}
           alt="hero"
-          width={1920}
-          height={500}
-          className="w-full h-full object-cover object-center"
+          objectFit="cover"
+          layout="fill"
+          className="w-full h-full object-center"
         />
       </div>
       <div className="w-full h-full flex flex-col lg:flex-row lg:items-end lg:justify-between items-center justify-end gap-2 px-2 md:px-3 lg:px-6 xl:px-8">
