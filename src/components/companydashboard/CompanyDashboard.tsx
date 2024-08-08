@@ -25,9 +25,10 @@ const CompanyDashboard = ({
     };
     fetchSession();
   }, []);
+  
 
   return (
-    <div>
+    <div className="mt-4">
       <Card>
         <CardContent className="pt-6">
           <div className="flex flex-col md:flex-row items-center md:items-start gap-4">

@@ -7,13 +7,15 @@ import { db } from "@/core/client/db";
 import getSessionorRedirect from "@/core/utils/getSessionorRedirect";
 
 const RequestPage = async () => {
-    const session = await getSessionorRedirect()
-    const helpdesks = await db.helpDesk.findMany({where:{userId:session.user.id}})
+  const session = await getSessionorRedirect();
+  const helpdesks = await db.helpDesk.findMany({
+    where: { userId: session.user.id },
+  });
 
   return (
     <Tabs
       defaultValue="new"
-      className="flex flex-col items-center justify-center h-[calc(100vh-200px)]"
+      className="flex flex-col items-center justify-center h-[80%]"
     >
       <TabsList className="w-full max-w-md *:flex-1">
         <TabsTrigger value="new">Create Helpdesk</TabsTrigger>
@@ -22,7 +24,9 @@ const RequestPage = async () => {
       <TabsContent className="w-full max-w-md" value="new">
         <HelpDeskForm />
       </TabsContent>
-      <TabsContent className="w-full max-w-md"  value="prev"><PreviousHelpdesk helpdesks={helpdesks} /></TabsContent>
+      <TabsContent className="w-full max-w-md" value="prev">
+        <PreviousHelpdesk helpdesks={helpdesks} />
+      </TabsContent>
     </Tabs>
   );
 };
