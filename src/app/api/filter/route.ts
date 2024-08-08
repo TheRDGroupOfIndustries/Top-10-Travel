@@ -5,6 +5,7 @@ export const revalidate = 3600;
 
 export const GET = async () => {
   const companies = await db.company.findMany({
+    where:{isCertified:true, isSuspended:false},
     select: { country: true, city: true },
     distinct: ["country", "city"],
   });

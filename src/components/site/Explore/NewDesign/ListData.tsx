@@ -8,6 +8,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { useState } from "react";
+import { getValidUrl } from "@/lib/utils";
 
 type Data = {
   id: string;
@@ -49,7 +50,7 @@ function ListData({
           >
             <div className="lg:w-[30%] w-full lg:h-full h-60 rounded-lg overflow-hidden">
               <Image
-                src={item?.image!}
+                src={getValidUrl(item.image??"")}
                 alt={`image-${item.legalName}`}
                 width={300}
                 height={300}

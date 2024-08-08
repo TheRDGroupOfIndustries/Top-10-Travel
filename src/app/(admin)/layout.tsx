@@ -5,13 +5,11 @@ import { ThemeProvider } from "@/components/providers/ThemeProvider";
 import getSessionorRedirect from "@/core/utils/getSessionorRedirect";
 import { Toaster } from "sonner";
 
-export default async function AdminLayout({
+export default function AdminLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const session = await getSessionorRedirect();
-  // if (!session || session.user.role !== "ADMIN") return redirect("/");
 
   return (
     <main className="bg-[#FFDB80] min-h-screen w-full">
@@ -19,11 +17,11 @@ export default async function AdminLayout({
         <Toaster richColors />
 
         <div className="w-full h-full grid grid-cols-12 ">
-          <div className="col-span-2 min-h-screen hidden xl:block">
+          <div className="col-span-2 min-h-screen hidden lg:block">
             <AdminSidebar />
           </div>
 
-          <div className="xl:col-span-10 col-span-12 p-2 xl:pl-0">
+          <div className="lg:col-span-10 col-span-12 p-2 lg:pl-0">
             {/* <ScrollArea className="w-full bg-background text-foreground rounded-xl px-4"> */}
             <AdminHeader />
             {children}
