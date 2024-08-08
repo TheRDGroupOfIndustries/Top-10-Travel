@@ -27,10 +27,10 @@ export default async function CompanyLayout({
             <CompanySidebar />
           </div>
           <div className="lg:col-span-10 col-span-12 p-2 lg:pl-0">
-            <ScrollArea className="w-full h-[97vh] bg-background text-foreground rounded-xl px-4">
+            {/* <ScrollArea className="w-full h-[97vh] bg-background text-foreground rounded-xl px-4"> */}
               <CompanyHeader />
               {children}
-            </ScrollArea>
+            {/* </ScrollArea> */}
           </div>
         </div>
       </ThemeProvider>

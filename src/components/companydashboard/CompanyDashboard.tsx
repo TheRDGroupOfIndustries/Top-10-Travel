@@ -5,6 +5,9 @@ import Image from "next/image";
 import InputWithSave from "../reusable/InputWithSave";
 import { Badge } from "../ui/badge";
 import Link from "next/link";
+import { useEffect, useState } from "react";
+import { getSession } from "next-auth/react";
+import { Session } from "next-auth";
 
 const CompanyDashboard = ({
   data,
@@ -13,18 +16,30 @@ const CompanyDashboard = ({
   data: Company;
   reviews: Reviews[];
 }) => {
+  const [session, setSession] = useState<Session | null>(null);
+
+  useEffect(() => {
+    const fetchSession = async () => {
+      const sessionData = await getSession();
+      setSession(sessionData);
+    };
+    fetchSession();
+  }, []);
+
   return (
     <div>
       <Card>
         <CardContent className="pt-6">
           <div className="flex flex-col md:flex-row items-center md:items-start gap-4">
-            <Image
-              src={data.image!}
-              alt={data.legalName}
-              width={300}
-              height={180}
-              className="rounded-md"
-            />
+            {session?.user.image && (
+              <Image
+                src={session?.user.image}
+                alt={data.legalName}
+                width={300}
+                height={180}
+                className="rounded-md"
+              />
+            )}
             <div className="flex flex-col h-[180px] justify-between">
               <InputWithSave
                 name="legalName"
@@ -87,7 +102,9 @@ const CompanyDashboard = ({
         </CardContent>
       </Card>
       <Card className="mt-4">
-        <CardHeader className="text-lg font-semibold">Top {reviews.length} Reviews:</CardHeader>
+        <CardHeader className="text-lg font-semibold">
+          Top {reviews.length} Reviews:
+        </CardHeader>
         <CardContent className="flex flex-col gap-4">
           {reviews.map((review) => (
             <div key={review.id}>
@@ -100,7 +117,9 @@ const CompanyDashboard = ({
               <p>{review.review}</p>
             </div>
           ))}
-          {reviews.length===0 && <h2 className="text-lg font-semibold">No Reviews to show.</h2>}
+          {reviews.length === 0 && (
+            <h2 className="text-lg font-semibold">No Reviews to show.</h2>
+          )}
         </CardContent>
       </Card>
     </div>
