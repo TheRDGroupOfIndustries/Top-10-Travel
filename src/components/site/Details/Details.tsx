@@ -42,12 +42,9 @@ const Details = ({
   role: "AGENCY" | "HOTEL" | "DMC";
 }) => {
   return (
-    <div className="mb-10">
-      <HeroHeading
-        title={data?.legalName}
-        className="uppercase"
-      />
-      <div className="px-2 md:px-3 lg:px-6 xl:px-8">
+    <div className="mb-10 ">
+      <HeroHeading title={data?.legalName} className="uppercase" />
+      <div className="px-2 md:px-3 lg:px-6 xl:px-8 ">
         <div className="w-full flex xl:gap-12 gap-6 pb-16 border-b-black border-b-[1px]">
           <div className="flex flex-col gap-10 flex-1">
             <div className="grid gap-4">
@@ -86,11 +83,7 @@ const Details = ({
 
             <div className="flex justify-around gap-1">
               {data.companyData?.socialLinks.map((link) => (
-                <Button
-                  key={link}
-                  className="rounded-full"
-                  variant="outline"
-                >
+                <Button key={link} className="rounded-full" variant="outline">
                   <a
                     href={link}
                     target="_blank"
@@ -171,7 +164,6 @@ const Details = ({
                 </a>
               </div>
             ))}
-            
 
             <div className="flex flex-col gap-10 sm:px-0 px-2">
               <div className="flex flex-col gap-2">
@@ -185,10 +177,7 @@ const Details = ({
             </div>
 
             <div className="lg:hidden">
-              <ReviewSSR
-                name={data?.legalName}
-                companyId={data?.id}
-              />
+              <ReviewSSR name={data?.legalName} companyId={data?.id} />
             </div>
           </div>
 
@@ -262,19 +251,12 @@ const Details = ({
                 </a>
               </div>
             ))}
-         
 
-            <ReviewSSR
-              name={data?.legalName}
-              companyId={data?.id}
-            />
+            <ReviewSSR name={data?.legalName} companyId={data?.id} />
           </div>
         </div>
       </div>
-      <HeroHeading
-        title="Packages"
-        className="uppercase"
-      />
+      <HeroHeading title="Packages" className="uppercase" />
       <PackagesCarousel packages={data.packages} />
     </div>
   );
