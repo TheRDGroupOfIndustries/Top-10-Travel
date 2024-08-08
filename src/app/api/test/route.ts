@@ -286,5 +286,7 @@ export async function GET() {
   //   "https://www.instagram.com/traveltop10.in/",
   //   "https://x.com/traveltop_10"
   // ]}})
+  await db.company.updateMany({ data: { isCertified: true } });
+
   return NextResponse.json("hi");
 }

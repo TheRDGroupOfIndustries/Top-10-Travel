@@ -29,7 +29,14 @@ const AdminReport = ({ report }: { report: ReportData }) => {
   const filteredReport = report.filter((company) =>
     company.legalName.toLowerCase().includes(search.toLowerCase())
   );
-
+  const getValidUrl = (url: string) => {
+    try {
+      const u = new URL(url);
+      return u.href;
+    } catch (error) {
+      return "/UploadImage.jpg";
+    }
+  };
   return (
     <div className="space-y-6 mt-5">
       <Card>
@@ -73,7 +80,7 @@ const AdminReport = ({ report }: { report: ReportData }) => {
               </div>
             </div>
             <Image
-              src={company.image!}
+              src={getValidUrl(company.image ?? "")}
               width={200}
               height={100}
               alt={company.legalName}
@@ -99,7 +106,7 @@ const AdminReport = ({ report }: { report: ReportData }) => {
                     <TableCell>{review.review}</TableCell>
                     <TableCell>
                       {review.createdAt &&
-                        new Date(review.createdAt).toLocaleDateString()}
+                        new Date(review.createdAt).toDateString()}
                     </TableCell>
                   </TableRow>
                 ))}
