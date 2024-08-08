@@ -15,6 +15,7 @@ const getAllListing = async () => {
       isSuspended: true,
       companyRole: true,
       userId: true,
+      methodology:true
     },
   });
 };

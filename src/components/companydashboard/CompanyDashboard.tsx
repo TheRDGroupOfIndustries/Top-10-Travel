@@ -21,7 +21,7 @@ const CompanyDashboard = ({
   reviews: Reviews[];
 }) => {
   return (
-    <div className="space-y-4">
+    <div className="space-y-4 mt-5">
       <Card>
         <CardContent className="pt-6">
           <div className="flex flex-col md:flex-row items-center md:items-start gap-4">

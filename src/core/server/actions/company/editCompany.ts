@@ -13,6 +13,7 @@ export const editCompanyActionAdmin = async (
     | "legalName"
     | "priority"
     | "state_priority"
+    |"methodology"
   > & { id: string }
 ) => {
   const session = await getSessionorRedirect();
