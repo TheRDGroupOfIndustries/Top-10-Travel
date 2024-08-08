@@ -9,6 +9,7 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
+import { getValidUrl } from "@/lib/utils";
 type Data = {
   image: string;
   id: string;
@@ -46,7 +47,7 @@ function ListDataInfluencer({
           >
             <div className="lg:w-[30%] w-full lg:h-full h-60 rounded-lg overflow-hidden">
               <Image
-                src={item?.image!}
+                src={getValidUrl(item.image ?? "")}
                 alt={`image-${item?.name}`}
                 width={300}
                 height={300}
@@ -63,7 +64,9 @@ function ListDataInfluencer({
 
               <div className="flex flex-col gap-1">
                 <span className="text-xl">Introduction</span>
-                <p className="text-sm line-clamp-3 lg:line-clamp-4">{item?.description}</p>
+                <p className="text-sm line-clamp-3 lg:line-clamp-4">
+                  {item?.description}
+                </p>
               </div>
               <Button
                 asChild
@@ -84,8 +87,8 @@ function ListDataInfluencer({
         <div className="mt-8 flex justify-center gap-4">
           <Button
             size={"icon"}
-            onClick={() => { 
-              setCurrentPage((prev) => Math.max(prev - 1, 1))
+            onClick={() => {
+              setCurrentPage((prev) => Math.max(prev - 1, 1));
               window.scrollTo({ top: 0 });
             }}
             disabled={currentPage === 1}
@@ -101,10 +104,9 @@ function ListDataInfluencer({
             onClick={() => {
               setCurrentPage((prev) =>
                 Math.min(prev + 1, Math.ceil(data?.length / itemsPerPage))
-              )
-               window.scrollTo({ top: 0 });
-            }
-            }
+              );
+              window.scrollTo({ top: 0 });
+            }}
             disabled={currentPage === Math.ceil(data?.length / itemsPerPage)}
             className="bg-[#FFDB80] hover:bg-[#ffdb80d0] text-black"
           >

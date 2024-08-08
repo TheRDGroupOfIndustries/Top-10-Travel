@@ -10,7 +10,7 @@ const Page = async () => {
   const allAgencies = await db.company.findMany({
     where: {
       companyRole: "AGENCY",
-      // isCertified: true,
+      isCertified: true,
       isSuspended: false,
     },
     select: {

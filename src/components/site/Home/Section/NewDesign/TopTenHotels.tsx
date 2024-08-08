@@ -14,7 +14,7 @@ import {
 } from "@/components/ui/carousel";
 import Autoplay from "embla-carousel-autoplay";
 import { HomeContext } from "@/hooks/context/HomeContext";
-import { cn } from "@/lib/utils";
+import { cn, getValidUrl } from "@/lib/utils";
 import { motion } from "framer-motion";
 
 const CarouselCard = ({ hotel }: { hotel: any }) => (
@@ -40,7 +40,7 @@ const CarouselCard = ({ hotel }: { hotel: any }) => (
       </div>
     </div>
     <Image
-      src={hotel?.image!}
+      src={getValidUrl(hotel.image)}
       alt={hotel?.legalName}
       width={400}
       height={500}
