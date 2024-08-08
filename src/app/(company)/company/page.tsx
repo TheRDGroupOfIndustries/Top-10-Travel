@@ -5,7 +5,7 @@ import { unstable_cache } from "next/cache";
 import { notFound } from "next/navigation";
 
 const dashboardData = async (userId: string) => {
-    const company = await db.company.findUnique({ where: { userId: userId } });
+    const company = await db.company.findUnique({ where: { userId: userId }, include:{companyData:true} });
     return { company };
   }
 const getReviews = async (companyId: string) => {
