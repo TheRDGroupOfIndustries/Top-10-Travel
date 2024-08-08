@@ -5,23 +5,32 @@ import { Label } from "../ui/label";
 import { Button } from "../ui/button";
 import useMutation from "@/hooks/useMutation";
 import { editCompanyAction } from "@/core/server/actions/company/editCompany";
-import { Pencil } from "lucide-react";
+import { Pencil, Upload } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { toast } from "sonner";
+import Image from "next/image";
+import { editCompanyDataAction } from "@/core/server/actions/company/editCompanyData";
 
-const InputWithSave = ({
+const CompanyDataInputwSave = ({
   name,
   text,
+  type = "text",
   value,
   className,
+  minLength,
+  maxLength,
 }: {
   name: string;
-  value: string;
+  value: string | undefined | null;
   text: string;
+  type?: string;
   className?: string;
+  minLength?: number;
+  maxLength?: number;
 }) => {
   const [isChanging, setIsChanging] = useState(false);
-  const { mutate, isPending } = useMutation(editCompanyAction);
+  const { mutate, isPending } = useMutation(editCompanyDataAction);
+
   return (
     <>
       {isChanging ? (
@@ -33,7 +42,6 @@ const InputWithSave = ({
               setIsChanging(false);
               return; // value didn't change, no need to save
             }
-            console.log({ [name]: val });
             const { success, error } = await mutate({ [name]: val });
             if (success) toast.success(success);
             else toast.error(error);
@@ -44,9 +52,12 @@ const InputWithSave = ({
           <Input
             name={name}
             id={name}
-            defaultValue={value}
+            defaultValue={value ?? ""}
             placeholder={text}
             className="mb-[1%]"
+            type={type}
+            minLength={minLength}
+            maxLength={maxLength}
           />
           <Button
             disabled={isPending}
@@ -57,21 +68,31 @@ const InputWithSave = ({
           </Button>
         </form>
       ) : (
-        <span
-          className={cn(
-            "flex items-center justify-center md:justify-start gap-2",
-            className
-          )}
-          onDoubleClick={() => setIsChanging(true)}
-        >
-          {value}
-          <Pencil
-            onClick={() => setIsChanging(true)}
-            className="h-5 w-5 text-muted-foreground transition-colors hover:text-foreground"
-          />
-        </span>
+        <>
+          <span
+            className=" p-2"
+            onDoubleClick={() => setIsChanging(true)}
+          >
+            <strong
+              className={cn(
+                "flex items-center justify-center md:justify-start gap-2",
+                className
+              )}
+            >
+              {name.toUpperCase()}
+              <Pencil
+                onClick={() => setIsChanging(true)}
+                className="h-5 w-5 text-muted-foreground transition-colors hover:text-foreground"
+              />
+            </strong>
+            <p className="text-center md:text-left max-w-[300px] break-words">
+              {(!value || value === "") && "Not provided"}
+              {value}
+            </p>
+          </span>
+        </>
       )}
     </>
   );
 };
-export default InputWithSave;
+export default CompanyDataInputwSave;
