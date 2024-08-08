@@ -20,7 +20,7 @@ const UserNameEmail = (props: props) => {
   const { data, handleChange } = props;
 
   return (
-    <div className=" border-green-600 mb-4">
+    <div className=" border-green-600 mb-2 text-[13px]">
       <div>
         <InputCF
           required

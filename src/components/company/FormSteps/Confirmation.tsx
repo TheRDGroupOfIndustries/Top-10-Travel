@@ -51,13 +51,13 @@ const Confirmation = ({ data }: { data: FormData }) => {
   };
   return (
     <>
-      <div className="font-normal flex px-3 py-4 rounded-lg flex-col gap-2 text-black bg-[#F3F3F3] w-full">
+      <div className="font-normal text-[12px] mt-5 flex px-3 py-4 rounded-lg flex-col gap-2 text-black bg-[#F3F3F3] w-full">
         {Object.keys(data).map((key) => (
           <p
             key={key}
-            className="break-words xl:text-lg md:text-base sm:text-sm text-xs py-1 grid grid-cols-3 gap-2"
+            className="break-words text-xs grid grid-cols-3 gap-2 "
           >
-            <span className="font-medium">{key}</span>
+            <span className="text-[10px]">{key}</span>
             {
               // @ts-expect-error
               <span className="col-span-2 w-full">:&nbsp;{data[key]}</span>

@@ -85,7 +85,7 @@ const MainForm: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col md:flex-row bg-white text-black">
+    <div className="h-[100vh] flex flex-col md:flex-row bg-white text-black ">
       <div className="hidden md:block w-full md:w-[40%] min-h-screen relative">
         <div className="absolute top-1/4 left-1/2 transform -translate-x-1/2 font-serif text-3xl font-bold text-center flex flex-col gap-4 text-white z-20 border-white w-[110%] spa">
           <p className="xl:text-[42px] lg:text-[38px] md:text-[28px] text-center text-wrap uppercase">
@@ -111,7 +111,7 @@ const MainForm: React.FC = () => {
             <form
               ref={formRef}
               onSubmit={handleSubmit}
-              className="relative mt-[15%] md:mt-[7%] sm:mt-[7%] lg:mt-[7%] w-[75%] md:w-[70%] lg:w-[70%] sm:w-[60%] max-w-md p-4 md:p-7 bg-gray-200 rounded-lg flex flex-col justify-between  h-[610px] border-red-500 my-2 mx-2  sm:ml-0 md:ml-0 lg:ml-0"
+              className="h-[87vh] relative mt-[15%] md:mt-[7%] sm:mt-[7%] lg:mt-[5%] w-[75%] md:w-[70%] lg:w-[90%] sm:w-[90%] max-w-md p-4 md:p-7 bg-gray-200 rounded-lg flex flex-col justify-between border-red-500 my-2 mx-2  sm:ml-0 md:ml-0 lg:ml-0"
             >
               {formElements[activeTab]}
               <div className="flex justify-between mb-2 border-green-500">
@@ -140,7 +140,7 @@ const MainForm: React.FC = () => {
         )}
 
         {activeTab === formElements.length && (
-          <div className="w-full max-w-[85%] mt-10 md:mt-[7%] pb-4 flex flex-col items-center border-red-500">
+          <div className="w-full max-w-[85%] pb-4 flex flex-col items-center border-red-500">
             <Confirmation
               // @ts-expect-error
               data={data.reduce((acc, obj) => {

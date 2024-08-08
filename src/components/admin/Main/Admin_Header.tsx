@@ -8,7 +8,7 @@ import { ThemeButton } from "@/components/reusable/ThemeButton";
 async function AdminHeader() {
   const session = await getServersession();
   return (
-    <div className="w-full lg:px-4 px-2 py-1 bg-white dark:bg-[#020817] rounded-lg">
+    <div className="w-full lg:px-4 px-2 py-1 bg-white dark:bg-[#020817] rounded-lg sticky z-50 top-0">
       <div className="w-full lg:h-14 flex flex-col lg:flex-row lg:items-center items-start justify-between gap-3">
         <div className="pt-2 lg:pt-0">
           <BreadcrumbLinks />
