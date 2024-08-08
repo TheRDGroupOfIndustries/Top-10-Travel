@@ -12,6 +12,11 @@ const nextConfig = {
         hostname: "flowbite.s3.amazonaws.com",
         port: "",
       },
+      {
+        protocol: "https",
+        hostname: "lh3.googleusercontent.com",
+        port: "",
+      },
     ],
     domains: ["s3-alpha-sig.figma.com", "img.freepik.com"],
   },

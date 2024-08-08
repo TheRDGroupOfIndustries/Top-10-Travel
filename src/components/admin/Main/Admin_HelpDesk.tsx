@@ -124,7 +124,7 @@ const HelpDeskDashboard: React.FC<HelpDeskDashboardProps> = ({
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 mt-5">
       <Card>
         <CardHeader>
           <CardTitle>Help Desk Dashboard</CardTitle>
@@ -205,10 +205,7 @@ const HelpDeskDashboard: React.FC<HelpDeskDashboardProps> = ({
                   <TableCell>
                     <DropdownMenu>
                       <DropdownMenuTrigger asChild>
-                        <Button
-                          size="icon"
-                          variant="ghost"
-                        >
+                        <Button size="icon" variant="ghost">
                           <SquarePen className="h-4 w-4" />
                         </Button>
                       </DropdownMenuTrigger>
@@ -246,10 +243,7 @@ const HelpDeskDashboard: React.FC<HelpDeskDashboardProps> = ({
           </DialogHeader>
           <div className="grid gap-4 py-4">
             <div className="grid grid-cols-4 items-center gap-4">
-              <Label
-                htmlFor="description"
-                className="text-right"
-              >
+              <Label htmlFor="description" className="text-right">
                 Description
               </Label>
               <Textarea
@@ -261,10 +255,7 @@ const HelpDeskDashboard: React.FC<HelpDeskDashboardProps> = ({
               />
             </div>
             <div className="grid grid-cols-4 items-center gap-4">
-              <Label
-                htmlFor="status"
-                className="text-right"
-              >
+              <Label htmlFor="status" className="text-right">
                 Status
               </Label>
               <Select
@@ -286,10 +277,7 @@ const HelpDeskDashboard: React.FC<HelpDeskDashboardProps> = ({
               </Select>
             </div>
           </div>
-          <Button
-            disabled={isPending}
-            onClick={handleEditTicketSubmit}
-          >
+          <Button disabled={isPending} onClick={handleEditTicketSubmit}>
             Save Changes
           </Button>
         </DialogContent>

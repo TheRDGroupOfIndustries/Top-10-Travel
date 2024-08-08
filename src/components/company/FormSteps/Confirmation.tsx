@@ -3,7 +3,7 @@ import { createCompanyAction } from "@/core/server/actions/company/createCompany
 import useMutation from "@/hooks/useMutation";
 import { Company, CompanyData } from "@prisma/client";
 import { useSession } from "next-auth/react";
-import { useRouter } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "sonner";
 
@@ -42,7 +42,7 @@ const Confirmation = ({ data }: { data: FormData }) => {
       await update({ role: "COMPANY" });
       // Handle success here using toast or something
       toast.success(success);
-      router.push("/company");
+      redirect("/company");
     } else if (error) {
       console.error(error);
       toast.error(error);
@@ -53,10 +53,7 @@ const Confirmation = ({ data }: { data: FormData }) => {
     <>
       <div className="font-normal text-[12px] mt-5 flex px-3 py-4 rounded-lg flex-col gap-2 text-black bg-[#F3F3F3] w-full">
         {Object.keys(data).map((key) => (
-          <p
-            key={key}
-            className="break-words text-xs grid grid-cols-3 gap-2 "
-          >
+          <p key={key} className="break-words text-xs grid grid-cols-3 gap-2 ">
             <span className="text-[10px]">{key}</span>
             {
               // @ts-expect-error

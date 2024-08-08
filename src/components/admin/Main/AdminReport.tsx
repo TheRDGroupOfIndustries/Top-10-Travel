@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { useState } from "react";
 import { ReportData } from "@/app/(admin)/admin/report/page";
 import { Badge } from "@/components/ui/badge";
@@ -26,18 +26,19 @@ const AdminReport = ({ report }: { report: ReportData }) => {
   const [search, setSearch] = useState("");
 
   // Filter report data based on search input
-  const filteredReport = report.filter(company =>
+  const filteredReport = report.filter((company) =>
     company.legalName.toLowerCase().includes(search.toLowerCase())
   );
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 mt-5">
       <Card>
         <CardHeader>
           <CardTitle>
             Company Report
             <p className="text-sm">
-              <span className="font-bold my-4">{filteredReport.length}</span> total listings
+              <span className="font-bold my-4">{filteredReport.length}</span>{" "}
+              total listings
             </p>
           </CardTitle>
           <CardDescription>See report for all the companies.</CardDescription>
