@@ -17,7 +17,7 @@ const getPackages = async (id: string) => {
 
 const PackageCard = ({ data }: { data: Package }) => {
   return (
-    <Card className="w-full min-h-[520px] rounded-xl max-w-sm mx-auto transition-all duration-300 hover:shadow-lg">
+    <Card className="w-full mt-5 min-h-[520px] rounded-xl max-w-sm mx-auto transition-all duration-300 hover:shadow-lg">
       <div className="relative h-64 md:h-72">
         <Image
           layout="fill"
