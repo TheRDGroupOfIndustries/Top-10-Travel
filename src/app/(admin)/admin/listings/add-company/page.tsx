@@ -1,7 +1,7 @@
-import AddPackage from "@/components/admin/Main/AddPackage";
+import AddListing from "@/components/admin/Main/AddListing";
 
 function Page() {
-  return <AddPackage />;
+  return <AddListing />;
 }
 
 export default Page;

@@ -59,6 +59,7 @@ export type Company = {
   state_priority: number;
   country: string;
   city: string;
+  methodology:string|null;
   companyRole: $Enums.CompanyRole;
 };
 async function deleteListing(id: string) {
@@ -72,17 +73,25 @@ export const columns: ColumnDef<Company>[] = [
   {
     accessorKey: "image",
     header: "Image",
-    cell: ({ row }) => (
-      <div className="w-20 h-14 overflow-hidden rounded-lg">
-        <AnimatedImage
-          src={row.getValue("image")}
-          alt={`${row.getValue("name")} package`}
-          layout="fill"
-          objectFit="cover"
-          className="w-full h-full"
-        />
-      </div>
-    ),
+    cell: ({ row }) => {
+      let href = null;
+      try {
+        href = new URL(row.getValue("image")).href;
+      } catch (error) {
+        href = null;
+      }
+      return (
+        <div className="w-20 h-14 overflow-hidden rounded-lg">
+          <AnimatedImage
+            src={href ?? "/UploadImage.jpg"}
+            alt={"/UploadImage.jpg"}
+            layout="fill"
+            objectFit="cover"
+            className="w-full h-full"
+          />
+        </div>
+      );
+    },
   },
   {
     accessorKey: "id",
@@ -129,7 +138,10 @@ export const columns: ColumnDef<Company>[] = [
       return (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button size="icon" variant="ghost">
+            <Button
+              size="icon"
+              variant="ghost"
+            >
               <SquarePen className="h-4 w-4" />
             </Button>
           </DropdownMenuTrigger>
@@ -209,14 +221,10 @@ export default function AdminPackagelisting({
             total listings
           </p>
         </div>
-        {/* <Dialog
-          open={showAddUserForm}
-          onOpenChange={setShowAddUserForm}
-        >
-          <Button asChild>
-            <Link href="/admin/listings/add-company">Add package +</Link>
-          </Button>
-        </Dialog> */}
+
+        <Button asChild>
+          <Link href="/admin/listings/add-company">Add Listing +</Link>
+        </Button>
       </div>
       <div className="flex items-center">
         <Input
@@ -231,7 +239,10 @@ export default function AdminPackagelisting({
         />
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="outline" className="ml-auto">
+            <Button
+              variant="outline"
+              className="ml-auto"
+            >
               Columns <ChevronDown className="ml-2 h-4 w-4" />
             </Button>
           </DropdownMenuTrigger>
