@@ -34,7 +34,7 @@ const AdminNotifications = async () => {
             <Bell className="w-6 h-6 stroke-primary" />
           </Button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent className="w-64 lg:w-72 max-h-[450px] overflow-y-auto space-y-2">
+        <DropdownMenuContent className="w-64 lg:w-72 h-[450px] overflow-y-auto space-y-2">
           <DropdownMenuLabel className="text-lg">
             Requests ({requests.length})
           </DropdownMenuLabel>
