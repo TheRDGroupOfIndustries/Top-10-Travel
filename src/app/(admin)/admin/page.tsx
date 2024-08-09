@@ -1,4 +1,4 @@
-import AdminDashboard from "@/components/admin/Main/Admin_Dashboard";
+import { AdminDashboard } from "@/components/admin/Main/Admin_Dashboard";
 import { db } from "@/core/client/db";
 import { unstable_cache } from "next/cache";
 const dashboardData = unstable_cache(
