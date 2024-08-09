@@ -8,7 +8,7 @@ const CompanyPage = async ({ params }: { params: { companyId: string } }) => {
   const company = await db.company.findUnique({
     where: {
       id: params.companyId,
-      // isCertified: true,
+      isCertified: true,
       isSuspended: false,
     },
     select: {

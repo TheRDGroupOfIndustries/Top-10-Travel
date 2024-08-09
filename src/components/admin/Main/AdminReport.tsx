@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { useState } from "react";
 import { ReportData } from "@/app/(admin)/admin/report/page";
 import { Badge } from "@/components/ui/badge";
@@ -26,18 +26,26 @@ const AdminReport = ({ report }: { report: ReportData }) => {
   const [search, setSearch] = useState("");
 
   // Filter report data based on search input
-  const filteredReport = report.filter(company =>
+  const filteredReport = report.filter((company) =>
     company.legalName.toLowerCase().includes(search.toLowerCase())
   );
-
+  const getValidUrl = (url: string) => {
+    try {
+      const u = new URL(url);
+      return u.href;
+    } catch (error) {
+      return "/UploadImage.jpg";
+    }
+  };
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 mt-5">
       <Card>
         <CardHeader>
           <CardTitle>
             Company Report
             <p className="text-sm">
-              <span className="font-bold my-4">{filteredReport.length}</span> total listings
+              <span className="font-bold my-4">{filteredReport.length}</span>{" "}
+              total listings
             </p>
           </CardTitle>
           <CardDescription>See report for all the companies.</CardDescription>
@@ -72,7 +80,7 @@ const AdminReport = ({ report }: { report: ReportData }) => {
               </div>
             </div>
             <Image
-              src={company.image!}
+              src={getValidUrl(company.image ?? "")}
               width={200}
               height={100}
               alt={company.legalName}
@@ -98,7 +106,7 @@ const AdminReport = ({ report }: { report: ReportData }) => {
                     <TableCell>{review.review}</TableCell>
                     <TableCell>
                       {review.createdAt &&
-                        new Date(review.createdAt).toLocaleDateString()}
+                        new Date(review.createdAt).toDateString()}
                     </TableCell>
                   </TableRow>
                 ))}

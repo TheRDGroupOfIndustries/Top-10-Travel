@@ -4,6 +4,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { db } from "@/core/client/db";
 import getSessionorRedirect from "@/core/utils/getSessionorRedirect";
+import { getValidUrl } from "@/lib/utils";
 import { Package } from "@prisma/client";
 import { unstable_cache } from "next/cache";
 import Image from "next/image";
@@ -17,13 +18,13 @@ const getPackages = async (id: string) => {
 
 const PackageCard = ({ data }: { data: Package }) => {
   return (
-    <Card className="w-full min-h-[520px] rounded-xl max-w-sm mx-auto transition-all duration-300 hover:shadow-lg">
+    <Card className="w-full mt-5 min-h-[520px] rounded-xl max-w-sm mx-auto transition-all duration-300 hover:shadow-lg">
       <div className="relative h-64 md:h-72">
         <Image
           layout="fill"
           objectFit="cover"
           alt={`${data.title} - Package`}
-          src={data.image}
+          src={getValidUrl(data.image)}
           className="rounded-t-xl"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-50"></div>
@@ -86,10 +87,13 @@ const PackagesPage = async () => {
               <Button className="mt-6">Create Package</Button>
             </Link>
           </div>
-        ):(
-          <Link className="absolute top-0 right-8" href="/company/packages/create">
-              <Button className="mt-6">Create Package</Button>
-            </Link>
+        ) : (
+          <Link
+            className="absolute top-0 right-8"
+            href="/company/packages/create"
+          >
+            <Button className="mt-6">Create Package</Button>
+          </Link>
         )}
       </div>
     </div>

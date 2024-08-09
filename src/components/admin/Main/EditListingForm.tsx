@@ -22,6 +22,7 @@ const EditListingForm = ({ company }: { company: Company }) => {
     e.preventDefault();
     const legalName = e.target.legalName.value as string;
     const priority = Number(e.target.priority.value);
+    const methodology = e.target.methodology.value;
     const state_priority = Number(e.target.state_priority.value);
     const isCertified = e.target.isCertified.value === "true";
     const isSuspended = e.target.isSuspended.value === "true";
@@ -39,6 +40,7 @@ const EditListingForm = ({ company }: { company: Company }) => {
       companyRole,
       state_priority,
       isCertified,
+      methodology,
       isSuspended,
       legalName,
       priority,
@@ -49,7 +51,7 @@ const EditListingForm = ({ company }: { company: Company }) => {
   return (
     <Card className="w-full">
       <CardHeader>
-        <CardTitle>Edit User Details</CardTitle>
+        <CardTitle>Edit Listing Details</CardTitle>
       </CardHeader>
       <CardContent>
         <form
@@ -85,6 +87,20 @@ const EditListingForm = ({ company }: { company: Company }) => {
               min={0}
               max={1000}
               placeholder="Enter priority"
+            />
+          </div>
+          <div className="space-y-2">
+            <label
+              htmlFor="methodology"
+              className="text-sm font-medium"
+            >
+              Methodology
+            </label>
+            <Input
+              defaultValue={company.methodology ?? ""}
+              id="methodology"
+              name="methodology"
+              placeholder="Enter methodology"
             />
           </div>
           <div className="space-y-2">

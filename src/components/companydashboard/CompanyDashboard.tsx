@@ -1,29 +1,34 @@
 "use client";
-import { Company, Reviews } from "@prisma/client";
-import { Card, CardContent, CardDescription, CardHeader } from "../ui/card";
+import { Company, Prisma, Reviews } from "@prisma/client";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "../ui/card";
 import Image from "next/image";
-import InputWithSave from "../reusable/InputWithSave";
+import InputWithSave from "../reusable/InputWithSaveCompany";
 import { Badge } from "../ui/badge";
 import Link from "next/link";
+import CompanyDataInputwSave from "../reusable/CompanyDataInputwSave";
 
 const CompanyDashboard = ({
   data,
   reviews,
 }: {
-  data: Company;
+  data: Prisma.CompanyGetPayload<{ include: { companyData: true } }>;
   reviews: Reviews[];
 }) => {
   return (
-    <div>
+    <div className="space-y-4 mt-5">
       <Card>
         <CardContent className="pt-6">
           <div className="flex flex-col md:flex-row items-center md:items-start gap-4">
-            <Image
-              src={data.image!}
-              alt={data.legalName}
-              width={300}
-              height={180}
-              className="rounded-md"
+            <InputWithSave
+              name="image"
+              value={data.image ?? ""}
+              text="Edit your image..."
             />
             <div className="flex flex-col h-[180px] justify-between">
               <InputWithSave
@@ -86,8 +91,99 @@ const CompanyDashboard = ({
           </div>
         </CardContent>
       </Card>
+      <Card>
+        <CardHeader>
+          <CardTitle>Company Details</CardTitle>
+        </CardHeader>
+        <CardContent className="pt-6">
+          <div className="flex flex-wrap items-start gap-4 *:min-w-[200px]">
+            <CompanyDataInputwSave
+              name="ownerName"
+              value={data.companyData?.ownerName}
+              text="Edit Owner Name..."
+              minLength={5}
+            />
+            <CompanyDataInputwSave
+              name="agencyGroup"
+              value={data.companyData?.agencyGroup}
+              text="Edit Your AgencyGroup"
+              minLength={5}
+            />
+            <CompanyDataInputwSave
+              name="phone"
+              value={data.companyData?.phone}
+              type="number"
+              text="Edit Your Phone..."
+            />
+            <CompanyDataInputwSave
+              name="pincode"
+              value={data.companyData?.pincode}
+              type="number"
+              text="Edit Your Pincode..."
+            />
+            <CompanyDataInputwSave
+              name="companyEmail"
+              value={data.companyData?.companyEmail}
+              text="Edit Your Company Email..."
+              type="email"
+            />
+            <CompanyDataInputwSave
+              name="companyContact"
+              value={data.companyData?.companyContact}
+              text="Edit Your Company Contact..."
+              type="number"
+            />
+            <CompanyDataInputwSave
+              name="ownerContact"
+              value={data.companyData?.ownerContact}
+              text="Edit Your Owner Contact..."
+              type="number"
+            />
+            <CompanyDataInputwSave
+              name="address"
+              value={data.companyData?.address}
+              text="Edit Your Address"
+              minLength={10}
+              maxLength={150}
+            />
+            <CompanyDataInputwSave
+              name="description"
+              value={data.companyData?.description}
+              text="Edit Your Description..."
+              minLength={40}
+            />
+            <CompanyDataInputwSave
+              name="abta_number"
+              value={data.companyData?.abta_number}
+              text="Edit Your abta_number"
+              type="number"
+            />
+            <CompanyDataInputwSave
+              name="clia_number"
+              value={data.companyData?.clia_number}
+              text="Edit Your clia_number"
+              type="number"
+            />
+            <CompanyDataInputwSave
+              name="tids_number"
+              value={data.companyData?.tids_number}
+              text="Edit Your tids_number"
+              type="number"
+            />
+            <CompanyDataInputwSave
+              name="business_reg_number"
+              value={data.companyData?.business_reg_number}
+              text="Edit Your business_reg_number"
+              type="number"
+            />
+          </div>
+        </CardContent>
+      </Card>
+
       <Card className="mt-4">
-        <CardHeader className="text-lg font-semibold">Top {reviews.length} Reviews:</CardHeader>
+        <CardHeader className="text-lg font-semibold">
+          Top {reviews.length} Reviews:
+        </CardHeader>
         <CardContent className="flex flex-col gap-4">
           {reviews.map((review) => (
             <div key={review.id}>
@@ -100,7 +196,9 @@ const CompanyDashboard = ({
               <p>{review.review}</p>
             </div>
           ))}
-          {reviews.length===0 && <h2 className="text-lg font-semibold">No Reviews to show.</h2>}
+          {reviews.length === 0 && (
+            <h2 className="text-lg font-semibold">No Reviews to show.</h2>
+          )}
         </CardContent>
       </Card>
     </div>

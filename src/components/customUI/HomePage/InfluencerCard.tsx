@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { getValidUrl } from "@/lib/utils";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
@@ -19,13 +20,13 @@ const getIconFromName = (str: string) => {
 function InfluencerCard({ data }: { data: any }) {
   return (
     <Card className="w-full max-w-sm mx-auto transition-all duration-300 hover:shadow-lg">
-      <div className="relative h-64 md:h-72">
+      <div className="relative h-52">
         <Image
           layout="fill"
           objectFit="cover"
           alt={`${data.name} - Influencer`}
-          src={data.image}
-          className="rounded-t-xl"
+          src={getValidUrl(data.image)}
+          className="w-full h-full object-cover object-top"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-50"></div>
         <h2 className="absolute bottom-4 left-4 text-xl md:text-2xl font-bold text-white">
