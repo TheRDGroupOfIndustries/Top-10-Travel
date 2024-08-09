@@ -50,7 +50,7 @@ const MobileDropdown = ({ items, visible, toggle }: any) => {
                 setIsOpen(false);
               }}
               className={`p-2 hover:bg-gray-100 cursor-pointer text-xs ${
-                visible[key] ? "bg-[#FFC658] text-white" : "text-black"
+                visible[key] ? "bg-[#FCAF1E] text-white" : "text-black"
               }`}
             >
               {text}
@@ -296,7 +296,7 @@ function HomeHero() {
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.8, delay: 0.4, type: "spring" }}
           >
-            Top 10 <span className="text-[#FFC658]">travel</span>
+            Top 10 <span className="text-[#FCAF1E]">travel</span>
           </motion.span>
         </h1>
         <p
@@ -310,7 +310,7 @@ function HomeHero() {
             transition={{ duration: 0.8, delay: 1, type: "spring" }}
           >
             The only place where you can find Top 10{" "}
-            <span className="text-[#FFC658] mr-1">
+            <span className="text-[#FCAF1E] mr-1">
               Hotels, Agencies,
               <br /> DMC&apos;s
             </span>
@@ -349,7 +349,7 @@ function HomeHero() {
                 //   key={key}
                 //   className={`rounded-t-[12px] w-24 h-7 text-center cursor-pointer ${
                 //     // @ts-expect-error
-                //     visible[key] ? "bg-[#FFC658] text-white" : "text-black"
+                //     visible[key] ? "bg-[#FCAF1E] text-white" : "text-black"
                 //   }`}
                 //   onClick={() =>
                 //     // @ts-expect-error
@@ -422,7 +422,7 @@ function HomeHero() {
             <div>
               <Button
                 onClick={handleFind}
-                className="bg-[#FFC658] hover:bg-[#ffcc66] inline-flex items-center lg:gap-2 px-2 py-1"
+                className="bg-[#FCAF1E] hover:bg-[#ffcc66] inline-flex items-center lg:gap-2 px-2 py-1"
               >
                 <SearchIcon className="w-5 h-5" />
                 Search

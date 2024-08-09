@@ -153,10 +153,7 @@ const ListSection = ({
               </p>
               <p className="text-sm font-medium  text-justify">
                 <span className="xl:inline hidden">{service.description}</span>
-                <Link
-                  href="/hotels"
-                  className="text-slate-600 text-xs"
-                >
+                <Link href="/hotels" className="text-slate-600 text-xs">
                   ...Read more
                 </Link>
               </p>
@@ -172,7 +169,7 @@ const ListSection = ({
                 </Button>
               ) : (
                 <Link href={`/companies/${service?.legalName}`}>
-                  <Button className="rounded-full bg-[#FFDB80] text-black hover:bg-[#fae2a3] text-sm leading-4 font-medium lg:px-9 px-5">
+                  <Button className="rounded-full bg-[#FCAF1E] text-black hover:bg-[#fae2a3] text-sm leading-4 font-medium lg:px-9 px-5">
                     Explore
                   </Button>
                 </Link>
