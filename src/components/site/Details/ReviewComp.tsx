@@ -40,7 +40,7 @@ function ReviewsComponent({
   };
 
   return (
-    <div className="flex flex-col border-[1px] border-black rounded-2xl gap-8 py-12 px-8">
+    <div className="flex flex-col border-[1px] border-black rounded-2xl gap-8 py-12 sm:px-8 px-4">
       <h4 className="font-medium leading-6 text-[32px]">Reviews</h4>
 
       {/* Display current reviews */}
@@ -119,10 +119,7 @@ function ReviewsComponent({
       ) : null}
 
       {/* Review dialog */}
-      <ReviewDialog
-        companyId={companyId}
-        name={name}
-      />
+      <ReviewDialog companyId={companyId} name={name} />
     </div>
   );
 }

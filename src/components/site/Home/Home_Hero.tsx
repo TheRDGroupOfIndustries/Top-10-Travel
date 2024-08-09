@@ -29,7 +29,7 @@ const MobileDropdown = ({ items, visible, toggle }: any) => {
     <div className="relative w-full">
       <div
         onClick={() => setIsOpen(!isOpen)}
-        className="relative ml-4 w-24 h-7 flex items-center justify-center cursor-pointer  text-white"
+        className="relative sm:ml-8 ml-4 w-24 h-7 flex items-center justify-center cursor-pointer text-white"
       >
         <Image
           src={"/Hero_Filter_Small.jpg"}
@@ -343,7 +343,7 @@ function HomeHero() {
                 toggle={toggle}
               />
             </div>
-            <div className="hidden ml-2 lg:flex xl:gap-3 gap-2">
+            <div className="hidden ml-5 lg:flex xl:gap-5 gap-4">
               {boxItems.map(({ key, text }) => (
                 // <div
                 //   key={key}
