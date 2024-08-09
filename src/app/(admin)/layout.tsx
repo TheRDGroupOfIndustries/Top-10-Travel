@@ -10,18 +10,17 @@ export default function AdminLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-
   return (
-    <main className="bg-[#FFDB80] min-h-screen w-full">
+    <main className="bg-[#FCAF1E] min-h-screen w-full">
       <ThemeProvider attribute="class" defaultTheme="system">
         <Toaster richColors />
 
         <div className="w-full h-full grid grid-cols-12 ">
-          <div className="col-span-2 min-h-screen hidden lg:block">
+          <div className="col-span-2 min-h-screen hidden xl:block">
             <AdminSidebar />
           </div>
 
-          <div className="lg:col-span-10 col-span-12 p-2 lg:pl-0">
+          <div className="xl:col-span-10 col-span-12 p-2 xl:pl-0">
             {/* <ScrollArea className="w-full bg-background text-foreground rounded-xl px-4"> */}
             <AdminHeader />
             {children}

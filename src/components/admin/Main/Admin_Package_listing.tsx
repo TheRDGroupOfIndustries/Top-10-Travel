@@ -59,7 +59,7 @@ export type Company = {
   state_priority: number;
   country: string;
   city: string;
-  methodology:string|null;
+  methodology: string | null;
   companyRole: $Enums.CompanyRole;
 };
 async function deleteListing(id: string) {
@@ -85,8 +85,7 @@ export const columns: ColumnDef<Company>[] = [
           <AnimatedImage
             src={href ?? "/UploadImage.jpg"}
             alt={"/UploadImage.jpg"}
-            layout="fill"
-            objectFit="cover"
+            fill
             className="w-full h-full"
           />
         </div>
@@ -138,10 +137,7 @@ export const columns: ColumnDef<Company>[] = [
       return (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button
-              size="icon"
-              variant="ghost"
-            >
+            <Button size="icon" variant="ghost">
               <SquarePen className="h-4 w-4" />
             </Button>
           </DropdownMenuTrigger>
@@ -239,10 +235,7 @@ export default function AdminPackagelisting({
         />
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button
-              variant="outline"
-              className="ml-auto"
-            >
+            <Button variant="outline" className="ml-auto">
               Columns <ChevronDown className="ml-2 h-4 w-4" />
             </Button>
           </DropdownMenuTrigger>

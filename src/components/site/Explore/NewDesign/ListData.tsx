@@ -46,11 +46,11 @@ function ListData({
             transition={{ duration: 0.4, delay: i * 0.15 }}
             viewport={{ once: true }}
             key={item.legalName}
-            className="w-full lg:h-72 rounded-lg flex flex-col md:flex-row items-center justify-between gap-5 shadow shadow-black/10"
+            className="w-full lg:h-60 rounded-lg flex flex-col md:flex-row items-center justify-between gap-5 shadow shadow-black/60"
           >
             <div className="lg:w-[30%] w-full lg:h-full h-60 rounded-lg overflow-hidden">
               <Image
-                src={getValidUrl(item.image??"")}
+                src={getValidUrl(item.image ?? "")}
                 alt={`image-${item.legalName}`}
                 width={300}
                 height={300}
@@ -60,6 +60,18 @@ function ListData({
             <div className="lg:w-[70%] w-full h-full rounded-lg overflow-hidden flex flex-col items-start justify-start gap-3 p-1">
               <div className="w-full flex items-center justify-between">
                 <h1 className="text-2xl font-semibold">{item?.legalName}</h1>
+                <Button
+                  asChild
+                  size={"sm"}
+                  className="bg-[#FCAF1E] hover:bg-[#fcaf1ed0] text-black rounded"
+                >
+                  <Link
+                    href={`/companies/${item.id}`}
+                    className="md:text-sm font-medium text-xs"
+                  >
+                    View More
+                  </Link>
+                </Button>
               </div>
               <p className="text-sm">{`${item?.city}, ${item?.country}`}</p>
               <div className="flex gap-2">
@@ -78,17 +90,6 @@ function ListData({
                   {item?.methodology}
                 </p>
               </div>
-              <Button
-                asChild
-                className="bg-[#FFDB80] hover:bg-[#ffdb80d0] text-black rounded-xl px-5"
-              >
-                <Link
-                  href={`/companies/${item.id}`}
-                  className="md:text-sm font-medium text-xs"
-                >
-                  View More
-                </Link>
-              </Button>
             </div>
           </motion.div>
         ))}
@@ -102,7 +103,7 @@ function ListData({
               window.scrollTo({ top: 0 });
             }}
             disabled={currentPage === 1}
-            className="bg-[#FFDB80] hover:bg-[#ffdb80d0] text-black"
+            className="bg-[#FCAF1E] hover:bg-[#fcaf1ed0] text-black"
           >
             <ChevronLeft />
           </Button>
@@ -118,7 +119,7 @@ function ListData({
               window.scrollTo({ top: 0 });
             }}
             disabled={currentPage === Math.ceil(data?.length / itemsPerPage)}
-            className="bg-[#FFDB80] hover:bg-[#ffdb80d0] text-black"
+            className="bg-[#FCAF1E] hover:bg-[#fcaf1ed0] text-black"
           >
             <ChevronRight />
           </Button>

@@ -4,6 +4,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import Image, { StaticImageData } from "next/image";
 import hero from "@/resources/images/Agency-Hero.png";
 import AnimatedImage from "../../Details/AnimatedImage";
+import { motion } from "framer-motion";
 
 function ListingHero({
   title,
@@ -56,19 +57,44 @@ function ListingHero({
         <AnimatedImage
           src={hero}
           alt="hero"
-          objectFit="cover"
-          layout="fill"
+          fill
           className="w-full h-full object-center"
         />
       </div>
-      <div className="w-full h-full flex flex-col lg:flex-row lg:items-end lg:justify-between items-center justify-end gap-2 px-2 md:px-3 lg:px-6 xl:px-8">
-        <h1 className="md:text-2xl md:text-start text-balance text-center text-xl font-bold text-black">
-          {`${title}${selectedCountry && ", " + selectedCountry.toUpperCase()}${
+      <div className="w-full h-full flex flex-col xl:flex-row xl:items-end xl:justify-between items-center justify-end gap-2 px-2 md:px-3 xl:px-8">
+        <h1 className="md:text-2xl lg:text-3xl font-cinzel md:text-start text-balance text-center text-xl font-bold text-black">
+          <motion.span
+            className="inline-block"
+            initial={{ y: 30, opacity: 0 }}
+            whileInView={{ y: 0, opacity: 1 }}
+            transition={{
+              duration: 0.8,
+              delay: 0.3,
+              type: "spring",
+            }}
+            viewport={{ once: true }}
+          >
+            {/* <TextGenerateEffect words={`${title}${selectedCountry && ", " + selectedCountry.toUpperCase()}${
             selectedState && "-" + selectedState.toUpperCase()
-          }`}
+            }`} /> */}
+            {`${title}${
+              selectedCountry && ", " + selectedCountry.toUpperCase()
+            }${selectedState && "-" + selectedState.toUpperCase()}`}
+          </motion.span>
         </h1>
-        <div className="flex flex-wrap lg:flex-row items-center justify-center gap-2">
-          <span className="text-sm font-medium text-black px-5 py-[10px] bg-[#FFDB80] rounded-lg">
+        <motion.div
+          // className="inline-block"
+          initial={{ y: 30, opacity: 0 }}
+          whileInView={{ y: 0, opacity: 1 }}
+          transition={{
+            duration: 0.8,
+            delay: 0.3,
+            type: "spring",
+          }}
+          viewport={{ once: true }}
+          className="flex flex-wrap lg:flex-row items-center justify-center gap-2"
+        >
+          <span className="text-sm font-medium text-black px-5 py-[10px] bg-[#FCAF1E] rounded-lg">
             Filter:
           </span>
           <div className="relative">
@@ -144,7 +170,7 @@ function ListingHero({
           >
             Clear
           </button>
-        </div>
+        </motion.div>
       </div>
     </div>
   );
