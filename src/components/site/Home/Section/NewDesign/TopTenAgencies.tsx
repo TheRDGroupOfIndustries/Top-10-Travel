@@ -24,8 +24,7 @@ const CarouselCard = ({ agency }: { agency: any }) => (
         <Image
           src={getValidUrl(agency.image)}
           alt={agency.legalName}
-          layout="fill"
-          objectFit="cover"
+          fill
           objectPosition="center"
         />
       </div>
