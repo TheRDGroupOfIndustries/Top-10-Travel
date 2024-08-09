@@ -150,7 +150,7 @@ const HelpDeskDashboard: React.FC<HelpDeskDashboardProps> = ({
             </div>
           </div>
 
-          <div className="flex justify-between items-center mb-6 mt-2">
+          <div className="md:flex justify-between items-center mb-6 mt-2">
             <div className="flex items-center space-x-2">
               <Input
                 placeholder="Search tickets..."
@@ -188,10 +188,7 @@ const HelpDeskDashboard: React.FC<HelpDeskDashboardProps> = ({
             </TableHeader>
             <TableBody>
               {filteredTickets.map((ticket) => (
-                <TableRow
-                  className=""
-                  key={ticket.id}
-                >
+                <TableRow className="" key={ticket.id}>
                   <TableCell>{ticket.id}</TableCell>
                   <TableCell>{ticket.title}</TableCell>
                   <TableCell>
@@ -214,10 +211,7 @@ const HelpDeskDashboard: React.FC<HelpDeskDashboardProps> = ({
                   <TableCell>
                     <DropdownMenu>
                       <DropdownMenuTrigger asChild>
-                        <Button
-                          size="icon"
-                          variant="ghost"
-                        >
+                        <Button size="icon" variant="ghost">
                           <SquarePen className="h-4 w-4" />
                         </Button>
                       </DropdownMenuTrigger>
@@ -255,10 +249,7 @@ const HelpDeskDashboard: React.FC<HelpDeskDashboardProps> = ({
           </DialogHeader>
           <div className="grid gap-4 py-4">
             <div className="grid grid-cols-4 items-center gap-4">
-              <Label
-                htmlFor="description"
-                className="text-right"
-              >
+              <Label htmlFor="description" className="text-right">
                 Description
               </Label>
               <Textarea
@@ -270,10 +261,7 @@ const HelpDeskDashboard: React.FC<HelpDeskDashboardProps> = ({
               />
             </div>
             <div className="grid grid-cols-4 items-center gap-4">
-              <Label
-                htmlFor="status"
-                className="text-right"
-              >
+              <Label htmlFor="status" className="text-right">
                 Status
               </Label>
               <Select
@@ -295,10 +283,7 @@ const HelpDeskDashboard: React.FC<HelpDeskDashboardProps> = ({
               </Select>
             </div>
           </div>
-          <Button
-            disabled={isPending}
-            onClick={handleEditTicketSubmit}
-          >
+          <Button disabled={isPending} onClick={handleEditTicketSubmit}>
             Save Changes
           </Button>
         </DialogContent>

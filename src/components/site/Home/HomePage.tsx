@@ -10,7 +10,7 @@ function HomePage() {
   return (
     <HomeContextProvider>
       <HomeHero />
-      <div className="mt-20 space-y-6 sm:mt-16">
+      <div className="mt-20 space-y-6 sm:mt-16 overflow-x-hidden">
         <TopTenAgencies />
         <TopTenHotels />
         <TopTenDMC />
