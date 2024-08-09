@@ -16,7 +16,7 @@ export const deleteCompany = async (id: string) => {
       },
     });
     
-    revalidatePath(`/admin/listings`);
+    revalidatePath(`/admin/companies`);
     return { success: "Company Deleted Successfully." };
   } catch (error) {
     if (error instanceof Prisma.PrismaClientKnownRequestError) {

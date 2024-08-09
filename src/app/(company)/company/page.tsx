@@ -21,7 +21,6 @@ async function CompanyPage() {
   const { company } = await dashboardData(session?.user.id);
   if (!company) return notFound();
   const reviews = await getReviews(company.id);
-  console.log(session);
 
   return <CompanyDashboard reviews={reviews} data={company} />;
 }

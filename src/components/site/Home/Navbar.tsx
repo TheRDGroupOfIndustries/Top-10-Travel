@@ -42,7 +42,6 @@ const navMenus = [
 function Navbar() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const route = usePathname();
-  console.log(route);
 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
@@ -104,6 +103,15 @@ function Navbar() {
                           <User size={18} />
                         </span>
                         <span>My Account</span>
+                      </div>
+                    </Link>
+                  ) : session.data.user.role === "ADMIN" ? (
+                    <Link href="/admin">
+                      <div className="flex items-center gap-2">
+                        <span>
+                          <User size={18} />
+                        </span>
+                        <span>View Admin</span>
                       </div>
                     </Link>
                   ) : (
@@ -178,6 +186,15 @@ function Navbar() {
                           <span>My Account</span>
                         </div>
                       </Link>
+                    ) : session.data.user.role === "ADMIN" ? (
+                      <Link href="/admin">
+                        <div className="flex items-center gap-2">
+                          <span>
+                            <User size={18} />
+                          </span>
+                          <span>View Admin</span>
+                        </div>
+                      </Link>
                     ) : (
                       <Link href="/auth/company">
                         <div className="flex items-center gap-2">
@@ -212,7 +229,7 @@ function Navbar() {
 
       {/* Sidebar */}
       <div
-        className={`rounded-lg font-bold text-gray-900 fixed top-0 right-0 bg-white opacity-80 backdrop-blur-sm transform ${
+        className={` rounded-lg font-bold text-gray-900 fixed top-0 right-0 bg-white opacity-80 backdrop-blur-sm transform ${
           isSidebarOpen ? "translate-x-0" : "translate-x-full"
         } transition-transform duration-300 ease-in-out z-40 p-6`}
         style={{ width: "auto", height: "auto" }}

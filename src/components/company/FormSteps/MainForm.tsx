@@ -9,6 +9,7 @@ import { useSession } from "next-auth/react";
 import Image from "next/image";
 import img from "@/resources/images/form/CompanyForm.png";
 import ProgressBar from "./ProgressBar";
+import { toast } from "sonner";
 
 const MainForm: React.FC = () => {
   const formRef = useRef(null);
@@ -78,17 +79,42 @@ const MainForm: React.FC = () => {
       handleChange={handleChange}
     />,
   ];
-
+  const isInvalid = (num: string | undefined) => {
+    if (!num) return false;
+    return num.length < 10 || num.length > 12;
+  };
   const handleSubmit = (e: any) => {
     e.preventDefault();
+    if (e.target.pincode && e.target.pincode.value.length !== 6) {
+      toast.error("Pincode must be of length 6.");
+      return;
+    }
+    if (
+      isInvalid(e.target.companyContact?.value) ||
+      isInvalid(e.target.phone?.value) ||
+      isInvalid(e.target.ownerContact?.value)
+    ) {
+      toast.error(
+        "Please recheck all your contact information. Must be of length 10-12."
+      );
+      return;
+    }
+    if (e.target.image) {
+      try {
+        const url = new URL(e.target.image.value);
+      } catch (error) {
+        toast.error("Image is not valid!");
+        return;
+      }
+    }
     setActiveTab((prev) => prev + 1);
   };
 
   return (
     <div className="h-[100vh] flex flex-col md:flex-row bg-white text-black ">
-      <div className="hidden md:block w-full md:w-[40%] min-h-screen relative">
+      <div className="hidden md:block w-full md:w-[50%] min-h-screen relative">
         <div className="absolute top-1/4 left-1/2 transform -translate-x-1/2 font-serif text-3xl font-bold text-center flex flex-col gap-4 text-white z-20 border-white w-[110%] spa">
-          <p className="xl:text-[42px] lg:text-[38px] md:text-[28px] text-center text-wrap uppercase">
+          <p className="xl:text-[42px] lg:text-[38px] md:text-[28px] text-center text-wrap uppercase ">
             LOGIN AS COMPANY
           </p>
           <p className="text-[22px] font-[200]">
@@ -104,14 +130,17 @@ const MainForm: React.FC = () => {
         />
       </div>
       <div className="w-full md:w-[60%] flex flex-col items-center justify-start border-black">
-        <ProgressBar activeStep={activeTab} totalSteps={formElements.length} />
+        <ProgressBar
+          activeStep={activeTab}
+          totalSteps={formElements.length}
+        />
 
         {activeTab < formElements.length && (
           <>
             <form
               ref={formRef}
               onSubmit={handleSubmit}
-              className="h-[87vh] relative mt-[15%] md:mt-[7%] sm:mt-[7%] lg:mt-[5%] w-[75%] md:w-[70%] lg:w-[90%] sm:w-[90%] max-w-md p-4 md:p-7 bg-gray-200 rounded-lg flex flex-col justify-between border-red-500 my-2 mx-2  sm:ml-0 md:ml-0 lg:ml-0"
+              className="h-[87vh] relative mt-[15%] md:mt-[7%] sm:mt-[7%] lg:mt-[5%] w-[75%] md:w-[70%] lg:w-[90%] sm:w-[90%] max-w-md p-4 md:p-7 bg-[#f3f3f3ed] rounded-lg flex flex-col justify-between border-red-500 my-2 mx-2  sm:ml-0 md:ml-0 lg:ml-0"
             >
               {formElements[activeTab]}
               <div className="flex justify-between mb-2 border-green-500">
@@ -120,7 +149,7 @@ const MainForm: React.FC = () => {
                   disabled={activeTab === 0}
                   onClick={() => setActiveTab((prev) => prev - 1)}
                   // className="px-4 py-2 rounded-xl bg-slate-600 text-white disabled:opacity-50"
-                  className="px-4 py-2 rounded-md bg-slate-800 text-white font-bold transition disabled:opacity-50 duration-200 enabled:hover:bg-white enabled:hover:text-black border-2 border-transparent enabled:hover:border-slate-800 disabled:cursor-not-allowed"
+                  className="px-3 py-1 rounded-md bg-slate-800 text-white font-bold transition disabled:opacity-50 duration-200 enabled:hover:bg-white enabled:hover:text-black border-2 border-transparent enabled:hover:border-slate-800 disabled:cursor-not-allowed"
                 >
                   <span className="mr-2 font-bold">←</span>
                   Back
@@ -129,7 +158,7 @@ const MainForm: React.FC = () => {
                   type="submit"
                   disabled={activeTab === formElements.length}
                   // className="px-4 py-2 rounded-xl bg-[#FCB62E] text-white disabled:opacity-50"
-                  className="px-4 py-2 rounded-md bg-[#FCB62E] text-white font-bold transition disabled:opacity-50 duration-200 hover:bg-white hover:text-black border-2 border-transparent hover:border-[#FCB62E]"
+                  className="px-2 py-1 rounded-md bg-[#FCB62E] text-white font-bold transition disabled:opacity-50 duration-200 hover:bg-white hover:text-black border-2 border-transparent hover:border-[#FCB62E]"
                 >
                   Next
                   <span className="ml-2 font-bold">→</span>
@@ -157,7 +186,7 @@ const MainForm: React.FC = () => {
             <button
               type="button"
               onClick={() => setActiveTab((prev) => prev - 1)}
-              className="mt-4 px-16 py-2 rounded-md bg-[#FCB62E] text-white font-bold transition duration-200 hover:bg-white hover:text-black border-2 border-transparent hover:border-[#FCB62E]"
+              className="mt-2 px-4 py-1 rounded-md bg-[#FCB62E] text-white font-bold transition duration-200 hover:bg-white hover:text-black border-2 border-transparent hover:border-[#FCB62E]"
             >
               Back
             </button>
