@@ -1,5 +1,6 @@
 import Footer from "@/components/site/Home/Footer/Footer";
 import Navbar from "@/components/site/Home/Navbar";
+import { ModalProvider } from "@/components/ui/animated-modal";
 import { Toaster } from "sonner";
 
 export default function SiteLayout({
@@ -9,11 +10,13 @@ export default function SiteLayout({
 }>) {
   return (
     <main>
-      <Navbar />
-      <Toaster richColors />
+      <ModalProvider>
+        <Navbar />
+        <Toaster richColors />
 
-      {children}
-      <Footer />
+        {children}
+        <Footer />
+      </ModalProvider>
     </main>
   );
 }

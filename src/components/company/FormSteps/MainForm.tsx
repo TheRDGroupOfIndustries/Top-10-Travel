@@ -85,11 +85,15 @@ const MainForm: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col md:flex-row bg-white text-black pt-[2%]">
-      <div className="hidden md:block w-full md:w-[40%] min-h-screen mt-12 relative"> 
-        <div className="absolute top-1/4 left-1/2 transform -translate-x-1/2 font-serif text-3xl font-bold text-center text-white z-20 border-white w-[110%] spa">
-          <p className="lg:text-[50px] md:text-[40px]">LOGIN AS COMPANY</p>
-          <p className="text-[25px] font-[200]">Take your business to its peak</p>
+    <div className="h-[100vh] flex flex-col md:flex-row bg-white text-black ">
+      <div className="hidden md:block w-full md:w-[40%] min-h-screen relative">
+        <div className="absolute top-1/4 left-1/2 transform -translate-x-1/2 font-serif text-3xl font-bold text-center flex flex-col gap-4 text-white z-20 border-white w-[110%] spa">
+          <p className="xl:text-[42px] lg:text-[38px] md:text-[28px] text-center text-wrap uppercase">
+            LOGIN AS COMPANY
+          </p>
+          <p className="text-[22px] font-[200]">
+            Take your business to its peak
+          </p>
         </div>
         <Image
           src={img}
@@ -99,30 +103,33 @@ const MainForm: React.FC = () => {
           className="object-cover"
         />
       </div>
-      <div className="w-full md:w-[60%] flex flex-col items-center justify-center mt-10 md:mt-0 border-black my-5"> 
+      <div className="w-full md:w-[60%] flex flex-col items-center justify-start border-black">
         <ProgressBar activeStep={activeTab} totalSteps={formElements.length} />
-        
+
         {activeTab < formElements.length && (
           <>
             <form
               ref={formRef}
               onSubmit={handleSubmit}
-              className="relative mt-[15%] md:mt-[7%] sm:mt-[7%] lg:mt-[7%] w-[75%] md:w-[70%] lg:w-[70%] sm:w-[60%] max-w-md p-4 md:p-7 bg-gray-200 rounded-lg flex flex-col justify-between  h-[610px] border-red-500 my-2 mx-2  sm:ml-0 md:ml-0 lg:ml-0"
+              className="h-[87vh] relative mt-[15%] md:mt-[7%] sm:mt-[7%] lg:mt-[5%] w-[75%] md:w-[70%] lg:w-[90%] sm:w-[90%] max-w-md p-4 md:p-7 bg-gray-200 rounded-lg flex flex-col justify-between border-red-500 my-2 mx-2  sm:ml-0 md:ml-0 lg:ml-0"
             >
               {formElements[activeTab]}
-              <div className="flex justify-between border-green-500">
+              <div className="flex justify-between mb-2 border-green-500">
                 <button
                   type="button"
                   disabled={activeTab === 0}
                   onClick={() => setActiveTab((prev) => prev - 1)}
-                  className="px-4 py-2 rounded-xl bg-slate-600 text-white disabled:opacity-50"
+                  // className="px-4 py-2 rounded-xl bg-slate-600 text-white disabled:opacity-50"
+                  className="px-4 py-2 rounded-md bg-slate-800 text-white font-bold transition disabled:opacity-50 duration-200 enabled:hover:bg-white enabled:hover:text-black border-2 border-transparent enabled:hover:border-slate-800 disabled:cursor-not-allowed"
                 >
+                  <span className="mr-2 font-bold">←</span>
                   Back
                 </button>
                 <button
                   type="submit"
                   disabled={activeTab === formElements.length}
-                  className="px-4 py-2 rounded-xl bg-[#FCB62E] text-white disabled:opacity-50"
+                  // className="px-4 py-2 rounded-xl bg-[#FCB62E] text-white disabled:opacity-50"
+                  className="px-4 py-2 rounded-md bg-[#FCB62E] text-white font-bold transition disabled:opacity-50 duration-200 hover:bg-white hover:text-black border-2 border-transparent hover:border-[#FCB62E]"
                 >
                   Next
                   <span className="ml-2 font-bold">→</span>
@@ -131,18 +138,26 @@ const MainForm: React.FC = () => {
             </form>
           </>
         )}
+
         {activeTab === formElements.length && (
-          <div className="w-full md:w-[60%] max-w-md mt-10 md:mt-[7%] pb-4 flex flex-col items-center border-red-500">
+          <div className="w-full max-w-[85%] pb-4 flex flex-col items-center border-red-500">
             <Confirmation
               // @ts-expect-error
               data={data.reduce((acc, obj) => {
                 return { ...acc, ...obj };
               }, {})}
             />
-            <button
+            {/* <button
               type="button"
               onClick={() => setActiveTab((prev) => prev - 1)}
               className="mt-4 px-16 py-2 rounded-xl bg-[#FCB62E] text-white -translate-x-2"
+            >
+              Back
+            </button> */}
+            <button
+              type="button"
+              onClick={() => setActiveTab((prev) => prev - 1)}
+              className="mt-4 px-16 py-2 rounded-md bg-[#FCB62E] text-white font-bold transition duration-200 hover:bg-white hover:text-black border-2 border-transparent hover:border-[#FCB62E]"
             >
               Back
             </button>

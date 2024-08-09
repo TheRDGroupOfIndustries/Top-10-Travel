@@ -39,122 +39,21 @@ import {
 import EditUserForm from "./EditUserform";
 import AddUserForm from "./AddUserForm";
 import { Card } from "@/components/ui/card";
+import { $Enums, User } from "@prisma/client";
+import { FaTrashCan } from "react-icons/fa6";
+import { toast } from "sonner";
+import { deleteUser } from "@/core/server/actions/users/deleteUser";
 
-export type User = {
-  id: string;
-  name: string;
-  email: string;
-  role: string;
-  status: "active" | "inactive" | "suspended";
-};
-
-const data: User[] = [
-  {
-    id: "u1",
-    name: "John Doe",
-    email: "john@example.com",
-    role: "USER",
-    status: "active",
-  },
-  {
-    id: "u2",
-    name: "Jane Smith",
-    email: "jane@example.com",
-    role: "ADMIN",
-    status: "active",
-  },
-  {
-    id: "u3",
-    name: "Bob Johnson",
-    email: "bob@example.com",
-    role: "COMPANY",
-    status: "inactive",
-  },
-  {
-    id: "u4",
-    name: "Alice Brown",
-    email: "alice@example.com",
-    role: "USER",
-    status: "active",
-  },
-  {
-    id: "u5",
-    name: "Charlie Davis",
-    email: "charlie@example.com",
-    role: "COMPANY",
-    status: "active",
-  },
-  {
-    id: "u6",
-    name: "Eva Wilson",
-    email: "eva@example.com",
-    role: "USER",
-    status: "suspended",
-  },
-  {
-    id: "u7",
-    name: "Frank Miller",
-    email: "frank@example.com",
-    role: "COMPANY",
-    status: "active",
-  },
-  {
-    id: "u8",
-    name: "Grace Lee",
-    email: "grace@example.com",
-    role: "ADMIN",
-    status: "active",
-  },
-  {
-    id: "u9",
-    name: "Henry Taylor",
-    email: "henry@example.com",
-    role: "USER",
-    status: "inactive",
-  },
-  {
-    id: "u10",
-    name: "Ivy Clark",
-    email: "ivy@example.com",
-    role: "COMPANY",
-    status: "active",
-  },
-  {
-    id: "u11",
-    name: "Jack Robinson",
-    email: "jack@example.com",
-    role: "USER",
-    status: "active",
-  },
-  {
-    id: "u12",
-    name: "Karen White",
-    email: "karen@example.com",
-    role: "COMPANY",
-    status: "suspended",
-  },
-  {
-    id: "u13",
-    name: "Liam Harris",
-    email: "liam@example.com",
-    role: "USER",
-    status: "active",
-  },
-  {
-    id: "u14",
-    name: "Mia Garcia",
-    email: "mia@example.com",
-    role: "ADMIN",
-    status: "active",
-  },
-  {
-    id: "u15",
-    name: "Noah Martinez",
-    email: "noah@example.com",
-    role: "COMPANY",
-    status: "inactive",
-  },
-];
+async function deleteProject(id: string) {
+  const res = await deleteUser(id);
+  if (res.success) {
+    toast.success("Successfully deleted");
+  } else {
+    if (res.error) {
+      toast.error(res.error);
+    }
+  }
+}
 
 export const columns: ColumnDef<User>[] = [
   {
@@ -182,52 +81,69 @@ export const columns: ColumnDef<User>[] = [
   {
     accessorKey: "id",
     header: "Id",
-    cell: ({ row }) => <div className="capitalize">{row.getValue("id")}</div>,
+    // cell: ({ row }) => <div className="capitalize">{row.getValue("id")}</div>,
   },
   {
-    accessorKey: "name",
+    accessorKey: "username",
     header: "Name",
-    cell: ({ row }) => <div>{row.getValue("name")}</div>,
   },
   {
     accessorKey: "email",
     header: "Email",
-    cell: ({ row }) => <div>{row.getValue("email")}</div>,
   },
   {
     accessorKey: "role",
     header: "Role",
-    cell: ({ row }) => <div>{row.getValue("role")}</div>,
-  },
-  {
-    accessorKey: "status",
-    header: "Status",
-    cell: ({ row }) => (
-      <div className="capitalize">{row.getValue("status")}</div>
-    ),
   },
   {
     id: "actions",
+    header: "Actions",
     enableHiding: false,
     cell: ({ row }) => {
       const user = row.original;
       return (
-        <Dialog>
-          <DialogTrigger asChild>
-            <Button variant="ghost" className="h-8 w-8 p-0">
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button
+              size="icon"
+              variant="ghost"
+            >
               <SquarePen className="h-4 w-4" />
             </Button>
-          </DialogTrigger>
-          <DialogContent className="sm:max-w-[425px]">
-            <EditUserForm />
-          </DialogContent>
-        </Dialog>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent>
+            <DropdownMenuLabel>User actions</DropdownMenuLabel>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem asChild>
+              <Dialog>
+                <DialogTrigger asChild>
+                  <Button
+                    variant="ghost"
+                    className="flex items-center justify-between gap-2 w-full"
+                  >
+                    Edit <SquarePen className="h-4 w-4" />
+                  </Button>
+                </DialogTrigger>
+                <DialogContent className="sm:max-w-[425px]">
+                  <EditUserForm user={user} />
+                </DialogContent>
+              </Dialog>
+            </DropdownMenuItem>
+            <DropdownMenuItem
+              className="flex items-center justify-start gap-2"
+              onClick={() => deleteProject(row.original.id)}
+            >
+              Delete User
+              <FaTrashCan />
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
       );
     },
   },
 ];
 
-function AdminUsers() {
+function AdminUsers({ users }: { users: User[] }) {
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     []
@@ -238,7 +154,7 @@ function AdminUsers() {
   const [showAddUserForm, setShowAddUserForm] = React.useState(false);
 
   const table = useReactTable({
-    data,
+    data: users,
     columns,
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,
@@ -268,14 +184,17 @@ function AdminUsers() {
             total users
           </p>
         </div>
-        <Dialog open={showAddUserForm} onOpenChange={setShowAddUserForm}>
+        {/* <Dialog
+          open={showAddUserForm}
+          onOpenChange={setShowAddUserForm}
+        >
           <DialogTrigger asChild>
             <Button>Add user +</Button>
           </DialogTrigger>
           <DialogContent>
             <AddUserForm onClose={() => setShowAddUserForm(false)} />
           </DialogContent>
-        </Dialog>
+        </Dialog> */}
       </div>
       <div className="flex items-center">
         <Input
@@ -288,7 +207,10 @@ function AdminUsers() {
         />
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="outline" className="ml-auto">
+            <Button
+              variant="outline"
+              className="ml-auto"
+            >
               Columns <ChevronDown className="ml-2 h-4 w-4" />
             </Button>
           </DropdownMenuTrigger>

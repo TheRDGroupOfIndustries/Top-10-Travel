@@ -41,172 +41,147 @@ import AddUserForm from "./AddUserForm";
 import { Card } from "@/components/ui/card";
 import Image from "next/image";
 import Link from "next/link";
+import { $Enums } from "@prisma/client";
+import EditListingForm from "./EditListingForm";
+import { FaTrashCan } from "react-icons/fa6";
+import { toast } from "sonner";
+import { deleteCompany } from "@/core/server/actions/company/deleteCompany";
+import AnimatedImage from "@/components/site/Details/AnimatedImage";
 
-export type Package = {
+export type Company = {
   id: string;
-  image: string;
-  name: string;
-  status: "active" | "inactive" | "suspended";
+  image: string | null;
+  isSuspended: boolean;
+  isCertified: boolean;
+  userId: string;
+  legalName: string;
+  priority: number;
+  state_priority: number;
+  country: string;
+  city: string;
+  methodology:string|null;
+  companyRole: $Enums.CompanyRole;
 };
-
-const data: Package[] = [
-  {
-    id: "p1",
-    name: "Tropical Paradise Getaway",
-    image:
-      "https://img.freepik.com/free-photo/beautiful-girl-standing-boat-looking-mountains-ratchaprapha-dam-khao-sok-national-park-surat-thani-province-thailand_335224-849.jpg?t=st=1722438770~exp=1722442370~hmac=7ed9d2126593030ccd670ab282b07e7a9a3b921438f087c1b1bcb3cf5aeaba22&w=826",
-    status: "active",
-  },
-  {
-    id: "p2",
-    name: "Mountain Adventure Package",
-    image:
-      "https://img.freepik.com/free-photo/beautiful-girl-standing-boat-looking-mountains-ratchaprapha-dam-khao-sok-national-park-surat-thani-province-thailand_335224-849.jpg?t=st=1722438770~exp=1722442370~hmac=7ed9d2126593030ccd670ab282b07e7a9a3b921438f087c1b1bcb3cf5aeaba22&w=826",
-    status: "active",
-  },
-  {
-    id: "p3",
-    name: "City Explorer Tour",
-    image:
-      "https://img.freepik.com/free-photo/beautiful-girl-standing-boat-looking-mountains-ratchaprapha-dam-khao-sok-national-park-surat-thani-province-thailand_335224-849.jpg?t=st=1722438770~exp=1722442370~hmac=7ed9d2126593030ccd670ab282b07e7a9a3b921438f087c1b1bcb3cf5aeaba22&w=826",
-    status: "inactive",
-  },
-  {
-    id: "p4",
-    name: "Historical Landmarks Journey",
-    image:
-      "https://img.freepik.com/free-photo/beautiful-girl-standing-boat-looking-mountains-ratchaprapha-dam-khao-sok-national-park-surat-thani-province-thailand_335224-849.jpg?t=st=1722438770~exp=1722442370~hmac=7ed9d2126593030ccd670ab282b07e7a9a3b921438f087c1b1bcb3cf5aeaba22&w=826",
-    status: "active",
-  },
-  {
-    id: "p5",
-    name: "Culinary Delights Tour",
-    image:
-      "https://img.freepik.com/free-photo/beautiful-girl-standing-boat-looking-mountains-ratchaprapha-dam-khao-sok-national-park-surat-thani-province-thailand_335224-849.jpg?t=st=1722438770~exp=1722442370~hmac=7ed9d2126593030ccd670ab282b07e7a9a3b921438f087c1b1bcb3cf5aeaba22&w=826",
-    status: "active",
-  },
-  {
-    id: "p6",
-    name: "Wildlife Safari Experience",
-    image:
-      "https://img.freepik.com/free-photo/beautiful-girl-standing-boat-looking-mountains-ratchaprapha-dam-khao-sok-national-park-surat-thani-province-thailand_335224-849.jpg?t=st=1722438770~exp=1722442370~hmac=7ed9d2126593030ccd670ab282b07e7a9a3b921438f087c1b1bcb3cf5aeaba22&w=826",
-    status: "suspended",
-  },
-  {
-    id: "p7",
-    name: "Romantic Couples Retreat",
-    image:
-      "https://img.freepik.com/free-photo/beautiful-girl-standing-boat-looking-mountains-ratchaprapha-dam-khao-sok-national-park-surat-thani-province-thailand_335224-849.jpg?t=st=1722438770~exp=1722442370~hmac=7ed9d2126593030ccd670ab282b07e7a9a3b921438f087c1b1bcb3cf5aeaba22&w=826",
-    status: "active",
-  },
-  {
-    id: "p8",
-    name: "Adrenaline Rush Adventure",
-    image:
-      "https://img.freepik.com/free-photo/beautiful-girl-standing-boat-looking-mountains-ratchaprapha-dam-khao-sok-national-park-surat-thani-province-thailand_335224-849.jpg?t=st=1722438770~exp=1722442370~hmac=7ed9d2126593030ccd670ab282b07e7a9a3b921438f087c1b1bcb3cf5aeaba22&w=826",
-    status: "active",
-  },
-  {
-    id: "p9",
-    name: "Relaxation and Spa Getaway",
-    image:
-      "https://img.freepik.com/free-photo/beautiful-girl-standing-boat-looking-mountains-ratchaprapha-dam-khao-sok-national-park-surat-thani-province-thailand_335224-849.jpg?t=st=1722438770~exp=1722442370~hmac=7ed9d2126593030ccd670ab282b07e7a9a3b921438f087c1b1bcb3cf5aeaba22&w=826",
-    status: "inactive",
-  },
-  {
-    id: "p10",
-    name: "Cultural Immersion Experience",
-    image:
-      "https://img.freepik.com/free-photo/beautiful-girl-standing-boat-looking-mountains-ratchaprapha-dam-khao-sok-national-park-surat-thani-province-thailand_335224-849.jpg?t=st=1722438770~exp=1722442370~hmac=7ed9d2126593030ccd670ab282b07e7a9a3b921438f087c1b1bcb3cf5aeaba22&w=826",
-    status: "active",
-  },
-  {
-    id: "p11",
-    name: "Island Hopping Adventure",
-    image:
-      "https://img.freepik.com/free-photo/beautiful-girl-standing-boat-looking-mountains-ratchaprapha-dam-khao-sok-national-park-surat-thani-province-thailand_335224-849.jpg?t=st=1722438770~exp=1722442370~hmac=7ed9d2126593030ccd670ab282b07e7a9a3b921438f087c1b1bcb3cf5aeaba22&w=826",
-    status: "active",
-  },
-  {
-    id: "p12",
-    name: "Ski Resort Vacation",
-    image:
-      "https://img.freepik.com/free-photo/beautiful-girl-standing-boat-looking-mountains-ratchaprapha-dam-khao-sok-national-park-surat-thani-province-thailand_335224-849.jpg?t=st=1722438770~exp=1722442370~hmac=7ed9d2126593030ccd670ab282b07e7a9a3b921438f087c1b1bcb3cf5aeaba22&w=826",
-    status: "suspended",
-  },
-  {
-    id: "p13",
-    name: "Eco-Tourism Green Package",
-    image:
-      "https://img.freepik.com/free-photo/beautiful-girl-standing-boat-looking-mountains-ratchaprapha-dam-khao-sok-national-park-surat-thani-province-thailand_335224-849.jpg?t=st=1722438770~exp=1722442370~hmac=7ed9d2126593030ccd670ab282b07e7a9a3b921438f087c1b1bcb3cf5aeaba22&w=826",
-    status: "active",
-  },
-  {
-    id: "p14",
-    name: "Family Fun Holiday",
-    image:
-      "https://img.freepik.com/free-photo/beautiful-girl-standing-boat-looking-mountains-ratchaprapha-dam-khao-sok-national-park-surat-thani-province-thailand_335224-849.jpg?t=st=1722438770~exp=1722442370~hmac=7ed9d2126593030ccd670ab282b07e7a9a3b921438f087c1b1bcb3cf5aeaba22&w=826",
-    status: "active",
-  },
-  {
-    id: "p15",
-    name: "Luxury Cruise Experience",
-    image:
-      "https://img.freepik.com/free-photo/beautiful-girl-standing-boat-looking-mountains-ratchaprapha-dam-khao-sok-national-park-surat-thani-province-thailand_335224-849.jpg?t=st=1722438770~exp=1722442370~hmac=7ed9d2126593030ccd670ab282b07e7a9a3b921438f087c1b1bcb3cf5aeaba22&w=826",
-    status: "inactive",
-  },
-];
-
-export const columns: ColumnDef<Package>[] = [
+async function deleteListing(id: string) {
+  const res = await deleteCompany(id);
+  console.log(res);
+  if (res.success) {
+    toast.success(res.success);
+  } else toast.error(res.error);
+}
+export const columns: ColumnDef<Company>[] = [
   {
     accessorKey: "image",
     header: "Image",
-    cell: ({ row }) => (
-      <div className="w-24 h-16 overflow-hidden rounded-lg">
-        <Image
-          src={row.getValue("image")}
-          alt={`${row.getValue("name")} package`}
-          width={120}
-          height={120}
-          className="w-full h-full object-cover"
-        />
-      </div>
-    ),
+    cell: ({ row }) => {
+      let href = null;
+      try {
+        href = new URL(row.getValue("image")).href;
+      } catch (error) {
+        href = null;
+      }
+      return (
+        <div className="w-20 h-14 overflow-hidden rounded-lg">
+          <AnimatedImage
+            src={href ?? "/UploadImage.jpg"}
+            alt={"/UploadImage.jpg"}
+            layout="fill"
+            objectFit="cover"
+            className="w-full h-full"
+          />
+        </div>
+      );
+    },
   },
   {
-    accessorKey: "name",
+    accessorKey: "id",
+    header: "Company Id",
+  },
+  {
+    accessorKey: "legalName",
     header: "Name",
-    cell: ({ row }) => <div>{row.getValue("name")}</div>,
   },
   {
-    accessorKey: "status",
-    header: "Status",
-    cell: ({ row }) => (
-      <div className="capitalize">{row.getValue("status")}</div>
-    ),
+    accessorKey: "companyRole",
+    header: "Company Role",
+  },
+  {
+    accessorKey: "priority",
+    header: "Priority (Country)",
+  },
+  {
+    accessorKey: "state_priority",
+    header: "Priority (city)",
+  },
+  {
+    accessorKey: "isCertified",
+    header: "Is Certified",
+  },
+  {
+    accessorKey: "isSuspended",
+    header: "Is Suspended",
+  },
+  {
+    accessorKey: "country",
+    header: "Country",
+  },
+  {
+    accessorKey: "city",
+    header: "City",
   },
   {
     id: "actions",
     enableHiding: false,
+    header: "Actions",
     cell: ({ row }) => {
-      const user = row.original;
+      const listing = row.original;
       return (
-        <Dialog>
-          <DialogTrigger asChild>
-            <Button variant="ghost" className="h-8 w-8 p-0">
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button
+              size="icon"
+              variant="ghost"
+            >
               <SquarePen className="h-4 w-4" />
             </Button>
-          </DialogTrigger>
-          <DialogContent className="sm:max-w-[425px]">
-            <EditUserForm />
-          </DialogContent>
-        </Dialog>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent>
+            <DropdownMenuLabel>Listing actions</DropdownMenuLabel>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem asChild>
+              <Dialog>
+                <DialogTrigger asChild>
+                  <Button
+                    variant="ghost"
+                    className="flex justify-between items-center gap-2 w-full"
+                  >
+                    Edit Info <SquarePen className="h-4 w-4" />
+                  </Button>
+                </DialogTrigger>
+                <DialogContent className="sm:max-w-[425px]">
+                  <EditListingForm company={listing} />
+                </DialogContent>
+              </Dialog>
+            </DropdownMenuItem>
+            <DropdownMenuItem
+              className="flex items-center justify-start gap-2"
+              onClick={() => deleteListing(row.original.id)}
+            >
+              Delete Company
+              <FaTrashCan />
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
       );
     },
   },
 ];
 
-export default function AdminPackagelisting() {
+export default function AdminPackagelisting({
+  listings,
+}: {
+  listings: Company[];
+}) {
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     []
@@ -217,7 +192,7 @@ export default function AdminPackagelisting() {
   const [showAddUserForm, setShowAddUserForm] = React.useState(false);
 
   const table = useReactTable({
-    data,
+    data: listings,
     columns,
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,
@@ -235,35 +210,39 @@ export default function AdminPackagelisting() {
     },
   });
   return (
-    <Card className="mt-5 p-4">
+    <Card className="mt-5 z-[999] p-4">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-5">
-          <h2 className="text-2xl font-bold">Package</h2>
+          <h2 className="text-2xl font-bold">Listings</h2>
           <p className="text-xs">
             <span className="font-bold">
               {table.getFilteredRowModel().rows.length}
             </span>{" "}
-            total package
+            total listings
           </p>
         </div>
-        <Dialog open={showAddUserForm} onOpenChange={setShowAddUserForm}>
-          <Button asChild>
-            <Link href="/admin/package-listings/add-package">Add package +</Link>
-          </Button>
-        </Dialog>
+
+        <Button asChild>
+          <Link href="/admin/listings/add-company">Add Listing +</Link>
+        </Button>
       </div>
       <div className="flex items-center">
         <Input
           placeholder="Search by name..."
-          value={(table.getColumn("name")?.getFilterValue() as string) ?? ""}
+          value={
+            (table.getColumn("legalName")?.getFilterValue() as string) ?? ""
+          }
           onChange={(event) =>
-            table.getColumn("name")?.setFilterValue(event.target.value)
+            table.getColumn("legalName")?.setFilterValue(event.target.value)
           }
           className="max-w-sm focus-visible:ring-none focus-visible:ring-0"
         />
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="outline" className="ml-auto">
+            <Button
+              variant="outline"
+              className="ml-auto"
+            >
               Columns <ChevronDown className="ml-2 h-4 w-4" />
             </Button>
           </DropdownMenuTrigger>

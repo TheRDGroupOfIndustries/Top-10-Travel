@@ -2,24 +2,29 @@
 
 import { db } from "@/core/client/db";
 import { HelpDesk } from "@prisma/client";
-import { revalidatePath } from "next/cache";
+import { revalidatePath, revalidateTag } from "next/cache";
 import getSessionorRedirect from "@/core/utils/getSessionorRedirect";
 
-export const updateHelpdeskStatus = async (
-  id: string,
-  values: Pick<HelpDesk, "status">
+export const updateHelpdeskAction = async (
+  values: Pick<HelpDesk, "status"|"description"|"id">
 ) => {
   //   const validatedFields = FormSchema.safeParse(values);
   const session = await getSessionorRedirect();
 
+  if (session.user.role !== "ADMIN")
+    return {
+      error: "Unauthorized! Admin only",
+    };
+
   try {
     await db.helpDesk.update({
-      where: { id },
+      where: { id:values.id },
       data: {
         status: values.status,
+        description: values.description,
       },
     });
-    // revalidatePath("/account/helpdesk");
+    revalidateTag("admin-helpdesk");
 
     return { success: "Helpdesk updated Succesfully." };
   } catch (_error) {

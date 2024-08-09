@@ -31,7 +31,7 @@ const socialIcons = [Linkedin, Instagram, Twitter, Facebook, Youtube];
 
 function Footer() {
   return (
-    <div className="bg-[#FFDB80] pt-4 sm:pt-10 lg:pt-12 mt-20">
+    <div className="bg-[#FFC658] pt-4 sm:pt-10 lg:pt-12 mt-20">
       <footer className="mx-auto max-w-screen-2xl px-4 md:px-8">
         <div className="mb-16 grid grid-cols-2 gap-12 pt-10 md:grid-cols-4 lg:grid-cols-5 lg:gap-8 lg:pt-5">
           <div className="col-span-full lg:col-span-2">
@@ -45,7 +45,7 @@ function Footer() {
                   width="95"
                   height="94"
                   viewBox="0 0 95 94"
-                  className="h-auto w-5 text-white"
+                  className="h-auto w-5 text-black"
                   fill="currentColor"
                   xmlns="http://www.w3.org/2000/svg"
                 >
@@ -55,7 +55,7 @@ function Footer() {
               </Link>
             </div>
 
-            <p className="mb-6 sm:pr-8 font-semibold">
+            <p className="mb-6 cursor-default sm:pr-8 font-semibold">
               Experience the Extraordinary: Top Travel Experts, Hotels, and
               Agencies at Your Fingertips
             </p>
@@ -64,9 +64,9 @@ function Footer() {
               {contactInfo?.map((item, index) => (
                 <div
                   key={index}
-                  className="flex items-center justify-center gap-2 font-semibold"
+                  className="flex hover:scale-110 transition-all duration-500 cursor-pointer items-center justify-center gap-2 font-semibold"
                 >
-                  <item.icon className="w-5 h-5 stroke-white" />
+                  <item.icon className="w-5 h-5 stroke-black" />
                   {item.text}
                 </div>
               ))}
@@ -81,10 +81,7 @@ function Footer() {
             <nav className="flex flex-col gap-4">
               {companyLinks?.map((link, index) => (
                 <div key={index}>
-                  <Link
-                    href="#"
-                    className="transition duration-300 hover:text-white active:text-white"
-                  >
+                  <Link href="#" className="cool-link-black font-medium">
                     {link}
                   </Link>
                 </div>
@@ -100,10 +97,7 @@ function Footer() {
             <nav className="flex flex-col gap-4">
               {top10Links?.map((link, index) => (
                 <div key={index}>
-                  <Link
-                    href="#"
-                    className="transition duration-300 hover:text-white active:text-white"
-                  >
+                  <Link href="#" className="cool-link-black font-medium">
                     {link}
                   </Link>
                 </div>
@@ -120,14 +114,14 @@ function Footer() {
               {socialIcons?.map((Icon, index) => (
                 <Icon
                   key={index}
-                  className="w-5 h-5 hover:stroke-white transition duration-300 cursor-pointer"
+                  className="w-5 h-5 hover:scale-150 transition-all duration-300 cursor-pointer"
                 />
               ))}
             </nav>
           </div>
         </div>
 
-        <div className="border-t py-8 text-center text-sm font-semibold">
+        <div className="cursor-default select-none border-t py-8 text-center text-sm font-semibold">
           All rights Reserved © Your Company, 2021
         </div>
       </footer>

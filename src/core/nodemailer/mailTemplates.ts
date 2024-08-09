@@ -86,12 +86,12 @@ The Travel-Top-10 Team`,
   };
 }
 
-function getRequestAcceptedTemplate(companyName: string) {
+export function getRequestAcceptedTemplate(companyName: string, isAccepted:boolean) {
   return {
     subject: "Profile Update Request Accepted",
     text: `Dear ${companyName},
 
-We are pleased to inform you that your request for profile updates or changes has been accepted and the necessary updates have been made.
+We are pleased to inform you that your request for profile updates or changes has been ${isAccepted?"accepted and the necessary updates have been made":"rejected"}.
 
 Thank you for your patience and cooperation.
 
@@ -99,7 +99,7 @@ Best regards,
 The Travel-Top-10 Team`,
     html: `<p>Dear ${companyName},</p>
 
-<p>We are pleased to inform you that your request for profile updates or changes has been accepted and the necessary updates have been made.</p>
+<p>We are pleased to inform you that your request for profile updates or changes has been ${isAccepted?"accepted and the necessary updates have been made.":"rejected."}</p>
 
 <p>Thank you for your patience and cooperation.</p>
 

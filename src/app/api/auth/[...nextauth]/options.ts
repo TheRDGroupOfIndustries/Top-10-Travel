@@ -13,7 +13,6 @@ declare module "next-auth" {
       email: string;
       image: string;
       role: $Enums.Role;
-      companyId?: string;
     };
   }
 }
@@ -60,7 +59,7 @@ export const authOptions: NextAuthOptions = {
       session.user.name = token.name as string;
       // @ts-expect-error
       session.user.role = token.role as string;
-      session.user.companyId = token.companyId as string;
+      // session.user.companyId = token.companyId as string;
       return session;
     },
     async jwt({ token, trigger, session }) {

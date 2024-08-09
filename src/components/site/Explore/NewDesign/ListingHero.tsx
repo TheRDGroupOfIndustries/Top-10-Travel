@@ -1,6 +1,9 @@
 import { ChevronDown } from "lucide-react";
 import React, { useState, useEffect, useMemo } from "react";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import Image, { StaticImageData } from "next/image";
+import hero from "@/resources/images/Agency-Hero.png";
+import AnimatedImage from "../../Details/AnimatedImage";
 
 function ListingHero({
   title,
@@ -48,13 +51,24 @@ function ListingHero({
   };
 
   return (
-    <div className="w-full lg:h-36 pt-20">
+    <div className="w-full pt-20">
+      <div className="relative h-72 w-full mb-5">
+        <AnimatedImage
+          src={hero}
+          alt="hero"
+          objectFit="cover"
+          layout="fill"
+          className="w-full h-full object-center"
+        />
+      </div>
       <div className="w-full h-full flex flex-col lg:flex-row lg:items-end lg:justify-between items-center justify-end gap-2 px-2 md:px-3 lg:px-6 xl:px-8">
-        <h1 className="lg:text-4xl text-xl md:text-2xl font-bold text-black">
-          {title}
+        <h1 className="md:text-2xl md:text-start text-balance text-center text-xl font-bold text-black">
+          {`${title}${selectedCountry && ", " + selectedCountry.toUpperCase()}${
+            selectedState && "-" + selectedState.toUpperCase()
+          }`}
         </h1>
         <div className="flex flex-wrap lg:flex-row items-center justify-center gap-2">
-          <span className="text-sm font-medium text-black/50 px-5 py-[10px] bg-[#FFDB80] rounded-lg">
+          <span className="text-sm font-medium text-black px-5 py-[10px] bg-[#FFDB80] rounded-lg">
             Filter:
           </span>
           <div className="relative">
@@ -126,7 +140,7 @@ function ListingHero({
           </div>
           <button
             onClick={clearFilters}
-            className="bg-white text-black/50 text-sm rounded-lg px-5 py-2"
+            className="bg-white hover:border-black/50 border-transparent border-[1px] rounded-lg text-black/50 text-sm px-5 py-2"
           >
             Clear
           </button>

@@ -1,7 +1,8 @@
-"use server"
+"use server";
 import { db } from "@/core/client/db";
 import getSessionorRedirect from "@/core/utils/getSessionorRedirect";
 import { Package } from "@prisma/client";
+import { revalidatePath } from "next/cache";
 
 export const editPackageAction = async (
   id: string,
@@ -9,8 +10,14 @@ export const editPackageAction = async (
 ) => {
   const session = await getSessionorRedirect();
   try {
+    const company = await db.company.findUnique({
+      where: { userId: session.user.id },
+      select: { id: true },
+    });
+    if (!company) return { error: "Can only edit your own company." };
+
     const res = await db.package.update({
-      where: { id, companyId: session.user.companyId },
+      where: { id, companyId: company.id },
       data: { ...values },
     });
     return { success: "Package created successfully.", packageId: res.id };
@@ -19,12 +26,32 @@ export const editPackageAction = async (
     return { error: "Failed to create package." };
   }
 };
-export const deletePackageAction = async (id: string) => {
+export const deletePackageOwn = async (id: string) => {
   const session = await getSessionorRedirect();
   try {
-    const res = await db.package.delete({
-      where: { id, companyId: session.user.companyId },
+    const company = await db.company.findUnique({
+      where: { userId: session.user.id },
+      select: { id: true },
     });
+    if (!company) return { error: "Can only delete your own company." };
+
+    const res = await db.package.delete({
+      where: { id, companyId: company.id },
+    });
+    const leftpackages = await db.package.count({
+      where: { companyId: company.id },
+    });
+    if (leftpackages === 0) {
+      await db.company.update({
+        where: { id: company.id },
+        data: { isSuspended: true },
+      });
+      revalidatePath("/company/packages");
+      return {
+        success:
+          "Package deleted successfully. Your company has no packages left.",
+      };
+    }
     return { success: "Package deleted successfully.", packageId: res.id };
   } catch (error) {
     console.log(error);

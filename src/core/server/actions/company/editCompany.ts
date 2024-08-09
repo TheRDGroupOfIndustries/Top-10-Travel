@@ -1,21 +1,68 @@
-"use server"
+"use server";
 import { db } from "@/core/client/db";
 import getSessionorRedirect from "@/core/utils/getSessionorRedirect";
 import { Company } from "@prisma/client";
+import { revalidatePath, revalidateTag } from "next/cache";
 
-export const editCompanyAction = async (
-  id: string,
-  values: Partial<
-    Omit<Company, "id" | "createdAt" | "updatedAt" | "user" | "userId">
-  >
+export const editCompanyActionAdmin = async (
+  values: Pick<
+    Company,
+    | "companyRole"
+    | "isCertified"
+    | "isSuspended"
+    | "legalName"
+    | "priority"
+    | "state_priority"
+    | "methodology"
+  > & { id: string }
 ) => {
   const session = await getSessionorRedirect();
+  if (session.user.role !== "ADMIN") {
+    return { error: "Unauthorized" };
+  }
   try {
     const res = await db.company.update({
-      where: { id: id, userId: session.user.id },
+      where: { id: values.id },
       data: { ...values },
       select: { id: true },
     });
+    revalidatePath("/admin/listings");
+    return { success: "Company edited successfully.", companyId: res.id };
+  } catch (error) {
+    console.log(error);
+    return { error: "Something went wrong while applying changes." };
+  }
+};
+export const editCompanyAction = async (
+  values: Partial<
+    Pick<
+      Company,
+      "legalName" | "city" | "country" | "state" | "methodology" | "image"
+    >
+  >
+) => {
+  const session = await getSessionorRedirect();
+  const keys = Object.keys(values);
+  keys.forEach((key) => {
+    // @ts-expect-error
+    if (values[key]?.trim().length < 3) {
+      return { error: `${key} must be atleast 3 characters.` };
+    }
+  });
+  if (values.image) {
+    try {
+      const url = new URL(values.image);
+    } catch (error) {
+      return { error: "Image is not valid!" };
+    }
+  }
+  try {
+    const res = await db.company.update({
+      where: { userId: session.user.id },
+      data: { ...values },
+      select: { id: true },
+    });
+    revalidatePath("/company");
     return { success: "Company edited successfully.", companyId: res.id };
   } catch (error) {
     console.log(error);

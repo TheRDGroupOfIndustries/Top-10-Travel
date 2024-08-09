@@ -10,15 +10,26 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import useMutation from "@/hooks/useMutation";
+import updateUserAction from "@/core/server/actions/users/updateUser";
+import { $Enums, User } from "@prisma/client";
+import { toast } from "sonner";
 
-const EditUserForm = () => {
-  const handleUpdate = (e: any) => {
+const EditUserForm = ({ user }: { user: User }) => {
+  const { mutate, isPending } = useMutation(updateUserAction);
+  const handleUpdate = async (e: any) => {
     e.preventDefault();
-    try {
-      alert("Update successful");
-    } catch (error) {
-      alert("Update failed");
-    }
+    const username = e.target.username.value as string;
+    const email = e.target.email.value as string;
+    const role = e.target.role.value as $Enums.Role;
+    const { success, error } = await mutate({
+      username,
+      email,
+      role,
+      id: user.id,
+    });
+    if (success) toast.success(success);
+    else toast.error(error);
   };
   return (
     <Card className="w-full">
@@ -26,35 +37,62 @@ const EditUserForm = () => {
         <CardTitle>Edit User Details</CardTitle>
       </CardHeader>
       <CardContent>
-        <form onSubmit={handleUpdate} className="space-y-4">
+        <form
+          onSubmit={handleUpdate}
+          className="space-y-4"
+        >
           <div className="space-y-2">
-            <label htmlFor="name" className="text-sm font-medium">
-              Name
+            <label
+              htmlFor="username"
+              className="text-sm font-medium"
+            >
+              Username
             </label>
-            <Input id="name" placeholder="Enter name" />
+            <Input
+              defaultValue={user.username}
+              id="username"
+              name="username"
+              placeholder="Enter username"
+            />
           </div>
           <div className="space-y-2">
-            <label htmlFor="email" className="text-sm font-medium">
+            <label
+              htmlFor="email"
+              className="text-sm font-medium"
+            >
               Email
             </label>
-            <Input id="email" type="email" placeholder="Enter email" />
+            <Input
+              defaultValue={user.email}
+              id="email"
+              type="email"
+              name="email"
+              placeholder="Enter email"
+            />
           </div>
           <div className="space-y-2">
-            <label htmlFor="role" className="text-sm font-medium">
+            <label
+              htmlFor="role"
+              className="text-sm font-medium"
+            >
               Role
             </label>
-            <Select>
-              <SelectTrigger id="role">
+            <Select
+              defaultValue={user.role}
+              name="role"
+            >
+              <SelectTrigger>
                 <SelectValue placeholder="Select role" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="admin">Admin</SelectItem>
-                <SelectItem value="user">User</SelectItem>
-                <SelectItem value="editor">Editor</SelectItem>
+                <SelectItem value="ADMIN">Admin</SelectItem>
+                <SelectItem value="USER">User</SelectItem>
+                <SelectItem value="COMPANY">Company</SelectItem>
+                <SelectItem value="Influencer">Influencer</SelectItem>
               </SelectContent>
             </Select>
           </div>
-          <div className="space-y-2">
+          {/* <div className="space-y-2">
             <label htmlFor="status" className="text-sm font-medium">
               Status
             </label>
@@ -68,8 +106,12 @@ const EditUserForm = () => {
                 <SelectItem value="suspended">Suspended</SelectItem>
               </SelectContent>
             </Select>
-          </div>
-          <Button type="submit" className="w-full">
+          </div> */}
+          <Button
+            type="submit"
+            className="w-full"
+            disabled={isPending}
+          >
             Save Changes
           </Button>
         </form>

@@ -22,7 +22,7 @@ const CompanyNumbers = (props: Props) => {
   const { data, handleChange } = props;
 
   return (
-    <div className="space-y-2">
+    <div className="space-y-2 font-[13px]">
       <div>
         <InputCF
           required={false}

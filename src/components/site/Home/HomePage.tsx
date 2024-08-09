@@ -129,7 +129,7 @@ function HomePage() {
       <HomeContextProvider>
         <HomeHero />
         {/* <SearchingAndFilter /> */}
-        <div className="mt-20 sm:mt-16">
+        <div className="mt-20 space-y-6 sm:mt-16">
           <TopTenAgencies />
           <TopTenHotels />
           <TopTenDMC />

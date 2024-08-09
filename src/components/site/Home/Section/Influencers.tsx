@@ -9,6 +9,7 @@ import Link from "next/link";
 import { useContext, useEffect, useState } from "react";
 import { HomeContext } from "@/hooks/context/HomeContext";
 import useAxios from "@/hooks/useAxios";
+import { motion } from "framer-motion";
 
 type Data =
   | {
@@ -36,16 +37,42 @@ const Influencers = () => {
   return (
     <main
       className={cn(
-        "w-full mt-5 px-2 md:px-3 lg:px-6 xl:px-8",
+        "w-full mt-10 px-2 md:px-3 lg:px-6 xl:px-8",
         visible.Influencer ? "" : "hidden"
       )}
     >
-      <div className="w-full flex flex-col items-center justify-center gap-2">
-        <h1 className="text-xl sm:text-4xl font-bold text-center">
-          TOP 10 INFLUENCERS
+      <div className="w-full flex flex-col items-center justify-center gap-4">
+        <h1 className="text-xl lg:overflow-hidden sm:text-4xl font-bold text-center">
+          <motion.span
+            className="inline-block"
+            initial={{ y: 30, opacity: 0 }}
+            whileInView={{ y: 0, opacity: 1 }}
+            transition={{
+              duration: 0.8,
+              delay: 0.3,
+              type: "spring",
+            }}
+            viewport={{ once: true }}
+          >
+            {`TOP 10 INFLUENCERS${
+              selectedCountry && ", " + selectedCountry.toUpperCase()
+            }${selectedCity && "-" + selectedCity.toUpperCase()}`}
+          </motion.span>
         </h1>
         <p className="text-base sm:text-lg text-center mb-8">
-          Experience Hassle-Free Room Hunting with Our Comprehensive listing
+          <motion.span
+            className="inline-block"
+            initial={{ y: 30, opacity: 0 }}
+            whileInView={{ y: 0, opacity: 1 }}
+            transition={{
+              duration: 0.8,
+              delay: 0.4,
+              type: "spring",
+            }}
+            viewport={{ once: true }}
+          >
+            Experience Hassle-Free Room Hunting with Our Comprehensive listing
+          </motion.span>
         </p>
         <div
           className={cn(
@@ -67,12 +94,14 @@ const Influencers = () => {
           )}
           {!isLoading && <InfluencerCarousel data={data as Data} />}
         </div>
-        <Link
-          href={`/Influencers`}
-          className="bg-black px-5 py-2 text-white font-bold rounded-full w-fit mt-10 mx-auto"
+
+        <motion.div
+          className="bg-black px-5 py-2 rounded-md mt-6 mb-5 mx-auto hover:bg-gray-800 w-fit transition-colors text-white font-bold"
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.9 }}
         >
-          View more
-        </Link>
+          <Link href={`/Influencers`}>View more</Link>
+        </motion.div>
       </div>
     </main>
   );

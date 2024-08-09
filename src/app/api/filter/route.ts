@@ -5,6 +5,7 @@ export const revalidate = 3600;
 
 export const GET = async () => {
   const companies = await db.company.findMany({
+    where:{isCertified:true, isSuspended:false},
     select: { country: true, city: true },
     distinct: ["country", "city"],
   });
@@ -12,16 +13,28 @@ export const GET = async () => {
     select: { country: true, state: true },
     distinct: ["country", "state"],
   });
-  const allCountries = companies
-    .map((c) => c.country)
-    .concat(influencers.map((i) => i.country));
-  const allCities = companies
-    .map((c) => c.city)
-    .concat(influencers.map((i) => i.state));
-  const countries = Array.from(new Set(allCountries));
-  const cities = Array.from(new Set(allCities));
+  const combined: any = companies
+    .map((c) => ({ country: c.country, city: c.city }))
+    .concat(influencers.map((i) => ({ country: i.country, city: i.state })));
+
+  const groupedByCountry = combined.reduce(
+    (acc: any, { country, city }: any) => {
+      if (!acc[country]) {
+        acc[country] = [];
+      }
+      acc[country].push(city);
+      return acc;
+    },
+    {}
+  );
+  Object.keys(groupedByCountry).forEach(
+    (country) =>
+      (groupedByCountry[country] = Array.from(
+        new Set(groupedByCountry[country])
+      ))
+  );
   return NextResponse.json(
-    { countries, cities },
+    { countries: groupedByCountry },
     {
       headers: {
         "Cache-Control": "public, max-age=3600",
