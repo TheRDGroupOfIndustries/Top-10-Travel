@@ -5,7 +5,7 @@ import { Label } from "../ui/label";
 import { Button } from "../ui/button";
 import useMutation from "@/hooks/useMutation";
 import { editCompanyAction } from "@/core/server/actions/company/editCompany";
-import { Pencil, Upload } from "lucide-react";
+import { Pencil, Upload, UserRoundPen } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { toast } from "sonner";
 import Image from "next/image";
@@ -59,18 +59,14 @@ const CompanyDataInputwSave = ({
             minLength={minLength}
             maxLength={maxLength}
           />
-          <Button
-            disabled={isPending}
-            type="submit"
-            size="sm"
-          >
+          <Button disabled={isPending} type="submit" size="sm">
             {isPending ? "Saving..." : "Save"}
           </Button>
         </form>
       ) : (
         <>
-          <span
-            className=" p-2"
+          <div
+            className=" p-2 flex flex-wrap items-center gap-2"
             onDoubleClick={() => setIsChanging(true)}
           >
             <strong
@@ -79,17 +75,17 @@ const CompanyDataInputwSave = ({
                 className
               )}
             >
-              {name.toUpperCase()}
-              <Pencil
-                onClick={() => setIsChanging(true)}
-                className="h-5 w-5 text-muted-foreground transition-colors hover:text-foreground"
-              />
+              {name.toUpperCase()}:
             </strong>
-            <p className="text-center md:text-left max-w-[300px] break-words">
+            <p className="text-center md:text-left w-full md:max-w-[300px] break-words">
               {(!value || value === "") && "Not provided"}
-              {value}
+              {value}{" "}
             </p>
-          </span>
+            <UserRoundPen
+              onClick={() => setIsChanging(true)}
+              className="h-4 w-4 text-muted-foreground transition-colors hover:text-foreground"
+            />
+          </div>
         </>
       )}
     </>

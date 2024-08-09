@@ -21,7 +21,7 @@ const HeroHeading = ({
         type: "spring",
       }}
       className={cn(
-        "lg:text-4xl md:text-3xl sm:text-2xl text-xl lg:tracking-wide text-center font-bold lg:pt-24 md:pt-20 sm:pt-28 pt-20 xl:leading-[86px] lg:leading-[60px] leading-[56px] xl:pb-12 lg:pb-10 md:pb-8 sm:pb-6 pb-4",
+        "lg:text-4xl md:text-3xl sm:text-2xl text-xl lg:tracking-wide text-center font-bold pt-20 xl:leading-[86px] lg:leading-[60px] leading-[56px] xl:pb-12 lg:pb-10 md:pb-8 sm:pb-6 pb-4",
         className
       )}
     >

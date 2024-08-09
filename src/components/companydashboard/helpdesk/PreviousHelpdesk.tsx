@@ -3,7 +3,7 @@ import { HelpDesk, Request } from "@prisma/client";
 
 const PreviousHelpdesk = ({ helpdesks }: { helpdesks: HelpDesk[] }) => {
   return (
-    <div className="p-2 border rounded space-y-2">
+    <div className="p-2 border rounded space-y-2 bg-background">
       {helpdesks.map((helpdesk) => (
         <div
           className="border p-4 rounded-md"

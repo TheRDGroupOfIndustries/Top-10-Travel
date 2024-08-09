@@ -65,12 +65,12 @@ const AdminReport = ({ report }: { report: ReportData }) => {
 
       {filteredReport.map((company) => (
         <Card key={company.id}>
-          <CardHeader className="md:flex gap-8 md:gap-24 items-center md:flex-row justify-between">
-            <div className="flex flex-wrap gap-5">
-              <CardTitle className="font-bold my-4">
+          <CardHeader className="flex flex-col sm:flex-row gap-8 md:gap-24 items-center justify-between">
+            <div className="flex flex-col">
+              <CardTitle className="font-bold my-4 text-center sm:text-left">
                 {company.legalName}
               </CardTitle>
-              <div className="text-sm flex gap-2 flex-wrap mt-4 max-w-sm">
+              <div className="text-sm flex items-center sm:items-start gap-2 flex-wrap mt-4 max-w-sm lg:max-w-lg">
                 <Badge>Total reviews: {company.reviews}</Badge>
                 <Badge>Rating: {company.rating}</Badge>
                 <Badge>Country Priority: {company.priority}</Badge>
@@ -79,15 +79,13 @@ const AdminReport = ({ report }: { report: ReportData }) => {
                 <Badge>City : {company.city}</Badge>
               </div>
             </div>
-            <div>
-              <Image
-                src={getValidUrl(company.image ?? "")}
-                width={200}
-                height={100}
-                alt={company.legalName}
-                className="rounded-md"
-              />
-            </div>
+            <img
+              src={getValidUrl(company.image ?? "")}
+              width={200}
+              height={100}
+              alt={company.legalName}
+              className="rounded-md object-cover"
+            />
           </CardHeader>
           <CardContent>
             <h2>All Reviews:</h2>
@@ -105,7 +103,7 @@ const AdminReport = ({ report }: { report: ReportData }) => {
                   <TableRow key={review.id}>
                     <TableCell>{review.id}</TableCell>
                     <TableCell>{review.name}</TableCell>
-                    <TableCell className="w-[300px] flex ">
+                    <TableCell className="min-w-[200px] md:w-[300px]">
                       {review.review}
                     </TableCell>
                     <TableCell>

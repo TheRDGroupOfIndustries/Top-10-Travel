@@ -3,7 +3,7 @@ import { Request } from "@prisma/client";
 
 const PreviousRequests = ({ requests }: { requests: Request[] }) => {
   return (
-    <div className="p-2 border rounded space-y-2">
+    <div className="p-2 border rounded space-y-2 bg-background">
       {requests.map((request) => (
         <div
           className="border p-4 rounded-md"

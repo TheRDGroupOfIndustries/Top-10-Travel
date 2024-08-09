@@ -46,12 +46,12 @@ function ListDataInfluencer({
             className="w-full lg:h-60 rounded-lg flex flex-col md:flex-row items-center justify-between gap-5 shadow shadow-black/60"
           >
             <div className="lg:w-[30%] w-full lg:h-full h-60 rounded-lg overflow-hidden">
-              <Image
+              <img
                 src={getValidUrl(item.image ?? "")}
                 alt={`image-${item?.name}`}
                 width={300}
                 height={300}
-                className="w-full h-full object-cover"
+                className="w-auto h-auto object-cover"
               />
             </div>
             <div className="lg:w-[70%] w-full h-full rounded-lg overflow-hidden flex flex-col items-start justify-start gap-3 p-1">
@@ -60,7 +60,7 @@ function ListDataInfluencer({
                 <Button
                   asChild
                   size="sm"
-                  className="bg-[#FFDB80] hover:bg-[#ffdb80d0] text-black rounded"
+                  className="bg-[#FCAF1E] hover:bg-[#fcaf1ed0] text-black rounded"
                 >
                   <Link
                     href={`/Influencers/${item?.id}`}
@@ -93,7 +93,7 @@ function ListDataInfluencer({
               window.scrollTo({ top: 0 });
             }}
             disabled={currentPage === 1}
-            className="bg-[#FFDB80] hover:bg-[#ffdb80d0] text-black"
+            className="bg-[#FCAF1E] hover:bg-[#fcaf1ed0] text-black"
           >
             <ChevronLeft />
           </Button>
@@ -109,7 +109,7 @@ function ListDataInfluencer({
               window.scrollTo({ top: 0 });
             }}
             disabled={currentPage === Math.ceil(data?.length / itemsPerPage)}
-            className="bg-[#FFDB80] hover:bg-[#ffdb80d0] text-black"
+            className="bg-[#FCAF1E] hover:bg-[#fcaf1ed0] text-black"
           >
             <ChevronRight />
           </Button>

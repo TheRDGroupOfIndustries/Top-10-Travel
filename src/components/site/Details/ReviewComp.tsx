@@ -6,6 +6,7 @@ import StarRating from "@/components/reusable/StarRating";
 import { Button } from "@/components/ui/button";
 import ReviewDialog from "@/components/company/ReviewForm/ReviewFormDialog";
 import { Reviews } from "@prisma/client";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 // Adjust import based on your setup
 
 function ReviewsComponent({
@@ -40,7 +41,7 @@ function ReviewsComponent({
   };
 
   return (
-    <div className="flex flex-col border-[1px] border-black rounded-2xl gap-8 py-12 px-8">
+    <div className="flex flex-col shadow shadow-black/50 rounded-md gap-8 py-12 sm:px-8 px-4">
       <h4 className="font-medium leading-6 text-[32px]">Reviews</h4>
 
       {/* Display current reviews */}
@@ -89,40 +90,42 @@ function ReviewsComponent({
           </div>
         </div>
       ))}
+      <div className="flex items-center justify-between">
+        {/* Pagination */}
+        {reviews.length > 2 ? (
+          <div className="flex justify-end gap-2">
+            <Button
+              size={"icon"}
+              onClick={prevPage}
+              className={`rounded-lg ${
+                currentPage === 1
+                  ? "bg-gray-400 cursor-not-allowed"
+                  : "bg-gray-700 hover:bg-gray-900"
+              }`}
+              disabled={currentPage === 1}
+            >
+              <ChevronLeft />
+            </Button>
+            <Button
+              onClick={nextPage}
+              size={"icon"}
+              className={`rounded-lg ${
+                currentPage === Math.ceil(reviews.length / itemsPerPage)
+                  ? "bg-gray-400 cursor-not-allowed"
+                  : "bg-gray-700 hover:bg-gray-900"
+              }`}
+              disabled={
+                currentPage === Math.ceil(reviews.length / itemsPerPage)
+              }
+            >
+              <ChevronRight />
+            </Button>
+          </div>
+        ) : null}
 
-      {/* Pagination */}
-      {reviews.length > 2 ? (
-        <div className="flex justify-end gap-2">
-          <Button
-            onClick={prevPage}
-            className={`px-4 py-2 rounded-lg ${
-              currentPage === 1
-                ? "bg-gray-400 cursor-not-allowed"
-                : "bg-gray-700 hover:bg-gray-900"
-            }`}
-            disabled={currentPage === 1}
-          >
-            Previous
-          </Button>
-          <Button
-            onClick={nextPage}
-            className={`px-4 py-2 rounded-lg ${
-              currentPage === Math.ceil(reviews.length / itemsPerPage)
-                ? "bg-gray-400 cursor-not-allowed"
-                : "bg-gray-700 hover:bg-gray-900"
-            }`}
-            disabled={currentPage === Math.ceil(reviews.length / itemsPerPage)}
-          >
-            Next
-          </Button>
-        </div>
-      ) : null}
-
-      {/* Review dialog */}
-      <ReviewDialog
-        companyId={companyId}
-        name={name}
-      />
+        {/* Review dialog */}
+        <ReviewDialog companyId={companyId} name={name} />
+      </div>
     </div>
   );
 }

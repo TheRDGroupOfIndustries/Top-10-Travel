@@ -154,7 +154,7 @@ const HelpDeskDashboard: React.FC<HelpDeskDashboardProps> = ({
             <div className="flex items-center space-x-2">
               <Input
                 placeholder="Search tickets..."
-                className="w-64"
+                className="max-w-64"
                 value={searchTerm}
                 onChange={handleSearch}
               />
@@ -164,7 +164,7 @@ const HelpDeskDashboard: React.FC<HelpDeskDashboardProps> = ({
             </div>
             <div className="flex items-center space-x-2">
               <Select onValueChange={handleFilterChange}>
-                <SelectTrigger className="w-[180px]">
+                <SelectTrigger className="">
                   <SelectValue placeholder="Filter by status" />
                 </SelectTrigger>
                 <SelectContent>
@@ -188,7 +188,7 @@ const HelpDeskDashboard: React.FC<HelpDeskDashboardProps> = ({
             </TableHeader>
             <TableBody>
               {filteredTickets.map((ticket) => (
-                <TableRow key={ticket.id} className="">
+                <TableRow className="" key={ticket.id}>
                   <TableCell>{ticket.id}</TableCell>
                   <TableCell>{ticket.title}</TableCell>
                   <TableCell>
@@ -200,8 +200,12 @@ const HelpDeskDashboard: React.FC<HelpDeskDashboardProps> = ({
                       {ticket.status}
                     </Badge>
                   </TableCell>
-                  <TableCell>{ticket.createdAt?.toString()}</TableCell>
-                  <TableCell className="p-6 w-[300px] flex h-full justify-center items-center my-auto">
+                  <TableCell>
+                    {ticket.createdAt
+                      ? new Date(ticket.createdAt).toDateString()
+                      : ""}
+                  </TableCell>
+                  <TableCell className="min-w-[250px] text-justify">
                     {ticket.description}
                   </TableCell>
                   <TableCell>

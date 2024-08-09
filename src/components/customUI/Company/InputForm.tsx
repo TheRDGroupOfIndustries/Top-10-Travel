@@ -7,9 +7,12 @@ interface InputType{
     value : string | number 
     onChange : any
     required : boolean
+    minLength?:number
+    maxLength?:number
+    min?:number
 }
 
-function InputCF({type,placeholder,name,value,onChange,required }: InputType) {
+function InputCF({type,placeholder,name,value,onChange,required, maxLength, minLength, min }: InputType) {
   return (
     <div>
       <div className=' border-red-500 my-1 text-[13px]'>
@@ -23,7 +26,9 @@ function InputCF({type,placeholder,name,value,onChange,required }: InputType) {
           value={value}
           onChange={onChange}
           required={required}
-          
+          maxLength={maxLength}
+          minLength={minLength}
+          min={min}
         />
       </div>
     </div>

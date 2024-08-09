@@ -35,6 +35,7 @@ const AddressDetail = (props: props) => {
           placeholder="Address"
           value={data.address}
           onChange={handleChange}
+          minLength={10}
         />
       </div>
       <div>
@@ -58,7 +59,7 @@ const AddressDetail = (props: props) => {
         </Select>
       </div>
       <div>
-        <label htmlFor="state">State (Agency and Hotels in India only)</label>
+        <label htmlFor="state">State </label>
         <Select
           name="state"
           required
@@ -68,7 +69,7 @@ const AddressDetail = (props: props) => {
           value={data.state}
         >
           <SelectTrigger className="w-full">
-            <SelectValue placeholder="State (India only)" />
+            <SelectValue placeholder="State " />
           </SelectTrigger>
           <SelectContent>
             {Object.keys(states).map((state) => (
@@ -81,7 +82,7 @@ const AddressDetail = (props: props) => {
       <div>
         {data.state !== "" && (
           <>
-            <label htmlFor="city">City (Agency and Hotels in India only)</label>
+            <label htmlFor="city">City</label>
             <Select
               name="city"
               required
@@ -91,7 +92,7 @@ const AddressDetail = (props: props) => {
               value={data.city}
             >
               <SelectTrigger className="w-full">
-                <SelectValue placeholder="State (India only)" />
+                <SelectValue placeholder="State " />
               </SelectTrigger>
               <SelectContent>
                 {
@@ -113,6 +114,7 @@ const AddressDetail = (props: props) => {
           placeholder="Pincode"
           value={data.pincode}
           onChange={handleChange}
+          min={0}
         />
       </div>
       {/* to time in the schema  */}
