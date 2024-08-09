@@ -62,8 +62,8 @@ function ListData({
                 <h1 className="text-2xl font-semibold">{item?.legalName}</h1>
                 <Button
                   asChild
-                  size={'sm'}
-                  className="bg-[#FFDB80] hover:bg-[#ffdb80d0] text-black rounded"
+                  size={"sm"}
+                  className="bg-[#FCAF1E] hover:bg-[#fcaf1ed0] text-black rounded"
                 >
                   <Link
                     href={`/companies/${item.id}`}
@@ -103,7 +103,7 @@ function ListData({
               window.scrollTo({ top: 0 });
             }}
             disabled={currentPage === 1}
-            className="bg-[#FFDB80] hover:bg-[#ffdb80d0] text-black"
+            className="bg-[#FCAF1E] hover:bg-[#fcaf1ed0] text-black"
           >
             <ChevronLeft />
           </Button>
@@ -119,7 +119,7 @@ function ListData({
               window.scrollTo({ top: 0 });
             }}
             disabled={currentPage === Math.ceil(data?.length / itemsPerPage)}
-            className="bg-[#FFDB80] hover:bg-[#ffdb80d0] text-black"
+            className="bg-[#FCAF1E] hover:bg-[#fcaf1ed0] text-black"
           >
             <ChevronRight />
           </Button>

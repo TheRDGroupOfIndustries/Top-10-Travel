@@ -1,4 +1,5 @@
 "use client";
+
 import { createCompanyAction } from "@/core/server/actions/company/createCompany";
 import { Company, CompanyData } from "@prisma/client";
 import { useSession } from "next-auth/react";
@@ -27,27 +28,28 @@ const Confirmation = ({ data }: { data: FormData }) => {
   const [isPending, setIsPending] = useState(false);
   const router = useRouter();
   const { update, data: session } = useSession();
+
   const handleCreateCompany = async () => {
-    // console.log(data);
     setIsPending(true);
-    const { legalName, country, state, image, companyRole, city, ...cdata } =
-      data;
+    const { legalName, country, state, image, companyRole, city, ...cdata } = data;
+    
     const { success, error } = await createCompanyAction(
       { legalName, companyRole, country, image, state, city },
       { ...cdata }
     );
+    
     setIsPending(false);
+
     if (success) {
       await update({ role: "COMPANY" });
-      // Handle success here using toast or something
       toast.success(success);
       router.push("/company")
     } else if (error) {
       console.error(error);
       toast.error(error);
-      // Handle error here using toast or something
     }
   };
+
   return (
     <>
       <div className="font-normal text-[12px] mt-5 flex px-3 py-4 rounded-lg flex-col gap-2 text-black bg-[#F3F3F3] w-full">

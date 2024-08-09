@@ -23,21 +23,21 @@ const CompanyDashboard = ({
   return (
     <div className="space-y-4 mt-5">
       <Card>
-        <CardContent className="pt-6">
-          <div className="flex flex-col md:flex-row items-center md:items-start gap-4">
+        <CardContent className="w-full pt-6">
+          <div className="w-full h-full flex flex-col md:flex-row items-center md:items-start gap-4">
             <InputWithSave
               name="image"
               value={data.image ?? ""}
               text="Edit your image..."
             />
-            <div className="flex flex-col h-[180px] justify-between">
+            <div className="w-full h-full flex flex-col md:gap-12 gap-6">
               <InputWithSave
                 name="legalName"
                 value={data.legalName}
                 text="Edit Your legalName..."
-                className="text-2xl font-bold text-center"
+                className="text-3xl font-bold text-center"
               />
-              <div className="flex items-center justify-center md:justify-start  gap-4">
+              <div className="text-lg md:flex-row flex  flex-wrap items-center justify-center md:justify-start  md:gap-8 gap-5">
                 <InputWithSave
                   name="country"
                   value={data.country}
@@ -56,7 +56,7 @@ const CompanyDashboard = ({
                   text="Edit Your city..."
                 />
               </div>
-              <div className="flex gap-2 flex-wrap">
+              <div className="flex md:items-start md:justify-start items-center justify-center gap-2 flex-wrap">
                 <Badge className="text-base">Role : {data.companyRole}</Badge>
                 <Badge className="text-base">
                   Priority : {data.state_priority}

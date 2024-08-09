@@ -137,10 +137,7 @@ export const columns: ColumnDef<Company>[] = [
       return (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button
-              size="icon"
-              variant="ghost"
-            >
+            <Button size="icon" variant="ghost">
               <SquarePen className="h-4 w-4" />
             </Button>
           </DropdownMenuTrigger>
@@ -238,10 +235,7 @@ export default function AdminPackagelisting({
         />
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button
-              variant="outline"
-              className="ml-auto"
-            >
+            <Button variant="outline" className="ml-auto">
               Columns <ChevronDown className="ml-2 h-4 w-4" />
             </Button>
           </DropdownMenuTrigger>

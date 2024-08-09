@@ -18,7 +18,7 @@ const GetStarted = async () => {
   return (
     <div className="relative h-screen font-sans">
       <div className="absolute top-0 left-0 w-full h-1/2 bg-white"></div>
-      <div className="absolute bottom-0 left-0 w-full h-1/2 bg-[#FFDB80]"></div>
+      <div className="absolute bottom-0 left-0 w-full h-1/2 bg-[#FCAF1E]"></div>
       <div className="flex items-center justify-center h-full z-30 relative  ">
         <div className="bg-white p-8 rounded-2xl shadow-lg border-[1px] text-center ">
           <h2 className="text-2xl font-bold mb-6">Continue using</h2>
@@ -45,7 +45,7 @@ const GetStarted = async () => {
             </div>
           </div>
           <Link href="/">
-            <button className=" font-bold w-full bg-white border border-[#FFDB80] rounded-xl p-3 flex items-center text-[#FFDB80] justify-left">
+            <button className=" font-bold w-full bg-white border border-[#FCAF1E] rounded-xl p-3 flex items-center text-[#FCAF1E] justify-left">
               <span className="mr-2">➡️</span>
               Skip
             </button>

@@ -24,6 +24,16 @@ const nextConfig = {
       },
       {
         protocol: "https",
+        hostname: "www.google.com",
+        port: "",
+      },
+      {
+        protocol: "https",
+        hostname: "image.png",
+        port: "",
+      },
+      {
+        protocol: "https",
         hostname: "www.istockphoto.com",
         port: "",
       },

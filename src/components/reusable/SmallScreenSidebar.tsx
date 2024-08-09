@@ -32,7 +32,7 @@ const SmallScreenSidebar = () => {
   const AdminMenuItems = [
     { name: "Dashboard", icon: Home, href: "/admin" },
     { name: "Users", icon: Users, href: "/admin/users" },
-    { name: "Listings", icon: List, href: "/admin/companies" },
+    { name: "Companies", icon: List, href: "/admin/companies" },
     { name: "Help Desk", icon: HelpCircle, href: "/admin/helpdesk" },
     { name: "Report", icon: FileText, href: "/admin/report" },
   ];
@@ -46,7 +46,7 @@ const SmallScreenSidebar = () => {
 
   return (
     <Sheet>
-      <SheetTrigger className="lg:hidden">
+      <SheetTrigger className="xl:hidden">
         <FiSidebar size={28} className="dark:text-white text-black" />
       </SheetTrigger>
       <SheetContent>

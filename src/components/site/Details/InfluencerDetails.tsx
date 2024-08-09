@@ -10,10 +10,7 @@ import { getIconFromName } from "@/components/reusable/Icons";
 const InfluencerDetails = ({ data }: { data: InfluencerData }) => {
   return (
     <div className="mb-10">
-      <HeroHeading
-        title={data?.name}
-        className="uppercase"
-      />
+      <HeroHeading title={data?.name} className="uppercase" />
       <div className="px-2 md:px-3 lg:px-6 xl:px-8">
         <div className="w-full flex xl:gap-12 gap-6 pb-16 border-b-black border-b-[1px]">
           <div className="flex flex-col gap-10 flex-1">
@@ -31,11 +28,7 @@ const InfluencerDetails = ({ data }: { data: InfluencerData }) => {
 
             <div className="flex justify-around gap-1 flex-wrap">
               {data.socialLinks.map((link) => (
-                <Button
-                  key={link}
-                  className="rounded-full"
-                  variant="outline"
-                >
+                <Button key={link} className="rounded-full" variant="outline">
                   <a
                     href={link}
                     target="_blank"
