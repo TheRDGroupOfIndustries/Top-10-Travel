@@ -50,7 +50,7 @@ const ProgressBar = ({ activeStep, totalSteps }: Bar) => {
             >
               {index === activeStep && (
                 <span className="block w-16 text-center">
-                  {["Contact", "Address", "Agency", "Confirmation"][index]}
+                  {["Contact", "Address", "Agency", "UploadImage"][index]}
                 </span>
               )}
             </div>

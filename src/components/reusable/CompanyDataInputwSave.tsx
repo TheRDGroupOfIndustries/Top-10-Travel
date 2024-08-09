@@ -59,14 +59,18 @@ const CompanyDataInputwSave = ({
             minLength={minLength}
             maxLength={maxLength}
           />
-          <Button disabled={isPending} type="submit" size="sm">
+          <Button
+            disabled={isPending}
+            type="submit"
+            size="sm"
+          >
             {isPending ? "Saving..." : "Save"}
           </Button>
         </form>
       ) : (
         <>
           <div
-            className="w-full flex items-center gap-3"
+            className="w-full flex items-center justify-center md:justify-start gap-3"
             onDoubleClick={() => setIsChanging(true)}
           >
             <strong
