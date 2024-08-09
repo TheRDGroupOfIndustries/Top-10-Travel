@@ -71,7 +71,7 @@ const CompanyDataInputwSave = ({
           >
             <strong
               className={cn(
-                "flex items-center justify-center md:justify-start gap-2 text-xs md:text-sm lg:text-base",
+                "flex items-center justify-center md:justify-start gap-2",
                 className
               )}
             >

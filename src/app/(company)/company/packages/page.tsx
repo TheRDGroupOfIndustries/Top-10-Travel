@@ -1,11 +1,6 @@
 import DeletePackageButton from "@/components/companydashboard/packages/DeletePackageButton";
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { db } from "@/core/client/db";
 import getSessionorRedirect from "@/core/utils/getSessionorRedirect";
@@ -69,16 +64,9 @@ const PackagesPage = async () => {
 
   const packages = await getPackages(company.id);
   return (
-    <div className="flex flex-col items-start justify-center relative">
-      <Card className="w-full h-fit flex flex-wrap md:flex-row items-center justify-between p-5 mt-5 gap-3">
-        <CardTitle className="text-xl font-bold">All Your Packages</CardTitle>
-        <CardDescription>Total packages {packages.length}</CardDescription>
-        <Link className=" shadow-xl" href="/company/packages/create">
-          <Button className="">Create Package</Button>
-        </Link>
-      </Card>
-      {/* <h2 className="text-2xl font-bold my-10">All Your Packages</h2> */}
-      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
+    <div className="flex flex-col items-center justify-center relative">
+      <h2 className="text-2xl font-bold my-10">All Your Packages:</h2>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
         {packages.map((p) => (
           <PackageCard key={p.id} data={p} />
         ))}
@@ -93,7 +81,14 @@ const PackagesPage = async () => {
               <Button className="mt-6">Create Package</Button>
             </Link>
           </div>
-        ) : null}
+        ) : (
+          <Link
+            className="fixed bottom-6 right-6 shadow-xl"
+            href="/company/packages/create"
+          >
+            <Button className="mt-6">Create Package</Button>
+          </Link>
+        )}
       </div>
     </div>
   );
