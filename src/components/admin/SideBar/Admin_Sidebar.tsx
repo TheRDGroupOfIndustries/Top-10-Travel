@@ -26,7 +26,7 @@ function AdminSidebar() {
   ];
 
   return (
-    <div className="xl:w-[17vw] h-[100vh] left-0 top-0 fixed text-black flex flex-col pl-2">
+    <div className="h-[100vh] left-0 top-0 fixed text-black flex flex-col pl-2">
       <div className="p-5 py-7">
         <Link href="/">
           <h1 className="text-xl font-bold">Top Ten Travels</h1>
