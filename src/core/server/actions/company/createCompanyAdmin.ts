@@ -24,8 +24,27 @@ export const createCompanyAdmin = async (data: {
   user: Pick<User, "email" | "username" | "image">;
 }) => {
   const session = await getSessionorRedirect();
-  //   if (session.user.role !== "ADMIN")
-  //     return { error: "Unauthorized! Admin Only" };
+  if (session.user.role !== "ADMIN")
+    return { error: "Unauthorized! Admin Only" };
+  if (data.companyData.images) {
+    try {
+      data.companyData.images.forEach((image) => {
+        const url = new URL(image);
+      });
+    } catch (error) {
+      return { error: "Images Provided contain invalid images." };
+    }
+  }
+  if (data.companyData.socialLinks) {
+    try {
+      data.companyData.socialLinks.forEach((link) => {
+        const url = new URL(link);
+      });
+    } catch (error) {
+      return { error: "Social Links Provided contain invalid links." };
+    }
+  }
+
   try {
     const res = await db.$transaction(async (tx) => {
       const newuser = await db.user.create({

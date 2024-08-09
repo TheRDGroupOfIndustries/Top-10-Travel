@@ -13,7 +13,7 @@ export const editCompanyActionAdmin = async (
     | "legalName"
     | "priority"
     | "state_priority"
-    |"methodology"
+    | "methodology"
   > & { id: string }
 ) => {
   const session = await getSessionorRedirect();
@@ -35,7 +35,10 @@ export const editCompanyActionAdmin = async (
 };
 export const editCompanyAction = async (
   values: Partial<
-    Pick<Company, "legalName" | "city" | "country" | "state" | "methodology">
+    Pick<
+      Company,
+      "legalName" | "city" | "country" | "state" | "methodology" | "image"
+    >
   >
 ) => {
   const session = await getSessionorRedirect();
@@ -46,7 +49,13 @@ export const editCompanyAction = async (
       return { error: `${key} must be atleast 3 characters.` };
     }
   });
-
+  if (values.image) {
+    try {
+      const url = new URL(values.image);
+    } catch (error) {
+      return { error: "Image is not valid!" };
+    }
+  }
   try {
     const res = await db.company.update({
       where: { userId: session.user.id },

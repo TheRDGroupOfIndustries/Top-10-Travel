@@ -43,7 +43,7 @@ function ListDataInfluencer({
             transition={{ duration: 0.4, delay: index * 0.15 }}
             viewport={{ once: true }}
             key={item.name}
-            className="w-full lg:h-72 rounded-lg flex flex-col md:flex-row items-center justify-between gap-5 shadow shadow-black/10"
+            className="w-full lg:h-60 rounded-lg flex flex-col md:flex-row items-center justify-between gap-5 shadow shadow-black/60"
           >
             <div className="lg:w-[30%] w-full lg:h-full h-60 rounded-lg overflow-hidden">
               <Image
@@ -57,6 +57,18 @@ function ListDataInfluencer({
             <div className="lg:w-[70%] w-full h-full rounded-lg overflow-hidden flex flex-col items-start justify-start gap-3 p-1">
               <div className="w-full flex items-center justify-between">
                 <h1 className="text-2xl font-semibold">{item?.name}</h1>
+                <Button
+                  asChild
+                  size="sm"
+                  className="bg-[#FFDB80] hover:bg-[#ffdb80d0] text-black rounded"
+                >
+                  <Link
+                    href={`/Influencers/${item?.id}`}
+                    className="md:text-sm font-medium text-xs"
+                  >
+                    View Profile
+                  </Link>
+                </Button>
               </div>
               <p className="text-sm">{`${item?.state}, ${item?.country}`}</p>
 
@@ -68,17 +80,6 @@ function ListDataInfluencer({
                   {item?.description}
                 </p>
               </div>
-              <Button
-                asChild
-                className="bg-[#FFDB80] hover:bg-[#ffdb80d0] text-black rounded-xl px-5"
-              >
-                <Link
-                  href={`/Influencers/${item?.id}`}
-                  className="md:text-sm font-medium text-xs"
-                >
-                  View Profile
-                </Link>
-              </Button>
             </div>
           </motion.div>
         ))}
