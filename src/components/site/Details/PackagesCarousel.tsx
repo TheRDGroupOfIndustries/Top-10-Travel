@@ -1,7 +1,5 @@
 "use client";
 
-import StarRating from "@/components/reusable/StarRating";
-import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import {
   Carousel,
@@ -10,8 +8,8 @@ import {
 } from "@/components/ui/carousel";
 import { Package } from "@prisma/client";
 import Autoplay from "embla-carousel-autoplay";
-import { ArrowRight } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 
 const PackageCard = ({ data }: { data: Package }) => {
   return (
@@ -45,30 +43,6 @@ const PackageCard = ({ data }: { data: Package }) => {
             </span>
           ))}
         </p>
-        {/* <div className="flex justify-between items-center">
-          <div className="flex space-x-3">
-            {data.socialLinks.map((link: string) => {
-              try {
-                const url = new URL(link);
-                const name = url.hostname;
-                return (
-                  <Link
-                    key={url.href}
-                    href={url.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="transition-transform hover:scale-110"
-                  >
-                    {getIconFromName(name)}
-                  </Link>
-                );
-              } catch (error) {
-                return null;
-              }
-            })}
-          </div> */}
-
-        {/* </div> */}
       </CardContent>
     </Card>
   );
@@ -87,7 +61,7 @@ function PackagesCarousel({ packages }: { packages: Package[] }) {
       className="w-full"
     >
       <CarouselContent>
-        {packages.map((p) => (
+        {packages?.map((p) => (
           <CarouselItem
             key={p.id}
             className="basis-full md:basis-1/2 lg:basis-1/3"
@@ -98,8 +72,6 @@ function PackagesCarousel({ packages }: { packages: Package[] }) {
           </CarouselItem>
         ))}
       </CarouselContent>
-      {/* <CarouselPrevious />
-      <CarouselNext /> */}
     </Carousel>
   );
 }

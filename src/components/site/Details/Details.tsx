@@ -249,7 +249,7 @@ const Details = ({
           </div>
         </div>
       </div>
-      <HeroHeading title="Packages" className="uppercase" />
+      <HeroHeading title="Related Packages" className="uppercase" />
       <PackagesCarousel packages={data.packages} />
     </div>
   );
