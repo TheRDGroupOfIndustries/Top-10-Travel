@@ -59,7 +59,7 @@ export type Company = {
   state_priority: number;
   country: string;
   city: string;
-  methodology:string|null;
+  methodology: string | null;
   companyRole: $Enums.CompanyRole;
 };
 async function deleteListing(id: string) {
@@ -223,7 +223,7 @@ export default function AdminPackagelisting({
         </div>
 
         <Button asChild>
-          <Link href="/admin/listings/add-company">Add Listing +</Link>
+          <Link href="/admin/companies/add-company">Add Listing +</Link>
         </Button>
       </div>
       <div className="flex items-center">

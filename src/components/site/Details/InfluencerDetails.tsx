@@ -31,7 +31,7 @@ const InfluencerDetails = ({ data }: { data: InfluencerData }) => {
               </div>
             </div>
 
-            <div className="flex justify-around gap-1">
+            <div className="flex justify-around gap-1 flex-wrap">
               {data.socialLinks.map((link) => (
                 <Button
                   key={link}

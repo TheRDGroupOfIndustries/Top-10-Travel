@@ -85,7 +85,7 @@ const CompanyDataInputwSave = ({
                 className="h-5 w-5 text-muted-foreground transition-colors hover:text-foreground"
               />
             </strong>
-            <p className="text-center md:text-left max-w-[300px] break-words">
+            <p className="text-center md:text-left w-full md:max-w-[300px] break-words">
               {(!value || value === "") && "Not provided"}
               {value}
             </p>

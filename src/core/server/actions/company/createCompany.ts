@@ -36,29 +36,34 @@ export const createCompanyAction = async (
     }
   }
   try {
-    const res = await db.company.create({
-      data: {
-        ...company,
-        isCertified: false,
-        isSuspended: true,
-        priority: 0,
-        user: { connect: { id: session.user.id } },
-      },
-      select: { id: true, legalName: true },
-    });
-    const cdata = await db.companyData.create({
-      data: {
-        ...companyData,
-        company: { connect: { id: res.id } },
-      },
-    });
-    await db.user.update({
-      where: { id: session.user.id },
-      data: { role: "COMPANY" },
+    const output = await db.$transaction(async (tx) => {
+      const res = await tx.company.create({
+        data: {
+          ...company,
+          isCertified: false,
+          isSuspended: true,
+          priority: 0,
+          user: { connect: { id: session.user.id } },
+        },
+        select: { id: true, legalName: true },
+      });
+
+      const cdata = await tx.companyData.create({
+        data: {
+          ...companyData,
+          company: { connect: { id: res.id } },
+        },
+      });
+
+      await tx.user.update({
+        where: { id: session.user.id },
+        data: { role: "COMPANY" },
+      });
+      return { legalName: res.legalName };
     });
     await sendMail({
       toEmail: session.user.email,
-      ...getCompanyCreateTemplate(session.user.name, res.legalName),
+      ...getCompanyCreateTemplate(session.user.name, output.legalName),
     });
     // revalidatePath("/auth/company");
     return { success: "Company created successfully." };

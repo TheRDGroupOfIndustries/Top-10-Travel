@@ -65,12 +65,12 @@ const AdminReport = ({ report }: { report: ReportData }) => {
 
       {filteredReport.map((company) => (
         <Card key={company.id}>
-          <CardHeader className="flex flex-row gap-8 md:gap-24 items-center">
+          <CardHeader className="flex flex-col sm:flex-row gap-8 md:gap-24 items-center">
             <div className="flex flex-col">
-              <CardTitle className="font-bold my-4">
+              <CardTitle className="font-bold my-4 text-center sm:text-left">
                 {company.legalName}
               </CardTitle>
-              <div className="*:text-sm flex gap-2 flex-wrap mt-4 max-w-sm">
+              <div className="*:text-sm flex items-center sm:items-start gap-2 flex-wrap mt-4 max-w-sm">
                 <Badge>Total reviews: {company.reviews}</Badge>
                 <Badge>Rating: {company.rating}</Badge>
                 <Badge>Country Priority: {company.priority}</Badge>
@@ -103,7 +103,9 @@ const AdminReport = ({ report }: { report: ReportData }) => {
                   <TableRow key={review.id}>
                     <TableCell>{review.id}</TableCell>
                     <TableCell>{review.name}</TableCell>
-                    <TableCell>{review.review}</TableCell>
+                    <TableCell className="min-w-[200px]">
+                      {review.review}
+                    </TableCell>
                     <TableCell>
                       {review.createdAt &&
                         new Date(review.createdAt).toDateString()}

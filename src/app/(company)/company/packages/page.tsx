@@ -89,7 +89,7 @@ const PackagesPage = async () => {
           </div>
         ) : (
           <Link
-            className="absolute top-0 right-8"
+            className="fixed bottom-6 right-6 shadow-xl"
             href="/company/packages/create"
           >
             <Button className="mt-6">Create Package</Button>
