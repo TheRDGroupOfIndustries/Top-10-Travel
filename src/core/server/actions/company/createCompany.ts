@@ -8,6 +8,7 @@ import { sendMail } from "@/core/nodemailer/nodemailer";
 import getSessionorRedirect from "@/core/utils/getSessionorRedirect";
 import { Company, CompanyData } from "@prisma/client";
 
+
 export const createCompanyAction = async (
   company: Omit<
     Company,
@@ -61,8 +62,25 @@ export const createCompanyAction = async (
     });
     // revalidatePath("/auth/company");
     return { success: "Company created successfully." };
-  } catch (error) {
+  } catch (error: unknown) {
     console.log(error);
-    return { error: "Failed to create company." };
-  }
+
+      // Check if it's a Prisma unique constraint error
+      if (error instanceof Error) {
+        if (error.message.includes('Unique constraint failed')) {
+            // Extract the field name from the error message
+            const fieldNameMatch = error.message.match(/fields: \(`(.*?)`\)/);
+            const fieldName = fieldNameMatch ? fieldNameMatch[1] : 'unknown field';
+    
+            return { error: `Failed to Create: A company with this ${fieldName} already exists.` };
+        }
+        return { error: `Failed to Create: ${error.message}` };
+    }
+    
+  
+  
+    return { error: "Failed to Create: An unknown error occurred." };
+}
+
+
 };
