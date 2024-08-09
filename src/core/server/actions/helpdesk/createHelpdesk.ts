@@ -30,7 +30,24 @@ export const createHelpDeskAction = async (values: Pick<HelpDesk, "title">) => {
     revalidatePath("/company/helpdesk");
 
     return { success: "Helpdesk created Succesfully." };
-  } catch (_error) {
-    return { error: "Failed creating helpdesk." };
-  }
+  }  catch (error: unknown) {
+    console.log(error);
+
+      // Check if it's a Prisma unique constraint error
+      if (error instanceof Error) {
+        if (error.message.includes('Unique constraint failed')) {
+            // Extract the field name from the error message
+            const fieldNameMatch = error.message.match(/fields: \(`(.*?)`\)/);
+            const fieldName = fieldNameMatch ? fieldNameMatch[1] : 'unknown field';
+    
+            return { error: `Failed to Create: A company with this ${fieldName} already exists.` };
+        }
+        return { error: `Failed to Create: ${error.message}` };
+    }
+    
+  
+  
+    return { error: "Failed to Create: An unknown error occurred." };
+}
+
 };

@@ -76,10 +76,24 @@ export const createCompanyAdmin = async (data: {
     });
     // revalidatePath("/auth/company");
     return { success: "Company created successfully." };
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.log(error);
-    if (error.meta.modelName === "User" && error.meta.target[0] === "email")
-      return { error: "user or company already exists" };
-    return { error: "Failed to create company." };
-  }
+
+      // Check if it's a Prisma unique constraint error
+      if (error instanceof Error) {
+        if (error.message.includes('Unique constraint failed')) {
+            // Extract the field name from the error message
+            const fieldNameMatch = error.message.match(/fields: \(`(.*?)`\)/);
+            const fieldName = fieldNameMatch ? fieldNameMatch[1] : 'unknown field';
+    
+            return { error: `Failed to Create: A company with this ${fieldName} already exists.` };
+        }
+        return { error: `Failed to Create: ${error.message}` };
+    }
+    
+  
+  
+    return { error: "Failed to Create: An unknown error occurred." };
+}
+
 };

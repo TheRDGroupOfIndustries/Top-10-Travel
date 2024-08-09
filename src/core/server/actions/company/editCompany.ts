@@ -64,8 +64,25 @@ export const editCompanyAction = async (
     });
     revalidatePath("/company");
     return { success: "Company edited successfully.", companyId: res.id };
-  } catch (error) {
-    console.log(error);
-    return { error: "Something went wrong while applying changes." };
+  } 
+    catch (error: unknown) {
+      console.log(error);
+  
+        // Check if it's a Prisma unique constraint error
+        if (error instanceof Error) {
+          if (error.message.includes('Unique constraint failed')) {
+              // Extract the field name from the error message
+              const fieldNameMatch = error.message.match(/fields: \(`(.*?)`\)/);
+              const fieldName = fieldNameMatch ? fieldNameMatch[1] : 'unknown field';
+      
+              return { error: `Failed to Create: A company with this ${fieldName} already exists.` };
+          }
+          return { error: `Failed to Create: ${error.message}` };
+      }
+      
+    
+    
+      return { error: "Failed to Create: An unknown error occurred." };
   }
-};
+  
+  }
