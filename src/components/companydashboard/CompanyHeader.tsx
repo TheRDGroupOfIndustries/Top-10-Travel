@@ -18,12 +18,13 @@ async function CompanyHeader() {
           <div className="flex items-center justify-center gap-1">
             <Avatar className="w-9 h-9">
               <AvatarImage src={session?.user.image} />
-              <AvatarFallback>  
+              <AvatarFallback>
                 {session?.user?.name
                   .split(" ")
                   .map((word) => word[0].toUpperCase())
                   .join("")
-                  .slice(0, 2)}</AvatarFallback>
+                  .slice(0, 2)}
+              </AvatarFallback>
             </Avatar>
             <div className="flex flex-col items-start justify-center">
               <span className="text-[13px] font-semibold">
@@ -34,7 +35,7 @@ async function CompanyHeader() {
               </span>
             </div>
           </div>
-          <ThemeButton />
+          {/* <ThemeButton /> */}
         </div>
       </div>
     </div>
