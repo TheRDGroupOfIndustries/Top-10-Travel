@@ -27,7 +27,7 @@ function AdminSidebar() {
 
   return (
     <div className="xl:w-[17vw] h-[100vh] left-0 top-0 fixed text-black flex flex-col pl-2">
-      <div className="py-5">
+      <div className="p-5 py-7">
         <Link href="/">
           <h1 className="text-xl font-bold">Top Ten Travels</h1>
         </Link>
@@ -54,7 +54,7 @@ function AdminSidebar() {
       <div className="p-4">
         <button
           onClick={() => signOut()}
-          className="flex items-center text-black hover:text-white transition-colors duration-200"
+          className="flex items-center text-black hover:text-white transition-colors py-6 duration-200"
         >
           <LogOut className="w-5 h-5 mr-3" />
           Logout
