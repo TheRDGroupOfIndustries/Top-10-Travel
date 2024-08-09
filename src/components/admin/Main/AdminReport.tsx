@@ -29,7 +29,7 @@ const AdminReport = ({ report }: { report: ReportData }) => {
   const filteredReport = report.filter((company) =>
     company.legalName.toLowerCase().includes(search.toLowerCase())
   );
-  const getValidUrl = (url: string) => {
+  const getValidUrl = (url: any) => {
     try {
       const u = new URL(url);
       return u.href;
@@ -70,7 +70,7 @@ const AdminReport = ({ report }: { report: ReportData }) => {
               <CardTitle className="font-bold my-4 text-center sm:text-left">
                 {company.legalName}
               </CardTitle>
-              <div className="*:text-sm flex items-center sm:items-start gap-2 flex-wrap mt-4 max-w-sm lg:max-w-lg">
+              <div className="text-sm flex items-center sm:items-start gap-2 flex-wrap mt-4 max-w-sm lg:max-w-lg">
                 <Badge>Total reviews: {company.reviews}</Badge>
                 <Badge>Rating: {company.rating}</Badge>
                 <Badge>Country Priority: {company.priority}</Badge>
