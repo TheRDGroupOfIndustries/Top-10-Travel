@@ -188,7 +188,7 @@ const HelpDeskDashboard: React.FC<HelpDeskDashboardProps> = ({
             </TableHeader>
             <TableBody>
               {filteredTickets.map((ticket) => (
-                <TableRow className="" key={ticket.id}>
+                <TableRow className="hover:bg-slate-300" key={ticket.id}>
                   <TableCell>{ticket.id}</TableCell>
                   <TableCell>{ticket.title}</TableCell>
                   <TableCell>

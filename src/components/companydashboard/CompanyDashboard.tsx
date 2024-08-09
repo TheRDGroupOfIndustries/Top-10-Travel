@@ -94,8 +94,8 @@ const CompanyDashboard = ({
             Company Details
           </CardTitle>
         </CardHeader>
-        <CardContent className="pt-6 p-1 md:p-5">
-          <div className="flex flex-wrap items-start gap-4 *:min-w-[200px] *:w-full *:md:w-auto">
+        <CardContent className="w-full grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3  gap-2 p-2 md:p-5">
+          <div className="w-full flex flex-col item-center justify-start gap-2">
             <CompanyDataInputwSave
               name="ownerName"
               value={data.companyData?.ownerName}
@@ -115,6 +115,20 @@ const CompanyDashboard = ({
               text="Edit Your Phone..."
             />
             <CompanyDataInputwSave
+              name="abta_number"
+              value={data.companyData?.abta_number}
+              text="Edit Your abta_number"
+              type="number"
+            />
+            <CompanyDataInputwSave
+              name="clia_number"
+              value={data.companyData?.clia_number}
+              text="Edit Your clia_number"
+              type="number"
+            />
+          </div>
+          <div className="w-full flex flex-col item-center justify-start gap-2">
+            <CompanyDataInputwSave
               name="pincode"
               value={data.companyData?.pincode}
               type="number"
@@ -133,6 +147,20 @@ const CompanyDashboard = ({
               type="number"
             />
             <CompanyDataInputwSave
+              name="abta_number"
+              value={data.companyData?.abta_number}
+              text="Edit Your abta_number"
+              type="number"
+            />
+            <CompanyDataInputwSave
+              name="clia_number"
+              value={data.companyData?.clia_number}
+              text="Edit Your clia_number"
+              type="number"
+            />
+          </div>
+          <div className="w-full flex flex-col item-center justify-start gap-2">
+            <CompanyDataInputwSave
               name="ownerContact"
               value={data.companyData?.ownerContact}
               text="Edit Your Owner Contact..."
@@ -150,18 +178,6 @@ const CompanyDashboard = ({
               value={data.companyData?.description}
               text="Edit Your Description..."
               minLength={40}
-            />
-            <CompanyDataInputwSave
-              name="abta_number"
-              value={data.companyData?.abta_number}
-              text="Edit Your abta_number"
-              type="number"
-            />
-            <CompanyDataInputwSave
-              name="clia_number"
-              value={data.companyData?.clia_number}
-              text="Edit Your clia_number"
-              type="number"
             />
             <CompanyDataInputwSave
               name="tids_number"

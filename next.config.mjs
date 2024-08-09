@@ -48,14 +48,7 @@ const nextConfig = {
       "img.freepik.com",
       "www.istockphoto.com",
       "www.google.com",
-      'res.cloudinary.com'
     ],
-    remotePatterns: [
-      {
-          protocol : "https",
-          hostname : "utfs.io"
-      }
-    ]
   },
 };
 
