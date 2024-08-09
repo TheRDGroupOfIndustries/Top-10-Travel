@@ -7,7 +7,6 @@ import {
 import { sendMail } from "@/core/nodemailer/nodemailer";
 import getSessionorRedirect from "@/core/utils/getSessionorRedirect";
 import { Company, CompanyData } from "@prisma/client";
-import { revalidatePath } from "next/cache";
 
 export const createCompanyAction = async (
   company: Omit<
