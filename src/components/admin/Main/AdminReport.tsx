@@ -100,7 +100,7 @@ const AdminReport = ({ report }: { report: ReportData }) => {
               </TableHeader>
               <TableBody>
                 {company.company_reviews.map((review) => (
-                  <TableRow key={review.id}>
+                  <TableRow key={review.id} className="hover:bg-slate-300">
                     <TableCell>{review.id}</TableCell>
                     <TableCell>{review.name}</TableCell>
                     <TableCell className="min-w-[200px] md:w-[300px]">
