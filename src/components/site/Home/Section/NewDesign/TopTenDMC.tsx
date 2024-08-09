@@ -17,17 +17,14 @@ import { cn, getValidUrl } from "@/lib/utils";
 import { motion } from "framer-motion";
 
 const CarouselCard = ({ dmc }: { dmc: any }) => (
-  
   <div className="flex flex-col h-full">
     <div className="relative h-48 sm:h-56 md:h-64 lg:h-72 rounded-lg overflow-hidden">
-      <div className="absolute top-0 left-0 bg-[#FFC658] w-[80%] h-[70%] rounded-lg"></div>
+      <div className="absolute top-0 left-0 bg-[#FCAF1E] w-[80%] h-[70%] rounded-lg"></div>
       <div className="absolute bottom-0 right-0 w-[95%] h-[95%] rounded-lg overflow-hidden">
-        <Image
+        <img
           src={getValidUrl(dmc.image)}
           alt={dmc.legalName}
-          layout="fill"
-          objectFit="cover"
-          objectPosition="center"
+          className="object-cover object-center"
         />
       </div>
     </div>

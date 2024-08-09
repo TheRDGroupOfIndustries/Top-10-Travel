@@ -12,6 +12,7 @@ import PackagesCarousel from "./PackagesCarousel";
 import ReviewSSR from "./ReviewSSR";
 import { getIconFromName } from "@/components/reusable/Icons";
 import { getValidUrl } from "@/lib/utils";
+import Link from "next/link";
 
 type CompanyType = {
   reviews: number;
@@ -43,11 +44,11 @@ const Details = ({
   role: "AGENCY" | "HOTEL" | "DMC";
 }) => {
   return (
-    <div className="mb-10 ">
+    <div className="mb-10">
       <HeroHeading title={data?.legalName} className="uppercase" />
-      <div className="px-2 md:px-3 lg:px-6 xl:px-8 ">
+      <div className="px-2 md:px-3 lg:px-6 xl:px-8">
         <div className="w-full flex xl:gap-12 gap-6 pb-16 border-b-black border-b-[1px]">
-          <div className="flex flex-col gap-10 flex-1">
+          <div className="w-full flex flex-col gap-10 flex-1">
             <div className="grid gap-4">
               {/* Main Image */}
               <div className="relative rounded-lg w-full h-64 md:h-96 lg:h-[450px]">
@@ -80,24 +81,26 @@ const Details = ({
               </div>
             </div>
 
-            <div className="flex justify-around gap-1">
+            <div className="w-full flex flex-wrap items-center justify-between gap-1">
               {data.companyData?.socialLinks.map((link) => (
                 <Button key={link} className="rounded-full" variant="outline">
-                  <a
+                  <Link
                     href={link}
                     target="_blank"
                     className="w-full h-full flex items-center gap-2"
                   >
                     {getIconFromName(link)}
-                  </a>
+                  </Link>
                 </Button>
               ))}
             </div>
 
-            <div className="rounded-2xl flex lg:hidden flex-col gap-6 py-12 sm:px-8 px-4 border-[1px] border-black">
+
+
+            <div className="rounded-md flex lg:hidden flex-col gap-6 py-12 sm:px-8 px-4 shadow shadow-black/50">
               <div className="flex flex-col gap-5">
                 <div>
-                  <h3 className="text-[32px] font-bold leading-tight sm:leading-6">
+                  <h3 className="lg:text-[32px] text-2xl font-bold leading-tight sm:leading-6">
                     {data?.legalName}
                   </h3>
                   <p className="text-sm mt-3 leading-4 font-medium">
@@ -134,12 +137,15 @@ const Details = ({
                 <ShareButton />
               </div>
             </div>
-            {data.companyData?.socialLinks.map((link) => (
+
+
+
+            {/* {data.companyData?.socialLinks.map((link) => (
               <div
                 key={`banner-${link}`}
                 className="h-[250px] cursor-pointer lg:hidden rounded-2xl overflow-hidden relative"
               >
-                <a
+                <Link
                   href={link}
                   target="_blank"
                   className="w-full h-full flex items-center gap-2"
@@ -152,17 +158,11 @@ const Details = ({
                   />
                   <div className="absolute inset-0 bg-black/80 opacity-50"></div>
                   <div className="w-[60px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 absolute h-[47px]">
-                    {/* <Image
-                  src="/YouTubeIcon.png"
-                  layout="fill"
-                  className="object-center"
-                  alt="Hotel room image"
-                /> */}
                     {getIconFromName(link, false, "w-full h-full text-white")}
                   </div>
-                </a>
+                </Link>
               </div>
-            ))}
+            ))} */}
 
             <div className="flex flex-col gap-10 sm:px-0 px-2">
               <div className="flex flex-col gap-2">
@@ -176,12 +176,15 @@ const Details = ({
             </div>
 
             <div className="lg:hidden">
-              <ReviewSSR name={data?.legalName} companyId={data?.id} />
+              <ReviewSSR
+                name={data?.legalName}
+                companyId={data?.id}
+              />
             </div>
           </div>
 
           <div className="flex-1 lg:flex hidden flex-col gap-5 max-w-[509px]">
-            <div className="rounded-2xl lg:flex hidden flex-col xl:gap-10 lg:gap-6 xl:py-16 lg:py-10 xl:px-8 lg:px-4 border-[1px] border-black">
+            <div className="rounded-md lg:flex hidden flex-col xl:gap-10 lg:gap-6 xl:py-16 lg:py-10 xl:px-8 lg:px-4 shadow shadow-black/50">
               <div className="flex flex-col gap-5">
                 <div>
                   <h3 className="text-[32px] font-bold leading-tight xl:leading-6">
@@ -221,12 +224,12 @@ const Details = ({
                 <ShareButton />
               </div>
             </div>
-            {data.companyData?.socialLinks.map((link) => (
+            {/* {data.companyData?.socialLinks.map((link) => (
               <div
                 key={`banner-${link}`}
                 className="h-[170px] cursor-pointer rounded-2xl overflow-hidden relative"
               >
-                <a
+                <Link
                   href={link}
                   target="_blank"
                   className="w-full h-full flex items-center gap-2"
@@ -239,23 +242,20 @@ const Details = ({
                   />
                   <div className="absolute inset-0 bg-black/80 opacity-50"></div>
                   <div className="w-[60px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 absolute h-[47px]">
-                    {/* <Image
-                  src="/YouTubeIcon.png"
-                  layout="fill"
-                  className="object-center"
-                  alt="Hotel room image"
-                /> */}
                     {getIconFromName(link, false, "w-full h-full text-white")}
                   </div>
-                </a>
+                </Link>
               </div>
-            ))}
+            ))} */}
 
-            <ReviewSSR name={data?.legalName} companyId={data?.id} />
+            <ReviewSSR
+              name={data?.legalName}
+              companyId={data?.id}
+            />
           </div>
         </div>
       </div>
-      <HeroHeading title="Packages" className="uppercase" />
+      <HeroHeading title="Related Packages" className="uppercase" />
       <PackagesCarousel packages={data.packages} />
     </div>
   );

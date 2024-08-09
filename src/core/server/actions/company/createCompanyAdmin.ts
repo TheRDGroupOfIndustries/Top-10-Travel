@@ -26,6 +26,13 @@ export const createCompanyAdmin = async (data: {
   const session = await getSessionorRedirect();
   if (session.user.role !== "ADMIN")
     return { error: "Unauthorized! Admin Only" };
+  if (data.company.image) {
+    try {
+      const url = new URL(data.company.image);
+    } catch (error) {
+      return { error: "Company Image is invalid." };
+    }
+  }
   if (data.companyData.images) {
     try {
       data.companyData.images.forEach((image) => {

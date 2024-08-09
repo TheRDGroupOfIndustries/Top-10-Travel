@@ -9,6 +9,7 @@ import { useSession } from "next-auth/react";
 import Image from "next/image";
 import img from "@/resources/images/form/CompanyForm.png";
 import ProgressBar from "./ProgressBar";
+import { toast } from "sonner";
 
 const MainForm: React.FC = () => {
   const formRef = useRef(null);
@@ -78,9 +79,34 @@ const MainForm: React.FC = () => {
       handleChange={handleChange}
     />,
   ];
-
+  const isInvalid = (num: string | undefined) => {
+    if (!num) return false;
+    return num.length < 10 || num.length > 12;
+  };
   const handleSubmit = (e: any) => {
     e.preventDefault();
+    if (e.target.pincode && e.target.pincode.value.length !== 6) {
+      toast.error("Pincode must be of length 6.");
+      return;
+    }
+    if (
+      isInvalid(e.target.companyContact?.value) ||
+      isInvalid(e.target.phone?.value) ||
+      isInvalid(e.target.ownerContact?.value)
+    ) {
+      toast.error(
+        "Please recheck all your contact information. Must be of length 10-12."
+      );
+      return;
+    }
+    if (e.target.image) {
+      try {
+        const url = new URL(e.target.image.value);
+      } catch (error) {
+        toast.error("Image is not valid!");
+        return;
+      }
+    }
     setActiveTab((prev) => prev + 1);
   };
 
@@ -104,7 +130,10 @@ const MainForm: React.FC = () => {
         />
       </div>
       <div className="w-full md:w-[60%] flex flex-col items-center justify-start border-black">
-        <ProgressBar activeStep={activeTab} totalSteps={formElements.length} />
+        <ProgressBar
+          activeStep={activeTab}
+          totalSteps={formElements.length}
+        />
 
         {activeTab < formElements.length && (
           <>

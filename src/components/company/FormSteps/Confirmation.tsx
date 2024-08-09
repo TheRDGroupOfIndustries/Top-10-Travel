@@ -43,7 +43,7 @@ const Confirmation = ({ data }: { data: FormData }) => {
     if (success) {
       await update({ role: "COMPANY" });
       toast.success(success);
-      router.push("/company"); // Navigate to the company page on success
+      router.push("/company")
     } else if (error) {
       console.error(error);
       toast.error(error);
@@ -55,7 +55,7 @@ const Confirmation = ({ data }: { data: FormData }) => {
       <div className="font-normal text-[12px] mt-7 flex px-3 py-4 rounded-lg flex-col gap-2 text-black bg-[#f3f3f3c6] w-full">
         {Object.keys(data).map((key) => (
           <p key={key} className="break-words text-xs grid grid-cols-3 gap-2 ">
-            <span className="text-[10px]">{key}</span>
+            <span className="text-[11px]">{key}</span>
             {
               // @ts-expect-error
               <span className="col-span-2 w-full">:&nbsp;{data[key]}</span>

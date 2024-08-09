@@ -13,7 +13,7 @@ export default function CompanyLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <main className="bg-[#FFDB80] min-h-screen w-full">
+    <main className="bg-[#FCAF1E] min-h-screen w-full">
       <ThemeProvider attribute="class" defaultTheme="system">
         <Toaster richColors />
 

@@ -35,6 +35,7 @@ const AddressDetail = (props: props) => {
           placeholder="Address"
           value={data.address}
           onChange={handleChange}
+          minLength={10}
         />
       </div>
       <div>
@@ -113,6 +114,7 @@ const AddressDetail = (props: props) => {
           placeholder="Pincode"
           value={data.pincode}
           onChange={handleChange}
+          min={0}
         />
       </div>
       {/* to time in the schema  */}

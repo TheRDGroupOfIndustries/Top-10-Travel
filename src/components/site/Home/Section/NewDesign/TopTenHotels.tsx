@@ -39,7 +39,7 @@ const CarouselCard = ({ hotel }: { hotel: any }) => (
         </Link>
       </div>
     </div>
-    <Image
+    <img
       src={getValidUrl(hotel.image)}
       alt={hotel?.legalName}
       width={400}
