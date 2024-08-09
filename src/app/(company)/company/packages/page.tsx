@@ -1,6 +1,11 @@
 import DeletePackageButton from "@/components/companydashboard/packages/DeletePackageButton";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardTitle,
+} from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { db } from "@/core/client/db";
 import getSessionorRedirect from "@/core/utils/getSessionorRedirect";
@@ -11,6 +16,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
+export const revalidate = 1;
 const getPackages = async (id: string) => {
   const packages = await db.package.findMany({ where: { companyId: id } });
   return packages;
@@ -18,20 +24,20 @@ const getPackages = async (id: string) => {
 
 const PackageCard = ({ data }: { data: Package }) => {
   return (
-    <Card className="w-full mt-5 min-h-[520px] rounded-xl max-w-sm mx-auto transition-all duration-300 hover:shadow-lg">
-      <div className="relative h-64 md:h-72 overflow-hidden">
+    <Card className="w-full mt-5 h-[450px] rounded-xl max-w-sm mx-auto transition-all duration-300 hover:shadow-lg ">
+      <div className="relative h-[50%] overflow-hidden">
         <img
           alt={`${data.title} - Package`}
           src={getValidUrl(data.image)}
-          className="rounded-t-xl object-cover w-auto h-auto"
+          className="rounded-t-md object-cover w-auto h-auto"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-50"></div>
-        <h2 className="absolute bottom-4 left-4 text-xl md:text-2xl font-bold text-white">
-          {data.title}
-        </h2>
+        <div className="absolute top-2 right-2">
+          <DeletePackageButton packageId={data.id} />
+        </div>
       </div>
-      <CardContent className="p-4">
-        <p className="text-foreground/80 mb-4 text-sm md:text-base text-left line-clamp-3">
+      <CardContent className="p-4 h-[50%]">
+        <h2 className="text-xl md:text-2xl font-bold ">{data.title}</h2>
+        <p className="text-foreground/80 mb-4 text-sm md:text-base text-left line-clamp-5">
           {data.desc}
         </p>
         <p className="text-muted-foreground text-sm md:text-base text-left font-semibold mb-4">
@@ -42,16 +48,12 @@ const PackageCard = ({ data }: { data: Package }) => {
         </p>
         <p className="text-muted-foreground text-sm md:text-base text-left font-semibold mb-4">
           {data.amenities.map((amenity, ind) => (
-            <span
-              key={ind}
-              className=""
-            >
+            <span key={ind} className="">
               {amenity}
               {ind !== data.amenities.length - 1 && ", "}
             </span>
           ))}
         </p>
-        <DeletePackageButton packageId={data.id} />
       </CardContent>
     </Card>
   );
@@ -67,14 +69,18 @@ const PackagesPage = async () => {
 
   const packages = await getPackages(company.id);
   return (
-    <div className="flex flex-col items-center justify-center relative">
-      <h2 className="text-2xl font-bold my-10">All Your Packages:</h2>
-      <div className="flex flex-wrap gap-8 pb-8">
+    <div className="flex flex-col items-start justify-center relative">
+      <Card className="w-full h-fit flex flex-wrap md:flex-row items-center justify-between p-5 mt-5 gap-3">
+        <CardTitle className="text-xl font-bold">All Your Packages</CardTitle>
+        <CardDescription>Total packages {packages.length}</CardDescription>
+        <Link className=" shadow-xl" href="/company/packages/create">
+          <Button className="">Create Package</Button>
+        </Link>
+      </Card>
+      {/* <h2 className="text-2xl font-bold my-10">All Your Packages</h2> */}
+      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
         {packages.map((p) => (
-          <PackageCard
-            key={p.id}
-            data={p}
-          />
+          <PackageCard key={p.id} data={p} />
         ))}
         {packages.length === 0 ? (
           <div className="font-semibold text-lg text-center mt-20 max-w-sm">
@@ -85,14 +91,7 @@ const PackagesPage = async () => {
               <Button className="mt-6">Create Package</Button>
             </Link>
           </div>
-        ) : (
-          <Link
-            className="fixed bottom-6 right-6 shadow-xl"
-            href="/company/packages/create"
-          >
-            <Button className="mt-6">Create Package</Button>
-          </Link>
-        )}
+        ) : null}
       </div>
     </div>
   );
