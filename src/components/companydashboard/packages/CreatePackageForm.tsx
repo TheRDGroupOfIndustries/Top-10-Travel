@@ -20,15 +20,12 @@ import { Package } from "@prisma/client";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
-import { UploadButton } from "@/resources/uploadthing";
-import Image from "next/image";
 
 type FormType = Omit<Package, "id" | "companyId" | "createdAt" | "price"> & {
   price: string;
 };
 
 export default function CreatePackageForm() {
-  const [isImage,setImage] = React.useState("");
   const [form, setForm] = React.useState<FormType>({
     amenities: [],
     desc: "",
@@ -89,36 +86,16 @@ export default function CreatePackageForm() {
             </div>
             <div className="flex flex-col space-y-2">
               <Label htmlFor="image">Image of package</Label>
-            
-         {
-          isImage!="" ? (
-          <Image
-          src={isImage}
-          height={200}
-          width={200}
-          alt="package image"
-          
-          />
-          ):(
-            <UploadButton
-            endpoint="imageUploader"
-            onClientUploadComplete={async (res) => {
-              console.log("Files: ", res);
-              if (res.length > 0) {
-                handleChange({
-                  target: {
-                    name: "image",
-                    value: res[0].url,
-                  },
-                } as React.ChangeEvent<HTMLInputElement>);
-                setImage(res[0].url)
-                console.log("Image URL stored:", res[0].url);
-              }
-            }}
-          />
-          )
-         }          
-       
+              <Input
+                required
+                type="text"
+                name="image"
+                minLength={10}
+                id="image"
+                placeholder="Image of the package"
+                value={form.image}
+                onChange={handleChange}
+              />
             </div>
             <div className="flex flex-col space-y-2">
               <Label htmlFor="duration">Duration of package</Label>

@@ -93,11 +93,9 @@ const CompanyDashboard = ({
       </Card>
       <Card>
         <CardHeader>
-          <CardTitle className="text-center md:text-left font-bold">
-            Company Details
-          </CardTitle>
+          <CardTitle className="text-center md:text-left font-bold">Company Details</CardTitle>
         </CardHeader>
-        <CardContent className="pt-6 p-1 md:p-5">
+        <CardContent className="pt-6">
           <div className="flex flex-wrap items-start gap-4 *:min-w-[200px] *:w-full *:md:w-auto">
             <CompanyDataInputwSave
               name="ownerName"

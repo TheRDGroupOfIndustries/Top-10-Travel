@@ -243,7 +243,6 @@ function Navbar() {
                 "my-3 text-lg font-medium",
                 route === el.link ? "text-[#E87A1F]" : "cool-link"
               )}
-              onClick={toggleSidebar}
             >
               {el.title}
             </Link>
