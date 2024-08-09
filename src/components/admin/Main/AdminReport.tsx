@@ -65,7 +65,7 @@ const AdminReport = ({ report }: { report: ReportData }) => {
 
       {filteredReport.map((company) => (
         <Card key={company.id}>
-          <CardHeader className="flex flex-col sm:flex-row gap-8 md:gap-24 items-center">
+          <CardHeader className="flex flex-col sm:flex-row gap-8 md:gap-24 items-center justify-between">
             <div className="flex flex-col">
               <CardTitle className="font-bold my-4 text-center sm:text-left">
                 {company.legalName}
@@ -103,7 +103,7 @@ const AdminReport = ({ report }: { report: ReportData }) => {
                   <TableRow key={review.id}>
                     <TableCell>{review.id}</TableCell>
                     <TableCell>{review.name}</TableCell>
-                    <TableCell className="min-w-[200px]">
+                    <TableCell className="min-w-[200px] md:w-[300px]">
                       {review.review}
                     </TableCell>
                     <TableCell>
