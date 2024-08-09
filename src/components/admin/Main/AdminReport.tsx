@@ -29,7 +29,7 @@ const AdminReport = ({ report }: { report: ReportData }) => {
   const filteredReport = report.filter((company) =>
     company.legalName.toLowerCase().includes(search.toLowerCase())
   );
-  const getValidUrl = (url: string) => {
+  const getValidUrl = (url: any) => {
     try {
       const u = new URL(url);
       return u.href;
@@ -65,12 +65,12 @@ const AdminReport = ({ report }: { report: ReportData }) => {
 
       {filteredReport.map((company) => (
         <Card key={company.id}>
-          <CardHeader className="flex flex-row gap-8 md:gap-24 items-center">
-            <div className="flex flex-col">
+          <CardHeader className="md:flex gap-8 md:gap-24 items-center md:flex-row justify-between">
+            <div className="flex flex-wrap gap-5">
               <CardTitle className="font-bold my-4">
                 {company.legalName}
               </CardTitle>
-              <div className="*:text-sm flex gap-2 flex-wrap mt-4 max-w-sm">
+              <div className="text-sm flex gap-2 flex-wrap mt-4 max-w-sm">
                 <Badge>Total reviews: {company.reviews}</Badge>
                 <Badge>Rating: {company.rating}</Badge>
                 <Badge>Country Priority: {company.priority}</Badge>
@@ -79,13 +79,15 @@ const AdminReport = ({ report }: { report: ReportData }) => {
                 <Badge>City : {company.city}</Badge>
               </div>
             </div>
-            <Image
-              src={getValidUrl(company.image ?? "")}
-              width={200}
-              height={100}
-              alt={company.legalName}
-              className="rounded-md"
-            />
+            <div>
+              <Image
+                src={getValidUrl(company.image ?? "")}
+                width={200}
+                height={100}
+                alt={company.legalName}
+                className="rounded-md"
+              />
+            </div>
           </CardHeader>
           <CardContent>
             <h2>All Reviews:</h2>
@@ -103,7 +105,9 @@ const AdminReport = ({ report }: { report: ReportData }) => {
                   <TableRow key={review.id}>
                     <TableCell>{review.id}</TableCell>
                     <TableCell>{review.name}</TableCell>
-                    <TableCell>{review.review}</TableCell>
+                    <TableCell className="w-[300px] flex ">
+                      {review.review}
+                    </TableCell>
                     <TableCell>
                       {review.createdAt &&
                         new Date(review.createdAt).toDateString()}

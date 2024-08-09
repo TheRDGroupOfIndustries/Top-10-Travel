@@ -150,7 +150,7 @@ const HelpDeskDashboard: React.FC<HelpDeskDashboardProps> = ({
             </div>
           </div>
 
-          <div className="flex justify-between items-center mb-6 mt-2">
+          <div className="md:flex justify-between items-center mb-6 mt-2">
             <div className="flex items-center space-x-2">
               <Input
                 placeholder="Search tickets..."
@@ -188,7 +188,7 @@ const HelpDeskDashboard: React.FC<HelpDeskDashboardProps> = ({
             </TableHeader>
             <TableBody>
               {filteredTickets.map((ticket) => (
-                <TableRow key={ticket.id}>
+                <TableRow key={ticket.id} className="">
                   <TableCell>{ticket.id}</TableCell>
                   <TableCell>{ticket.title}</TableCell>
                   <TableCell>
@@ -201,7 +201,9 @@ const HelpDeskDashboard: React.FC<HelpDeskDashboardProps> = ({
                     </Badge>
                   </TableCell>
                   <TableCell>{ticket.createdAt?.toString()}</TableCell>
-                  <TableCell>{ticket.description}</TableCell>
+                  <TableCell className="p-6 w-[300px] flex h-full justify-center items-center my-auto">
+                    {ticket.description}
+                  </TableCell>
                   <TableCell>
                     <DropdownMenu>
                       <DropdownMenuTrigger asChild>

@@ -40,7 +40,7 @@ async function AdminHeader() {
               </span>
             </div>
           </div>
-          <ThemeButton />
+          {/* <ThemeButton /> */}
         </div>
       </div>
     </div>
