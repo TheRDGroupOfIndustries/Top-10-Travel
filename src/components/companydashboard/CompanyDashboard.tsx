@@ -12,6 +12,7 @@ import InputWithSave from "../reusable/InputWithSaveCompany";
 import { Badge } from "../ui/badge";
 import Link from "next/link";
 import CompanyDataInputwSave from "../reusable/CompanyDataInputwSave";
+import UploadCompanyImage from "./UploadCompanyImage";
 
 const CompanyDashboard = ({
   data,
@@ -25,11 +26,7 @@ const CompanyDashboard = ({
       <Card>
         <CardContent className="w-full pt-6">
           <div className="w-full h-full flex flex-col md:flex-row items-center md:items-start gap-4">
-            <InputWithSave
-              name="image"
-              value={data.image ?? ""}
-              text="Edit your image..."
-            />
+            <UploadCompanyImage image={data.image ?? ""} />
             <div className="w-full h-full flex flex-col md:gap-12 gap-6">
               <InputWithSave
                 name="legalName"
