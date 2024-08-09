@@ -53,10 +53,7 @@ function Navbar() {
     <>
       <nav className="flex w-full bg-white/80 backdrop-blur-sm justify-between items-center h-[60px] fixed z-40 px-2 md:px-3 lg:px-6 xl:px-8">
         <div className="navbar-start">
-          <Link
-            href="/"
-            className="text-2xl font-bold"
-          >
+          <Link href="/" className="text-2xl font-bold">
             LOGO
           </Link>
         </div>
