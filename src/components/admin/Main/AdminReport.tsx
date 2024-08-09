@@ -29,7 +29,7 @@ const AdminReport = ({ report }: { report: ReportData }) => {
   const filteredReport = report.filter((company) =>
     company.legalName.toLowerCase().includes(search.toLowerCase())
   );
-  const getValidUrl = (url: string) => {
+  const getValidUrl = (url: any) => {
     try {
       const u = new URL(url);
       return u.href;
@@ -65,12 +65,12 @@ const AdminReport = ({ report }: { report: ReportData }) => {
 
       {filteredReport.map((company) => (
         <Card key={company.id}>
-          <CardHeader className="flex flex-col sm:flex-row gap-8 md:gap-24 items-center">
+          <CardHeader className="flex flex-col sm:flex-row gap-8 md:gap-24 items-center justify-between">
             <div className="flex flex-col">
               <CardTitle className="font-bold my-4 text-center sm:text-left">
                 {company.legalName}
               </CardTitle>
-              <div className="*:text-sm flex items-center sm:items-start gap-2 flex-wrap mt-4 max-w-sm lg:max-w-lg">
+              <div className="text-sm flex items-center sm:items-start gap-2 flex-wrap mt-4 max-w-sm lg:max-w-lg">
                 <Badge>Total reviews: {company.reviews}</Badge>
                 <Badge>Rating: {company.rating}</Badge>
                 <Badge>Country Priority: {company.priority}</Badge>
@@ -103,7 +103,7 @@ const AdminReport = ({ report }: { report: ReportData }) => {
                   <TableRow key={review.id}>
                     <TableCell>{review.id}</TableCell>
                     <TableCell>{review.name}</TableCell>
-                    <TableCell className="min-w-[200px]">
+                    <TableCell className="min-w-[200px] md:w-[300px]">
                       {review.review}
                     </TableCell>
                     <TableCell>

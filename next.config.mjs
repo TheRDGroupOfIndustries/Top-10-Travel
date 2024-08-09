@@ -37,6 +37,11 @@ const nextConfig = {
         hostname: "www.istockphoto.com",
         port: "",
       },
+      {
+        protocol: "https",
+        hostname: "image.png",
+        port: "",
+      },
     ],
     domains: [
       "s3-alpha-sig.figma.com",

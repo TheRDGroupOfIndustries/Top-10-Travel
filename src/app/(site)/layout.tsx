@@ -13,7 +13,6 @@ export default function SiteLayout({
       <ModalProvider>
         <Navbar />
         <Toaster richColors />
-
         {children}
         <Footer />
       </ModalProvider>
