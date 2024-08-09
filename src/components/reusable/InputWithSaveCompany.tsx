@@ -5,7 +5,7 @@ import { Label } from "../ui/label";
 import { Button } from "../ui/button";
 import useMutation from "@/hooks/useMutation";
 import { editCompanyAction } from "@/core/server/actions/company/editCompany";
-import { Pencil, Upload } from "lucide-react";
+import { Pencil, Upload, UserRoundPen } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { toast } from "sonner";
 import Image from "next/image";
@@ -48,7 +48,7 @@ const InputWithSave = ({
             else toast.error(error);
             setIsChanging(false);
           }}
-          className="flex items-center gap-2 justify-center"
+          className="flex  items-center gap-2 justify-center"
         >
           <Input
             name={name}
@@ -57,11 +57,7 @@ const InputWithSave = ({
             placeholder={text}
             className="mb-[1%]"
           />
-          <Button
-            disabled={isPending}
-            type="submit"
-            size="sm"
-          >
+          <Button disabled={isPending} type="submit" size="sm">
             {isPending ? "Saving..." : "Save"}
           </Button>
         </form>
@@ -70,18 +66,20 @@ const InputWithSave = ({
           {name === "image" ? (
             <div
               onClick={() => setIsChanging(true)}
-              className="group w-[300px] h-[180px] overflow-hidden rounded-lg relative hover:cursor-pointer"
+              className="group w-[300px] h-[200px] rounded-lg overflow-hidden relative hover:cursor-pointer "
             >
               <div className="absolute z-20 inset-0 flex items-center justify-center translate-y-full transition-transform group-hover:translate-y-0">
-                <Upload />
+                <Upload className="w-8 h-8 text-white" />
               </div>
-              <Image
-                src={getValidUrl(value)}
-                alt="/UploadImage.jpg"
-                width={300}
-                height={180}
-                className="w-full aspect-auto object-cover transition-transform group-hover:scale-95 group-hover:brightness-50"
-              />
+              <div className="w-full h-full flex items-center justify-center">
+                <Image
+                  src={getValidUrl(value)}
+                  alt="/UploadImage.jpg"
+                  width={500}
+                  height={500}
+                  className="w-full h-full object-cover aspect-auto transition-transform group-hover:scale-95 group-hover:brightness-50 "
+                />
+              </div>
             </div>
           ) : (
             <span
@@ -92,9 +90,10 @@ const InputWithSave = ({
               onDoubleClick={() => setIsChanging(true)}
             >
               {value}
-              <Pencil
+
+              <UserRoundPen
                 onClick={() => setIsChanging(true)}
-                className="h-5 w-5 text-muted-foreground transition-colors hover:text-foreground"
+                className="h-4 w-4 text-muted-foreground transition-colors hover:text-foreground"
               />
             </span>
           )}
