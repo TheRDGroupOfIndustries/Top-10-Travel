@@ -54,14 +54,13 @@ const Details = ({
                 <AnimatedImage
                   src={getValidUrl(data.image ?? "")}
                   alt="main image"
-                  layout="fill"
-                  objectFit="cover"
+                  fill
                   className="rounded-lg object-cover"
                 />
               </div>
 
               {/* Grid of Thumbnails */}
-              <div className="grid grid-cols-2 md:grid-cols-4 sm:gap-4 gap-1">
+              <div className="grid grid-cols-2 md:grid-cols-4 sm:gap-4 gap-2">
                 {data.companyData?.images.map(
                   (url, ind) =>
                     ind < 4 && (
@@ -72,8 +71,7 @@ const Details = ({
                         <AnimatedImage
                           src={getValidUrl(url)}
                           alt={`gallery-image-${ind + 1}`}
-                          layout="fill"
-                          objectFit="cover"
+                          fill
                           className="rounded-lg object-cover"
                         />
                       </div>
@@ -235,7 +233,7 @@ const Details = ({
                 >
                   <Image
                     src="https://images.unsplash.com/photo-1499696010180-025ef6e1a8f9?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80"
-                    layout="fill"
+                    fill
                     className="object-cover"
                     alt="Hotel room image"
                   />
