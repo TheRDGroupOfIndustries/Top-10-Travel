@@ -58,7 +58,7 @@ function ListingHero({
           src={hero}
           alt="hero"
           fill
-          className="w-full h-full object-center"
+          // className="w-full h-full object-center"
         />
       </div>
       <div className="w-full h-full flex flex-col xl:flex-row xl:items-end xl:justify-between items-center justify-end gap-2 px-2 md:px-3 xl:px-8">

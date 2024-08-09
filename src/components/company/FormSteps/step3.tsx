@@ -31,6 +31,8 @@ const CompanyNumbers = (props: Props) => {
           placeholder="Agency Group"
           value={data.agencyGroup}
           onChange={handleChange}
+          min={0}
+
         />
 
       </div>
@@ -42,6 +44,7 @@ const CompanyNumbers = (props: Props) => {
           placeholder="Business Registration Number"
           value={data.business_reg_number}
           onChange={handleChange}
+          min={0}
         />
 
       </div>
@@ -53,6 +56,7 @@ const CompanyNumbers = (props: Props) => {
           placeholder="Iata no."
           value={data.iata_number}
           onChange={handleChange}
+          min={0}
         />
 
       </div>
@@ -64,6 +68,7 @@ const CompanyNumbers = (props: Props) => {
           placeholder="Abta number"
           value={data.abta_number}
           onChange={handleChange}
+          min={0}
         />
 
       </div>
@@ -75,6 +80,7 @@ const CompanyNumbers = (props: Props) => {
           placeholder="Clia number"
           value={data.clia_number}
           onChange={handleChange}
+          min={0}
         />
 
       </div>
@@ -86,6 +92,7 @@ const CompanyNumbers = (props: Props) => {
           placeholder="Tids number"
           value={data.tids_number}
           onChange={handleChange}
+          min={0}
         />
 
       </div>

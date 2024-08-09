@@ -1,9 +1,4 @@
 "use client";
-import React, { useContext, useEffect } from "react";
-import Image from "next/image";
-import { SquareArrowUpRight } from "lucide-react";
-import Link from "next/link";
-import useAxios from "@/hooks/useAxios";
 import HomeCompanySkeleton from "@/components/reusable/HomeCompanySkeleton";
 import {
   Carousel,
@@ -12,10 +7,15 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-import Autoplay from "embla-carousel-autoplay";
 import { HomeContext } from "@/hooks/context/HomeContext";
+import useAxios from "@/hooks/useAxios";
 import { cn, getValidUrl } from "@/lib/utils";
+import Autoplay from "embla-carousel-autoplay";
 import { motion } from "framer-motion";
+import { SquareArrowUpRight } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
+import { useContext } from "react";
 
 const CarouselCard = ({ hotel }: { hotel: any }) => (
   <div className="h-72 rounded-lg overflow-hidden relative">
@@ -39,7 +39,7 @@ const CarouselCard = ({ hotel }: { hotel: any }) => (
         </Link>
       </div>
     </div>
-    <Image
+    <img
       src={getValidUrl(hotel.image)}
       alt={hotel?.legalName}
       width={400}

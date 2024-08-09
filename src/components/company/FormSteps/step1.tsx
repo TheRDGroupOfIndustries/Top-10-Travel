@@ -29,6 +29,7 @@ const UserNameEmail = (props: props) => {
           placeholder="Legal Name"
           value={data.legalName}
           onChange={handleChange}
+          minLength={5}
         />
       </div>
       <div>
@@ -39,6 +40,7 @@ const UserNameEmail = (props: props) => {
           placeholder="Phone number"
           value={data.phone}
           onChange={handleChange}
+          min={0}
         />
       </div>
       <div>
@@ -49,6 +51,7 @@ const UserNameEmail = (props: props) => {
           placeholder="Company Contact"
           value={data.companyContact}
           onChange={handleChange}
+          min={0}
         />
       </div>
       <div className="space-x-2">
@@ -106,6 +109,7 @@ const UserNameEmail = (props: props) => {
           placeholder="Owner contact"
           value={data.ownerContact}
           onChange={handleChange}
+          min={0}
         />
       </div>
       <div>
@@ -126,6 +130,7 @@ const UserNameEmail = (props: props) => {
           placeholder="Owner name"
           value={data.ownerName}
           onChange={handleChange}
+          minLength={5}
         />
       </div>
     </div>

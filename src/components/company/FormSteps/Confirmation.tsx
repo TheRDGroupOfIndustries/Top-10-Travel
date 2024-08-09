@@ -43,7 +43,7 @@ const Confirmation = ({ data }: { data: FormData }) => {
     if (success) {
       await update({ role: "COMPANY" });
       toast.success(success);
-      router.push("/company"); // Navigate to the company page on success
+      router.push("/company")
     } else if (error) {
       console.error(error);
       toast.error(error);
@@ -52,10 +52,10 @@ const Confirmation = ({ data }: { data: FormData }) => {
 
   return (
     <>
-      <div className="font-normal text-[12px] mt-5 flex px-3 py-4 rounded-lg flex-col gap-2 text-black bg-[#F3F3F3] w-full">
+      <div className="font-normal text-[12px] mt-7 flex px-3 py-4 rounded-lg flex-col gap-2 text-black bg-[#f3f3f3c6] w-full">
         {Object.keys(data).map((key) => (
           <p key={key} className="break-words text-xs grid grid-cols-3 gap-2 ">
-            <span className="text-[10px]">{key}</span>
+            <span className="text-[11px]">{key}</span>
             {
               // @ts-expect-error
               <span className="col-span-2 w-full">:&nbsp;{data[key]}</span>
@@ -75,7 +75,7 @@ const Confirmation = ({ data }: { data: FormData }) => {
       <button
         onClick={handleCreateCompany}
         disabled={isPending}
-        className="px-8 py-2 col-span-1 mt-4 rounded-md bg-teal-500 text-white font-bold transition duration-200 hover:bg-white hover:text-black border-2 border-transparent hover:border-teal-500"
+        className="px-4 py-1 col-span-1 mt-2 rounded-md bg-teal-500 text-white font-bold transition duration-200 hover:bg-white hover:text-black border-2 border-transparent hover:border-teal-500"
       >
         Create Company
       </button>

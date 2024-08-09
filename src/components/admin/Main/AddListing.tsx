@@ -54,6 +54,7 @@ type CompanyDataType = Omit<
   abta_number: string;
   clia_number: string;
   tids_number: string;
+  iata_number: string;
 };
 
 function AddListing() {
@@ -81,10 +82,11 @@ function AddListing() {
   const { mutate, isPending } = useMutation(createCompanyAdmin);
   const handleSubmit = async (e: any) => {
     e.preventDefault();
-    const { images, socialLinks, ...rest } = companyData;
+    let { images, socialLinks, ...rest } = companyData;
     const { priority, state_priority, ...restCompany } = company;
-    const imageArr = images.split(",");
-    const socialLinksArr = socialLinks.split(",");
+
+    const imageArr = images?.split(",");
+    const socialLinksArr = socialLinks?.split(",");
     const { success, error } = await mutate({
       user,
       company: {
@@ -94,21 +96,23 @@ function AddListing() {
       },
       companyData: { ...rest, images: imageArr, socialLinks: socialLinksArr },
     });
-    setUser({ username: "", email: "", image: "" });
-    setCompany({
-      companyRole: "DMC",
-      isCertified: true,
-      image: "",
-    } as CompanyType);
-    setCompanyData({} as CompanyDataType);
-    if (success) toast.success(success);
-    else toast.error(error);
+    if (success) {
+      setUser({ username: "", email: "", image: "" });
+      setCompany((prev) => ({
+        ...prev,
+        companyRole: "DMC",
+        isCertified: true,
+        image: "",
+      }));
+      setCompanyData({} as CompanyDataType);
+      toast.success(success);
+    } else toast.error(error);
   };
   return (
     <Card className="grid flex-1 items-start gap-4 px-4 py-2 mt-5">
       <div className="mx-auto grid flex-1 auto-rows-max gap-4">
         <div className="flex items-center gap-4">
-          <Link href="/admin/listings">
+          <Link href="/admin/companies">
             <Button
               variant="outline"
               size="icon"
@@ -470,6 +474,16 @@ function AddListing() {
                       name="tids_number"
                       id="tids_number"
                       value={companyData.tids_number}
+                      onChange={handleCompanyDataChange}
+                    />
+                  </div>
+                  <div className="grid gap-1">
+                    <Label htmlFor="iata_number">Iata_number</Label>
+                    <Input
+                      type="number"
+                      name="iata_number"
+                      id="iata_number"
+                      value={companyData.iata_number}
                       onChange={handleCompanyDataChange}
                     />
                   </div>
