@@ -1,5 +1,6 @@
 "use client";
 import InputCF from "@/components/customUI/Company/InputForm";
+import { UploadButton } from "@/resources/uploadthing";
 import React from "react";
 
 interface Data {
@@ -32,9 +33,7 @@ const CompanyNumbers = (props: Props) => {
           value={data.agencyGroup}
           onChange={handleChange}
           min={0}
-
         />
-
       </div>
       <div>
         <InputCF
@@ -46,7 +45,6 @@ const CompanyNumbers = (props: Props) => {
           onChange={handleChange}
           min={0}
         />
-
       </div>
       <div>
         <InputCF
@@ -58,7 +56,6 @@ const CompanyNumbers = (props: Props) => {
           onChange={handleChange}
           min={0}
         />
-
       </div>
       <div>
         <InputCF
@@ -70,7 +67,6 @@ const CompanyNumbers = (props: Props) => {
           onChange={handleChange}
           min={0}
         />
-
       </div>
       <div>
         <InputCF
@@ -82,7 +78,6 @@ const CompanyNumbers = (props: Props) => {
           onChange={handleChange}
           min={0}
         />
-
       </div>
       <div>
         <InputCF
@@ -94,18 +89,26 @@ const CompanyNumbers = (props: Props) => {
           onChange={handleChange}
           min={0}
         />
-
       </div>
+      <label htmlFor="image"
+        className='text-black font-[500]  border-gray-950'>Image</label>
       <div>
-        <InputCF
-          required
-          name="image"
-          type="text"
-          value={data.image}
-          placeholder="Image url"
-          onChange={handleChange}
+        <UploadButton
+          endpoint="imageUploader"
+          onClientUploadComplete={async (res) => {
+            console.log("Files: ", res);
+            if (res.length > 0) {
+              handleChange({
+                target: {
+                  name: "image",
+                  value: res[0].url,
+                },
+              } as React.ChangeEvent<HTMLInputElement>);
+              console.log("Image URL stored:", res[0].url);
+            }
+          }}
         />
-
+       
       </div>
     </div>
   );
