@@ -14,10 +14,10 @@ export default function CompanyLayout({
         <Toaster richColors />
 
         <div className="w-full h-full grid grid-cols-12">
-          <div className="col-span-2 min-h-screen hidden lg:block">
+          <div className="col-span-2 min-h-screen hidden xl:block">
             <CompanySidebar />
           </div>
-          <div className="lg:col-span-10 col-span-12 p-2 lg:pl-0">
+          <div className="xl:col-span-10 col-span-12 p-2 xl:pl-0">
             <CompanyHeader />
             {children}
           </div>
