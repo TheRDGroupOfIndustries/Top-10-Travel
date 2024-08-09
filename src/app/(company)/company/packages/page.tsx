@@ -71,10 +71,12 @@ const PackagesPage = async () => {
           <PackageCard key={p.id} data={p} />
         ))}
         {packages.length === 0 ? (
-          <div className="font-semibold text-lg text-center mt-20 max-w-sm">
-            You dont have any packages, therefore your company will be in a
-            suspended state, hence not visible to any users. Create a package to
-            become active again
+          <div className="font-semibold text-lg text-center mt-20 max-w-sm mx-auto flex flex-col items-center justify-center gap-4">
+            <p>
+              You dont have any packages, therefore your company will be in a
+              suspended state, hence not visible to any users. Create a package
+              to become active again
+            </p>
             <Link href="/company/packages/create">
               <Button className="mt-6">Create Package</Button>
             </Link>

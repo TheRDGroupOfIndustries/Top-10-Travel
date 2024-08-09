@@ -286,6 +286,7 @@ export default function AdminPackagelisting({
                 <TableRow
                   key={row.id}
                   data-state={row.getIsSelected() && "selected"}
+                  className="hover:bg-slate-300"
                 >
                   {row.getVisibleCells().map((cell) => (
                     <TableCell key={cell.id}>
@@ -301,7 +302,7 @@ export default function AdminPackagelisting({
               <TableRow>
                 <TableCell
                   colSpan={columns.length}
-                  className="h-24 text-center"
+                  className="h-24 text-center hover:bg-slate-300"
                 >
                   No results.a
                 </TableCell>

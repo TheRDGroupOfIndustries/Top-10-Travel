@@ -66,7 +66,7 @@ const CompanyDataInputwSave = ({
       ) : (
         <>
           <div
-            className=" p-2 flex flex-wrap items-center gap-2"
+            className="w-full flex items-center gap-3"
             onDoubleClick={() => setIsChanging(true)}
           >
             <strong
@@ -77,14 +77,21 @@ const CompanyDataInputwSave = ({
             >
               {name.toUpperCase()}:
             </strong>
-            <p className="text-center md:text-left w-full md:max-w-[300px] break-words">
-              {(!value || value === "") && "Not provided"}
-              {value}{" "}
-            </p>
-            <UserRoundPen
-              onClick={() => setIsChanging(true)}
-              className="h-4 w-4 text-muted-foreground transition-colors hover:text-foreground"
-            />
+            <div className="flex items-center justify-center gap-1">
+              <p className="w-full md:max-w-[300px] break-words text-xs md:text-sm lg:text-base">
+                {(!value || value === "") && "Not provided"}
+                {value && value.includes("@")
+                  ? `${value.split("@")[0]}@${value
+                      .split("@")[1]
+                      .substring(0, 2)}...`
+                  : value}{" "}
+              </p>
+
+              <UserRoundPen
+                onClick={() => setIsChanging(true)}
+                className="h-5 w-5 text-muted-foreground transition-colors hover:text-foreground"
+              />
+            </div>
           </div>
         </>
       )}
