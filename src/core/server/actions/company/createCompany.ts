@@ -28,12 +28,19 @@ export const createCompanyAction = async (
   companyData: Omit<CompanyData, "id" | "socialLinks" | "images" | "companyId">
 ) => {
   const session = await getSessionorRedirect();
+  if (company.image) {
+    try {
+      const url = new URL(company.image);
+    } catch (error) {
+      return { error: "Image is not valid!" };
+    }
+  }
   try {
     const res = await db.company.create({
       data: {
         ...company,
         isCertified: false,
-        isSuspended: false,
+        isSuspended: true,
         priority: 0,
         user: { connect: { id: session.user.id } },
       },

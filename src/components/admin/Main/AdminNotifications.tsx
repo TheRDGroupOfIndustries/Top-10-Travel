@@ -17,7 +17,7 @@ const getRequests = unstable_cache(
     return await db.request.findMany({ where: { status: "PENDING" } });
   },
   undefined,
-  { tags: ["admin-requests"] }
+  { tags: ["admin-requests"], revalidate: 60 }
 );
 
 const AdminNotifications = async () => {
@@ -34,7 +34,7 @@ const AdminNotifications = async () => {
             <Bell className="w-6 h-6 stroke-primary" />
           </Button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent className="w-64 lg:w-72 max-h-[450px] overflow-y-auto space-y-2">
+        <DropdownMenuContent className="w-64 lg:w-72 h-[450px] overflow-y-auto space-y-2">
           <DropdownMenuLabel className="text-lg">
             Requests ({requests.length})
           </DropdownMenuLabel>
@@ -44,6 +44,7 @@ const AdminNotifications = async () => {
               className="flex flex-col p-2 gap-1 bg-secondary hover:bg:secondary/80"
               key={req.id}
             >
+              <p>{req.companyId}</p>
               {req.message}
               <AdminNotificationButtons id={req.id} />
             </div>

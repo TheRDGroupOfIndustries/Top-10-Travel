@@ -43,6 +43,10 @@ import Image from "next/image";
 import Link from "next/link";
 import { $Enums } from "@prisma/client";
 import EditListingForm from "./EditListingForm";
+import { FaTrashCan } from "react-icons/fa6";
+import { toast } from "sonner";
+import { deleteCompany } from "@/core/server/actions/company/deleteCompany";
+import AnimatedImage from "@/components/site/Details/AnimatedImage";
 
 export type Company = {
   id: string;
@@ -55,24 +59,39 @@ export type Company = {
   state_priority: number;
   country: string;
   city: string;
+  methodology:string|null;
   companyRole: $Enums.CompanyRole;
 };
-
+async function deleteListing(id: string) {
+  const res = await deleteCompany(id);
+  console.log(res);
+  if (res.success) {
+    toast.success(res.success);
+  } else toast.error(res.error);
+}
 export const columns: ColumnDef<Company>[] = [
   {
     accessorKey: "image",
     header: "Image",
-    cell: ({ row }) => (
-      <div className="w-20 h-14 overflow-hidden rounded-lg">
-        <Image
-          src={row.getValue("image")}
-          alt={`${row.getValue("name")} package`}
-          width={120}
-          height={120}
-          className="w-full h-full object-cover"
-        />
-      </div>
-    ),
+    cell: ({ row }) => {
+      let href = null;
+      try {
+        href = new URL(row.getValue("image")).href;
+      } catch (error) {
+        href = null;
+      }
+      return (
+        <div className="w-20 h-14 overflow-hidden rounded-lg">
+          <AnimatedImage
+            src={href ?? "/UploadImage.jpg"}
+            alt={"/UploadImage.jpg"}
+            layout="fill"
+            objectFit="cover"
+            className="w-full h-full"
+          />
+        </div>
+      );
+    },
   },
   {
     accessorKey: "id",
@@ -117,19 +136,42 @@ export const columns: ColumnDef<Company>[] = [
     cell: ({ row }) => {
       const listing = row.original;
       return (
-        <Dialog>
-          <DialogTrigger asChild>
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
             <Button
+              size="icon"
               variant="ghost"
-              className="h-8 w-8 p-0"
             >
               <SquarePen className="h-4 w-4" />
             </Button>
-          </DialogTrigger>
-          <DialogContent className="sm:max-w-[425px]">
-            <EditListingForm company={listing} />
-          </DialogContent>
-        </Dialog>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent>
+            <DropdownMenuLabel>Listing actions</DropdownMenuLabel>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem asChild>
+              <Dialog>
+                <DialogTrigger asChild>
+                  <Button
+                    variant="ghost"
+                    className="flex justify-between items-center gap-2 w-full"
+                  >
+                    Edit Info <SquarePen className="h-4 w-4" />
+                  </Button>
+                </DialogTrigger>
+                <DialogContent className="sm:max-w-[425px]">
+                  <EditListingForm company={listing} />
+                </DialogContent>
+              </Dialog>
+            </DropdownMenuItem>
+            <DropdownMenuItem
+              className="flex items-center justify-start gap-2"
+              onClick={() => deleteListing(row.original.id)}
+            >
+              Delete Company
+              <FaTrashCan />
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
       );
     },
   },
@@ -168,7 +210,7 @@ export default function AdminPackagelisting({
     },
   });
   return (
-    <Card className="mt-5 p-4">
+    <Card className="mt-5 z-[999] p-4">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-5">
           <h2 className="text-2xl font-bold">Listings</h2>
@@ -179,14 +221,10 @@ export default function AdminPackagelisting({
             total listings
           </p>
         </div>
-        {/* <Dialog
-          open={showAddUserForm}
-          onOpenChange={setShowAddUserForm}
-        >
-          <Button asChild>
-            <Link href="/admin/listings/add-company">Add package +</Link>
-          </Button>
-        </Dialog> */}
+
+        <Button asChild>
+          <Link href="/admin/listings/add-company">Add Listing +</Link>
+        </Button>
       </div>
       <div className="flex items-center">
         <Input

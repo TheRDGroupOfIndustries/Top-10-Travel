@@ -3,6 +3,7 @@ import { createCompanyAction } from "@/core/server/actions/company/createCompany
 import useMutation from "@/hooks/useMutation";
 import { Company, CompanyData } from "@prisma/client";
 import { useSession } from "next-auth/react";
+import { redirect, useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "sonner";
 
@@ -25,11 +26,13 @@ type FormData = Omit<
 
 const Confirmation = ({ data }: { data: FormData }) => {
   const [isPending, setIsPending] = useState(false);
+  const router = useRouter();
   const { update, data: session } = useSession();
   const handleCreateCompany = async () => {
     // console.log(data);
     setIsPending(true);
-    const { legalName, country, state, image, companyRole,city,  ...cdata } = data;
+    const { legalName, country, state, image, companyRole, city, ...cdata } =
+      data;
     const { success, error } = await createCompanyAction(
       { legalName, companyRole, country, image, state, city },
       { ...cdata }
@@ -39,6 +42,7 @@ const Confirmation = ({ data }: { data: FormData }) => {
       await update({ role: "COMPANY" });
       // Handle success here using toast or something
       toast.success(success);
+      redirect("/company");
     } else if (error) {
       console.error(error);
       toast.error(error);
@@ -47,26 +51,30 @@ const Confirmation = ({ data }: { data: FormData }) => {
   };
   return (
     <>
-      <div className="row-span-2 col-span-2 max-w-xs">
+      <div className="font-normal text-[12px] mt-5 flex px-3 py-4 rounded-lg flex-col gap-2 text-black bg-[#F3F3F3] w-full">
         {Object.keys(data).map((key) => (
-          <p
-            key={key}
-            className="my-[2%] pr-12 pl-4 py-2 border border-gray-500 rounded-md"
-          >
-            <span className="font-[600] mr-2">{key}</span>
-            <span>:</span>
+          <p key={key} className="break-words text-xs grid grid-cols-3 gap-2 ">
+            <span className="text-[10px]">{key}</span>
             {
               // @ts-expect-error
-              <p className="ml-2 w-full">{data[key]}</p>
+              <span className="col-span-2 w-full">:&nbsp;{data[key]}</span>
             }
           </p>
         ))}
       </div>
 
-      <button
+      {/* <button
         onClick={handleCreateCompany}
         disabled={isPending}
         className="col-span-1 px-4 py-2 rounded-xl bg-blue-600 text-white disabled:opacity-50 mr-4 mt-4"
+      >
+        Create Company
+      </button> */}
+
+      <button
+        onClick={handleCreateCompany}
+        disabled={isPending}
+        className="px-8 py-2 col-span-1 mt-4 rounded-md bg-teal-500 text-white font-bold transition duration-200 hover:bg-white hover:text-black border-2 border-transparent hover:border-teal-500"
       >
         Create Company
       </button>

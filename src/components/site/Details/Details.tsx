@@ -1,14 +1,17 @@
 import EnquireDialog from "@/components/company/EnquireDialogwButton/EnquireDialog";
 import HeroHeading from "@/components/reusable/HeroHeading";
+import ShareButton from "@/components/reusable/shareButton";
 import StarRating from "@/components/reusable/StarRating";
 import { Button } from "@/components/ui/button";
-import Image from "next/image";
-import { FaFacebook, FaGoogle, FaInstagram, FaYoutube } from "react-icons/fa6";
-import ReviewsComponent from "./ReviewComp";
-import ServicesNearbyCarousel from "./ServicesNearbyCarousel";
 import { $Enums, Package } from "@prisma/client";
-import ReviewSSR from "./ReviewSSR";
+import Image from "next/image";
+
+import { FcGoogle } from "react-icons/fc";
+import AnimatedImage from "./AnimatedImage";
 import PackagesCarousel from "./PackagesCarousel";
+import ReviewSSR from "./ReviewSSR";
+import { getIconFromName } from "@/components/reusable/Icons";
+import { getValidUrl } from "@/lib/utils";
 
 type CompanyType = {
   reviews: number;
@@ -40,20 +43,20 @@ const Details = ({
   role: "AGENCY" | "HOTEL" | "DMC";
 }) => {
   return (
-    <div className="mb-10">
+    <div className="mb-10 ">
       <HeroHeading title={data?.legalName} className="uppercase" />
-      <div className="px-2 md:px-3 lg:px-6 xl:px-8">
+      <div className="px-2 md:px-3 lg:px-6 xl:px-8 ">
         <div className="w-full flex xl:gap-12 gap-6 pb-16 border-b-black border-b-[1px]">
           <div className="flex flex-col gap-10 flex-1">
             <div className="grid gap-4">
               {/* Main Image */}
-              <div className="relative w-full h-64 md:h-96 lg:h-[450px]">
-                <Image
-                  className="rounded-lg object-cover"
-                  src={data?.image!}
+              <div className="relative rounded-lg w-full h-64 md:h-96 lg:h-[450px]">
+                <AnimatedImage
+                  src={getValidUrl(data.image ?? "")}
                   alt="main image"
                   layout="fill"
                   objectFit="cover"
+                  className="rounded-lg object-cover"
                 />
               </div>
 
@@ -64,14 +67,14 @@ const Details = ({
                     ind < 4 && (
                       <div
                         key={url + ind}
-                        className="relative w-full h-32 sm:h-40"
+                        className="relative rounded-lg w-full h-32 sm:h-40"
                       >
-                        <Image
-                          src={url}
-                          className="rounded-lg cursor-pointer object-cover"
-                          alt="gallery-image-1"
+                        <AnimatedImage
+                          src={getValidUrl(url)}
+                          alt={`gallery-image-${ind + 1}`}
                           layout="fill"
                           objectFit="cover"
+                          className="rounded-lg object-cover"
                         />
                       </div>
                     )
@@ -80,43 +83,17 @@ const Details = ({
             </div>
 
             <div className="flex justify-around gap-1">
-              <Button
-                className="rounded-full flex gap-2 lg:px-6 lg:py-4 md:p-6 p-6"
-                variant="outline"
-              >
-                <FaGoogle size={24} />
-
-                <span className="font-medium sm:inline-block hidden leading-6 text-lg">
-                  Google
-                </span>
-              </Button>
-              <Button
-                className="rounded-full flex gap-2 lg:px-6 lg:py-4 md:p-6 p-6"
-                variant="outline"
-              >
-                <FaFacebook size={24} />
-                <span className="font-medium sm:inline-block hidden leading-6 text-lg">
-                  Facebook
-                </span>
-              </Button>
-              <Button
-                className="rounded-full flex gap-2 lg:px-6 lg:py-4 md:p-6 p-6"
-                variant="outline"
-              >
-                <FaInstagram size={24} />
-                <span className="font-medium sm:inline-block hidden leading-6 text-lg">
-                  Instagram
-                </span>
-              </Button>
-              <Button
-                className="rounded-full flex gap-2 lg:px-6 lg:py-4 md:p-6 p-6"
-                variant="outline"
-              >
-                <FaYoutube size={24} />
-                <span className="font-medium sm:inline-block hidden leading-6 text-lg">
-                  Youtube
-                </span>
-              </Button>
+              {data.companyData?.socialLinks.map((link) => (
+                <Button key={link} className="rounded-full" variant="outline">
+                  <a
+                    href={link}
+                    target="_blank"
+                    className="w-full h-full flex items-center gap-2"
+                  >
+                    {getIconFromName(link)}
+                  </a>
+                </Button>
+              ))}
             </div>
 
             <div className="rounded-2xl flex lg:hidden flex-col gap-6 py-12 sm:px-8 px-4 border-[1px] border-black">
@@ -152,36 +129,42 @@ const Details = ({
 
               <div className="flex gap-1 py-4 w-full flex-grow">
                 <EnquireDialog
+                  images={data?.companyData?.images}
                   name={data?.legalName}
                   className="flex-1 border-black border-[1px] py-3 rounded-full text-xl leading-6 font-medium"
                 />
-
-                <Button
-                  className="flex-1 border-black border-[1px] py-3 rounded-full text-xl leading-6 font-medium"
-                  variant="outline"
-                >
-                  Share Link
-                </Button>
+                <ShareButton />
               </div>
             </div>
-
-            <div className="h-[250px] cursor-pointer lg:hidden rounded-2xl overflow-hidden relative">
-              <Image
-                src="https://images.unsplash.com/photo-1499696010180-025ef6e1a8f9?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80"
-                layout="fill"
-                className="object-cover"
-                alt="Hotel room image"
-              />
-              <div className="absolute inset-0 bg-black/80 opacity-50"></div>
-              <div className="w-[60px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 absolute h-[47px]">
-                <Image
+            {data.companyData?.socialLinks.map((link) => (
+              <div
+                key={`banner-${link}`}
+                className="h-[250px] cursor-pointer lg:hidden rounded-2xl overflow-hidden relative"
+              >
+                <a
+                  href={link}
+                  target="_blank"
+                  className="w-full h-full flex items-center gap-2"
+                >
+                  <Image
+                    src="https://images.unsplash.com/photo-1499696010180-025ef6e1a8f9?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80"
+                    layout="fill"
+                    className="object-cover"
+                    alt="Hotel room image"
+                  />
+                  <div className="absolute inset-0 bg-black/80 opacity-50"></div>
+                  <div className="w-[60px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 absolute h-[47px]">
+                    {/* <Image
                   src="/YouTubeIcon.png"
                   layout="fill"
                   className="object-center"
                   alt="Hotel room image"
-                />
+                /> */}
+                    {getIconFromName(link, false, "w-full h-full text-white")}
+                  </div>
+                </a>
               </div>
-            </div>
+            ))}
 
             <div className="flex flex-col gap-10 sm:px-0 px-2">
               <div className="flex flex-col gap-2">
@@ -200,7 +183,7 @@ const Details = ({
           </div>
 
           <div className="flex-1 lg:flex hidden flex-col gap-5 max-w-[509px]">
-            <div className="rounded-2xl lg:flex hidden flex-col xl:gap-10 lg:gap-6 xl:py-16 lg:py-10 px-8 border-[1px] border-black">
+            <div className="rounded-2xl lg:flex hidden flex-col xl:gap-10 lg:gap-6 xl:py-16 lg:py-10 xl:px-8 lg:px-4 border-[1px] border-black">
               <div className="flex flex-col gap-5">
                 <div>
                   <h3 className="text-[32px] font-bold leading-tight xl:leading-6">
@@ -233,35 +216,42 @@ const Details = ({
 
               <div className="flex gap-1 py-4 w-full flex-grow">
                 <EnquireDialog
+                  images={data.companyData?.images}
                   name={data?.legalName}
                   className="flex-1 border-black border-[1px] py-3 rounded-full text-xl leading-6 font-medium"
                 />
-                <Button
-                  className="flex-1 border-black border-[1px] py-3 rounded-full text-xl leading-6 font-medium"
-                  variant="outline"
-                >
-                  Share Link
-                </Button>
+                <ShareButton />
               </div>
             </div>
-
-            <div className="h-[170px] cursor-pointer rounded-2xl overflow-hidden relative">
-              <Image
-                src="https://images.unsplash.com/photo-1499696010180-025ef6e1a8f9?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80"
-                layout="fill"
-                className="object-cover"
-                alt="Hotel room image"
-              />
-              <div className="absolute inset-0 bg-black/80 opacity-50"></div>
-              <div className="w-[60px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 absolute h-[47px]">
-                <Image
+            {data.companyData?.socialLinks.map((link) => (
+              <div
+                key={`banner-${link}`}
+                className="h-[170px] cursor-pointer rounded-2xl overflow-hidden relative"
+              >
+                <a
+                  href={link}
+                  target="_blank"
+                  className="w-full h-full flex items-center gap-2"
+                >
+                  <Image
+                    src="https://images.unsplash.com/photo-1499696010180-025ef6e1a8f9?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80"
+                    layout="fill"
+                    className="object-cover"
+                    alt="Hotel room image"
+                  />
+                  <div className="absolute inset-0 bg-black/80 opacity-50"></div>
+                  <div className="w-[60px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 absolute h-[47px]">
+                    {/* <Image
                   src="/YouTubeIcon.png"
                   layout="fill"
                   className="object-center"
                   alt="Hotel room image"
-                />
+                /> */}
+                    {getIconFromName(link, false, "w-full h-full text-white")}
+                  </div>
+                </a>
               </div>
-            </div>
+            ))}
 
             <ReviewSSR name={data?.legalName} companyId={data?.id} />
           </div>

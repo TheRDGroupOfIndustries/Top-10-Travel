@@ -280,6 +280,13 @@ export async function GET() {
   //   const title = "Unable to Access Account"
   //   await db.helpDesk.create({data:{title, description, user:{connect:{id:user.id}}, status:"PENDING"}})
   // }
-  
+  // await db.companyData.updateMany({data:{socialLinks:[
+  //   "https://www.google.com/travel/search?q=hotel%20near%20me&g2lb=4814050%2C4874190%2C4893075%2C4965990%2C4969803%2C72277293%2C72302247%2C72317059%2C72406588%2C72414906%2C72421566%2C72470899%2C72471280%2C72472051%2C72473841%2C72481459%2C72485658%2C72486593%2C72494250%2C72499705%2C72512010%2C72520082%2C72536387%2C72569093%2C72570850%2C72602734%2C72616120%2C72619927%2C72620306%2C72628719%2C72634630%2C72647020%2C72648289%2C72653660%2C72658035%2C72662543%2C72670818%2C72671093%2C72684992%2C72686036%2C72690755%2C72691753&hl=en-IN&gl=in&cs=1&ssta=1&ts=CAESCAoCCAMKAggDGhwSGhIUCgcI6A8QCBgQEgcI6A8QCBgRGAEyAhAAKgcKBToDSU5S&qs=CAEyFENnc0lyTlBJeTlqSHB0ejBBUkFCOApCCREcjHAWkKT4-kIJEY1NvpPciv9YQgkR626NpAAbmHBaRwgBMkOqAUAQASoJIgVob3RlbCgAMh4QASIatf__fwa8HPR4qqKKWRTU8aV6NyfsQzXRfeEyERACIg1ob3RlbCBuZWFyIG1l&ap=aAG6AQhvdmVydmlldw&ictx=111&ved=0CAAQ5JsGahcKEwjwt9H12-SHAxUAAAAAHQAAAAAQDg",
+  //   "https://www.youtube.com/@TravelTop10",
+  //   "https://www.instagram.com/traveltop10.in/",
+  //   "https://x.com/traveltop_10"
+  // ]}})
+  await db.company.updateMany({ data: { isCertified: true } });
+
   return NextResponse.json("hi");
 }

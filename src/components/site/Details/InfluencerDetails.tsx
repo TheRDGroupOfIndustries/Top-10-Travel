@@ -1,26 +1,27 @@
 import EnquireDialog from "@/components/company/EnquireDialogwButton/EnquireDialog";
 import HeroHeading from "@/components/reusable/HeroHeading";
-import StarRating from "@/components/reusable/StarRating";
+import ShareButton from "@/components/reusable/shareButton";
 import { Button } from "@/components/ui/button";
+import { type InfluencerData } from "@prisma/client";
 import Image from "next/image";
 import { FaFacebook, FaGoogle, FaInstagram, FaYoutube } from "react-icons/fa6";
-import ReviewsComponent from "./ReviewComp";
-import ServicesNearbyCarousel from "./ServicesNearbyCarousel";
-import { $Enums, type InfluencerData } from "@prisma/client";
-import ReviewSSR from "./ReviewSSR";
+import AnimatedImage from "./AnimatedImage";
+import { getIconFromName } from "@/components/reusable/Icons";
 
 const InfluencerDetails = ({ data }: { data: InfluencerData }) => {
-  console.log(data);
   return (
     <div className="mb-10">
-      <HeroHeading title={data?.name} className="uppercase" />
+      <HeroHeading
+        title={data?.name}
+        className="uppercase"
+      />
       <div className="px-2 md:px-3 lg:px-6 xl:px-8">
         <div className="w-full flex xl:gap-12 gap-6 pb-16 border-b-black border-b-[1px]">
           <div className="flex flex-col gap-10 flex-1">
             <div className="grid gap-4">
               {/* Main Image */}
               <div className="relative w-full h-64 md:h-96 lg:h-[450px]">
-                <Image
+                <AnimatedImage
                   className="rounded-lg object-cover"
                   src={data?.image!}
                   alt="main image"
@@ -31,45 +32,22 @@ const InfluencerDetails = ({ data }: { data: InfluencerData }) => {
             </div>
 
             <div className="flex justify-around gap-1">
-              <Button
-                className="rounded-full flex gap-2 lg:px-6 lg:py-4 md:p-6 p-6"
-                variant="outline"
-              >
-                <FaGoogle size={24} />
-
-                <span className="font-medium sm:inline-block hidden leading-6 text-lg">
-                  Google
-                </span>
-              </Button>
-              <Button
-                className="rounded-full flex gap-2 lg:px-6 lg:py-4 md:p-6 p-6"
-                variant="outline"
-              >
-                <FaFacebook size={24} />
-                <span className="font-medium sm:inline-block hidden leading-6 text-lg">
-                  Facebook
-                </span>
-              </Button>
-              <Button
-                className="rounded-full flex gap-2 lg:px-6 lg:py-4 md:p-6 p-6"
-                variant="outline"
-              >
-                <FaInstagram size={24} />
-                <span className="font-medium sm:inline-block hidden leading-6 text-lg">
-                  Instagram
-                </span>
-              </Button>
-              <Button
-                className="rounded-full flex gap-2 lg:px-6 lg:py-4 md:p-6 p-6"
-                variant="outline"
-              >
-                <FaYoutube size={24} />
-                <span className="font-medium sm:inline-block hidden leading-6 text-lg">
-                  Youtube
-                </span>
-              </Button>
+              {data.socialLinks.map((link) => (
+                <Button
+                  key={link}
+                  className="rounded-full"
+                  variant="outline"
+                >
+                  <a
+                    href={link}
+                    target="_blank"
+                    className="w-full h-full flex items-center gap-2"
+                  >
+                    {getIconFromName(link)}
+                  </a>
+                </Button>
+              ))}
             </div>
-
             <div className="rounded-2xl flex lg:hidden flex-col gap-6 py-12 sm:px-8 px-4 border-[1px] border-black">
               <div className="flex flex-col gap-5">
                 <div>
@@ -77,7 +55,7 @@ const InfluencerDetails = ({ data }: { data: InfluencerData }) => {
                     {data?.name}
                   </h3>
                   <p className="text-sm mt-3 leading-4 font-medium">
-                    {data.speciality}
+                    {data?.speciality}
                   </p>
                 </div>
               </div>
@@ -85,7 +63,7 @@ const InfluencerDetails = ({ data }: { data: InfluencerData }) => {
               <div className="flex flex-col gap-4">
                 <h4 className="font-medium text-2xl leading-6">Introduction</h4>
                 <p className="text-base leading-[22px] text-justify font-medium">
-                  {data.description}
+                  {data?.description}
                 </p>
               </div>
 
@@ -97,67 +75,38 @@ const InfluencerDetails = ({ data }: { data: InfluencerData }) => {
                   className="flex-1 border-black border-[1px] py-3 rounded-full text-xl leading-6 font-medium"
                 />
 
-                <Button
-                  className="flex-1 border-black border-[1px] py-3 rounded-full text-xl leading-6 font-medium"
-                  variant="outline"
+                <ShareButton />
+              </div>
+            </div>
+            {data.socialLinks.map((link) => (
+              <div
+                key={`banner-${link}`}
+                className="h-[250px] cursor-pointer lg:hidden rounded-2xl overflow-hidden relative"
+              >
+                <a
+                  href={link}
+                  target="_blank"
+                  className="w-full h-full flex items-center gap-2"
                 >
-                  Share Link
-                </Button>
+                  <Image
+                    src="https://images.unsplash.com/photo-1499696010180-025ef6e1a8f9?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80"
+                    layout="fill"
+                    className="object-cover"
+                    alt="Hotel room image"
+                  />
+                  <div className="absolute inset-0 bg-black/80 opacity-50"></div>
+                  <div className="w-[60px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 absolute h-[47px]">
+                    {/* <Image
+                    src="/YouTubeIcon.png"
+                    layout="fill"
+                    className="object-center"
+                    alt="Hotel room image"
+                  /> */}
+                    {getIconFromName(link, false, "w-full h-full text-white")}
+                  </div>
+                </a>
               </div>
-            </div>
-
-            <div className="h-[250px] cursor-pointer lg:hidden rounded-2xl overflow-hidden relative">
-              <Image
-                src="https://images.unsplash.com/photo-1499696010180-025ef6e1a8f9?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80"
-                layout="fill"
-                className="object-cover"
-                alt="Hotel room image"
-              />
-              <div className="absolute inset-0 bg-black/80 opacity-50"></div>
-              <div className="w-[60px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 absolute h-[47px]">
-                <Image
-                  src="/YouTubeIcon.png"
-                  layout="fill"
-                  className="object-center"
-                  alt="Hotel room image"
-                />
-              </div>
-            </div>
-
-            <div className="h-[250px] cursor-pointer lg:hidden rounded-2xl overflow-hidden relative">
-              <Image
-                src="https://images.unsplash.com/photo-1499696010180-025ef6e1a8f9?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80"
-                layout="fill"
-                className="object-cover"
-                alt="Hotel room image"
-              />
-              <div className="absolute inset-0 bg-black/80 opacity-50"></div>
-              <div className="w-[60px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 absolute h-[47px]">
-                <Image
-                  src="/FacebookIcon.png"
-                  layout="fill"
-                  className="object-center"
-                  alt="Hotel room image"
-                />
-              </div>
-            </div>
-            <div className="h-[250px] cursor-pointer lg:hidden rounded-2xl overflow-hidden relative">
-              <Image
-                src="https://images.unsplash.com/photo-1499696010180-025ef6e1a8f9?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80"
-                layout="fill"
-                className="object-cover"
-                alt="Hotel room image"
-              />
-              <div className="absolute inset-0 bg-black/80 opacity-50"></div>
-              <div className="w-[60px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 absolute h-[47px]">
-                <Image
-                  src="/InstagramIcon.png"
-                  layout="fill"
-                  className="object-center"
-                  alt="Hotel room image"
-                />
-              </div>
-            </div>
+            ))}
 
             <div className="flex flex-col gap-10 sm:px-0 px-2">
               <div className="flex flex-col gap-2">
@@ -182,9 +131,7 @@ const InfluencerDetails = ({ data }: { data: InfluencerData }) => {
                     {data?.speciality}
                   </p>
                 </div>
-                <p className="text-xl leading-5 font-medium text-slate-600">
-                  @Travelwithshivangi_
-                </p>
+                <p className="text-xl leading-5 font-medium text-slate-600"></p>
               </div>
 
               <div className="flex flex-col gap-4">
@@ -201,71 +148,41 @@ const InfluencerDetails = ({ data }: { data: InfluencerData }) => {
                   name={data?.name}
                   className="flex-1 border-black border-[1px] py-3 rounded-full text-xl leading-6 font-medium"
                 />
-                <Button
-                  className="flex-1 border-black border-[1px] py-3 rounded-full text-xl leading-6 font-medium"
-                  variant="outline"
-                >
-                  Share Link
-                </Button>
+                <ShareButton />
               </div>
             </div>
-
-            <div className="h-[170px] cursor-pointer rounded-2xl overflow-hidden relative">
-              <Image
-                src="https://images.unsplash.com/photo-1499696010180-025ef6e1a8f9?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80"
-                layout="fill"
-                className="object-cover"
-                alt="Hotel room image"
-              />
-              <div className="absolute inset-0 bg-black/80 opacity-50"></div>
-              <div className="w-[60px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 absolute h-[47px]">
-                <Image
+            {data.socialLinks.map((link) => (
+              <div
+                key={`banner-${link}`}
+                className="h-[170px] cursor-pointer rounded-2xl overflow-hidden relative"
+              >
+                <a
+                  href={link}
+                  target="_blank"
+                  className="w-full h-full flex items-center gap-2"
+                >
+                  <Image
+                    src="https://images.unsplash.com/photo-1499696010180-025ef6e1a8f9?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80"
+                    layout="fill"
+                    className="object-cover"
+                    alt="Hotel room image"
+                  />
+                  <div className="absolute inset-0 bg-black/80 opacity-50"></div>
+                  <div className="w-[60px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 absolute h-[47px]">
+                    {/* <Image
                   src="/YouTubeIcon.png"
                   layout="fill"
                   className="object-center"
                   alt="Hotel room image"
-                />
+                /> */}
+                    {getIconFromName(link, false, "w-full h-full text-white")}
+                  </div>
+                </a>
               </div>
-            </div>
-            <div className="h-[170px] cursor-pointer rounded-2xl overflow-hidden relative">
-              <Image
-                src="https://images.unsplash.com/photo-1499696010180-025ef6e1a8f9?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80"
-                layout="fill"
-                className="object-cover"
-                alt="Hotel room image"
-              />
-              <div className="absolute inset-0 bg-black/80 opacity-50"></div>
-              <div className="w-[48px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 absolute h-[48px]">
-                <Image
-                  src="/FacebookIcon.png"
-                  layout="fill"
-                  className="object-center"
-                  alt="Hotel room image"
-                />
-              </div>
-            </div>
-            <div className="h-[170px] cursor-pointer rounded-2xl overflow-hidden relative">
-              <Image
-                src="https://images.unsplash.com/photo-1499696010180-025ef6e1a8f9?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80"
-                layout="fill"
-                className="object-cover"
-                alt="Hotel room image"
-              />
-              <div className="absolute inset-0 bg-black/80 opacity-50"></div>
-              <div className="w-[48px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 absolute h-[48px]">
-                <Image
-                  src="/InstagramIcon.png"
-                  layout="fill"
-                  className="object-center"
-                  alt="Hotel room image"
-                />
-              </div>
-            </div>
+            ))}
           </div>
         </div>
       </div>
-      <HeroHeading title="Packages" className="uppercase" />
-      <ServicesNearbyCarousel />
     </div>
   );
 };

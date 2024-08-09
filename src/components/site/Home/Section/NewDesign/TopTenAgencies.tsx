@@ -14,7 +14,7 @@ import {
 import HomeCompanySkeleton from "@/components/reusable/HomeCompanySkeleton";
 import Autoplay from "embla-carousel-autoplay";
 import { HomeContext } from "@/hooks/context/HomeContext";
-import { cn } from "@/lib/utils";
+import { cn, getValidUrl } from "@/lib/utils";
 
 const CarouselCard = ({ agency }: { agency: any }) => (
   <div className="flex flex-col h-full">
@@ -22,7 +22,7 @@ const CarouselCard = ({ agency }: { agency: any }) => (
       <div className="absolute top-0 left-0 bg-[#FFDB80] w-[80%] h-[70%] rounded-lg"></div>
       <div className="absolute bottom-0 right-0 w-[95%] h-[95%] rounded-lg overflow-hidden">
         <Image
-          src={agency.image}
+          src={getValidUrl(agency.image)}
           alt={agency.legalName}
           layout="fill"
           objectFit="cover"
@@ -62,13 +62,37 @@ const TopTenAgencies = () => {
       )}
     >
       <div className="w-full flex flex-col items-center justify-center gap-4">
-        <h1 className="text-xl sm:text-4xl font-bold text-center">
-          {`TOP 10 AGENCIES${
-            selectedCountry && ", " + selectedCountry.toUpperCase()
-          }${selectedCity && "-" + selectedCity.toUpperCase()}`}
+        <h1 className="text-xl lg:overflow-hidden sm:text-4xl font-bold text-center">
+          <motion.span
+            className="inline-block"
+            initial={{ y: 30, opacity: 0 }}
+            whileInView={{ y: 0, opacity: 1 }}
+            transition={{
+              duration: 0.8,
+              delay: 0.3,
+              type: "spring",
+            }}
+            viewport={{ once: true }}
+          >
+            {`TOP 10 AGENCIES${
+              selectedCountry && ", " + selectedCountry.toUpperCase()
+            }${selectedCity && "-" + selectedCity.toUpperCase()}`}
+          </motion.span>
         </h1>
         <p className="text-base sm:text-lg text-center mb-8">
-          Experience Hassle-Free Room Hunting with Our Comprehensive Listing
+          <motion.span
+            className="inline-block"
+            initial={{ y: 30, opacity: 0 }}
+            whileInView={{ y: 0, opacity: 1 }}
+            transition={{
+              duration: 0.8,
+              delay: 0.4,
+              type: "spring",
+            }}
+            viewport={{ once: true }}
+          >
+            Experience Hassle-Free Room Hunting with Our Comprehensive Listing
+          </motion.span>
         </p>
         <Carousel
           opts={{

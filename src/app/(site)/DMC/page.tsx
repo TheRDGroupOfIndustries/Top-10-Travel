@@ -11,7 +11,7 @@ const Page = async () => {
   const allDMCS = await db.company.findMany({
     where: {
       companyRole: "DMC",
-      // isCertified: true,
+      isCertified: true,
       isSuspended: false,
     },
     select: {
