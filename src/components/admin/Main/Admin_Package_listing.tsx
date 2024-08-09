@@ -84,7 +84,7 @@ export const columns: ColumnDef<Company>[] = [
         <div className="w-20 h-14 overflow-hidden rounded-lg">
           <AnimatedImage
             src={href ?? "/UploadImage.jpg"}
-            alt={"/UploadImage.jpg"}
+            alt={"Company Image"}
             fill
             className="w-full h-full"
           />
@@ -219,7 +219,7 @@ export default function AdminPackagelisting({
         </div>
 
         <Button asChild>
-          <Link href="/admin/listings/add-company">Add Listing +</Link>
+          <Link href="/admin/companies/add-company">Add Listing +</Link>
         </Button>
       </div>
       <div className="flex items-center">

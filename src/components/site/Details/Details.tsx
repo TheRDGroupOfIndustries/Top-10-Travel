@@ -176,7 +176,10 @@ const Details = ({
             </div>
 
             <div className="lg:hidden">
-              <ReviewSSR name={data?.legalName} companyId={data?.id} />
+              <ReviewSSR
+                name={data?.legalName}
+                companyId={data?.id}
+              />
             </div>
           </div>
 
@@ -245,7 +248,10 @@ const Details = ({
               </div>
             ))} */}
 
-            <ReviewSSR name={data?.legalName} companyId={data?.id} />
+            <ReviewSSR
+              name={data?.legalName}
+              companyId={data?.id}
+            />
           </div>
         </div>
       </div>

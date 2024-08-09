@@ -15,12 +15,10 @@ const PackageCard = ({ data }: { data: Package }) => {
   return (
     <Card className="w-full min-h-[520px] rounded-xl max-w-sm mx-auto transition-all duration-300 hover:shadow-lg">
       <div className="relative h-64 md:h-72">
-        <Image
-          layout="fill"
-          objectFit="cover"
+        <img
           alt={`${data.title} - Package`}
           src={data.image}
-          className="rounded-t-xl"
+          className="rounded-t-xl w-full h-full object-cover"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-50"></div>
         <h2 className="absolute bottom-4 left-4 text-xl md:text-2xl font-bold text-white">

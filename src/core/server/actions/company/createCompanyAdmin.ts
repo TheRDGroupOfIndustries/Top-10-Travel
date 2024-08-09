@@ -26,6 +26,13 @@ export const createCompanyAdmin = async (data: {
   const session = await getSessionorRedirect();
   if (session.user.role !== "ADMIN")
     return { error: "Unauthorized! Admin Only" };
+  if (data.company.image) {
+    try {
+      const url = new URL(data.company.image);
+    } catch (error) {
+      return { error: "Company Image is invalid." };
+    }
+  }
   if (data.companyData.images) {
     try {
       data.companyData.images.forEach((image) => {
@@ -69,10 +76,24 @@ export const createCompanyAdmin = async (data: {
     });
     // revalidatePath("/auth/company");
     return { success: "Company created successfully." };
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.log(error);
-    if (error.meta.modelName === "User" && error.meta.target[0] === "email")
-      return { error: "user or company already exists" };
-    return { error: "Failed to create company." };
-  }
+
+      // Check if it's a Prisma unique constraint error
+      if (error instanceof Error) {
+        if (error.message.includes('Unique constraint failed')) {
+            // Extract the field name from the error message
+            const fieldNameMatch = error.message.match(/fields: \(`(.*?)`\)/);
+            const fieldName = fieldNameMatch ? fieldNameMatch[1] : 'unknown field';
+    
+            return { error: `Failed to Create: A company with this ${fieldName} already exists.` };
+        }
+        return { error: `Failed to Create: ${error.message}` };
+    }
+    
+  
+  
+    return { error: "Failed to Create: An unknown error occurred." };
+}
+
 };

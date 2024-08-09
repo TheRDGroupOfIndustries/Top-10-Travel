@@ -35,8 +35,24 @@ export const createInfluencerDataAction = async (
       ...getInfluencerCreateTemplate(res.name),
     });
     return { success: "Influencer Account created successfully." };
-  } catch (error) {
+  }  catch (error: unknown) {
     console.log(error);
-    return { error: "Failed to create influencer account." };
-  }
+
+      // Check if it's a Prisma unique constraint error
+      if (error instanceof Error) {
+        if (error.message.includes('Unique constraint failed')) {
+            // Extract the field name from the error message
+            const fieldNameMatch = error.message.match(/fields: \(`(.*?)`\)/);
+            const fieldName = fieldNameMatch ? fieldNameMatch[1] : 'unknown field';
+    
+            return { error: `Failed to Create: A company with this ${fieldName} already exists.` };
+        }
+        return { error: `Failed to Create: ${error.message}` };
+    }
+    
+  
+  
+    return { error: "Failed to Create: An unknown error occurred." };
+}
+
 };
