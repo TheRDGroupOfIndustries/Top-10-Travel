@@ -46,7 +46,7 @@ const SmallScreenSidebar = () => {
 
   return (
     <Sheet>
-      <SheetTrigger className="xl:hidden">
+      <SheetTrigger className="lg:hidden">
         <FiSidebar size={28} className="dark:text-white text-black" />
       </SheetTrigger>
       <SheetContent>
