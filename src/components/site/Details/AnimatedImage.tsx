@@ -35,10 +35,10 @@ const AnimatedImage: FC<AnimatedImageProps> = ({
       className="relative w-full h-full overflow-hidden"
     >
       <img
-        // @ts-expect-error
-        src={src}
+        // src={src }
+        src={'https://images.pexels.com/photos/2131623/pexels-photo-2131623.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'}
         alt={alt}
-        fill
+        // fill
         className={cn("w-full h-full object-cover", className)}
       />
     </motion.div>
