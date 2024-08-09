@@ -21,7 +21,8 @@ const PackageCard = ({ data }: { data: Package }) => {
   return (
     <Card className="w-full mt-5 h-[450px] rounded-xl max-w-sm mx-auto transition-all duration-300 hover:shadow-lg ">
       <div className="relative h-[50%] overflow-hidden">
-        <img
+        <Image
+          fill
           alt={`${data.title} - Package`}
           src={getValidUrl(data.image)}
           className="rounded-t-md object-cover w-auto h-auto"

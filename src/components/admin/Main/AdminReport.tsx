@@ -79,7 +79,7 @@ const AdminReport = ({ report }: { report: ReportData }) => {
                 <Badge>City : {company.city}</Badge>
               </div>
             </div>
-            <img
+            <Image
               src={getValidUrl(company.image ?? "")}
               width={200}
               height={100}

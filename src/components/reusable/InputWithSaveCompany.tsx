@@ -57,11 +57,7 @@ const InputWithSave = ({
             placeholder={text}
             className="mb-[1%]"
           />
-          <Button
-            disabled={isPending}
-            type="submit"
-            size="sm"
-          >
+          <Button disabled={isPending} type="submit" size="sm">
             {isPending ? "Saving..." : "Save"}
           </Button>
         </form>
