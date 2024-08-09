@@ -49,7 +49,7 @@ function ListData({
             className="w-full lg:h-60 rounded-lg flex flex-col md:flex-row items-center justify-between gap-5 shadow shadow-black/60"
           >
             <div className="lg:w-[30%] w-full lg:h-full h-60 rounded-lg overflow-hidden">
-              <img
+              <Image
                 src={getValidUrl(item.image ?? "")}
                 alt={`image-${item.legalName}`}
                 width={300}

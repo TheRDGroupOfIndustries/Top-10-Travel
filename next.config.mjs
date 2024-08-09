@@ -42,6 +42,16 @@ const nextConfig = {
         hostname: "image.png",
         port: "",
       },
+      {
+        protocol: "https",
+        hostname: "utfs.io",
+        port: "",
+      },
+      {
+        protocol: "https",
+        hostname: "res.cloudinary.com",
+        port: "",
+      },
     ],
     domains: [
       "s3-alpha-sig.figma.com",
