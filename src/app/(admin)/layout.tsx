@@ -1,8 +1,6 @@
 import AdminHeader from "@/components/admin/Main/Admin_Header";
 import AdminSidebar from "@/components/admin/SideBar/Admin_Sidebar";
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
-// import { ScrollArea } from "@/components/ui/scroll-area";
-import getSessionorRedirect from "@/core/utils/getSessionorRedirect";
 import { Toaster } from "sonner";
 
 export default function AdminLayout({
@@ -12,7 +10,7 @@ export default function AdminLayout({
 }>) {
   return (
     <main className="bg-[#FCAF1E] min-h-screen w-full">
-      <ThemeProvider attribute="class" defaultTheme="system">
+      <ThemeProvider attribute="class" defaultTheme="light">
         <Toaster richColors />
 
         <div className="w-full h-full grid grid-cols-12 ">
@@ -21,10 +19,8 @@ export default function AdminLayout({
           </div>
 
           <div className="xl:col-span-10 col-span-12 p-2 xl:pl-0">
-            {/* <ScrollArea className="w-full bg-background text-foreground rounded-xl px-4"> */}
             <AdminHeader />
             {children}
-            {/* </ScrollArea> */}
           </div>
         </div>
       </ThemeProvider>
