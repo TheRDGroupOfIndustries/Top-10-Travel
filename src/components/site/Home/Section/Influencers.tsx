@@ -37,7 +37,7 @@ const Influencers = () => {
   return (
     <main
       className={cn(
-        "w-full mt-10 px-2 md:px-3 lg:px-6 xl:px-8",
+        "w-full px-2 md:px-3 lg:px-6 xl:px-8",
         visible.Influencer ? "" : "hidden"
       )}
     >
@@ -76,7 +76,7 @@ const Influencers = () => {
         </p>
         <div
           className={cn(
-            "w-full mt-8",
+            "w-full",
             isLoading ? "flex md:flex-row flex-col gap-2" : ""
           )}
         >
@@ -108,4 +108,3 @@ const Influencers = () => {
 };
 
 export default Influencers;
-//
