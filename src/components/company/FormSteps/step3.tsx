@@ -1,7 +1,8 @@
 "use client";
 import InputCF from "@/components/customUI/Company/InputForm";
 import { UploadButton } from "@/resources/uploadthing";
-import React from "react";
+import Image from "next/image";
+import React, { useState } from "react";
 
 interface Data {
   agencyGroup: string;
@@ -10,7 +11,6 @@ interface Data {
   clia_number: string;
   tids_number: string;
   business_reg_number: string;
-
   image: string;
 }
 
@@ -21,6 +21,7 @@ interface Props {
 
 const CompanyNumbers = (props: Props) => {
   const { data, handleChange } = props;
+  const [isImage, setImage] = useState("");
 
   return (
     <div className="space-y-2 font-[13px]">
@@ -90,25 +91,39 @@ const CompanyNumbers = (props: Props) => {
           min={0}
         />
       </div>
-      <label htmlFor="image"
-        className='text-black font-[500]  border-gray-950'>Image</label>
       <div>
-        <UploadButton
-          endpoint="imageUploader"
-          onClientUploadComplete={async (res) => {
-            console.log("Files: ", res);
-            if (res.length > 0) {
-              handleChange({
-                target: {
-                  name: "image",
-                  value: res[0].url,
-                },
-              } as React.ChangeEvent<HTMLInputElement>);
-              console.log("Image URL stored:", res[0].url);
-            }
-          }}
-        />
-       
+        {isImage !== "" ? (
+          <Image
+            src={isImage}
+            height={200}
+            width={200}
+            alt="package image"
+          />
+        ) : (
+          <div>
+            <label htmlFor="image" className="text-black font-[500] border-gray-950">
+              Image
+            </label>
+            <div>
+              <UploadButton
+                endpoint="imageUploader"
+                onClientUploadComplete={async (res) => {
+                  console.log("Files: ", res);
+                  if (res.length > 0) {
+                    handleChange({
+                      target: {
+                        name: "image",
+                        value: res[0].url,
+                      },
+                    } as React.ChangeEvent<HTMLInputElement>);
+                    setImage(res[0].url);
+                    console.log("Image URL stored:", res[0].url);
+                  }
+                }}
+              />
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
