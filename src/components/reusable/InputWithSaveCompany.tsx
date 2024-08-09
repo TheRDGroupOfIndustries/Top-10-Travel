@@ -75,9 +75,9 @@ const InputWithSave = ({
               <div className="absolute z-20 inset-0 flex items-center justify-center translate-y-full transition-transform group-hover:translate-y-0">
                 <Upload />
               </div>
-              <Image
+              <img
                 src={getValidUrl(value)}
-                alt="/UploadImage.jpg"
+                alt="Company Image"
                 width={300}
                 height={180}
                 className="w-full aspect-auto object-cover transition-transform group-hover:scale-95 group-hover:brightness-50"

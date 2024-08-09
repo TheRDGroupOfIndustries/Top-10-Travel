@@ -1,4 +1,5 @@
 "use client";
+import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
 import Image, { StaticImageData } from "next/image";
 import { FC } from "react";
@@ -6,7 +7,7 @@ import { FC } from "react";
 interface AnimatedImageProps {
   src: string | StaticImageData;
   alt: string;
-  fill: any;
+  fill: boolean;
   layout?: "fill" | "fixed" | "intrinsic" | "responsive";
   objectFit?: "contain" | "cover" | "fill" | "none" | "scale-down";
   className?: string;
@@ -15,6 +16,7 @@ interface AnimatedImageProps {
 const AnimatedImage: FC<AnimatedImageProps> = ({
   src,
   alt,
+  fill,
   layout,
   objectFit,
   className,
@@ -30,13 +32,14 @@ const AnimatedImage: FC<AnimatedImageProps> = ({
         damping: 30, // Higher damping for more control over the oscillation
       }}
       viewport={{ once: true }}
-      className="relative w-full h-full"
+      className="relative w-full h-full overflow-hidden"
     >
-      <Image
+      <img
+        // @ts-expect-error
         src={src}
         alt={alt}
         fill
-        className={className}
+        className={cn("w-full h-full object-cover", className)}
       />
     </motion.div>
   );

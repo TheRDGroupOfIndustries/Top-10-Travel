@@ -84,9 +84,8 @@ export const columns: ColumnDef<Company>[] = [
         <div className="w-20 h-14 overflow-hidden rounded-lg">
           <AnimatedImage
             src={href ?? "/UploadImage.jpg"}
-            alt={"/UploadImage.jpg"}
-            layout="fill"
-            objectFit="cover"
+            alt={"Company Image"}
+            fill
             className="w-full h-full"
           />
         </div>

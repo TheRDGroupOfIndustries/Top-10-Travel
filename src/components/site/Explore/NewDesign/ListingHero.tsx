@@ -57,8 +57,7 @@ function ListingHero({
         <AnimatedImage
           src={hero}
           alt="hero"
-          objectFit="cover"
-          layout="fill"
+          fill
           className="w-full h-full object-center"
         />
       </div>

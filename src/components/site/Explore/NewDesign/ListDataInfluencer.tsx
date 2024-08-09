@@ -46,12 +46,12 @@ function ListDataInfluencer({
             className="w-full lg:h-60 rounded-lg flex flex-col md:flex-row items-center justify-between gap-5 shadow shadow-black/60"
           >
             <div className="lg:w-[30%] w-full lg:h-full h-60 rounded-lg overflow-hidden">
-              <Image
+              <img
                 src={getValidUrl(item.image ?? "")}
                 alt={`image-${item?.name}`}
                 width={300}
                 height={300}
-                className="w-full h-full object-cover"
+                className="w-auto h-auto object-cover"
               />
             </div>
             <div className="lg:w-[70%] w-full h-full rounded-lg overflow-hidden flex flex-col items-start justify-start gap-3 p-1">

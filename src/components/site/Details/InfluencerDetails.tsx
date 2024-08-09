@@ -1,4 +1,3 @@
-import EnquireDialog from "@/components/company/EnquireDialogwButton/EnquireDialog";
 import HeroHeading from "@/components/reusable/HeroHeading";
 import ShareButton from "@/components/reusable/shareButton";
 import { Button } from "@/components/ui/button";
@@ -25,8 +24,7 @@ const InfluencerDetails = ({ data }: { data: InfluencerData }) => {
                   className="rounded-lg object-cover"
                   src={data?.image!}
                   alt="main image"
-                  layout="fill"
-                  objectFit="cover"
+                  fill
                 />
               </div>
             </div>
@@ -70,11 +68,6 @@ const InfluencerDetails = ({ data }: { data: InfluencerData }) => {
               <div className="text-2xl leading-6 font-medium">Actions</div>
 
               <div className="flex gap-1 py-4 w-full flex-grow">
-                <EnquireDialog
-                  name={data?.name}
-                  className="flex-1 border-black border-[1px] py-3 rounded-full text-xl leading-6 font-medium"
-                />
-
                 <ShareButton />
               </div>
             </div>
@@ -144,10 +137,6 @@ const InfluencerDetails = ({ data }: { data: InfluencerData }) => {
               <div className="text-2xl leading-6 font-medium">Actions</div>
 
               <div className="flex gap-1 py-4 w-full flex-grow">
-                <EnquireDialog
-                  name={data?.name}
-                  className="flex-1 border-black border-[1px] py-3 rounded-full text-xl leading-6 font-medium"
-                />
                 <ShareButton />
               </div>
             </div>
