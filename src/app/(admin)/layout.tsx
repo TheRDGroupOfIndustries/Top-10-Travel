@@ -5,13 +5,11 @@ import { ThemeProvider } from "@/components/providers/ThemeProvider";
 import getSessionorRedirect from "@/core/utils/getSessionorRedirect";
 import { Toaster } from "sonner";
 
-export default async function AdminLayout({
+export default function AdminLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const session = await getSessionorRedirect();
-  // if (!session || session.user.role !== "ADMIN") return redirect("/");
 
   return (
     <main className="bg-[#FFDB80] min-h-screen w-full">

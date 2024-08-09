@@ -15,7 +15,7 @@ const RequestPage = async () => {
   return (
     <Tabs
       defaultValue="new"
-      className="flex flex-col items-center justify-center h-[80%]"
+      className="flex mt-5 flex-col items-center justify-center h-[80%]"
     >
       <TabsList className="w-full max-w-md *:flex-1">
         <TabsTrigger value="new">Create Helpdesk</TabsTrigger>

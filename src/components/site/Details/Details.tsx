@@ -11,6 +11,7 @@ import AnimatedImage from "./AnimatedImage";
 import PackagesCarousel from "./PackagesCarousel";
 import ReviewSSR from "./ReviewSSR";
 import { getIconFromName } from "@/components/reusable/Icons";
+import { getValidUrl } from "@/lib/utils";
 
 type CompanyType = {
   reviews: number;
@@ -51,7 +52,7 @@ const Details = ({
               {/* Main Image */}
               <div className="relative rounded-lg w-full h-64 md:h-96 lg:h-[450px]">
                 <AnimatedImage
-                  src={data?.image || ""}
+                  src={getValidUrl(data.image ?? "")}
                   alt="main image"
                   layout="fill"
                   objectFit="cover"
@@ -69,7 +70,7 @@ const Details = ({
                         className="relative rounded-lg w-full h-32 sm:h-40"
                       >
                         <AnimatedImage
-                          src={url}
+                          src={getValidUrl(url)}
                           alt={`gallery-image-${ind + 1}`}
                           layout="fill"
                           objectFit="cover"

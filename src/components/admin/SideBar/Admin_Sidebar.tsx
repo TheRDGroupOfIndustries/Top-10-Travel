@@ -33,7 +33,7 @@ function AdminSidebar() {
         </Link>
       </div>
       <nav className="flex-grow">
-        <ul className="py-4">
+        <ul className="py-6">
           {menuItems.map((item, index) => (
             <li key={index} className="-z-10">
               <Link

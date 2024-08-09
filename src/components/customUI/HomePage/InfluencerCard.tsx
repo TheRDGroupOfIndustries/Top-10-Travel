@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { getValidUrl } from "@/lib/utils";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
@@ -24,7 +25,7 @@ function InfluencerCard({ data }: { data: any }) {
           layout="fill"
           objectFit="cover"
           alt={`${data.name} - Influencer`}
-          src={data.image}
+          src={getValidUrl(data.image)}
           className="rounded-t-xl"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-50"></div>

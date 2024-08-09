@@ -1,15 +1,4 @@
 "use client";
-import Image from "next/image";
-import {
-  useContext,
-  useEffect,
-  useLayoutEffect,
-  useMemo,
-  useRef,
-  useState,
-} from "react";
-import HeroEllipse from "@/resources/images/Hero_Ellipse.png";
-import Hot_Air_Balloon from "@/resources/images/Hot_Air_Balloon_Hero.png";
 import { Button } from "@/components/ui/button";
 import {
   Select,
@@ -18,11 +7,20 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { ChevronDownIcon, SearchIcon } from "lucide-react";
 import { HomeContext } from "@/hooks/context/HomeContext";
+import HeroEllipse from "@/resources/images/Hero_Ellipse.png";
+import Hot_Air_Balloon from "@/resources/images/Hot_Air_Balloon_Hero.png";
 import axios from "axios";
-import { useAnimate } from "framer-motion";
-import { motion, AnimatePresence } from "framer-motion";
+import { AnimatePresence, motion, useAnimate } from "framer-motion";
+import { ChevronDownIcon, SearchIcon } from "lucide-react";
+import Image from "next/image";
+import {
+  useContext,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from "react";
 
 const MobileDropdown = ({ items, visible, toggle }: any) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -31,8 +29,14 @@ const MobileDropdown = ({ items, visible, toggle }: any) => {
     <div className="relative w-full">
       <div
         onClick={() => setIsOpen(!isOpen)}
-        className="rounded-t-[16px] ml-4 w-28 h-7 flex items-center justify-center cursor-pointer bg-[#FFC658] text-white"
+        className="relative ml-4 w-24 h-7 flex items-center justify-center cursor-pointer  text-white"
       >
+        <Image
+          src={"/Hero_Filter_Small.jpg"}
+          layout="fill"
+          className="absolute -z-10"
+          alt="hero_filter_img"
+        />
         <span className="text-xs font-semibold">Select</span>
         <ChevronDownIcon className="w-4 h-4" />
       </div>
@@ -320,8 +324,15 @@ function HomeHero() {
           className="w-full pt-20 md:pt-10 lg:overflow-hidden lg:pt-24 md:max-w-[430px] lg:max-w-[730px]"
         >
           <div className="w-full ml-4 flex items-end justify-start">
-            <div className="rounded-t-[24px] max-w-52 h-8 md:h-10 sm:h-9 flex items-center justify-center bg-gray-200">
-              <span className="text-black px-3 text-xs font-semibold ">
+            {/* <div className="rounded-t-[18px] max-w-52 h-8 md:h-10 sm:h-9 flex items-center justify-center bg-gray-200"> */}
+            <div className="relative max-w-60 h-9 flex items-center justify-center">
+              <Image
+                src={"/Hero_Filter_Large.png"}
+                layout="fill"
+                className="absolute"
+                alt="hero_filter_img"
+              />
+              <span className="text-black z-10 px-6 lg:text-sm text-xs font-semibold ">
                 FIND YOUR TOP 10
               </span>
             </div>
@@ -334,17 +345,40 @@ function HomeHero() {
             </div>
             <div className="hidden ml-2 lg:flex xl:gap-3 gap-2">
               {boxItems.map(({ key, text }) => (
+                // <div
+                //   key={key}
+                //   className={`rounded-t-[12px] w-24 h-7 text-center cursor-pointer ${
+                //     // @ts-expect-error
+                //     visible[key] ? "bg-[#FFC658] text-white" : "text-black"
+                //   }`}
+                //   onClick={() =>
+                //     // @ts-expect-error
+                //     toggle(key)
+                //   }
+                // >
+
                 <div
                   key={key}
-                  className={`rounded-t-[16px] w-24 h-7 text-center cursor-pointer ${
+                  className={`relative w-24 h-7 text-center cursor-pointer ${
                     // @ts-expect-error
-                    visible[key] ? "bg-[#FFC658] text-white" : "text-black"
+                    visible[key] ? "text-white" : "text-black"
                   }`}
                   onClick={() =>
                     // @ts-expect-error
                     toggle(key)
                   }
                 >
+                  {
+                    // @ts-ignore
+                    visible[key] && (
+                      <Image
+                        src={"/Hero_Filter_Small.jpg"}
+                        layout="fill"
+                        className="absolute -z-10"
+                        alt="hero_filter_img"
+                      />
+                    )
+                  }
                   <span className="text-xs font-semibold">{text}</span>
                 </div>
               ))}

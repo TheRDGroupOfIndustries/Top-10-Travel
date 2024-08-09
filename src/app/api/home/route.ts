@@ -16,7 +16,7 @@ export const GET = async (request: NextRequest) => {
       country,
       companyRole: role,
       city: city || {},
-      // isCertified:true,
+      isCertified:true,
       isSuspended: false,
     },
     select: {

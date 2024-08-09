@@ -19,9 +19,9 @@ export default async function updateUserAction({
     return { error: "Unauthorized! Admin Only" };
   }
   try {
-    if (values.role === "ADMIN")
-      return { error: "Cannot change user role to admin." };
-    if (values.role !== "COMPANY") {
+    // if (values.role === "ADMIN")
+    //   return { error: "Cannot change user role to admin." };
+    if (values.role !== "COMPANY" && values.role !== "ADMIN") {
       const hasCompany = await db.company.findUnique({ where: { userId: id } });
       if (hasCompany)
         return { error: "Cannot update user role while they have a company." };

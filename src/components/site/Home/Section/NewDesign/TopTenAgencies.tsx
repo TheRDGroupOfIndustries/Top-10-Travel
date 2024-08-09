@@ -14,7 +14,7 @@ import {
 import HomeCompanySkeleton from "@/components/reusable/HomeCompanySkeleton";
 import Autoplay from "embla-carousel-autoplay";
 import { HomeContext } from "@/hooks/context/HomeContext";
-import { cn } from "@/lib/utils";
+import { cn, getValidUrl } from "@/lib/utils";
 
 const CarouselCard = ({ agency }: { agency: any }) => (
   <div className="flex flex-col h-full">
@@ -22,7 +22,7 @@ const CarouselCard = ({ agency }: { agency: any }) => (
       <div className="absolute top-0 left-0 bg-[#FFDB80] w-[80%] h-[70%] rounded-lg"></div>
       <div className="absolute bottom-0 right-0 w-[95%] h-[95%] rounded-lg overflow-hidden">
         <Image
-          src={agency.image}
+          src={getValidUrl(agency.image)}
           alt={agency.legalName}
           layout="fill"
           objectFit="cover"

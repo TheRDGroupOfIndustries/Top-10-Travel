@@ -85,6 +85,7 @@ const EditUserForm = ({ user }: { user: User }) => {
                 <SelectValue placeholder="Select role" />
               </SelectTrigger>
               <SelectContent>
+                <SelectItem value="ADMIN">Admin</SelectItem>
                 <SelectItem value="USER">User</SelectItem>
                 <SelectItem value="COMPANY">Company</SelectItem>
                 <SelectItem value="Influencer">Influencer</SelectItem>
