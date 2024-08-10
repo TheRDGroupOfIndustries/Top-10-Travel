@@ -60,7 +60,7 @@ function ListDataInfluencer({
                 <Button
                   asChild
                   size="sm"
-                  className="bg-[#FCAF1E] hover:bg-[#fcaf1ed0] text-black rounded"
+                  className="bg-colorAll hover:bg-[#fcaf1ed0] text-black rounded"
                 >
                   <Link
                     href={`/Influencers/${item?.id}`}
@@ -93,7 +93,7 @@ function ListDataInfluencer({
               window.scrollTo({ top: 0 });
             }}
             disabled={currentPage === 1}
-            className="bg-[#FCAF1E] hover:bg-[#fcaf1ed0] text-black"
+            className="bg-colorAll hover:bg-[#fcaf1ed0] text-black"
           >
             <ChevronLeft />
           </Button>
@@ -109,7 +109,7 @@ function ListDataInfluencer({
               window.scrollTo({ top: 0 });
             }}
             disabled={currentPage === Math.ceil(data?.length / itemsPerPage)}
-            className="bg-[#FCAF1E] hover:bg-[#fcaf1ed0] text-black"
+            className="bg-colorAll hover:bg-[#fcaf1ed0] text-black"
           >
             <ChevronRight />
           </Button>

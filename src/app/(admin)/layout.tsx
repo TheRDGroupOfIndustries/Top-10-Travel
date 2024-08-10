@@ -9,7 +9,7 @@ export default function AdminLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <main className="bg-[#FCAF1E] min-h-screen w-full">
+    <main className="bg-colorAll min-h-screen w-full">
       <ThemeProvider attribute="class" defaultTheme="light">
         <Toaster richColors />
 
