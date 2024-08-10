@@ -34,11 +34,10 @@ const AnimatedImage: FC<AnimatedImageProps> = ({
       viewport={{ once: true }}
       className="relative w-full h-full overflow-hidden"
     >
-      <img
-        // src={src }
-        src={'https://images.pexels.com/photos/2131623/pexels-photo-2131623.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'}
+      <Image
+        src={src}
         alt={alt}
-        // fill
+        fill
         className={cn("w-full h-full object-cover", className)}
       />
     </motion.div>

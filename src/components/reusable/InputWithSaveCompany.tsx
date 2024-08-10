@@ -80,13 +80,6 @@ const InputWithSave = ({
                   className="w-full h-full object-cover aspect-auto transition-transform group-hover:scale-95 group-hover:brightness-50 "
                 />
               </div>
-              <img
-                src={getValidUrl(value)}
-                alt="Company Image"
-                width={300}
-                height={180}
-                className="w-full aspect-auto object-cover transition-transform group-hover:scale-95 group-hover:brightness-50"
-              />
             </div>
           ) : (
             <span
