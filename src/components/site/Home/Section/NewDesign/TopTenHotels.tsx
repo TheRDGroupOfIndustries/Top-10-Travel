@@ -18,7 +18,7 @@ import Link from "next/link";
 import { useContext } from "react";
 
 const CarouselCard = ({ hotel }: { hotel: any }) => (
-  <div className="h-72 rounded-lg overflow-hidden relative">
+  <div className="h-72 rounded-xl overflow-hidden md:hover:-translate-y-4 hover:shadow-lg  duration-300 transition-all relative">
     <div className="w-full h-full absolute inset-0 bg-black/30">
       <div className="absolute bottom-0 w-full flex items-center justify-between p-3">
         <div className="flex flex-col items-start">
@@ -95,6 +95,7 @@ function TopTenHotels() {
             Experience Hassle-Free Room Hunting with Our Comprehensive listing
           </motion.span>
         </p>
+
         <Carousel
           opts={{
             align: "start",
@@ -109,11 +110,11 @@ function TopTenHotels() {
           ]}
           className="w-full hidden md:block"
         >
-          <div className="absolute -top-10 right-10">
+          <div className="absolute -top-7 right-10">
             <CarouselPrevious className="hidden sm:flex" />
             <CarouselNext className="hidden sm:flex" />
           </div>
-          <CarouselContent className="-ml-2 md:-ml-4">
+          <CarouselContent className="-ml-2 my-7 md:-ml-4">
             {isLoading ? (
               Array.from({ length: 5 }).map((_, index) => (
                 <CarouselItem
