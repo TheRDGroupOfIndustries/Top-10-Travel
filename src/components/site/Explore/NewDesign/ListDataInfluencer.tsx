@@ -55,7 +55,7 @@ function ListDataInfluencer({
                 className="w-full h-full object-cover"
               />
             </div>
-            <div className="lg:w-[70%] w-full h-full rounded-lg overflow-hidden flex flex-col items-start justify-start gap-3 p-1">
+            <div className="lg:w-[70%] w-full h-full rounded-lg overflow-hidden flex flex-col items-start justify-start gap-3 py-2 px-5">
               <div className="w-full flex items-center justify-between">
                 <h1 className="text-2xl font-semibold">{item?.name}</h1>
                 <Button
