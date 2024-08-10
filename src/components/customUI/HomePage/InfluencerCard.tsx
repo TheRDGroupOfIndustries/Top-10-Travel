@@ -19,7 +19,7 @@ const getIconFromName = (str: string) => {
 
 function InfluencerCard({ data }: { data: any }) {
   return (
-    <Card className="w-full max-w-sm rounded-2xl mx-auto transition-all duration-300 hover:shadow-lg">
+    <Card className="w-full max-w-sm rounded-2xl mx-auto transition-all duration-300 hover:shadow-lg md:hover:-translate-y-3">
       <div className="relative h-52">
         <Image
           fill
