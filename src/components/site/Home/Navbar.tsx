@@ -89,6 +89,14 @@ function Navbar() {
               </div>
             </Link>
           </DropdownMenuItem>
+          <DropdownMenuItem>
+            <Link href="/auth/company">
+              <div className="flex items-center gap-2">
+                <User size={18} />
+                <span>Start as Company</span>
+              </div>
+            </Link>
+          </DropdownMenuItem>
         </>
       );
     } else {
