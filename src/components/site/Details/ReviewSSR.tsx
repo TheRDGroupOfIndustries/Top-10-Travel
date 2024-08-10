@@ -10,14 +10,21 @@ const ReviewSSR = async ({
 }) => {
   const reviews = await db.reviews.findMany({
     where: { companyId },
-    select: { id: true, name: true, rating: true, review: true },
+    select: {
+      id: true,
+      name: true,
+      rating: true,
+      review: true,
+      createdAt: true,
+    },
+    orderBy: {
+      createdAt: "desc",
+    },
   });
+
   return (
-    <ReviewsComponent
-      name={name}
-      companyId={companyId}
-      reviews={reviews}
-    />
+    <ReviewsComponent name={name} companyId={companyId} reviews={reviews} />
   );
 };
+
 export default ReviewSSR;

@@ -63,7 +63,7 @@ function ListData({
                 <Button
                   asChild
                   size={"sm"}
-                  className="bg-[#FCAF1E] hover:bg-[#fcaf1ed0] text-black rounded"
+                  className="bg-colorAll hover:bg-[#fcaf1ed0] text-black rounded"
                 >
                   <Link
                     href={`/companies/${item.id}`}
@@ -103,7 +103,7 @@ function ListData({
               window.scrollTo({ top: 0 });
             }}
             disabled={currentPage === 1}
-            className="bg-[#FCAF1E] hover:bg-[#fcaf1ed0] text-black"
+            className="bg-colorAll hover:bg-[#fcaf1ed0] text-black"
           >
             <ChevronLeft />
           </Button>
@@ -119,7 +119,7 @@ function ListData({
               window.scrollTo({ top: 0 });
             }}
             disabled={currentPage === Math.ceil(data?.length / itemsPerPage)}
-            className="bg-[#FCAF1E] hover:bg-[#fcaf1ed0] text-black"
+            className="bg-colorAll hover:bg-[#fcaf1ed0] text-black"
           >
             <ChevronRight />
           </Button>
