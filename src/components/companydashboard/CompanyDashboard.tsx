@@ -12,6 +12,11 @@ import InputWithSave from "../reusable/InputWithSaveCompany";
 import { Badge } from "../ui/badge";
 import Link from "next/link";
 import CompanyDataInputwSave from "../reusable/CompanyDataInputwSave";
+import UploadCompanyImage from "./UploadCompanyImage";
+import { Button } from "../ui/button";
+import { Plus } from "lucide-react";
+import { cn } from "@/lib/utils";
+import UploadCompanyImagesCard from "./UploadCompanyImagesCard";
 
 const CompanyDashboard = ({
   data,
@@ -25,11 +30,7 @@ const CompanyDashboard = ({
       <Card>
         <CardContent className="w-full pt-6">
           <div className="w-full h-full flex flex-col md:flex-row items-center md:items-start gap-4">
-            <InputWithSave
-              name="image"
-              value={data.image ?? ""}
-              text="Edit your image..."
-            />
+            <UploadCompanyImage image={data.image ?? ""} />
             <div className="w-full h-full flex flex-col md:gap-12 gap-6">
               <InputWithSave
                 name="legalName"
@@ -97,8 +98,8 @@ const CompanyDashboard = ({
             Company Details
           </CardTitle>
         </CardHeader>
-        <CardContent className="pt-6 p-1 md:p-5">
-          <div className="flex flex-wrap items-start gap-4 *:min-w-[200px] *:w-full *:md:w-auto">
+        <CardContent className="w-full grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3  gap-2 p-2 md:p-5">
+          <div className="w-full flex flex-col item-center justify-start gap-2">
             <CompanyDataInputwSave
               name="ownerName"
               value={data.companyData?.ownerName}
@@ -111,12 +112,27 @@ const CompanyDashboard = ({
               text="Edit Your AgencyGroup"
               minLength={5}
             />
+
             <CompanyDataInputwSave
               name="phone"
               value={data.companyData?.phone}
               type="number"
               text="Edit Your Phone..."
             />
+            <CompanyDataInputwSave
+              name="abta_number"
+              value={data.companyData?.abta_number}
+              text="Edit Your abta_number"
+              type="number"
+            />
+            <CompanyDataInputwSave
+              name="clia_number"
+              value={data.companyData?.clia_number}
+              text="Edit Your clia_number"
+              type="number"
+            />
+          </div>
+          <div className="w-full flex flex-col item-center justify-start gap-2">
             <CompanyDataInputwSave
               name="pincode"
               value={data.companyData?.pincode}
@@ -135,6 +151,15 @@ const CompanyDashboard = ({
               text="Edit Your Company Contact..."
               type="number"
             />
+
+            <CompanyDataInputwSave
+              name="iata_number"
+              value={data.companyData?.iata_number}
+              text="Edit Your iata_number"
+              type="number"
+            />
+          </div>
+          <div className="w-full flex flex-col item-center justify-start gap-2">
             <CompanyDataInputwSave
               name="ownerContact"
               value={data.companyData?.ownerContact}
@@ -148,24 +173,7 @@ const CompanyDashboard = ({
               minLength={10}
               maxLength={150}
             />
-            <CompanyDataInputwSave
-              name="description"
-              value={data.companyData?.description}
-              text="Edit Your Description..."
-              minLength={40}
-            />
-            <CompanyDataInputwSave
-              name="abta_number"
-              value={data.companyData?.abta_number}
-              text="Edit Your abta_number"
-              type="number"
-            />
-            <CompanyDataInputwSave
-              name="clia_number"
-              value={data.companyData?.clia_number}
-              text="Edit Your clia_number"
-              type="number"
-            />
+
             <CompanyDataInputwSave
               name="tids_number"
               value={data.companyData?.tids_number}
@@ -179,12 +187,27 @@ const CompanyDashboard = ({
               type="number"
             />
           </div>
+          <CompanyDataInputwSave
+            name="description"
+            value={data.companyData?.description}
+            text="Edit Your Description..."
+            minLength={40}
+          />
+          <CompanyDataInputwSave
+            name="socialLinks"
+            value={data.companyData?.socialLinks.join(",")}
+            text="Edit Your SocialLinks"
+            minLength={5}
+          />
         </CardContent>
       </Card>
-
+      <UploadCompanyImagesCard
+        companyId={data.id}
+        images={data.companyData?.images ?? []}
+      />
       <Card className="mt-4">
-        <CardHeader className="text-lg font-semibold">
-          Top {reviews.length} Reviews:
+        <CardHeader className="text-2xl font-semibold">
+          Top {reviews.length !== 0 ? reviews.length : null} Reviews:
         </CardHeader>
         <CardContent className="flex flex-col gap-4">
           {reviews.map((review) => (

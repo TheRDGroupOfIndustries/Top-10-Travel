@@ -4,9 +4,8 @@ const colors = require("tailwindcss/colors");
 const {
   default: flattenColorPalette,
 } = require("tailwindcss/lib/util/flattenColorPalette");
-import { withUt } from "uploadthing/tw";
 
-export default withUt({
+const config = {
   darkMode: ["class"],
   content: [
     "./pages/**/*.{ts,tsx}",
@@ -38,6 +37,10 @@ export default withUt({
         foreground: "hsl(var(--foreground))",
         primary: {
           DEFAULT: "hsl(var(--primary))",
+          foreground: "hsl(var(--primary-foreground))",
+        },
+        colorAll: {
+          DEFAULT: "hsl(var(--color-all))",
           foreground: "hsl(var(--primary-foreground))",
         },
         secondary: {
@@ -92,7 +95,7 @@ export default withUt({
     },
   },
   plugins: [require("tailwindcss-animate"), addVariablesForColors],
-} as Config);
+} satisfies Config;
 
 function addVariablesForColors({ addBase, theme }: any) {
   let allColors = flattenColorPalette(theme("colors"));
@@ -104,3 +107,5 @@ function addVariablesForColors({ addBase, theme }: any) {
     ":root": newVars,
   });
 }
+
+export default config;

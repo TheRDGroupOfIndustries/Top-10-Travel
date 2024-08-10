@@ -1,15 +1,15 @@
 "use client";
-import React, { useRef, useState } from "react";
+import Confirmation from "@/components/company/FormSteps/Confirmation";
 import UserNameEmail from "@/components/company/FormSteps/step1";
 import AddressDetail from "@/components/company/FormSteps/step2";
 import CompanyNumbers from "@/components/company/FormSteps/step3";
-import Confirmation from "@/components/company/FormSteps/Confirmation";
+import img from "@/resources/images/form/CompanyForm.png";
 import { $Enums } from "@prisma/client";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
-import img from "@/resources/images/form/CompanyForm.png";
-import ProgressBar from "./ProgressBar";
+import React, { useRef, useState } from "react";
 import { toast } from "sonner";
+import ProgressBar from "./ProgressBar";
 
 const MainForm: React.FC = () => {
   const formRef = useRef(null);
@@ -129,7 +129,7 @@ const MainForm: React.FC = () => {
           className="object-cover"
         />
       </div>
-      <div className="w-full md:w-[60%] flex flex-col items-center justify-start border-black">
+      <div className="w-full md:w-[60%] overflow-auto flex flex-col items-center justify-start border-black">
         <ProgressBar
           activeStep={activeTab}
           totalSteps={formElements.length}

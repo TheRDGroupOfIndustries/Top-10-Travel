@@ -27,6 +27,8 @@ import { Company, CompanyData, CompanyRole, User } from "@prisma/client";
 import useMutation from "@/hooks/useMutation";
 import { createCompanyAdmin } from "@/core/server/actions/company/createCompanyAdmin";
 import { toast } from "sonner";
+import UploadImage from "@/components/company/FormSteps/step4";
+import UploadUserImage from "./UploadUserImage";
 
 type CompanyType = Omit<
   Company,
@@ -82,19 +84,19 @@ function AddListing() {
   const { mutate, isPending } = useMutation(createCompanyAdmin);
   const handleSubmit = async (e: any) => {
     e.preventDefault();
-    let { images, socialLinks, ...rest } = companyData;
-    const { priority, state_priority, ...restCompany } = company;
+    let { socialLinks, ...rest } = companyData;
+    const { priority, state_priority, image, ...restCompany } = company;
 
-    const imageArr = images?.split(",");
     const socialLinksArr = socialLinks?.split(",");
     const { success, error } = await mutate({
       user,
       company: {
         ...restCompany,
+        image: "",
         priority: Number(priority),
         state_priority: Number(state_priority),
       },
-      companyData: { ...rest, images: imageArr, socialLinks: socialLinksArr },
+      companyData: { ...rest, images: [], socialLinks: socialLinksArr },
     });
     if (success) {
       setUser({ username: "", email: "", image: "" });
@@ -165,16 +167,20 @@ function AddListing() {
                       onChange={handleUserChange}
                     />
                   </div>
-                  <div className="grid gap-3">
-                    <Label htmlFor="image">image</Label>
-                    <Input
-                      id="image"
-                      name="image"
-                      type="text"
-                      value={user.image}
-                      onChange={handleUserChange}
+                  <Label htmlFor="">Image</Label>
+                  {user.image !== "" && (
+                    <Image
+                      src={user.image}
+                      alt="user image"
+                      width={100}
+                      height={100}
                     />
-                  </div>
+                  )}
+                  <UploadUserImage
+                    handleChange={(url: string) => {
+                      setUser((prev) => ({ ...prev, image: url }));
+                    }}
+                  />
                 </div>
               </CardContent>
             </Card>
@@ -293,7 +299,7 @@ function AddListing() {
                       onChange={handleCompanyChange}
                     />
                   </div>
-                  <div className="grid gap-1">
+                  {/* <div className="grid gap-1">
                     <Label htmlFor="image">Image</Label>
                     <Input
                       required
@@ -302,7 +308,7 @@ function AddListing() {
                       value={company.image}
                       onChange={handleCompanyChange}
                     />
-                  </div>
+                  </div> */}
                   <div className="grid gap-1">
                     <Label htmlFor="methodology">Methodology</Label>
                     <Input
@@ -415,7 +421,7 @@ function AddListing() {
                       onChange={handleCompanyDataChange}
                     />
                   </div>
-                  <div className="grid gap-1">
+                  {/* <div className="grid gap-1">
                     <Label htmlFor="images">Images(comma separated)</Label>
                     <Input
                       required
@@ -424,7 +430,7 @@ function AddListing() {
                       value={companyData.images}
                       onChange={handleCompanyDataChange}
                     />
-                  </div>
+                  </div> */}
                   <div className="grid gap-1">
                     <Label htmlFor="socialLinks">
                       SocialLinks(comma separated)

@@ -95,8 +95,6 @@ const Details = ({
               ))}
             </div>
 
-
-
             <div className="rounded-md flex lg:hidden flex-col gap-6 py-12 sm:px-8 px-4 shadow shadow-black/50">
               <div className="flex flex-col gap-5">
                 <div>
@@ -138,8 +136,6 @@ const Details = ({
               </div>
             </div>
 
-
-
             {/* {data.companyData?.socialLinks.map((link) => (
               <div
                 key={`banner-${link}`}
@@ -176,10 +172,7 @@ const Details = ({
             </div>
 
             <div className="lg:hidden">
-              <ReviewSSR
-                name={data?.legalName}
-                companyId={data?.id}
-              />
+              <ReviewSSR name={data?.legalName} companyId={data?.id} />
             </div>
           </div>
 
@@ -224,34 +217,8 @@ const Details = ({
                 <ShareButton />
               </div>
             </div>
-            {/* {data.companyData?.socialLinks.map((link) => (
-              <div
-                key={`banner-${link}`}
-                className="h-[170px] cursor-pointer rounded-2xl overflow-hidden relative"
-              >
-                <Link
-                  href={link}
-                  target="_blank"
-                  className="w-full h-full flex items-center gap-2"
-                >
-                  <Image
-                    src="https://images.unsplash.com/photo-1499696010180-025ef6e1a8f9?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80"
-                    fill
-                    className="object-cover"
-                    alt="Hotel room image"
-                  />
-                  <div className="absolute inset-0 bg-black/80 opacity-50"></div>
-                  <div className="w-[60px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 absolute h-[47px]">
-                    {getIconFromName(link, false, "w-full h-full text-white")}
-                  </div>
-                </Link>
-              </div>
-            ))} */}
 
-            <ReviewSSR
-              name={data?.legalName}
-              companyId={data?.id}
-            />
+            <ReviewSSR name={data?.legalName} companyId={data?.id} />
           </div>
         </div>
       </div>

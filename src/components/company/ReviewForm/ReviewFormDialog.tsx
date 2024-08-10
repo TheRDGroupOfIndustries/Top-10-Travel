@@ -3,20 +3,16 @@ import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
-import { createEnquiryAction } from "@/core/server/actions/Enquiry/createEnquiry";
 import { createReviewAction } from "@/core/server/actions/review/createReview";
 import useMutation from "@/hooks/useMutation";
 import { cn } from "@/lib/utils";
 import { IoStar } from "react-icons/io5";
-
-import { FormEvent, useState } from "react";
+import { FormEvent, useState, useEffect } from "react";
 import { PlusCircle } from "lucide-react";
 
 export default function ReviewDialog({
@@ -31,7 +27,9 @@ export default function ReviewDialog({
     success?: string;
   }>({});
   const [rating, setRating] = useState(1);
+  const [isOpen, setIsOpen] = useState(false);
   const { isPending, mutate } = useMutation(createReviewAction);
+
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     setResponse({});
     e.preventDefault();
@@ -42,10 +40,22 @@ export default function ReviewDialog({
     e.currentTarget?.reset();
     const res = await mutate({ name, review, companyId, rating });
     setResponse(res);
+    if (res.success) {
+      setTimeout(() => {
+        setIsOpen(false);
+      }, 1000);
+    }
   };
 
+  useEffect(() => {
+    if (!isOpen) {
+      setResponse({});
+      setRating(1);
+    }
+  }, [isOpen]);
+
   return (
-    <Dialog>
+    <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
         <Button
           variant="outline"
@@ -117,11 +127,9 @@ export default function ReviewDialog({
               required
             />
           </div>
-          <DialogFooter>
-            <Button disabled={isPending} type="submit">
-              {isPending ? "Adding Review..." : "Add Review"}
-            </Button>
-          </DialogFooter>
+          <Button disabled={isPending} type="submit">
+            {isPending ? "Adding Review..." : "Add Review"}
+          </Button>
         </form>
       </DialogContent>
     </Dialog>

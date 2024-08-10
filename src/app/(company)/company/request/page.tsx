@@ -17,16 +17,16 @@ const RequestPage = async () => {
   return (
     <Tabs
       defaultValue="new"
-      className="w-full flex flex-col items-center justify-start mt-5 h-[calc(100vh-200px)]"
+      className="flex flex-col items-center justify-start mt-5 min-h-[80%]"
     >
-      <TabsList className="w-full max-w-md *:flex-1">
+      <TabsList className="w-full *:flex-1">
         <TabsTrigger value="new">Create Request</TabsTrigger>
         <TabsTrigger value="prev">Previous Requests</TabsTrigger>
       </TabsList>
-      <TabsContent className="w-full max-w-md" value="new">
+      <TabsContent className="w-full" value="new">
         <RequestForm />
       </TabsContent>
-      <TabsContent className="w-full max-w-md" value="prev">
+      <TabsContent className="w-full" value="prev">
         <PreviousRequests requests={requests} />
       </TabsContent>
     </Tabs>

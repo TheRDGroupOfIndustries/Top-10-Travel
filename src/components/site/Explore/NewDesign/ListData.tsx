@@ -49,7 +49,7 @@ function ListData({
             className="w-full lg:h-60 rounded-lg flex flex-col md:flex-row items-center justify-between gap-5 shadow shadow-black/60"
           >
             <div className="lg:w-[30%] w-full lg:h-full h-60 rounded-lg overflow-hidden">
-              <img
+              <Image
                 src={getValidUrl(item.image ?? "")}
                 alt={`image-${item.legalName}`}
                 width={300}
@@ -63,7 +63,7 @@ function ListData({
                 <Button
                   asChild
                   size={"sm"}
-                  className="bg-[#FCAF1E] hover:bg-[#fcaf1ed0] text-black rounded"
+                  className="bg-colorAll hover:bg-[#fcaf1ed0] text-black rounded"
                 >
                   <Link
                     href={`/companies/${item.id}`}
@@ -103,7 +103,7 @@ function ListData({
               window.scrollTo({ top: 0 });
             }}
             disabled={currentPage === 1}
-            className="bg-[#FCAF1E] hover:bg-[#fcaf1ed0] text-black"
+            className="bg-colorAll hover:bg-[#fcaf1ed0] text-black"
           >
             <ChevronLeft />
           </Button>
@@ -119,7 +119,7 @@ function ListData({
               window.scrollTo({ top: 0 });
             }}
             disabled={currentPage === Math.ceil(data?.length / itemsPerPage)}
-            className="bg-[#FCAF1E] hover:bg-[#fcaf1ed0] text-black"
+            className="bg-colorAll hover:bg-[#fcaf1ed0] text-black"
           >
             <ChevronRight />
           </Button>

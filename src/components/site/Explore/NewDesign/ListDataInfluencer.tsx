@@ -43,15 +43,16 @@ function ListDataInfluencer({
             transition={{ duration: 0.4, delay: index * 0.15 }}
             viewport={{ once: true }}
             key={item.name}
-            className="w-full lg:h-60 rounded-lg flex flex-col md:flex-row items-center justify-between gap-5 shadow shadow-black/60"
+            className="w-full lg:h-60 rounded-lg flex flex-col md:flex-row items-center justify-between gap-5 overflow-hidden shadow shadow-black/60"
           >
-            <div className="lg:w-[30%] w-full lg:h-full h-60 rounded-lg overflow-hidden">
-              <img
+            <div className="lg:w-[30%] w-full lg:h-full h-60 overflow-hidden">
+              <Image
                 src={getValidUrl(item.image ?? "")}
+                // src="/unsplash_axAbxUA32hE.png"
                 alt={`image-${item?.name}`}
                 width={300}
                 height={300}
-                className="w-auto h-auto object-cover"
+                className="w-full h-full object-cover"
               />
             </div>
             <div className="lg:w-[70%] w-full h-full rounded-lg overflow-hidden flex flex-col items-start justify-start gap-3 p-1">
@@ -60,7 +61,7 @@ function ListDataInfluencer({
                 <Button
                   asChild
                   size="sm"
-                  className="bg-[#FCAF1E] hover:bg-[#fcaf1ed0] text-black rounded"
+                  className="bg-colorAll hover:bg-[#fcaf1ed0] text-black rounded"
                 >
                   <Link
                     href={`/Influencers/${item?.id}`}
@@ -93,7 +94,7 @@ function ListDataInfluencer({
               window.scrollTo({ top: 0 });
             }}
             disabled={currentPage === 1}
-            className="bg-[#FCAF1E] hover:bg-[#fcaf1ed0] text-black"
+            className="bg-colorAll hover:bg-[#fcaf1ed0] text-black"
           >
             <ChevronLeft />
           </Button>
@@ -109,7 +110,7 @@ function ListDataInfluencer({
               window.scrollTo({ top: 0 });
             }}
             disabled={currentPage === Math.ceil(data?.length / itemsPerPage)}
-            className="bg-[#FCAF1E] hover:bg-[#fcaf1ed0] text-black"
+            className="bg-colorAll hover:bg-[#fcaf1ed0] text-black"
           >
             <ChevronRight />
           </Button>

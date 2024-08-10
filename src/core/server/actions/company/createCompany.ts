@@ -65,7 +65,7 @@ export const createCompanyAction = async (
       toEmail: session.user.email,
       ...getCompanyCreateTemplate(session.user.name, output.legalName),
     });
-    // revalidatePath("/auth/company");
+    
     return { success: "Company created successfully." };
   } catch (error: unknown) {
     console.log(error);
