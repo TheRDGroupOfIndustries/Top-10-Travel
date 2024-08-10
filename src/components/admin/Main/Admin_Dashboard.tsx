@@ -58,7 +58,7 @@ export function AdminDashboard({
 
   return (
     <div className="space-y-4 mt-5">
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4">
+      {/* <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4">
         {chartData.map((item) => (
           <Link href={item.link} key={item.category}>
             <Card className="hover:shadow-lg transition-shadow duration-300">
@@ -74,15 +74,19 @@ export function AdminDashboard({
             </Card>
           </Link>
         ))}
-      </div>
+      </div> */}
 
-      <Card className="col-span-4">
+      <Card className="col-span-4 bg-[#F3F3F3]">
         <CardHeader>
-          <CardTitle>Total Statistics</CardTitle>
-          <CardDescription>Overview of key metrics</CardDescription>
+          <CardTitle className="text-5xl font-semibold bg-clip-text text-transparent bg-gradient-to-r from-[#fcaf1e] via-[#fed78f] to-[#fcaf1e]">
+            Total Statistics
+          </CardTitle>
+          <CardDescription className="font-medium text-sm text-[#ca8c18]">
+            Overview of key metrics
+          </CardDescription>
         </CardHeader>
         <CardContent className="p-0 mb-5">
-          <ChartContainer config={chartConfig} className="w-full p-0">
+          <ChartContainer config={chartConfig} className="w-full h-[65vh] p-0">
             <BarChart accessibilityLayer data={chartData}>
               <CartesianGrid vertical={false} />
               <XAxis

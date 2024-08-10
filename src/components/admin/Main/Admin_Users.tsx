@@ -104,10 +104,7 @@ export const columns: ColumnDef<User>[] = [
       return (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button
-              size="icon"
-              variant="ghost"
-            >
+            <Button size="icon" variant="ghost">
               <SquarePen className="h-4 w-4" />
             </Button>
           </DropdownMenuTrigger>
@@ -203,14 +200,11 @@ function AdminUsers({ users }: { users: User[] }) {
           onChange={(event) =>
             table.getColumn("email")?.setFilterValue(event.target.value)
           }
-          className="max-w-sm focus-visible:ring-none focus-visible:ring-0"
+          className="max-w-sm bg-[#fffcf6] focus-visible:ring-none focus-visible:ring-0"
         />
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button
-              variant="outline"
-              className="ml-auto"
-            >
+            <Button variant="outline" className="ml-auto">
               Columns <ChevronDown className="ml-2 h-4 w-4" />
             </Button>
           </DropdownMenuTrigger>
