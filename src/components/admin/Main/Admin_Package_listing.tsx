@@ -211,12 +211,12 @@ export default function AdminPackagelisting({
     <Card className="mt-5 z-[999] p-4">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-5">
-          <h2 className="text-2xl font-bold">Listings</h2>
+          <h2 className="text-2xl font-bold">Listing of Company & Influencer</h2>
           <p className="text-xs">
             <span className="font-bold">
               {table.getFilteredRowModel().rows.length}
             </span>{" "}
-            total listings
+            Total Listings
           </p>
         </div>
 
