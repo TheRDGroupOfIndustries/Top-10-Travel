@@ -94,7 +94,7 @@ function ListingHero({
           viewport={{ once: true }}
           className="flex flex-wrap lg:flex-row items-center justify-center gap-2"
         >
-          <span className="text-sm font-medium text-black px-5 py-[10px] bg-[#FCAF1E] rounded-lg">
+          <span className="text-sm font-medium text-black px-5 py-[10px] bg-colorAll rounded-lg">
             Filter:
           </span>
           <div className="relative">
