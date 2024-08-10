@@ -1,6 +1,6 @@
 import { AdminDashboard } from "@/components/admin/Main/Admin_Dashboard";
 import { db } from "@/core/client/db";
-import { unstable_cache } from "next/cache";
+import { revalidatePath, unstable_cache } from "next/cache";
 const dashboardData = unstable_cache(
   async () => {
     const [user, company, influencer, packages, helpdesk, reviews] =
@@ -15,7 +15,7 @@ const dashboardData = unstable_cache(
     return { user, company, influencer, packages, helpdesk, reviews };
   },
   undefined,
-  { tags: ["admin-dashboard"], revalidate: 300 }
+  { tags: ["admin-dashboard"], revalidate: 10 }
 );
 async function Page() {
   const { user, company, influencer, packages, helpdesk, reviews } =

@@ -169,7 +169,7 @@ const ListSection = ({
                 </Button>
               ) : (
                 <Link href={`/companies/${service?.legalName}`}>
-                  <Button className="rounded-full bg-[#FCAF1E] text-black hover:bg-[#fae2a3] text-sm leading-4 font-medium lg:px-9 px-5">
+                  <Button className="rounded-full bg-colorAll text-black hover:bg-[#fae2a3] text-sm leading-4 font-medium lg:px-9 px-5">
                     Explore
                   </Button>
                 </Link>
