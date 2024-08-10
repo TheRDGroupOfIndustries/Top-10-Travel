@@ -88,7 +88,7 @@ const ContactUsComp = () => {
             <h1 className="font-thin text-orange-300 mt-5">US</h1>
           </div>
           <p className="text-xl text-gray-400 my-1">
-            Have queries? Let's us help you!
+            Have queries? Let&apos;s us help you!
           </p>
 
           {/* <div className="mt-[2%] lg:mt-[4%] text-[15px] font-[500] text-black/50">
