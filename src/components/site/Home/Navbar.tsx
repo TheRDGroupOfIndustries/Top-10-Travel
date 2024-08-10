@@ -61,7 +61,7 @@ function Navbar() {
             </Link>
           </DropdownMenuItem>
           <DropdownMenuItem>
-            <Link href="/auth/influencer">
+            <Link href="/auth">
               <div className="flex items-center gap-2">
                 <User size={18} />
                 <span>Start as Influencer</span>
@@ -82,7 +82,7 @@ function Navbar() {
             </Link>
           </DropdownMenuItem>
           <DropdownMenuItem>
-            <Link href="/auth/influencer">
+            <Link href="/auth">
               <div className="flex items-center gap-2">
                 <User size={18} />
                 <span>Start as Influencer</span>
@@ -90,7 +90,7 @@ function Navbar() {
             </Link>
           </DropdownMenuItem>
           <DropdownMenuItem>
-            <Link href="/auth/company">
+            <Link href="/auth">
               <div className="flex items-center gap-2">
                 <User size={18} />
                 <span>Start as Company</span>
