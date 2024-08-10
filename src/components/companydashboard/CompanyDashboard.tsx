@@ -27,64 +27,75 @@ const CompanyDashboard = ({
 }) => {
   return (
     <div className="space-y-4 mt-5">
-      <Card>
+       <Card className="border-none bg-[#F3F3F3]">
         <CardContent className="w-full pt-6">
-          <div className="w-full h-full flex flex-col md:flex-row items-center md:items-start gap-4">
+          <div className="w-full h-full flex flex-col md:flex-row items-center md:items-start gap-3">
             <UploadCompanyImage image={data.image ?? ""} />
-            <div className="w-full h-full flex flex-col md:gap-12 gap-6">
+            <div className="w-full h-full flex flex-col ">
               <InputWithSave
                 name="legalName"
                 value={data.legalName}
                 text="Edit Your legalName..."
-                className="text-3xl font-bold text-center"
+                className="text-3xl font-bold text-center my-2"
               />
-              <div className="text-lg md:flex-row flex  flex-wrap items-center justify-center md:justify-start  md:gap-8 gap-5">
+              <div className="text-lg md:flex-row flex  flex-wrap items-center justify-center md:justify-start  text-gray-950  md:gap-8 gap-5 my-2">
                 <InputWithSave
                   name="country"
                   value={data.country}
                   text="Edit Your country..."
+                  className="text-medium text-gray-900 "
                 />
 
                 <InputWithSave
                   name="state"
                   value={data.state}
                   text="Edit Your state..."
+                  className="text-medium text-gray-900"
                 />
 
                 <InputWithSave
                   name="city"
                   value={data.city}
                   text="Edit Your city..."
+                  className="text-medium text-gray-900"
                 />
               </div>
               <div className="flex md:items-start md:justify-start items-center justify-center gap-2 flex-wrap">
-                <Badge className="text-base">Role : {data.companyRole}</Badge>
-                <Badge className="text-base">
+                <Badge className="font-medium text-[14px] text-[#FCAE1D] rounded-sm bg-[#fcae1d11]">Role : {data.companyRole}</Badge>
+                <Badge className="font-medium text-[14px] text-[#FCAE1D] rounded-sm bg-[#fcae1d11]">
                   Priority : {data.state_priority}
                 </Badge>
-                <Badge className="text-base">
+                <Badge className="font-medium text-[14px] text-[#FCAE1D] rounded-sm bg-[#fcae1d11]">
                   City Priority : {data.priority}
                 </Badge>
-                <Badge className="text-base">Ratings : {data.rating}</Badge>
-                <Badge className="text-base">
+                <Badge className="font-medium text-[14px] text-[#FCAE1D] rounded-sm bg-[#fcae1d11]">Ratings : {data.rating}</Badge>
+                <Badge className="font-medium text-[14px] text-[#FCAE1D] rounded-sm bg-[#fcae1d11]">
                   Total Reviews : {data.reviews}
                 </Badge>
                 {data.isSuspended && (
                   <Badge
-                    className="text-base"
+                    className="font-medium text-[14px] text-[#FCAE1D] rounded-sm bg-[#fcae1d11]"
                     variant="destructive"
                     title="Create package to get unsuspended."
                   >
                     Suspended
                   </Badge>
                 )}
-                {!data.isCertified && (
+                {!data.isCertified ? (
                   <Badge
-                    className="text-base"
+                    className="font-medium text-[14px] text-[#FCAE1D] rounded-sm bg-[#fcae1d15]"
                     variant="destructive"
                     title="Contact admin to get certified."
                   >
                     <Link href="/company/request">Uncertified</Link>
+                  </Badge>
+                ):(
+                  <Badge
+                    className="font-medium text-[14px] text-[#FCAE1D] rounded-sm bg-[#fcae1d15]"
+                    variant="destructive"
+                    title="Contact admin to get certified."
+                  >
+                    <Link href="/company/request">Certified</Link>
                   </Badge>
                 )}
               </div>
@@ -92,10 +103,10 @@ const CompanyDashboard = ({
           </div>
         </CardContent>
       </Card>
-      <Card>
+      <Card className="border-none bg-[#F3F3F3]">
         <CardHeader>
-          <CardTitle className="text-center md:text-left font-bold">
-            Company Details
+          <CardTitle className="text-center text-[25px] md:text-left font-semibold">
+            <span className="text-[#FCAE1D]">Company </span>Details
           </CardTitle>
         </CardHeader>
         <CardContent className="w-full grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3  gap-2 p-2 md:p-5">
@@ -200,14 +211,15 @@ const CompanyDashboard = ({
             minLength={5}
           />
         </CardContent>
-      </Card>
+      </Card >
       <UploadCompanyImagesCard
+       
         companyId={data.id}
         images={data.companyData?.images ?? []}
       />
-      <Card className="mt-4">
+      <Card className="border-none bg-[#F3F3F3] mt-4">
         <CardHeader className="text-2xl font-semibold">
-          Top {reviews.length !== 0 ? reviews.length : null} Reviews:
+          Top {reviews.length !== 0 ? reviews.length : null} Reviews :
         </CardHeader>
         <CardContent className="flex flex-col gap-4">
           {reviews.map((review) => (

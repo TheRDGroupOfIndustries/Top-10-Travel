@@ -85,7 +85,7 @@ const PackagesPage = async () => {
               to become active again
             </p>
             <Link href="/company/packages/create">
-              <Button className="mt-6">Create Package</Button>
+              <Button className="mt-6 bg-[#FCAE1D]">Create Package</Button>
             </Link>
           </div>
         ) : (

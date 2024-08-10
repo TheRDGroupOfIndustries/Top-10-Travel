@@ -38,10 +38,10 @@ const UploadCompanyImagesCard = ({
   };
 
   return (
-    <Card>
+    <Card className="border-none bg-[#F3F3F3]">
       <CardHeader>
         <CardTitle>
-          Company Images
+        <span className="text-[#FCAE1D]">Company </span>Images
           <Dialog
             open={isVisible}
             onOpenChange={setIsVisible}
