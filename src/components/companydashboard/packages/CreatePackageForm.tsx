@@ -79,7 +79,7 @@ export default function CreatePackageForm() {
   return (
     <Card className="w-full max-w-md mt-6 bg-[7F7F7F] border-none ">
       <CardHeader>
-        <CardTitle>Create Your Package</CardTitle>
+        <CardTitle>Create Your <span> </span></CardTitle>
         <CardDescription>
           Create a package by filling the following form.
         </CardDescription>
