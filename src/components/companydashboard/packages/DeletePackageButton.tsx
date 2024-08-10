@@ -3,6 +3,8 @@
 import { Button } from "@/components/ui/button";
 import { deletePackageOwn } from "@/core/server/actions/package/editPackage";
 import useMutation from "@/hooks/useMutation";
+import { Trash2, Loader2 } from "lucide-react";
+
 import { toast } from "sonner";
 
 const DeletePackageButton = ({ packageId }: { packageId: string }) => {
@@ -14,11 +16,16 @@ const DeletePackageButton = ({ packageId }: { packageId: string }) => {
   };
   return (
     <Button
+      size={"icon"}
       onClick={handleDelete}
       disabled={isPending}
       variant="destructive"
     >
-      {isPending ? "Deleting..." : "Delete Package"}
+      {isPending ? (
+        <Loader2 className="h-4 w-4 animate-spin" />
+      ) : (
+        <Trash2 className="h-4 w-4" />
+      )}
     </Button>
   );
 };
