@@ -1,6 +1,6 @@
 "use client";
 import ButtonFancy from "@/components/reusable/ButtonFancy";
-import { LogOut, LogOutIcon, MenuIcon, User } from "lucide-react";
+import { LogOutIcon, MenuIcon, User } from "lucide-react";
 import { signIn, signOut, useSession } from "next-auth/react";
 import Link from "next/link";
 import React, { useState } from "react";
@@ -13,7 +13,7 @@ import {
   DropdownMenuItem,
   DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu";
-import { redirect, usePathname } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 
 const navMenus = [
@@ -42,27 +42,92 @@ const navMenus = [
 function Navbar() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const route = usePathname();
+  const session = useSession();
 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
   };
 
-  const session = useSession();
+  const renderMenuItem = () => {
+    if (session?.data?.user.role === "COMPANY") {
+      return (
+        <>
+          <DropdownMenuItem>
+            <Link href="/company">
+              <div className="flex items-center gap-2">
+                <User size={18} />
+                <span>My Account</span>
+              </div>
+            </Link>
+          </DropdownMenuItem>
+          <DropdownMenuItem>
+            <Link href="/auth/influencer">
+              <div className="flex items-center gap-2">
+                <User size={18} />
+                <span>Start as Influencer</span>
+              </div>
+            </Link>
+          </DropdownMenuItem>
+        </>
+      );
+    } else if (session?.data?.user.role === "ADMIN") {
+      return (
+        <>
+          <DropdownMenuItem>
+            <Link href="/admin">
+              <div className="flex items-center gap-2">
+                <User size={18} />
+                <span>Go to Admin Dashboard</span>
+              </div>
+            </Link>
+          </DropdownMenuItem>
+          <DropdownMenuItem>
+            <Link href="/auth/influencer">
+              <div className="flex items-center gap-2">
+                <User size={18} />
+                <span>Start as Influencer</span>
+              </div>
+            </Link>
+          </DropdownMenuItem>
+        </>
+      );
+    } else {
+      return (
+        <>
+          <DropdownMenuItem>
+            <Link href="/auth/company">
+              <div className="flex items-center gap-2">
+                <User size={18} />
+                <span>Start as Company</span>
+              </div>
+            </Link>
+          </DropdownMenuItem>
+          <DropdownMenuItem>
+            <Link href="/auth/influencer">
+              <div className="flex items-center gap-2">
+                <User size={18} />
+                <span>Start as Influencer</span>
+              </div>
+            </Link>
+          </DropdownMenuItem>
+        </>
+      );
+    }
+  };
 
   return (
     <>
-      <nav className="flex  bg-white/80 backdrop-blur-sm justify-between items-center h-[60px] w-[100vw] fixed z-40 px-2 md:px-3 lg:px-6 xl:px-8">
+      <nav className="flex bg-white/80 backdrop-blur-sm justify-between items-center h-[60px] w-[100vw] fixed z-40 px-2 md:px-3 lg:px-6 xl:px-8">
         <div className="navbar-start">
           <Link href="/" className="text-2xl font-bold">
             LOGO
           </Link>
         </div>
-        <ul className="ml-32 hidden lg:flex gap-12 justify-end items-center  border-green-500">
+        <ul className="ml-32 hidden lg:flex gap-12 justify-end items-center">
           {navMenus.map((el, i) => (
             <Link
               href={el.link}
               key={i}
-              // className="border-b-2 border-transparent font-medium text-md hover:border-b-2 hover:border-sky-600 cursor-pointer"
               className={cn(
                 "text-lg font-medium",
                 route === el.link ? "text-[#E87A1F]" : "cool-link"
@@ -95,55 +160,20 @@ function Navbar() {
                 </Avatar>
               </DropdownMenuTrigger>
               <DropdownMenuContent className="w-56">
-                <DropdownMenuItem className="cursor-pointer">
-                  {session.data.user.role === "COMPANY" ? (
-                    <Link href="/company">
-                      <div className="flex items-center gap-2">
-                        <span>
-                          <User size={18} />
-                        </span>
-                        <span>My Account</span>
-                      </div>
-                    </Link>
-                  ) : session.data.user.role === "ADMIN" ? (
-                    <Link href="/admin">
-                      <div className="flex items-center gap-2">
-                        <span>
-                          <User size={18} />
-                        </span>
-                        <span>View Admin</span>
-                      </div>
-                    </Link>
-                  ) : (
-                    <Link href="/auth/company">
-                      <div className="flex items-center gap-2">
-                        <span>
-                          <User size={18} />
-                        </span>
-                        <span>Start as Company</span>
-                      </div>
-                    </Link>
-                  )}
-                </DropdownMenuItem>
-
+                {renderMenuItem()}
                 <DropdownMenuSeparator />
                 <DropdownMenuItem
                   className="cursor-pointer"
                   onClick={() => signOut()}
                 >
-                  <Link href="/">
-                    <div className="flex items-center gap-2">
-                      <span>
-                        <LogOutIcon size={18} />
-                      </span>
-                      <span>Log Out</span>
-                    </div>
-                  </Link>
+                  <div className="flex items-center gap-2">
+                    <LogOutIcon size={18} />
+                    <span>Log Out</span>
+                  </div>
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
           )}
-
           <div className="flex items-center">
             <MenuIcon
               onClick={toggleSidebar}
@@ -176,49 +206,16 @@ function Navbar() {
                   </Avatar>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent className="w-56">
-                  <DropdownMenuItem className="cursor-pointer">
-                    {session.data.user.role === "COMPANY" ? (
-                      <Link href="/company">
-                        <div className="flex items-center gap-2">
-                          <span>
-                            <User size={18} />
-                          </span>
-                          <span>My Account</span>
-                        </div>
-                      </Link>
-                    ) : session.data.user.role === "ADMIN" ? (
-                      <Link href="/admin">
-                        <div className="flex items-center gap-2">
-                          <span>
-                            <User size={18} />
-                          </span>
-                          <span>View Admin</span>
-                        </div>
-                      </Link>
-                    ) : (
-                      <Link href="/auth/company">
-                        <div className="flex items-center gap-2">
-                          <span>
-                            <User size={18} />
-                          </span>
-                          <span>Start as Company</span>
-                        </div>
-                      </Link>
-                    )}
-                  </DropdownMenuItem>
+                  {renderMenuItem()}
                   <DropdownMenuSeparator />
                   <DropdownMenuItem
                     className="cursor-pointer"
                     onClick={() => signOut()}
                   >
-                    <Link href="/">
-                      <div className="flex items-center gap-2">
-                        <span>
-                          <LogOutIcon size={18} />
-                        </span>
-                        <span>Log Out</span>
-                      </div>
-                    </Link>
+                    <div className="flex items-center gap-2">
+                      <LogOutIcon size={18} />
+                      <span>Log Out</span>
+                    </div>
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
@@ -229,10 +226,9 @@ function Navbar() {
 
       {/* Sidebar */}
       <div
-        className={` rounded-lg font-bold text-gray-900 fixed top-0 right-0 bg-white opacity-80 backdrop-blur-sm transform ${
+        className={`rounded-lg font-bold text-gray-900 fixed top-0 right-0 bg-white opacity-80 backdrop-blur-sm transform ${
           isSidebarOpen ? "translate-x-0" : "translate-x-full"
         } transition-transform duration-300 ease-in-out z-40 p-6`}
-        style={{ width: "auto", height: "auto" }}
       >
         <div className="flex flex-col items-start p-8">
           {navMenus.map((el, i) => (

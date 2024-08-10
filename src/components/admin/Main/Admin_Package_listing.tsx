@@ -205,6 +205,8 @@ export default function AdminPackagelisting({
       rowSelection,
     },
   });
+  const [searchValue, setSearchValue] = React.useState("");
+
   return (
     <Card className="mt-5 z-[999] p-4">
       <div className="flex items-center justify-between">
@@ -223,16 +225,18 @@ export default function AdminPackagelisting({
         </Button>
       </div>
       <div className="flex items-center">
-        <Input
-          placeholder="Search by name..."
-          value={
-            (table.getColumn("legalName")?.getFilterValue() as string) ?? ""
-          }
-          onChange={(event) =>
-            table.getColumn("legalName")?.setFilterValue(event.target.value)
-          }
-          className="max-w-sm focus-visible:ring-none focus-visible:ring-0"
-        />
+      <Input
+  placeholder="Search by name or id..."
+  value={searchValue}
+  onChange={(event) => {
+    const value = event.target.value;
+    setSearchValue(value);
+    table.getColumn("legalName")?.setFilterValue(value);
+    table.getColumn("id")?.setFilterValue(value);
+  }}
+  className="max-w-sm focus-visible:ring-0"
+/>
+
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="outline" className="ml-auto">
