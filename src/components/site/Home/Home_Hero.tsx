@@ -32,8 +32,8 @@ const MobileDropdown = ({ items, visible, toggle }: any) => {
         className="relative sm:ml-8 ml-4 w-24 h-7 flex items-center justify-center cursor-pointer text-white"
       >
         <Image
-          src={"/Hero_Filter_Small.jpg"}
-          layout="fill"
+          src={"/Hero_Filter_Small.png"}
+          fill
           className="absolute -z-10"
           alt="hero_filter_img"
         />
@@ -328,7 +328,7 @@ function HomeHero() {
             <div className="relative max-w-60 h-9 flex items-center justify-center">
               <Image
                 src={"/Hero_Filter_Large.png"}
-                layout="fill"
+                fill
                 className="absolute"
                 alt="hero_filter_img"
               />
@@ -372,8 +372,8 @@ function HomeHero() {
                     // @ts-ignore
                     visible[key] && (
                       <Image
-                        src={"/Hero_Filter_Small.jpg"}
-                        layout="fill"
+                        src={"/Hero_Filter_Small.png"}
+                        fill
                         className="absolute -z-10"
                         alt="hero_filter_img"
                       />
