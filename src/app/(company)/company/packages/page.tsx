@@ -44,7 +44,10 @@ const PackageCard = ({ data }: { data: Package }) => {
         </p>
         <p className="text-muted-foreground text-sm md:text-base text-left font-semibold mb-4">
           {data.amenities.map((amenity, ind) => (
-            <span key={ind} className="">
+            <span
+              key={ind}
+              className=""
+            >
               {amenity}
               {ind !== data.amenities.length - 1 && ", "}
             </span>
@@ -69,10 +72,13 @@ const PackagesPage = async () => {
       <h2 className="text-2xl font-bold my-10">All Your Packages:</h2>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
         {packages.map((p) => (
-          <PackageCard key={p.id} data={p} />
+          <PackageCard
+            key={p.id}
+            data={p}
+          />
         ))}
         {packages.length === 0 ? (
-          <div className="font-semibold text-lg text-center mt-20 max-w-sm mx-auto flex flex-col items-center justify-center gap-4">
+          <div className="font-semibold col-span-1 md:col-span-2 lg:col-span-3 self-center text-lg text-center mt-20 max-w-sm mx-auto flex flex-col items-center justify-center gap-4">
             <p>
               You dont have any packages, therefore your company will be in a
               suspended state, hence not visible to any users. Create a package

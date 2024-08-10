@@ -14,7 +14,10 @@ import AdminNotificationButtons from "./AdminNotificationButtons";
 
 const getRequests = unstable_cache(
   async () => {
-    return await db.request.findMany({ where: { status: "PENDING" } });
+    return await db.request.findMany({
+      where: { status: "PENDING" },
+      orderBy: { createdAt: "desc" },
+    });
   },
   undefined,
   { tags: ["admin-requests"], revalidate: 60 }
