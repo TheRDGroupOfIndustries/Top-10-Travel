@@ -43,15 +43,16 @@ function ListDataInfluencer({
             transition={{ duration: 0.4, delay: index * 0.15 }}
             viewport={{ once: true }}
             key={item.name}
-            className="w-full lg:h-60 rounded-lg flex flex-col md:flex-row items-center justify-between gap-5 shadow shadow-black/60"
+            className="w-full lg:h-60 rounded-lg flex flex-col md:flex-row items-center justify-between gap-5 overflow-hidden shadow shadow-black/60"
           >
-            <div className="lg:w-[30%] w-full lg:h-full h-60 rounded-lg overflow-hidden">
+            <div className="lg:w-[30%] w-full lg:h-full h-60 overflow-hidden">
               <Image
                 src={getValidUrl(item.image ?? "")}
+                // src="/unsplash_axAbxUA32hE.png"
                 alt={`image-${item?.name}`}
                 width={300}
                 height={300}
-                className="w-auto h-auto object-cover"
+                className="w-full h-full object-cover"
               />
             </div>
             <div className="lg:w-[70%] w-full h-full rounded-lg overflow-hidden flex flex-col items-start justify-start gap-3 p-1">
