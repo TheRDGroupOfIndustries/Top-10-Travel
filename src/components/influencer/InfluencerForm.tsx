@@ -12,7 +12,7 @@ import countries from "@/lib/countries.json";
 import IndiaStates from "@/lib/indiaState.json";
 import img from "@/resources/images/form/CompanyForm.png";
 import Image from "next/image";
-import { FormEvent, useMemo, useState } from "react";
+import { ChangeEvent, FormEvent, useMemo, useState } from "react";
 import { toast } from "sonner";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
@@ -22,7 +22,6 @@ import Link from "next/link";
 const InfluencerForm = () => {
   const [formData, setFormData] = useState({
     name: "",
-    image: "",
     description: "",
     introduction: "",
     speciality: "",
@@ -31,21 +30,40 @@ const InfluencerForm = () => {
     state: "",
   });
   const { update } = useSession();
-  const cities = useMemo(() => Object.values(IndiaStates).flat(), []);
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
+  const [file, setFile] = useState<File | null>(null);
+
+  const handleFile = (e: ChangeEvent<HTMLInputElement>) => {
+    const { files } = e.target;
+    if (!files) return;
+    if (!["image/jpeg", "image/png", "image/svg"].includes(files[0]?.type)) {
+      setFile(null);
+      toast.error("Only image is allowed.");
+      return;
+    }
+    setFile(files[0]);
+  };
+
   const { isPending, mutate } = useMutation(createInfluencerDataAction);
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (!file) return;
+    const data = new FormData();
+    data.set("file", file);
+
     const { socialLinks, ...rest } = formData;
     const linksArray = socialLinks.split(",");
     const { success, error } = await mutate({
-      ...rest,
-      socialLinks: linksArray,
+      values: {
+        ...rest,
+        socialLinks: linksArray,
+      },
+      form: data,
     });
     if (success) {
-      // await update({ role: "Influencer" });
+      await update({ role: "Influencer" });
       toast.success(success);
     } else if (error) toast.error(error);
   };
@@ -77,13 +95,16 @@ const InfluencerForm = () => {
           className="object-cover"
         />
       </div>
-      <div className="w-full md:w-[50%] z-10 flex flex-col items-center justify-center">
+      <div className="w-full md:w-[50%] my-10 z-10 flex flex-col items-center justify-center">
         <form
           onSubmit={handleSubmit}
           className="w-full max-w-md m-2 rounded-lg bg-gray-200 p-8 space-y-4"
         >
           <div className="w-full">
-            <label htmlFor="name" className="p-2">
+            <label
+              htmlFor="name"
+              className="p-2"
+            >
               Name
             </label>
             <Input
@@ -93,25 +114,31 @@ const InfluencerForm = () => {
               value={formData.name}
               onChange={handleInputChange}
               placeholder="Enter your name"
+              minLength={5}
               required
             />
           </div>
-          <div className="w-full">
-            <label htmlFor="image" className="p-2">
-              Image
+          <div className="flex flex-col space-y-2">
+            <label
+              htmlFor="image"
+              className="p-2"
+            >
+              Your Public Image
             </label>
             <Input
-              id="image"
-              name="image"
-              type="text"
-              value={formData.image}
-              onChange={handleInputChange}
-              placeholder="Enter image url"
               required
+              type="file"
+              name="image"
+              id="image"
+              placeholder="Upload your image"
+              onChange={handleFile}
             />
           </div>
           <div className="w-full">
-            <label htmlFor="description" className="p-2">
+            <label
+              htmlFor="description"
+              className="p-2"
+            >
               Description
             </label>
             <Input
@@ -121,9 +148,13 @@ const InfluencerForm = () => {
               value={formData.description}
               onChange={handleInputChange}
               placeholder="Enter your description"
+              minLength={25}
               required
             />
-            <label htmlFor="introduction" className="p-2">
+            <label
+              htmlFor="introduction"
+              className="p-2"
+            >
               Introduction
             </label>
             <Input
@@ -133,11 +164,15 @@ const InfluencerForm = () => {
               value={formData.introduction}
               onChange={handleInputChange}
               placeholder="Enter your introduction"
+              minLength={20}
               required
             />
           </div>
           <div className="w-full">
-            <label htmlFor="speciality" className="p-2">
+            <label
+              htmlFor="speciality"
+              className="p-2"
+            >
               Speciality
             </label>
             <Input
@@ -151,7 +186,10 @@ const InfluencerForm = () => {
             />
           </div>
           <div className="w-full">
-            <label htmlFor="socialLinks" className="p-2">
+            <label
+              htmlFor="socialLinks"
+              className="p-2"
+            >
               SocialLinks (comma separated)
             </label>
             <Input
@@ -179,36 +217,33 @@ const InfluencerForm = () => {
               </SelectTrigger>
               <SelectContent>
                 {countries.map((country) => (
-                  <SelectItem key={country.name} value={country.name}>
+                  <SelectItem
+                    key={country.name}
+                    value={country.name}
+                  >
                     {country.name}
                   </SelectItem>
                 ))}
               </SelectContent>
             </Select>
           </div>
-          <div>
-            <label htmlFor="state">City (India only currently)</label>
-            <Select
-              name="state"
-              required
-              onValueChange={(value) => {
-                setFormData((prev) => ({ ...prev, state: value }));
-              }}
-              value={formData.state}
+          <div className="w-full">
+            <label
+              htmlFor="city"
+              className="p-2"
             >
-              <SelectTrigger className="w-full">
-                <SelectValue placeholder="City (India only)" />
-              </SelectTrigger>
-              <SelectContent>
-                {cities.map((city) => (
-                  <SelectItem key={city} value={city}>
-                    {city}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
+              City
+            </label>
+            <Input
+              id="city"
+              name="state"
+              type="text"
+              value={formData.state}
+              onChange={handleInputChange}
+              placeholder="Enter city name"
+              required
+            />
           </div>
-
           <Button
             type="submit"
             disabled={isPending}
@@ -216,8 +251,14 @@ const InfluencerForm = () => {
           >
             Create Account
           </Button>
-          <Link href="/" className="ml-8">
-            <Button type="button" variant="secondary">
+          <Link
+            href="/"
+            className="ml-8"
+          >
+            <Button
+              type="button"
+              variant="secondary"
+            >
               Cancel
             </Button>
           </Link>

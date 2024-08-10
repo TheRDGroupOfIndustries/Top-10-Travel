@@ -1,5 +1,6 @@
 "use client";
 
+import { signIn } from "next-auth/react";
 import Link from "next/link";
 import React, { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
@@ -59,7 +60,7 @@ function CountUp({ target }: { target: number }) {
   }, [isVisible, target]);
 
   return (
-    <span ref={ref} className="text-2xl font-bold">
+    <span ref={ref} className="lg:text-2xl  text-md font-bold">
       {count}+
     </span>
   );
@@ -67,31 +68,31 @@ function CountUp({ target }: { target: number }) {
 
 function Certification() {
   return (
-    <div className="w-full h-[60vh] mt-10 py-5 bg-colorAll">
+    <div className="w-full h-auto mt-10 py-5 bg-colorAll">
       <div className="px-2 md:px-3 lg:px-6 xl:px-8 w-full h-full flex flex-col items-center justify-between">
-        <h1 className="font-bold md:text-4xl text-xl">Our legacy</h1>
-        <div className="w-full grid grid-cols-3 gap-2 md:gap-10 lg:px-40">
+        <h1 className="font-bold md:text-4xl lg:text-[35px] text-xl my-3 lg:my-6">Our legacy</h1>
+        <div className="w-full grid grid-cols-3 gap-2 md:gap-10 lg:px-40 ">
           {data?.map((item, index) => (
             <div
               key={index}
               className="flex flex-col items-center justify-start gap-1"
             >
               <CountUp target={item.num} />
-              <h3 className="md:text-2xl text-sm text-center font-bold">
+              <h3 className="md:text-2xl lg:text-2xl text-sm text-center font-bold">
                 {item?.title}
               </h3>
             </div>
           ))}
         </div>
-        <h2 className="font-bold md:text-4xl text-xl text-center">
+        <h2 className="font-bold md:text-4xl text-2xl lg:text-[45px] font-serif text-center  my-3 lg:my-10">
           WANT TO GET CERTIFIED?
         </h2>
         <motion.div
-          className="bg-black px-5 py-2 rounded-md mt-6 mb-5 mx-auto hover:bg-gray-800 w-fit transition-colors text-white font-bold"
+          className="bg-black px-5 lg:px-10 lg:py-5 py-2  lg:mt-2 mb-2 mx-auto hover:bg-gray-800 w-fit transition-colors lg:text-[20px] text-[14px] text-white font-bold rounded-[40px]"
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}
         >
-          <Link href={`#`}>REGISTER</Link>
+          <button onClick={() => signIn("google")}>REGISTER</button>
         </motion.div>
       </div>
     </div>

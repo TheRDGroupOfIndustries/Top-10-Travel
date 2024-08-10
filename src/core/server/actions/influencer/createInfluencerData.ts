@@ -4,25 +4,52 @@ import { getInfluencerCreateTemplate } from "@/core/nodemailer/mailTemplates";
 import { sendMail } from "@/core/nodemailer/nodemailer";
 import getSessionorRedirect from "@/core/utils/getSessionorRedirect";
 import { InfluencerData } from "@prisma/client";
+import sharp from "sharp";
+import { uploadImageDefaultName } from "../../cloudinary/cloudinary";
 
-export const createInfluencerDataAction = async (
+export const createInfluencerDataAction = async ({values, form}:{
   values: Pick<
     InfluencerData,
     | "name"
-    | "image"
     | "description"
     | "socialLinks"
     | "speciality"
     | "introduction"
     | "country"
     | "state"
-  >
+  >, form:FormData}
 ) => {
   const session = await getSessionorRedirect();
   try {
+    
+  const file = form.get("file");
+  if (!file) return { error: "No file uploaded." };
+  if (
+    !(file instanceof File) ||
+    !(
+      file.type === "image/png" ||
+      file.type === "image/jpg" ||
+      file.type === "image/jpeg" ||
+      file.type === "image/svg"
+    )
+  ) {
+    return { error: "Invalid file type" };
+  }
+  const buffer = await file.arrayBuffer();
+  const resizedBuffer = await sharp(buffer).resize(500, 500).jpeg().toBuffer();
+
+  // @ts-expect-error
+  const imgSource: string = (await uploadImageDefaultName(resizedBuffer))
+    .secure_url;
+
+  if (!imgSource) {
+    return { error: "Error in uploading image! try again" };
+  }
+
     const res = await db.influencerData.create({
       data: {
         ...values,
+        image:imgSource,
         user: { connect: { id: session.user.id } },
       },
     });
