@@ -17,7 +17,7 @@ import { HomeContext } from "@/hooks/context/HomeContext";
 import { cn, getValidUrl } from "@/lib/utils";
 
 const CarouselCard = ({ agency }: { agency: any }) => (
-  <div className="flex flex-col h-full">
+  <div className="flex md:hover:-translate-y-4 duration-300 transition-all flex-col h-full">
     <div className="relative h-48 sm:h-56 md:h-64 lg:h-72 rounded-lg overflow-hidden">
       <div className="absolute top-0 left-0 bg-colorAll w-[80%] h-[70%] rounded-lg"></div>
       <div className="absolute bottom-0 right-0 w-[95%] h-[95%] rounded-lg overflow-hidden">
@@ -106,11 +106,11 @@ const TopTenAgencies = () => {
           ]}
           className="w-full hidden md:block"
         >
-          <div className="absolute -top-10 right-10">
+          <div className="absolute -top-7 right-10">
             <CarouselPrevious className="hidden sm:flex" />
             <CarouselNext className="hidden sm:flex" />
           </div>
-          <CarouselContent className="-ml-2 md:-ml-4">
+          <CarouselContent className="-ml-2 my-7 md:-ml-4">
             {isLoading ? (
               Array.from({ length: 5 }).map((_, index) => (
                 <CarouselItem
