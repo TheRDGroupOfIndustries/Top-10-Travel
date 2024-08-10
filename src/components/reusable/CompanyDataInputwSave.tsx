@@ -10,6 +10,7 @@ import { cn } from "@/lib/utils";
 import { toast } from "sonner";
 import Image from "next/image";
 import { editCompanyDataAction } from "@/core/server/actions/company/editCompanyData";
+import { Textarea } from "../ui/textarea";
 
 const CompanyDataInputwSave = ({
   name,
@@ -43,22 +44,34 @@ const CompanyDataInputwSave = ({
               return; // value didn't change, no need to save
             }
             const { success, error } = await mutate({ [name]: val });
-            if (success) toast.success(success);
-            else toast.error(error);
-            setIsChanging(false);
+            if (success) {
+              toast.success(success);
+              setIsChanging(false);
+            } else toast.error(error);
           }}
           className="flex items-center gap-2 justify-center"
         >
-          <Input
-            name={name}
-            id={name}
-            defaultValue={value ?? ""}
-            placeholder={text}
-            className="mb-[1%]"
-            type={type}
-            minLength={minLength}
-            maxLength={maxLength}
-          />
+          {name === "description" || name === "socialLinks" ? (
+            <Textarea
+              name={name}
+              id={name}
+              defaultValue={value ?? ""}
+              placeholder={text}
+              minLength={minLength}
+              maxLength={maxLength}
+            />
+          ) : (
+            <Input
+              name={name}
+              id={name}
+              defaultValue={value ?? ""}
+              placeholder={text}
+              className="mb-[1%]"
+              type={type}
+              minLength={minLength}
+              maxLength={maxLength}
+            />
+          )}
           <Button
             disabled={isPending}
             type="submit"
@@ -70,7 +83,7 @@ const CompanyDataInputwSave = ({
       ) : (
         <>
           <div
-            className="w-full flex items-center justify-center md:justify-start gap-3"
+            className="w-full flex flex-wrap items-start justify-center md:justify-start gap-3"
             onDoubleClick={() => setIsChanging(true)}
           >
             <strong
@@ -82,7 +95,7 @@ const CompanyDataInputwSave = ({
               {name.toUpperCase()}:
             </strong>
             <div className="flex items-center justify-center gap-1">
-              <p className="w-full md:max-w-[300px] break-words text-xs md:text-sm lg:text-base">
+              <p className="w-full max-w-[300px] break-words line-clamp-2 text-xs md:text-sm lg:text-base">
                 {(!value || value === "") && "Not provided"}
                 {value && value.includes("@")
                   ? `${value.split("@")[0]}@${value

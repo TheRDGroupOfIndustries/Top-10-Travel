@@ -1,5 +1,5 @@
 "use client";
-import * as React from "react";
+import { ChangeEvent, useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -20,35 +20,64 @@ import { Package } from "@prisma/client";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
+import { useRouter } from "next/navigation";
 
-type FormType = Omit<Package, "id" | "companyId" | "createdAt" | "price"> & {
+type FormType = Omit<
+  Package,
+  "id" | "companyId" | "createdAt" | "price" | "image"
+> & {
   price: string;
 };
 
 export default function CreatePackageForm() {
-  const [form, setForm] = React.useState<FormType>({
+  const [form, setForm] = useState<FormType>({
     amenities: [],
     desc: "",
     duration: "",
-    image: "",
     price: "",
     title: "",
   });
+  const [file, setFile] = useState<File | null>(null);
+  const router = useRouter();
+
+  const handleFile = (e: ChangeEvent<HTMLInputElement>) => {
+    const { files } = e.target;
+    if (!files) return;
+    if (!["image/jpeg", "image/png", "image/svg"].includes(files[0]?.type)) {
+      setFile(null);
+      toast.error("Only image is allowed.");
+      return;
+    }
+    setFile(files[0]);
+  };
   const { mutate, isPending } = useMutation(createPackageAction);
+
   const handleCreate = async (e: any) => {
     e.preventDefault();
+    if (!file) return;
+    const data = new FormData();
+    data.set("file", file);
+
     const { success, error } = await mutate({
-      ...form,
-      price: parseFloat(form.price),
+      values: {
+        ...form,
+        price: parseFloat(form.price),
+      },
+      form: data,
     });
-    if (success) toast.success(success);
-    else toast.error(error);
+
+    if (success) {
+      toast.success(success);
+      router.push("/company/packages");
+    } else toast.error(error);
   };
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
+
   return (
-    <Card className="w-full max-w-md">
+    <Card className="w-full max-w-md mt-6">
       <CardHeader>
         <CardTitle>Create Your Package</CardTitle>
         <CardDescription>
@@ -88,13 +117,11 @@ export default function CreatePackageForm() {
               <Label htmlFor="image">Image of package</Label>
               <Input
                 required
-                type="text"
+                type="file"
                 name="image"
-                minLength={10}
                 id="image"
                 placeholder="Image of the package"
-                value={form.image}
-                onChange={handleChange}
+                onChange={handleFile}
               />
             </div>
             <div className="flex flex-col space-y-2">
