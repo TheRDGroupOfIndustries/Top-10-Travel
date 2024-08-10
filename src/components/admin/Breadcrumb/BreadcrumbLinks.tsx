@@ -20,7 +20,7 @@ function BreadcrumbLinks() {
       <BreadcrumbList>
         <BreadcrumbItem>
           <BreadcrumbLink asChild>
-            <Link href="/">Home</Link>
+            <Link href="/" className="text-black">Home</Link>
           </BreadcrumbLink>
         </BreadcrumbItem>
         {pathSegments.map((segment, index) => {
@@ -30,10 +30,10 @@ function BreadcrumbLinks() {
               <BreadcrumbSeparator />
               <BreadcrumbItem>
                 {index === pathSegments.length - 1 ? (
-                  <span className="capitalize">{segment}</span>
+                  <span className="capitalize text-black">{segment}</span>
                 ) : (
                   <BreadcrumbLink asChild>
-                    <Link href={href} className="capitalize">
+                    <Link href={href} className="capitalize text-black">
                       {segment}
                     </Link>
                   </BreadcrumbLink>
