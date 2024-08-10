@@ -5,23 +5,30 @@ import { db } from "@/core/client/db";
 import getSessionorRedirect from "@/core/utils/getSessionorRedirect";
 
 const RequestPage = async () => {
-    const session = await getSessionorRedirect()
-    const company = await db.company.findUnique({where:{userId: session.user.id}, select:{id:true}})
-    const requests = await db.request.findMany({where:{companyId:company?.id}})
+  const session = await getSessionorRedirect();
+  const company = await db.company.findUnique({
+    where: { userId: session.user.id },
+    select: { id: true },
+  });
+  const requests = await db.request.findMany({
+    where: { companyId: company?.id },
+  });
 
   return (
     <Tabs
       defaultValue="new"
-      className="flex flex-col items-center justify-center h-[calc(100vh-200px)]"
+      className="flex flex-col items-center justify-start mt-5 min-h-[80%]"
     >
-      <TabsList className="w-full max-w-md *:flex-1">
+      <TabsList className="w-full *:flex-1">
         <TabsTrigger value="new">Create Request</TabsTrigger>
         <TabsTrigger value="prev">Previous Requests</TabsTrigger>
       </TabsList>
-      <TabsContent className="w-full max-w-md" value="new">
+      <TabsContent className="w-full" value="new">
         <RequestForm />
       </TabsContent>
-      <TabsContent className="w-full max-w-md"  value="prev"><PreviousRequests requests={requests} /></TabsContent>
+      <TabsContent className="w-full" value="prev">
+        <PreviousRequests requests={requests} />
+      </TabsContent>
     </Tabs>
   );
 };
