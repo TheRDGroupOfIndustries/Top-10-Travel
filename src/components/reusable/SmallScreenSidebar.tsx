@@ -28,7 +28,6 @@ import Link from "next/link";
 
 const SmallScreenSidebar = () => {
   const pathname = usePathname();
-  console.log(pathname);
 
   const AdminMenuItems = [
     { name: "Dashboard", icon: Home, href: "/admin" },
@@ -47,10 +46,10 @@ const SmallScreenSidebar = () => {
 
   return (
     <Sheet>
-      <SheetTrigger className="xl:hidden">
+      <SheetTrigger className="xl:hidden cursor-pointer">
         <FiSidebar size={28} className="text-gray-900 bg-white" />
       </SheetTrigger>
-      <SheetContent className="flex flex-col h-full">
+      <SheetContent side={"left"} className="flex flex-col h-full">
         <SheetHeader>
           <SheetTitle>LOGO</SheetTitle>
         </SheetHeader>
