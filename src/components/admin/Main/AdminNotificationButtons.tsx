@@ -25,6 +25,7 @@ const AdminNotificationButtons = ({ id }: { id: string }) => {
         disabled={pendingAccept}
         onClick={acceptReq}
         size="sm"
+        className="bg-[#FCAE1D] hover:bg-[#FCAE1D]"
       >
         Accept
       </Button>
