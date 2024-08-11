@@ -11,6 +11,7 @@ const dashboardData = async (userId: string) => {
   });
   return { company };
 };
+
 const getReviews = async (companyId: string) => {
   return await db.reviews.findMany({
     where: { companyId },

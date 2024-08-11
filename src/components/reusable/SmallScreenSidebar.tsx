@@ -46,13 +46,13 @@ const SmallScreenSidebar = () => {
 
   return (
     <Sheet>
-      <SheetTrigger className="xl:hidden">
-        <FiSidebar size={28} className="dark:text-white text-black" />
+      <SheetTrigger className="lg:hidden xl:hidden">
+        <FiSidebar size={28} className="text-gray-900 bg-white" />
       </SheetTrigger>
       <SheetContent>
         <SheetHeader>
           <SheetTitle>
-            <h1 className="text-3xl mt-[4vw] font-bold">Top Ten Travels</h1>
+            LOGO
           </SheetTitle>
         </SheetHeader>
         <div className="py-4 flex mt-[3vw] flex-col gap-3">
@@ -61,8 +61,8 @@ const SmallScreenSidebar = () => {
               <SheetClose asChild key={index}>
                 <Link
                   href={item.href}
-                  className={`flex md:text-xl text-lg items-center transition-colors duration-200 rounded-lg px-3 py-3 hover:bg-slate-400 dark:hover:bg-slate-800 cursor-pointer ${ pathname === item.href 
-                    ? "dark:bg-white dark:text-black text-white bg-[#020817]" 
+                  className={`flex md:text-xl text-lg items-center transition-colors duration-200 rounded-lg px-3 py-3 hover:bg-[#F3F3F3] cursor-pointer ${ pathname === item.href 
+                    ? " hover:text-gray-900 text-white hover:bg-[#FCAE1D] bg-[#FCAE1D]" 
                     : "" }`}
                 >
                   <item.icon className="w-6 h-6 mr-3" />
@@ -76,10 +76,10 @@ const SmallScreenSidebar = () => {
               <SheetClose asChild key={index}>
                 <Link
                   href={item.href}
-                  className={`flex md:text-xl text-lg items-center transition-colors duration-200 rounded-lg px-3 py-3 hover:bg-slate-400 dark:hover:bg-slate-800 cursor-pointer
+                  className={`flex md:text-xl text-lg items-center transition-colors duration-200 rounded-lg px-3 py-3 hover:bg-[#F3F3F3]  cursor-pointer
                     ${
                       pathname === item.href
-                        ? "dark:bg-white dark:text-black text-white bg-[#020817]"
+                        ? "hover:text-gray-900 text-white bg-[#FCAE1D] hover:bg-[#FCAE1D]"
                         : ""
                     }`}
                 >

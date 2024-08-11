@@ -26,35 +26,35 @@ function CompanySidebar() {
   ];
 
   return (
-    <div className="xl:w-[17vw] h-[100vh] left-0 top-0 fixed text-black flex flex-col pl-2">
-      <div className="p-5">
+    <div className="lg:w-[17vw] h-[100vh] left-0 top-0 fixed text-black flex flex-col border-r-2  border-[#7F7F7F] px-4">
+      <div className="p-2 mt-5 mb-12">
         <Link href="/">
-          <h1 className="text-xl font-bold">Top Ten Travels</h1>
+          LOGO
         </Link>
       </div>
-      <nav className="flex-grow">
-        <ul className="py-6">
+      <nav className="flex-grow  ">
+        <ul className="">
           {menuItems.map((item, index) => (
             <li key={index}>
               <Link
                 href={item.href}
-                className={`flex items-center xl:px-6 px-3 py-3 mt-1 text-black  dark:hover:bg-[#020817] dark:hover:text-white hover:bg-white transition-colors duration-200 rounded-l-full ${
-                  pathname === item.href
-                    ? "bg-white dark:bg-[#020817] dark:text-white"
+                className={`py-3 mx-[1px] flex items-center justify-start mt-1 text-black hover:bg-[#F3F3F3] transition-colors duration-200 rounded-lg  ${pathname === item.href
+                    ? "bg-[#FCAE1D] hover:bg-[#FCAE1C] hover:text-gray-600 text-white"
                     : ""
-                }`}
+                  }`}
               >
-                <item.icon className="w-5 h-5 mr-3" />
+                <item.icon className="w-12 h-5" />
                 {item.name}
               </Link>
+
             </li>
           ))}
         </ul>
       </nav>
-      <div className="p-4">
+      <div className="">
         <button
           onClick={() => signOut()}
-          className="flex items-center text-black hover:text-white transition-colors py-6 duration-200"
+          className="flex items-center text-black hover:text-white transition-colors  duration-200 ml-5 py-6 "
         >
           <LogOut className="w-5 h-5 mr-3" />
           Logout

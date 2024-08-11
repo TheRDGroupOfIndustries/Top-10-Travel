@@ -5,7 +5,7 @@ import { Label } from "../ui/label";
 import { Button } from "../ui/button";
 import useMutation from "@/hooks/useMutation";
 import { editCompanyAction } from "@/core/server/actions/company/editCompany";
-import { Pencil, Upload, UserRoundPen } from "lucide-react";
+import { Edit,Upload, UserRoundPen } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { toast } from "sonner";
 import Image from "next/image";
@@ -48,14 +48,14 @@ const InputWithSave = ({
             else toast.error(error);
             setIsChanging(false);
           }}
-          className="flex  items-center gap-2 justify-center"
+          className="flex  items-center  justify-center"
         >
           <Input
             name={name}
             id={name}
             defaultValue={value}
             placeholder={text}
-            className="mb-[1%]"
+            className=""
           />
           <Button disabled={isPending} type="submit" size="sm">
             {isPending ? "Saving..." : "Save"}
@@ -84,14 +84,14 @@ const InputWithSave = ({
           ) : (
             <span
               className={cn(
-                "flex items-center justify-center md:justify-start gap-2",
+                "flex items-center justify-center md:justify-start gap-2 text-sm text-gray-900 ",
                 className
               )}
               onDoubleClick={() => setIsChanging(true)}
             >
               {value}
 
-              <UserRoundPen
+              <Edit
                 onClick={() => setIsChanging(true)}
                 className="h-4 w-4 text-muted-foreground transition-colors hover:text-foreground"
               />
