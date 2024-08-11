@@ -46,14 +46,12 @@ const SmallScreenSidebar = () => {
 
   return (
     <Sheet>
-      <SheetTrigger className="lg:hidden xl:hidden">
+      <SheetTrigger className="xl:hidden">
         <FiSidebar size={28} className="text-gray-900 bg-white" />
       </SheetTrigger>
       <SheetContent>
         <SheetHeader>
-          <SheetTitle>
-            LOGO
-          </SheetTitle>
+          <SheetTitle>LOGO</SheetTitle>
         </SheetHeader>
         <div className="py-4 flex mt-[3vw] flex-col gap-3">
           {pathname.startsWith("/admin") &&
@@ -61,9 +59,11 @@ const SmallScreenSidebar = () => {
               <SheetClose asChild key={index}>
                 <Link
                   href={item.href}
-                  className={`flex md:text-xl text-lg items-center transition-colors duration-200 rounded-lg px-3 py-3 hover:bg-[#F3F3F3] cursor-pointer ${ pathname === item.href 
-                    ? " hover:text-gray-900 text-white hover:bg-[#FCAE1D] bg-[#FCAE1D]" 
-                    : "" }`}
+                  className={`flex md:text-xl text-lg items-center transition-colors duration-200 rounded-lg px-3 py-3 hover:bg-[#F3F3F3] cursor-pointer ${
+                    pathname === item.href
+                      ? " hover:text-gray-900 text-white hover:bg-[#FCAE1D] bg-[#FCAE1D]"
+                      : ""
+                  }`}
                 >
                   <item.icon className="w-6 h-6 mr-3" />
                   {item.name}
