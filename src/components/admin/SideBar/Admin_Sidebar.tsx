@@ -16,39 +16,37 @@ function AdminSidebar() {
   ];
 
   return (
-    <div className="h-[100vh] w-[18vw] pb-3 text-black flex flex-col items-center">
-      <div className="py-7">
-        <Link href="/">
-          <h1 className="text-xl text-center font-bold">Top Ten Travels</h1>
-        </Link>
+    <div className="lg:w-[17vw] h-[100vh] left-0 top-0 fixed text-black flex flex-col border-r-2 border-[#7F7F7F] px-4">
+      <div className="p-2 mt-5 mb-12">
+        <Link href="/">LOGO</Link>
       </div>
-      <nav className="flex flex-col w-full">
-        <div>
+      <nav className="flex-grow">
+        <ul className="">
           {menuItems.map((item, index) => (
-            <div key={index} className="text-start mb-1 px-5">
+            <li key={index}>
               <Link
                 href={item.href}
-                className={`flex items-center text-lg xl:px-8 px-3 py-4 transition-colors duration-300 rounded-xl ${
+                className={`py-3 mx-[1px] flex items-center justify-start mt-1  hover:bg-[#F3F3F3] transition-colors duration-200 rounded-lg  ${
                   pathname === item.href
-                    ? "bg-[#FCAE1D] hover:bg-[#FCAE1D] dark:bg-[#020817] text-white dark:text-white"
-                    : "hover:bg-slate-100"
+                    ? "bg-[#FCAE1D] hover:bg-[#FCAE1C] text-white"
+                    : "text-black"
                 }`}
               >
-                <item.icon className="w-6 h-6 mr-3" />
+                <item.icon className="w-12 h-5" />
                 {item.name}
               </Link>
-            </div>
+            </li>
           ))}
-        </div>
+        </ul>
       </nav>
-      <div className="mt-auto w-full px-5">
-        <div
+      <div>
+        <button
           onClick={() => signOut()}
-          className={`flex items-center text-lg xl:px-8 px-3 py-4 transition-colors duration-300 rounded-xl hover:bg-[#FCAE1D] hover:text-white`}
+          className="py-3 w-full mx-[1px] mb-2 flex items-center justify-start mt-1 text-black hover:bg-[#FCAE1C] hover:text-white transition-colors duration-200 rounded-lg"
         >
-          <LogOut className="w-6 h-6 mr-3" />
+          <LogOut className="w-12 h-5" />
           Logout
-        </div>
+        </button>
       </div>
     </div>
   );

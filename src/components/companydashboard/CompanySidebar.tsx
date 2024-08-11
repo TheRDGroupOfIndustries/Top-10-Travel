@@ -38,9 +38,9 @@ function CompanySidebar() {
             <li key={index}>
               <Link
                 href={item.href}
-                className={`py-3 mx-[1px] flex items-center justify-start mt-1 text-black hover:bg-[#F3F3F3] transition-colors duration-200 rounded-lg  ${pathname === item.href
-                    ? "bg-[#FCAE1D] hover:bg-[#FCAE1C] hover:text-gray-600 text-white"
-                    : ""
+                className={`py-3 mx-[1px] flex items-center justify-start mt-1  hover:bg-[#F3F3F3] transition-colors duration-200 rounded-lg  ${pathname === item.href
+                    ? "bg-[#FCAE1D] hover:bg-[#FCAE1C] text-white"
+                    : "text-black"
                   }`}
               >
                 <item.icon className="w-12 h-5" />
@@ -51,12 +51,12 @@ function CompanySidebar() {
           ))}
         </ul>
       </nav>
-      <div className="">
+      <div>
         <button
           onClick={() => signOut()}
-          className="flex items-center text-black hover:text-white transition-colors  duration-200 ml-5 py-6 "
+          className="py-3 w-full mx-[1px] mb-2 flex items-center justify-start mt-1 text-black hover:bg-[#FCAE1C] hover:text-white transition-colors duration-200 rounded-lg"
         >
-          <LogOut className="w-5 h-5 mr-3" />
+          <LogOut className="w-12 h-5" />
           Logout
         </button>
       </div>

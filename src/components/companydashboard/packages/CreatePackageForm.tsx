@@ -79,7 +79,9 @@ export default function CreatePackageForm() {
   return (
     <Card className="w-full max-w-md mt-6 bg-[7F7F7F] border-none ">
       <CardHeader>
-        <CardTitle>Create Your <span className="text-[#FCAE1D]">Package</span></CardTitle>
+        <CardTitle>
+          Create Your <span className="text-[#FCAE1D]">Package</span>
+        </CardTitle>
         <CardDescription>
           Create a package by filling the following form.
         </CardDescription>
@@ -203,7 +205,7 @@ export default function CreatePackageForm() {
           <Button
             disabled={isPending}
             type="submit"
-            className="mt-4 bg-[#FCAE1D]"
+            className="mt-4 bg-[#fcaf1e] hover:bg-[#fcaf1e]/80"
           >
             {isPending ? "Creating..." : "Create Package"}
           </Button>

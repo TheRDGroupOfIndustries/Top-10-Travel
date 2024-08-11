@@ -70,6 +70,13 @@ const AdminReportDownload = ({ report }: { report: ReportData }) => {
 
     doc.save("admin_report.pdf");
   };
-  return <Button onClick={generatePDF}>Download pdf</Button>;
+  return (
+    <Button
+      onClick={generatePDF}
+      className="bg-[#fcaf1e] hover:bg-[#fcaf1e]/80"
+    >
+      Download pdf
+    </Button>
+  );
 };
 export default AdminReportDownload;

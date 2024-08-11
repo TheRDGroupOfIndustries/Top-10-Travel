@@ -170,11 +170,13 @@ function AdminUsers({ users }: { users: User[] }) {
   });
 
   return (
-    <Card className="mt-5 p-4">
+    <Card className="mt-5 p-4 bg-[#F3F3F3]">
       <div className="flex items-center justify-between">
-        <div className="flex items-center gap-5">
-          <h2 className="text-2xl font-bold">Users</h2>
-          <p className="text-xs">
+        <div className="flex items-end gap-5">
+          <h2 className="lg:text-5xl md:text-4xl text-3xl font-semibold text-[#fcaf1e]">
+            Users
+          </h2>
+          <p className="font-medium text-sm text-[#36454F]">
             <span className="font-bold">
               {table.getFilteredRowModel().rows.length}
             </span>{" "}
@@ -200,11 +202,14 @@ function AdminUsers({ users }: { users: User[] }) {
           onChange={(event) =>
             table.getColumn("email")?.setFilterValue(event.target.value)
           }
-          className="max-w-sm bg-[#fffcf6] focus-visible:ring-none focus-visible:ring-0"
+          className="max-w-sm bg-[#fbfbfb] focus-visible:ring-none focus-visible:ring-0"
         />
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="outline" className="ml-auto">
+            <Button
+              variant="outline"
+              className="ml-auto bg-[#F3F3F3] hover:bg-[#dbdbdb]"
+            >
               Columns <ChevronDown className="ml-2 h-4 w-4" />
             </Button>
           </DropdownMenuTrigger>
@@ -216,7 +221,7 @@ function AdminUsers({ users }: { users: User[] }) {
                 return (
                   <DropdownMenuCheckboxItem
                     key={column.id}
-                    className="capitalize"
+                    className="capitalize bg-[#F3F3F3] hover:bg-[#dbdbdb]"
                     checked={column.getIsVisible()}
                     onCheckedChange={(value) =>
                       column.toggleVisibility(!!value)
@@ -233,10 +238,13 @@ function AdminUsers({ users }: { users: User[] }) {
         <Table>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
-              <TableRow key={headerGroup.id}>
+              <TableRow
+                key={headerGroup.id}
+                className="bg-[#c2c2c2] hover:bg-[#c2c2c2] text-white"
+              >
                 {headerGroup.headers.map((header) => {
                   return (
-                    <TableHead key={header.id}>
+                    <TableHead key={header.id} className="text-white">
                       {header.isPlaceholder
                         ? null
                         : flexRender(
@@ -255,7 +263,8 @@ function AdminUsers({ users }: { users: User[] }) {
                 <TableRow
                   key={row.id}
                   data-state={row.getIsSelected() && "selected"}
-                  className="hover:bg-slate-300"
+                  // className="hover:bg-slate-300"
+                  className="hover:bg-[#dbdbdb]"
                 >
                   {row.getVisibleCells().map((cell) => (
                     <TableCell key={cell.id}>

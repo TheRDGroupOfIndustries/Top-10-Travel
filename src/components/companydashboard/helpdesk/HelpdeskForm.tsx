@@ -57,7 +57,7 @@ export default function HelpDeskForm() {
         <Button
           disabled={isPending}
           onClick={handleSend}
-          className="bg-[#FCAE1D]"
+          className="bg-[#fcaf1e] hover:bg-[#fcaf1e]/80"
         >
           {isPending ? "Creating..." : "Create Helpdesk"}
         </Button>

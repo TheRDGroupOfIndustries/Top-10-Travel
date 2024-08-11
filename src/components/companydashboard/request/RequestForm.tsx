@@ -30,39 +30,40 @@ export default function RequestForm() {
     else toast.error(error);
   };
   return (
-      <Card className="border-none bg-[#F3F3F3]">
-        <CardHeader>
-          <CardTitle>Create Your  <span className="text-[#FCAE1D]">Request</span></CardTitle>
-          <CardDescription>
-            Here you can create a request for the admin to change your priority
-            etc.
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <form>
-            <div className="grid w-full items-center gap-4">
-              <div className="flex flex-col space-y-1.5">
-                <Label htmlFor="message">Message</Label>
-                <Textarea
-                  id="message"
-                  name="message"
-                  onChange={(e) => setMessage(e.target.value)}
-                  placeholder="Message of your request"
-                />
-              </div>
+    <Card className="border-none bg-[#F3F3F3]">
+      <CardHeader>
+        <CardTitle>
+          Create Your <span className="text-[#FCAE1D]">Request</span>
+        </CardTitle>
+        <CardDescription>
+          Here you can create a request for the admin to change your priority
+          etc.
+        </CardDescription>
+      </CardHeader>
+      <CardContent>
+        <form>
+          <div className="grid w-full items-center gap-4">
+            <div className="flex flex-col space-y-1.5">
+              <Label htmlFor="message">Message</Label>
+              <Textarea
+                id="message"
+                name="message"
+                onChange={(e) => setMessage(e.target.value)}
+                placeholder="Message of your request"
+              />
             </div>
-          </form>
-        </CardContent>
-        <CardFooter className="flex justify-between">
-          <Button
-            disabled={isPending}
-            onClick={handleSend}
-            className="bg-[#FCAE1D]"
-          >
-            {isPending ? "Sending..." : "Send Request"}
-          </Button>
-        </CardFooter>
-      </Card>
-    
+          </div>
+        </form>
+      </CardContent>
+      <CardFooter className="flex justify-between">
+        <Button
+          disabled={isPending}
+          onClick={handleSend}
+          className="bg-[#fcaf1e] hover:bg-[#fcaf1e]/80"
+        >
+          {isPending ? "Sending..." : "Send Request"}
+        </Button>
+      </CardFooter>
+    </Card>
   );
 }

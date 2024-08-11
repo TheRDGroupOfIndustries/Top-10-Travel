@@ -1,6 +1,6 @@
 "use client";
 
-import Lenis from "@studio-freight/lenis";
+import Lenis from "lenis";
 import { useEffect } from "react";
 
 function Scroll() {
@@ -25,4 +25,5 @@ function Scroll() {
 
   return null;
 }
+
 export default Scroll;

@@ -112,7 +112,6 @@ export const AnimatedText = ({
 function HomeHero() {
   const divref = useRef<HTMLDivElement>(null);
   const [scope, balloonAnimate] = useAnimate();
-  const [headingScope, headingAnimate] = useAnimate();
   const {
     visible,
     selectedCity,
@@ -159,6 +158,7 @@ function HomeHero() {
   const toggle = (key: "DMC" | "AGENCY" | "HOTEL" | "Influencer") => {
     toggleVisible(key);
   };
+
   const handleFind = () => {
     window.scrollBy({
       top: divref.current?.clientHeight,
@@ -252,10 +252,7 @@ function HomeHero() {
         </AnimatePresence>
       </div>
 
-      <div
-        ref={headingScope}
-        className="h-full flex flex-col md:gap-0 lg:gap-0 gap-1 justify-start pt-16 md:pt-24 lg:pt-32 xl:pt-40 w-full"
-      >
+      <div className="h-full flex flex-col md:gap-0 lg:gap-0 gap-1 justify-start pt-16 md:pt-24 lg:pt-32 xl:pt-40 w-full">
         <h3
           id="firstLine"
           aria-hidden
