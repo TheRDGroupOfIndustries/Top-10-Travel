@@ -137,7 +137,10 @@ export const columns: ColumnDef<Company>[] = [
       return (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button size="icon" variant="ghost">
+            <Button
+              size="icon"
+              variant="ghost"
+            >
               <SquarePen className="h-4 w-4" />
             </Button>
           </DropdownMenuTrigger>
@@ -186,9 +189,17 @@ export default function AdminPackagelisting({
     React.useState<VisibilityState>({});
   const [rowSelection, setRowSelection] = React.useState({});
   const [showAddUserForm, setShowAddUserForm] = React.useState(false);
+  const [searchValue, setSearchValue] = React.useState("");
+
+  const data = React.useMemo(() => {
+    const val = searchValue.toLowerCase().trim();
+    return listings.filter(
+      (i) => i.id.includes(val) || i.legalName.toLowerCase().includes(val)
+    );
+  }, [searchValue]);
 
   const table = useReactTable({
-    data: listings,
+    data: data,
     columns,
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,
@@ -205,13 +216,14 @@ export default function AdminPackagelisting({
       rowSelection,
     },
   });
-  const [searchValue, setSearchValue] = React.useState("");
 
   return (
     <Card className="mt-5 z-[999] p-4">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-5">
-          <h2 className="text-2xl font-bold">Listing of Company & Influencer</h2>
+          <h2 className="text-2xl font-bold">
+            Listing of Company & Influencer
+          </h2>
           <p className="text-xs">
             <span className="font-bold">
               {table.getFilteredRowModel().rows.length}
@@ -225,21 +237,22 @@ export default function AdminPackagelisting({
         </Button>
       </div>
       <div className="flex items-center">
-      <Input
-  placeholder="Search by name or id..."
-  value={searchValue}
-  onChange={(event) => {
-    const value = event.target.value;
-    setSearchValue(value);
-    table.getColumn("legalName")?.setFilterValue(value);
-    table.getColumn("id")?.setFilterValue(value);
-  }}
-  className="max-w-sm focus-visible:ring-0"
-/>
+        <Input
+          placeholder="Search by name or id..."
+          value={searchValue}
+          onChange={(event) => {
+            const value = event.target.value;
+            setSearchValue(value);
+          }}
+          className="max-w-sm focus-visible:ring-0"
+        />
 
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="outline" className="ml-auto">
+            <Button
+              variant="outline"
+              className="ml-auto"
+            >
               Columns <ChevronDown className="ml-2 h-4 w-4" />
             </Button>
           </DropdownMenuTrigger>
@@ -308,7 +321,7 @@ export default function AdminPackagelisting({
                   colSpan={columns.length}
                   className="h-24 text-center hover:bg-slate-300"
                 >
-                  No results.a
+                  No results
                 </TableCell>
               </TableRow>
             )}

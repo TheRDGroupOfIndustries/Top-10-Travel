@@ -169,13 +169,15 @@ function TopTenHotels() {
             )}
           </div>
         </div>
-        <motion.div
-          className="bg-black px-5 py-2 rounded-md mt-6 mb-5 mx-auto hover:bg-gray-800 w-fit transition-colors text-white font-bold"
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.9 }}
-        >
-          <Link href={`/Hotels`}>View more</Link>
-        </motion.div>
+        <Link href={`/Hotels`}>
+          <motion.div
+            className="bg-black px-5 py-2 rounded-md mt-6 mb-5 mx-auto hover:bg-gray-800 w-fit transition-colors text-white font-bold"
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
+          >
+            View more
+          </motion.div>
+        </Link>
       </div>
     </main>
   );

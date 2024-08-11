@@ -8,23 +8,25 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { db } from "@/core/client/db";
+import getSessionorRedirect from "@/core/utils/getSessionorRedirect";
 import { Bell } from "lucide-react";
-import { unstable_cache } from "next/cache";
-import AdminNotificationButtons from "./AdminNotificationButtons";
+import { notFound } from "next/navigation";
 
-const getRequests = unstable_cache(
-  async () => {
-    return await db.request.findMany({
-      where: { status: "PENDING" },
-      orderBy: { createdAt: "desc" },
-    });
-  },
-  undefined,
-  { tags: ["admin-requests"], revalidate: 60 }
-);
+const getEnquiries = async (companyId: string) => {
+  return await db.enquiry.findMany({
+    where: { companyId },
+    orderBy: { createdAt: "desc" },
+  });
+};
 
-const AdminNotifications = async () => {
-  const requests = await getRequests();
+const CompanyEnquiriesDropdown = async () => {
+  const session = await getSessionorRedirect();
+  const company = await db.company.findUnique({
+    where: { userId: session.user.id },
+    select: { id: true },
+  });
+  if (!company) return notFound();
+  const enquiries = await getEnquiries(company.id);
 
   return (
     <>
@@ -39,25 +41,29 @@ const AdminNotifications = async () => {
         </DropdownMenuTrigger>
         <DropdownMenuContent className="w-[300px] md:w-[400px] lg:w-[550px] h-[450px] ml-6 sm:ml-0 sm:mr-10 overflow-y-auto space-y-2">
           <DropdownMenuLabel className="text-lg">
-            Requests ({requests.length})
+            Enquiries ({enquiries.length})
           </DropdownMenuLabel>
           <DropdownMenuSeparator />
-          {requests.map((req) => (
+          {enquiries.map((enq) => (
             <div
-              className="flex flex-col p-2 gap-1 bg-secondary hover:bg:secondary/80"
-              key={req.id}
+              className="flex w-full flex-col p-2 gap-1 bg-secondary hover:bg:secondary/80"
+              key={enq.id}
             >
-              <p><strong>CompanyId:</strong>{req.companyId}</p>
-              {req.message}
-              <AdminNotificationButtons id={req.id} />
+              <strong className="text-[#FCAE1D] flex flex-col md:flex-row">
+                {enq.name}
+                <span className="md:ml-2 text-sm font-normal text-muted-foreground">
+                  ({enq.email})
+                </span>
+              </strong>
+              <p className="break-words text-sm">{enq.message}</p>
             </div>
           ))}
-          {requests.length === 0 && (
-            <DropdownMenuItem>No Requests pending</DropdownMenuItem>
+          {enquiries.length === 0 && (
+            <DropdownMenuItem>No Enquiries available</DropdownMenuItem>
           )}
         </DropdownMenuContent>
       </DropdownMenu>
-      {requests.length > 0 ? (
+      {enquiries.length > 0 ? (
         <div className="absolute  top-0 right-0">
           <span className="relative flex h-3 w-3">
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-yellow-400 opacity-75"></span>
@@ -68,4 +74,4 @@ const AdminNotifications = async () => {
     </>
   );
 };
-export default AdminNotifications;
+export default CompanyEnquiriesDropdown;

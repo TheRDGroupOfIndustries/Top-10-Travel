@@ -4,6 +4,7 @@ import getServersession from "@/core/utils/getServerSession";
 import { ThemeButton } from "@/components/reusable/ThemeButton";
 import BreadcrumbLinks from "../admin/Breadcrumb/BreadcrumbLinks";
 import SmallScreenSidebar from "../reusable/SmallScreenSidebar";
+import CompanyEnquiries from "./CompanyEnquiries";
 
 async function CompanyHeader() {
   const session = await getServersession();
@@ -15,6 +16,9 @@ async function CompanyHeader() {
           <BreadcrumbLinks />
         </div>
         <div className="flex flex-row-reverse lg:flex-row items-center lg:justify-center justify-between gap-3">
+          <div className="relative cursor-pointer">
+            <CompanyEnquiries />
+          </div>
           <div className="flex items-center justify-center gap-1">
             <Avatar className="w-9 h-9">
               <AvatarImage src={session?.user.image} />
