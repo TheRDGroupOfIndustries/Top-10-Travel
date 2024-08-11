@@ -1,19 +1,9 @@
 "use client";
 
-import Link from "next/link";
-import React from "react";
-import {
-  Home,
-  Users,
-  List,
-  Activity,
-  FileText,
-  HelpCircle,
-  Settings,
-  LogOut,
-} from "react-feather";
-import { usePathname } from "next/navigation";
 import { signOut } from "next-auth/react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { FileText, HelpCircle, Home, List, LogOut, Users } from "react-feather";
 
 function AdminSidebar() {
   const pathname = usePathname();
@@ -26,39 +16,39 @@ function AdminSidebar() {
   ];
 
   return (
-    <div className="h-[100vh] left-0 top-0 fixed text-black flex flex-col pl-2">
-      <div className="p-5 py-7">
+    <div className="h-[100vh] w-[18vw] pb-3 text-black flex flex-col items-center">
+      <div className="py-7">
         <Link href="/">
-          <h1 className="text-xl font-bold">Top Ten Travels</h1>
+          <h1 className="text-xl text-center font-bold">Top Ten Travels</h1>
         </Link>
       </div>
-      <nav className="flex-grow">
-        <ul className="py-6">
+      <nav className="flex flex-col w-full">
+        <div>
           {menuItems.map((item, index) => (
-            <li key={index} className="-z-10">
+            <div key={index} className="text-start mb-1 px-5">
               <Link
                 href={item.href}
-                className={`flex items-center xl:px-6 px-3 py-3 mt-1 text-black  dark:hover:bg-[#020817] dark:hover:text-white hover:bg-white transition-colors duration-200 rounded-l-full ${
+                className={`flex items-center text-lg xl:px-8 px-3 py-4 transition-colors duration-300 rounded-xl ${
                   pathname === item.href
-                    ? "bg-white dark:bg-[#020817] dark:text-white"
-                    : ""
+                    ? "bg-[#FCAE1D] hover:bg-[#FCAE1D] dark:bg-[#020817] text-white dark:text-white"
+                    : "hover:bg-slate-100"
                 }`}
               >
-                <item.icon className="w-5 h-5 mr-3" />
+                <item.icon className="w-6 h-6 mr-3" />
                 {item.name}
               </Link>
-            </li>
+            </div>
           ))}
-        </ul>
+        </div>
       </nav>
-      <div className="p-4">
-        <button
+      <div className="mt-auto w-full px-5">
+        <div
           onClick={() => signOut()}
-          className="flex items-center text-black hover:text-white transition-colors py-6 duration-200"
+          className={`flex items-center text-lg xl:px-8 px-3 py-4 transition-colors duration-300 rounded-xl hover:bg-[#FCAE1D] hover:text-white`}
         >
-          <LogOut className="w-5 h-5 mr-3" />
+          <LogOut className="w-6 h-6 mr-3" />
           Logout
-        </button>
+        </div>
       </div>
     </div>
   );
