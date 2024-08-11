@@ -19,7 +19,7 @@ const getPackages = async (id: string) => {
 
 const PackageCard = ({ data }: { data: Package }) => {
   return (
-    <Card className="w-full mt-5 h-[450px] rounded-xl max-w-sm mx-auto transition-all duration-300 hover:shadow-lg ">
+    <Card className="w-full mt-5 h-[450px] rounded-xl max-w-sm mx-auto transition-all duration-300 hover:shadow-lg border-none bg-[#F3F3F3] ">
       <div className="relative h-[50%] overflow-hidden">
         <Image
           fill
@@ -32,7 +32,7 @@ const PackageCard = ({ data }: { data: Package }) => {
         </div>
       </div>
       <CardContent className="p-4 h-[50%]">
-        <h2 className="text-xl md:text-2xl font-bold ">{data.title}</h2>
+        <h2 className="text-xl md:text-2xl font-bold text-[#FCAE1D]">{data.title}</h2>
         <p className="text-foreground/80 mb-4 text-sm md:text-base text-left line-clamp-5">
           {data.desc}
         </p>

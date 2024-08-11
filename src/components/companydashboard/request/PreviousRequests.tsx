@@ -9,7 +9,7 @@ const PreviousRequests = ({ requests }: { requests: Request[] }) => {
           className="border-none bg-[#F3F3F3] p-4 rounded-md"
           key={request.id}
         >
-          <h3>{request.message.slice(17)}</h3>
+          <p className=" text-base leading-relaxed ">{request.message.slice(17)}</p>
           <Badge
           className="text-sm mt-2 border-[#FCAE1D] border-2 rounded-full"
             variant={
