@@ -19,6 +19,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
+import { signOut } from "next-auth/react";
 import { ArrowDownUp } from "lucide-react";
 import { FiSidebar } from "react-icons/fi";
 import React from "react";
@@ -49,7 +50,7 @@ const SmallScreenSidebar = () => {
       <SheetTrigger className="xl:hidden">
         <FiSidebar size={28} className="text-gray-900 bg-white" />
       </SheetTrigger>
-      <SheetContent>
+      <SheetContent className="flex flex-col h-full">
         <SheetHeader>
           <SheetTitle>LOGO</SheetTitle>
         </SheetHeader>
@@ -59,11 +60,12 @@ const SmallScreenSidebar = () => {
               <SheetClose asChild key={index}>
                 <Link
                   href={item.href}
-                  className={`flex md:text-xl text-lg items-center transition-colors duration-200 rounded-lg px-3 py-3 hover:bg-[#F3F3F3] cursor-pointer ${
-                    pathname === item.href
-                      ? " hover:text-gray-900 text-white hover:bg-[#FCAE1D] bg-[#FCAE1D]"
-                      : ""
-                  }`}
+                  className={`flex md:text-xl text-lg items-center transition-colors duration-200 rounded-lg px-3 py-3 hover:bg-[#F3F3F3]  cursor-pointer
+                    ${
+                      pathname === item.href
+                        ? "text-white bg-[#FCAE1D] hover:bg-[#FCAE1D]"
+                        : "text-gray-900"
+                    }`}
                 >
                   <item.icon className="w-6 h-6 mr-3" />
                   {item.name}
@@ -79,8 +81,8 @@ const SmallScreenSidebar = () => {
                   className={`flex md:text-xl text-lg items-center transition-colors duration-200 rounded-lg px-3 py-3 hover:bg-[#F3F3F3]  cursor-pointer
                     ${
                       pathname === item.href
-                        ? "hover:text-gray-900 text-white bg-[#FCAE1D] hover:bg-[#FCAE1D]"
-                        : ""
+                        ? "text-white bg-[#FCAE1D] hover:bg-[#FCAE1D]"
+                        : "text-gray-900"
                     }`}
                 >
                   <item.icon className="w-6 h-6 mr-3" />
@@ -88,6 +90,16 @@ const SmallScreenSidebar = () => {
                 </Link>
               </SheetClose>
             ))}
+        </div>
+        <div className="mt-auto">
+          <SheetClose asChild>
+            <div
+              className={`flex w-full md:text-xl text-lg items-center transition-colors duration-200 rounded-lg px-3 py-3 cursor-pointer text-gray-900 hover:text-white hover:bg-[#FCAE1D]`}
+            >
+              <LogOut className="w-6 h-6 mr-3" />
+              Logout
+            </div>
+          </SheetClose>
         </div>
       </SheetContent>
     </Sheet>

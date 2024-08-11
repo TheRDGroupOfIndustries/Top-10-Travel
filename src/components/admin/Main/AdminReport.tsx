@@ -29,6 +29,7 @@ const AdminReport = ({ report }: { report: ReportData }) => {
   const filteredReport = report.filter((company) =>
     company.legalName.toLowerCase().includes(search.toLowerCase())
   );
+
   const getValidUrl = (url: any) => {
     try {
       const u = new URL(url);
@@ -37,18 +38,21 @@ const AdminReport = ({ report }: { report: ReportData }) => {
       return "/UploadImage.jpg";
     }
   };
+
   return (
     <div className="space-y-6 mt-5">
-      <Card>
+      <Card className="bg-[#f3f3f3]">
         <CardHeader>
-          <CardTitle>
-            Company Report
-            <p className="text-sm">
+          <CardTitle className="lg:text-3xl md:text-2xl text-xl font-semibold">
+            <p>Company <span className="text-[#fcaf1e]">Report</span></p>
+            <p className="md:text-base text-sm mt-1">
               <span className="font-bold my-4">{filteredReport.length}</span>{" "}
               total listings
             </p>
           </CardTitle>
-          <CardDescription>See report for all the companies.</CardDescription>
+          <CardDescription className="font-medium text-sm text-[#36454F]">
+            See report for all the companies.
+          </CardDescription>
         </CardHeader>
         <CardContent>
           <AdminReportDownload report={filteredReport} />
@@ -58,25 +62,25 @@ const AdminReport = ({ report }: { report: ReportData }) => {
             placeholder="Search by name..."
             value={search}
             onChange={(event) => setSearch(event.target.value)}
-            className="max-w-sm focus-visible:ring-none focus-visible:ring-0"
+            className="max-w-sm focus-visible:ring-none focus-visible:ring-0 bg-[#fbfbfb]"
           />
         </CardContent>
       </Card>
 
       {filteredReport.map((company) => (
-        <Card key={company.id}>
+        <Card key={company.id} className="bg-[#f3f3f3]">
           <CardHeader className="flex flex-col sm:flex-row gap-8 md:gap-24 items-center justify-between">
             <div className="flex flex-col">
               <CardTitle className="font-bold my-4 text-center sm:text-left">
                 {company.legalName}
               </CardTitle>
               <div className="text-sm flex items-center sm:items-start gap-2 flex-wrap mt-4 max-w-sm lg:max-w-lg">
-                <Badge>Total reviews: {company.reviews}</Badge>
-                <Badge>Rating: {company.rating}</Badge>
-                <Badge>Country Priority: {company.priority}</Badge>
-                <Badge>City Priority: {company.state_priority}</Badge>
-                <Badge>Country : {company.country}</Badge>
-                <Badge>City : {company.city}</Badge>
+                <Badge className="text-[#FCAE1D] font-semibold bg-[#fcae1d11]">Total reviews: {company.reviews}</Badge>
+                <Badge className="text-[#FCAE1D] font-semibold bg-[#fcae1d11]">Rating: {company.rating}</Badge>
+                <Badge className="text-[#FCAE1D] font-semibold bg-[#fcae1d11]">Country Priority: {company.priority}</Badge>
+                <Badge className="text-[#FCAE1D] font-semibold bg-[#fcae1d11]">City Priority: {company.state_priority}</Badge>
+                <Badge className="text-[#FCAE1D] font-semibold bg-[#fcae1d11]">Country : {company.country}</Badge>
+                <Badge className="text-[#FCAE1D] font-semibold bg-[#fcae1d11]">City : {company.city}</Badge>
               </div>
             </div>
             <Image
@@ -88,19 +92,19 @@ const AdminReport = ({ report }: { report: ReportData }) => {
             />
           </CardHeader>
           <CardContent>
-            <h2>All Reviews:</h2>
+            <h2 className="mb-1">All Reviews:</h2>
             <Table>
               <TableHeader>
-                <TableRow>
-                  <TableHead>Review Id</TableHead>
-                  <TableHead>Name</TableHead>
-                  <TableHead>Review</TableHead>
-                  <TableHead>Created At</TableHead>
+                <TableRow className="bg-[#c2c2c2] hover:bg-[#c2c2c2] text-white">
+                  <TableHead className="text-white">Review Id</TableHead>
+                  <TableHead className="text-white">Name</TableHead>
+                  <TableHead className="text-white">Review</TableHead>
+                  <TableHead className="text-white">Created At</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
                 {company.company_reviews.map((review) => (
-                  <TableRow key={review.id} className="hover:bg-slate-300">
+                  <TableRow key={review.id}   className="hover:bg-[#dbdbdb]">
                     <TableCell>{review.id}</TableCell>
                     <TableCell>{review.name}</TableCell>
                     <TableCell className="min-w-[200px] md:w-[300px]">

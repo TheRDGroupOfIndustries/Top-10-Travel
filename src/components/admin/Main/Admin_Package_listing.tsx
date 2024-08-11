@@ -137,10 +137,7 @@ export const columns: ColumnDef<Company>[] = [
       return (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button
-              size="icon"
-              variant="ghost"
-            >
+            <Button size="icon" variant="ghost">
               <SquarePen className="h-4 w-4" />
             </Button>
           </DropdownMenuTrigger>
@@ -218,13 +215,13 @@ export default function AdminPackagelisting({
   });
 
   return (
-    <Card className="mt-5 z-[999] p-4">
+    <Card className="mt-5 z-[999] p-4 bg-[#F3F3F3]">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-5">
-          <h2 className="text-2xl font-bold">
-            Listing of Company & Influencer
+          <h2 className="lg:text-3xl md:text-2xl text-xl font-semibold">
+            Listing of <span className="text-[#fcaf1e]">Company</span> & <span className="text-[#fcaf1e]">Influencer</span>
           </h2>
-          <p className="text-xs">
+          <p className="font-medium text-sm text-[#36454F]">
             <span className="font-bold">
               {table.getFilteredRowModel().rows.length}
             </span>{" "}
@@ -232,7 +229,7 @@ export default function AdminPackagelisting({
           </p>
         </div>
 
-        <Button asChild>
+        <Button asChild className="bg-[#fcaf1e] hover:bg-[#fcaf1e]/80">
           <Link href="/admin/companies/add-company">Add Listing +</Link>
         </Button>
       </div>
@@ -244,15 +241,12 @@ export default function AdminPackagelisting({
             const value = event.target.value;
             setSearchValue(value);
           }}
-          className="max-w-sm focus-visible:ring-0"
+          className="max-w-sm bg-[#fbfbfb] focus-visible:ring-0"
         />
 
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button
-              variant="outline"
-              className="ml-auto"
-            >
+            <Button variant="outline" className="ml-auto bg-[#F3F3F3] hover:bg-[#dbdbdb]">
               Columns <ChevronDown className="ml-2 h-4 w-4" />
             </Button>
           </DropdownMenuTrigger>
@@ -264,7 +258,7 @@ export default function AdminPackagelisting({
                 return (
                   <DropdownMenuCheckboxItem
                     key={column.id}
-                    className="capitalize"
+                    className="capitalize bg-[#F3F3F3] hover:bg-[#dbdbdb]"
                     checked={column.getIsVisible()}
                     onCheckedChange={(value) =>
                       column.toggleVisibility(!!value)
@@ -281,10 +275,10 @@ export default function AdminPackagelisting({
         <Table>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
-              <TableRow key={headerGroup.id}>
+              <TableRow key={headerGroup.id} className="bg-[#c2c2c2] hover:bg-[#c2c2c2] text-white">
                 {headerGroup.headers.map((header) => {
                   return (
-                    <TableHead key={header.id}>
+                    <TableHead key={header.id} className="text-white">
                       {header.isPlaceholder
                         ? null
                         : flexRender(
@@ -303,7 +297,7 @@ export default function AdminPackagelisting({
                 <TableRow
                   key={row.id}
                   data-state={row.getIsSelected() && "selected"}
-                  className="hover:bg-slate-300"
+                  className="hover:bg-[#dbdbdb]"
                 >
                   {row.getVisibleCells().map((cell) => (
                     <TableCell key={cell.id}>

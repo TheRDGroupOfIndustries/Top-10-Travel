@@ -10,22 +10,17 @@ export default function AdminLayout({
 }>) {
   return (
     <main className="min-h-screen w-full">
-      <ThemeProvider attribute="class" defaultTheme="light">
         <Toaster richColors />
 
-        <div className="w-full h-full relative">
-          <div className="left-0 top-0 z-[999] fixed min-h-screen hidden xl:block">
+        <div className="w-full h-full grid grid-cols-12">
+          <div className="col-span-2 min-h-screen hidden xl:block">
             <AdminSidebar />
           </div>
-
-          <div className="relative">
-            <div className="xl:ml-[19vw] xl:w-[80vw] w-[99vw] p-1">
-              <AdminHeader />
-              {children}
-            </div>
+          <div className="xl:col-span-10 col-span-12 p-2 xl:pl-0 mx-1 lg:mx-8">
+            <AdminHeader />
+            {children}
           </div>
         </div>
-      </ThemeProvider>
     </main>
   );
 }

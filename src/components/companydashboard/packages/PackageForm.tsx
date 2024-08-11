@@ -57,6 +57,7 @@ export default function RequestForm() {
           <Button
             disabled={isPending}
             onClick={handleSend}
+            className="bg-[#fcaf1e] hover:bg-[#fcaf1e]/80"
           >
             {isPending ? "Sending..." : "Send Request"}
           </Button>

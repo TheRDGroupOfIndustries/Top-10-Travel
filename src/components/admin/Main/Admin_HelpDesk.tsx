@@ -125,10 +125,10 @@ const HelpDeskDashboard: React.FC<HelpDeskDashboardProps> = ({
 
   return (
     <div className="space-y-6 mt-5">
-      <Card>
+      <Card className="bg-[#F3F3F3]">
         <CardHeader>
-          <CardTitle>Help Desk Dashboard</CardTitle>
-          <CardDescription>
+          <CardTitle className="lg:text-3xl md:text-2xl text-xl font-semibold"><span className="text-[#fcaf1e]">Help Desk</span> Dashboard</CardTitle>
+          <CardDescription className="font-medium text-sm text-[#36454F]">
             Manage and respond to customer inquiries and issues
           </CardDescription>
         </CardHeader>
@@ -154,20 +154,20 @@ const HelpDeskDashboard: React.FC<HelpDeskDashboardProps> = ({
             <div className="flex items-center space-x-2">
               <Input
                 placeholder="Search tickets..."
-                className="max-w-64"
                 value={searchTerm}
                 onChange={handleSearch}
+                className="max-w-64 bg-[#fbfbfb] focus-visible:ring-0"
               />
-              <Button size="icon">
+              <Button size="icon" className="bg-[#fcaf1e] hover:bg-[#fcaf1e]/80">
                 <Search className="h-4 w-4" />
               </Button>
             </div>
             <div className="flex items-center space-x-2">
               <Select onValueChange={handleFilterChange}>
-                <SelectTrigger className="">
+                <SelectTrigger  className="ml-auto bg-[#F3F3F3] hover:bg-[#dbdbdb]">
                   <SelectValue placeholder="Filter by status" />
                 </SelectTrigger>
-                <SelectContent>
+                <SelectContent className="ml-auto bg-[#F3F3F3] hover:bg-[#dbdbdb]">
                   <SelectItem value="All">All</SelectItem>
                   <SelectItem value="PENDING">PENDING</SelectItem>
                   <SelectItem value="RESOLVED">RESOLVED</SelectItem>
@@ -177,18 +177,18 @@ const HelpDeskDashboard: React.FC<HelpDeskDashboardProps> = ({
           </div>
           <Table>
             <TableHeader>
-              <TableRow>
-                <TableHead>ID</TableHead>
-                <TableHead>Title</TableHead>
-                <TableHead>Status</TableHead>
-                <TableHead>Created At</TableHead>
-                <TableHead>Description</TableHead>
-                <TableHead>Actions</TableHead>
+              <TableRow className="bg-[#c2c2c2] hover:bg-[#c2c2c2] text-white">
+                <TableHead className="text-white">ID</TableHead>
+                <TableHead className="text-white">Title</TableHead>
+                <TableHead className="text-white">Status</TableHead>
+                <TableHead className="text-white">Created At</TableHead>
+                <TableHead className="text-white">Description</TableHead>
+                <TableHead className="text-white">Actions</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
               {filteredTickets.map((ticket) => (
-                <TableRow className="hover:bg-slate-300" key={ticket.id}>
+                <TableRow className="hover:bg-[#dbdbdb]" key={ticket.id}>
                   <TableCell>{ticket.id}</TableCell>
                   <TableCell>{ticket.title}</TableCell>
                   <TableCell>

@@ -18,7 +18,7 @@ import Link from "next/link";
 import { useContext } from "react";
 
 const CarouselCard = ({ hotel }: { hotel: any }) => (
-  <div className="h-72 rounded-xl overflow-hidden md:hover:-translate-y-4 hover:shadow-lg  duration-300 transition-all relative">
+  <div className="h-72 rounded-xl overflow-hidden md:hover:-translate-y-4 hover:shadow-lg duration-300 transition-all relative">
     <div className="w-full h-full absolute inset-0 bg-black/30">
       <div className="absolute bottom-0 w-full flex items-center justify-between p-3">
         <div className="flex flex-col items-start">
