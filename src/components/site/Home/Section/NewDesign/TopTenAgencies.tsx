@@ -17,7 +17,7 @@ import { HomeContext } from "@/hooks/context/HomeContext";
 import { cn, getValidUrl } from "@/lib/utils";
 
 const CarouselCard = ({ agency }: { agency: any }) => (
-  <div className="flex md:hover:-translate-y-4 duration-300 transition-all flex-col h-full">
+  <div className="flex md:hover:-translate-y-4 duration-300 transition-all w-full flex-col h-full">
     <div className="relative h-48 sm:h-56 md:h-64 lg:h-72 rounded-lg overflow-hidden">
       <div className="absolute top-0 left-0 bg-colorAll w-[80%] h-[70%] rounded-lg"></div>
       <div className="absolute bottom-0 right-0 w-[95%] h-[95%] rounded-lg overflow-hidden">
@@ -134,13 +134,13 @@ const TopTenAgencies = () => {
             )}
           </CarouselContent>
         </Carousel>
-        <div className="block md:hidden">
+        <div className="block md:hidden w-full">
           <div className="w-full flex flex-col items-center justify-center gap-5">
             {isLoading ? (
               Array.from({ length: 5 }).map((_, index) => (
                 <div
                   key={index}
-                  className="flex flex-col items-center justify-center gap-5"
+                  className="w-[80%] sm:w-[50vw] flex h-full flex-col items-center justify-center gap-5"
                 >
                   <HomeCompanySkeleton role="AGENCY" />
                 </div>
@@ -149,7 +149,7 @@ const TopTenAgencies = () => {
               data.slice(0, 10).map((agency) => (
                 <div
                   key={agency.id}
-                  className="flex flex-col items-center justify-center gap-5"
+                  className="flex flex-col items-center justify-center gap-5 w-[80%] h-full sm:w-[50vw]"
                 >
                   <CarouselCard agency={agency} />
                 </div>
