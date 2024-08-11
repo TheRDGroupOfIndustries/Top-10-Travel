@@ -16,7 +16,7 @@ export default function CompanyLayout({
           <div className="col-span-2 min-h-screen hidden xl:block">
             <CompanySidebar />
           </div>
-          <div className="xl:col-span-10 col-span-12 p-2 xl:pl-0 mx-8">
+          <div className="xl:col-span-10 col-span-12 p-2 xl:pl-0 mx-1 lg:mx-8">
             <CompanyHeader />
             {children}
           </div>

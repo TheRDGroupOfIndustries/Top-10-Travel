@@ -18,6 +18,7 @@ export const createRequestAction = async (values: Pick<Request, "message">) => {
     const res = await db.request.create({
       data: {
         message: `New request from ${company.legalName}: ${values.message}`,
+        
         status: "PENDING",
         company: { connect: { id: company.id } },
       },
