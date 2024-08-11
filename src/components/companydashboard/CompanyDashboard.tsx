@@ -36,7 +36,7 @@ const CompanyDashboard = ({
                 name="legalName"
                 value={data.legalName}
                 text="Edit Your legalName..."
-                className="text-3xl font-bold text-center my-2"
+                className="text-3xl font-bold text-center my-2 "
               />
               <div className="text-lg md:flex-row flex  flex-wrap items-center justify-center md:justify-start  text-gray-950  md:gap-8 gap-5 my-2">
                 <InputWithSave
@@ -81,7 +81,7 @@ const CompanyDashboard = ({
                     Suspended
                   </Badge>
                 )}
-                {!data.isCertified ? (
+                {!data.isCertified && (
                   <Badge
                     className="font-medium text-[14px] text-[#FCAE1D] rounded-sm bg-[#fcae1d15]"
                     variant="destructive"
@@ -89,28 +89,18 @@ const CompanyDashboard = ({
                   >
                     <Link href="/company/request">Uncertified</Link>
                   </Badge>
-                ):(
-                  <Badge
-                    className="font-medium text-[14px] text-[#FCAE1D] rounded-sm bg-[#fcae1d15]"
-                    variant="destructive"
-                    title="Contact admin to get certified."
-                  >
-                    <Link href="/company/request">Certified</Link>
-                  </Badge>
                 )}
               </div>
             </div>
           </div>
         </CardContent>
       </Card>
-      <Card className="border-none bg-[#F3F3F3]">
-        <CardHeader>
-          <CardTitle className="text-center text-[25px] md:text-left font-semibold">
-            <span className="text-[#FCAE1D]">Company </span>Details
+      <Card className="border-none bg-[#F3F3F3] px-2 py-4">
+          <CardTitle className="text-center text-[25px] md:text-left font-semibold font-sans">
+            <span className="text-[#FCAE1D] p-3">Company</span>Details
           </CardTitle>
-        </CardHeader>
         <CardContent className="w-full grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3  gap-2 p-2 md:p-5">
-          <div className="w-full flex flex-col item-center justify-start gap-2">
+          <div className="w-full flex flex-col  gap-2">
             <CompanyDataInputwSave
               name="ownerName"
               value={data.companyData?.ownerName}
@@ -143,7 +133,7 @@ const CompanyDashboard = ({
               type="number"
             />
           </div>
-          <div className="w-full flex flex-col item-center justify-start gap-2">
+          <div className="w-full flex flex-col md:items-center lg:items-center items-start justify-start gap-2">
             <CompanyDataInputwSave
               name="pincode"
               value={data.companyData?.pincode}

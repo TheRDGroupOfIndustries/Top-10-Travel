@@ -5,7 +5,7 @@ import { Label } from "../ui/label";
 import { Button } from "../ui/button";
 import useMutation from "@/hooks/useMutation";
 import { editCompanyAction } from "@/core/server/actions/company/editCompany";
-import { Pencil, Upload, UserRoundPen } from "lucide-react";
+import { Edit, Pencil, Upload, UserRoundPen } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { toast } from "sonner";
 import Image from "next/image";
@@ -49,7 +49,7 @@ const CompanyDataInputwSave = ({
               setIsChanging(false);
             } else toast.error(error);
           }}
-          className="flex items-center gap-2 justify-center"
+          className="flex items-center gap-2 lg:justify-center"
         >
           {name === "description" || name === "socialLinks" ? (
             <Textarea
@@ -65,7 +65,6 @@ const CompanyDataInputwSave = ({
               name={name}
               id={name}
               defaultValue={value ?? ""}
-              placeholder={text}
               className="mb-[1%]"
               type={type}
               minLength={minLength}
@@ -83,19 +82,19 @@ const CompanyDataInputwSave = ({
       ) : (
         <>
           <div
-            className="w-full flex flex-wrap items-start justify-center md:justify-start gap-3"
+            className="w-full flex flex-wrap  gap-3"
             onDoubleClick={() => setIsChanging(true)}
           >
-            <strong
+            <span
               className={cn(
-                "flex items-center justify-center md:justify-start gap-2",
+                "flex gap-2 font-bold text-[13px]",
                 className
               )}
             >
               {name.toUpperCase()}:
-            </strong>
-            <div className="flex items-center justify-center gap-1">
-              <p className="w-full max-w-[300px] break-words line-clamp-2 text-xs md:text-sm lg:text-base">
+            </span>
+            <div className="flex  gap-1">
+              <p className="w-full max-w-[300px] break-words line-clamp-2 text-[13px] md:text-sm lg:text-base">
                 {(!value || value === "") && "Not provided"}
                 {value && value.includes("@")
                   ? `${value.split("@")[0]}@${value
@@ -104,7 +103,7 @@ const CompanyDataInputwSave = ({
                   : value}{" "}
               </p>
 
-              <UserRoundPen
+              <Edit
                 onClick={() => setIsChanging(true)}
                 className="h-5 w-5 text-muted-foreground transition-colors hover:text-foreground"
               />

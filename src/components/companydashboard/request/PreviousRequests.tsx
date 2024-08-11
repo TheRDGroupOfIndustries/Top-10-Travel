@@ -3,15 +3,15 @@ import { Request } from "@prisma/client";
 
 const PreviousRequests = ({ requests }: { requests: Request[] }) => {
   return (
-    <div className="p-2 border rounded space-y-2 bg-background">
+    <div className="p-2  rounded space-y-2 bg-background">
       {requests.map((request) => (
         <div
-          className="border p-4 rounded-md"
+          className="border-none bg-[#F3F3F3] p-4 rounded-md"
           key={request.id}
         >
-          <h3>{request.message}</h3>
+          <h3>{request.message.slice(17)}</h3>
           <Badge
-          className="text-sm mt-2"
+          className="text-sm mt-2 border-[#FCAE1D] border-2 rounded-full"
             variant={
               request.status === "ACCEPTED"
                 ? "default"

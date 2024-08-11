@@ -30,9 +30,9 @@ export default function RequestForm() {
     else toast.error(error);
   };
   return (
-      <Card className="">
+      <Card className="border-none bg-[#F3F3F3]">
         <CardHeader>
-          <CardTitle>Create Your Request</CardTitle>
+          <CardTitle>Create Your  <span className="text-[#FCAE1D]">Request</span></CardTitle>
           <CardDescription>
             Here you can create a request for the admin to change your priority
             etc.
@@ -57,6 +57,7 @@ export default function RequestForm() {
           <Button
             disabled={isPending}
             onClick={handleSend}
+            className="bg-[#FCAE1D]"
           >
             {isPending ? "Sending..." : "Send Request"}
           </Button>
