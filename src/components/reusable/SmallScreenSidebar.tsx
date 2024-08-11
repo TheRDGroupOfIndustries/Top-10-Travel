@@ -94,6 +94,7 @@ const SmallScreenSidebar = () => {
         <div className="mt-auto">
           <SheetClose asChild>
             <div
+              onClick={() => signOut()}
               className={`flex w-full md:text-xl text-lg items-center transition-colors duration-200 rounded-lg px-3 py-3 cursor-pointer text-gray-900 hover:text-white hover:bg-[#FCAE1D]`}
             >
               <LogOut className="w-6 h-6 mr-3" />
