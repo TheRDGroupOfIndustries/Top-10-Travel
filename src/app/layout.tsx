@@ -27,7 +27,7 @@ export default function RootLayout({
         />
       </head>
       <body className={inter.className}>
-        <Scroll />
+        {/* <Scroll /> */}
         <Toaster richColors />
         <NextAuthProvider>{children}</NextAuthProvider>
       </body>

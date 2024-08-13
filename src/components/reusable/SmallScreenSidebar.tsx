@@ -1,30 +1,19 @@
 "use client";
 
 import {
-  Home,
-  Users,
-  List,
-  Activity,
-  FileText,
-  HelpCircle,
-  Settings,
-  LogOut,
-} from "react-feather";
-import {
   Sheet,
   SheetClose,
   SheetContent,
-  SheetDescription,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import { signOut } from "next-auth/react";
 import { ArrowDownUp } from "lucide-react";
-import { FiSidebar } from "react-icons/fi";
-import React from "react";
-import { usePathname } from "next/navigation";
+import { signOut } from "next-auth/react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { FileText, HelpCircle, Home, List, LogOut, Users } from "react-feather";
+import { FiSidebar } from "react-icons/fi";
 
 const SmallScreenSidebar = () => {
   const pathname = usePathname();
@@ -65,6 +54,11 @@ const SmallScreenSidebar = () => {
                         ? "text-white bg-[#FCAE1D] hover:bg-[#FCAE1D]"
                         : "text-gray-900"
                     }`}
+                  onClick={() => {
+                    window.scrollTo({
+                      top: 0,
+                    });
+                  }}
                 >
                   <item.icon className="w-6 h-6 mr-3" />
                   {item.name}
@@ -83,6 +77,11 @@ const SmallScreenSidebar = () => {
                         ? "text-white bg-[#FCAE1D] hover:bg-[#FCAE1D]"
                         : "text-gray-900"
                     }`}
+                  onClick={() => {
+                    window.scrollTo({
+                      top: 0,
+                    });
+                  }}
                 >
                   <item.icon className="w-6 h-6 mr-3" />
                   {item.name}

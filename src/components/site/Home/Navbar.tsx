@@ -46,6 +46,9 @@ function Navbar() {
 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
+    window.scrollTo({
+      top: 0,
+    });
   };
 
   const renderMenuItem = () => {
@@ -140,6 +143,11 @@ function Navbar() {
                 "text-lg font-medium",
                 route === el.link ? "text-[#E87A1F]" : "cool-link"
               )}
+              onClick={() => {
+                window.scrollTo({
+                  top: 0,
+                });
+              }}
             >
               {el.title}
             </Link>

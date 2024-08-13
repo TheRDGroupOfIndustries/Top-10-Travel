@@ -266,23 +266,7 @@ function HomeHero() {
           >
             Welcome To
           </motion.span>
-          {/* <motion.span>
-            {"Welcome To".split("").map((char, i) => (
-              <motion.span
-                key={i}
-                variants={{
-                  initial: { x: 0 },
-                  animate: { x: 16 },
-                }}
-                transition={{ type: "spring" }}
-                className="inline-block"
-              >
-                {char}
-              </motion.span>
-            ))}
-          </motion.span> */}
         </h3>
-        {/* <h3 className="sr-only">Welcome TO</h3> */}
         <h1
           id="secondLine"
           className="uppercase font-cinzel font-bold text-2xl sm:text-4xl md:text-4xl lg:text-6xl xl:text-7xl overflow-hidden xl:leading-loose leading-[50px] sm:leading-[65px] md:leading-[80px] lg:leading-[129px]"
@@ -321,7 +305,6 @@ function HomeHero() {
           className="w-full pt-20 md:pt-10 lg:overflow-hidden lg:pt-24 md:max-w-[430px] lg:max-w-[730px]"
         >
           <div className="w-full ml-4 flex items-end justify-start">
-            {/* <div className="rounded-t-[18px] max-w-52 h-8 md:h-10 sm:h-9 flex items-center justify-center bg-gray-200"> */}
             <div className="relative max-w-60 h-9 flex items-center justify-center">
               <Image
                 src={"/Hero_Filter_Large.png"}
@@ -342,18 +325,6 @@ function HomeHero() {
             </div>
             <div className="hidden ml-5 lg:flex xl:gap-5 gap-4">
               {boxItems.map(({ key, text }) => (
-                // <div
-                //   key={key}
-                //   className={`rounded-t-[12px] w-24 h-7 text-center cursor-pointer ${
-                //     // @ts-expect-error
-                //     visible[key] ? "bg-colorAll text-white" : "text-black"
-                //   }`}
-                //   onClick={() =>
-                //     // @ts-expect-error
-                //     toggle(key)
-                //   }
-                // >
-
                 <div
                   key={key}
                   className={`relative w-24 h-7 text-center cursor-pointer ${
