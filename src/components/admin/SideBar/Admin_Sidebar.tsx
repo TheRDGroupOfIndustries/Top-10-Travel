@@ -31,6 +31,11 @@ function AdminSidebar() {
                     ? "bg-[#FCAE1D] hover:bg-[#FCAE1C] text-white"
                     : "text-black"
                 }`}
+                onClick={() => {
+                  window.scrollTo({
+                    top: 0,
+                  });
+                }}
               >
                 <item.icon className="w-12 h-5" />
                 {item.name}
