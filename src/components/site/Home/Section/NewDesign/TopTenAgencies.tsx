@@ -17,7 +17,23 @@ import { HomeContext } from "@/hooks/context/HomeContext";
 import { cn, getValidUrl } from "@/lib/utils";
 
 const CarouselCard = ({ agency }: { agency: any }) => (
-  <div className="flex md:hover:-translate-y-4 duration-300 transition-all w-full flex-col h-full">
+  <motion.div 
+  initial={{
+    opacity: 0,
+    y: -100, // its optional... [I d k the codebase properly, so not playing too much...]
+  }}
+  whileInView={{
+    opacity: 1,
+     y: 0,
+  }}
+  transition={{
+    duration: 1.2,
+    delay: 0.8,
+    ease: 'easeInOut',
+    staggerChildren: 0.6,
+  }}
+  
+  className="flex md:hover:-translate-y-4 duration-300 transition-all w-full flex-col h-full">
     <div className="relative h-48 sm:h-56 md:h-64 lg:h-72 rounded-lg overflow-hidden">
       <div className="absolute top-0 left-0 bg-colorAll w-[80%] h-[70%] rounded-lg"></div>
       <div className="absolute bottom-0 right-0 w-[95%] h-[95%] rounded-lg overflow-hidden">
@@ -44,7 +60,7 @@ const CarouselCard = ({ agency }: { agency: any }) => (
         View More
       </Link>
     </div>
-  </div>
+  </motion.div>
 );
 
 const TopTenAgencies = () => {

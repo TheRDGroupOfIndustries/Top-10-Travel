@@ -17,7 +17,22 @@ import { cn, getValidUrl } from "@/lib/utils";
 import { motion } from "framer-motion";
 
 const CarouselCard = ({ dmc }: { dmc: any }) => (
-  <div className="flex flex-col md:hover:-translate-y-4 duration-300 transition-all h-full">
+  <motion.div
+  initial={{
+    opacity: 0,
+    y: -100,
+  }}
+  whileInView={{
+    opacity: 1,
+    y: 0,
+  }}
+  transition={{
+    duration: 1.2,
+    delay: 0.8,
+    ease: 'easeInOut',
+    staggerChildren: 0.6,
+  }}
+  className="flex flex-col md:hover:-translate-y-4 duration-300 transition-all h-full">
     <div className="relative h-48 sm:h-56 md:h-64 lg:h-72 rounded-lg overflow-hidden">
       <div className="absolute top-0 left-0 bg-colorAll w-[80%] h-[70%] rounded-lg"></div>
       <div className="absolute bottom-0 right-0 w-[95%] h-[95%] rounded-lg overflow-hidden">
@@ -44,7 +59,7 @@ const CarouselCard = ({ dmc }: { dmc: any }) => (
         View More
       </Link>
     </div>
-  </div>
+  </motion.div>
 );
 
 const TopTenDMC = () => {

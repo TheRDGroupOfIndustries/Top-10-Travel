@@ -11,16 +11,14 @@ function AgencyDMCCard({ data }: { data: HomeApiResult[0] }) {
     <motion.div 
     initial={{
       opacity: 0,
-      x: -400,
     }}
     whileInView={{
       opacity: 1,
-      x: 0
     }}
     transition={{
-      duration: 1.1,
-      delay: 0.8,
-      ease: 'easeInOut'
+      duration: 1.6,
+      delay: 1,
+      ease: 'linear'
     }}
     viewport={{once: false}}
     className="h-fit text-left my-5 md:my-10">

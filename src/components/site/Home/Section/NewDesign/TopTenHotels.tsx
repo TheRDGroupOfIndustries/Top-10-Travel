@@ -18,7 +18,22 @@ import Link from "next/link";
 import { useContext } from "react";
 
 const CarouselCard = ({ hotel }: { hotel: any }) => (
-  <div className="h-72 rounded-xl overflow-hidden md:hover:-translate-y-4 hover:shadow-lg duration-300 transition-all relative">
+  <motion.div 
+  initial={{
+    opacity: 0,
+    y: -100,
+  }}
+  whileInView={{
+    opacity: 1,
+    y: 0,
+  }}
+  transition={{
+    duration: 1.2,
+    delay: 0.8,
+    ease: 'easeInOut',
+    staggerChildren: 0.6,
+  }}
+  className="h-72 rounded-xl overflow-hidden md:hover:-translate-y-4 hover:shadow-lg duration-300 transition-all relative">
     <div className="w-full h-full absolute inset-0 bg-black/30">
       <div className="absolute bottom-0 w-full flex items-center justify-between p-3">
         <div className="flex flex-col items-start">
@@ -46,7 +61,7 @@ const CarouselCard = ({ hotel }: { hotel: any }) => (
       height={500}
       className="w-full h-full object-cover object-center"
     />
-  </div>
+  </motion.div>
 );
 
 function TopTenHotels() {
