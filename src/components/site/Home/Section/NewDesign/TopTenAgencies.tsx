@@ -20,11 +20,11 @@ const CarouselCard = ({ agency }: { agency: any }) => (
   <motion.div 
   initial={{
     opacity: 0,
-    y: -100, // its optional... [I d k the codebase properly, so not playing too much...]
+    // y: -100, // its optional... [I d k the codebase properly, so not playing too much...]
   }}
   whileInView={{
     opacity: 1,
-     y: 0,
+    //  y: 0,
   }}
   transition={{
     duration: 1.2,
