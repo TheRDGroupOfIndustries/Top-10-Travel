@@ -4,18 +4,35 @@ import { NextResponse } from "next/server";
 export const revalidate = 3600;
 
 export const GET = async () => {
-  const companies = await db.company.findMany({
-    where:{isCertified:true, isSuspended:false},
+  const agencyPromise = db.agency.findMany({
+    where: { isCertified: true },
     select: { country: true, city: true },
-    distinct: ["country", "city"],
   });
-  const influencers = await db.influencerData.findMany({
+  const dmcPromise = db.dMC.findMany({
+    where: { isCertified: true },
+    select: { country: true, city: true },
+  });
+  const hotelPromise = db.hotel.findMany({
+    where: { isCertified: true },
+    select: { country: true, city: true },
+  });
+
+  const influencerPromise = db.influencerData.findMany({
     select: { country: true, state: true },
     distinct: ["country", "state"],
   });
-  const combined: any = companies
-    .map((c) => ({ country: c.country, city: c.city }))
-    .concat(influencers.map((i) => ({ country: i.country, city: i.state })));
+  const [agencies, dmcs, hotels, influencers] = await Promise.all([
+    agencyPromise,
+    dmcPromise,
+    hotelPromise,
+    influencerPromise,
+  ]);
+
+  const combined: any = agencies.concat(
+    dmcs,
+    hotels,
+    influencers.map((i) => ({ country: i.country, city: i.state }))
+  );
 
   const groupedByCountry = combined.reduce(
     (acc: any, { country, city }: any) => {
@@ -33,12 +50,5 @@ export const GET = async () => {
         new Set(groupedByCountry[country])
       ))
   );
-  return NextResponse.json(
-    { countries: groupedByCountry },
-    {
-      headers: {
-        "Cache-Control": "public, max-age=3600",
-      },
-    }
-  );
+  return NextResponse.json({ countries: groupedByCountry });
 };

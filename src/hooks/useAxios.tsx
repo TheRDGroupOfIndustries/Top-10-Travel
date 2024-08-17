@@ -1,11 +1,19 @@
-import { HomeApiResult } from "@/types/homeApiType";
+import { AgencyApiResult, DMCHotelApiResult } from "@/types/homeApiType";
 import { $Enums } from "@prisma/client";
 import axios from "axios";
 import { useEffect, useState } from "react";
 
-const useAxios = ({ url }: { url: string }) => {
+const useAxios = ({
+  url,
+  selectedCity,
+  selectedCountry,
+}: {
+  url: string;
+  selectedCountry: string;
+  selectedCity: string;
+}) => {
   const [loading, setLoading] = useState(false);
-  const [data, setData] = useState<HomeApiResult | null>(null);
+  const [data, setData] = useState<any | null>(null);
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -18,8 +26,11 @@ const useAxios = ({ url }: { url: string }) => {
         setLoading(false);
       }
     };
-    fetchData();
-  }, [url]);
+    console.log(selectedCity, selectedCountry);
+    if (selectedCountry !== "") {
+      fetchData();
+    }
+  }, [url, selectedCity, selectedCountry]);
   return { data, isLoading: loading };
 };
 export default useAxios;

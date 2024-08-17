@@ -10,6 +10,7 @@ import {
 import { HomeContext } from "@/hooks/context/HomeContext";
 import useAxios from "@/hooks/useAxios";
 import { cn, getValidUrl } from "@/lib/utils";
+import { DMCHotelApiResult } from "@/types/homeApiType";
 import Autoplay from "embla-carousel-autoplay";
 import { motion } from "framer-motion";
 import { SquareArrowUpRight } from "lucide-react";
@@ -17,7 +18,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useContext } from "react";
 
-const CarouselCard = ({ hotel }: { hotel: any }) => (
+const CarouselCard = ({ hotel }: { hotel: DMCHotelApiResult }) => (
   <motion.div 
   initial={{
     opacity: 0,
@@ -37,7 +38,7 @@ const CarouselCard = ({ hotel }: { hotel: any }) => (
       <div className="absolute bottom-0 w-full flex items-center justify-between p-3">
         <div className="flex flex-col items-start">
           <h2 className="text-sm sm:text-base font-bold text-white truncate w-32 sm:w-40 md:w-48">
-            {hotel?.legalName}
+            {hotel?.name}
           </h2>
           <span className="text-lg sm:text-xl font-bold text-white">
             {Array.from({ length: Math.round(hotel?.rating) }).map(
@@ -54,8 +55,8 @@ const CarouselCard = ({ hotel }: { hotel: any }) => (
       </div>
     </div>
     <Image
-      src={getValidUrl(hotel.image)}
-      alt={hotel?.legalName}
+      src={getValidUrl(hotel.images[0]??hotel.images[1])}
+      alt={hotel?.name}
       width={400}
       height={500}
       className="w-full h-full object-cover object-center"
@@ -65,8 +66,9 @@ const CarouselCard = ({ hotel }: { hotel: any }) => (
 
 function TopTenHotels() {
   const { selectedCountry, selectedCity, visible } = useContext(HomeContext);
-  const { data, isLoading } = useAxios({
-    url: `/api/home?country=${selectedCountry}&city=${selectedCity}&role=HOTEL`,
+  const { data, isLoading }:{data:DMCHotelApiResult[], isLoading:boolean} = useAxios({
+    url: `/api/home?country=${selectedCountry}&city=${selectedCity}&role=Hotel`,
+    selectedCity,selectedCountry
   });
 
   return (

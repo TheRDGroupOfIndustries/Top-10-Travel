@@ -15,8 +15,9 @@ import Autoplay from "embla-carousel-autoplay";
 import { HomeContext } from "@/hooks/context/HomeContext";
 import { cn, getValidUrl } from "@/lib/utils";
 import { motion } from "framer-motion";
+import { DMCHotelApiResult } from "@/types/homeApiType";
 
-const CarouselCard = ({ dmc }: { dmc: any }) => (
+const CarouselCard = ({ dmc }: { dmc: DMCHotelApiResult }) => (
   <motion.div
   initial={{
     opacity: 0,
@@ -36,15 +37,15 @@ const CarouselCard = ({ dmc }: { dmc: any }) => (
       <div className="absolute bottom-0 right-0 w-[95%] h-[95%] rounded-lg overflow-hidden">
         <Image
           fill
-          src={getValidUrl(dmc.image)}
-          alt={dmc.legalName}
+          src={getValidUrl(dmc.images[0]??dmc.images[1])}
+          alt={dmc.name}
           className="h-full w-full object-cover"
         />
       </div>
     </div>
     <div className="flex-grow flex flex-col items-start justify-center gap-2 p-3">
       <h2 className="text-lg font-bold text-black line-clamp-1">
-        {dmc.legalName}
+        {dmc.name}
       </h2>
       <span className="text-sm font-semibold text-yellow-500">
         {"★".repeat(Math.round(dmc.rating))} {dmc.reviews} Reviews
@@ -62,8 +63,9 @@ const CarouselCard = ({ dmc }: { dmc: any }) => (
 
 const TopTenDMC = () => {
   const { selectedCountry, selectedCity, visible } = useContext(HomeContext);
-  const { data, isLoading } = useAxios({
+  const { data, isLoading }:{data:DMCHotelApiResult[], isLoading:boolean} = useAxios({
     url: `/api/home?country=${selectedCountry}&city=${selectedCity}&role=DMC`,
+    selectedCity,selectedCountry
   });
 
   return (
