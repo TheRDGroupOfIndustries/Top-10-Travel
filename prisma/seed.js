@@ -17,6 +17,34 @@ async function main() {
   // await prisma.dMC.deleteMany();
   // await prisma.hotel.deleteMany();
   for (let i = 0; i < 10; i++) {
+    const user1 = await prisma.user.create({
+      data: {
+        username: `infl-${i + 1}`,
+        email: `infl-${i + 1}@example.com`,
+        role: "Influencer",
+      },
+    });
+    await prisma.influencerData.create({
+      data:{
+              name: user1.username,
+              image: "/influencer.png",
+              speciality: getRandomSpeciality(),
+              description:
+                "I am a renowned travel influencer, captivating audiences worldwide with breathtaking photography, engaging stories, and expert travel tips. With a passion for exploring new destinations and cultures, I offer a unique perspective on the world’s most beautiful and intriguing places. From luxury escapes to off-the-beaten-path adventures, my content inspires and guides followers to make the most of their own travel experiences. Known for my authentic voice and vibrant personality, I collaborate with top brands to bring the best travel experiences and recommendations to my dedicated and ever-growing audience.",
+              user: {connect:{id:user1.id}},
+              priority: 1,
+              state_priority: 1,
+              socialLinks: [
+                "https://www.instagram.com/thisisbillgates/",
+                "https://www.youtube.com/@Fireship",
+                "https://www.facebook.com/fireship.tech/",
+              ],
+              country: `country-${i+1}`,
+              state: `city-${i+1}`,
+            },
+    })
+  }
+  for (let i = 0; i < 10; i++) {
     // Create Users
     const user1 = await prisma.user.create({
       data: {
@@ -25,32 +53,7 @@ async function main() {
         role: "USER",
       },
     });
-    // const user1 = await prisma.user.create({
-    //   data: {
-    //     username: `infl-${i + 1}`,
-    //     email: `infl-${i + 1}@example.com`,
-    //     role: "Influencer",
-    //   },
-    // });
-    // await prisma.influencerData.create({
-    //   data:{
-    //           name: user1.username,
-    //           image: "/influencer.png",
-    //           speciality: getRandomSpeciality(),
-    //           description:
-    //             "I am a renowned travel influencer, captivating audiences worldwide with breathtaking photography, engaging stories, and expert travel tips. With a passion for exploring new destinations and cultures, I offer a unique perspective on the world’s most beautiful and intriguing places. From luxury escapes to off-the-beaten-path adventures, my content inspires and guides followers to make the most of their own travel experiences. Known for my authentic voice and vibrant personality, I collaborate with top brands to bring the best travel experiences and recommendations to my dedicated and ever-growing audience.",
-    //           user: {connect:{id:user1.id}},
-    //           priority: 1,
-    //           state_priority: 1,
-    //           socialLinks: [
-    //             "https://www.instagram.com/thisisbillgates/",
-    //             "https://www.youtube.com/@Fireship",
-    //             "https://www.facebook.com/fireship.tech/",
-    //           ],
-    //           country: `country-${i+1}`,
-    //           state: `city-${i+1}`,
-    //         },
-    // })
+    
     // Create Agencies
     const agency1 = await prisma.agency.create({
       data: {
@@ -111,7 +114,7 @@ async function main() {
         },
         caseStudyPdf: "https://example.com/case_study.pdf",
         promotionalVideoUpload: "/stockVideo.mp4",
-        images: ["/Hotel-Details-Sample4.png", "/Hotel-Details-Sample4.png"],
+        images: ["/stockPhoto.jpg", "/stockPhoto.jpg"],
         rating: 0,
         reviews: 0,
         description: "Leading travel agency",
@@ -179,7 +182,7 @@ async function main() {
         },
         caseStudyPdf: "https://example.com/case_study_dmc.pdf",
         promotionalVideoUpload: "/stockVideo.mp4",
-        images: ["/Hotel-Details-Sample4.png", "/Hotel-Details-Sample4.png"],
+        images: ["/stockPhoto.jpg", "/stockPhoto.jpg"],
         rating: 0,
         reviews: 0,
         description:
@@ -222,7 +225,7 @@ async function main() {
           },
         },
         promotionalVideoUpload: "/stockVideo.mp4",
-        images: ["/Hotel-Details-Sample4.png", "/Hotel-Details-Sample4.png"],
+        images: ["/stockPhoto.jpg", "/stockPhoto.jpg"],
         rating: 0,
         reviews: 0,
         description: "Luxury hotel in the city",
