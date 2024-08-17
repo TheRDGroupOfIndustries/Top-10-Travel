@@ -15,42 +15,60 @@ import HomeCompanySkeleton from "@/components/reusable/HomeCompanySkeleton";
 import Autoplay from "embla-carousel-autoplay";
 import { HomeContext } from "@/hooks/context/HomeContext";
 import { cn, getValidUrl } from "@/lib/utils";
+import { AgencyApiResult } from "@/types/homeApiType";
 
-const CarouselCard = ({ agency }: { agency: any }) => (
-  <div className="flex md:hover:-translate-y-4 duration-300 transition-all w-full flex-col h-full">
+const CarouselCard = ({ agency }: { agency: AgencyApiResult }) => (
+  <motion.div 
+  initial={{
+    opacity: 0,
+    // y: -100, // its optional... [I d k the codebase properly, so not playing too much...]
+  }}
+  whileInView={{
+    opacity: 1,
+    //  y: 0,
+  }}
+  transition={{
+    duration: 1.2,
+    delay: 0.8,
+    ease: 'easeInOut',
+    staggerChildren: 0.6,
+  }}
+  
+  className="flex md:hover:-translate-y-4 duration-300 transition-all w-full flex-col h-full">
     <div className="relative h-48 sm:h-56 md:h-64 lg:h-72 rounded-lg overflow-hidden">
       <div className="absolute top-0 left-0 bg-colorAll w-[80%] h-[70%] rounded-lg"></div>
       <div className="absolute bottom-0 right-0 w-[95%] h-[95%] rounded-lg overflow-hidden">
         <Image
           fill
-          src={getValidUrl(agency.image)}
-          alt={agency.legalName}
+          src={getValidUrl(agency.images[0]??agency.images[1])}
+          alt={agency.name}
           className="h-full w-full object-cover"
         />
       </div>
     </div>
     <div className="flex-grow flex flex-col items-start justify-center gap-2 p-3">
       <h2 className="text-lg font-bold text-black line-clamp-1">
-        {agency.legalName}
+        {agency.name}
       </h2>
       <span className="text-sm font-semibold text-yellow-500">
         {"★".repeat(Math.round(agency.rating))} {agency.reviews} Reviews
       </span>
       <p className="text-sm line-clamp-3">{agency.methodology}</p>
       <Link
-        href={`/companies/${agency.id}`}
+        href={`/agency/${agency.id}`}
         className="mt-auto border border-gray-900 text-sm cursor-pointer rounded-lg px-4 py-2 hover:bg-gray-100 transition-colors"
       >
         View More
       </Link>
     </div>
-  </div>
+  </motion.div>
 );
 
 const TopTenAgencies = () => {
   const { selectedCountry, selectedCity, visible } = useContext(HomeContext);
-  const { data, isLoading } = useAxios({
-    url: `/api/home?country=${selectedCountry}&city=${selectedCity}&role=AGENCY`,
+  const { data, isLoading }:{data:AgencyApiResult[], isLoading:boolean} = useAxios({
+    url: `/api/home?country=${selectedCountry}&city=${selectedCity}&role=Agency`,
+    selectedCity,selectedCountry
   });
 
   return (

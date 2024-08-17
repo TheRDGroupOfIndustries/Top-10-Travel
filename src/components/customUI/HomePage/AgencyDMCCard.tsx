@@ -3,10 +3,25 @@ import { HomeApiResult } from "@/types/homeApiType";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+import {motion} from "framer-motion";
+
 
 function AgencyDMCCard({ data }: { data: HomeApiResult[0] }) {
   return (
-    <div className="h-fit text-left my-5 md:my-10">
+    <motion.div 
+    initial={{
+      opacity: 0,
+    }}
+    whileInView={{
+      opacity: 1,
+    }}
+    transition={{
+      duration: 1.6,
+      delay: 1,
+      ease: 'linear'
+    }}
+    viewport={{once: false}}
+    className="h-fit text-left my-5 md:my-10">
       <Card className="w-[80%] md:w-[70%] lg:w-[90%] m-auto border-none">
         <div className="max-h-fit md:my-2">
           <Image
@@ -37,7 +52,7 @@ function AgencyDMCCard({ data }: { data: HomeApiResult[0] }) {
           </Link>
         </CardContent>
       </Card>
-    </div>
+    </motion.div>
   );
 }
 

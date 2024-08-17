@@ -1,5 +1,5 @@
 import { db } from "@/core/client/db";
-import { Company, CompanyData } from "@prisma/client";
+// import { Company, CompanyData } from "@prisma/client";
 import { NextResponse } from "next/server";
 
 // const agency = [

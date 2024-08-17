@@ -28,7 +28,7 @@ export const HomeContextProvider = ({ children }: { children: ReactNode }) => {
     HOTEL: true,
     Influencer: true,
   });
-  const [selectedCountry, setSelectedCountry] = useState("India");
+  const [selectedCountry, setSelectedCountry] = useState("");
   const [selectedCity, setSelectedCity] = useState("");
   const [allCities, setAllCities] = useState<string[]>([]);
   const [allCountries, setAllCountries] = useState<string[]>([]);

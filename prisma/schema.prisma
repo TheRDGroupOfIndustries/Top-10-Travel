@@ -17,15 +17,8 @@ datasource db {
 
 enum Role {
   USER
-  COMPANY
   ADMIN
   Influencer
-}
-
-enum CompanyRole {
-  DMC
-  AGENCY
-  HOTEL
 }
 
 enum RequestStatus {
@@ -47,89 +40,241 @@ model User {
   role           Role            @default(USER)
   createdAt      DateTime?       @default(now())
   updatedAt      DateTime?       @updatedAt
-  company        Company?
-  helpdesks      HelpDesk[]
   influencerData InfluencerData?
+  Helpdesks      HelpDesk[]
+  Reviews        Reviews[]
+  Requests       Request[]
+  Enquiries      Enquiry[]
+  Agency         Agency?
+  Dmc            DMC?
+  Hotel          Hotel?
 }
 
-model Company {
-  id              String         @id @default(cuid())
-  isSuspended     Boolean        @default(false)
-  isCertified     Boolean        @default(false)
-  user            User           @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId          String         @unique
-  legalName       String         @unique
-  priority        Int
-  state_priority  Int           @default(0)        
-  image           String?
-  country         String
-  state           String
-  city            String
-  companyRole     CompanyRole
-  rating          Float          @default(0.0)
-  reviews         Int            @default(0)
-  methodology     String?
-  createdAt       DateTime?      @default(now())
-  updatedAt       DateTime?      @updatedAt
-  packages        Package[]
-  notifications   Notification[]
-  company_reviews Reviews[]
-  requests        Request[]
-  enquiries Enquiry[]
-  companyData     CompanyData?
+model KeyPersonnel {
+  id                String  @id @default(cuid())
+  name              String
+  position          String
+  yearsOfExperience Int
+  specialization    String
+  agencyId          String?
+  dmcId             String?
+  Agency            Agency? @relation(fields: [agencyId], references: [id], onDelete: Cascade)
+  Dmc               DMC?    @relation(fields: [dmcId], references: [id], onDelete: Cascade)
 }
 
-model CompanyData {
-  id                  String   @id @default(cuid())
-  company             Company  @relation(fields: [companyId], references: [id], onDelete: Cascade)
-  companyId           String   @unique
-  business_reg_number String   @unique
-  ownerContact        String?
-  companyEmail        String?
-  pincode             String
-  phone               String
-  ownerName           String
-  companyContact      String
-  address             String
-  images              String[]
-  socialLinks         String[]
-  agencyGroup         String?
-  iata_number         String?
-  abta_number         String?
-  clia_number         String?
-  tids_number         String?
-  description         String?
+model PastProject {
+  id          String  @id @default(cuid())
+  projectName String
+  clientName  String
+  year        Int
+  description String
+  agencyId    String?
+  dmcId       String?
+  Agency      Agency? @relation(fields: [agencyId], references: [id], onDelete: Cascade)
+  Dmc         DMC?    @relation(fields: [dmcId], references: [id], onDelete: Cascade)
+}
+
+model ClientReference {
+  id           Int     @id @default(autoincrement())
+  clientName   String
+  contactEmail String
+  contactPhone String
+  testimonial  String
+  agencyId     String?
+  dmcId        String?
+  Agency       Agency? @relation(fields: [agencyId], references: [id])
+  Dmc          DMC?    @relation(fields: [dmcId], references: [id])
+}
+
+model Agency {
+  id                          String             @id @default(cuid())
+  priority                    Int                @default(0)
+  city_priority               Int                @default(0)
+  isCertified                 Boolean            @default(false)
+  User                        User               @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId                      String             @unique
+  // step1
+  name                        String
+  country                     String
+  city                        String
+  address                     String
+  contactPerson               String
+  contactEmail                String             @unique
+  contactPhoneNumber          String
+  websiteUrl                  String?
+  // step2
+  companyRegistrationNumber   String
+  yearOfEstablishment         Int
+  businessLicenseUpload       String
+  insuranceCertificateUpload  String
+  // step3
+  primaryServices             String[]
+  specializedTravelTypes      String[]
+  regionsOfOperation          String[]
+  // step4
+  internationalCertifications String[]
+  memberships                 String[]
+  // step5
+  numberOfEmployees           Int
+  keyPersonnel                KeyPersonnel[]
+  // step6
+  pastProjects                PastProject[]
+  clientReferences            ClientReference[]
+  caseStudyPdf                String?
+  // step7
+  socialMediaLinks            SocialMediaLinks[]
+  promotionalVideoUpload      String
+  images                      String[]
+  // 
+  rating                      Float              @default(0.0)
+  reviews                     Int                @default(0)
+  description                 String
+  methodology                 String?
+  createdAt                   DateTime           @default(now())
+  updatedAt                   DateTime           @updatedAt
+  // 
+  Enquiries                   Enquiry[]
+  Reviews                     Reviews[]
+}
+
+// DMC Model
+model DMC {
+  id                          String             @id @default(cuid())
+  priority                    Int                @default(0)
+  city_priority               Int                @default(0)
+  isCertified                 Boolean            @default(false)
+  User                        User               @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId                      String             @unique
+  //step1
+  name                        String
+  country                     String
+  city                        String
+  address                     String
+  contactPerson               String
+  contactEmail                String             @unique
+  contactPhoneNumber          String
+  websiteUrl                  String?
+  //step2
+  companyRegistrationNumber   String
+  yearOfEstablishment         Int
+  businessLicenseUpload       String
+  insuranceCertificateUpload  String
+  // step3
+  coreServices                String[]
+  specialization              String[]
+  regionsCovered              String[]
+  // step4
+  internationalCertifications String[]
+  memberships                 String[]
+  // step5
+  numberOfEmployees           Int
+  keyPersonnel                KeyPersonnel[]
+  // step6
+  pastProjects                PastProject[]
+  clientReferences            ClientReference[]
+  caseStudyPdf                String?
+  // step7
+  socialMediaLinks            SocialMediaLinks[]
+  promotionalVideoUpload      String
+  images                      String[]
+  // 
+  rating                      Float              @default(0.0)
+  reviews                     Int                @default(0)
+  description                 String
+  methodology                 String?
+  createdAt                   DateTime           @default(now())
+  updatedAt                   DateTime           @updatedAt
+  // 
+  Enquiries                   Enquiry[]
+  Reviews                     Reviews[]
+}
+
+model Hotel {
+  id                         String             @id @default(cuid())
+  priority                   Int                @default(0)
+  city_priority              Int                @default(0)
+  isCertified                Boolean            @default(false)
+  User                       User               @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId                     String             @unique
+  // step1
+  name                       String
+  country                    String
+  city                       String
+  address                    String
+  contactPerson              String
+  contactEmail               String             @unique
+  contactPhoneNumber         String
+  websiteUrl                 String?
+  // step2
+  companyRegistrationNumber  String
+  yearOfEstablishment        Int
+  businessLicenseUpload      String
+  insuranceCertificateUpload String
+  // step3
+  specialization             String[]
+  services                   String[]
+  // step4
+  socialMediaLinks           SocialMediaLinks[]
+  promotionalVideoUpload     String
+  images                     String[]
+  // 
+  rating                     Float              @default(0.0)
+  reviews                    Int                @default(0)
+  description                String
+  methodology                String?
+  createdAt                  DateTime           @default(now())
+  updatedAt                  DateTime           @updatedAt
+  // 
+  Enquiries                  Enquiry[]
+  Reviews                    Reviews[]
+}
+
+model SocialMediaLinks {
+  id        String  @id @default(cuid())
+  facebook  String?
+  instagram String?
+  linkedin  String?
+  twitter   String?
+  youtube   String?
+  agencyId  String?
+  dmcId     String?
+  hotelId   String?
+  Agency    Agency? @relation(fields: [agencyId], references: [id], onDelete: Cascade)
+  Dmc       DMC?    @relation(fields: [dmcId], references: [id], onDelete: Cascade)
+  Hotel     Hotel?  @relation(fields: [hotelId], references: [id], onDelete: Cascade)
 }
 
 model InfluencerData {
-  id          String    @id @default(cuid())
-  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId      String    @unique
-  name        String
-  image       String
-  description String
-  introduction String?
-  speciality  String
-  state       String
-  country     String
-  priority    Int   @default(0)
-  state_priority Int @default(0)
-  socialLinks String[]
-  createdAt   DateTime? @default(now())
+  id          String  @id @default(cuid())
+  user        User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  isCertified Boolean @default(false)
+
+  userId         String    @unique
+  name           String
+  image          String
+  description    String
+  introduction   String?
+  speciality     String
+  state          String
+  country        String
+  priority       Int       @default(0)
+  state_priority Int       @default(0)
+  socialLinks    String[]
+  createdAt      DateTime? @default(now())
 }
 
-model Package {
-  id        String    @id @default(cuid())
-  company   Company   @relation(fields: [companyId], references: [id], onDelete: Cascade)
-  companyId String
-  amenities String[]
-  title     String
-  desc      String
-  image     String
-  duration  String
-  price     Float
-  createdAt DateTime? @default(now())
-}
+// model Package {
+//   id        String    @id @default(cuid())
+//   company   Company   @relation(fields: [companyId], references: [id], onDelete: Cascade)
+//   companyId String
+//   amenities String[]
+//   title     String
+//   desc      String
+//   image     String
+//   duration  String
+//   price     Float
+//   createdAt DateTime? @default(now())
+// }
 
 model HelpDesk {
   id          String         @id @default(cuid())
@@ -143,31 +288,37 @@ model HelpDesk {
 
 model Notification {
   id        String    @id @default(cuid())
-  company   Company   @relation(fields: [companyId], references: [id], onDelete: Cascade)
-  companyId String
   message   String
   type      String
   createdAt DateTime? @default(now())
 }
 
 model Reviews {
-  id        String  @id @default(cuid())
-  ip        String?
+  id        String    @id @default(cuid())
   name      String
-  rating    Int     @default(1)
-  review    String  @db.Text
-  company   Company @relation(fields: [companyId], references: [id], onDelete: Cascade)
-  companyId String
+  rating    Int       @default(1)
+  review    String    @db.Text
+  userId    String
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  agencyId  String?
+  dmcId     String?
+  hotelId   String?
+  Agency    Agency?   @relation(fields: [agencyId], references: [id], onDelete: Cascade)
+  Dmc       DMC?      @relation(fields: [dmcId], references: [id], onDelete: Cascade)
+  Hotel     Hotel?    @relation(fields: [hotelId], references: [id], onDelete: Cascade)
   createdAt DateTime? @default(now())
-  @@unique([ip, companyId])
+
+  @@unique([userId, agencyId])
+  @@unique([userId, dmcId])
+  @@unique([userId, hotelId])
 }
 
 // Admin related schemas
 
 model Request {
   id        String        @id @default(cuid())
-  company   Company       @relation(fields: [companyId], references: [id], onDelete: Cascade)
-  companyId String
+  user      User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    String
   message   String
   status    RequestStatus @default(PENDING)
   createdAt DateTime?     @default(now())
@@ -176,11 +327,21 @@ model Request {
 // unauth user
 model Enquiry {
   id        String    @id @default(cuid())
-  company   Company   @relation(fields: [companyId], references: [id], onDelete: Cascade)
-  companyId String
-  name      String
-  email     String    
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    String
+  // 
+  title     String
   message   String
   createdAt DateTime? @default(now())
-  @@unique([email, companyId])
+  // 
+  agencyId  String?
+  dmcId     String?
+  hotelId   String?
+  Agency    Agency?   @relation(fields: [agencyId], references: [id], onDelete: Cascade)
+  Dmc       DMC?      @relation(fields: [dmcId], references: [id], onDelete: Cascade)
+  Hotel     Hotel?    @relation(fields: [hotelId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, agencyId])
+  @@unique([userId, dmcId])
+  @@unique([userId, hotelId])
 }
