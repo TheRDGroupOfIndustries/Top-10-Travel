@@ -8,30 +8,30 @@ export const revalidate = 3600;
 
 const Page = async () => {
   // fetch all the DMC information
-  const allDMCS = await db.company.findMany({
-    where: {
-      companyRole: "DMC",
-      isCertified: true,
-      isSuspended: false,
-    },
-    select: {
-      id:true,
-      legalName: true,
-      image: true,
-      city: true,
-      country: true,
-      methodology: true,
-      rating: true,
-      reviews: true,
-    },
-    orderBy: { priority: "desc" },
-  });
+  // const allDMCS = await db.company.findMany({
+  //   where: {
+  //     companyRole: "DMC",
+  //     isCertified: true,
+  //     isSuspended: false,
+  //   },
+  //   select: {
+  //     id:true,
+  //     legalName: true,
+  //     image: true,
+  //     city: true,
+  //     country: true,
+  //     methodology: true,
+  //     rating: true,
+  //     reviews: true,
+  //   },
+  //   orderBy: { priority: "desc" },
+  // });
 
   return (
     <ExploreMore
-      isLoading={allDMCS ? false : true}
-      data={allDMCS}
-      role={"DMC"}
+    // isLoading={allDMCS ? false : true}
+    // data={allDMCS}
+    // role={"DMC"}
     />
   );
 };
