@@ -1,21 +1,23 @@
 const { PrismaClient } = require("@prisma/client");
 
 const prisma = new PrismaClient();
-  const getRandomSpeciality = () => {
-    const states = [
-      "Blogging",
-      "Hiking",
-      "Youtuber",
-      "Social Media Creator",
-      "Instagram influencer",
-    ];
-    return states[Math.floor(Math.random() * 5)];
-  };
+const getRandomSpeciality = () => {
+  const states = [
+    "Blogging",
+    "Hiking",
+    "Youtuber",
+    "Social Media Creator",
+    "Instagram influencer",
+  ];
+  return states[Math.floor(Math.random() * 5)];
+};
 async function main() {
-  // await prisma.user.deleteMany();
-  // await prisma.agency.deleteMany();
-  // await prisma.dMC.deleteMany();
-  // await prisma.hotel.deleteMany();
+  await prisma.user.deleteMany();
+  await prisma.agency.deleteMany();
+  await prisma.dMC.deleteMany();
+  await prisma.hotel.deleteMany();
+  await prisma.influencerData.deleteMany();
+  console.log("deleted all existing");
   for (let i = 0; i < 10; i++) {
     const user1 = await prisma.user.create({
       data: {
@@ -25,24 +27,25 @@ async function main() {
       },
     });
     await prisma.influencerData.create({
-      data:{
-              name: user1.username,
-              image: "/influencer.png",
-              speciality: getRandomSpeciality(),
-              description:
-                "I am a renowned travel influencer, captivating audiences worldwide with breathtaking photography, engaging stories, and expert travel tips. With a passion for exploring new destinations and cultures, I offer a unique perspective on the world’s most beautiful and intriguing places. From luxury escapes to off-the-beaten-path adventures, my content inspires and guides followers to make the most of their own travel experiences. Known for my authentic voice and vibrant personality, I collaborate with top brands to bring the best travel experiences and recommendations to my dedicated and ever-growing audience.",
-              user: {connect:{id:user1.id}},
-              priority: 1,
-              state_priority: 1,
-              socialLinks: [
-                "https://www.instagram.com/thisisbillgates/",
-                "https://www.youtube.com/@Fireship",
-                "https://www.facebook.com/fireship.tech/",
-              ],
-              country: `country-${i+1}`,
-              state: `city-${i+1}`,
-            },
-    })
+      data: {
+        name: user1.username,
+        image: "/influencer.png",
+        speciality: getRandomSpeciality(),
+        description:
+          "I am a renowned travel influencer, captivating audiences worldwide with breathtaking photography, engaging stories, and expert travel tips. With a passion for exploring new destinations and cultures, I offer a unique perspective on the world’s most beautiful and intriguing places. From luxury escapes to off-the-beaten-path adventures, my content inspires and guides followers to make the most of their own travel experiences. Known for my authentic voice and vibrant personality, I collaborate with top brands to bring the best travel experiences and recommendations to my dedicated and ever-growing audience.",
+        user: { connect: { id: user1.id } },
+        priority: 1,
+        state_priority: 1,
+        socialLinks: [
+          "https://www.instagram.com/thisisbillgates/",
+          "https://www.youtube.com/@Fireship",
+          "https://www.facebook.com/fireship.tech/",
+        ],
+        country: `country ${i < 5 ? 1 : 2}`,
+        state: `city ${i + 1}`,
+      },
+    });
+    console.log("influencer", i);
   }
   for (let i = 0; i < 10; i++) {
     // Create Users
@@ -53,9 +56,9 @@ async function main() {
         role: "USER",
       },
     });
-    
+
     // Create Agencies
-    const agency1 = await prisma.agency.create({
+    const agency1 = prisma.agency.create({
       data: {
         priority: 1,
         city_priority: 1,
@@ -64,7 +67,7 @@ async function main() {
           connect: { id: user1.id },
         },
         name: `Agency ${i + 1}`,
-        country: `country ${i + 1}`,
+        country: `country ${i < 5 ? 1 : 2}`,
         city: `city ${i + 1}`,
         address: "123 Main St",
         contactPerson: "Alice Smith",
@@ -123,7 +126,7 @@ async function main() {
     });
 
     // Create DMC
-    const dmc1 = await prisma.dMC.create({
+    const dmc1 = prisma.dMC.create({
       data: {
         priority: 1,
         city_priority: 1,
@@ -131,8 +134,8 @@ async function main() {
         User: {
           connect: { id: user1.id },
         },
-        name: "DMC One",
-        country: `country ${i + 1}`,
+        name: `DMC ${i + 1}`,
+        country: `country ${i < 5 ? 1 : 2}`,
         city: `city ${i + 1}`,
         address: "456 Market St",
         contactPerson: "Carol Davis",
@@ -192,7 +195,7 @@ async function main() {
     });
 
     // Create Hotels
-    const hotel1 = await prisma.hotel.create({
+    const hotel1 = prisma.hotel.create({
       data: {
         priority: 1,
         city_priority: 1,
@@ -200,8 +203,8 @@ async function main() {
         User: {
           connect: { id: user1.id },
         },
-        name: "Hotel One",
-        country: `country ${i + 1}`,
+        name: `Hotel ${i + 1}`,
+        country: `country ${i < 5 ? 1 : 2}`,
         city: `city ${i + 1}`,
         address: "789 Hotel Ave",
         contactPerson: "Eve Thompson",
@@ -232,6 +235,8 @@ async function main() {
         methodology: "Customer-focused approach",
       },
     });
+    const [hotel, agency, dmc] = await Promise.all([hotel1, agency1, dmc1]);
+    console.log("seeded", i);
   }
 
   console.log("Data seeded successfully!");
