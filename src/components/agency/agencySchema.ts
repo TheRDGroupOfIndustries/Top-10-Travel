@@ -22,13 +22,26 @@ export const ClientReferenceSchema = z.object({
   testimonial: z.string().min(1, { message: "Required" }),
 });
 
-export const SocialMediaLinksSchema = z.object({
-  facebook: z.string().url().optional(),
-  instagram: z.string().url().optional(),
-  linkedin: z.string().url().optional(),
-  twitter: z.string().url().optional(),
-  youtube: z.string().url().optional(),
-});
+export const SocialMediaLinksSchema = z
+  .object({
+    facebook: z.union([z.literal(""), z.string().trim().url()]),
+    instagram: z.union([z.literal(""), z.string().trim().url()]),
+    linkedin: z.union([z.literal(""), z.string().trim().url()]),
+    twitter: z.union([z.literal(""), z.string().trim().url()]),
+    youtube: z.union([z.literal(""), z.string().trim().url()]),
+  })
+  .refine(
+    (data) =>
+      data.facebook !== "" ||
+      data.instagram !== "" ||
+      data.linkedin !== "" ||
+      data.twitter !== "" ||
+      data.youtube !== "",
+    {
+      message: "At least one social media link must be provided",
+      path: [], // Specify which path to attach the error to, or leave it empty to attach to the root
+    }
+  );
 
 export const AgencySchema = z.object({
   name: z.string().min(3, "Name must be atleast 3 characters"),
@@ -104,7 +117,7 @@ export const AgencySchema = z.object({
       // Check for PDF file type
       message: "Only PDF files are allowed",
     }),
-  socialMediaLinks: z.array(SocialMediaLinksSchema),
+  socialMediaLinks: SocialMediaLinksSchema,
   promotionalVideoUpload: z.string().url(),
   images: z.array(z.string().url()),
   description: z.string().min(10, "Description Must be at least 10 characters"),

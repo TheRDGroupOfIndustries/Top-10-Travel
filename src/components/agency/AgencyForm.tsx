@@ -501,7 +501,12 @@ const AgencyForm = () => {
             errors={errors}
           />
         ) : null}
-        {currentStep === 6 ? <Step7 /> : null}
+        {currentStep === 6 ? (
+          <Step7
+            register={register}
+            errors={errors}
+          />
+        ) : null}
         {currentStep === 7 ? (
           <button
             type="submit"
