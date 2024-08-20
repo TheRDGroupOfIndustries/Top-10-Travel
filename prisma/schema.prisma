@@ -75,7 +75,7 @@ model PastProject {
 }
 
 model ClientReference {
-  id           Int     @id @default(autoincrement())
+  id           String     @id @default(cuid())
   clientName   String
   contactEmail String
   contactPhone String
