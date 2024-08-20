@@ -11,15 +11,20 @@ import { Button } from "../ui/button";
 import { toast } from "sonner";
 import axios from "axios";
 import { useSession } from "next-auth/react";
+import { cn } from "@/lib/utils";
 
 const Step7 = ({
   register,
   errors,
   setValue,
+  hidden,
+  type,
 }: {
   register: any;
   errors: any;
   setValue: any;
+  hidden?: boolean;
+  type: "agency" | "dmc" | "hotel";
 }) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const [isUploading, setIsUploading] = useState(false);
@@ -42,7 +47,7 @@ const Step7 = ({
     try {
       // Get a signature using server action
       setIsUploading(true);
-      const { timestamp, signature } = await getSignature();
+      const { timestamp, signature } = await getSignature(type);
 
       // Upload to Cloudinary using the signature
       const formData = new FormData();
@@ -51,7 +56,7 @@ const Step7 = ({
       formData.append("signature", signature);
       formData.append("timestamp", timestamp);
       formData.append("folder", "top10travels");
-      formData.append("public_id", `agency-${session.data.user.id}-video`);
+      formData.append("public_id", `${type}-${session.data.user.id}-video`);
 
       const endpoint = process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_URL!;
       const sr = await axios.post(endpoint, formData, {
@@ -80,7 +85,7 @@ const Step7 = ({
   };
 
   return (
-    <>
+    <div className={cn(hidden ? "hidden" : "")}>
       <div>
         <Label className="text-sm font-medium">
           Social Media Links
@@ -201,14 +206,15 @@ const Step7 = ({
           )}
         </Label>
         <Input
-          onChange={(e)=>setValue("images", e.target.files && e.target.files[0])}
-
+          onChange={(e) =>
+            setValue("images", e.target.files && e.target.files[0])
+          }
           id="images"
           type="file"
           className="m-0 mt-1"
         />
       </div>
-    </>
+    </div>
   );
 };
 export default Step7;

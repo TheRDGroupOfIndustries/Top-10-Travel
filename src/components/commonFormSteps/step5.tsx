@@ -5,6 +5,7 @@ import { KeyPersonnelSchema } from "../agency/agencySchema";
 import { useEffect, useState } from "react";
 import { Button } from "../ui/button";
 import { RxCross2 } from "react-icons/rx";
+import { cn } from "@/lib/utils";
 
 type KeyPersonnelType = z.infer<typeof KeyPersonnelSchema>;
 
@@ -85,10 +86,12 @@ const Step5 = ({
   setValue,
   errors,
   register,
+  hidden
 }: {
   setValue: any;
   errors: any;
   register: any;
+  hidden?: boolean;
 }) => {
   const [form, setForm] = useState<KeyPersonnelType[]>([Init]);
   const add = () => {
@@ -109,7 +112,8 @@ const Step5 = ({
   }, [form]);
 
   return (
-    <>
+    <div className={cn(hidden ? "hidden" : "")}>
+
       <div>
         <Label
           htmlFor={"numberOfEmployees"}
@@ -156,7 +160,7 @@ const Step5 = ({
           ))}
         </div>
       </div>
-    </>
+    </div>
   );
 };
 export default Step5;

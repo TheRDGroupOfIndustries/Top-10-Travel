@@ -1,7 +1,7 @@
 "use client";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
-import { AgencySchema } from "./agencySchema";
+import { DmcSchema } from "./dmcSchema";
 import { z } from "zod";
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import { Button } from "../ui/button";
@@ -30,8 +30,9 @@ import useMutation from "@/hooks/useMutation";
 import { createAgencyAction } from "@/core/server/actions/agency/createAgency";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import { createDmcAction } from "@/core/server/actions/dmc/createDmc";
 
-type Inputs = z.infer<typeof AgencySchema>;
+type Inputs = z.infer<typeof DmcSchema>;
 
 const steps = [
   {
@@ -62,7 +63,7 @@ const steps = [
   {
     id: "Step 3",
     name: "Services Offered",
-    fields: ["primaryServices", "specializedTravelTypes", "regionsOfOperation"],
+    fields: ["coreServices", "specialization", "regionsCovered"],
   },
   {
     id: "Step 4",
@@ -86,33 +87,36 @@ const steps = [
   },
 ];
 
-const primaryServices = [
-  "Corporate Travel",
-  "Leisure Travel",
-  "Group Tours",
-  "Individual Travel Packages",
-  "Adventure Travel",
-  "Cruise Packages",
+const coreServices = [
+  "Event Planning & Execution",
+  "Group Tours & Incentives",
+  "Venue Sourcing & Logistics",
+  "Transportation Management",
+  "Accommodation Arrangements",
+  "On-Site Coordination",
+  "Cultural & Thematic Activities",
+  "MICE (Meetings, Incentives, Conferences, Exhibitions)",
+  "VIP Services",
 ];
 
-const specializedTravelTypes = [
-  "Luxury Travel",
-  "Budget Travel",
-  "Eco friendly Travel",
-  "Cultural Tours",
-  "Religious Tours",
+const specialization = [
+  "Luxury Travel Experiences",
+  "Adventure Tourism",
+  "Eco-Tourism",
+  "Historical & Cultural Tours",
+  "Religious Pilgrimages",
 ];
 const internationalCertifications = [
-  "IATA (International Air Transport Association)",
-  "UFTAA (United Federation of Travel Agents' Associations)",
-  "ASTA (American Society of Travel Advisors)",
+  " ISO 9001",
+  "SITE (Society for Incentive Travel Excellence)",
+  "MPI (Meeting Professionals International)",
 ];
 const memberships = [
-  "WTTC (World Travel & Tourism Council)",
-  "PATA (Pacific Asia Travel Association)",
+  "ADMEI (Association of Destination Management Executives International)",
+  " ICCA (International Congress and Convention Association)",
 ];
 
-const AgencyForm = () => {
+const DmcFo = () => {
   const [previousStep, setPreviousStep] = useState(0);
   const [currentStep, setCurrentStep] = useState(0);
 
@@ -126,31 +130,30 @@ const AgencyForm = () => {
     formState: { errors },
     getValues,
   } = useForm<Inputs>({
-    resolver: zodResolver(AgencySchema),
+    resolver: zodResolver(DmcSchema),
     defaultValues: {
-      primaryServices: [],
-      specializedTravelTypes: [],
-      regionsOfOperation: [],
+      coreServices: [],
+      specialization: [],
+      regionsCovered: [],
       internationalCertifications: [],
       memberships: [],
     },
   });
 
   const router = useRouter();
-  const [otherPrimaryServices, setPrimaryServices] = useState<string[]>([]);
+  const [otherCoreServices, setCoreServices] = useState<string[]>([]);
   const [otherSpecialServices, setSpecialServices] = useState<string[]>([]);
   const [otherRegions, setOtherRegions] = useState<string[]>([]);
   const [otherInternationalCertifications, setInternationalCertifications] =
     useState<string[]>([]);
   const [otherMemberships, setMemberships] = useState<string[]>([]);
 
-  const { isPending, mutate } = useMutation(createAgencyAction);
+  const { isPending, mutate } = useMutation(createDmcAction);
   const processForm: SubmitHandler<Inputs> = async (data) => {
     console.log("called");
-    data.primaryServices = data.primaryServices.concat(otherPrimaryServices);
-    data.specializedTravelTypes =
-      data.specializedTravelTypes.concat(otherSpecialServices);
-    data.regionsOfOperation = data.regionsOfOperation.concat(otherRegions);
+    data.coreServices = data.coreServices.concat(otherCoreServices);
+    data.specialization = data.specialization.concat(otherSpecialServices);
+    data.regionsCovered = data.regionsCovered.concat(otherRegions);
     data.internationalCertifications = data.internationalCertifications.concat(
       otherInternationalCertifications
     );
@@ -170,14 +173,14 @@ const AgencyForm = () => {
 
     if (success) {
       toast.success(success);
-      router.replace("/dashboard/agency");
+      router.replace("/dashboard/dmc");
     } else toast.error(error);
 
     // reset();
   };
-  const primary = watch("primaryServices");
-  const special = watch("specializedTravelTypes");
-  const regions = watch("regionsOfOperation");
+  const primary = watch("coreServices");
+  const special = watch("specialization");
+  const regions = watch("regionsCovered");
   const certificates = watch("internationalCertifications");
   const membership = watch("memberships");
   type FieldName = keyof Inputs;
@@ -270,8 +273,8 @@ const AgencyForm = () => {
           register={register}
           errors={errors}
           hidden={currentStep !== 0}
+          dmc
         />
-
         <Step2
           register={register}
           errors={errors}
@@ -282,18 +285,18 @@ const AgencyForm = () => {
         <div className={cn(currentStep !== 2 ? "hidden" : "")}>
           <div>
             <Label
-              htmlFor={"primaryServices"}
+              htmlFor={"coreServices"}
               className="text-sm font-medium"
             >
-              Primary Services
-              {errors.primaryServices && (
+              Core Services
+              {errors.coreServices && (
                 <p className="text-red-500 text-xs">
-                  {errors.primaryServices.message}
+                  {errors.coreServices.message}
                 </p>
               )}
             </Label>
             <div className="grid grid-cols-1 sm:grid-cols-2">
-              {primaryServices.map((s) => (
+              {coreServices.map((s) => (
                 <span
                   className="text-muted-foreground flex items-center gap-2 text-sm p-1"
                   key={s}
@@ -303,7 +306,7 @@ const AgencyForm = () => {
                       className="text-black text-xl"
                       onClick={(e) => {
                         setValue(
-                          "primaryServices",
+                          "coreServices",
                           primary.filter((v) => v !== s)
                         );
                       }}
@@ -312,7 +315,7 @@ const AgencyForm = () => {
                     <Unchecked
                       className="text-black text-xl"
                       onClick={(e) => {
-                        setValue("primaryServices", [...primary, s]);
+                        setValue("coreServices", [...primary, s]);
                       }}
                     />
                   )}
@@ -321,25 +324,25 @@ const AgencyForm = () => {
               ))}
             </div>
             <Input
-              onChange={(e) => setPrimaryServices(e.target.value.split(","))}
+              onChange={(e) => setCoreServices(e.target.value.split(","))}
               placeholder="Others comma separated"
               className="m-0 mt-1 w-fit"
             />
           </div>
           <div>
             <Label
-              htmlFor={"specializedTravelTypes"}
+              htmlFor={"specialization"}
               className="text-sm font-medium"
             >
-              Specialized Travel Types
-              {errors.specializedTravelTypes && (
+              Specilization
+              {errors.specialization && (
                 <p className="text-red-500 text-xs">
-                  {errors.specializedTravelTypes.message}
+                  {errors.specialization.message}
                 </p>
               )}
             </Label>
             <div className="grid grid-cols-1 sm:grid-cols-2">
-              {specializedTravelTypes.map((s) => (
+              {specialization.map((s) => (
                 <span
                   className="text-muted-foreground flex items-center gap-2 text-sm p-1"
                   key={s}
@@ -349,7 +352,7 @@ const AgencyForm = () => {
                       className="text-black text-xl"
                       onClick={(e) => {
                         setValue(
-                          "specializedTravelTypes",
+                          "specialization",
                           special.filter((v) => v !== s)
                         );
                       }}
@@ -358,7 +361,7 @@ const AgencyForm = () => {
                     <Unchecked
                       className="text-black text-xl"
                       onClick={(e) => {
-                        setValue("specializedTravelTypes", [...special, s]);
+                        setValue("specialization", [...special, s]);
                       }}
                     />
                   )}
@@ -374,13 +377,13 @@ const AgencyForm = () => {
           </div>
           <div>
             <Label
-              htmlFor={"regionsOfOperation"}
+              htmlFor={"regionsCovered"}
               className="text-sm font-medium"
             >
-              Regions of Operation
-              {errors.regionsOfOperation && (
+              Regions Covered
+              {errors.regionsCovered && (
                 <p className="text-red-500 text-xs">
-                  {errors.regionsOfOperation.message}
+                  {errors.regionsCovered.message}
                 </p>
               )}
             </Label>
@@ -399,7 +402,7 @@ const AgencyForm = () => {
                   onClick={() => {
                     if (regions.length >= 10) return;
                     setValue(
-                      "regionsOfOperation",
+                      "regionsCovered",
                       regions.includes(name)
                         ? regions.filter((v) => v !== name)
                         : [...regions, name]
@@ -421,7 +424,7 @@ const AgencyForm = () => {
                       className="text-black text-xl"
                       onClick={(e) => {
                         setValue(
-                          "regionsOfOperation",
+                          "regionsCovered",
                           regions.filter((v) => v !== s)
                         );
                       }}
@@ -430,7 +433,7 @@ const AgencyForm = () => {
                     <Unchecked
                       className="text-black text-xl"
                       onClick={(e) => {
-                        setValue("regionsOfOperation", [...regions, s]);
+                        setValue("regionsCovered", [...regions, s]);
                       }}
                     />
                   )}
@@ -440,7 +443,6 @@ const AgencyForm = () => {
             </div>
           </div>
         </div>
-
         <div className={cn(currentStep !== 3 ? "hidden" : "")}>
           <div>
             <Label
@@ -559,8 +561,9 @@ const AgencyForm = () => {
           errors={errors}
           setValue={setValue}
           hidden={currentStep !== 6}
-          type="agency"
+          type="dmc"
         />
+
         {currentStep === 7 ? <FinalStep loading={isPending} /> : null}
       </form>
       <div className="mt-5 pt-5">
@@ -579,4 +582,4 @@ const AgencyForm = () => {
     </section>
   );
 };
-export default AgencyForm;
+export default DmcFo;

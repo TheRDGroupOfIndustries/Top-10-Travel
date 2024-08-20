@@ -1,16 +1,29 @@
 import countries from "@/lib/countries.json";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
+import { cn } from "@/lib/utils";
 
-const Step1 = ({ register, errors }: { register: any; errors: any }) => {
+const Step1 = ({
+  register,
+  errors,
+  hidden,
+  dmc,
+  hotel
+}: {
+  register: any;
+  errors: any;
+  hidden?: boolean;
+  dmc?:boolean
+  hotel?:boolean
+}) => {
   return (
-    <>
+    <div className={cn(hidden ? "hidden" : "")}>
       <div>
         <Label
           htmlFor={"name"}
           className="text-sm font-medium"
         >
-          Agency Name
+          {dmc?"DMC":hotel?"Hotel":"Agency"} Name
           {errors.name && (
             <p className="text-red-500 text-xs">{errors.name.message}</p>
           )}
@@ -19,7 +32,7 @@ const Step1 = ({ register, errors }: { register: any; errors: any }) => {
           {...register("name")}
           id="name"
           type="text"
-          placeholder="Agency name"
+          placeholder={dmc?"DMC Name":hotel?"Hotel Name":"Agency Name"}
           className="m-0 mt-1"
         />
       </div>
@@ -28,7 +41,7 @@ const Step1 = ({ register, errors }: { register: any; errors: any }) => {
           htmlFor={"description"}
           className="text-sm font-medium"
         >
-          Agency description
+          {dmc?"DMC":hotel?"Hotel":"Agency"} description
           {errors.description && (
             <p className="text-red-500 text-xs">{errors.description.message}</p>
           )}
@@ -37,7 +50,7 @@ const Step1 = ({ register, errors }: { register: any; errors: any }) => {
           {...register("description")}
           id="description"
           type="text"
-          placeholder="Agency description"
+          placeholder={dmc?"DMC description":hotel?"Hotel description":"Agency description"}
           className="m-0 mt-1"
         />
       </div>
@@ -181,7 +194,7 @@ const Step1 = ({ register, errors }: { register: any; errors: any }) => {
           className="m-0 mt-1"
         />
       </div>
-    </>
+    </div>
   );
 };
 export default Step1;

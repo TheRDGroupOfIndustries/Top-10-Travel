@@ -8,6 +8,7 @@ import {
 import { useEffect, useState } from "react";
 import { Button } from "../ui/button";
 import { RxCross2 } from "react-icons/rx";
+import { cn } from "@/lib/utils";
 
 type PastProjectType = z.infer<typeof PastProjectSchema>;
 type ClientReferenceType = z.infer<typeof ClientReferenceSchema>;
@@ -150,7 +151,7 @@ const InitClient: ClientReferenceType = {
   contactPhone: "",
   testimonial: "",
 };
-const Step6 = ({ setValue, errors }: { setValue: any; errors: any }) => {
+const Step6 = ({ setValue, errors, hidden }: { setValue: any; errors: any, hidden?:boolean }) => {
   const [form, setForm] = useState<PastProjectType[]>([InitProject]);
   const [form2, setForm2] = useState<ClientReferenceType[]>([InitClient]);
   const add = () => {
@@ -187,7 +188,8 @@ const Step6 = ({ setValue, errors }: { setValue: any; errors: any }) => {
   }, [form2]);
 
   return (
-    <>
+    <div className={cn(hidden ? "hidden" : "")}>
+
       <div>
         <Label className="text-sm font-medium">
           Past Projects{" "}
@@ -238,7 +240,7 @@ const Step6 = ({ setValue, errors }: { setValue: any; errors: any }) => {
           ))}
         </div>
       </div>
-    </>
+    </div>
   );
 };
 export default Step6;

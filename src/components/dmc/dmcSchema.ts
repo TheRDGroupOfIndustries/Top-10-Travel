@@ -1,49 +1,7 @@
 import { z } from "zod";
+import { ClientReferenceSchema, KeyPersonnelSchema, PastProjectSchema, SocialMediaLinksSchema } from "../agency/agencySchema";
 
-export const KeyPersonnelSchema = z.object({
-  name: z.string().min(1, { message: "Required" }),
-  position: z.string().min(1, { message: "Required" }),
-  yearsOfExperience: z.number().min(0, "Invalid value"),
-  specialization: z.string().min(1, { message: "Required" }),
-});
-export const PastProjectSchema = z.object({
-  projectName: z.string().min(1, { message: "Required" }),
-  clientName: z.string().min(1, { message: "Required" }),
-  year: z
-    .number()
-    .min(1900, "Invalid Year")
-    .max(new Date().getFullYear() + 1, "Invalid Year"),
-  description: z.string().min(1, { message: "Required" }),
-});
-export const ClientReferenceSchema = z.object({
-  clientName: z.string().min(1, { message: "Required" }),
-  contactEmail: z.string().email(),
-  contactPhone: z.string().min(10).max(12),
-  testimonial: z.string().min(1, { message: "Required" }),
-});
-
-export const SocialMediaLinksSchema = z
-  .object({
-    facebook: z.union([z.literal(""), z.string().trim().url()]),
-    instagram: z.union([z.literal(""), z.string().trim().url()]),
-    linkedin: z.union([z.literal(""), z.string().trim().url()]),
-    twitter: z.union([z.literal(""), z.string().trim().url()]),
-    youtube: z.union([z.literal(""), z.string().trim().url()]),
-  })
-  .refine(
-    (data) =>
-      data.facebook !== "" ||
-      data.instagram !== "" ||
-      data.linkedin !== "" ||
-      data.twitter !== "" ||
-      data.youtube !== "",
-    {
-      message: "At least one social media link must be provided",
-      path: [], // Specify which path to attach the error to, or leave it empty to attach to the root
-    }
-  );
-
-export const AgencySchema = z.object({
+export const DmcSchema = z.object({
   name: z.string().min(3, "Name must be atleast 3 characters"),
   country: z.string().min(1, { message: "Required" }),
   city: z.string().min(1, { message: "Required" }),
@@ -84,13 +42,13 @@ export const AgencySchema = z.object({
       // Check for PDF file type
       message: "Only PDF files are allowed",
     }),
-  primaryServices: z
+  coreServices: z
     .array(z.string().min(1, "Required"))
     .min(1, "Select At least one"),
-  specializedTravelTypes: z
+    specialization: z
     .array(z.string().min(1, "Required"))
     .min(1, "Select At least one"),
-  regionsOfOperation: z
+    regionsCovered: z
     .array(z.string().min(1, "Required"))
     .min(1, "Select At least one")
     .max(10, "Max 10 regions allowed."),
@@ -135,8 +93,5 @@ export const AgencySchema = z.object({
       // Check for PDF file type
       message: "Only image files are allowed",
     }),
-  description: z
-    .string()
-    .min(10, "Description Must be at least 10 characters")
-    .max(500, "Description  cannot exceed 500 characters."),
+  description: z.string().min(10, "Description Must be at least 10 characters").max(500, "Description  cannot exceed 500 characters."),
 });

@@ -1,3 +1,4 @@
+import { cn } from "@/lib/utils";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 
@@ -5,13 +6,15 @@ const Step2 = ({
   register,
   errors,
   setValue,
+  hidden,
 }: {
   register: any;
   errors: any;
   setValue: any;
+  hidden?: boolean;
 }) => {
   return (
-    <>
+    <div className={cn(hidden ? "hidden" : "")}>
       <div>
         <Label
           htmlFor={"companyRegistrationNumber"}
@@ -102,7 +105,7 @@ const Step2 = ({
           className="m-0 mt-1"
         />
       </div>
-    </>
+    </div>
   );
 };
 export default Step2;
