@@ -78,19 +78,20 @@ const Details = ({ data }: { data: CompanyType }) => {
                   const url = link[platform as keyof SocialMediaLinks];
                   if (url) {
                     return (
-                      <Button  
-                        key={`${platform}-${index}`} 
-                        className="rounded-full" 
-                        variant="outline">
+                      <Button
+                        key={`${platform}-${index}`}
+                        className="rounded-full"
+                        variant="outline"
+                      >
                         <Link
                           href={url}
                           target="_blank"
                           rel="noopener noreferrer"
                           className="w-full h-full flex items-center gap-2"
-                      >
-                        {getIconFromName(url)}
-                      </Link>
-                        </Button>
+                        >
+                          {getIconFromName(url)}
+                        </Link>
+                      </Button>
                     );
                   }
                   return null;
@@ -225,8 +226,6 @@ const Details = ({ data }: { data: CompanyType }) => {
           </div>
         </div>
       </div>
-      {/* <HeroHeading title="Related Packages" className="uppercase" /> */}
-      {/* <PackagesCarousel packages={data.packages} /> */}
     </div>
   );
 };
