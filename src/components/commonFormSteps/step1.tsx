@@ -127,6 +127,26 @@ const Step1 = ({ register, errors }: { register: any; errors: any }) => {
       </div>
       <div>
         <Label
+          htmlFor={"contactEmail"}
+          className="text-sm font-medium"
+        >
+          Contact Email
+          {errors.contactEmail && (
+            <p className="text-red-500 text-xs">
+              {errors.contactEmail.message}
+            </p>
+          )}
+        </Label>
+        <Input
+          {...register("contactEmail")}
+          id="contactEmail"
+          type="email"
+          placeholder="Contact Email"
+          className="m-0 mt-1"
+        />
+      </div>
+      <div>
+        <Label
           htmlFor={"address"}
           className="text-sm font-medium"
         >

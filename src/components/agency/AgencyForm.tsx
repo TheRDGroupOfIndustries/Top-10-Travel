@@ -25,6 +25,11 @@ import { cn } from "@/lib/utils";
 import Step5 from "../commonFormSteps/step5";
 import Step6 from "../commonFormSteps/step6";
 import Step7 from "../commonFormSteps/step7";
+import FinalStep from "../commonFormSteps/finalStep";
+import useMutation from "@/hooks/useMutation";
+import { createAgencyAction } from "@/core/server/actions/agency/createAgency";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 type Inputs = z.infer<typeof AgencySchema>;
 
@@ -40,6 +45,7 @@ const steps = [
       "address",
       "contactPerson",
       "contactPhoneNumber",
+      "contactEmail",
       "websiteUrl",
     ],
   },
@@ -108,7 +114,7 @@ const memberships = [
 
 const AgencyForm = () => {
   const [previousStep, setPreviousStep] = useState(0);
-  const [currentStep, setCurrentStep] = useState(6);
+  const [currentStep, setCurrentStep] = useState(0);
 
   const {
     register,
@@ -118,6 +124,7 @@ const AgencyForm = () => {
     trigger,
     setValue,
     formState: { errors },
+    getValues,
   } = useForm<Inputs>({
     resolver: zodResolver(AgencySchema),
     defaultValues: {
@@ -128,6 +135,8 @@ const AgencyForm = () => {
       memberships: [],
     },
   });
+
+  const router = useRouter();
   const [otherPrimaryServices, setPrimaryServices] = useState<string[]>([]);
   const [otherSpecialServices, setSpecialServices] = useState<string[]>([]);
   const [otherRegions, setOtherRegions] = useState<string[]>([]);
@@ -135,9 +144,31 @@ const AgencyForm = () => {
     useState<string[]>([]);
   const [otherMemberships, setMemberships] = useState<string[]>([]);
 
-  const processForm: SubmitHandler<Inputs> = (data) => {
-    console.log(data);
-    reset();
+  const { isPending, mutate } = useMutation(createAgencyAction);
+  const processForm: SubmitHandler<Inputs> = async (data) => {
+    console.log("called");
+    data.primaryServices = data.primaryServices.concat(otherPrimaryServices);
+    data.specializedTravelTypes =
+      data.specializedTravelTypes.concat(otherSpecialServices);
+    data.regionsOfOperation = data.regionsOfOperation.concat(otherRegions);
+    data.internationalCertifications = data.internationalCertifications.concat(
+      otherInternationalCertifications
+    );
+    data.memberships = data.memberships.concat(otherMemberships);
+    const fdata = new FormData();
+
+    fdata.append("businessLicenseUpload", data.businessLicenseUpload);
+    fdata.append("insuranceCertificateUpload", data.insuranceCertificateUpload);
+    fdata.append("images", data.images);
+    const {businessLicenseUpload, insuranceCertificateUpload, images, ...rest} = data
+    const { success, error } = await mutate({values:rest, formData:fdata});
+
+    if (success) {
+      toast.success(success);
+      router.replace("/dashboard/agency");
+    } else toast.error(error);
+
+    // reset();
   };
   const primary = watch("primaryServices");
   const special = watch("specializedTravelTypes");
@@ -147,14 +178,16 @@ const AgencyForm = () => {
   type FieldName = keyof Inputs;
 
   const next = async () => {
+    if (currentStep === steps.length) {
+      console.log(steps.length);
+      await processForm(getValues());
+      return;
+    }
     const fields = steps[currentStep].fields;
     const output = await trigger(fields as FieldName[], { shouldFocus: true });
 
     if (!output) return;
-    if (currentStep < steps.length - 1) {
-      if (currentStep === steps.length - 2) {
-        await handleSubmit(processForm)();
-      }
+    if (currentStep <= steps.length - 1) {
       setPreviousStep(currentStep);
       setCurrentStep((step) => step + 1);
     }
@@ -172,7 +205,7 @@ const AgencyForm = () => {
       <nav aria-label="Progress">
         <ol
           role="list"
-          className="space-y-4 md:flex md:space-x-8 md:space-y-0"
+          className="hidden space-y-4 md:flex md:space-x-8 md:space-y-0"
         >
           {steps.map((step, index) => (
             <li
@@ -207,10 +240,26 @@ const AgencyForm = () => {
             </li>
           ))}
         </ol>
+        <div
+          className="flex md:hidden w-full flex-col border-l-4 border-sky-600 py-2 pl-4 md:border-l-0 md:border-t-4 md:pb-0 md:pl-0 md:pt-4"
+          aria-current="step"
+        >
+          <span className="text-sm font-medium text-sky-600">
+            {currentStep === steps.length ? 8 : steps[currentStep].id}
+          </span>
+          <span className="text-sm font-medium">
+            {currentStep === steps.length
+              ? "Final Step"
+              : steps[currentStep].name}
+          </span>
+        </div>
       </nav>
       <form
-        className="mt-12 py-12 flex flex-col gap-2"
-        onSubmit={handleSubmit(processForm)}
+        className="py-12 flex flex-col gap-2"
+        onSubmit={async (e) => {
+          e.preventDefault();
+          await processForm(getValues());
+        }}
       >
         {currentStep === 0 ? (
           <Step1
@@ -222,6 +271,7 @@ const AgencyForm = () => {
           <Step2
             register={register}
             errors={errors}
+            setValue={setValue}
           />
         ) : null}
         {currentStep === 2 ? (
@@ -505,21 +555,22 @@ const AgencyForm = () => {
           <Step7
             register={register}
             errors={errors}
+            setValue={setValue}
           />
         ) : null}
-        {currentStep === 7 ? (
-          <button
-            type="submit"
-            className="w-full bg-sky-500 hover:bg-sky-600 text-white font-medium py-2 px-4 rounded-md transition-colors"
-          >
-            Submit
-          </button>
-        ) : null}
+        {currentStep === 7 ? <FinalStep loading={isPending} /> : null}
       </form>
       <div className="mt-5 pt-5">
         <div className="flex justify-between">
-          <Button onClick={() => prev()}>Prev</Button>
-          <Button onClick={async () => await next()}>Next</Button>
+          {currentStep > 0 && <Button onClick={() => prev()}>Prev</Button>}
+          {currentStep < 7 && (
+            <Button
+              className="ml-auto"
+              onClick={async () => await next()}
+            >
+              Next
+            </Button>
+          )}
         </div>
       </div>
     </section>

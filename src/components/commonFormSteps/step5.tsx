@@ -106,7 +106,6 @@ const Step5 = ({
   };
   useEffect(() => {
     setValue("keyPersonnel", form);
-    console.log(form);
   }, [form]);
 
   return (

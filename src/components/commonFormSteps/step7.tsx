@@ -12,10 +12,20 @@ import { toast } from "sonner";
 import axios from "axios";
 import { useSession } from "next-auth/react";
 
-const Step7 = ({ register, errors }: { register: any; errors: any }) => {
+const Step7 = ({
+  register,
+  errors,
+  setValue,
+}: {
+  register: any;
+  errors: any;
+  setValue: any;
+}) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const [isUploading, setIsUploading] = useState(false);
-  const [publicId, setPublicId] = useState("");
+  const [videoUploadData, setVideoUploadData] = useState<any>();
+  const [percentUploaded, setPercentUploaded] = useState(0);
+
   const session = useSession();
   const uploadVideo = async () => {
     if (!session.data) return;
@@ -33,7 +43,6 @@ const Step7 = ({ register, errors }: { register: any; errors: any }) => {
       // Get a signature using server action
       setIsUploading(true);
       const { timestamp, signature } = await getSignature();
-      console.log(timestamp, signature);
 
       // Upload to Cloudinary using the signature
       const formData = new FormData();
@@ -45,18 +54,23 @@ const Step7 = ({ register, errors }: { register: any; errors: any }) => {
       formData.append("public_id", `agency-${session.data.user.id}-video`);
 
       const endpoint = process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_URL!;
-      const sr = await axios.post(endpoint, formData);
-      const data = sr.data;
-      console.log(data);
-
-      // Write to the database using server actions
-      const res = await saveToDatabase({
-        version: data?.version,
-        signature: data?.signature,
-        public_id: data?.public_id,
+      const sr = await axios.post(endpoint, formData, {
+        onUploadProgress(e) {
+          setPercentUploaded((e.loaded / (e.total ?? 1)) * 100);
+        },
       });
+      const data = sr.data;
+      setValue("promotionalVideoUpload", data.secure_url);
 
-      if (res?.success) toast.success(res.success);
+      // // Write to the database using server actions
+      // const res = await saveToDatabase({
+      //   version: data?.version,
+      //   signature: data?.signature,
+      //   public_id: data?.public_id,
+      // });
+
+      // if (res?.success)
+      toast.success("Video Uploaded Succesfully.");
     } catch (error) {
       console.error("Upload failed", error);
       toast.error("Upload failed. Please try again.");
@@ -149,9 +163,15 @@ const Step7 = ({ register, errors }: { register: any; errors: any }) => {
           </div>
         </div>
       </div>
-      <div>
+      <div className="space-y-2">
         <Label className="text-sm font-medium">
           Promotional Video Upload
+          <p className="text-green-400 font-semibold">
+            {percentUploaded.toFixed(2) === "0.00" ||
+            percentUploaded.toFixed(2) === "100.00"
+              ? null
+              : `Uploading file ${percentUploaded.toFixed(2)} %`}
+          </p>
           {errors?.promotionalVideoUpload && (
             <p className="text-red-500 text-xs">
               {errors.promotionalVideoUpload.message}
@@ -172,6 +192,21 @@ const Step7 = ({ register, errors }: { register: any; errors: any }) => {
         >
           Upload
         </Button>
+      </div>
+      <div>
+        <Label className="text-sm font-medium">
+          Image Upload
+          {errors?.images && errors.images && (
+            <p className="text-red-500 text-xs">{errors.images.message}</p>
+          )}
+        </Label>
+        <Input
+          onChange={(e)=>setValue("images", e.target.files && e.target.files[0])}
+
+          id="images"
+          type="file"
+          className="m-0 mt-1"
+        />
       </div>
     </>
   );

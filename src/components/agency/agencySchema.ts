@@ -60,7 +60,7 @@ export const AgencySchema = z.object({
     .max(new Date().getFullYear(), "Invalid Year"),
   businessLicenseUpload: z
     .preprocess(
-      (fileList: any) => fileList && fileList[0],
+      (File: any) => File,
       z.instanceof(File, { message: "Invalid Input or file missing" })
     )
     .refine((file) => file.size <= 5 * 1024 * 1024, {
@@ -73,7 +73,7 @@ export const AgencySchema = z.object({
     }),
   insuranceCertificateUpload: z
     .preprocess(
-      (fileList: any) => fileList && fileList[0],
+      (fileList: any) => fileList,
       z.instanceof(File, { message: "Invalid Input or file missing" })
     )
     .refine((file) => file.size <= 5 * 1024 * 1024, {
@@ -107,7 +107,10 @@ export const AgencySchema = z.object({
     .array(ClientReferenceSchema)
     .min(1, "Select at least one."),
   caseStudyPdf: z
-    .instanceof(File)
+    .preprocess(
+      (fileList: any) => fileList,
+      z.instanceof(File, { message: "Invalid Input or file missing" })
+    )
     .optional()
     .refine((file) => !file || file.size <= 5 * 1024 * 1024, {
       // 5MB max file size
@@ -119,6 +122,18 @@ export const AgencySchema = z.object({
     }),
   socialMediaLinks: SocialMediaLinksSchema,
   promotionalVideoUpload: z.string().url(),
-  images: z.array(z.string().url()),
+  images: z
+    .preprocess(
+      (fileList: any) => fileList,
+      z.instanceof(File, { message: "Invalid Input or file missing" })
+    )
+    .refine((file) => !file || file.size <= 2 * 1024 * 1024, {
+      // 5MB max file size
+      message: "File size should be less than 2MB",
+    })
+    .refine((file) => file.type.includes("image"), {
+      // Check for PDF file type
+      message: "Only image files are allowed",
+    }),
   description: z.string().min(10, "Description Must be at least 10 characters"),
 });
