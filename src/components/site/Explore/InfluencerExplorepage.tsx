@@ -16,10 +16,8 @@ type Data = {
 }[];
 const InfluencerExploreMore = ({
   data,
-  isLoading,
 }: {
   data: Data;
-  isLoading: boolean;
 }) => {
   const [selectedCountry, setSelectedCountry] = useState("");
   const [selectedState, setSelectedState] = useState("");
@@ -51,10 +49,7 @@ const InfluencerExploreMore = ({
         setSelectedState={setSelectedState}
       />
 
-      <ListDataInfluencer
-        isLoading={isLoading}
-        data={filteredData}
-      />
+      <ListDataInfluencer data={filteredData} />
     </div>
   );
 };

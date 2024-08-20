@@ -7,16 +7,14 @@ import { redirect } from "next/navigation";
 export const revalidate = 3600;
 
 const Page = async () => {
-  const allHotels = await db.company.findMany({
+  const allHotels = await db.hotel.findMany({
     where: {
-      companyRole: "HOTEL",
       isCertified: true,
-      isSuspended: false,
     },
     select: {
       id: true,
-      legalName: true,
-      image: true,
+      name: true,
+      images: true,
       city: true,
       country: true,
       methodology: true,
@@ -25,12 +23,6 @@ const Page = async () => {
     },
     orderBy: { priority: "desc" },
   });
-  return (
-    <ExploreMore
-      isLoading={allHotels ? false : true}
-      role={"HOTEL"}
-      data={allHotels}
-    />
-  );
+  return <ExploreMore role={"Hotels"} data={allHotels} />;
 };
 export default Page;
