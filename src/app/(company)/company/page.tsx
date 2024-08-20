@@ -17,6 +17,7 @@ const getReviews = async (companyId: string) => {
     where: { companyId },
   });
 };
+
 async function CompanyPage() {
   const session = await getSessionorRedirect();
   const { company } = await dashboardData(session?.user.id);

@@ -7,16 +7,14 @@ import { redirect } from "next/navigation";
 export const revalidate = 3600;
 
 const Page = async () => {
-  const allAgencies = await db.company.findMany({
+  const allAgencies = await db.agency.findMany({
     where: {
-      companyRole: "AGENCY",
       isCertified: true,
-      isSuspended: false,
     },
     select: {
       id: true,
-      legalName: true,
-      image: true,
+      name: true,
+      images: true,
       city: true,
       country: true,
       methodology: true,
@@ -28,11 +26,7 @@ const Page = async () => {
 
   return (
     <div>
-      <ExploreMore
-        isLoading={allAgencies ? false : true}
-        data={allAgencies}
-        role="AGENCY"
-      />
+      <ExploreMore data={allAgencies} role="Agency" />
     </div>
   );
 };

@@ -17,15 +17,11 @@ const Page = async () => {
       state: true,
       country: true,
       description: true,
-      speciality:true
+      speciality: true,
     },
     orderBy: { priority: "desc" },
   });
-  return (
-    <InfluencerExploreMore
-      isLoading={allInf ? false : true}
-      data={allInf}
-    />
-  );
+
+  return <InfluencerExploreMore data={allInf} />;
 };
 export default Page;

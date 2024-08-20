@@ -3,49 +3,40 @@ import HeroHeading from "@/components/reusable/HeroHeading";
 import ShareButton from "@/components/reusable/shareButton";
 import StarRating from "@/components/reusable/StarRating";
 import { Button } from "@/components/ui/button";
-import { $Enums, Package } from "@prisma/client";
-import Image from "next/image";
-
-import { FcGoogle } from "react-icons/fc";
-import AnimatedImage from "./AnimatedImage";
-import PackagesCarousel from "./PackagesCarousel";
-import ReviewSSR from "./ReviewSSR";
 import { getIconFromName } from "@/components/reusable/Icons";
 import { getValidUrl } from "@/lib/utils";
 import Link from "next/link";
+import AnimatedImage from "./AnimatedImage";
+import PackagesCarousel from "./PackagesCarousel";
+import ReviewSSR from "./ReviewSSR";
+import type { SocialMediaLinks } from "@prisma/client";
 
 type CompanyType = {
   reviews: number;
   id: string;
-  legalName: string;
-  image: string | null;
+  name: string;
   country: string;
-  state: string;
-  companyRole: $Enums.CompanyRole;
   rating: number;
   methodology: string | null;
   city: string;
-  companyData: {
-    pincode: string;
-    description: string | null;
-    images: string[];
-    address: string;
-    phone: string;
-    socialLinks: string[];
-  } | null;
-  packages: Package[];
+  description: string | null;
+  address: string;
+  images: string[];
+  socialMediaLinks: SocialMediaLinks[];
 };
 
-const Details = ({
-  data,
-  role,
-}: {
-  data: CompanyType;
-  role: "AGENCY" | "HOTEL" | "DMC";
-}) => {
+const Details = ({ data }: { data: CompanyType }) => {
+  const socialPlatforms = [
+    "facebook",
+    "instagram",
+    "linkedin",
+    "twitter",
+    "youtube",
+  ];
+
   return (
     <div className="mb-10">
-      <HeroHeading title={data?.legalName} className="uppercase" />
+      <HeroHeading title={data?.name} className="uppercase" />
       <div className="px-2 md:px-3 lg:px-6 xl:px-8">
         <div className="w-full flex xl:gap-12 gap-6 pb-16 border-b-black border-b-[1px]">
           <div className="w-full flex flex-col gap-10 flex-1">
@@ -53,7 +44,7 @@ const Details = ({
               {/* Main Image */}
               <div className="relative rounded-lg w-full h-64 md:h-96 lg:h-[450px]">
                 <AnimatedImage
-                  src={getValidUrl(data.image ?? "")}
+                  src={getValidUrl(data?.images[0] ?? "")}
                   alt="main image"
                   fill
                   className="rounded-lg object-cover"
@@ -62,7 +53,7 @@ const Details = ({
 
               {/* Grid of Thumbnails */}
               <div className="grid grid-cols-2 md:grid-cols-4 sm:gap-4 gap-2">
-                {data.companyData?.images.map(
+                {data.images.slice(1).map(
                   (url, ind) =>
                     ind < 4 && (
                       <div
@@ -82,27 +73,39 @@ const Details = ({
             </div>
 
             <div className="w-full flex flex-wrap items-center justify-between gap-1">
-              {data.companyData?.socialLinks.map((link) => (
-                <Button key={link} className="rounded-full" variant="outline">
-                  <Link
-                    href={link}
-                    target="_blank"
-                    className="w-full h-full flex items-center gap-2"
-                  >
-                    {getIconFromName(link)}
-                  </Link>
-                </Button>
-              ))}
+              {data.socialMediaLinks.map((link, index) =>
+                socialPlatforms.map((platform) => {
+                  const url = link[platform as keyof SocialMediaLinks];
+                  if (url) {
+                    return (
+                      <Button  
+                        key={`${platform}-${index}`} 
+                        className="rounded-full" 
+                        variant="outline">
+                        <Link
+                          href={url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="w-full h-full flex items-center gap-2"
+                      >
+                        {getIconFromName(url)}
+                      </Link>
+                        </Button>
+                    );
+                  }
+                  return null;
+                })
+              )}
             </div>
 
             <div className="rounded-md flex lg:hidden flex-col gap-6 py-12 sm:px-8 px-4 shadow shadow-black/50">
               <div className="flex flex-col gap-5">
                 <div>
                   <h3 className="lg:text-[32px] text-2xl font-bold leading-tight sm:leading-6">
-                    {data?.legalName}
+                    {data?.name}
                   </h3>
                   <p className="text-sm mt-3 leading-4 font-medium">
-                    {`${data?.companyData?.address}, ${data?.city}, Pin-${data?.companyData?.pincode}.`}
+                    {`${data?.address}, ${data?.city}.`}
                   </p>
                 </div>
 
@@ -120,7 +123,7 @@ const Details = ({
               <div className="flex flex-col gap-4">
                 <h4 className="font-medium text-2xl leading-6">Methodology</h4>
                 <p className="text-base leading-[22px] text-justify font-medium">
-                  {data.methodology}
+                  {data?.methodology}
                 </p>
               </div>
 
@@ -128,15 +131,15 @@ const Details = ({
 
               <div className="flex gap-1 py-4 w-full flex-grow">
                 <EnquireDialog
-                  images={data?.companyData?.images}
-                  name={data?.legalName}
+                  images={data?.images}
+                  name={data?.name}
                   className="flex-1 border-black border-[1px] py-3 rounded-full text-xl leading-6 font-medium"
                 />
                 <ShareButton />
               </div>
             </div>
 
-            {/* {data.companyData?.socialLinks.map((link) => (
+            {/* {data?.companyData?.socialLinks.map((link) => (
               <div
                 key={`banner-${link}`}
                 className="h-[250px] cursor-pointer lg:hidden rounded-2xl overflow-hidden relative"
@@ -166,13 +169,13 @@ const Details = ({
                   Description
                 </div>
                 <div className="text-justify text-base leading-6 font-medium">
-                  {data?.companyData?.description}
+                  {data?.description}
                 </div>
               </div>
             </div>
 
             <div className="lg:hidden">
-              <ReviewSSR name={data?.legalName} companyId={data?.id} />
+              {/* <ReviewSSR name={data?.name} companyId={data?.id} /> */}
             </div>
           </div>
 
@@ -181,10 +184,10 @@ const Details = ({
               <div className="flex flex-col gap-5">
                 <div>
                   <h3 className="text-[32px] font-bold leading-tight xl:leading-6">
-                    {data?.legalName}
+                    {data?.name}
                   </h3>
                   <p className="text-sm mt-3 leading-4 font-medium">
-                    {`${data?.companyData?.address}, ${data?.city}, Pin-${data?.companyData?.pincode}.`}
+                    {`${data?.address}, ${data?.city}.`}
                   </p>
                 </div>
 
@@ -210,20 +213,20 @@ const Details = ({
 
               <div className="flex gap-1 py-4 w-full flex-grow">
                 <EnquireDialog
-                  images={data.companyData?.images}
-                  name={data?.legalName}
+                  images={data?.images}
+                  name={data?.name}
                   className="flex-1 border-black border-[1px] py-3 rounded-full text-xl leading-6 font-medium"
                 />
                 <ShareButton />
               </div>
             </div>
 
-            <ReviewSSR name={data?.legalName} companyId={data?.id} />
+            {/* <ReviewSSR name={data?.name} companyId={data?.id} /> */}
           </div>
         </div>
       </div>
-      <HeroHeading title="Related Packages" className="uppercase" />
-      <PackagesCarousel packages={data.packages} />
+      {/* <HeroHeading title="Related Packages" className="uppercase" /> */}
+      {/* <PackagesCarousel packages={data.packages} /> */}
     </div>
   );
 };

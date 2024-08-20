@@ -1,19 +1,9 @@
-import { db } from "@/core/client/db";
-import getServerSession from "@/core/utils/getServerSession";
 import Link from "next/link";
-import { redirect } from "next/navigation";
 // modified the tailwind css of this
 import { FaPersonHiking } from "react-icons/fa6";
 
 const GetStarted = async () => {
-  const session = await getServerSession();
-  if (!session) return redirect("/auth");
-  // const alreadyhaveCompany = await db.company.findUnique({
-  //   where: { userId: session.user.id },
-  // });
-
-  // // if already have commpany redirect to company dashboard
-  // if (alreadyhaveCompany) return redirect("/company");
+ 
 
   return (
     <div className="relative h-screen font-sans">
@@ -22,10 +12,22 @@ const GetStarted = async () => {
       <div className="flex items-center justify-center h-full z-30 relative  ">
         <div className="bg-white p-8 rounded-2xl shadow-lg border-[1px] text-center ">
           <h2 className="text-2xl font-bold mb-6">Continue using</h2>
-          <Link href="company">
+          <Link href="agency">
             <button className="w-full md:lg:w-[30vw] bg-[#FFEBB8]  rounded-xl p-3 flex items-center justify-left mb-2">
               <span className="mr-2">🏢</span>
-              Continue as company
+              Continue as Agency
+            </button>
+          </Link>
+          <Link href="dmc">
+            <button className="w-full md:lg:w-[30vw] bg-[#FFEBB8]  rounded-xl p-3 flex items-center justify-left mb-2">
+              <span className="mr-2">🏢</span>
+              Continue as DMC
+            </button>
+          </Link>
+          <Link href="hotel">
+            <button className="w-full md:lg:w-[30vw] bg-[#FFEBB8]  rounded-xl p-3 flex items-center justify-left mb-2">
+              <span className="mr-2">🏢</span>
+              Continue as Hotel
             </button>
           </Link>
           <Link href="influencer">

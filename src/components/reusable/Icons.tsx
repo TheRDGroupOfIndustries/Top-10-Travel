@@ -3,6 +3,7 @@ import {
   FaFacebook,
   FaInstagram,
   FaLink,
+  FaLinkedinIn,
   FaXTwitter,
   FaYoutube,
 } from "react-icons/fa6";
@@ -38,6 +39,18 @@ export const getIconFromName = (
         />
       </>
     );
+  else if (host.includes("linkedin"))
+    return (
+      <>
+        {text ? "Linkedin " : ""}
+        <FaLinkedinIn
+          className={cn(
+            className ? className : "",
+            "text-xl md:text-2xl text-[#0A66C2]"
+          )}
+        />
+      </>
+    );
   else if (host.includes("facebook"))
     return (
       <>
@@ -45,7 +58,7 @@ export const getIconFromName = (
         <FaFacebook
           className={cn(
             className ? className : "",
-            "text-xl md:text-2xl text-blue-600"
+            "text-xl md:text-2xl text-[#0866FF]"
           )}
         />
       </>

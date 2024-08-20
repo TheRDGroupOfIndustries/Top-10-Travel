@@ -8,6 +8,7 @@ import AnimatedImage from "./AnimatedImage";
 import { getIconFromName } from "@/components/reusable/Icons";
 
 const InfluencerDetails = ({ data }: { data: InfluencerData }) => {
+  
   return (
     <div className="mb-10">
       <HeroHeading title={data?.name} className="uppercase" />

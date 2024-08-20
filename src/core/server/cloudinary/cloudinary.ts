@@ -6,7 +6,7 @@ import cloudinary, { FOLDER_NAME } from "./cloudinary_config";
 import { revalidatePath } from "next/cache";
 import sharp from "sharp";
 
-async function uploadImage(data: Buffer, name: string) {
+export async function uploadImage(data: Buffer, name: string) {
   // await sharp(data);
   const uploadPromise = new Promise(async (resolve, reject) => {
     const uploadStream = cloudinary.v2.uploader
@@ -17,6 +17,54 @@ async function uploadImage(data: Buffer, name: string) {
           // filename_override: name,
           public_id: name,
           overwrite: true,
+        },
+        (error, result) => {
+          if (error) {
+            reject(error);
+            return;
+          }
+          resolve(result);
+        }
+      )
+      .end(data);
+    // const stream = new ReadableStream(data.b)
+    // writeReadableStreamToWritable(,uploadStream)
+  });
+  return uploadPromise;
+}
+export async function uploadFile(data: ArrayBuffer, name: string) {
+  // await sharp(data);
+  const uploadPromise = new Promise(async (resolve, reject) => {
+    const uploadStream = cloudinary.v2.uploader
+      .upload_stream(
+        {
+          folder: FOLDER_NAME,
+          // filename_override: name,
+          public_id: name,
+          overwrite: true,
+        },
+        (error, result) => {
+          if (error) {
+            reject(error);
+            return;
+          }
+          resolve(result);
+        }
+      )
+      .end(data);
+    // const stream = new ReadableStream(data.b)
+    // writeReadableStreamToWritable(,uploadStream)
+  });
+  return uploadPromise;
+}
+export async function uploadFileDefault(data: ArrayBuffer) {
+  // await sharp(data);
+  const uploadPromise = new Promise(async (resolve, reject) => {
+    const uploadStream = cloudinary.v2.uploader
+      .upload_stream(
+        {
+          folder: FOLDER_NAME,
+          // filename_override: name,
         },
         (error, result) => {
           if (error) {
@@ -245,3 +293,4 @@ export const deleteImage = async ({
     return { error: "Could not delete the image." };
   }
 };
+
