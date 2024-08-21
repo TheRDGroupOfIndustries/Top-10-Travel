@@ -1,66 +1,211 @@
 import { cn } from "@/lib/utils";
+import { BiSolidShoppingBags } from "react-icons/bi";
+import { BsMoonStars } from "react-icons/bs";
+import { FaPeopleCarry } from "react-icons/fa";
 import {
   FaFacebook,
   FaInstagram,
   FaLink,
   FaLinkedinIn,
+  FaPeopleGroup,
   FaXTwitter,
   FaYoutube,
 } from "react-icons/fa6";
 import { FcGoogle } from "react-icons/fc";
+import {
+  GiCruiser,
+  GiMountainRoad,
+  GiSunbeams,
+  GiTreeDoor,
+} from "react-icons/gi";
+import { HiQueueList } from "react-icons/hi2";
+import { IoWoman } from "react-icons/io5";
+import {
+  MdAttachMoney,
+  MdEmojiTransportation,
+  MdEventAvailable,
+  MdOutlineCardTravel,
+} from "react-icons/md";
+import { PiVideoConference } from "react-icons/pi";
+import { TbBeach, TbPigMoney } from "react-icons/tb";
 
-export const getIconByTag = (tag: string, className?: string) => {
-  const host = tag.toLowerCase();
-  if (host.includes("instagram"))
+export const GetIconByTag = ({
+  tag,
+  className,
+}: {
+  tag: string;
+  className?: string;
+}) => {
+  if (tag === "Corporate Travel")
     return (
       <>
-        <FaInstagram
-          className={cn(className ? className : "", "text-xl text-pink-600")}
+        <MdOutlineCardTravel
+          className={cn(className ? className : "", "text-xl")}
         />
       </>
     );
-  else if (host.includes("youtube"))
+  else if (tag === "Leisure Travel")
     return (
       <>
-        <FaYoutube
-          className={cn(className ? className : "", "text-xl text-red-600")}
+        <TbBeach className={cn(className ? className : "", "text-xl")} />
+      </>
+    );
+  else if (tag === "Group Tours")
+    return (
+      <>
+        <FaPeopleGroup className={cn(className ? className : "", "text-xl")} />
+      </>
+    );
+  else if (tag === "Individual Travel Packages")
+    return (
+      <>
+        <IoWoman className={cn(className ? className : "", "text-xl")} />
+      </>
+    );
+  else if (tag === "Adventure Travel")
+    return (
+      <>
+        <GiMountainRoad className={cn(className ? className : "", "text-xl")} />
+      </>
+    );
+  else if (tag === "Cruise Packages")
+    return (
+      <>
+        <GiCruiser className={cn(className ? className : "", "text-xl")} />
+      </>
+    );
+  else if (tag === "Luxury Travel")
+    return (
+      <>
+        <MdAttachMoney className={cn(className ? className : "", "text-xl")} />
+      </>
+    );
+  else if (tag === "Budget Travel")
+    return (
+      <>
+        <TbPigMoney className={cn(className ? className : "", "text-xl")} />
+      </>
+    );
+  else if (tag === "Eco friendly Travel")
+    return (
+      <>
+        <GiTreeDoor className={cn(className ? className : "", "text-xl")} />
+      </>
+    );
+  else if (tag === "Cultural Tours")
+    return (
+      <>
+        <GiSunbeams className={cn(className ? className : "", "text-xl")} />
+      </>
+    );
+  else if (tag === "Religious Tours")
+    return (
+      <>
+        <BsMoonStars className={cn(className ? className : "", "text-xl")} />
+      </>
+    );
+  else if (tag === "Event Planning & Execution")
+    return (
+      <>
+        <MdEventAvailable
+          className={cn(className ? className : "", "text-xl")}
         />
       </>
     );
-  else if (host.includes("linkedin"))
+  else if (tag === "Group Tours & Incentives")
     return (
       <>
-        <FaLinkedinIn
-          className={cn(className ? className : "", "text-xl text-[#0A66C2]")}
+        <FaPeopleGroup className={cn(className ? className : "", "text-xl")} />
+      </>
+    );
+  else if (tag === "Venue Sourcing & Logistics")
+    return (
+      <>
+        <BiSolidShoppingBags
+          className={cn(className ? className : "", "text-xl")}
         />
       </>
     );
-  else if (host.includes("facebook"))
+  else if (tag === "Transportation Management")
     return (
       <>
-        <FaFacebook
-          className={cn(className ? className : "", "text-xl text-[#0866FF]")}
+        <MdEmojiTransportation
+          className={cn(className ? className : "", "text-xl")}
         />
       </>
     );
-  else if (host.includes("google"))
+  else if (tag === "Accommodation Arrangements")
     return (
       <>
-        <FcGoogle className={cn(className ? className : "", "text-xl")} />
+        <HiQueueList className={cn(className ? className : "", "text-xl")} />
       </>
     );
-  else if (host.includes("twitter") || host.includes("x.com"))
+  else if (tag === "On-Site Coordination")
     return (
       <>
-        <FaXTwitter className={cn(className ? className : "", "text-xl")} />
+        <FaPeopleCarry className={cn(className ? className : "", "text-xl")} />
+      </>
+    );
+  else if (tag === "Cultural & Thematic Activities")
+    return (
+      <>
+        <MdEmojiTransportation
+          className={cn(className ? className : "", "text-xl")}
+        />
+      </>
+    );
+  else if (tag === "MICE (Meetings, Incentives, Conferences, Exhibitions)")
+    return (
+      <>
+        <PiVideoConference
+          className={cn(className ? className : "", "text-xl")}
+        />
+      </>
+    );
+  else if (tag === "Cultural & Thematic Activities")
+    return (
+      <>
+        <MdEmojiTransportation
+          className={cn(className ? className : "", "text-xl")}
+        />
+      </>
+    );
+  else if (tag === "Cultural & Thematic Activities")
+    return (
+      <>
+        <MdEmojiTransportation
+          className={cn(className ? className : "", "text-xl")}
+        />
+      </>
+    );
+  else if (tag === "Cultural & Thematic Activities")
+    return (
+      <>
+        <MdEmojiTransportation
+          className={cn(className ? className : "", "text-xl")}
+        />
+      </>
+    );
+  else if (tag === "Cultural & Thematic Activities")
+    return (
+      <>
+        <MdEmojiTransportation
+          className={cn(className ? className : "", "text-xl")}
+        />
+      </>
+    );
+  else if (tag === "Cultural & Thematic Activities")
+    return (
+      <>
+        <MdEmojiTransportation
+          className={cn(className ? className : "", "text-xl")}
+        />
       </>
     );
   else
     return (
       <>
-        <FaLink
-          className={cn(className ? className : "", "text-xl text-gray-600")}
-        />
+        <FaLink className={cn(className ? className : "", "text-xl")} />
       </>
     );
 };

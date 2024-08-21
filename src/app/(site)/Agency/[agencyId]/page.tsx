@@ -22,10 +22,10 @@ const AgencyPage = async ({ params }: { params: { agencyId: string } }) => {
       description: true,
       address: true,
       socialMediaLinks: true,
-      specializedTravelTypes: true,
       primaryServices: true,
+      specializedTravelTypes: true,
       promotionalVideoUpload: true,
-      pastProjects:true
+      pastProjects: true,
       // companyData: {
       //   select: {
       //     description: true,

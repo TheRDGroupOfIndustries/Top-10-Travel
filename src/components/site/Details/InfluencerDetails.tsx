@@ -25,7 +25,7 @@ const InfluencerDetails = ({ data }: { data: InfluencerData }) => {
               </div>
             </div>
 
-            <div className="flex justify-around gap-1 flex-wrap">
+            {/* <div className="flex justify-around gap-1 flex-wrap">
               {data.socialLinks.map((link) => (
                 <Button key={link} className="rounded-full" variant="outline">
                   <a
@@ -37,7 +37,7 @@ const InfluencerDetails = ({ data }: { data: InfluencerData }) => {
                   </a>
                 </Button>
               ))}
-            </div>
+            </div> */}
             <div className="rounded-2xl flex lg:hidden flex-col gap-6 py-12 sm:px-8 px-4 border-[1px] border-black">
               <div className="flex flex-col gap-5">
                 <div>
@@ -50,14 +50,25 @@ const InfluencerDetails = ({ data }: { data: InfluencerData }) => {
                 </div>
               </div>
 
-              <div className="flex flex-col gap-4">
-                <h4 className="font-medium text-2xl leading-6">Introduction</h4>
+              <div className="flex flex-col">
                 <p className="text-base leading-[22px] text-justify font-medium">
                   {data?.description}
                 </p>
               </div>
 
-              <div className="text-2xl leading-6 font-medium">Actions</div>
+               <div className="flex justify-around gap-1 flex-wrap">
+                  {data.socialLinks.map((link) => (
+                    <Button key={link} className="rounded-full" variant="outline">
+                      <a
+                        href={link}
+                        target="_blank"
+                        className="w-full h-full flex items-center gap-2"
+                      >
+                        {getIconFromName(link)}
+                      </a>
+                    </Button>
+                  ))}
+               </div>
 
               <div className="flex gap-1 py-4 w-full flex-grow">
                 <ShareButton />
@@ -114,14 +125,25 @@ const InfluencerDetails = ({ data }: { data: InfluencerData }) => {
                 <p className="text-xl leading-5 font-medium text-slate-600"></p>
               </div>
 
-              <div className="flex flex-col gap-4">
-                <h4 className="font-medium text-2xl leading-6">Introduction</h4>
+              <div className="flex">
                 <p className="text-base leading-[22px] text-justify font-medium">
                   {data?.description}
                 </p>
               </div>
 
-              <div className="text-2xl leading-6 font-medium">Actions</div>
+              <div className="flex justify-around gap-1 flex-wrap">
+                 {data.socialLinks.map((link) => (
+                   <Button key={link} className="rounded-full" variant="outline">
+                     <a
+                       href={link}
+                       target="_blank"
+                       className="w-full h-full flex items-center gap-2"
+                     >
+                       {getIconFromName(link)}
+                     </a>
+                   </Button>
+                 ))}
+              </div>
 
               <div className="flex gap-1 py-4 w-full flex-grow">
                 <ShareButton />

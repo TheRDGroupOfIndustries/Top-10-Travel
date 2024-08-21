@@ -13,6 +13,18 @@ import type { PastProject, SocialMediaLinks } from "@prisma/client";
 import { TbMapPin } from "react-icons/tb";
 import PastProjects from "./PastProjects";
 import PhoneCallButton from "@/components/reusable/PhoneCallButton";
+import { GetIconByTag } from "@/components/reusable/TagIcons";
+import { FaPeopleGroup } from "react-icons/fa6";
+import {
+  GiSunbeams
+} from "react-icons/gi";
+import { PiHairDryerBold } from "react-icons/pi";
+import {
+  MdAttachMoney,
+  MdRoomService
+} from "react-icons/md";
+import { GiMountainRoad } from "react-icons/gi";
+import {  MdEventAvailable, MdOutlineCardTravel } from "react-icons/md";
 
 type CompanyType = {
   reviews: number;
@@ -62,9 +74,9 @@ const Details = ({
     preTags = data?.services?.concat(data?.specialization!);
   }
 
-  const setOfTags: Set<string> = new Set(preTags);
+  const setOfTags = new Set(preTags);
   // @ts-ignore
-  const TAGS = [...setOfTags];
+  const TAGS: string[] = [...setOfTags];
 
   return (
     <div className="mb-10 mt-20">
@@ -235,14 +247,77 @@ const Details = ({
 
             <div className="flex flex-col gap-4 sm:px-0 px-2">
               <div className="flex flex-row flex-wrap gap-1">
-                {TAGS.map((tag: string) => (
+                {/* {TAGS.map((tag: string) => (
                   <div
                     key={tag}
-                    className="bg-slate-100 border-[2px] border-slate-400 font-semibold uppercase md:px-2 px-1 md:py-1.5 py-1 md:text-base text-sm rounded-full"
+                    className="bg-slate-100 flex gap-1 border-[2px] border-slate-400 font-semibold uppercase px-2 py-1.5 md:text-base text-sm rounded-full"
                   >
-                    {tag}
+                    <GetIconByTag tag={tag} />
+                    <span>{tag}</span>
                   </div>
-                ))}
+                ))} */}
+                {info.type === "Agency" && (
+                  <>
+                    <div className="bg-slate-100 flex items-center gap-1 border-[2px] border-slate-400 font-semibold uppercase px-2 py-1.5 md:text-base text-sm rounded-full">
+                      <MdOutlineCardTravel />
+                      <span>Travel Planning</span>
+                    </div>
+                    <div className="bg-slate-100 flex items-center gap-1 border-[2px] border-slate-400 font-semibold uppercase px-2 py-1.5 md:text-base text-sm rounded-full">
+                      <FaPeopleGroup />
+                      <span>Consulting</span>
+                    </div>
+                    <div className="bg-slate-100 flex items-center gap-1 border-[2px] border-slate-400 font-semibold uppercase px-2 py-1.5 md:text-base text-sm rounded-full">
+                      <MdAttachMoney />
+                      <span>Luxury</span>
+                    </div>
+                    <div className="bg-slate-100 flex items-center gap-1 border-[2px] border-slate-400 font-semibold uppercase px-2 py-1.5 md:text-base text-sm rounded-full">
+                      <GiMountainRoad />
+                      <span>Adventure</span>
+                    </div>
+                  </>
+                )}
+
+                {info.type === "Dmc" && (
+                  <>
+                    <div className="bg-slate-100 flex items-center gap-1 border-[2px] border-slate-400 font-semibold uppercase px-2 py-1.5 md:text-base text-sm rounded-full">
+                      <MdEventAvailable />
+                      <span>Event Management</span>
+                    </div>
+                    <div className="bg-slate-100 flex items-center gap-1 border-[2px] border-slate-400 font-semibold uppercase px-2 py-1.5 md:text-base text-sm rounded-full">
+                      <FaPeopleGroup />
+                      <span>Tour Packages</span>
+                    </div>
+                    <div className="bg-slate-100 flex items-center gap-1 border-[2px] border-slate-400 font-semibold uppercase px-2 py-1.5 md:text-base text-sm rounded-full">
+                      <MdOutlineCardTravel />
+                      <span>Corporate Events</span>
+                    </div>
+                    <div className="bg-slate-100 flex items-center gap-1 border-[2px] border-slate-400 font-semibold uppercase px-2 py-1.5 md:text-base text-sm rounded-full">
+                      <GiSunbeams />
+                      <span>Cultural Tours</span>
+                    </div>
+                  </>
+                )}
+
+                {info.type === "Hotel" && (
+                  <>
+                    <div className="bg-slate-100 flex items-center gap-1 border-[2px] border-slate-400 font-semibold uppercase px-2 py-1.5 md:text-base text-sm rounded-full">
+                      <MdAttachMoney />
+                      <span>Luxury Rooms</span>
+                    </div>
+                    <div className="bg-slate-100 flex items-center gap-1 border-[2px] border-slate-400 font-semibold uppercase px-2 py-1.5 md:text-base text-sm rounded-full">
+                      <PiHairDryerBold /> 
+                      <span>Spa Services</span>
+                    </div>
+                    <div className="bg-slate-100 flex items-center gap-1 border-[2px] border-slate-400 font-semibold uppercase px-2 py-1.5 md:text-base text-sm rounded-full">
+                      <MdRoomService />
+                      <span>Room Service</span>
+                    </div>
+                    <div className="bg-slate-100 flex items-center gap-1 border-[2px] border-slate-400 font-semibold uppercase px-2 py-1.5 md:text-base text-sm rounded-full">
+                      <MdEventAvailable />
+                      <span>Event Hosting</span>
+                    </div>
+                  </>
+                )}
               </div>
 
               <div className="text-justify text-base leading-6 font-medium">
