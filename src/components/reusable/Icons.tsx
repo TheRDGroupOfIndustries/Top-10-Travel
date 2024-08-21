@@ -20,10 +20,7 @@ export const getIconFromName = (
       <>
         {text ? "Instagram " : ""}
         <FaInstagram
-          className={cn(
-            className ? className : "",
-            "text-xl md:text-2xl text-pink-600"
-          )}
+          className={cn(className ? className : "", "text-xl text-pink-600")}
         />
       </>
     );
@@ -32,10 +29,7 @@ export const getIconFromName = (
       <>
         {text ? "Youtube " : ""}
         <FaYoutube
-          className={cn(
-            className ? className : "",
-            "text-xl md:text-2xl text-red-600"
-          )}
+          className={cn(className ? className : "", "text-xl text-red-600")}
         />
       </>
     );
@@ -44,10 +38,7 @@ export const getIconFromName = (
       <>
         {text ? "Linkedin " : ""}
         <FaLinkedinIn
-          className={cn(
-            className ? className : "",
-            "text-xl md:text-2xl text-[#0A66C2]"
-          )}
+          className={cn(className ? className : "", "text-xl text-[#0A66C2]")}
         />
       </>
     );
@@ -56,10 +47,7 @@ export const getIconFromName = (
       <>
         {text ? "FaceBook " : ""}
         <FaFacebook
-          className={cn(
-            className ? className : "",
-            "text-xl md:text-2xl text-[#0866FF]"
-          )}
+          className={cn(className ? className : "", "text-xl text-[#0866FF]")}
         />
       </>
     );
@@ -67,28 +55,21 @@ export const getIconFromName = (
     return (
       <>
         {text ? "Google  " : ""}
-        <FcGoogle
-          className={cn(className ? className : "", "text-xl md:text-2xl")}
-        />
+        <FcGoogle className={cn(className ? className : "", "text-xl")} />
       </>
     );
   else if (host.includes("twitter") || host.includes("x.com"))
     return (
       <>
         {text ? "Twitter " : ""}
-        <FaXTwitter
-          className={cn(className ? className : "", "text-xl md:text-2xl ")}
-        />
+        <FaXTwitter className={cn(className ? className : "", "text-xl")} />
       </>
     );
   else
     return (
       <>
         <FaLink
-          className={cn(
-            className ? className : "",
-            "text-xl md:text-2xl text-gray-600"
-          )}
+          className={cn(className ? className : "", "text-xl text-gray-600")}
         />
       </>
     );
