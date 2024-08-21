@@ -56,7 +56,10 @@ function Navbar() {
       return (
         <>
           <DropdownMenuItem>
-            <Link href="/company">
+            <Link
+              href="/Influencer"
+              className="w-full h-full"
+            >
               <div className="flex items-center gap-2">
                 <User size={18} />
                 <span>My Account</span>
@@ -64,7 +67,10 @@ function Navbar() {
             </Link>
           </DropdownMenuItem>
           <DropdownMenuItem>
-            <Link href="/auth">
+            <Link
+              href="/auth"
+              className="w-full h-full"
+            >
               <div className="flex items-center gap-2">
                 <User size={18} />
                 <span>Start as Influencer</span>
@@ -77,7 +83,10 @@ function Navbar() {
       return (
         <>
           <DropdownMenuItem>
-            <Link href="/admin">
+            <Link
+              href="/admin"
+              className="w-full h-full"
+            >
               <div className="flex items-center gap-2">
                 <User size={18} />
                 <span>Go to Admin Dashboard</span>
@@ -106,7 +115,10 @@ function Navbar() {
       return (
         <>
           <DropdownMenuItem>
-            <Link href="/auth/agency">
+            <Link
+              href="/auth/agency"
+              className="w-full h-full"
+            >
               <div className="flex items-center gap-2">
                 <User size={18} />
                 <span>Start as Agency</span>
@@ -114,7 +126,10 @@ function Navbar() {
             </Link>
           </DropdownMenuItem>
           <DropdownMenuItem>
-            <Link href="/auth/hotel">
+            <Link
+              href="/auth/hotel"
+              className="w-full h-full"
+            >
               <div className="flex items-center gap-2">
                 <User size={18} />
                 <span>Start as Hotel</span>
@@ -122,7 +137,10 @@ function Navbar() {
             </Link>
           </DropdownMenuItem>
           <DropdownMenuItem>
-            <Link href="/auth/dmc">
+            <Link
+              href="/auth/dmc"
+              className="w-full h-full"
+            >
               <div className="flex items-center gap-2">
                 <User size={18} />
                 <span>Start as DMC</span>
@@ -130,7 +148,10 @@ function Navbar() {
             </Link>
           </DropdownMenuItem>
           <DropdownMenuItem>
-            <Link href="/auth/influencer">
+            <Link
+              href="/auth/influencer"
+              className="w-full h-full"
+            >
               <div className="flex items-center gap-2">
                 <User size={18} />
                 <span>Start as Influencer</span>

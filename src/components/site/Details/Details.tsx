@@ -44,8 +44,6 @@ const Details = ({
     "youtube",
   ];
 
-  console.log(data.socialMediaLinks);
-
   return (
     <div className="mb-10 mt-20">
       {/* <HeroHeading title={data?.name} className="uppercase" /> */}
@@ -174,6 +172,7 @@ const Details = ({
                   images={data?.images}
                   name={data?.name}
                   className="flex-1 border-black border-[1px] py-3 rounded-full text-xl leading-6 font-medium"
+                  info={info}
                 />
                 <ShareButton />
               </div>
@@ -210,7 +209,10 @@ const Details = ({
             </div>
 
             <div className="lg:hidden">
-              <ReviewSSR name={data?.name} info={info} />
+              <ReviewSSR
+                name={data?.name}
+                info={info}
+              />
             </div>
           </div>
 
@@ -278,12 +280,16 @@ const Details = ({
                   images={data?.images}
                   name={data?.name}
                   className="flex-1 border-black border-[1px] py-3 rounded-full text-xl leading-6 font-medium"
+                  info={info}
                 />
                 <ShareButton />
               </div>
             </div>
 
-            <ReviewSSR name={data?.name} info={info} />
+            <ReviewSSR
+              name={data?.name}
+              info={info}
+            />
           </div>
         </div>
       </div>
