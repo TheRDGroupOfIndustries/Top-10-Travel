@@ -8,20 +8,20 @@ import {
   CardTitle,
 } from "../../ui/card";
 import Image from "next/image";
-import InputWithSave from "./InputWithSaveAgency";
+import InputWithSave from "./InputWithSaveDmc";
 import { Badge } from "../../ui/badge";
 import Link from "next/link";
 import { Button } from "../../ui/button";
 import { Plus } from "lucide-react";
 import { cn } from "@/lib/utils";
-import UploadCompanyImagesCard from "./UploadAgencyImagesCard";
+import UploadCompanyImagesCard from "./UploadDmcImagesCard";
 import UpdateSocialMediaLinks from "../updateSocialMediaLinks";
 
-const AgencyDashboard = ({
+const DmcDashboard = ({
   data,
   reviews,
 }: {
-  data: Prisma.AgencyGetPayload<{ include: { socialMediaLinks: true } }>;
+  data: Prisma.DMCGetPayload<{ include: { socialMediaLinks: true } }>;
   reviews: Reviews[];
 }) => {
   return (
@@ -149,7 +149,7 @@ const AgencyDashboard = ({
       <UpdateSocialMediaLinks
         links={data.socialMediaLinks[0]}
         socialMediaLinkId={data.socialMediaLinks[0].id}
-        info={{ type: "Agency", agencyId: data.id }}
+        info={{ type: "Dmc", dmcId: data.id }}
       />
       <Card className="border-none bg-[#F3F3F3] mt-4">
         <CardHeader className="text-2xl font-semibold">
@@ -175,4 +175,4 @@ const AgencyDashboard = ({
     </div>
   );
 };
-export default AgencyDashboard;
+export default DmcDashboard;
