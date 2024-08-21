@@ -38,7 +38,7 @@ const HotelPage = async ({ params }: { params: { hotelId: string } }) => {
 
   return (
     <div>
-      <Details data={hotel} />
+      <Details data={hotel} role={"Hotel"} />
     </div>
   );
 };

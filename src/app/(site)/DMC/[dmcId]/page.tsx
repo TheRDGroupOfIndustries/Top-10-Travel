@@ -38,7 +38,7 @@ const DMCPage = async ({ params }: { params: { dmcId: string } }) => {
 
   return (
     <div>
-      <Details data={dmc} />
+      <Details data={dmc} role={"DMC"} />
     </div>
   );
 };
