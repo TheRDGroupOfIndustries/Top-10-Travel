@@ -1,6 +1,6 @@
 "use client";
 
-import { signIn } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
 import Link from "next/link";
 import React, { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
@@ -15,7 +15,6 @@ function CountUp({ target }: { target: number }) {
   const [count, setCount] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
   const ref = useRef<HTMLSpanElement>(null);
-
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -60,17 +59,24 @@ function CountUp({ target }: { target: number }) {
   }, [isVisible, target]);
 
   return (
-    <span ref={ref} className="lg:text-2xl  text-md font-bold">
+    <span
+      ref={ref}
+      className="lg:text-2xl  text-md font-bold"
+    >
       {count}+
     </span>
   );
 }
 
 function Certification() {
+  const { status } = useSession();
+
   return (
     <div className="w-full h-auto mt-10 py-5 bg-colorAll">
       <div className="px-2 md:px-3 lg:px-6 xl:px-8 w-full h-full flex flex-col items-center justify-between">
-        <h1 className="font-bold md:text-4xl lg:text-[35px] text-xl my-3 lg:my-6">Our legacy</h1>
+        <h1 className="font-bold md:text-4xl lg:text-[35px] text-xl my-3 lg:my-6">
+          Our legacy
+        </h1>
         <div className="w-full grid grid-cols-3 gap-2 md:gap-10 lg:px-40 ">
           {data?.map((item, index) => (
             <div
@@ -92,7 +98,13 @@ function Certification() {
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}
         >
-          <button onClick={() => signIn("google")}>REGISTER</button>
+          <button
+            onClick={() => {
+              if (status !== "authenticated") signIn("google");
+            }}
+          >
+            REGISTER
+          </button>
         </motion.div>
       </div>
     </div>

@@ -106,6 +106,7 @@ const specialization = [
   "Historical & Cultural Tours",
   "Religious Pilgrimages",
 ];
+
 const internationalCertifications = [
   " ISO 9001",
   "SITE (Society for Incentive Travel Excellence)",

@@ -27,7 +27,7 @@ export const createHelpDeskAction = async (values: Pick<HelpDesk, "title">) => {
         user: { connect: { id: session.user.id } },
       },
     });
-    revalidatePath("/company/helpdesk");
+    revalidatePath("/dashboard/helpdesk");
 
     return { success: "Helpdesk created Succesfully." };
   }  catch (error: unknown) {

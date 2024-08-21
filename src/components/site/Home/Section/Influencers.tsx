@@ -24,11 +24,7 @@ type Data =
     }[]
   | null;
 const Influencers = () => {
-  const {
-    selectedCountry,
-    selectedCity,
-    visible,
-  } = useContext(HomeContext);
+  const { selectedCountry, selectedCity, visible } = useContext(HomeContext);
   const { data, isLoading } = useAxios({
     url: `/api/influencers?country=${selectedCountry}&city=${selectedCity}`,
     selectedCity,

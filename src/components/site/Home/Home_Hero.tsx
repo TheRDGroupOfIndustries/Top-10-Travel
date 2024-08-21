@@ -212,22 +212,35 @@ function HomeHero() {
       );
     };
     handleBalloonAnimate();
-  }, []);
+  }, [balloonAnimate]);
 
   return (
     <div
       ref={divref}
-      className="relative w-full pt-10 lg:pt-0 md:min-h-screen px-2 md:px-3 lg:px-6 xl:px-8"
+      className="relative w-full h-fit min-h-[50vh] md:max-h-screen pt-10 lg:pt-0 px-2 md:px-3 lg:px-6 xl:px-8 overflow-hidden"
     >
       <div
         ref={scope}
-        className="absolute -z-10 right-0 h-[85%] w-[45%] lg:w-[38%] xl:w-[33%]"
+        className="absolute -z-10 right-0 top-0 bottom-0 md:h-full w-[45%] md:w-[45%] lg:w-[40%] xl:w-[35%]"
       >
-        <Image src={HeroEllipse} alt="Hero Image" height={912} width={562} />
+        {/* <Image src={HeroEllipse} alt="Hero Image" height={912} width={562} priority /> */}
+        <video
+          // ref={videoRef}
+          autoPlay
+          loop
+          muted
+          className="absolute right-0 top-0 bottom-0 h-full w-[80%] object-cover"
+          style={{
+            clipPath: "ellipse(100% 50% at 100% 50%)",
+          }}
+        >
+          <source src="/sky_video.mp4" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
         <AnimatePresence>
           <motion.div
             id="smallBalloon"
-            className="absolute xl:top-[22%] lg:top-[18%] md:top-[12%] sm:top-[10%] top-[8%] xl:-left-24 lg:-left-20 md:-left-16 sm:-left-12 -left-8 w-[40%] xl:h-[35%] lg:h-[30%] md:h-[25%] sm:h-[20%] h-[15%]"
+            className="absolute top-[20%] sm:top-[10%] md:top-[12%] lg:top-[18%] xl:top-[18%] xl:-left-24 lg:-left-20 md:-left-16 sm:-left-12 -left-8 w-[40%] xl:h-[35%] lg:h-[30%] md:h-[25%] sm:h-[20%] h-[15%]"
             style={{ opacity: 0 }}
           >
             <Image
@@ -239,7 +252,7 @@ function HomeHero() {
           </motion.div>
           <motion.div
             id="bigBalloon"
-            className="absolute xl:top-[60%] lg:top-[65%] md:top-[50%] sm:top-[45%] top-[35%] xl:-left-28 lg:-left-20 md:-left-16 sm:-left-12 -left-8 w-[75%] xl:h-[32%] lg:h-[27%] md:h-[22%] sm:h-[17%] h-[12%]"
+            className="absolute top-[45%] sm:top-[50%] md:top-[50%] lg:top-[45%] xl:top-[45%] xl:-left-28 lg:-left-20 md:-left-16 sm:-left-12 -left-8 w-[75%] xl:h-[32%] lg:h-[27%] md:h-[22%] sm:h-[17%] h-[12%]"
             style={{ opacity: 0 }}
           >
             <Image
@@ -252,7 +265,7 @@ function HomeHero() {
         </AnimatePresence>
       </div>
 
-      <div className="h-full flex flex-col md:gap-0 lg:gap-0 gap-1 justify-start pt-16 md:pt-24 lg:pt-32 xl:pt-40 w-full">
+      <div className="h-full lg:h-[calc(100vh+60px)] flex flex-col md:gap-0 lg:gap-0 gap-1 justify-start pt-16 md:pt-24 lg:pt-32 xl:pt-40 w-full overflow-hidden">
         <h3
           id="firstLine"
           aria-hidden
@@ -277,7 +290,7 @@ function HomeHero() {
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.8, delay: 0.4, type: "spring" }}
           >
-            Top 10 <span className="text-colorAll">travel</span>
+            travel <span className="text-colorAll">Top 10</span>
           </motion.span>
         </h1>
         <p

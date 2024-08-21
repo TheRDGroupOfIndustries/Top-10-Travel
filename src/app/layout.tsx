@@ -7,8 +7,8 @@ import Scroll from "@/components/reusable/scroll";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Top 10 Travel",
-  description: "Top 10 travels Destination",
+  title: "Travel Top 10 ",
+  description: "Travel Top 10 Destinations",
 };
 
 export default function RootLayout({

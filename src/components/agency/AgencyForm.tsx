@@ -102,6 +102,7 @@ const specializedTravelTypes = [
   "Cultural Tours",
   "Religious Tours",
 ];
+
 const internationalCertifications = [
   "IATA (International Air Transport Association)",
   "UFTAA (United Federation of Travel Agents' Associations)",
@@ -213,10 +214,7 @@ const AgencyForm = () => {
           className="hidden space-y-4 md:flex md:space-x-8 md:space-y-0"
         >
           {steps.map((step, index) => (
-            <li
-              key={step.name}
-              className="md:flex-1"
-            >
+            <li key={step.name} className="md:flex-1">
               {currentStep > index ? (
                 <div className="group flex w-full flex-col border-l-4 border-sky-600 py-2 pl-4 transition-colors md:border-l-0 md:border-t-4 md:pb-0 md:pl-0 md:pt-4">
                   <span className="text-sm font-medium text-sky-600 transition-colors ">
@@ -266,11 +264,7 @@ const AgencyForm = () => {
           await processForm(getValues());
         }}
       >
-        <Step1
-          register={register}
-          errors={errors}
-          hidden={currentStep !== 0}
-        />
+        <Step1 register={register} errors={errors} hidden={currentStep !== 0} />
 
         <Step2
           register={register}
@@ -281,10 +275,7 @@ const AgencyForm = () => {
 
         <div className={cn(currentStep !== 2 ? "hidden" : "")}>
           <div>
-            <Label
-              htmlFor={"primaryServices"}
-              className="text-sm font-medium"
-            >
+            <Label htmlFor={"primaryServices"} className="text-sm font-medium">
               Primary Services
               {errors.primaryServices && (
                 <p className="text-red-500 text-xs">
@@ -494,10 +485,7 @@ const AgencyForm = () => {
             />
           </div>
           <div>
-            <Label
-              htmlFor={"memberships"}
-              className="text-sm font-medium"
-            >
+            <Label htmlFor={"memberships"} className="text-sm font-medium">
               Memberships
               {errors.memberships && (
                 <p className="text-red-500 text-xs">
@@ -548,11 +536,7 @@ const AgencyForm = () => {
           hidden={currentStep !== 4}
         />
 
-        <Step6
-          setValue={setValue}
-          errors={errors}
-          hidden={currentStep !== 5}
-        />
+        <Step6 setValue={setValue} errors={errors} hidden={currentStep !== 5} />
 
         <Step7
           register={register}
@@ -567,10 +551,7 @@ const AgencyForm = () => {
         <div className="flex justify-between">
           {currentStep > 0 && <Button onClick={() => prev()}>Prev</Button>}
           {currentStep < 7 && (
-            <Button
-              className="ml-auto"
-              onClick={async () => await next()}
-            >
+            <Button className="ml-auto" onClick={async () => await next()}>
               Next
             </Button>
           )}

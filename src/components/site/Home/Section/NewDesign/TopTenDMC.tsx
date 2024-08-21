@@ -19,40 +19,39 @@ import { DMCHotelApiResult } from "@/types/homeApiType";
 
 const CarouselCard = ({ dmc }: { dmc: DMCHotelApiResult }) => (
   <motion.div
-  initial={{
-    opacity: 0,
-  }}
-  whileInView={{
-    opacity: 1,
-  }}
-  transition={{
-    duration: 1.2,
-    delay: 0.8,
-    ease: 'easeInOut',
-    staggerChildren: 0.6,
-  }}
-  className="flex flex-col md:hover:-translate-y-4 duration-300 transition-all h-full">
+    initial={{
+      opacity: 0,
+    }}
+    whileInView={{
+      opacity: 1,
+    }}
+    transition={{
+      duration: 1.2,
+      delay: 0.8,
+      ease: "easeInOut",
+      staggerChildren: 0.6,
+    }}
+    className="flex flex-col md:hover:-translate-y-4 duration-300 transition-all h-full"
+  >
     <div className="relative h-48 sm:h-56 md:h-64 lg:h-72 rounded-lg overflow-hidden">
       <div className="absolute top-0 left-0 bg-colorAll w-[80%] h-[70%] rounded-lg"></div>
       <div className="absolute bottom-0 right-0 w-[95%] h-[95%] rounded-lg overflow-hidden">
         <Image
           fill
-          src={getValidUrl(dmc.images[0]??dmc.images[1])}
+          src={getValidUrl(dmc.images[0] ?? dmc.images[1])}
           alt={dmc.name}
           className="h-full w-full object-cover"
         />
       </div>
     </div>
     <div className="flex-grow flex flex-col items-start justify-center gap-2 p-3">
-      <h2 className="text-lg font-bold text-black line-clamp-1">
-        {dmc.name}
-      </h2>
+      <h2 className="text-lg font-bold text-black line-clamp-1">{dmc.name}</h2>
       <span className="text-sm font-semibold text-yellow-500">
         {"★".repeat(Math.round(dmc.rating))} {dmc.reviews} Reviews
       </span>
       <p className="text-sm line-clamp-3">{dmc.methodology}</p>
       <Link
-        href={`/companies/${dmc.id}`}
+        href={`/DMC/${dmc.id}`}
         className="mt-auto border border-gray-900 text-sm cursor-pointer rounded-lg px-4 py-2 hover:bg-gray-100 transition-colors"
       >
         View More
@@ -63,10 +62,12 @@ const CarouselCard = ({ dmc }: { dmc: DMCHotelApiResult }) => (
 
 const TopTenDMC = () => {
   const { selectedCountry, selectedCity, visible } = useContext(HomeContext);
-  const { data, isLoading }:{data:DMCHotelApiResult[], isLoading:boolean} = useAxios({
-    url: `/api/home?country=${selectedCountry}&city=${selectedCity}&role=DMC`,
-    selectedCity,selectedCountry
-  });
+  const { data, isLoading }: { data: DMCHotelApiResult[]; isLoading: boolean } =
+    useAxios({
+      url: `/api/home?country=${selectedCountry}&city=${selectedCity}&role=DMC`,
+      selectedCity,
+      selectedCountry,
+    });
 
   return (
     <section

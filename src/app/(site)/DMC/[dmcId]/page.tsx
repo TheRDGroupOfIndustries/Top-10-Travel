@@ -2,6 +2,8 @@ import Details from "@/components/site/Details/Details";
 import { db } from "@/core/client/db";
 import { notFound } from "next/navigation";
 
+export const revalidate = 3600;
+
 const DMCPage = async ({ params }: { params: { dmcId: string } }) => {
   const dmc = await db.dMC.findUnique({
     where: {
@@ -20,6 +22,10 @@ const DMCPage = async ({ params }: { params: { dmcId: string } }) => {
       description: true,
       address: true,
       socialMediaLinks: true,
+      specialization: true,
+      coreServices: true,
+      promotionalVideoUpload: true,
+      pastProjects:true
       // companyData: {
       //   select: {
       //     description: true,
@@ -38,7 +44,7 @@ const DMCPage = async ({ params }: { params: { dmcId: string } }) => {
 
   return (
     <div>
-      <Details data={dmc} />
+      <Details data={dmc} info={{ type: "Dmc", dmcId: dmc.id }} />
     </div>
   );
 };

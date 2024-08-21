@@ -9,7 +9,22 @@ import Link from "next/link";
 import AnimatedImage from "./AnimatedImage";
 import PackagesCarousel from "./PackagesCarousel";
 import ReviewSSR from "./ReviewSSR";
-import type { SocialMediaLinks } from "@prisma/client";
+import type { PastProject, SocialMediaLinks } from "@prisma/client";
+import { TbMapPin } from "react-icons/tb";
+import PastProjects from "./PastProjects";
+import PhoneCallButton from "@/components/reusable/PhoneCallButton";
+import { GetIconByTag } from "@/components/reusable/TagIcons";
+import { FaPeopleGroup } from "react-icons/fa6";
+import {
+  GiSunbeams
+} from "react-icons/gi";
+import { PiHairDryerBold } from "react-icons/pi";
+import {
+  MdAttachMoney,
+  MdRoomService
+} from "react-icons/md";
+import { GiMountainRoad } from "react-icons/gi";
+import {  MdEventAvailable, MdOutlineCardTravel } from "react-icons/md";
 
 type CompanyType = {
   reviews: number;
@@ -22,10 +37,26 @@ type CompanyType = {
   description: string | null;
   address: string;
   images: string[];
+  specializedTravelTypes?: string[];
+  primaryServices?: string[];
+  specialization?: string[];
+  coreServices?: string[];
+  services?: string[];
   socialMediaLinks: SocialMediaLinks[];
+  promotionalVideoUpload?: string;
+  pastProjects?: PastProject[];
 };
 
-const Details = ({ data }: { data: CompanyType }) => {
+const Details = ({
+  data,
+  info,
+}: {
+  data: CompanyType;
+  info:
+    | { type: "Agency"; agencyId: string }
+    | { type: "Dmc"; dmcId: string }
+    | { type: "Hotel"; hotelId: string };
+}) => {
   const socialPlatforms = [
     "facebook",
     "instagram",
@@ -34,21 +65,42 @@ const Details = ({ data }: { data: CompanyType }) => {
     "youtube",
   ];
 
+  let preTags;
+  if (info.type === "Dmc") {
+    preTags = data?.specialization?.concat(data?.coreServices!);
+  } else if (info.type === "Agency") {
+    preTags = data?.specializedTravelTypes?.concat(data?.primaryServices!)!;
+  } else if (info.type === "Hotel") {
+    preTags = data?.services?.concat(data?.specialization!);
+  }
+
+  const setOfTags = new Set(preTags);
+  // @ts-ignore
+  const TAGS: string[] = [...setOfTags];
+
   return (
-    <div className="mb-10">
-      <HeroHeading title={data?.name} className="uppercase" />
+    <div className="mb-10 mt-20">
+      {/* <HeroHeading title={data?.name} className="uppercase" /> */}
       <div className="px-2 md:px-3 lg:px-6 xl:px-8">
         <div className="w-full flex xl:gap-12 gap-6 pb-16 border-b-black border-b-[1px]">
           <div className="w-full flex flex-col gap-10 flex-1">
             <div className="grid gap-4">
               {/* Main Image */}
               <div className="relative rounded-lg w-full h-64 md:h-96 lg:h-[450px]">
-                <AnimatedImage
-                  src={getValidUrl(data?.images[0] ?? "")}
-                  alt="main image"
-                  fill
-                  className="rounded-lg object-cover"
-                />
+                {data.promotionalVideoUpload ? (
+                  <video
+                    src={data.promotionalVideoUpload}
+                    className="w-full h-full border rounded-lg"
+                    controls
+                  ></video>
+                ) : (
+                  <AnimatedImage
+                    src={getValidUrl(data?.images[0] ?? "")}
+                    alt="main image"
+                    fill
+                    className="rounded-lg object-cover"
+                  />
+                )}
               </div>
 
               {/* Grid of Thumbnails */}
@@ -72,47 +124,51 @@ const Details = ({ data }: { data: CompanyType }) => {
               </div>
             </div>
 
-            <div className="w-full flex flex-wrap items-center justify-between gap-1">
+            {/* <div className="w-full flex flex-wrap items-center justify-between gap-1">
               {data.socialMediaLinks.map((link, index) =>
                 socialPlatforms.map((platform) => {
                   const url = link[platform as keyof SocialMediaLinks];
                   if (url) {
                     return (
-                      <Button  
-                        key={`${platform}-${index}`} 
-                        className="rounded-full" 
-                        variant="outline">
+                      <Button
+                        key={`${platform}-${index}`}
+                        className="rounded-full"
+                        variant="outline"
+                      >
                         <Link
                           href={url}
                           target="_blank"
                           rel="noopener noreferrer"
                           className="w-full h-full flex items-center gap-2"
-                      >
-                        {getIconFromName(url)}
-                      </Link>
-                        </Button>
+                        >
+                          {getIconFromName(url)}
+                        </Link>
+                      </Button>
                     );
                   }
                   return null;
                 })
               )}
-            </div>
+            </div> */}
 
-            <div className="rounded-md flex lg:hidden flex-col gap-6 py-12 sm:px-8 px-4 shadow shadow-black/50">
+            <div className="rounded-md flex lg:hidden flex-col gap-4 py-10 sm:px-8 px-4 shadow shadow-black/50">
               <div className="flex flex-col gap-5">
-                <div>
-                  <h3 className="lg:text-[32px] text-2xl font-bold leading-tight sm:leading-6">
+                <div className="flex flex-col gap-3">
+                  <h3 className="text-[32px] font-bold leading-tight xl:leading-6">
                     {data?.name}
                   </h3>
-                  <p className="text-sm mt-3 leading-4 font-medium">
-                    {`${data?.address}, ${data?.city}.`}
+                  <div className="text-sm flex items-center leading-4 font-medium">
+                    <TbMapPin className="text-slate-400 mr-1 text-sm md:text-lg" />
+                    {`${data?.city}, ${data?.country}.`}
+                  </div>
+                  <p className="text-sm leading-4 font-medium">
+                    {`${data?.address}`}
                   </p>
                 </div>
 
                 <StarRating
                   color="#734E03"
                   maxRating={5}
-                  className="my-4"
                   readOnly={true}
                   size={18}
                   showNumber={true}
@@ -120,20 +176,46 @@ const Details = ({ data }: { data: CompanyType }) => {
                 />
               </div>
 
-              <div className="flex flex-col gap-4">
-                <h4 className="font-medium text-2xl leading-6">Methodology</h4>
+              <div className="flex w-full">
                 <p className="text-base leading-[22px] text-justify font-medium">
                   {data?.methodology}
                 </p>
               </div>
 
-              <div className="text-2xl leading-6 font-medium">Actions</div>
+              <div className="w-full flex flex-wrap items-center justify-between gap-1">
+                {data.socialMediaLinks.map((link, index) =>
+                  socialPlatforms.map((platform) => {
+                    const url = link[platform as keyof SocialMediaLinks];
+                    if (url) {
+                      return (
+                        <Button
+                          key={`${platform}-${index}`}
+                          className="rounded-full"
+                          variant="outline"
+                        >
+                          <Link
+                            href={url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="w-full h-full flex items-center gap-2"
+                          >
+                            {getIconFromName(url)}
+                          </Link>
+                        </Button>
+                      );
+                    }
+                    return null;
+                  })
+                )}
+              </div>
 
               <div className="flex gap-1 py-4 w-full flex-grow">
+                <PhoneCallButton phoneNumber="1234567890" />
                 <EnquireDialog
                   images={data?.images}
                   name={data?.name}
                   className="flex-1 border-black border-[1px] py-3 rounded-full text-xl leading-6 font-medium"
+                  info={info}
                 />
                 <ShareButton />
               </div>
@@ -163,38 +245,113 @@ const Details = ({ data }: { data: CompanyType }) => {
               </div>
             ))} */}
 
-            <div className="flex flex-col gap-10 sm:px-0 px-2">
-              <div className="flex flex-col gap-2">
-                <div className="uppercase md:text-5xl text-3xl md:leading-[64px] leading-10 font-bold">
-                  Description
-                </div>
-                <div className="text-justify text-base leading-6 font-medium">
-                  {data?.description}
-                </div>
+            <div className="flex flex-col gap-4 sm:px-0 px-2">
+              <div className="flex flex-row flex-wrap gap-1">
+                {/* {TAGS.map((tag: string) => (
+                  <div
+                    key={tag}
+                    className="bg-slate-100 flex gap-1 border-[2px] border-slate-400 font-semibold uppercase px-2 py-1.5 md:text-base text-sm rounded-full"
+                  >
+                    <GetIconByTag tag={tag} />
+                    <span>{tag}</span>
+                  </div>
+                ))} */}
+                {info.type === "Agency" && (
+                  <>
+                    <div className="bg-slate-100 flex items-center gap-1 border-[2px] border-slate-400 font-semibold uppercase px-2 py-1.5 md:text-base text-sm rounded-full">
+                      <MdOutlineCardTravel />
+                      <span>Travel Planning</span>
+                    </div>
+                    <div className="bg-slate-100 flex items-center gap-1 border-[2px] border-slate-400 font-semibold uppercase px-2 py-1.5 md:text-base text-sm rounded-full">
+                      <FaPeopleGroup />
+                      <span>Consulting</span>
+                    </div>
+                    <div className="bg-slate-100 flex items-center gap-1 border-[2px] border-slate-400 font-semibold uppercase px-2 py-1.5 md:text-base text-sm rounded-full">
+                      <MdAttachMoney />
+                      <span>Luxury</span>
+                    </div>
+                    <div className="bg-slate-100 flex items-center gap-1 border-[2px] border-slate-400 font-semibold uppercase px-2 py-1.5 md:text-base text-sm rounded-full">
+                      <GiMountainRoad />
+                      <span>Adventure</span>
+                    </div>
+                  </>
+                )}
+
+                {info.type === "Dmc" && (
+                  <>
+                    <div className="bg-slate-100 flex items-center gap-1 border-[2px] border-slate-400 font-semibold uppercase px-2 py-1.5 md:text-base text-sm rounded-full">
+                      <MdEventAvailable />
+                      <span>Event Management</span>
+                    </div>
+                    <div className="bg-slate-100 flex items-center gap-1 border-[2px] border-slate-400 font-semibold uppercase px-2 py-1.5 md:text-base text-sm rounded-full">
+                      <FaPeopleGroup />
+                      <span>Tour Packages</span>
+                    </div>
+                    <div className="bg-slate-100 flex items-center gap-1 border-[2px] border-slate-400 font-semibold uppercase px-2 py-1.5 md:text-base text-sm rounded-full">
+                      <MdOutlineCardTravel />
+                      <span>Corporate Events</span>
+                    </div>
+                    <div className="bg-slate-100 flex items-center gap-1 border-[2px] border-slate-400 font-semibold uppercase px-2 py-1.5 md:text-base text-sm rounded-full">
+                      <GiSunbeams />
+                      <span>Cultural Tours</span>
+                    </div>
+                  </>
+                )}
+
+                {info.type === "Hotel" && (
+                  <>
+                    <div className="bg-slate-100 flex items-center gap-1 border-[2px] border-slate-400 font-semibold uppercase px-2 py-1.5 md:text-base text-sm rounded-full">
+                      <MdAttachMoney />
+                      <span>Luxury Rooms</span>
+                    </div>
+                    <div className="bg-slate-100 flex items-center gap-1 border-[2px] border-slate-400 font-semibold uppercase px-2 py-1.5 md:text-base text-sm rounded-full">
+                      <PiHairDryerBold /> 
+                      <span>Spa Services</span>
+                    </div>
+                    <div className="bg-slate-100 flex items-center gap-1 border-[2px] border-slate-400 font-semibold uppercase px-2 py-1.5 md:text-base text-sm rounded-full">
+                      <MdRoomService />
+                      <span>Room Service</span>
+                    </div>
+                    <div className="bg-slate-100 flex items-center gap-1 border-[2px] border-slate-400 font-semibold uppercase px-2 py-1.5 md:text-base text-sm rounded-full">
+                      <MdEventAvailable />
+                      <span>Event Hosting</span>
+                    </div>
+                  </>
+                )}
               </div>
+
+              <div className="text-justify text-base leading-6 font-medium">
+                {data?.description}
+              </div>
+              {data.pastProjects && (
+                <PastProjects pastProjects={data.pastProjects} />
+              )}
             </div>
 
             <div className="lg:hidden">
-              {/* <ReviewSSR name={data?.name} companyId={data?.id} /> */}
+              <ReviewSSR name={data?.name} info={info} />
             </div>
           </div>
 
           <div className="flex-1 lg:flex hidden flex-col gap-5 max-w-[509px]">
             <div className="rounded-md lg:flex hidden flex-col xl:gap-10 lg:gap-6 xl:py-16 lg:py-10 xl:px-8 lg:px-4 shadow shadow-black/50">
               <div className="flex flex-col gap-5">
-                <div>
+                <div className="flex flex-col gap-3">
                   <h3 className="text-[32px] font-bold leading-tight xl:leading-6">
                     {data?.name}
                   </h3>
-                  <p className="text-sm mt-3 leading-4 font-medium">
-                    {`${data?.address}, ${data?.city}.`}
+                  <div className="text-sm flex items-center leading-4 font-medium">
+                    <TbMapPin className="text-slate-400 mr-1 text-sm md:text-lg" />
+                    {`${data?.city}, ${data?.country}.`}
+                  </div>
+                  <p className="text-sm leading-4 font-medium">
+                    {`${data?.address}`}
                   </p>
                 </div>
 
                 <StarRating
                   color="#734E03"
                   maxRating={5}
-                  className="my-4"
                   readOnly={true}
                   size={18}
                   showNumber={true}
@@ -202,31 +359,55 @@ const Details = ({ data }: { data: CompanyType }) => {
                 />
               </div>
 
-              <div className="flex flex-col gap-4">
-                <h4 className="font-medium text-2xl leading-6">Methodology</h4>
+              <div className="flex w-full">
                 <p className="text-base leading-[22px] text-justify font-medium">
                   {data.methodology}
                 </p>
               </div>
 
-              <div className="text-2xl leading-6 font-medium">Actions</div>
+              <div className="w-full flex flex-wrap items-center justify-between gap-1">
+                {data.socialMediaLinks.map((link, index) =>
+                  socialPlatforms.map((platform) => {
+                    const url = link[platform as keyof SocialMediaLinks];
+                    if (url) {
+                      return (
+                        <Button
+                          key={`${platform}-${index}`}
+                          className="rounded-full"
+                          variant="outline"
+                        >
+                          <Link
+                            href={url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="w-full h-full flex items-center gap-2"
+                          >
+                            {getIconFromName(url)}
+                          </Link>
+                        </Button>
+                      );
+                    }
+                    return null;
+                  })
+                )}
+              </div>
 
               <div className="flex gap-1 py-4 w-full flex-grow">
+                <PhoneCallButton phoneNumber="1234567890" />
                 <EnquireDialog
                   images={data?.images}
                   name={data?.name}
                   className="flex-1 border-black border-[1px] py-3 rounded-full text-xl leading-6 font-medium"
+                  info={info}
                 />
                 <ShareButton />
               </div>
             </div>
 
-            {/* <ReviewSSR name={data?.name} companyId={data?.id} /> */}
+            <ReviewSSR name={data?.name} info={info} />
           </div>
         </div>
       </div>
-      {/* <HeroHeading title="Related Packages" className="uppercase" /> */}
-      {/* <PackagesCarousel packages={data.packages} /> */}
     </div>
   );
 };

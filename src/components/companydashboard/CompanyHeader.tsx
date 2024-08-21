@@ -17,7 +17,7 @@ async function CompanyHeader() {
         </div>
         <div className="flex flex-row-reverse lg:flex-row items-center lg:justify-center justify-between gap-3">
           <div className="relative cursor-pointer">
-            <CompanyEnquiries />
+            {/* <CompanyEnquiries /> */}
           </div>
           <div className="flex items-center justify-center gap-1">
             <Avatar className="w-9 h-9">

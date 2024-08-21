@@ -17,7 +17,7 @@ function ShareButton() {
       onClick={() => console.log("shared successfully!")}
     >
       <Button
-        className="flex-1 border-black border-[1px] py-3 rounded-full text-xl leading-6 font-medium"
+        className="border-black w-1/3 border-[1px] rounded-full text-xl leading-6 font-medium transform hover:-translate-y-1 transition duration-200 hover:shadow-md"
         variant="outline"
       >
         Share Link

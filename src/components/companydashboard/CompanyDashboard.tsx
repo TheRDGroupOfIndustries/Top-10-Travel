@@ -12,11 +12,11 @@ import InputWithSave from "../reusable/InputWithSaveCompany";
 import { Badge } from "../ui/badge";
 import Link from "next/link";
 import CompanyDataInputwSave from "../reusable/CompanyDataInputwSave";
-import UploadCompanyImage from "./UploadCompanyImage";
+import UploadCompanyImage from "../dashboard/UploadCompanyImage";
 import { Button } from "../ui/button";
 import { Plus } from "lucide-react";
 import { cn } from "@/lib/utils";
-import UploadCompanyImagesCard from "./UploadCompanyImagesCard";
+import UploadCompanyImagesCard from "../dashboard/agency/UploadAgencyImagesCard";
 
 const CompanyDashboard = ({
   data,
@@ -27,7 +27,7 @@ const CompanyDashboard = ({
 }) => {
   return (
     <div className="space-y-4 mt-5">
-       <Card className="border-none bg-[#F3F3F3]">
+      <Card className="border-none bg-[#F3F3F3]">
         <CardContent className="w-full pt-6">
           <div className="w-full h-full flex flex-col md:flex-row items-center md:items-start gap-3">
             <UploadCompanyImage image={data.image ?? ""} />
@@ -61,14 +61,18 @@ const CompanyDashboard = ({
                 />
               </div>
               <div className="flex md:items-start md:justify-start items-center justify-center gap-2 flex-wrap">
-                <Badge className="font-medium text-[14px] text-[#FCAE1D] rounded-sm bg-[#fcae1d11]">Role : {data.companyRole}</Badge>
+                <Badge className="font-medium text-[14px] text-[#FCAE1D] rounded-sm bg-[#fcae1d11]">
+                  Role : {data.companyRole}
+                </Badge>
                 <Badge className="font-medium text-[14px] text-[#FCAE1D] rounded-sm bg-[#fcae1d11]">
                   Priority : {data.state_priority}
                 </Badge>
                 <Badge className="font-medium text-[14px] text-[#FCAE1D] rounded-sm bg-[#fcae1d11]">
                   City Priority : {data.priority}
                 </Badge>
-                <Badge className="font-medium text-[14px] text-[#FCAE1D] rounded-sm bg-[#fcae1d11]">Ratings : {data.rating}</Badge>
+                <Badge className="font-medium text-[14px] text-[#FCAE1D] rounded-sm bg-[#fcae1d11]">
+                  Ratings : {data.rating}
+                </Badge>
                 <Badge className="font-medium text-[14px] text-[#FCAE1D] rounded-sm bg-[#fcae1d11]">
                   Total Reviews : {data.reviews}
                 </Badge>
@@ -96,9 +100,9 @@ const CompanyDashboard = ({
         </CardContent>
       </Card>
       <Card className="border-none bg-[#F3F3F3] px-2 py-4">
-          <CardTitle className="text-center text-[25px] md:text-left font-semibold font-sans">
-            <span className="text-[#FCAE1D] p-3">Company</span>Details
-          </CardTitle>
+        <CardTitle className="text-center text-[25px] md:text-left font-semibold font-sans">
+          <span className="text-[#FCAE1D] p-3">Company</span>Details
+        </CardTitle>
         <CardContent className="w-full grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3  gap-2 p-2 md:p-5">
           <div className="w-full flex flex-col  gap-2">
             <CompanyDataInputwSave
@@ -201,9 +205,8 @@ const CompanyDashboard = ({
             minLength={5}
           />
         </CardContent>
-      </Card >
+      </Card>
       <UploadCompanyImagesCard
-       
         companyId={data.id}
         images={data.companyData?.images ?? []}
       />

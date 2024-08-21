@@ -4,8 +4,8 @@ import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import { Button } from "../ui/button";
 import useMutation from "@/hooks/useMutation";
-import { editCompanyAction } from "@/core/server/actions/company/editCompany";
-import { Edit,Upload, UserRoundPen } from "lucide-react";
+import { editAgencyAction } from "@/core/server/actions/company/editCompany";
+import { Edit, Upload, UserRoundPen } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { toast } from "sonner";
 import Image from "next/image";
@@ -22,15 +22,16 @@ const InputWithSave = ({
   className?: string;
 }) => {
   const [isChanging, setIsChanging] = useState(false);
-  const { mutate, isPending } = useMutation(editCompanyAction);
-  const getValidUrl = (url: string) => {
-    try {
-      const u = new URL(url);
-      return u.href;
-    } catch (error) {
-      return "/UploadImage.jpg";
-    }
-  };
+  const { mutate, isPending } = useMutation(editAgencyAction);
+  // const getValidUrl = (url: string) => {
+  //   try {
+  //     const u = new URL(url);
+  //     return u.href;
+  //   } catch (error) {
+  //     return "/UploadImage.jpg";
+  //   }
+  // };
+
   return (
     <>
       {isChanging ? (
@@ -57,13 +58,17 @@ const InputWithSave = ({
             placeholder={text}
             className=""
           />
-          <Button disabled={isPending} type="submit" size="sm">
+          <Button
+            disabled={isPending}
+            type="submit"
+            size="sm"
+          >
             {isPending ? "Saving..." : "Save"}
           </Button>
         </form>
       ) : (
         <>
-          {name === "image" ? (
+          {/* {name === "image" ? (
             <div
               onClick={() => setIsChanging(true)}
               className="group w-[300px] h-[200px] rounded-lg overflow-hidden relative hover:cursor-pointer "
@@ -81,22 +86,21 @@ const InputWithSave = ({
                 />
               </div>
             </div>
-          ) : (
-            <span
-              className={cn(
-                "flex items-center justify-center md:justify-start gap-2 text-sm text-gray-900 ",
-                className
-              )}
-              onDoubleClick={() => setIsChanging(true)}
-            >
-              {value}
+          ) : ( */}
+          <span
+            className={cn(
+              "flex items-center justify-center md:justify-start gap-2 text-sm text-gray-900 ",
+              className
+            )}
+            onDoubleClick={() => setIsChanging(true)}
+          >
+            {value}
 
-              <Edit
-                onClick={() => setIsChanging(true)}
-                className="h-4 w-4 text-muted-foreground transition-colors hover:text-foreground"
-              />
-            </span>
-          )}
+            <Edit
+              onClick={() => setIsChanging(true)}
+              className="h-4 w-4 text-muted-foreground transition-colors hover:text-foreground"
+            />
+          </span>
         </>
       )}
     </>
