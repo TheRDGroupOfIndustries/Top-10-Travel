@@ -9,6 +9,7 @@ import { Edit, Upload, UserRoundPen } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { toast } from "sonner";
 import Image from "next/image";
+import { Textarea } from "@/components/ui/textarea";
 
 const InputWithSave = ({
   name,
@@ -51,7 +52,6 @@ const InputWithSave = ({
               setIsChanging(false);
               return; // value didn't change, no need to save
             }
-            console.log({ [name]: val });
             const { success, error } = await mutate({ [name]: val });
             if (success) toast.success(success);
             else toast.error(error);
@@ -59,16 +59,28 @@ const InputWithSave = ({
           }}
           className="flex  items-center  justify-center"
         >
-          <Input
-            name={name}
-            id={name}
-            defaultValue={value}
-            placeholder={text}
-            className=""
-            minLength={minLength}
-            maxLength={maxLength}
-            type={type ?? "text"}
-          />
+          {name === "description" ? (
+            <Textarea
+              name={name}
+              id={name}
+              defaultValue={value}
+              placeholder={text}
+              className=""
+              minLength={minLength}
+              maxLength={maxLength}
+            />
+          ) : (
+            <Input
+              name={name}
+              id={name}
+              defaultValue={value}
+              placeholder={text}
+              className=""
+              minLength={minLength}
+              maxLength={maxLength}
+              type={type ?? "text"}
+            />
+          )}
           <Button
             disabled={isPending}
             type="submit"

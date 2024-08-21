@@ -43,7 +43,10 @@ const UpdateSocialMediaLinks = ({
   return (
     <Card className="border-none bg-[#F3F3F3] mt-4">
       <CardHeader className="text-2xl font-semibold">
-        Social Media Links
+        <div>
+          <span className="text-[#FCAE1D]">Social-Media </span>
+          Links
+        </div>
       </CardHeader>
       <CardContent className="flex flex-col gap-4">
         <form
