@@ -114,7 +114,10 @@ function ListData({
           ) : (
             <div
               key={item.name}
-              className="w-full lg:h-72 rounded-lg flex flex-col md:flex-row items-center justify-between gap-5 shadow shadow-black/10"
+              onClick={() => {
+                router.push(`/${role}/${item.id}`);
+              }}
+              className="w-full cursor-pointer lg:h-72 rounded-lg flex flex-col md:flex-row items-center justify-between gap-5 shadow shadow-black/10"
             >
               <div className="lg:w-[30%] w-full lg:h-full h-60 rounded-lg overflow-hidden">
                 <Image
