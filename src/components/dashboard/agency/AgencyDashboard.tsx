@@ -72,7 +72,7 @@ const AgencyDashboard = ({
                     variant="destructive"
                     title="Contact admin to get certified."
                   >
-                    <Link href="/dashboard/agency/request">Uncertified</Link>
+                    <Link href="/dashboard/request">Uncertified</Link>
                   </Badge>
                 )}
               </div>
@@ -153,7 +153,10 @@ const AgencyDashboard = ({
       />
       <Card className="border-none bg-[#F3F3F3] mt-4">
         <CardHeader className="text-2xl font-semibold">
-          Top {reviews.length !== 0 ? reviews.length : null} Reviews :
+          <div>
+            <span className="text-[#FCAE1D]">Top</span>
+            {reviews.length !== 0 ? reviews.length : null} Reviews :
+          </div>
         </CardHeader>
         <CardContent className="flex flex-col gap-4">
           {reviews.map((review) => (

@@ -1,4 +1,4 @@
-import CompanyHeader from "@/components/companydashboard/CompanyHeader";
+import CompanyHeader from "@/components/dashboard/CompanyHeader";
 import AgencySidebar from "./sidebar";
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
 import { Toaster } from "sonner";
@@ -10,7 +10,7 @@ const things = async (userId: string) => {
   const dpr = db.dMC.findUnique({ where: { userId }, select: { id: true } });
   const hpr = db.hotel.findUnique({ where: { userId }, select: { id: true } });
   const [agency, dmc, hotel] = await Promise.all([apr, dpr, hpr]);
-  return { agency, dmc, hotel: null };
+  return { agency, dmc, hotel };
 };
 export default async function CompanyLayout({
   children,

@@ -72,7 +72,7 @@ const HotelDashboard = ({
                     variant="destructive"
                     title="Contact admin to get certified."
                   >
-                    <Link href="/dashboard/agency/request">Uncertified</Link>
+                    <Link href="/dashboard/request">Uncertified</Link>
                   </Badge>
                 )}
               </div>
