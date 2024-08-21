@@ -34,6 +34,8 @@ const Details = ({ data, role }: { data: CompanyType, role: "Agency" | "DMC" | "
     "youtube",
   ];
 
+  console.log(data);
+
   return (
     <div className="mb-10 mt-20">
       {/* <HeroHeading title={data?.name} className="uppercase" /> */}
@@ -128,8 +130,6 @@ const Details = ({ data, role }: { data: CompanyType, role: "Agency" | "DMC" | "
                 </p>
               </div>
 
-              <div className="text-2xl leading-6 font-medium">Actions</div>
-
               <div className="flex gap-1 py-4 w-full flex-grow">
                 <EnquireDialog
                   images={data?.images}
@@ -164,14 +164,9 @@ const Details = ({ data, role }: { data: CompanyType, role: "Agency" | "DMC" | "
               </div>
             ))} */}
 
-            <div className="flex flex-col gap-10 sm:px-0 px-2">
-              <div className="flex flex-col gap-2">
-                <div className="uppercase md:text-5xl text-3xl md:leading-[64px] leading-10 font-bold">
-                  Description
-                </div>
-                <div className="text-justify text-base leading-6 font-medium">
-                  {data?.description}
-                </div>
+            <div className="flex">
+              <div className="text-justify text-base leading-6 font-medium">
+                {data?.description}
               </div>
             </div>
 
@@ -209,8 +204,6 @@ const Details = ({ data, role }: { data: CompanyType, role: "Agency" | "DMC" | "
                   {data.methodology}
                 </p>
               </div>
-
-              <div className="text-2xl leading-6 font-medium">Actions</div>
 
               <div className="flex gap-1 py-4 w-full flex-grow">
                 <EnquireDialog

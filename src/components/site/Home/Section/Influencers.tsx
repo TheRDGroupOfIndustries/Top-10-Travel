@@ -96,7 +96,7 @@ const Influencers = () => {
           {!isLoading && <InfluencerCarousel data={data as Data} />}
         </div>
 
-        <Link href={`/Influencers`}>
+        <Link href={`/influencers`}>
           <motion.div
             className="bg-black px-5 py-2 rounded-md mt-6 mb-5 mx-auto hover:bg-gray-800 w-fit transition-colors text-white font-bold"
             whileHover={{ scale: 1.1 }}

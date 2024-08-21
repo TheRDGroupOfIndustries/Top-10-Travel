@@ -62,7 +62,7 @@ function InfluencerCard({ data }: { data: any }) {
             })}
           </div>
           <Link
-            href={`/Influencers/${data.id}`}
+            href={`/influencers/${data.id}`}
             className="px-4 py-1 bg-white text-black border border-black/50 rounded-lg hover:bg-gray-100 transition-colors duration-200 text-sm  font-medium"
           >
             More
