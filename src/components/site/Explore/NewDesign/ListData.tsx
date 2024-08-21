@@ -45,71 +45,131 @@ function ListData({
   return (
     <main className="w-full mt-14 px-2 md:px-3 lg:px-6 xl:px-8">
       <div className="w-full flex flex-col gap-10">
-        {currentItems?.map((item, i) => (
-          <motion.div
-            key={item.id}
-            initial={{ opacity: 0, translateY: -150 }}
-            whileInView={{ opacity: 1, translateY: 0 }}
-            onClick={() => {
-              router.push(`/${role}/${item.id}`);
-            }}
-            transition={{ duration: 0.4, delay: i * 0.15 }}
-            viewport={{ once: true }}
-            className="relative w-full cursor-pointer lg:h-60 rounded-lg flex flex-col md:flex-row items-center justify-between gap-5 shadow shadow-black/30"
-          >
-            <div className="lg:w-[30%] w-full lg:h-full h-60 rounded-lg overflow-hidden">
-              <Image
-                src={item?.images?.[0] || "/stockPhoto.jpg"}
-                alt={`travel image`}
-                width={300}
-                height={300}
-                className="w-full h-full object-cover"
-              />
-            </div>
-            <div className="lg:w-[70%] w-full h-full rounded-lg overflow-hidden flex flex-col items-start justify-start gap-3 md:p-1 px-3 pb-3">
-              <div className="w-full flex items-center justify-between">
-                <h1 className="text-2xl font-semibold">{item?.name}</h1>
+        {currentItems?.map((item, i) =>
+          role !== "Hotels" ? (
+            <motion.div
+              key={item.id}
+              initial={{ opacity: 0, translateY: -150 }}
+              whileInView={{ opacity: 1, translateY: 0 }}
+              onClick={() => {
+                router.push(`/${role}/${item.id}`);
+              }}
+              transition={{ duration: 0.4, delay: i * 0.15 }}
+              viewport={{ once: true }}
+              className="relative w-full cursor-pointer lg:h-60 rounded-lg flex flex-col md:flex-row items-center justify-between gap-5 shadow shadow-black/30"
+            >
+              <div className="lg:w-[30%] w-full lg:h-full h-60 rounded-lg overflow-hidden">
+                <Image
+                  src={item?.images?.[0] || "/stockPhoto.jpg"}
+                  alt={`travel image`}
+                  width={300}
+                  height={300}
+                  className="w-full h-full object-cover"
+                />
               </div>
-              <div className="absolute z-20 top-4 right-4 lg:p-2 p-1 rounded-full cursor-pointer border-slate-300 bg-white/60 border-2">
-                <RiHeart3Line className="text-slate-500 size-6" />
-                {/* Heart with Fill is <RiHeart3Fill /> */}
-              </div>
+              <div className="lg:w-[70%] w-full h-full rounded-lg overflow-hidden flex flex-col items-start justify-start gap-3 md:p-1 px-3 pb-3">
+                <div className="w-full flex items-center justify-between">
+                  <h1 className="text-2xl font-semibold">{item?.name}</h1>
+                </div>
+                <div className="absolute z-20 top-4 right-4 lg:p-2 p-1 rounded-full cursor-pointer border-slate-300 bg-white/60 border-2">
+                  <RiHeart3Line className="text-slate-500 size-6" />
+                  {/* Heart with Fill is <RiHeart3Fill /> */}
+                </div>
 
-              <div className="flex gap-3">
+                <div className="flex gap-3">
+                  <div className="flex gap-1 items-center">
+                    <StarRating
+                      maxRating={5}
+                      color="#FCAE1D"
+                      readOnly={true}
+                      showNumber={false}
+                      defaultRating={item?.rating}
+                      size={16}
+                    />
+                    <div className="text-sm p-[2px] text-white rounded-lg bg-[#FFA500]">
+                      {item?.rating}
+                    </div>
+                  </div>
+                  <span className="text-slate-600 text-[16px]">
+                    <span className="font-bold">{item.reviews}</span>
+                    &nbsp;reviews
+                  </span>
+                </div>
+
                 <div className="flex gap-1 items-center">
-                  <StarRating
-                    maxRating={5}
-                    color="#FCAE1D"
-                    readOnly={true}
-                    showNumber={false}
-                    defaultRating={item?.rating}
-                    size={16}
-                  />
-                  <div className="text-sm p-[2px] text-white rounded-lg bg-[#FFA500]">
-                    {item?.rating}
+                  <TbMapPin className="text-slate-400 text-sm md:text-lg" />
+                  <div className="text-sm md:text-lg text-slate-400 leading-none">
+                    {item?.country}, {item?.city}
                   </div>
                 </div>
-                <span className="text-slate-600 text-[16px]">
-                  <span className="font-bold">{item.reviews}</span>&nbsp;reviews
-                </span>
-              </div>
 
-              <div className="flex gap-1 items-center">
-                <TbMapPin className="text-slate-400 text-sm md:text-lg" />
-                <div className="text-sm md:text-lg text-slate-400 leading-none">
-                  {item?.country}, {item?.city}
+                <p className="text-sm line-clamp-3">{item?.methodology}</p>
+
+                <Button className="text-xl group bg-[#FFEF9E] text-colorAll hover:bg-colorAll hover:text-[#FFEF9E]">
+                  <span>Call Us</span>
+                  <TbPhoneCall size={20} className="stroke-2 ml-1" />
+                </Button>
+              </div>
+            </motion.div>
+          ) : (
+            <div
+              key={item.name}
+              className="w-full lg:h-72 rounded-lg flex flex-col md:flex-row items-center justify-between gap-5 shadow shadow-black/10"
+            >
+              <div className="lg:w-[30%] w-full lg:h-full h-60 rounded-lg overflow-hidden">
+                <Image
+                  src={item?.images?.[0] || "/stockPhoto.jpg"}
+                  alt={`image-${item.name}`}
+                  width={300}
+                  height={300}
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <div className="lg:w-[70%] w-full h-full rounded-lg overflow-hidden flex flex-col items-start justify-start gap-3 p-1">
+                <div className="w-full flex items-center justify-between">
+                  <h1 className="text-2xl font-semibold">{item?.name}</h1>
                 </div>
+                <div className="flex gap-1 items-center">
+                  <TbMapPin className="text-slate-400 text-sm md:text-lg" />
+                  <div className="text-sm md:text-lg text-slate-400 leading-none">
+                    {item?.country}, {item?.city}
+                  </div>
+                </div>
+                <div className="flex gap-3">
+                  <div className="flex gap-1 items-center">
+                    <StarRating
+                      maxRating={5}
+                      color="#FCAE1D"
+                      readOnly={true}
+                      showNumber={false}
+                      defaultRating={item?.rating}
+                      size={16}
+                    />
+                    <div className="text-sm p-[2px] text-white rounded-lg bg-[#FFA500]">
+                      {item?.rating}
+                    </div>
+                  </div>
+                  <span className="text-slate-600 text-[16px]">
+                    <span className="font-bold">{item.reviews}</span>
+                    &nbsp;reviews
+                  </span>
+                </div>
+                <div className="flex flex-col gap-1">
+                  {/* <span className="text-xl">Methodology</span> */}
+                  <p className="text-sm line-clamp-4">{item?.methodology}</p>
+                </div>
+                <Button
+                  asChild
+                  className="bg-[#FFDB80] hover:bg-[#ffdb80d0] text-black rounded-full px-4"
+                >
+                  <Link href={`/companies/${item.id}`} className="text-sm">
+                    View More
+                  </Link>
+                </Button>
               </div>
-
-              <p className="text-sm line-clamp-3">{item?.methodology}</p>
-
-              <Button className="text-xl group bg-[#FFEF9E] text-colorAll hover:bg-colorAll hover:text-[#FFEF9E]">
-                <span>Call Us</span>
-                <TbPhoneCall size={20} className="stroke-2 ml-1" />
-              </Button>
             </div>
-          </motion.div>
-        ))}
+          )
+        )}
       </div>
 
       {data?.length > itemsPerPage && (

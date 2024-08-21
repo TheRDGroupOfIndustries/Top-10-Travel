@@ -52,14 +52,11 @@ const InfluencerDetails = ({ data }: { data: InfluencerData }) => {
                 </div>
               </div>
 
-              <div className="flex flex-col gap-4">
-                <h4 className="font-medium text-2xl leading-6">Introduction</h4>
+              <div className="flex flex-col">
                 <p className="text-base leading-[22px] text-justify font-medium">
                   {data?.description}
                 </p>
               </div>
-
-              <div className="text-2xl leading-6 font-medium">Actions</div>
 
               <div className="flex gap-1 py-4 w-full flex-grow">
                 <ShareButton />
@@ -116,14 +113,11 @@ const InfluencerDetails = ({ data }: { data: InfluencerData }) => {
                 <p className="text-xl leading-5 font-medium text-slate-600"></p>
               </div>
 
-              <div className="flex flex-col gap-4">
-                <h4 className="font-medium text-2xl leading-6">Introduction</h4>
+              <div className="flex">
                 <p className="text-base leading-[22px] text-justify font-medium">
                   {data?.description}
                 </p>
               </div>
-
-              <div className="text-2xl leading-6 font-medium">Actions</div>
 
               <div className="flex gap-1 py-4 w-full flex-grow">
                 <ShareButton />
