@@ -25,7 +25,13 @@ type CompanyType = {
   socialMediaLinks: SocialMediaLinks[];
 };
 
-const Details = ({ data, role }: { data: CompanyType, role: "Agency" | "DMC" | "Hotel" }) => {
+const Details = ({
+  data,
+  role,
+}: {
+  data: CompanyType;
+  role: "Agency" | "DMC" | "Hotel";
+}) => {
   const socialPlatforms = [
     "facebook",
     "instagram",
@@ -164,7 +170,7 @@ const Details = ({ data, role }: { data: CompanyType, role: "Agency" | "DMC" | "
               </div>
             ))} */}
 
-            <div className="flex">
+            <div className="flex sm:px-0 px-2">
               <div className="text-justify text-base leading-6 font-medium">
                 {data?.description}
               </div>
