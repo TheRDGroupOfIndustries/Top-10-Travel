@@ -24,6 +24,7 @@ type CompanyType = {
   address: string;
   images: string[];
   socialMediaLinks: SocialMediaLinks[];
+  promotionalVideoUpload?: string;
 };
 
 const Details = ({
@@ -53,12 +54,20 @@ const Details = ({
             <div className="grid gap-4">
               {/* Main Image */}
               <div className="relative rounded-lg w-full h-64 md:h-96 lg:h-[450px]">
-                <AnimatedImage
-                  src={getValidUrl(data?.images[0] ?? "")}
-                  alt="main image"
-                  fill
-                  className="rounded-lg object-cover"
-                />
+                {data.promotionalVideoUpload ? (
+                  <video
+                    src={data.promotionalVideoUpload}
+                    className="w-full h-full border rounded-lg"
+                    controls
+                  ></video>
+                ) : (
+                  <AnimatedImage
+                    src={getValidUrl(data?.images[0] ?? "")}
+                    alt="main image"
+                    fill
+                    className="rounded-lg object-cover"
+                  />
+                )}
               </div>
 
               {/* Grid of Thumbnails */}
