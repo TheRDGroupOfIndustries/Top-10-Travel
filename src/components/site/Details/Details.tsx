@@ -121,7 +121,7 @@ const Details = ({
                 <StarRating
                   color="#734E03"
                   maxRating={5}
-                  className="my-4"
+                  className="my-3"
                   readOnly={true}
                   size={18}
                   showNumber={true}
@@ -129,8 +129,7 @@ const Details = ({
                 />
               </div>
 
-              <div className="flex flex-col gap-4">
-                <h4 className="font-medium text-2xl leading-6">Methodology</h4>
+              <div className="flex w-full">
                 <p className="text-base leading-[22px] text-justify font-medium">
                   {data?.methodology}
                 </p>
@@ -204,8 +203,7 @@ const Details = ({
                 />
               </div>
 
-              <div className="flex flex-col gap-4">
-                <h4 className="font-medium text-2xl leading-6">Methodology</h4>
+              <div className="flex w-full">
                 <p className="text-base leading-[22px] text-justify font-medium">
                   {data.methodology}
                 </p>
