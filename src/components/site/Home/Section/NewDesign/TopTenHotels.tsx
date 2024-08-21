@@ -47,7 +47,7 @@ const CarouselCard = ({ hotel }: { hotel: DMCHotelApiResult }) => (
           </span>
         </div>
         <Link
-          href={`/hotels/${hotel.id}`}
+          href={`/Hotels/${hotel.id}`}
           className="hover:opacity-80 transition-opacity"
         >
           <SquareArrowUpRight className="h-5 w-5 sm:h-6 sm:w-6 text-white" />
@@ -187,7 +187,7 @@ function TopTenHotels() {
             )}
           </div>
         </div>
-        <Link href={`/hotels`}>
+        <Link href={`/Hotels`}>
           <motion.div
             className="bg-black px-5 py-2 rounded-md mt-6 mb-5 mx-auto hover:bg-gray-800 w-fit transition-colors text-white font-bold"
             whileHover={{ scale: 1.1 }}

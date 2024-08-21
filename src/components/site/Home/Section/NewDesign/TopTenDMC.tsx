@@ -51,7 +51,7 @@ const CarouselCard = ({ dmc }: { dmc: DMCHotelApiResult }) => (
       </span>
       <p className="text-sm line-clamp-3">{dmc.methodology}</p>
       <Link
-        href={`/dmc/${dmc.id}`}
+        href={`/DMC/${dmc.id}`}
         className="mt-auto border border-gray-900 text-sm cursor-pointer rounded-lg px-4 py-2 hover:bg-gray-100 transition-colors"
       >
         View More
@@ -176,7 +176,7 @@ const TopTenDMC = () => {
           </div>
         </div>
 
-        <Link href={`/dmc`}>
+        <Link href={`/DMC`}>
           <motion.div
             className="bg-black px-5 py-2 rounded-md mt-6 mb-5 mx-auto hover:bg-gray-800 w-fit transition-colors text-white font-bold"
             whileHover={{ scale: 1.1 }}
