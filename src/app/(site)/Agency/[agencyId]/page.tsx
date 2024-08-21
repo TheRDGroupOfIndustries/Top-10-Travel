@@ -25,6 +25,7 @@ const AgencyPage = async ({ params }: { params: { agencyId: string } }) => {
       specializedTravelTypes: true,
       primaryServices: true,
       promotionalVideoUpload: true,
+      pastProjects:true
       // companyData: {
       //   select: {
       //     description: true,

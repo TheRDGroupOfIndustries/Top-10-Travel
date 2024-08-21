@@ -9,26 +9,23 @@ import { headers } from "next/headers";
 
 export const createRequestAction = async (values: Pick<Request, "message">) => {
   const session = await getSessionorRedirect();
-  const company = await db.company.findUnique({
-    where: { userId: session.user.id },
-    select: { id: true, legalName: true },
-  });
-  if (!company) return { error: "Invalid request." };
+
   try {
     const res = await db.request.create({
       data: {
-        message: `New request from ${company.legalName}: ${values.message}`,
-        
+        message: `New request from ${session.user.name}: ${values.message}`,
+        user: { connect: { id: session.user.id } },
         status: "PENDING",
-        company: { connect: { id: company.id } },
       },
       select: { id: true },
     });
-    // await sendMail({
-    //   toEmail: session.user.email,
-    //   ...getRequestConfirmationTemplate(session.user.name),
-    // });
-    revalidatePath("/company/request");
+    if (process.env.NODE_ENV === "production")
+      await sendMail({
+        toEmail: session.user.email,
+        ...getRequestConfirmationTemplate(session.user.name),
+      });
+
+    revalidatePath("/dashboard/request");
     return { success: "Request sent successfully." };
   } catch (error: any) {
     console.log(error.message ?? error);

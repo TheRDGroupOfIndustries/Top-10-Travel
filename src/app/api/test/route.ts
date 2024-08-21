@@ -361,33 +361,91 @@ export async function GET() {
   //   await db.agency.update({
   //     where: { id: agency.id },
   //     data: {
-  //       socialMediaLinks: {
-  //         create: {
-  //           instagram: "https://www.instagram.com",
-  //           facebook: "https://www.facebook.com",
-  //           youtube: "https://www.youtube.com",
-  //           linkedin: "https://linkedin.com",
-  //         },
+  //       pastProjects: {
+  //         create: [
+  //           {
+  //             projectName: "Wanderlust Retreats",
+  //             clientName: "Global Adventures Travel",
+  //             year: 2023,
+  //             description:
+  //               "An extensive campaign designed to curate and promote luxurious retreats across exotic destinations, targeting high-net-worth individuals seeking exclusive travel experiences.",
+  //           },
+  //           {
+  //             projectName: "Cultural Immersion Tours",
+  //             clientName: "Heritage Explorers",
+  //             year: 2023,
+  //             description:
+  //               "A unique project focusing on developing customized cultural immersion tours that allow travelers to experience local traditions, cuisine, and lifestyles in remote regions.",
+  //           },
+  //           {
+  //             projectName: "Eco-Friendly Journeys",
+  //             clientName: "Sustainable Travel Co.",
+  //             year: 2023,
+  //             description:
+  //               "A pioneering initiative aimed at promoting eco-friendly travel options, including carbon-neutral flights, sustainable accommodations, and environmentally responsible tours.",
+  //           },
+  //           {
+  //             projectName: "Luxury Cruise Escapes",
+  //             clientName: "Oceanic Voyages",
+  //             year: 2023,
+  //             description:
+  //               "A high-end project that developed a series of luxury cruise packages, offering travelers exclusive experiences on board and at premium coastal destinations.",
+  //           },
+  //           {
+  //             projectName: "Adventure Trails",
+  //             clientName: "Epic Expeditions",
+  //             year: 2023,
+  //             description:
+  //               "A project that designed and promoted adrenaline-pumping adventure trails, including trekking, mountain biking, and extreme sports activities, across rugged terrains and scenic landscapes.",
+  //           },
+  //         ],
   //       },
   //     },
   //   });
-  //   console.log("update aagency")
+  //   console.log("update aagency");
   // }
   // for (const dmc of dmcs) {
   //   await db.dMC.update({
   //     where: { id: dmc.id },
   //     data: {
-  //       socialMediaLinks: {
-  //         create: {
-  //           instagram: "https://www.instagram.com",
-  //           facebook: "https://www.facebook.com",
-  //           youtube: "https://www.youtube.com",
-  //           linkedin: "https://linkedin.com",
-  //         },
-  //       },
+  //       pastProjects:{
+  //         create:[
+  //           {
+  //             "projectName": "Wanderlust Retreats",
+  //             "clientName": "Global Adventures Travel",
+  //             "year": 2023,
+  //             "description": "An extensive campaign designed to curate and promote luxurious retreats across exotic destinations, targeting high-net-worth individuals seeking exclusive travel experiences."
+  //           },
+  //           {
+  //             "projectName": "Cultural Immersion Tours",
+  //             "clientName": "Heritage Explorers",
+  //             "year": 2023,
+  //             "description": "A unique project focusing on developing customized cultural immersion tours that allow travelers to experience local traditions, cuisine, and lifestyles in remote regions."
+  //           },
+  //           {
+  //             "projectName": "Eco-Friendly Journeys",
+  //             "clientName": "Sustainable Travel Co.",
+  //             "year": 2023,
+  //             "description": "A pioneering initiative aimed at promoting eco-friendly travel options, including carbon-neutral flights, sustainable accommodations, and environmentally responsible tours."
+  //           },
+  //           {
+  //             "projectName": "Luxury Cruise Escapes",
+  //             "clientName": "Oceanic Voyages",
+  //             "year": 2023,
+  //             "description": "A high-end project that developed a series of luxury cruise packages, offering travelers exclusive experiences on board and at premium coastal destinations."
+  //           },
+  //           {
+  //             "projectName": "Adventure Trails",
+  //             "clientName": "Epic Expeditions",
+  //             "year": 2023,
+  //             "description": "A project that designed and promoted adrenaline-pumping adventure trails, including trekking, mountain biking, and extreme sports activities, across rugged terrains and scenic landscapes."
+  //           }
+  //         ]
+          
+  //       }
   //     },
   //   });
-  //   console.log("update dmc")
+  //   console.log("update dmc");
   // }
   return NextResponse.json("hi");
 }
