@@ -9,8 +9,9 @@ import Link from "next/link";
 import AnimatedImage from "./AnimatedImage";
 import PackagesCarousel from "./PackagesCarousel";
 import ReviewSSR from "./ReviewSSR";
-import type { SocialMediaLinks } from "@prisma/client";
+import type { PastProject, SocialMediaLinks } from "@prisma/client";
 import { TbMapPin } from "react-icons/tb";
+import PastProjects from "./PastProjects";
 import PhoneCallButton from "@/components/reusable/PhoneCallButton";
 
 type CompanyType = {
@@ -31,6 +32,7 @@ type CompanyType = {
   services?: string[];
   socialMediaLinks: SocialMediaLinks[];
   promotionalVideoUpload?: string;
+  pastProjects?: PastProject[];
 };
 
 const Details = ({
@@ -246,6 +248,9 @@ const Details = ({
               <div className="text-justify text-base leading-6 font-medium">
                 {data?.description}
               </div>
+              {data.pastProjects && (
+                <PastProjects pastProjects={data.pastProjects} />
+              )}
             </div>
 
             <div className="lg:hidden">
