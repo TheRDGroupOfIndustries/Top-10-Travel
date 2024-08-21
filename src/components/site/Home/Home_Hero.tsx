@@ -212,18 +212,18 @@ function HomeHero() {
       );
     };
     handleBalloonAnimate();
-  }, []);
+  }, [balloonAnimate]);
 
   return (
     <div
       ref={divref}
-      className="relative w-full pt-10 lg:pt-0 md:min-h-screen px-2 md:px-3 lg:px-6 xl:px-8"
+      className="relative w-full pt-10 lg:pt-0 md:max-h-screen px-2 md:px-3 lg:px-6 xl:px-8"
     >
       <div
         ref={scope}
         className="absolute -z-10 right-0 h-full w-[45%] md:w-[45%] lg:w-[40%] xl:w-[35%]"
       >
-        {/* <Image src={HeroEllipse} alt="Hero Image" height={912} width={562} /> */}
+        {/* <Image src={HeroEllipse} alt="Hero Image" height={912} width={562} priority /> */}
         <video
           // ref={videoRef}
           autoPlay
@@ -265,7 +265,7 @@ function HomeHero() {
         </AnimatePresence>
       </div>
 
-      <div className="h-full flex flex-col md:gap-0 lg:gap-0 gap-1 justify-start pt-16 md:pt-24 lg:pt-32 xl:pt-40 w-full">
+      <div className="h-full flex flex-col md:gap-0 lg:gap-0 gap-1 justify-start pt-16 md:pt-24 lg:pt-32 xl:pt-40 w-full overflow-hidden">
         <h3
           id="firstLine"
           aria-hidden
