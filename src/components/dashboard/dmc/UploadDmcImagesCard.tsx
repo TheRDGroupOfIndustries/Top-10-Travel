@@ -1,7 +1,7 @@
 import { cn, getValidUrl } from "@/lib/utils";
 import { Plus, Trash, Upload } from "lucide-react";
-import { Button } from "../ui/button";
-import { Card, CardHeader, CardTitle, CardContent } from "../ui/card";
+import { Button } from "../../ui/button";
+import { Card, CardHeader, CardTitle, CardContent } from "../../ui/card";
 import { ChangeEvent, useEffect, useState } from "react";
 import {
   Dialog,
@@ -13,14 +13,14 @@ import {
 } from "@/components/ui/dialog";
 import useMutation from "@/hooks/useMutation";
 import { toast } from "sonner";
-import { Input } from "../ui/input";
+import { Input } from "../../ui/input";
 import Image from "next/image";
 import {
-  deleteImage,
-  uploadCompanyImages,
+  deleteDmcImage,
+  uploadDmcImages,
 } from "@/core/server/cloudinary/cloudinary";
 
-const UploadCompanyImagesCard = ({
+const UploadAgencyImagesCard = ({
   images,
   companyId,
 }: {
@@ -28,9 +28,12 @@ const UploadCompanyImagesCard = ({
   companyId: string;
 }) => {
   const [isVisible, setIsVisible] = useState(false);
-  const { mutate, isPending } = useMutation(deleteImage);
+  const { mutate, isPending } = useMutation(deleteDmcImage);
   const handleDelete = async (image: string) => {
-    const { success, error } = await mutate({ url: image, companyId });
+    const { success, error } = await mutate({
+      url: image,
+      dmcId: companyId,
+    });
     if (success) {
       setIsVisible(false);
       toast.success(success);
@@ -41,7 +44,7 @@ const UploadCompanyImagesCard = ({
     <Card className="border-none bg-[#F3F3F3]">
       <CardHeader>
         <CardTitle>
-        <span className="text-[#FCAE1D]">Company </span>Images
+          <span className="text-[#FCAE1D]">Company </span>Images
           <Dialog
             open={isVisible}
             onOpenChange={setIsVisible}
@@ -62,7 +65,7 @@ const UploadCompanyImagesCard = ({
                   Upload a image to add to your company images.
                 </DialogDescription>
               </DialogHeader>
-              <UploadCompanyImages companyId={companyId} />
+              <UploadAgencyImages companyId={companyId} />
             </DialogContent>
           </Dialog>
         </CardTitle>
@@ -101,9 +104,9 @@ const UploadCompanyImagesCard = ({
   );
 };
 
-const UploadCompanyImages = ({ companyId }: { companyId: string }) => {
+const UploadAgencyImages = ({ companyId }: { companyId: string }) => {
   const [file, setFile] = useState<File | null>(null);
-  const { mutate, isPending } = useMutation(uploadCompanyImages);
+  const { mutate, isPending } = useMutation(uploadDmcImages);
   const handleFile = (e: ChangeEvent<HTMLInputElement>) => {
     const { files } = e.target;
     if (!files) return;
@@ -119,7 +122,10 @@ const UploadCompanyImages = ({ companyId }: { companyId: string }) => {
     if (!file) return;
     const data = new FormData();
     data.set("file", file);
-    const { error, success } = await mutate({ form: data, companyId });
+    const { error, success } = await mutate({
+      form: data,
+      dmcId: companyId,
+    });
     if (error || !success) {
       toast.error(error);
       return;
@@ -147,4 +153,4 @@ const UploadCompanyImages = ({ companyId }: { companyId: string }) => {
   );
 };
 
-export default UploadCompanyImagesCard;
+export default UploadAgencyImagesCard;
