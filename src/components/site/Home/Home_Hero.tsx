@@ -223,7 +223,7 @@ function HomeHero() {
         ref={scope}
         className="absolute -z-10 right-0 h-full w-[45%] md:w-[45%] lg:w-[40%] xl:w-[35%]"
       >
-        {/* <Image src={HeroEllipse} alt="Hero Image" height={912} width={562} /> */}
+        {/* <Image src={HeroEllipse} alt="Hero Image" height={912} width={562} priority /> */}
         <video
           // ref={videoRef}
           autoPlay
