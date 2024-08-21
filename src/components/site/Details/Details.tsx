@@ -10,6 +10,7 @@ import AnimatedImage from "./AnimatedImage";
 import PackagesCarousel from "./PackagesCarousel";
 import ReviewSSR from "./ReviewSSR";
 import type { SocialMediaLinks } from "@prisma/client";
+import { TbMapPin } from "react-icons/tb";
 
 type CompanyType = {
   reviews: number;
@@ -43,7 +44,7 @@ const Details = ({
     "youtube",
   ];
 
-  console.log(data);
+  console.log(data.socialMediaLinks);
 
   return (
     <div className="mb-10 mt-20">
@@ -83,7 +84,7 @@ const Details = ({
               </div>
             </div>
 
-            <div className="w-full flex flex-wrap items-center justify-between gap-1">
+            {/* <div className="w-full flex flex-wrap items-center justify-between gap-1">
               {data.socialMediaLinks.map((link, index) =>
                 socialPlatforms.map((platform) => {
                   const url = link[platform as keyof SocialMediaLinks];
@@ -108,23 +109,26 @@ const Details = ({
                   return null;
                 })
               )}
-            </div>
+            </div> */}
 
-            <div className="rounded-md flex lg:hidden flex-col gap-6 py-12 sm:px-8 px-4 shadow shadow-black/50">
+            <div className="rounded-md flex lg:hidden flex-col gap-4 py-10 sm:px-8 px-4 shadow shadow-black/50">
               <div className="flex flex-col gap-5">
-                <div>
-                  <h3 className="lg:text-[32px] text-2xl font-bold leading-tight sm:leading-6">
+                <div className="flex flex-col gap-3">
+                  <h3 className="text-[32px] font-bold leading-tight xl:leading-6">
                     {data?.name}
                   </h3>
-                  <p className="text-sm mt-3 leading-4 font-medium">
-                    {`${data?.address}, ${data?.city}.`}
+                  <div className="text-sm flex items-center leading-4 font-medium">
+                    <TbMapPin className="text-slate-400 mr-1 text-sm md:text-lg" />
+                    {`${data?.city}, ${data?.country}.`}
+                  </div>
+                  <p className="text-sm leading-4 font-medium">
+                    {`${data?.address}`}
                   </p>
                 </div>
 
                 <StarRating
                   color="#734E03"
                   maxRating={5}
-                  className="my-3"
                   readOnly={true}
                   size={18}
                   showNumber={true}
@@ -136,6 +140,33 @@ const Details = ({
                 <p className="text-base leading-[22px] text-justify font-medium">
                   {data?.methodology}
                 </p>
+              </div>
+
+              <div className="w-full flex flex-wrap items-center justify-between gap-1">
+                {data.socialMediaLinks.map((link, index) =>
+                  socialPlatforms.map((platform) => {
+                    const url = link[platform as keyof SocialMediaLinks];
+                    if (url) {
+                      return (
+                        <Button
+                          key={`${platform}-${index}`}
+                          className="rounded-full"
+                          variant="outline"
+                        >
+                          <Link
+                            href={url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="w-full h-full flex items-center gap-2"
+                          >
+                            {getIconFromName(url)}
+                          </Link>
+                        </Button>
+                      );
+                    }
+                    return null;
+                  })
+                )}
               </div>
 
               <div className="flex gap-1 py-4 w-full flex-grow">
@@ -179,29 +210,29 @@ const Details = ({
             </div>
 
             <div className="lg:hidden">
-              <ReviewSSR
-                name={data?.name}
-                info={info}
-              />
+              <ReviewSSR name={data?.name} info={info} />
             </div>
           </div>
 
           <div className="flex-1 lg:flex hidden flex-col gap-5 max-w-[509px]">
             <div className="rounded-md lg:flex hidden flex-col xl:gap-10 lg:gap-6 xl:py-16 lg:py-10 xl:px-8 lg:px-4 shadow shadow-black/50">
               <div className="flex flex-col gap-5">
-                <div>
+                <div className="flex flex-col gap-3">
                   <h3 className="text-[32px] font-bold leading-tight xl:leading-6">
                     {data?.name}
                   </h3>
-                  <p className="text-sm mt-3 leading-4 font-medium">
-                    {`${data?.address}, ${data?.city}.`}
+                  <div className="text-sm flex items-center leading-4 font-medium">
+                    <TbMapPin className="text-slate-400 mr-1 text-sm md:text-lg" />
+                    {`${data?.city}, ${data?.country}.`}
+                  </div>
+                  <p className="text-sm leading-4 font-medium">
+                    {`${data?.address}`}
                   </p>
                 </div>
 
                 <StarRating
                   color="#734E03"
                   maxRating={5}
-                  className="my-4"
                   readOnly={true}
                   size={18}
                   showNumber={true}
@@ -215,6 +246,33 @@ const Details = ({
                 </p>
               </div>
 
+              <div className="w-full flex flex-wrap items-center justify-between gap-1">
+                {data.socialMediaLinks.map((link, index) =>
+                  socialPlatforms.map((platform) => {
+                    const url = link[platform as keyof SocialMediaLinks];
+                    if (url) {
+                      return (
+                        <Button
+                          key={`${platform}-${index}`}
+                          className="rounded-full"
+                          variant="outline"
+                        >
+                          <Link
+                            href={url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="w-full h-full flex items-center gap-2"
+                          >
+                            {getIconFromName(url)}
+                          </Link>
+                        </Button>
+                      );
+                    }
+                    return null;
+                  })
+                )}
+              </div>
+
               <div className="flex gap-1 py-4 w-full flex-grow">
                 <EnquireDialog
                   images={data?.images}
@@ -225,10 +283,7 @@ const Details = ({
               </div>
             </div>
 
-            <ReviewSSR
-              name={data?.name}
-              info={info}
-            />
+            <ReviewSSR name={data?.name} info={info} />
           </div>
         </div>
       </div>

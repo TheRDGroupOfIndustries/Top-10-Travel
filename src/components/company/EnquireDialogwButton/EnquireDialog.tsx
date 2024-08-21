@@ -71,90 +71,21 @@ export default function EnquireDialog({
     response.error && toast.error(response.error);
   };
 
-  // return (
-  //   <Dialog open={open} onOpenChange={(open) => setOpen(open)}>
-  //     <DialogTrigger asChild>
-  //       <Button variant="outline" className={cn("rounded-full", className)}>
-  //         Contact Us
-  //       </Button>
-  //     </DialogTrigger>
-
-  //     <DialogContent className="sm:max-w-[425px]">
-  //       <DialogHeader>
-  //         <DialogTitle>Contact {name}</DialogTitle>
-  //         <DialogDescription>
-  //           Contact {name} regarding any queries.
-  //         </DialogDescription>
-  //       </DialogHeader>
-  //       {response.error && (
-  //         <span className="bg-destructive text-destructive-foreground p-2 rounded-md">
-  //           {response.error}
-  //         </span>
-  //       )}
-  //       {response.success && (
-  //         <span className="text-green-500">{response.success}</span>
-  //       )}
-  //       <form
-  //         onSubmit={handleSubmit}
-  //         className="flex items-start flex-col gap-4"
-  //       >
-  //         <div className="w-full flex flex-col gap-[2px]">
-  //           <label htmlFor="name" className="p-2">
-  //             Name
-  //           </label>
-  //           <Input
-  //             id="name"
-  //             name="name"
-  //             type="text"
-  //             placeholder="Enter your name"
-  //             required
-  //           />
-  //         </div>
-  //         <div className="w-full flex flex-col gap-[2px]">
-  //           <label htmlFor="email" className="p-2">
-  //             Email
-  //           </label>
-  //           <Input
-  //             id="email"
-  //             name="email"
-  //             type="email"
-  //             placeholder="Enter your email"
-  //             required
-  //           />
-  //         </div>
-  //         <div className="w-full flex flex-col gap-[2px]">
-  //           <label htmlFor="message" className="p-2">
-  //             Message
-  //           </label>
-  //           <Input
-  //             id="message"
-  //             name="message"
-  //             type="text"
-  //             placeholder="Enter your message"
-  //             required
-  //           />
-  //         </div>
-  //         <DialogFooter>
-  //           <Button disabled={isPending} type="submit">
-  //             {isPending ? "Sending Query..." : "Send Query"}
-  //           </Button>
-  //         </DialogFooter>
-  //       </form>
-  //     </DialogContent>
-  //   </Dialog>
-  // );
-
   return (
-    <div className="flex items-center justify-center">
+    <div className="flex flex-1 items-center justify-center">
       <Modal>
-        <ModalTrigger className="bg-black rounded-full dark:bg-white dark:text-black text-white flex justify-center group/modal-btn">
-          <span className="group-hover/modal-btn:translate-x-40 text-base rounded-full text-center transition duration-500">
+        {/* <ModalTrigger className="bg-black rounded-full w-full flex-1 dark:bg-white dark:text-black text-white flex justify-center group/modal-btn">
+          <span className="group-hover/modal-btn:translate-x-64 w-full text-base rounded-full text-center transition duration-500">
             Contact Us
           </span>
-          <div className="-translate-x-40 rounded-full group-hover/modal-btn:translate-x-0 flex items-center justify-center absolute inset-0 transition duration-500 text-white z-20">
+          <div className="-translate-x-64 rounded-full w-full group-hover/modal-btn:translate-x-0 flex items-center justify-center absolute inset-0 transition duration-500 text-white z-20">
             📞
           </div>
+        </ModalTrigger> */}
+        <ModalTrigger className="w-full border-black border-[1px] rounded-full text-xl leading-6 font-medium transform hover:-translate-y-1 transition duration-200 hover:shadow-md">
+          Contact Us
         </ModalTrigger>
+
         <ModalBody>
           <form
             onSubmit={handleSubmit}
