@@ -31,10 +31,15 @@ export default function EnquireDialog({
   images,
   name,
   className,
+  info,
 }: {
   images?: string[];
   name: string;
   className?: string;
+  info:
+    | { type: "Agency"; agencyId: string }
+    | { type: "Dmc"; dmcId: string }
+    | { type: "Hotel"; hotelId: string };
 }) {
   const [response, setResponse] = useState<{
     error?: string;
@@ -47,20 +52,13 @@ export default function EnquireDialog({
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     // @ts-expect-error
-    const name = e.target[0].value;
+    const title = e.target[0].value;
     // @ts-expect-error
-    const email = e.target[1].value;
-    // @ts-expect-error
-    const message = e.target[2].value;
+    const message = e.target[1].value;
     // console.log(name, email, message);
     setResponse({});
 
-    const res = await mutate({
-      name,
-      email,
-      message,
-      companyId: params.companyId as string,
-    });
+    const res = await mutate({ values: { message, title }, info });
     setOpen(false);
     if (res.success) {
       setTimeout(() => window.print(), 200);
@@ -72,7 +70,7 @@ export default function EnquireDialog({
   };
 
   return (
-    <div className="flex flex-1 items-center justify-center">
+    <div className="flex w-1/3 items-center justify-center">
       <Modal>
         {/* <ModalTrigger className="bg-black rounded-full w-full flex-1 dark:bg-white dark:text-black text-white flex justify-center group/modal-btn">
           <span className="group-hover/modal-btn:translate-x-64 w-full text-base rounded-full text-center transition duration-500">
@@ -93,7 +91,7 @@ export default function EnquireDialog({
           >
             <ModalContent className="w-full">
               <h4 className="text-lg md:text-xl xl:text-2xl text-neutral-600 dark:text-neutral-100 font-bold text-center xl:mb-7 md:mb-5 mb-4">
-                Contact 
+                Contact
                 <span className="px-1 py-0.5 rounded-md bg-gray-100 dark:bg-neutral-800 dark:border-neutral-700 border border-gray-200">
                   {name}
                 </span>
@@ -140,29 +138,18 @@ export default function EnquireDialog({
               </div>
               <div className="py-2 flex flex-wrap gap-x-4 gap-y-1 items-start justify-start max-w-sm mx-auto">
                 <div className="w-full flex flex-col gap-[2px]">
-                  <label htmlFor="name" className="p-1">
-                    Name
+                  <label htmlFor="title" className="p-1">
+                    Title
                   </label>
                   <Input
-                    id="name"
-                    name="name"
+                    id="title"
+                    name="title"
                     type="text"
-                    placeholder="Enter your name"
+                    placeholder="Enter enquiry Title"
                     required
                   />
                 </div>
-                <div className="w-full flex flex-col gap-[2px]">
-                  <label htmlFor="email" className="p-1">
-                    Email
-                  </label>
-                  <Input
-                    id="email"
-                    name="email"
-                    type="email"
-                    placeholder="Enter your email"
-                    required
-                  />
-                </div>
+
                 <div className="w-full flex flex-col gap-[2px]">
                   <label htmlFor="message" className="p-1">
                     Message
@@ -181,7 +168,7 @@ export default function EnquireDialog({
               <button
                 disabled={isPending}
                 type="submit"
-                className="bg-black w-fit text-white dark:bg-white dark:text-black text-sm px-4 py-2 rounded-md border border-black"
+                className="bg-black w-fit text-white disabled:opacity-50 dark:bg-white dark:text-black text-sm px-4 py-2 rounded-md border border-black"
               >
                 {isPending ? "Sending Query..." : "Send Query"}
               </button>

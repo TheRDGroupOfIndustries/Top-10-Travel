@@ -9,8 +9,10 @@ import Link from "next/link";
 import AnimatedImage from "./AnimatedImage";
 import PackagesCarousel from "./PackagesCarousel";
 import ReviewSSR from "./ReviewSSR";
-import type { SocialMediaLinks } from "@prisma/client";
+import type { PastProject, SocialMediaLinks } from "@prisma/client";
 import { TbMapPin } from "react-icons/tb";
+import PastProjects from "./PastProjects";
+import PhoneCallButton from "@/components/reusable/PhoneCallButton";
 
 type CompanyType = {
   reviews: number;
@@ -29,6 +31,8 @@ type CompanyType = {
   coreServices?: string[];
   services?: string[];
   socialMediaLinks: SocialMediaLinks[];
+  promotionalVideoUpload?: string;
+  pastProjects?: PastProject[];
 };
 
 const Details = ({
@@ -71,12 +75,20 @@ const Details = ({
             <div className="grid gap-4">
               {/* Main Image */}
               <div className="relative rounded-lg w-full h-64 md:h-96 lg:h-[450px]">
-                <AnimatedImage
-                  src={getValidUrl(data?.images[0] ?? "")}
-                  alt="main image"
-                  fill
-                  className="rounded-lg object-cover"
-                />
+                {data.promotionalVideoUpload ? (
+                  <video
+                    src={data.promotionalVideoUpload}
+                    className="w-full h-full border rounded-lg"
+                    controls
+                  ></video>
+                ) : (
+                  <AnimatedImage
+                    src={getValidUrl(data?.images[0] ?? "")}
+                    alt="main image"
+                    fill
+                    className="rounded-lg object-cover"
+                  />
+                )}
               </div>
 
               {/* Grid of Thumbnails */}
@@ -186,10 +198,12 @@ const Details = ({
               </div>
 
               <div className="flex gap-1 py-4 w-full flex-grow">
+                <PhoneCallButton phoneNumber="1234567890" />
                 <EnquireDialog
                   images={data?.images}
                   name={data?.name}
                   className="flex-1 border-black border-[1px] py-3 rounded-full text-xl leading-6 font-medium"
+                  info={info}
                 />
                 <ShareButton />
               </div>
@@ -222,18 +236,21 @@ const Details = ({
             <div className="flex flex-col gap-4 sm:px-0 px-2">
               <div className="flex flex-row flex-wrap gap-1">
                 {TAGS.map((tag: string) => (
-                  <span
+                  <div
                     key={tag}
                     className="bg-slate-100 border-[2px] border-slate-400 font-semibold uppercase md:px-2 px-1 md:py-1.5 py-1 md:text-base text-sm rounded-full"
                   >
                     {tag}
-                  </span>
+                  </div>
                 ))}
               </div>
 
               <div className="text-justify text-base leading-6 font-medium">
                 {data?.description}
               </div>
+              {data.pastProjects && (
+                <PastProjects pastProjects={data.pastProjects} />
+              )}
             </div>
 
             <div className="lg:hidden">
@@ -301,10 +318,12 @@ const Details = ({
               </div>
 
               <div className="flex gap-1 py-4 w-full flex-grow">
+                <PhoneCallButton phoneNumber="1234567890" />
                 <EnquireDialog
                   images={data?.images}
                   name={data?.name}
                   className="flex-1 border-black border-[1px] py-3 rounded-full text-xl leading-6 font-medium"
+                  info={info}
                 />
                 <ShareButton />
               </div>
