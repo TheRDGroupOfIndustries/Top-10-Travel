@@ -12,11 +12,11 @@ import InputWithSave from "../reusable/InputWithSaveCompany";
 import { Badge } from "../ui/badge";
 import Link from "next/link";
 import CompanyDataInputwSave from "../reusable/CompanyDataInputwSave";
-import UploadCompanyImage from "./UploadCompanyImage";
+import UploadCompanyImage from "../dashboard/UploadCompanyImage";
 import { Button } from "../ui/button";
 import { Plus } from "lucide-react";
 import { cn } from "@/lib/utils";
-import UploadCompanyImagesCard from "./UploadCompanyImagesCard";
+import UploadCompanyImagesCard from "../dashboard/UploadCompanyImagesCard";
 
 const CompanyDashboard = ({
   data,
