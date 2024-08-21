@@ -22,6 +22,8 @@ const HotelPage = async ({ params }: { params: { hotelId: string } }) => {
       description: true,
       address: true,
       socialMediaLinks: true,
+      services: true,
+      specialization: true,
       promotionalVideoUpload: true,
       // companyData: {
       //   select: {
