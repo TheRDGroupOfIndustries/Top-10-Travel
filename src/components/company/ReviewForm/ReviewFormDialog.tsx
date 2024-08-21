@@ -17,10 +17,13 @@ import { PlusCircle } from "lucide-react";
 
 export default function ReviewDialog({
   name,
-  companyId,
+  info,
 }: {
   name: string;
-  companyId: string;
+  info:
+    | { type: "Agency"; agencyId: string }
+    | { type: "Dmc"; dmcId: string }
+    | { type: "Hotel"; hotelId: string };
 }) {
   const [response, setResponse] = useState<{
     error?: string;
@@ -38,7 +41,7 @@ export default function ReviewDialog({
     // @ts-expect-error
     const review = e.target[1].value;
     e.currentTarget?.reset();
-    const res = await mutate({ name, review, companyId, rating });
+    const res = await mutate({values:{name, review, rating}, info:info});
     setResponse(res);
     if (res.success) {
       setTimeout(() => {
@@ -55,7 +58,10 @@ export default function ReviewDialog({
   }, [isOpen]);
 
   return (
-    <Dialog open={isOpen} onOpenChange={setIsOpen}>
+    <Dialog
+      open={isOpen}
+      onOpenChange={setIsOpen}
+    >
       <DialogTrigger asChild>
         <Button
           variant="outline"
@@ -80,7 +86,10 @@ export default function ReviewDialog({
           className="flex items-start flex-col gap-4"
         >
           <div className="w-full">
-            <label className="font-semibold" htmlFor="name">
+            <label
+              className="font-semibold"
+              htmlFor="name"
+            >
               Rating
             </label>
             <div className="flex gap-1">
@@ -103,7 +112,10 @@ export default function ReviewDialog({
             </div>
           </div>
           <div className="w-full">
-            <label className="font-semibold" htmlFor="name">
+            <label
+              className="font-semibold"
+              htmlFor="name"
+            >
               Name
             </label>
             <Input
@@ -116,7 +128,10 @@ export default function ReviewDialog({
           </div>
 
           <div className="w-full flex flex-col gap-[2px]">
-            <label htmlFor="review" className="block">
+            <label
+              htmlFor="review"
+              className="block"
+            >
               Review
             </label>
             <textarea
@@ -127,7 +142,10 @@ export default function ReviewDialog({
               required
             />
           </div>
-          <Button disabled={isPending} type="submit">
+          <Button
+            disabled={isPending}
+            type="submit"
+          >
             {isPending ? "Adding Review..." : "Add Review"}
           </Button>
         </form>

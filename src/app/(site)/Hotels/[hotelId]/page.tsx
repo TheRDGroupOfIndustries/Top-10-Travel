@@ -2,7 +2,7 @@ import Details from "@/components/site/Details/Details";
 import { db } from "@/core/client/db";
 import { notFound } from "next/navigation";
 
-export const revalidate = 3600
+export const revalidate = 3600;
 
 const HotelPage = async ({ params }: { params: { hotelId: string } }) => {
   const hotel = await db.hotel.findUnique({
@@ -40,7 +40,10 @@ const HotelPage = async ({ params }: { params: { hotelId: string } }) => {
 
   return (
     <div>
-      <Details data={hotel} />
+      <Details
+        data={hotel}
+        info={{ type: "Hotel", hotelId: hotel.id }}
+      />
     </div>
   );
 };

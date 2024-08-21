@@ -25,7 +25,16 @@ type CompanyType = {
   socialMediaLinks: SocialMediaLinks[];
 };
 
-const Details = ({ data }: { data: CompanyType }) => {
+const Details = ({
+  data,
+  info,
+}: {
+  data: CompanyType;
+  info:
+    | { type: "Agency"; agencyId: string }
+    | { type: "Dmc"; dmcId: string }
+    | { type: "Hotel"; hotelId: string };
+}) => {
   const socialPlatforms = [
     "facebook",
     "instagram",
@@ -36,7 +45,10 @@ const Details = ({ data }: { data: CompanyType }) => {
 
   return (
     <div className="mb-10">
-      <HeroHeading title={data?.name} className="uppercase" />
+      <HeroHeading
+        title={data?.name}
+        className="uppercase"
+      />
       <div className="px-2 md:px-3 lg:px-6 xl:px-8">
         <div className="w-full flex xl:gap-12 gap-6 pb-16 border-b-black border-b-[1px]">
           <div className="w-full flex flex-col gap-10 flex-1">
@@ -78,19 +90,20 @@ const Details = ({ data }: { data: CompanyType }) => {
                   const url = link[platform as keyof SocialMediaLinks];
                   if (url) {
                     return (
-                      <Button  
-                        key={`${platform}-${index}`} 
-                        className="rounded-full" 
-                        variant="outline">
+                      <Button
+                        key={`${platform}-${index}`}
+                        className="rounded-full"
+                        variant="outline"
+                      >
                         <Link
                           href={url}
                           target="_blank"
                           rel="noopener noreferrer"
                           className="w-full h-full flex items-center gap-2"
-                      >
-                        {getIconFromName(url)}
-                      </Link>
-                        </Button>
+                        >
+                          {getIconFromName(url)}
+                        </Link>
+                      </Button>
                     );
                   }
                   return null;
@@ -175,7 +188,10 @@ const Details = ({ data }: { data: CompanyType }) => {
             </div>
 
             <div className="lg:hidden">
-              <ReviewSSR name={data?.name} companyId={data?.id} />
+              <ReviewSSR
+                name={data?.name}
+                info={info}
+              />
             </div>
           </div>
 
@@ -221,7 +237,10 @@ const Details = ({ data }: { data: CompanyType }) => {
               </div>
             </div>
 
-            {/* <ReviewSSR name={data?.name} companyId={data?.id} /> */}
+            <ReviewSSR
+              name={data?.name}
+              info={info}
+            />
           </div>
         </div>
       </div>

@@ -2,7 +2,7 @@ import Details from "@/components/site/Details/Details";
 import { db } from "@/core/client/db";
 import { notFound } from "next/navigation";
 
-export const revalidate = 3600
+export const revalidate = 3600;
 
 const DMCPage = async ({ params }: { params: { dmcId: string } }) => {
   const dmc = await db.dMC.findUnique({
@@ -40,7 +40,10 @@ const DMCPage = async ({ params }: { params: { dmcId: string } }) => {
 
   return (
     <div>
-      <Details data={dmc} />
+      <Details
+        data={dmc}
+        info={{ type: "Dmc", dmcId: dmc.id }}
+      />
     </div>
   );
 };
