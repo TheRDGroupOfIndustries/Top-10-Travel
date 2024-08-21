@@ -11,11 +11,16 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 
 function ReviewsComponent({
   name,
-  companyId,
+  info,
   reviews,
 }: {
   name: string;
-  companyId: string;
+
+  info:
+    | { type: "Agency"; agencyId: string }
+    | { type: "Dmc"; dmcId: string }
+    | { type: "Hotel"; hotelId: string };
+
   reviews: Pick<Reviews, "name" | "rating" | "review" | "id">[];
 }) {
   // Sample reviews data
@@ -124,7 +129,10 @@ function ReviewsComponent({
         ) : null}
 
         {/* Review dialog */}
-        <ReviewDialog companyId={companyId} name={name} />
+        <ReviewDialog
+          info={info}
+          name={name}
+        />
       </div>
     </div>
   );

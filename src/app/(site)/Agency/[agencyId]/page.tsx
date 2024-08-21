@@ -2,6 +2,8 @@ import Details from "@/components/site/Details/Details";
 import { db } from "@/core/client/db";
 import { notFound } from "next/navigation";
 
+export const revalidate = 3600;
+
 const AgencyPage = async ({ params }: { params: { agencyId: string } }) => {
   const agency = await db.agency.findUnique({
     where: {
@@ -38,7 +40,10 @@ const AgencyPage = async ({ params }: { params: { agencyId: string } }) => {
 
   return (
     <div>
-      <Details data={agency} role={"Agency"} />
+      <Details
+        data={agency}
+        info={{ type: "Agency", agencyId: agency.id }}
+      />
     </div>
   );
 };

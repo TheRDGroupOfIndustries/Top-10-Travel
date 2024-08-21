@@ -1,20 +1,22 @@
 import { db } from "@/core/client/db";
 import ReviewsComponent from "./ReviewComp";
 
-const ReviewSSR = async ({
-  name,
-  companyId,
-  role,
-}: {
-  name: string;
-  companyId: string;
-  role: "Agency" | "DMC" | "Hotel";
-}) => {
-  let reviews;
+type Info =
+  | { type: "Agency"; agencyId: string }
+  | { type: "Dmc"; dmcId: string }
+  | { type: "Hotel"; hotelId: string };
 
-  if (role === "Agency") {
+const ReviewSSR = async ({ name, info }: { name: string; info: Info }) => {
+  let reviews: {
+    id: string;
+    name: string;
+    rating: number;
+    review: string;
+    createdAt: Date | null;
+  }[] = [];
+  if (info.type === "Agency") {
     reviews = await db.reviews.findMany({
-      where: { agencyId: companyId },
+      where: { agencyId: info.agencyId },
       select: {
         id: true,
         name: true,
@@ -26,9 +28,9 @@ const ReviewSSR = async ({
         createdAt: "desc",
       },
     });
-  } else if (role === "Hotel") {
+  } else if (info.type === "Dmc") {
     reviews = await db.reviews.findMany({
-      where: { hotelId: companyId },
+      where: { dmcId: info.dmcId },
       select: {
         id: true,
         name: true,
@@ -40,9 +42,9 @@ const ReviewSSR = async ({
         createdAt: "desc",
       },
     });
-  } else if (role === "DMC") {
+  } else {
     reviews = await db.reviews.findMany({
-      where: { dmcId: companyId },
+      where: { hotelId: info.hotelId },
       select: {
         id: true,
         name: true,
@@ -56,10 +58,12 @@ const ReviewSSR = async ({
     });
   }
 
-  console.log(reviews)
-
   return (
-    <ReviewsComponent name={name} companyId={companyId} reviews={reviews!} />
+    <ReviewsComponent
+      name={name}
+      info={info}
+      reviews={reviews}
+    />
   );
 };
 

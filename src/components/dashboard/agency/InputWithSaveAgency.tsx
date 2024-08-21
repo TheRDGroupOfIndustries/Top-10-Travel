@@ -1,10 +1,10 @@
 "use client";
 import { ChangeEvent, useState } from "react";
-import { Input } from "../ui/input";
-import { Label } from "../ui/label";
-import { Button } from "../ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Button } from "@/components/ui/button";
 import useMutation from "@/hooks/useMutation";
-import { editAgencyAction } from "@/core/server/actions/company/editCompany";
+import { editAgencyAction } from "@/core/server/actions/agency/editAgency";
 import { Edit, Upload, UserRoundPen } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { toast } from "sonner";
@@ -15,11 +15,19 @@ const InputWithSave = ({
   text,
   value,
   className,
+  minLength,
+  maxLength,
+  type,
+  hideLabel = false,
 }: {
   name: string;
   value: string;
   text: string;
   className?: string;
+  minLength?: number;
+  maxLength?: number;
+  type?: string;
+  hideLabel?: boolean;
 }) => {
   const [isChanging, setIsChanging] = useState(false);
   const { mutate, isPending } = useMutation(editAgencyAction);
@@ -57,6 +65,9 @@ const InputWithSave = ({
             defaultValue={value}
             placeholder={text}
             className=""
+            minLength={minLength}
+            maxLength={maxLength}
+            type={type ?? "text"}
           />
           <Button
             disabled={isPending}
@@ -67,7 +78,7 @@ const InputWithSave = ({
           </Button>
         </form>
       ) : (
-        <>
+        <div>
           {/* {name === "image" ? (
             <div
               onClick={() => setIsChanging(true)}
@@ -87,21 +98,30 @@ const InputWithSave = ({
               </div>
             </div>
           ) : ( */}
+          <Label
+            htmlFor={name}
+            className={cn(
+              hideLabel ? "hidden" : "flex",
+              "font-semibold justify-center md:justify-start"
+            )}
+          >
+            {text}
+          </Label>
+
           <span
             className={cn(
-              "flex items-center justify-center md:justify-start gap-2 text-sm text-gray-900 ",
+              "flex items-center flex-wrap justify-center md:justify-start gap-2 text-sm text-gray-900",
               className
             )}
             onDoubleClick={() => setIsChanging(true)}
           >
             {value}
-
             <Edit
               onClick={() => setIsChanging(true)}
-              className="h-4 w-4 text-muted-foreground transition-colors hover:text-foreground"
+              className="h-4 w-4 text-muted-foreground transition-colors cursor-pointer hover:text-foreground"
             />
           </span>
-        </>
+        </div>
       )}
     </>
   );

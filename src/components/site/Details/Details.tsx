@@ -28,10 +28,13 @@ type CompanyType = {
 
 const Details = ({
   data,
-  role,
+  info,
 }: {
   data: CompanyType;
-  role: "Agency" | "DMC" | "Hotel";
+  info:
+    | { type: "Agency"; agencyId: string }
+    | { type: "Dmc"; dmcId: string }
+    | { type: "Hotel"; hotelId: string };
 }) => {
   const socialPlatforms = [
     "facebook",
@@ -180,7 +183,10 @@ const Details = ({
             </div>
 
             <div className="lg:hidden">
-              {/* <ReviewSSR name={data?.name} companyId={data?.id} /> */}
+              <ReviewSSR
+                name={data?.name}
+                info={info}
+              />
             </div>
           </div>
 
@@ -226,7 +232,10 @@ const Details = ({
               </div>
             </div>
 
-            <ReviewSSR name={data?.name} companyId={data?.id} role={role} />
+            <ReviewSSR
+              name={data?.name}
+              info={info}
+            />
           </div>
         </div>
       </div>

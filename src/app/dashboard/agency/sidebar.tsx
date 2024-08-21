@@ -6,13 +6,12 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { HelpCircle, Home, List, LogOut } from "react-feather";
 
-function CompanySidebar() {
+function AgencySidebar() {
   const pathname = usePathname();
   const menuItems = [
-    { name: "Dashboard", icon: Home, href: "/company" },
-    { name: "Request", icon: ArrowDownUp, href: "/company/request" },
-    { name: "Packages", icon: List, href: "/company/packages" },
-    { name: "Help Desk", icon: HelpCircle, href: "/company/helpdesk" },
+    { name: "Dashboard", icon: Home, href: "/dashboard/agency" },
+    { name: "Request", icon: ArrowDownUp, href: "/dashboard/agency/request" },
+    { name: "Help Desk", icon: HelpCircle, href: "/dashboard/agency/helpdesk" },
   ];
 
   return (
@@ -57,4 +56,4 @@ function CompanySidebar() {
   );
 }
 
-export default CompanySidebar;
+export default AgencySidebar;
