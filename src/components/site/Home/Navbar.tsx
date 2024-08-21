@@ -19,23 +19,23 @@ import { cn } from "@/lib/utils";
 const navMenus = [
   {
     title: "Agencies",
-    link: "/Agency",
+    link: "/agency",
   },
   {
     title: "Hotels",
-    link: "/Hotels",
+    link: "/hotels",
   },
   {
     title: "DMC's",
-    link: "/DMC",
+    link: "/dmc",
   },
   {
     title: "Influencers",
-    link: "/Influencers",
+    link: "/influencers",
   },
   {
     title: "Contact us",
-    link: "/ContactUs",
+    link: "/contactus",
   },
 ];
 
@@ -106,10 +106,26 @@ function Navbar() {
       return (
         <>
           <DropdownMenuItem>
-            <Link href="/auth/company">
+            <Link href="/auth/agency">
               <div className="flex items-center gap-2">
                 <User size={18} />
-                <span>Start as Company</span>
+                <span>Start as Agency</span>
+              </div>
+            </Link>
+          </DropdownMenuItem>
+          <DropdownMenuItem>
+            <Link href="/auth/hotel">
+              <div className="flex items-center gap-2">
+                <User size={18} />
+                <span>Start as Hotel</span>
+              </div>
+            </Link>
+          </DropdownMenuItem>
+          <DropdownMenuItem>
+            <Link href="/auth/dmc">
+              <div className="flex items-center gap-2">
+                <User size={18} />
+                <span>Start as DMC</span>
               </div>
             </Link>
           </DropdownMenuItem>

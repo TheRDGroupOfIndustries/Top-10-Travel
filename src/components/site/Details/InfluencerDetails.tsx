@@ -95,14 +95,9 @@ const InfluencerDetails = ({ data }: { data: InfluencerData }) => {
               </div>
             ))}
 
-            <div className="flex flex-col gap-10 sm:px-0 px-2">
-              <div className="flex flex-col gap-2">
-                <div className="uppercase md:text-5xl text-3xl md:leading-[64px] leading-10 font-bold">
-                  Description
-                </div>
-                <div className="text-justify text-base leading-6 font-medium">
-                  {data?.description}
-                </div>
+            <div className="flex sm:px-0 px-2">
+              <div className="text-justify text-base leading-6 font-medium">
+                {data?.description}
               </div>
             </div>
           </div>

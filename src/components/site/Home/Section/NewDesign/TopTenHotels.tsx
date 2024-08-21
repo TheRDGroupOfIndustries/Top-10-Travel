@@ -19,21 +19,21 @@ import Link from "next/link";
 import { useContext } from "react";
 
 const CarouselCard = ({ hotel }: { hotel: DMCHotelApiResult }) => (
-  <motion.div 
-  initial={{
-    opacity: 0,
-   
-  }}
-  whileInView={{
-    opacity: 1,
-  }}
-  transition={{
-    duration: 1.2,
-    delay: 0.8,
-    ease: 'easeInOut',
-    staggerChildren: 0.6,
-  }}
-  className="h-72 rounded-xl overflow-hidden md:hover:-translate-y-4 hover:shadow-lg duration-300 transition-all relative">
+  <motion.div
+    initial={{
+      opacity: 0,
+    }}
+    whileInView={{
+      opacity: 1,
+    }}
+    transition={{
+      duration: 1.2,
+      delay: 0.8,
+      ease: "easeInOut",
+      staggerChildren: 0.6,
+    }}
+    className="h-72 rounded-xl overflow-hidden md:hover:-translate-y-4 hover:shadow-lg duration-300 transition-all relative"
+  >
     <div className="w-full h-full absolute inset-0 bg-black/30">
       <div className="absolute bottom-0 w-full flex items-center justify-between p-3">
         <div className="flex flex-col items-start">
@@ -47,7 +47,7 @@ const CarouselCard = ({ hotel }: { hotel: DMCHotelApiResult }) => (
           </span>
         </div>
         <Link
-          href={`/companies/${hotel.id}`}
+          href={`/hotels/${hotel.id}`}
           className="hover:opacity-80 transition-opacity"
         >
           <SquareArrowUpRight className="h-5 w-5 sm:h-6 sm:w-6 text-white" />
@@ -55,7 +55,7 @@ const CarouselCard = ({ hotel }: { hotel: DMCHotelApiResult }) => (
       </div>
     </div>
     <Image
-      src={getValidUrl(hotel.images[0]??hotel.images[1])}
+      src={getValidUrl(hotel.images[0] ?? hotel.images[1])}
       alt={hotel?.name}
       width={400}
       height={500}
@@ -66,10 +66,12 @@ const CarouselCard = ({ hotel }: { hotel: DMCHotelApiResult }) => (
 
 function TopTenHotels() {
   const { selectedCountry, selectedCity, visible } = useContext(HomeContext);
-  const { data, isLoading }:{data:DMCHotelApiResult[], isLoading:boolean} = useAxios({
-    url: `/api/home?country=${selectedCountry}&city=${selectedCity}&role=Hotel`,
-    selectedCity,selectedCountry
-  });
+  const { data, isLoading }: { data: DMCHotelApiResult[]; isLoading: boolean } =
+    useAxios({
+      url: `/api/home?country=${selectedCountry}&city=${selectedCity}&role=Hotel`,
+      selectedCity,
+      selectedCountry,
+    });
 
   return (
     <main
@@ -185,7 +187,7 @@ function TopTenHotels() {
             )}
           </div>
         </div>
-        <Link href={`/Hotels`}>
+        <Link href={`/hotels`}>
           <motion.div
             className="bg-black px-5 py-2 rounded-md mt-6 mb-5 mx-auto hover:bg-gray-800 w-fit transition-colors text-white font-bold"
             whileHover={{ scale: 1.1 }}
