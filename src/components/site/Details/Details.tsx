@@ -175,7 +175,7 @@ const Details = ({ data }: { data: CompanyType }) => {
             </div>
 
             <div className="lg:hidden">
-              {/* <ReviewSSR name={data?.name} companyId={data?.id} /> */}
+              <ReviewSSR name={data?.name} companyId={data?.id} />
             </div>
           </div>
 

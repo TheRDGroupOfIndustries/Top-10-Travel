@@ -286,5 +286,72 @@ export async function GET() {
   //   "https://www.instagram.com/traveltop10.in/",
   //   "https://x.com/traveltop_10"
   // ]}})
+  // function getRandomName() {
+  //   const adjectives = [
+  //     "Sunny",
+  //     "Wanderlust",
+  //     "Dreamy",
+  //     "Epic",
+  //     "Vibrant",
+  //     "Tranquil",
+  //     "Globetrotter",
+  //     "Adventure",
+  //     "Majestic",
+  //     "Radiant",
+  //   ];
+  //   const nouns = [
+  //     "Journeys",
+  //     "Travels",
+  //     "Expeditions",
+  //     "Voyages",
+  //     "Odyssey",
+  //     "Adventures",
+  //     "Getaways",
+  //     "Excursions",
+  //     "Safaris",
+  //     "Explorers",
+  //   ];
+  //   const adjective = adjectives[Math.floor(Math.random() * adjectives.length)];
+  //   const noun = nouns[Math.floor(Math.random() * nouns.length)];
+
+  //   return `${adjective} ${noun}`;
+  // }
+  // const [hotels, dmcs] = await Promise.all([
+  //   db.hotel.findMany(),
+  //   db.dMC.findMany(),
+  // ]);
+  
+  // for (const dmc of dmcs) {
+  //   await db.dMC.update({
+  //     where: { id: dmc.id },
+  //     data: {
+  //      images: [
+  //        "/image2.jpg",
+  //        "/image3.jpg",
+  //        "/image1.jpg",
+  //         "/image4.jpg",
+  //         "/image5.jpg",
+  //       ],
+  //     },
+  //   });
+  //   console.log("dmc Updated")
+  // }
+  // for (const hotel of hotels) {
+  //   await db.hotel.update({
+  //     where: { id: hotel.id },
+  //     data: {
+        
+  //       images: [
+  //         "/image5.jpg",
+  //         "/image4.jpg",
+  //         "/image1.jpg",
+  //         "/image2.jpg",
+  //         "/image3.jpg",
+  //       ],
+  //     },
+  //   });
+  //   console.log("hotel Updated")
+  // }
+
   return NextResponse.json("hi");
 }

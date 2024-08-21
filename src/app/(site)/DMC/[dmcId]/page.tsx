@@ -2,6 +2,8 @@ import Details from "@/components/site/Details/Details";
 import { db } from "@/core/client/db";
 import { notFound } from "next/navigation";
 
+export const revalidate = 3600
+
 const DMCPage = async ({ params }: { params: { dmcId: string } }) => {
   const dmc = await db.dMC.findUnique({
     where: {
