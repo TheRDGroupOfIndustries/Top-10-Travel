@@ -23,6 +23,11 @@ type CompanyType = {
   description: string | null;
   address: string;
   images: string[];
+  specializedTravelTypes?: string[];
+  primaryServices?: string[];
+  specialization?: string[];
+  coreServices?: string[];
+  services?: string[];
   socialMediaLinks: SocialMediaLinks[];
 };
 
@@ -44,7 +49,18 @@ const Details = ({
     "youtube",
   ];
 
-  console.log(data.socialMediaLinks);
+  let preTags;
+  if (info.type === "Dmc") {
+    preTags = data?.specialization?.concat(data?.coreServices!);
+  } else if(info.type === 'Agency') {
+    preTags =  data?.specializedTravelTypes?.concat(data?.primaryServices!)!;
+  } else if(info.type === "Hotel") {
+    preTags =  data?.services?.concat(data?.specialization!);
+  }
+
+  const setOfTags = new Set(preTags);
+  // const TAGS = [...setOfTags];
+  console.log(setOfTags);
 
   return (
     <div className="mb-10 mt-20">

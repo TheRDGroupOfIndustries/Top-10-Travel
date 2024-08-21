@@ -22,6 +22,8 @@ const AgencyPage = async ({ params }: { params: { agencyId: string } }) => {
       description: true,
       address: true,
       socialMediaLinks: true,
+      specializedTravelTypes: true,
+      primaryServices: true,
       // companyData: {
       //   select: {
       //     description: true,
@@ -40,10 +42,7 @@ const AgencyPage = async ({ params }: { params: { agencyId: string } }) => {
 
   return (
     <div>
-      <Details
-        data={agency}
-        info={{ type: "Agency", agencyId: agency.id }}
-      />
+      <Details data={agency} info={{ type: "Agency", agencyId: agency.id }} />
     </div>
   );
 };
