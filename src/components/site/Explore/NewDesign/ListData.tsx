@@ -85,13 +85,13 @@ function ListData({
                     readOnly={true}
                     showNumber={false}
                     defaultRating={item?.rating}
-                    size={14}
+                    size={16}
                   />
-                  <div className="text-xs p-[2px] text-white rounded-lg bg-[#FFA500]">
+                  <div className="text-sm p-[2px] text-white rounded-lg bg-[#FFA500]">
                     {item?.rating}
                   </div>
                 </div>
-                <span className="text-slate-600 text-sm">
+                <span className="text-slate-600 text-[16px]">
                   <span className="font-bold">{item.reviews}</span>&nbsp;reviews
                 </span>
               </div>

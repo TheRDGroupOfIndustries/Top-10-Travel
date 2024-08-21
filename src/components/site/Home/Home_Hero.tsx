@@ -221,7 +221,7 @@ function HomeHero() {
     >
       <div
         ref={scope}
-        className="absolute -z-10 right-0 h-full w-[45%] lg:w-[38%] xl:w-[33%]"
+        className="absolute -z-10 right-0 h-full w-[45%] md:w-[45%] lg:w-[40%] xl:w-[35%]"
       >
         {/* <Image src={HeroEllipse} alt="Hero Image" height={912} width={562} /> */}
         <video
@@ -290,7 +290,7 @@ function HomeHero() {
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.8, delay: 0.4, type: "spring" }}
           >
-            Top 10 <span className="text-colorAll">travel</span>
+            travel <span className="text-colorAll">Top 10</span>
           </motion.span>
         </h1>
         <p

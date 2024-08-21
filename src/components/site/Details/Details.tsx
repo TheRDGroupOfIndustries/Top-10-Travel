@@ -25,7 +25,7 @@ type CompanyType = {
   socialMediaLinks: SocialMediaLinks[];
 };
 
-const Details = ({ data }: { data: CompanyType }) => {
+const Details = ({ data, role }: { data: CompanyType, role: "Agency" | "DMC" | "Hotel" }) => {
   const socialPlatforms = [
     "facebook",
     "instagram",
@@ -35,8 +35,8 @@ const Details = ({ data }: { data: CompanyType }) => {
   ];
 
   return (
-    <div className="mb-10">
-      <HeroHeading title={data?.name} className="uppercase" />
+    <div className="mb-10 mt-20">
+      {/* <HeroHeading title={data?.name} className="uppercase" /> */}
       <div className="px-2 md:px-3 lg:px-6 xl:px-8">
         <div className="w-full flex xl:gap-12 gap-6 pb-16 border-b-black border-b-[1px]">
           <div className="w-full flex flex-col gap-10 flex-1">
@@ -222,7 +222,7 @@ const Details = ({ data }: { data: CompanyType }) => {
               </div>
             </div>
 
-            {/* <ReviewSSR name={data?.name} companyId={data?.id} /> */}
+            <ReviewSSR name={data?.name} companyId={data?.id} role={role} />
           </div>
         </div>
       </div>
