@@ -64,7 +64,10 @@ export const GET = async (request: NextRequest) => {
       },
       orderBy: { priority: "desc" },
     });
-    return NextResponse.json({ result: data });
+    return NextResponse.json(
+      { result: data },
+      { headers: { "Cache-Control": "public, max-age=300" } }
+    );
   } else {
     // console.log(companies);
     return NextResponse.json({ error: "Invalid Request" }, { status: 400 });
