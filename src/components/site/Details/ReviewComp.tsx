@@ -104,20 +104,21 @@ function ReviewsComponent({
               onClick={prevPage}
               className={`rounded-lg ${
                 currentPage === 1
-                  ? "bg-gray-400 cursor-not-allowed"
-                  : "bg-gray-700 hover:bg-gray-900"
+                  ? "bg-[#fdcb6e] cursor-not-allowed"
+                  : "bg-[#FCAE1D] hover:bg-[rgba(252,174,29,0.8)]"
               }`}
               disabled={currentPage === 1}
             >
               <ChevronLeft />
             </Button>
+
             <Button
               onClick={nextPage}
               size={"icon"}
               className={`rounded-lg ${
                 currentPage === Math.ceil(reviews.length / itemsPerPage)
-                  ? "bg-gray-400 cursor-not-allowed"
-                  : "bg-gray-700 hover:bg-gray-900"
+                  ? "bg-[#fdcb6e] cursor-not-allowed"
+                  : "bg-[#FCAE1D] hover:bg-[rgba(252,174,29,0.8)]"
               }`}
               disabled={
                 currentPage === Math.ceil(reviews.length / itemsPerPage)
