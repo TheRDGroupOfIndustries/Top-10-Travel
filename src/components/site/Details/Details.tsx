@@ -23,6 +23,11 @@ type CompanyType = {
   description: string | null;
   address: string;
   images: string[];
+  specializedTravelTypes?: string[];
+  primaryServices?: string[];
+  specialization?: string[];
+  coreServices?: string[];
+  services?: string[];
   socialMediaLinks: SocialMediaLinks[];
 };
 
@@ -44,7 +49,18 @@ const Details = ({
     "youtube",
   ];
 
-  console.log(data.socialMediaLinks);
+  let preTags;
+  if (info.type === "Dmc") {
+    preTags = data?.specialization?.concat(data?.coreServices!);
+  } else if (info.type === "Agency") {
+    preTags = data?.specializedTravelTypes?.concat(data?.primaryServices!)!;
+  } else if (info.type === "Hotel") {
+    preTags = data?.services?.concat(data?.specialization!);
+  }
+
+  const setOfTags: Set<string> = new Set(preTags);
+  // @ts-ignore
+  const TAGS = [...setOfTags];
 
   return (
     <div className="mb-10 mt-20">
@@ -203,7 +219,18 @@ const Details = ({
               </div>
             ))} */}
 
-            <div className="flex sm:px-0 px-2">
+            <div className="flex flex-col gap-4 sm:px-0 px-2">
+              <div className="flex flex-row flex-wrap gap-1">
+                {TAGS.map((tag: string) => (
+                  <span
+                    key={tag}
+                    className="bg-slate-100 border-[2px] border-slate-400 font-semibold uppercase md:px-2 px-1 md:py-1.5 py-1 md:text-base text-sm rounded-full"
+                  >
+                    {tag}
+                  </span>
+                ))}
+              </div>
+
               <div className="text-justify text-base leading-6 font-medium">
                 {data?.description}
               </div>

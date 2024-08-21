@@ -19,23 +19,23 @@ import { cn } from "@/lib/utils";
 const navMenus = [
   {
     title: "Agencies",
-    link: "/agency",
+    link: "/Agency",
   },
   {
     title: "Hotels",
-    link: "/hotels",
+    link: "/Hotels",
   },
   {
     title: "DMC's",
-    link: "/dmc",
+    link: "/DMC",
   },
   {
     title: "Influencers",
-    link: "/influencers",
+    link: "/Influencers",
   },
   {
     title: "Contact us",
-    link: "/contactus",
+    link: "/ContactUs",
   },
 ];
 
@@ -52,7 +52,7 @@ function Navbar() {
   };
 
   const renderMenuItem = () => {
-    if (session?.data?.user.role === "COMPANY") {
+    if (session?.data?.user.role === "Influencer") {
       return (
         <>
           <DropdownMenuItem>
@@ -84,7 +84,7 @@ function Navbar() {
               </div>
             </Link>
           </DropdownMenuItem>
-          <DropdownMenuItem>
+          {/* <DropdownMenuItem>
             <Link href="/auth">
               <div className="flex items-center gap-2">
                 <User size={18} />
@@ -99,7 +99,7 @@ function Navbar() {
                 <span>Start as Company</span>
               </div>
             </Link>
-          </DropdownMenuItem>
+          </DropdownMenuItem> */}
         </>
       );
     } else {
@@ -146,7 +146,10 @@ function Navbar() {
     <>
       <nav className="flex bg-white/80 backdrop-blur-sm justify-between items-center h-[60px] w-[100vw] fixed top-0 z-40 px-2 md:px-3 lg:px-6 xl:px-8">
         <div className="navbar-start">
-          <Link href="/" className="text-2xl font-bold">
+          <Link
+            href="/"
+            className="text-2xl font-bold"
+          >
             LOGO
           </Link>
         </div>

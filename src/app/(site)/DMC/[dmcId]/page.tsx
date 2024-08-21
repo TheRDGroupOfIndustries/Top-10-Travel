@@ -22,6 +22,9 @@ const DMCPage = async ({ params }: { params: { dmcId: string } }) => {
       description: true,
       address: true,
       socialMediaLinks: true,
+      specialization: true,
+      coreServices: true,
+      promotionalVideoUpload: true,
       // companyData: {
       //   select: {
       //     description: true,
@@ -40,10 +43,7 @@ const DMCPage = async ({ params }: { params: { dmcId: string } }) => {
 
   return (
     <div>
-      <Details
-        data={dmc}
-        info={{ type: "Dmc", dmcId: dmc.id }}
-      />
+      <Details data={dmc} info={{ type: "Dmc", dmcId: dmc.id }} />
     </div>
   );
 };

@@ -51,7 +51,7 @@ function ListData({
             initial={{ opacity: 0, translateY: -150 }}
             whileInView={{ opacity: 1, translateY: 0 }}
             onClick={() => {
-              router.push(`/${role.toLowerCase()}/${item.id}`);
+              router.push(`/${role}/${item.id}`);
             }}
             transition={{ duration: 0.4, delay: i * 0.15 }}
             viewport={{ once: true }}

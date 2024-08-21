@@ -320,7 +320,7 @@ export async function GET() {
   //   db.hotel.findMany(),
   //   db.dMC.findMany(),
   // ]);
-  
+
   // for (const dmc of dmcs) {
   //   await db.dMC.update({
   //     where: { id: dmc.id },
@@ -340,7 +340,7 @@ export async function GET() {
   //   await db.hotel.update({
   //     where: { id: hotel.id },
   //     data: {
-        
+
   //       images: [
   //         "/image5.jpg",
   //         "/image4.jpg",
@@ -352,6 +352,42 @@ export async function GET() {
   //   });
   //   console.log("hotel Updated")
   // }
+  // const [agencies, dmcs] = await Promise.all([
+  //   db.agency.findMany(),
+  //   db.dMC.findMany(),
+  // ]);
 
+  // for (const agency of agencies) {
+  //   await db.agency.update({
+  //     where: { id: agency.id },
+  //     data: {
+  //       socialMediaLinks: {
+  //         create: {
+  //           instagram: "https://www.instagram.com",
+  //           facebook: "https://www.facebook.com",
+  //           youtube: "https://www.youtube.com",
+  //           linkedin: "https://linkedin.com",
+  //         },
+  //       },
+  //     },
+  //   });
+  //   console.log("update aagency")
+  // }
+  // for (const dmc of dmcs) {
+  //   await db.dMC.update({
+  //     where: { id: dmc.id },
+  //     data: {
+  //       socialMediaLinks: {
+  //         create: {
+  //           instagram: "https://www.instagram.com",
+  //           facebook: "https://www.facebook.com",
+  //           youtube: "https://www.youtube.com",
+  //           linkedin: "https://linkedin.com",
+  //         },
+  //       },
+  //     },
+  //   });
+  //   console.log("update dmc")
+  // }
   return NextResponse.json("hi");
 }
