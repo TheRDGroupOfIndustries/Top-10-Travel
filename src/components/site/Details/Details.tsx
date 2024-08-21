@@ -15,16 +15,11 @@ import PastProjects from "./PastProjects";
 import PhoneCallButton from "@/components/reusable/PhoneCallButton";
 import { GetIconByTag } from "@/components/reusable/TagIcons";
 import { FaPeopleGroup } from "react-icons/fa6";
-import {
-  GiSunbeams
-} from "react-icons/gi";
+import { GiSunbeams } from "react-icons/gi";
 import { PiHairDryerBold } from "react-icons/pi";
-import {
-  MdAttachMoney,
-  MdRoomService
-} from "react-icons/md";
+import { MdAttachMoney, MdRoomService } from "react-icons/md";
 import { GiMountainRoad } from "react-icons/gi";
-import {  MdEventAvailable, MdOutlineCardTravel } from "react-icons/md";
+import { MdEventAvailable, MdOutlineCardTravel } from "react-icons/md";
 
 type CompanyType = {
   reviews: number;
@@ -305,7 +300,7 @@ const Details = ({
                       <span>Luxury Rooms</span>
                     </div>
                     <div className="bg-slate-100 flex items-center gap-1 border-[2px] border-slate-400 font-semibold uppercase px-2 py-1.5 md:text-base text-sm rounded-full">
-                      <PiHairDryerBold /> 
+                      <PiHairDryerBold />
                       <span>Spa Services</span>
                     </div>
                     <div className="bg-slate-100 flex items-center gap-1 border-[2px] border-slate-400 font-semibold uppercase px-2 py-1.5 md:text-base text-sm rounded-full">

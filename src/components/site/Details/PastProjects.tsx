@@ -48,7 +48,9 @@ const PastProjects = ({ pastProjects }: { pastProjects: PastProject[] }) => {
                 <div className="font-medium xl:leading-6 leading-4 xl:text-2xl text-xl">
                   {review.projectName}
                 </div>
-                <div className="font-medium text-lg text-muted-foreground">for {review.clientName}</div>
+                <div className="font-medium text-lg text-muted-foreground">
+                  for {review.clientName}
+                </div>
               </div>
             </div>
             {/* Review content */}
@@ -67,8 +69,8 @@ const PastProjects = ({ pastProjects }: { pastProjects: PastProject[] }) => {
               onClick={prevPage}
               className={`rounded-lg ${
                 currentPage === 1
-                  ? "bg-gray-400 cursor-not-allowed"
-                  : "bg-gray-700 hover:bg-gray-900"
+                  ? "bg-[#fdcb6e] cursor-not-allowed"
+                  : "bg-[#FCAE1D] hover:bg-[rgba(252,174,29,0.8)]"
               }`}
               disabled={currentPage === 1}
             >
@@ -79,8 +81,8 @@ const PastProjects = ({ pastProjects }: { pastProjects: PastProject[] }) => {
               size={"icon"}
               className={`rounded-lg ${
                 currentPage === Math.ceil(pastProjects.length / itemsPerPage)
-                  ? "bg-gray-400 cursor-not-allowed"
-                  : "bg-gray-700 hover:bg-gray-900"
+                  ? "bg-[#fdcb6e] cursor-not-allowed"
+                  : "bg-[#FCAE1D] hover:bg-[rgba(252,174,29,0.8)]"
               }`}
               disabled={
                 currentPage === Math.ceil(pastProjects.length / itemsPerPage)
