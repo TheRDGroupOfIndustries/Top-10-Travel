@@ -11,6 +11,7 @@ import PackagesCarousel from "./PackagesCarousel";
 import ReviewSSR from "./ReviewSSR";
 import type { SocialMediaLinks } from "@prisma/client";
 import { TbMapPin } from "react-icons/tb";
+import PhoneCallButton from "@/components/reusable/PhoneCallButton";
 
 type CompanyType = {
   reviews: number;
@@ -195,6 +196,7 @@ const Details = ({
               </div>
 
               <div className="flex gap-1 py-4 w-full flex-grow">
+                <PhoneCallButton phoneNumber="1234567890" />
                 <EnquireDialog
                   images={data?.images}
                   name={data?.name}
@@ -232,12 +234,12 @@ const Details = ({
             <div className="flex flex-col gap-4 sm:px-0 px-2">
               <div className="flex flex-row flex-wrap gap-1">
                 {TAGS.map((tag: string) => (
-                  <span
+                  <div
                     key={tag}
                     className="bg-slate-100 border-[2px] border-slate-400 font-semibold uppercase md:px-2 px-1 md:py-1.5 py-1 md:text-base text-sm rounded-full"
                   >
                     {tag}
-                  </span>
+                  </div>
                 ))}
               </div>
 
@@ -247,10 +249,7 @@ const Details = ({
             </div>
 
             <div className="lg:hidden">
-              <ReviewSSR
-                name={data?.name}
-                info={info}
-              />
+              <ReviewSSR name={data?.name} info={info} />
             </div>
           </div>
 
@@ -314,6 +313,7 @@ const Details = ({
               </div>
 
               <div className="flex gap-1 py-4 w-full flex-grow">
+                <PhoneCallButton phoneNumber="1234567890" />
                 <EnquireDialog
                   images={data?.images}
                   name={data?.name}
@@ -324,10 +324,7 @@ const Details = ({
               </div>
             </div>
 
-            <ReviewSSR
-              name={data?.name}
-              info={info}
-            />
+            <ReviewSSR name={data?.name} info={info} />
           </div>
         </div>
       </div>
