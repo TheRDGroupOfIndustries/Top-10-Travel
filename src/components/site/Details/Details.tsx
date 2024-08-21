@@ -25,7 +25,13 @@ type CompanyType = {
   socialMediaLinks: SocialMediaLinks[];
 };
 
-const Details = ({ data }: { data: CompanyType }) => {
+const Details = ({
+  data,
+  role,
+}: {
+  data: CompanyType;
+  role: "Agency" | "DMC" | "Hotel";
+}) => {
   const socialPlatforms = [
     "facebook",
     "instagram",
@@ -34,9 +40,11 @@ const Details = ({ data }: { data: CompanyType }) => {
     "youtube",
   ];
 
+  console.log(data);
+
   return (
-    <div className="mb-10">
-      <HeroHeading title={data?.name} className="uppercase" />
+    <div className="mb-10 mt-20">
+      {/* <HeroHeading title={data?.name} className="uppercase" /> */}
       <div className="px-2 md:px-3 lg:px-6 xl:px-8">
         <div className="w-full flex xl:gap-12 gap-6 pb-16 border-b-black border-b-[1px]">
           <div className="w-full flex flex-col gap-10 flex-1">
@@ -78,19 +86,20 @@ const Details = ({ data }: { data: CompanyType }) => {
                   const url = link[platform as keyof SocialMediaLinks];
                   if (url) {
                     return (
-                      <Button  
-                        key={`${platform}-${index}`} 
-                        className="rounded-full" 
-                        variant="outline">
+                      <Button
+                        key={`${platform}-${index}`}
+                        className="rounded-full"
+                        variant="outline"
+                      >
                         <Link
                           href={url}
                           target="_blank"
                           rel="noopener noreferrer"
                           className="w-full h-full flex items-center gap-2"
-                      >
-                        {getIconFromName(url)}
-                      </Link>
-                        </Button>
+                        >
+                          {getIconFromName(url)}
+                        </Link>
+                      </Button>
                     );
                   }
                   return null;
@@ -127,8 +136,6 @@ const Details = ({ data }: { data: CompanyType }) => {
                 </p>
               </div>
 
-              <div className="text-2xl leading-6 font-medium">Actions</div>
-
               <div className="flex gap-1 py-4 w-full flex-grow">
                 <EnquireDialog
                   images={data?.images}
@@ -163,14 +170,9 @@ const Details = ({ data }: { data: CompanyType }) => {
               </div>
             ))} */}
 
-            <div className="flex flex-col gap-10 sm:px-0 px-2">
-              <div className="flex flex-col gap-2">
-                <div className="uppercase md:text-5xl text-3xl md:leading-[64px] leading-10 font-bold">
-                  Description
-                </div>
-                <div className="text-justify text-base leading-6 font-medium">
-                  {data?.description}
-                </div>
+            <div className="flex sm:px-0 px-2">
+              <div className="text-justify text-base leading-6 font-medium">
+                {data?.description}
               </div>
             </div>
 
@@ -209,8 +211,6 @@ const Details = ({ data }: { data: CompanyType }) => {
                 </p>
               </div>
 
-              <div className="text-2xl leading-6 font-medium">Actions</div>
-
               <div className="flex gap-1 py-4 w-full flex-grow">
                 <EnquireDialog
                   images={data?.images}
@@ -221,12 +221,10 @@ const Details = ({ data }: { data: CompanyType }) => {
               </div>
             </div>
 
-            {/* <ReviewSSR name={data?.name} companyId={data?.id} /> */}
+            <ReviewSSR name={data?.name} companyId={data?.id} role={role} />
           </div>
         </div>
       </div>
-      {/* <HeroHeading title="Related Packages" className="uppercase" /> */}
-      {/* <PackagesCarousel packages={data.packages} /> */}
     </div>
   );
 };

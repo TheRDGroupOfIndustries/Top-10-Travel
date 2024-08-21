@@ -38,7 +38,7 @@ const AgencyPage = async ({ params }: { params: { agencyId: string } }) => {
 
   return (
     <div>
-      <Details data={agency}/>
+      <Details data={agency} role={"Agency"} />
     </div>
   );
 };

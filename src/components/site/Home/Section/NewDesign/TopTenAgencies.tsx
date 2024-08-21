@@ -18,29 +18,29 @@ import { cn, getValidUrl } from "@/lib/utils";
 import { AgencyApiResult } from "@/types/homeApiType";
 
 const CarouselCard = ({ agency }: { agency: AgencyApiResult }) => (
-  <motion.div 
-  initial={{
-    opacity: 0,
-    // y: -100, // its optional... [I d k the codebase properly, so not playing too much...]
-  }}
-  whileInView={{
-    opacity: 1,
-    //  y: 0,
-  }}
-  transition={{
-    duration: 1.2,
-    delay: 0.8,
-    ease: 'easeInOut',
-    staggerChildren: 0.6,
-  }}
-  
-  className="flex md:hover:-translate-y-4 duration-300 transition-all w-full flex-col h-full">
+  <motion.div
+    initial={{
+      opacity: 0,
+      // y: -100, // its optional... [I d k the codebase properly, so not playing too much...]
+    }}
+    whileInView={{
+      opacity: 1,
+      //  y: 0,
+    }}
+    transition={{
+      duration: 1.2,
+      delay: 0.8,
+      ease: "easeInOut",
+      staggerChildren: 0.6,
+    }}
+    className="flex md:hover:-translate-y-4 duration-300 transition-all w-full flex-col h-full"
+  >
     <div className="relative h-48 sm:h-56 md:h-64 lg:h-72 rounded-lg overflow-hidden">
       <div className="absolute top-0 left-0 bg-colorAll w-[80%] h-[70%] rounded-lg"></div>
       <div className="absolute bottom-0 right-0 w-[95%] h-[95%] rounded-lg overflow-hidden">
         <Image
           fill
-          src={getValidUrl(agency.images[0]??agency.images[1])}
+          src={getValidUrl(agency.images[0] ?? agency.images[1])}
           alt={agency.name}
           className="h-full w-full object-cover"
         />
@@ -66,10 +66,12 @@ const CarouselCard = ({ agency }: { agency: AgencyApiResult }) => (
 
 const TopTenAgencies = () => {
   const { selectedCountry, selectedCity, visible } = useContext(HomeContext);
-  const { data, isLoading }:{data:AgencyApiResult[], isLoading:boolean} = useAxios({
-    url: `/api/home?country=${selectedCountry}&city=${selectedCity}&role=Agency`,
-    selectedCity,selectedCountry
-  });
+  const { data, isLoading }: { data: AgencyApiResult[]; isLoading: boolean } =
+    useAxios({
+      url: `/api/home?country=${selectedCountry}&city=${selectedCity}&role=Agency`,
+      selectedCity,
+      selectedCountry,
+    });
 
   return (
     <section
@@ -177,7 +179,7 @@ const TopTenAgencies = () => {
             )}
           </div>
         </div>
-        <Link href={`/Agency`}>
+        <Link href={`/agency`}>
           <motion.div
             className="bg-black px-5 py-2 rounded-md mt-6 mb-5 mx-auto hover:bg-gray-800 w-fit transition-colors text-white font-bold"
             whileHover={{ scale: 1.1 }}

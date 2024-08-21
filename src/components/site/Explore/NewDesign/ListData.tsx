@@ -42,7 +42,6 @@ function ListData({
     console.log(images);
   };
 
-  console.log(data);
   return (
     <main className="w-full mt-14 px-2 md:px-3 lg:px-6 xl:px-8">
       <div className="w-full flex flex-col gap-10">
@@ -52,8 +51,7 @@ function ListData({
             initial={{ opacity: 0, translateY: -150 }}
             whileInView={{ opacity: 1, translateY: 0 }}
             onClick={() => {
-              console.log(item.id);
-              router.push(`/${role}/${item.id}`);
+              router.push(`/${role.toLowerCase()}/${item.id}`);
             }}
             transition={{ duration: 0.4, delay: i * 0.15 }}
             viewport={{ once: true }}
@@ -85,13 +83,13 @@ function ListData({
                     readOnly={true}
                     showNumber={false}
                     defaultRating={item?.rating}
-                    size={14}
+                    size={16}
                   />
-                  <div className="text-xs p-[2px] text-white rounded-lg bg-[#FFA500]">
+                  <div className="text-sm p-[2px] text-white rounded-lg bg-[#FFA500]">
                     {item?.rating}
                   </div>
                 </div>
-                <span className="text-slate-600 text-sm">
+                <span className="text-slate-600 text-[16px]">
                   <span className="font-bold">{item.reviews}</span>&nbsp;reviews
                 </span>
               </div>
