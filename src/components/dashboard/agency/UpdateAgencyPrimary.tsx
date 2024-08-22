@@ -136,6 +136,7 @@ const UpdateAgencyPrimary = ({
               />
               <Button
                 size="sm"
+                className="bg-[#fcaf1e] hover:bg-[#fcaf1e]/80"
                 type="submit"
               >
                 Add
@@ -143,7 +144,7 @@ const UpdateAgencyPrimary = ({
             </form>
             <Button
               size="sm"
-              className="ml-auto"
+              className="ml-auto bg-[#fcaf1e] hover:bg-[#fcaf1e]/80"
               disabled={!hasPrimaryChanged || isPendingPrimary}
               onClick={async (e) => {
                 const { success, error } = await primaryAction(newPrimary);
@@ -209,13 +210,14 @@ const UpdateAgencyPrimary = ({
               <Button
                 size="sm"
                 type="submit"
+                className="bg-[#fcaf1e] hover:bg-[#fcaf1e]/80"
               >
                 Add
               </Button>
             </form>
             <Button
               size="sm"
-              className="ml-auto"
+              className="ml-auto bg-[#fcaf1e] hover:bg-[#fcaf1e]/80"
               disabled={isPendingSpecial || !hasSpecialChanged}
               onClick={async (e) => {
                 const { success, error } = await specialAction(newSpecial);

@@ -119,7 +119,7 @@ const memberships = [
 
 const AgencyForm = () => {
   const [previousStep, setPreviousStep] = useState(0);
-  const [currentStep, setCurrentStep] = useState(5);
+  const [currentStep, setCurrentStep] = useState(0);
 
   const {
     register,

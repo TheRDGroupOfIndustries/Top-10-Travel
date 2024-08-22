@@ -86,6 +86,7 @@ const InputWithSave = ({
             disabled={isPending}
             type="submit"
             size="sm"
+            className="bg-[#fcaf1e] hover:bg-[#fcaf1e]/80"
           >
             {isPending ? "Saving..." : "Save"}
           </Button>
@@ -128,7 +129,7 @@ const InputWithSave = ({
             )}
             onDoubleClick={() => setIsChanging(true)}
           >
-                        {value.substring(0, 200) + (value.length > 200 ? "..." : "")}
+            {value.substring(0, 200) + (value.length > 200 ? "..." : "")}
 
             <Edit
               onClick={() => setIsChanging(true)}

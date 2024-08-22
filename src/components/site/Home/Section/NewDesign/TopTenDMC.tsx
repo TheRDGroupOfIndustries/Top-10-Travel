@@ -26,11 +26,12 @@ const CarouselCard = ({ dmc }: { dmc: DMCHotelApiResult }) => (
       opacity: 1,
     }}
     transition={{
-      duration: 1.2,
-      delay: 0.8,
+      duration: 0.5,
+      delay: 0.4,
       ease: "easeInOut",
       staggerChildren: 0.6,
     }}
+    viewport={{ once: true }}
     className="flex flex-col md:hover:-translate-y-4 duration-300 transition-all h-full"
   >
     <div className="relative h-48 sm:h-56 md:h-64 lg:h-72 rounded-lg overflow-hidden">

@@ -146,7 +146,7 @@ export const columns: ColumnDef<Company>[] = [
                 <DialogTrigger asChild>
                   <Button
                     variant="ghost"
-                    className="flex justify-between items-center gap-2 w-full"
+                    className="flex justify-between items-center px-2 gap-2 w-full"
                   >
                     Edit Info <SquarePen className="h-4 w-4" />
                   </Button>
@@ -175,7 +175,6 @@ export default function AdminPackagelisting({
   type,
 }: {
   listings: Company[];
-
   type: "Agency" | "Dmc" | "Hotel";
 }) {
   const [sorting, setSorting] = React.useState<SortingState>([]);

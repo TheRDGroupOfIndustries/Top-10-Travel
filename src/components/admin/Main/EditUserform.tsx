@@ -108,8 +108,8 @@ const EditUserForm = ({ user }: { user: User }) => {
           </div> */}
           <Button
             type="submit"
-            className="w-full"
             disabled={isPending}
+            className="bg-[#fcaf1e] w-full hover:bg-[#fcaf1e]/80"
           >
             Save Changes
           </Button>

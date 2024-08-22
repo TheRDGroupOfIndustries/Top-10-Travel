@@ -1,6 +1,5 @@
 import AdminHeader from "@/components/admin/Main/Admin_Header";
 import AdminSidebar from "@/components/admin/SideBar/Admin_Sidebar";
-import { ThemeProvider } from "@/components/providers/ThemeProvider";
 import { Toaster } from "sonner";
 
 export default function AdminLayout({

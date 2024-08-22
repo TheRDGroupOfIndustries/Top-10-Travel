@@ -116,7 +116,7 @@ export const columns: ColumnDef<User>[] = [
                 <DialogTrigger asChild>
                   <Button
                     variant="ghost"
-                    className="flex items-center justify-between gap-2 w-full"
+                    className="flex items-center justify-between px-2 gap-2 w-full"
                   >
                     Edit <SquarePen className="h-4 w-4" />
                   </Button>

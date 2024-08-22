@@ -302,6 +302,7 @@ const HelpDeskDashboard: React.FC<HelpDeskDashboardProps> = ({
           <Button
             disabled={isPending}
             onClick={handleEditTicketSubmit}
+            className="bg-[#fcaf1e] w-full hover:bg-[#fcaf1e]/80"
           >
             Save Changes
           </Button>
