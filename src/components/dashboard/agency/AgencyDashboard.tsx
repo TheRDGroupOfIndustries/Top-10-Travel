@@ -16,12 +16,21 @@ import { Plus } from "lucide-react";
 import { cn } from "@/lib/utils";
 import UploadCompanyImagesCard from "./UploadAgencyImagesCard";
 import UpdateSocialMediaLinks from "../updateSocialMediaLinks";
+import UpdatePastProjects from "../updatePastProjects";
+import UpdateClientReferences from "../updateClientReferences";
 
 const AgencyDashboard = ({
   data,
   reviews,
 }: {
-  data: Prisma.AgencyGetPayload<{ include: { socialMediaLinks: true } }>;
+  data: Prisma.AgencyGetPayload<{
+    include: {
+      socialMediaLinks: true;
+      pastProjects: true;
+      clientReferences: true;
+      keyPersonnel: true;
+    };
+  }>;
   reviews: Reviews[];
 }) => {
   return (
@@ -149,6 +158,14 @@ const AgencyDashboard = ({
       <UpdateSocialMediaLinks
         links={data.socialMediaLinks[0]}
         socialMediaLinkId={data.socialMediaLinks[0].id}
+        info={{ type: "Agency", agencyId: data.id }}
+      />
+      <UpdatePastProjects
+        initProjects={data.pastProjects}
+        info={{ type: "Agency", agencyId: data.id }}
+      />
+      <UpdateClientReferences
+        initProjects={data.clientReferences}
         info={{ type: "Agency", agencyId: data.id }}
       />
       <Card className="border-none bg-[#F3F3F3] mt-4">

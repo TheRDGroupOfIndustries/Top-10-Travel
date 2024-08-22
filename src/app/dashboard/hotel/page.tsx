@@ -7,7 +7,9 @@ import { notFound } from "next/navigation";
 const dashboardData = async (userId: string) => {
   const hotel = await db.hotel.findUnique({
     where: { userId: userId },
-    include: { socialMediaLinks: true },
+    include: {
+      socialMediaLinks: true,
+    },
   });
   return { hotel };
 };

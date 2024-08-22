@@ -141,7 +141,7 @@ const Step5 = ({
           <Button
             type="button"
             size="icon"
-            className="h-7 w-7 text-2xl"
+            className="h-7 w-7"
             onClick={add}
           >
             <FaPlus />
