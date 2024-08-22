@@ -5,11 +5,21 @@ import { db } from "@/core/client/db";
 import { Prisma } from "@prisma/client";
 import getSessionorRedirect from "@/core/utils/getSessionorRedirect";
 
-export const deleteCompany = async ({
+type Company = {
+  isCertified: boolean;
+  name: string;
+  priority: number;
+  city_priority: number;
+  methodology: string | null;
+};
+
+export const editListingAdmin = async ({
   id,
   type,
+  data,
 }: {
   id: string;
+  data: Company;
   type: "Agency" | "Dmc" | "Hotel";
 }) => {
   const session = await getSessionorRedirect();
@@ -17,12 +27,14 @@ export const deleteCompany = async ({
     return { error: "Unauthorized! Admin only" };
   try {
     if (type === "Agency") {
-      await db.agency.delete({ where: { id } });
-    } else if (type === "Dmc") await db.dMC.delete({ where: { id } });
-    else if (type === "Hotel") await db.hotel.delete({ where: { id } });
+      await db.agency.update({ where: { id }, data: { ...data } });
+    } else if (type === "Dmc")
+      await db.dMC.update({ where: { id }, data: { ...data } });
+    else if (type === "Hotel")
+      await db.hotel.update({ where: { id }, data: { ...data } });
 
     revalidateTag(`/admin/${type.toLowerCase()}`);
-    return { success: "Company Deleted Successfully." };
+    return { success: type + " Updated Successfully." };
   } catch (error) {
     if (error instanceof Prisma.PrismaClientKnownRequestError) {
       if (error.code === "P2025") {

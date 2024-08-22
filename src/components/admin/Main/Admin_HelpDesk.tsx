@@ -64,7 +64,6 @@ const HelpDeskDashboard: React.FC<HelpDeskDashboardProps> = ({
   pending,
   resolved,
 }) => {
-  const [tickets, setTickets] = useState<Ticket[]>(initialTickets);
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [filterStatus, setFilterStatus] = useState<string>("All");
   const [isEditTicketDialogOpen, setIsEditTicketDialogOpen] =
@@ -74,12 +73,12 @@ const HelpDeskDashboard: React.FC<HelpDeskDashboardProps> = ({
 
   const filteredTickets = useMemo(
     () =>
-      tickets.filter(
+      initialTickets.filter(
         (ticket) =>
           ticket.title.toLowerCase().includes(searchTerm.toLowerCase()) &&
           (filterStatus === "All" || ticket.status === filterStatus)
       ),
-    [searchTerm, filterStatus, tickets]
+    [searchTerm, filterStatus, initialTickets]
   );
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -127,7 +126,9 @@ const HelpDeskDashboard: React.FC<HelpDeskDashboardProps> = ({
     <div className="space-y-6 mt-5">
       <Card className="bg-[#F3F3F3]">
         <CardHeader>
-          <CardTitle className="lg:text-3xl md:text-2xl text-xl font-semibold"><span className="text-[#fcaf1e]">Help Desk</span> Dashboard</CardTitle>
+          <CardTitle className="lg:text-3xl md:text-2xl text-xl font-semibold">
+            <span className="text-[#fcaf1e]">Help Desk</span> Dashboard
+          </CardTitle>
           <CardDescription className="font-medium text-sm text-[#36454F]">
             Manage and respond to customer inquiries and issues
           </CardDescription>
@@ -158,13 +159,16 @@ const HelpDeskDashboard: React.FC<HelpDeskDashboardProps> = ({
                 onChange={handleSearch}
                 className="max-w-64 bg-[#fbfbfb] focus-visible:ring-0"
               />
-              <Button size="icon" className="bg-[#fcaf1e] hover:bg-[#fcaf1e]/80">
+              <Button
+                size="icon"
+                className="bg-[#fcaf1e] hover:bg-[#fcaf1e]/80"
+              >
                 <Search className="h-4 w-4" />
               </Button>
             </div>
             <div className="flex items-center space-x-2">
               <Select onValueChange={handleFilterChange}>
-                <SelectTrigger  className="ml-auto bg-[#F3F3F3] hover:bg-[#dbdbdb]">
+                <SelectTrigger className="ml-auto bg-[#F3F3F3] hover:bg-[#dbdbdb]">
                   <SelectValue placeholder="Filter by status" />
                 </SelectTrigger>
                 <SelectContent className="ml-auto bg-[#F3F3F3] hover:bg-[#dbdbdb]">
@@ -188,7 +192,10 @@ const HelpDeskDashboard: React.FC<HelpDeskDashboardProps> = ({
             </TableHeader>
             <TableBody>
               {filteredTickets.map((ticket) => (
-                <TableRow className="hover:bg-[#dbdbdb]" key={ticket.id}>
+                <TableRow
+                  className="hover:bg-[#dbdbdb]"
+                  key={ticket.id}
+                >
                   <TableCell>{ticket.id}</TableCell>
                   <TableCell>{ticket.title}</TableCell>
                   <TableCell>
@@ -211,7 +218,10 @@ const HelpDeskDashboard: React.FC<HelpDeskDashboardProps> = ({
                   <TableCell>
                     <DropdownMenu>
                       <DropdownMenuTrigger asChild>
-                        <Button size="icon" variant="ghost">
+                        <Button
+                          size="icon"
+                          variant="ghost"
+                        >
                           <SquarePen className="h-4 w-4" />
                         </Button>
                       </DropdownMenuTrigger>
@@ -249,7 +259,10 @@ const HelpDeskDashboard: React.FC<HelpDeskDashboardProps> = ({
           </DialogHeader>
           <div className="grid gap-4 py-4">
             <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="description" className="text-right">
+              <Label
+                htmlFor="description"
+                className="text-right"
+              >
                 Description
               </Label>
               <Textarea
@@ -261,7 +274,10 @@ const HelpDeskDashboard: React.FC<HelpDeskDashboardProps> = ({
               />
             </div>
             <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="status" className="text-right">
+              <Label
+                htmlFor="status"
+                className="text-right"
+              >
                 Status
               </Label>
               <Select
@@ -283,7 +299,10 @@ const HelpDeskDashboard: React.FC<HelpDeskDashboardProps> = ({
               </Select>
             </div>
           </div>
-          <Button disabled={isPending} onClick={handleEditTicketSubmit}>
+          <Button
+            disabled={isPending}
+            onClick={handleEditTicketSubmit}
+          >
             Save Changes
           </Button>
         </DialogContent>

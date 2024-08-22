@@ -27,26 +27,29 @@ import Link from "next/link";
 
 export function AdminDashboard({
   user,
-  company,
+  agency,
   influencer,
-  packages,
+  hotel,
+  dmc,
   helpdesk,
   reviews,
 }: {
   user: number;
-  company: number;
+  agency: number;
   influencer: number;
-  packages: number;
+  dmc: number;
+  hotel: number;
   helpdesk: number;
   reviews: number;
 }) {
   const chartData = [
     { category: "Users", total: user, link: "/admin/users" },
-    { category: "Companies", total: company, link: "/admin/companies" },
-    { category: "Influencers", total: influencer, link: "/admin" },
-    { category: "Packages", total: packages, link: "/admin" },
-    { category: "Helpdesk", total: helpdesk, link: "/admin/helpdesk" },
-    { category: "Reviews", total: reviews, link: "/admin/report" },
+    { category: "Agencies", total: agency, link: "/admin/agencies" },
+    { category: "Hotels", total: hotel, link: "/admin/hotels" },
+    { category: "Dmc", total: dmc, link: "/admin/dmc" },
+    { category: "Influencers", total: influencer, link: "/admin/influencers" },
+    { category: "Helpdesk Resolved", total: helpdesk, link: "/admin/helpdesk" },
+    // { category: "Reviews", total: reviews, link: "/admin/report" },
   ];
 
   const chartConfig = {
@@ -67,8 +70,14 @@ export function AdminDashboard({
         </CardDescription>
       </CardHeader>
       <CardContent className="p-0 mb-5">
-        <ChartContainer config={chartConfig} className="w-full h-[65vh] p-0">
-          <BarChart accessibilityLayer data={chartData}>
+        <ChartContainer
+          config={chartConfig}
+          className="w-full h-[65vh] p-0"
+        >
+          <BarChart
+            accessibilityLayer
+            data={chartData}
+          >
             <CartesianGrid vertical={false} />
             <XAxis
               dataKey="category"
@@ -76,9 +85,20 @@ export function AdminDashboard({
               tickMargin={10}
               axisLine={false}
             />
-            <YAxis tickLine={false} tickMargin={10} axisLine={false} />
-            <ChartTooltip cursor={false} content={<ChartTooltipContent />} />
-            <Bar dataKey="total" fill="#FCAF1E" radius={8}>
+            <YAxis
+              tickLine={false}
+              tickMargin={10}
+              axisLine={false}
+            />
+            <ChartTooltip
+              cursor={false}
+              content={<ChartTooltipContent />}
+            />
+            <Bar
+              dataKey="total"
+              fill="#FCAF1E"
+              radius={8}
+            >
               <LabelList
                 position="top"
                 offset={12}

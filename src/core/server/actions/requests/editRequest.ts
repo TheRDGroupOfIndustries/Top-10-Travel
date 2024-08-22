@@ -6,9 +6,13 @@ import getSessionorRedirect from "@/core/utils/getSessionorRedirect";
 import { Request } from "@prisma/client";
 import { revalidateTag } from "next/cache";
 
-export const editRequestAdmin = async (
-  values: Pick<Request, "status" | "id">
-) => {
+export const editRequestAdmin = async ({
+  values,
+  id,
+}: {
+  values: Pick<Request, "status" | "id">;
+  id: string;
+}) => {
   const session = await getSessionorRedirect();
   if (session.user.role !== "ADMIN")
     return { error: "Unauthorized! Admin only" };
@@ -20,14 +24,11 @@ export const editRequestAdmin = async (
         status: values.status,
       },
     });
-    const email = await db.companyData.findUnique({
-      where: { companyId: res.companyId },
-      select: { companyEmail: true },
-    });
-    if (email && email.companyEmail) {
+    const user = await db.user.findUnique({ where: { id } });
+    if (user && user.email && process.env.NODE_ENV === "production") {
       await sendMail({
-        toEmail: email.companyEmail,
-        ...getRequestAcceptedTemplate(email.companyEmail, res.status==="ACCEPTED"),
+        toEmail: user.email,
+        ...getRequestAcceptedTemplate(user.username, res.status === "ACCEPTED"),
       });
     }
     revalidateTag("admin-requests");

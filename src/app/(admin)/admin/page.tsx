@@ -3,30 +3,34 @@ import { db } from "@/core/client/db";
 import { revalidatePath, unstable_cache } from "next/cache";
 const dashboardData = unstable_cache(
   async () => {
-    const [user, company, influencer, packages, helpdesk, reviews] =
+    const [user, agency, influencer, dmc, hotel, helpdesk, reviews] =
       await Promise.all([
         db.user.count(),
-        db.company.count(),
+        db.agency.count(),
         db.influencerData.count(),
-        db.package.count(),
+        db.dMC.count(),
+        db.hotel.count(),
         db.helpDesk.count({ where: { status: "RESOLVED" } }),
         db.reviews.count(),
       ]);
-    return { user, company, influencer, packages, helpdesk, reviews };
+    return { user, agency, influencer, dmc, hotel, helpdesk, reviews };
   },
   undefined,
-  { tags: ["admin-dashboard"], revalidate: 10 }
+  { tags: ["admin-dashboard"], revalidate: 300 }
 );
+
 async function Page() {
-  const { user, company, influencer, packages, helpdesk, reviews } =
+  const { user, agency, influencer, dmc, hotel, helpdesk, reviews } =
     await dashboardData();
+
   return (
     <div>
       <AdminDashboard
-        company={company}
+        agency={agency}
         user={user}
         influencer={influencer}
-        packages={packages}
+        hotel={hotel}
+        dmc={dmc}
         helpdesk={helpdesk}
         reviews={reviews}
       />

@@ -13,6 +13,7 @@ export const GET = async (request: NextRequest) => {
   const data = await db.influencerData.findMany({
     where: {
       country: country,
+      isCertified:true,
       state: city || {},
     },
     select: {

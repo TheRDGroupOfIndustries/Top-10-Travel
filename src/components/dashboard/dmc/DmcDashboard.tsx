@@ -16,12 +16,15 @@ import { Plus } from "lucide-react";
 import { cn } from "@/lib/utils";
 import UploadCompanyImagesCard from "./UploadDmcImagesCard";
 import UpdateSocialMediaLinks from "../updateSocialMediaLinks";
+import UpdatePastProjects from "../updatePastProjects";
+import UpdateClientReferences from "../updateClientReferences";
+import UpdateKeyPersonnel from "../updateKeyPersons";
 
 const DmcDashboard = ({
   data,
   reviews,
 }: {
-  data: Prisma.DMCGetPayload<{ include: { socialMediaLinks: true } }>;
+  data: Prisma.DMCGetPayload<{ include: { socialMediaLinks: true, pastProjects:true, clientReferences:true, keyPersonnel:true } }>;
   reviews: Reviews[];
 }) => {
   return (
@@ -149,6 +152,18 @@ const DmcDashboard = ({
       <UpdateSocialMediaLinks
         links={data.socialMediaLinks[0]}
         socialMediaLinkId={data.socialMediaLinks[0].id}
+        info={{ type: "Dmc", dmcId: data.id }}
+      />
+      <UpdatePastProjects
+        initProjects={data.pastProjects}
+        info={{ type: "Dmc", dmcId: data.id }}
+      />
+      <UpdateClientReferences
+        initProjects={data.clientReferences}
+        info={{ type: "Dmc", dmcId: data.id }}
+      />
+      <UpdateKeyPersonnel
+        initProjects={data.keyPersonnel}
         info={{ type: "Dmc", dmcId: data.id }}
       />
       <Card className="border-none bg-[#F3F3F3] mt-4">
