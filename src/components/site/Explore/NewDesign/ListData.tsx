@@ -10,6 +10,7 @@ import { getValidUrl } from "@/lib/utils";
 import { TbMapPin, TbPhoneCall } from "react-icons/tb";
 import { RiHeart3Line } from "react-icons/ri";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { GetIconByTag } from "@/components/reusable/TagIcons";
 import { useRouter } from "next/navigation";
 
 type Data = {
@@ -21,6 +22,9 @@ type Data = {
   city: string;
   rating: number;
   methodology: string | null;
+  services?: string[];
+  specialization?: string[];
+  tags?: string[];
 }[];
 
 function ListData({
@@ -38,15 +42,22 @@ function ListData({
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = data?.slice(indexOfFirstItem, indexOfLastItem);
 
-  const log = (images: string[]) => {
-    console.log(images);
-  };
+  let hotelData: Data = [];
+
+  if (role === "Hotels") {
+    data.map((item) => {
+      const array = item?.services?.concat(item?.specialization!);
+      const newTags = new Set(array);
+      // @ts-ignore
+      hotelData?.push({ ...item, tags: [...newTags] });
+    });
+  }
 
   return (
     <main className="w-full mt-14 px-2 md:px-3 lg:px-6 xl:px-8">
       <div className="w-full flex flex-col gap-10">
-        {currentItems?.map((item, i) =>
-          role !== "Hotels" ? (
+        {role !== "Hotels" &&
+          currentItems?.map((item, i) => (
             <motion.div
               key={item.id}
               initial={{ opacity: 0, translateY: -150 }}
@@ -111,13 +122,16 @@ function ListData({
                 </Button>
               </div>
             </motion.div>
-          ) : (
+          ))}
+
+        {role === "Hotels" &&
+          hotelData?.map((item, i) => (
             <div
               key={item.name}
               onClick={() => {
                 router.push(`/${role}/${item.id}`);
               }}
-              className="w-full cursor-pointer lg:h-72 rounded-lg flex flex-col md:flex-row items-center justify-between gap-5 shadow shadow-black/10"
+              className="relative w-full cursor-pointer lg:h-60 rounded-lg flex flex-col md:flex-row items-center justify-between gap-5 shadow shadow-black/30"
             >
               <div className="lg:w-[30%] w-full lg:h-full h-60 rounded-lg overflow-hidden">
                 <Image
@@ -157,22 +171,29 @@ function ListData({
                     &nbsp;reviews
                   </span>
                 </div>
+                <div className="flex flex-wrap items-center gap-2">
+                  {item?.tags?.map((tag, i) =>
+                    i <= 3 ? (
+                      <div
+                        className="lg:text-sm text-xs flex lg:font-semibold uppercase items-center gap-1 border-slate-400 border-[1px] bg-slate-100 rounded-lg px-2 lg:py-1 py-0.5"
+                        key={tag}
+                      >
+                        <GetIconByTag
+                          tag={tag}
+                          className="lg:text-sm text-xs"
+                        />
+                        {tag}
+                      </div>
+                    ) : null
+                  )}
+                </div>
                 <div className="flex flex-col gap-1">
                   {/* <span className="text-xl">Methodology</span> */}
-                  <p className="text-sm line-clamp-4">{item?.methodology}</p>
+                  <p className="text-sm line-clamp-3">{item?.methodology}</p>
                 </div>
-                <Button
-                  asChild
-                  className="bg-[#FFDB80] hover:bg-[#ffdb80d0] text-black rounded-full px-4"
-                >
-                  <Link href={`/companies/${item.id}`} className="text-sm">
-                    View More
-                  </Link>
-                </Button>
               </div>
             </div>
-          )
-        )}
+          ))}
       </div>
 
       {data?.length > itemsPerPage && (

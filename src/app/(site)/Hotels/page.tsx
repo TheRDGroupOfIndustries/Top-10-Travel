@@ -20,6 +20,8 @@ const Page = async () => {
       methodology: true,
       rating: true,
       reviews: true,
+      services: true,
+      specialization: true,
     },
     orderBy: { priority: "desc" },
   });

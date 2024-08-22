@@ -46,167 +46,167 @@ export const GetIconByTag = ({
   if (tag === "Corporate Travel")
     return (
       <MdOutlineCardTravel
-        className={cn(className ? className : "", "text-xl")}
+        className={cn(className ? className : "")}
       />
     );
   else if (tag === "Leisure Travel")
-    return <TbBeach className={cn(className ? className : "", "text-xl")} />;
+    return <TbBeach className={cn(className ? className : "")} />;
   else if (tag === "Group Tours")
     return (
-      <FaPeopleGroup className={cn(className ? className : "", "text-xl")} />
+      <FaPeopleGroup className={cn(className ? className : "")} />
     );
   else if (tag === "Individual Travel Packages")
-    return <IoWoman className={cn(className ? className : "", "text-xl")} />;
+    return <IoWoman className={cn(className ? className : "")} />;
   else if (tag === "Adventure Travel")
     return (
-      <GiMountainRoad className={cn(className ? className : "", "text-xl")} />
+      <GiMountainRoad className={cn(className ? className : "")} />
     );
   else if (tag === "Cruise Packages")
-    return <GiCruiser className={cn(className ? className : "", "text-xl")} />;
+    return <GiCruiser className={cn(className ? className : "")} />;
   else if (tag === "Luxury Travel")
     return (
-      <MdAttachMoney className={cn(className ? className : "", "text-xl")} />
+      <MdAttachMoney className={cn(className ? className : "")} />
     );
   else if (tag === "Budget Travel")
-    return <TbPigMoney className={cn(className ? className : "", "text-xl")} />;
+    return <TbPigMoney className={cn(className ? className : "")} />;
   else if (tag === "Eco friendly Travel")
-    return <GiTreeDoor className={cn(className ? className : "", "text-xl")} />;
+    return <GiTreeDoor className={cn(className ? className : "")} />;
   else if (tag === "Cultural Tours")
-    return <GiSunbeams className={cn(className ? className : "", "text-xl")} />;
+    return <GiSunbeams className={cn(className ? className : "")} />;
   else if (tag === "Religious Tours")
     return (
-      <BsMoonStars className={cn(className ? className : "", "text-xl")} />
+      <BsMoonStars className={cn(className ? className : "")} />
     );
   else if (tag === "Event Planning & Execution")
     return (
-      <MdEventAvailable className={cn(className ? className : "", "text-xl")} />
+      <MdEventAvailable className={cn(className ? className : "")} />
     );
   else if (tag === "Group Tours & Incentives")
     return (
-      <FaPeopleGroup className={cn(className ? className : "", "text-xl")} />
+      <FaPeopleGroup className={cn(className ? className : "")} />
     );
   else if (tag === "Venue Sourcing & Logistics")
     return (
       <BiSolidShoppingBags
-        className={cn(className ? className : "", "text-xl")}
+        className={cn(className ? className : "")}
       />
     );
   else if (tag === "Transportation Management")
     return (
       <MdEmojiTransportation
-        className={cn(className ? className : "", "text-xl")}
+        className={cn(className ? className : "")}
       />
     );
   else if (tag === "Accommodation Arrangements")
     return (
-      <HiQueueList className={cn(className ? className : "", "text-xl")} />
+      <HiQueueList className={cn(className ? className : "")} />
     );
   else if (tag === "On-Site Coordination")
     return (
-      <FaPeopleCarry className={cn(className ? className : "", "text-xl")} />
+      <FaPeopleCarry className={cn(className ? className : "")} />
     );
   else if (tag === "Cultural & Thematic Activities")
     return (
       <MdEmojiTransportation
-        className={cn(className ? className : "", "text-xl")}
+        className={cn(className ? className : "")}
       />
     );
   else if (tag === "MICE (Meetings, Incentives, Conferences, Exhibitions)")
     return (
       <PiVideoConference
-        className={cn(className ? className : "", "text-xl")}
+        className={cn(className ? className : "")}
       />
     );
   else if (tag === "VIP Services")
-    return <RiVipLine className={cn(className ? className : "", "text-xl")} />;
+    return <RiVipLine className={cn(className ? className : "")} />;
   else if (tag === "Luxury Travel Experiences")
-    return <GiRupee className={cn(className ? className : "", "text-xl")} />;
+    return <GiRupee className={cn(className ? className : "")} />;
   else if (tag === "Adventure Tourism")
-    return <GiAtSea className={cn(className ? className : "", "text-xl")} />;
+    return <GiAtSea className={cn(className ? className : "")} />;
   else if (tag === "Eco-Tourism")
-    return <MdEco className={cn(className ? className : "", "text-xl")} />;
+    return <MdEco className={cn(className ? className : "")} />;
   else if (tag === "Historical & Cultural Tours")
-    return <GiSundial className={cn(className ? className : "", "text-xl")} />;
+    return <GiSundial className={cn(className ? className : "")} />;
   else if (tag === "Religious Pilgrimages")
     return (
-      <GiSunPriest className={cn(className ? className : "", "text-xl")} />
+      <GiSunPriest className={cn(className ? className : "")} />
     );
   else if (tag === "Room service")
     return (
       <MdOutlineRoomService
-        className={cn(className ? className : "", "text-xl")}
+        className={cn(className ? className : "")}
       />
     );
   else if (tag === "Housekeeping")
     return (
       <BsFillHouseHeartFill
-        className={cn(className ? className : "", "text-xl")}
+        className={cn(className ? className : "")}
       />
     );
   else if (tag === "Free Wi-Fi")
-    return <FaWifi className={cn(className ? className : "", "text-xl")} />;
+    return <FaWifi className={cn(className ? className : "")} />;
   else if (tag === "Concierge service")
     return (
       <MdWorkspacePremium
-        className={cn(className ? className : "", "text-xl")}
+        className={cn(className ? className : "")}
       />
     );
   else if (tag === "24-hour front desk")
     return (
-      <Ri24HoursLine className={cn(className ? className : "", "text-xl")} />
+      <Ri24HoursLine className={cn(className ? className : "")} />
     );
   else if (tag === "Restaurant and bar")
-    return <MdLocalBar className={cn(className ? className : "", "text-xl")} />;
+    return <MdLocalBar className={cn(className ? className : "")} />;
   else if (tag === "Laundry service")
     return (
-      <GiClothesline className={cn(className ? className : "", "text-xl")} />
+      <GiClothesline className={cn(className ? className : "")} />
     );
   else if (tag === "Fitness center")
     return (
-      <IoMdFitness className={cn(className ? className : "", "text-xl")} />
+      <IoMdFitness className={cn(className ? className : "")} />
     );
   else if (tag === "Swimming pool")
-    return <FaSwimmer className={cn(className ? className : "", "text-xl")} />;
+    return <FaSwimmer className={cn(className ? className : "")} />;
   else if (tag === "Airport shuttle")
     return (
-      <CiAirportSign1 className={cn(className ? className : "", "text-xl")} />
+      <CiAirportSign1 className={cn(className ? className : "")} />
     );
   else if (tag === "Business Hotels")
     return (
-      <LiaHotelSolid className={cn(className ? className : "", "text-xl")} />
+      <LiaHotelSolid className={cn(className ? className : "")} />
     );
   else if (tag === "Boutique Hotels")
-    return <IoWoman className={cn(className ? className : "", "text-xl")} />;
+    return <IoWoman className={cn(className ? className : "")} />;
   else if (tag === "Resort Hotels")
-    return <PiPark className={cn(className ? className : "", "text-xl")} />;
+    return <PiPark className={cn(className ? className : "")} />;
   else if (tag === "Luxury Hotels")
     return (
-      <MdAttachMoney className={cn(className ? className : "", "text-xl")} />
+      <MdAttachMoney className={cn(className ? className : "")} />
     );
   else if (tag === "Budget Hotels")
-    return <TbPigMoney className={cn(className ? className : "", "text-xl")} />;
+    return <TbPigMoney className={cn(className ? className : "")} />;
   else if (tag === "Extended Stay Hotels")
     return (
       <LiaCalendarDaySolid
-        className={cn(className ? className : "", "text-xl")}
+        className={cn(className ? className : "")}
       />
     );
   else if (tag === "Airport Hotels")
     return (
       <MdConnectingAirports
-        className={cn(className ? className : "", "text-xl")}
+        className={cn(className ? className : "")}
       />
     );
   else if (tag === "Eco-Friendly Hotels")
-    return <MdEco className={cn(className ? className : "", "text-xl")} />;
+    return <MdEco className={cn(className ? className : "")} />;
   else if (tag === "Spa Hotels")
-    return <MdSpa className={cn(className ? className : "", "text-xl")} />;
+    return <MdSpa className={cn(className ? className : "")} />;
   else if (tag === "Family Hotels")
     return (
-      <MdFamilyRestroom className={cn(className ? className : "", "text-xl")} />
+      <MdFamilyRestroom className={cn(className ? className : "")} />
     );
   else
     return (
-      <RiFlashlightLine className={cn(className ? className : "", "text-xl")} />
+      <RiFlashlightLine className={cn(className ? className : "")} />
     );
 };

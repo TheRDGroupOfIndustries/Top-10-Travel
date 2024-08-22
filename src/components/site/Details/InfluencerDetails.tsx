@@ -6,6 +6,7 @@ import Image from "next/image";
 import { FaFacebook, FaGoogle, FaInstagram, FaYoutube } from "react-icons/fa6";
 import AnimatedImage from "./AnimatedImage";
 import { getIconFromName } from "@/components/reusable/Icons";
+import Link from "next/link";
 
 const InfluencerDetails = ({ data }: { data: InfluencerData }) => {
   return (
@@ -56,24 +57,26 @@ const InfluencerDetails = ({ data }: { data: InfluencerData }) => {
                 </p>
               </div>
 
-               <div className="flex justify-around gap-1 flex-wrap">
-                  {data.socialLinks.map((link) => (
-                    <Button key={link} className="rounded-full" variant="outline">
-                      <a
-                        href={link}
-                        target="_blank"
-                        className="w-full h-full flex items-center gap-2"
-                      >
-                        {getIconFromName(link)}
-                      </a>
-                    </Button>
-                  ))}
-               </div>
+              <div className="flex justify-around gap-1 flex-wrap">
+                {data.socialLinks.map((link) => (
+                  <div key={`${link}`} className="hover:bg-white">
+                    <Link
+                      href={link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-full h-full flex items-center gap-2"
+                    >
+                      {getIconFromName(link, "text-3xl")}
+                    </Link>
+                  </div>
+                ))}
+              </div>
 
               <div className="flex gap-1 py-4 w-full flex-grow">
                 <ShareButton />
               </div>
             </div>
+
             {data.socialLinks.map((link) => (
               <div
                 key={`banner-${link}`}
@@ -98,7 +101,7 @@ const InfluencerDetails = ({ data }: { data: InfluencerData }) => {
                     className="object-center"
                     alt="Hotel room image"
                   /> */}
-                    {getIconFromName(link, false, "w-full h-full text-white")}
+                    {getIconFromName(link, "w-full h-full text-3xl text-white")}
                   </div>
                 </a>
               </div>
@@ -131,18 +134,19 @@ const InfluencerDetails = ({ data }: { data: InfluencerData }) => {
                 </p>
               </div>
 
-              <div className="flex justify-around gap-1 flex-wrap">
-                 {data.socialLinks.map((link) => (
-                   <Button key={link} className="rounded-full" variant="outline">
-                     <a
-                       href={link}
-                       target="_blank"
-                       className="w-full h-full flex items-center gap-2"
-                     >
-                       {getIconFromName(link)}
-                     </a>
-                   </Button>
-                 ))}
+              <div className="w-full flex flex-wrap items-center justify-between gap-1">
+                {data.socialLinks.map((link) => (
+                  <div key={`${link}`} className="hover:bg-white">
+                    <Link
+                      href={link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-full h-full flex items-center gap-2"
+                    >
+                      {getIconFromName(link, "text-3xl")}
+                    </Link>
+                  </div>
+                ))}
               </div>
 
               <div className="flex gap-1 py-4 w-full flex-grow">
@@ -173,7 +177,7 @@ const InfluencerDetails = ({ data }: { data: InfluencerData }) => {
                   className="object-center"
                   alt="Hotel room image"
                 /> */}
-                    {getIconFromName(link, false, "w-full h-full text-white")}
+                    {getIconFromName(link, "w-full h-full text-3xl text-white")}
                   </div>
                 </a>
               </div>

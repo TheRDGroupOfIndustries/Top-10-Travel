@@ -70,7 +70,12 @@ export default function EnquireDialog({
   };
 
   return (
-    <div className="flex w-1/3 items-center justify-center">
+    <div
+      className={cn(
+        "flex items-center justify-center",
+        info.type === "Hotel" ? "flex-1" : "w-1/3"
+      )}
+    >
       <Modal>
         {/* <ModalTrigger className="bg-black rounded-full w-full flex-1 dark:bg-white dark:text-black text-white flex justify-center group/modal-btn">
           <span className="group-hover/modal-btn:translate-x-64 w-full text-base rounded-full text-center transition duration-500">
