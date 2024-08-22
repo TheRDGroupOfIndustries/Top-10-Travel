@@ -5,36 +5,13 @@ import { Agency } from "@prisma/client";
 import { revalidatePath, revalidateTag } from "next/cache";
 import { z } from "zod";
 
-export const editAgencyActionAdmin = async (
-  values: Pick<
-    Agency,
-    "isCertified" | "name" | "priority" | "city_priority" | "methodology"
-  > & { id: string }
-) => {
-  const session = await getSessionorRedirect();
-  if (session.user.role !== "ADMIN") {
-    return { error: "Unauthorized" };
-  }
-  try {
-    const res = await db.agency.update({
-      where: { id: values.id },
-      data: { ...values },
-      select: { id: true },
-    });
-    revalidatePath("/admin/companies");
-    return { success: "Company edited successfully.", companyId: res.id };
-  } catch (error) {
-    console.log(error);
-    return { error: "Something went wrong while applying changes." };
-  }
-};
 
 export const editAgencyAction = async (values: Partial<Agency>) => {
   const session = await getSessionorRedirect();
   const keys = Object.keys(values);
   keys.forEach((key) => {
     // @ts-expect-error
-    if (values[key]?.trim().length < 3) {
+    if (typeof values[key]==="string" && values[key]?.trim().length < 3) {
       return { error: `${key} must be atleast 3 characters.` };
     }
   });
