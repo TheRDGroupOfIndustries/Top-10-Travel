@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { Button } from "../ui/button";
 import { RxCross2 } from "react-icons/rx";
 import { cn } from "@/lib/utils";
+import { FaPlus } from "react-icons/fa6";
 
 type KeyPersonnelType = z.infer<typeof KeyPersonnelSchema>;
 
@@ -86,7 +87,7 @@ const Step5 = ({
   setValue,
   errors,
   register,
-  hidden
+  hidden,
 }: {
   setValue: any;
   errors: any;
@@ -112,8 +113,7 @@ const Step5 = ({
   }, [form]);
 
   return (
-    <div className={cn(hidden ? "hidden" : "")}>
-
+    <div className={cn(hidden ? "hidden" : "space-y-2")}>
       <div>
         <Label
           htmlFor={"numberOfEmployees"}
@@ -135,7 +135,7 @@ const Step5 = ({
           className="m-0 mt-1"
         />
       </div>
-      <div>
+      <div className="space-y-2">
         <Label className="text-sm font-medium">
           Key Personnel{" "}
           <Button
@@ -144,7 +144,7 @@ const Step5 = ({
             className="h-7 w-7 text-2xl"
             onClick={add}
           >
-            +
+            <FaPlus />
           </Button>
         </Label>
         <div className="p-8 pt-3 space-y-4">
