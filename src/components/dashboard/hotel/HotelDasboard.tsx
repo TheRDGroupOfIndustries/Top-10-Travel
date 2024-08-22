@@ -16,6 +16,7 @@ import { Plus } from "lucide-react";
 import { cn } from "@/lib/utils";
 import UploadCompanyImagesCard from "./UploadHotelImagesCard";
 import UpdateSocialMediaLinks from "../updateSocialMediaLinks";
+import UpdateHotelPrimary from "./UpdateHotelPrimary";
 
 const HotelDashboard = ({
   data,
@@ -150,6 +151,10 @@ const HotelDashboard = ({
         links={data.socialMediaLinks[0]}
         socialMediaLinkId={data.socialMediaLinks[0].id}
         info={{ type: "Hotel", hotelId: data.id }}
+      />
+      <UpdateHotelPrimary
+        primary={data.services}
+        special={data.specialization}
       />
       <Card className="border-none bg-[#F3F3F3] mt-4">
         <CardHeader className="text-2xl font-semibold">

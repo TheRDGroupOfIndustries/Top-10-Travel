@@ -31,7 +31,11 @@ const AdminReportDownload = ({ report }: { report: ReportData }) => {
 
       // Company Header
       doc.setFontSize(14);
-      doc.text(` ${index + 1}. ${company.legalName}`, margin.left, y);
+      doc.text(
+        ` ${index + 1}. ${company.name} (${company.type})`,
+        margin.left,
+        y
+      );
       y += lineHeight;
 
       doc.setFontSize(10);
@@ -39,7 +43,7 @@ const AdminReportDownload = ({ report }: { report: ReportData }) => {
       doc.text(`Rating: ${company.rating.toFixed(1)}`, margin.left + 80, y); // Adjusted for spacing
       y += lineHeight;
       doc.text(`Country Priority: ${company.priority}`, margin.left, y);
-      doc.text(`City Priority: ${company.state_priority}`, margin.left + 80, y); // Adjusted for spacing
+      doc.text(`City Priority: ${company.city_priority}`, margin.left + 80, y); // Adjusted for spacing
       y += lineHeight;
       doc.text(`Country: ${company.country}`, margin.left, y);
       doc.text(`City: ${company.city}`, margin.left + 80, y); // Adjusted for spacing
@@ -48,7 +52,7 @@ const AdminReportDownload = ({ report }: { report: ReportData }) => {
       // Add company reviews table
       autoTable(doc, {
         head: [["Review Id", "Name", "Review", "Created At"]],
-        body: company.company_reviews.map((review) => [
+        body: company.Reviews.map((review) => [
           review.id,
           review.name,
           review.review,

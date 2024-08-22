@@ -266,7 +266,7 @@ const HotelForm = () => {
                 >
                   {primary.includes(s) ? (
                     <Checked
-                      className="text-black text-xl"
+                      className="text-black text-xl hover:cursor-pointer"
                       onClick={(e) => {
                         setValue(
                           "services",
@@ -276,7 +276,7 @@ const HotelForm = () => {
                     />
                   ) : (
                     <Unchecked
-                      className="text-black text-xl"
+                      className="text-black text-xl hover:cursor-pointer"
                       onClick={(e) => {
                         setValue("services", [...primary, s]);
                       }}
@@ -312,7 +312,7 @@ const HotelForm = () => {
                 >
                   {special.includes(s) ? (
                     <Checked
-                      className="text-black text-xl"
+                      className="text-black text-xl hover:cursor-pointer"
                       onClick={(e) => {
                         setValue(
                           "specialization",
@@ -322,7 +322,7 @@ const HotelForm = () => {
                     />
                   ) : (
                     <Unchecked
-                      className="text-black text-xl"
+                      className="text-black text-xl hover:cursor-pointer"
                       onClick={(e) => {
                         setValue("specialization", [...special, s]);
                       }}

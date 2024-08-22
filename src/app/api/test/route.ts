@@ -454,30 +454,107 @@ export async function GET() {
   // const dmcSpecial = ["Luxury Travel Experiences", "Adventure Tourism"];
   // const hotelSer = ["Room service", "Housekeeping"];
   // const hotelSpecial = ["Business Hotels", "Boutique Hotels"];
+  // const all = await db.user.findMany();
+  // const user1 = all[0]
+  // const user2 = all[1];
+  // const review =
+  //   "The service was exceptional and the experience was unforgettable.";
+  // const rating = 5;
+  // const review2 = "Had a pleasant stay, but there were a few minor issues.";
+  // const rating2 = 4;
 
+  // const [agencies, dmcs, hotels] = await Promise.all([
+  //   db.agency.findMany(),
+  //   db.dMC.findMany(),
+  //   db.hotel.findMany(),
+  // ]);
+  // for (const agency of agencies) {
+  //   await db.agency.update({
+  //     where: { id: agency.id },
+  //     data: {
+  //       Reviews: {
+  //         create: [
+  //           {
+  //             name: user1?.username,
+  //             rating: rating,
+  //             review,
+  //             user: { connect: { id: user1.id } },
+  //           },
+  //           {
+  //             name: user2?.username,
+  //             rating: rating2,
+  //             review:review2,
+  //             user: { connect: { id: user2.id } },
+  //           },
+  //         ],
+  //       },
+  //     },
+  //   });
+  //   console.log("agency create")
+  // }
+  // for (const agency of dmcs) {
+  //   await db.dMC.update({
+  //     where: { id: agency.id },
+  //     data: {
+  //       Reviews: {
+  //         create: [
+  //           {
+  //             name: user1?.username,
+  //             rating: rating,
+  //             review,
+  //             user: { connect: { id: user1.id } },
+  //           },
+  //           {
+  //             name: user2?.username,
+  //             rating: rating2,
+  //             review:review2,
+  //             user: { connect: { id: user2.id } },
+  //           },
+  //         ],
+  //       },
+  //     },
+  //   });
+  //   console.log("dmc create")
+  // }
+  // for (const agency of hotels) {
+  //   await db.hotel.update({
+  //     where: { id: agency.id },
+  //     data: {
+  //       Reviews: {
+  //         create: [
+  //           {
+  //             name: user1?.username,
+  //             rating: rating,
+  //             review,
+  //             user: { connect: { id: user1.id } },
+  //           },
+  //           {
+  //             name: user2?.username,
+  //             rating: rating2,
+  //             review:review2,
+  //             user: { connect: { id: user2.id } },
+  //           },
+  //         ],
+  //       },
+  //     },
+  //   });
+  //   console.log("hotel create")
+  // }
   // console.log(
   //   await db.agency.updateMany({
-  //     data: {
-  //       specializedTravelTypes: { set: agencySpecial },
-  //       primaryServices: { set: agencyPrimary },
-  //     },
+  //     data: { reviews: { increment: 2 }, rating: 4.5 },
   //   })
   // );
   // console.log(
   //   await db.dMC.updateMany({
-  //     data: {
-  //       coreServices: { set: dmcCore },
-  //       specialization: { set: dmcSpecial },
-  //     },
+  //     data: { reviews: { increment: 2 }, rating: 4.5 },
   //   })
   // );
   // console.log(
   //   await db.hotel.updateMany({
-  //     data: {
-  //       services: { set: hotelSer },
-  //       specialization: { set: hotelSpecial },
-  //     },
+  //     data: { reviews: { increment: 2 }, rating: 4.5 },
   //   })
   // );
+
   return NextResponse.json("hi");
 }

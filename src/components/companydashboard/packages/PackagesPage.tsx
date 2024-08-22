@@ -1,6 +1,6 @@
-const PackagesPage = () => {
-  return (
-    <div>PackagesPage</div>
-  )
-}
-export default PackagesPage
+// const PackagesPage = () => {
+//   return (
+//     <div>PackagesPage</div>
+//   )
+// }
+// export default PackagesPage

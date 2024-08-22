@@ -162,7 +162,7 @@ const AgencyDashboard = ({
         socialMediaLinkId={data.socialMediaLinks[0].id}
         info={{ type: "Agency", agencyId: data.id }}
       />
-      <UpdateAgencyPrimary data={data.primaryServices} />
+      <UpdateAgencyPrimary primary={data.primaryServices} special={data.specializedTravelTypes} />
       <UpdatePastProjects
         initProjects={data.pastProjects}
         info={{ type: "Agency", agencyId: data.id }}

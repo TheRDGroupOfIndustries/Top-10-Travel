@@ -410,7 +410,7 @@ const AgencyForm = () => {
                     />
                   ) : (
                     <Unchecked
-                      className="text-black text-xl"
+                      className="text-black text-xl  hover:cursor-pointer"
                       onClick={(e) => {
                         setValue("specializedTravelTypes", [...special, s]);
                       }}
@@ -472,7 +472,7 @@ const AgencyForm = () => {
                 >
                   {regions.includes(s) ? (
                     <Checked
-                      className="text-black text-xl"
+                      className="text-black text-xl  hover:cursor-pointer"
                       onClick={(e) => {
                         setValue(
                           "regionsOfOperation",
@@ -482,7 +482,7 @@ const AgencyForm = () => {
                     />
                   ) : (
                     <Unchecked
-                      className="text-black text-xl"
+                      className="text-black text-xl  hover:cursor-pointer"
                       onClick={(e) => {
                         setValue("regionsOfOperation", [...regions, s]);
                       }}
@@ -516,7 +516,7 @@ const AgencyForm = () => {
                 >
                   {certificates.includes(s) ? (
                     <Checked
-                      className="text-black text-xl"
+                      className="text-black text-xl  hover:cursor-pointer"
                       onClick={(e) => {
                         setValue(
                           "internationalCertifications",
@@ -526,7 +526,7 @@ const AgencyForm = () => {
                     />
                   ) : (
                     <Unchecked
-                      className="text-black text-xl"
+                      className="text-black text-xl  hover:cursor-pointer"
                       onClick={(e) => {
                         setValue("internationalCertifications", [
                           ...certificates,
@@ -567,7 +567,7 @@ const AgencyForm = () => {
                 >
                   {membership.includes(s) ? (
                     <Checked
-                      className="text-black text-xl"
+                      className="text-black text-xl  hover:cursor-pointer"
                       onClick={(e) => {
                         setValue(
                           "memberships",
@@ -577,7 +577,7 @@ const AgencyForm = () => {
                     />
                   ) : (
                     <Unchecked
-                      className="text-black text-xl"
+                      className="text-black text-xl  hover:cursor-pointer"
                       onClick={(e) => {
                         setValue("memberships", [...membership, s]);
                       }}

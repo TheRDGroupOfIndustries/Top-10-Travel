@@ -16,7 +16,7 @@ const getEnquiries = async (userId: string) => {
   return await db.enquiry.findMany({
     where: { userId },
     select: {
-      user: { select: { username: true } },
+      user: { select: { username: true, email: true } },
       id: true,
       title: true,
       message: true,
@@ -51,11 +51,12 @@ const CompanyEnquiriesDropdown = async () => {
               className="flex w-full flex-col p-2 gap-1 bg-secondary/60 hover:bg:secondary/80"
               key={enq.id}
             >
+              <p className="text-sm font-normal text-muted-foreground">
+                Enquiry from <strong>{enq.user.username}</strong> (
+                {enq.user.email})
+              </p>
               <strong className="text-[#FCAE1D] flex flex-col md:flex-row">
                 {enq.title}
-                <span className="md:ml-2 text-sm font-normal text-muted-foreground">
-                  ({enq.user.username})
-                </span>
               </strong>
               <p className="break-words text-sm">{enq.message}</p>
             </div>

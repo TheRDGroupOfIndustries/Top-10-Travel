@@ -1,5 +1,5 @@
-import PreviousRequests from "@/components/companydashboard/request/PreviousRequests";
-import RequestForm from "@/components/companydashboard/request/RequestForm";
+import PreviousRequests from "@/components/dashboard/request/PreviousRequests";
+import RequestForm from "@/components/dashboard/request/RequestForm";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { db } from "@/core/client/db";
 import getSessionorRedirect from "@/core/utils/getSessionorRedirect";
