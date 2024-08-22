@@ -1,25 +1,17 @@
 import EnquireDialog from "@/components/company/EnquireDialogwButton/EnquireDialog";
-import HeroHeading from "@/components/reusable/HeroHeading";
+import { getIconFromName } from "@/components/reusable/Icons";
+import PhoneCallButton from "@/components/reusable/PhoneCallButton";
 import ShareButton from "@/components/reusable/shareButton";
 import StarRating from "@/components/reusable/StarRating";
-import { Button } from "@/components/ui/button";
-import { getIconFromName } from "@/components/reusable/Icons";
-import { getValidUrl } from "@/lib/utils";
-import Link from "next/link";
-import AnimatedImage from "./AnimatedImage";
-import PackagesCarousel from "./PackagesCarousel";
-import ReviewSSR from "./ReviewSSR";
-import type { PastProject, SocialMediaLinks } from "@prisma/client";
-import { TbMapPin } from "react-icons/tb";
-import PastProjects from "./PastProjects";
-import PhoneCallButton from "@/components/reusable/PhoneCallButton";
 import { GetIconByTag } from "@/components/reusable/TagIcons";
-import { FaPeopleGroup } from "react-icons/fa6";
-import { GiSunbeams } from "react-icons/gi";
-import { PiHairDryerBold } from "react-icons/pi";
-import { MdAttachMoney, MdRoomService } from "react-icons/md";
-import { GiMountainRoad } from "react-icons/gi";
-import { MdEventAvailable, MdOutlineCardTravel } from "react-icons/md";
+import { Button } from "@/components/ui/button";
+import { getValidUrl } from "@/lib/utils";
+import type { PastProject, SocialMediaLinks } from "@prisma/client";
+import Link from "next/link";
+import { TbMapPin } from "react-icons/tb";
+import AnimatedImage from "./AnimatedImage";
+import PastProjects from "./PastProjects";
+import ReviewSSR from "./ReviewSSR";
 
 type CompanyType = {
   reviews: number;
@@ -185,7 +177,7 @@ const Details = ({
                       return (
                         <Button
                           key={`${platform}-${index}`}
-                          className="rounded-full"
+                          className="rounded-full hover:bg-white border-black"
                           variant="outline"
                         >
                           <Link
@@ -242,7 +234,7 @@ const Details = ({
 
             <div className="flex flex-col gap-4 sm:px-0 px-2">
               <div className="flex flex-row flex-wrap gap-1">
-                {/* {TAGS.map((tag: string) => (
+                {TAGS.map((tag: string) => (
                   <div
                     key={tag}
                     className="bg-slate-100 flex gap-1 border-[2px] border-slate-400 font-semibold uppercase px-2 py-1.5 md:text-base text-sm rounded-full"
@@ -250,8 +242,9 @@ const Details = ({
                     <GetIconByTag tag={tag} />
                     <span>{tag}</span>
                   </div>
-                ))} */}
-                {info.type === "Agency" && (
+                ))}
+
+                {/* {info.type === "Agency" && (
                   <>
                     <div className="bg-slate-100 flex items-center gap-1 border-[2px] border-slate-400 font-semibold uppercase px-2 py-1.5 md:text-base text-sm rounded-full">
                       <MdOutlineCardTravel />
@@ -271,7 +264,6 @@ const Details = ({
                     </div>
                   </>
                 )}
-
                 {info.type === "Dmc" && (
                   <>
                     <div className="bg-slate-100 flex items-center gap-1 border-[2px] border-slate-400 font-semibold uppercase px-2 py-1.5 md:text-base text-sm rounded-full">
@@ -292,7 +284,6 @@ const Details = ({
                     </div>
                   </>
                 )}
-
                 {info.type === "Hotel" && (
                   <>
                     <div className="bg-slate-100 flex items-center gap-1 border-[2px] border-slate-400 font-semibold uppercase px-2 py-1.5 md:text-base text-sm rounded-full">
@@ -312,7 +303,7 @@ const Details = ({
                       <span>Event Hosting</span>
                     </div>
                   </>
-                )}
+                )} */}
               </div>
 
               <div className="text-justify text-base leading-6 font-medium">
@@ -368,7 +359,7 @@ const Details = ({
                       return (
                         <Button
                           key={`${platform}-${index}`}
-                          className="rounded-full"
+                          className="rounded-full hover:bg-white border-black"
                           variant="outline"
                         >
                           <Link
