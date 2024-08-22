@@ -17,7 +17,7 @@ function ShareButton() {
       onClick={() => console.log("shared successfully!")}
     >
       <Button
-        className="border-black w-1/3 border-[1px] rounded-full text-xl leading-6 font-medium transform hover:-translate-y-1 transition duration-200 hover:shadow-md"
+        className="border-black h-full w-1/3 border-[1px] rounded-full sm:text-xl min-[421px]:text-base text-xs font-medium transform hover:-translate-y-1 transition duration-200 hover:shadow-md"
         variant="outline"
       >
         Share Link

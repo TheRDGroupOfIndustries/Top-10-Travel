@@ -85,7 +85,7 @@ export default function EnquireDialog({
             📞
           </div>
         </ModalTrigger> */}
-        <ModalTrigger className="w-full border-black border-[1px] rounded-full text-xl leading-6 font-medium transform hover:-translate-y-1 transition duration-200 hover:shadow-md">
+        <ModalTrigger className="w-full border-black border-[1px] rounded-full sm:text-xl min-[421px]:text-base text-xs font-medium transform hover:-translate-y-1 transition duration-200 hover:shadow-md">
           Contact Us
         </ModalTrigger>
 

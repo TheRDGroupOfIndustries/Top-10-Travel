@@ -15,7 +15,7 @@ const PhoneCallButton: React.FC<PhoneCallButtonProps> = ({
 }) => {
   return (
     <div
-      className={`border-black h-full grid place-items-center text-center w-1/3 border-[1px] rounded-full text-xl leading-6 font-medium transform hover:-translate-y-1 transition duration-200 hover:shadow-md ${className}`}
+      className={`border-black h-full grid place-items-center text-center w-1/3 border-[1px] rounded-full sm:text-xl min-[421px]:text-base text-xs font-medium transform hover:-translate-y-1 transition duration-200 hover:shadow-md ${className}`}
     >
       <Link href={`tel:${phoneNumber}`} className="w-full">
         {label}

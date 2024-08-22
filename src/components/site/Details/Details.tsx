@@ -195,14 +195,13 @@ const Details = ({
                 )}
               </div>
 
-              <div className="flex gap-1 w-full flex-grow">
+              <div className="flex gap-2 w-full flex-grow">
                 {info.type !== "Hotel" && (
                   <PhoneCallButton phoneNumber="1234567890" />
                 )}
                 <EnquireDialog
                   images={data?.images}
                   name={data?.name}
-                  className="flex-1 border-black border-[1px] py-3 rounded-full text-xl leading-6 font-medium"
                   info={info}
                 />
                 <ShareButton />
@@ -354,14 +353,13 @@ const Details = ({
                 )}
               </div>
 
-              <div className="flex gap-1 w-full flex-grow">
+              <div className="flex gap-2 w-full flex-grow">
                 {info.type !== "Hotel" && (
                   <PhoneCallButton phoneNumber="1234567890" />
                 )}
                 <EnquireDialog
                   images={data?.images}
                   name={data?.name}
-                  className="flex-1 border-black border-[1px] py-3 rounded-full text-xl leading-6 font-medium"
                   info={info}
                 />
                 <ShareButton />

@@ -127,7 +127,7 @@ function ListData({
         {role === "Hotels" &&
           hotelData?.map((item, i) => (
             <div
-              key={item.name}
+              key={item.id}
               onClick={() => {
                 router.push(`/${role}/${item.id}`);
               }}
