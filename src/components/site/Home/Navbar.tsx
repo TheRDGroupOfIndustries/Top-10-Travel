@@ -26,7 +26,7 @@ const navMenus = [
     link: "/Hotels",
   },
   {
-    title: "DMC's",
+    title: "DMCs",
     link: "/DMC",
   },
   {
