@@ -6,7 +6,9 @@ import { notFound } from "next/navigation";
 const dashboardData = async (userId: string) => {
   const dmc = await db.dMC.findUnique({
     where: { userId: userId },
-    include: { socialMediaLinks: true },
+    include: { socialMediaLinks: true,keyPersonnel: true,
+      pastProjects: true,
+      clientReferences: true, },
   });
   return { dmc };
 };

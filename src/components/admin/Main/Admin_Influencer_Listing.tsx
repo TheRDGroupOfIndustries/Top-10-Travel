@@ -47,35 +47,34 @@ import { FaTrashCan } from "react-icons/fa6";
 import { toast } from "sonner";
 import { deleteCompany } from "@/core/server/actions/company/deleteCompany";
 import AnimatedImage from "@/components/site/Details/AnimatedImage";
+import EditInfluencerForm from "./EditInfluencerForm";
+import { deleteInfluencerAdminAction } from "@/core/server/actions/admin/deleteInfluencerAdmin";
 
 export type Company = {
-  id: string;
-  images: string[];
-  isCertified: boolean;
-  userId: string;
   name: string;
+  id: string;
+  image: string;
+  userId: string;
+  state: string;
   priority: number;
-  city_priority: number;
+  isCertified: boolean;
   country: string;
-  city: string;
-  methodology: string | null;
-  type: string;
+  speciality: string;
+  state_priority: number;
 };
-async function deleteListing(id: string, type: string) {
-  // @ts-expect-error
-  const res = await deleteCompany({ id, type });
+async function deleteListing(id: string) {
+  const res = await deleteInfluencerAdminAction({ id });
   if (res.success) {
     toast.success(res.success);
   } else toast.error(res.error);
 }
 export const columns: ColumnDef<Company>[] = [
   {
-    accessorKey: "images",
+    accessorKey: "image",
     header: "Image",
     cell: ({ row }) => {
       let href = null;
-      // @ts-expect-error
-      const url = row.getValue("images")[0];
+      const url = row.getValue("image") as string;
       try {
         href = new URL(url).href;
       } catch (error) {
@@ -96,7 +95,7 @@ export const columns: ColumnDef<Company>[] = [
   },
   {
     accessorKey: "id",
-    header: "Company Id",
+    header: "Influencer Id",
   },
   {
     accessorKey: "name",
@@ -107,7 +106,7 @@ export const columns: ColumnDef<Company>[] = [
     header: "Priority (Country)",
   },
   {
-    accessorKey: "city_priority",
+    accessorKey: "state_priority",
     header: "Priority (city)",
   },
   {
@@ -119,7 +118,7 @@ export const columns: ColumnDef<Company>[] = [
     header: "Country",
   },
   {
-    accessorKey: "city",
+    accessorKey: "state",
     header: "City",
   },
   {
@@ -139,7 +138,7 @@ export const columns: ColumnDef<Company>[] = [
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent>
-            <DropdownMenuLabel>{listing.type} actions</DropdownMenuLabel>
+            <DropdownMenuLabel>Influencer actions</DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuItem asChild>
               <Dialog>
@@ -152,15 +151,15 @@ export const columns: ColumnDef<Company>[] = [
                   </Button>
                 </DialogTrigger>
                 <DialogContent className="sm:max-w-[425px]">
-                  <EditListingForm company={listing} />
+                  <EditInfluencerForm company={listing} />
                 </DialogContent>
               </Dialog>
             </DropdownMenuItem>
             <DropdownMenuItem
               className="flex items-center justify-start gap-2"
-              onClick={() => deleteListing(row.original.id, row.original.type)}
+              onClick={() => deleteListing(row.original.id)}
             >
-              Delete {listing.type}
+              Delete Influencer
               <FaTrashCan />
             </DropdownMenuItem>
           </DropdownMenuContent>
@@ -172,11 +171,8 @@ export const columns: ColumnDef<Company>[] = [
 
 export default function AdminPackagelisting({
   listings,
-  type,
 }: {
   listings: Company[];
-
-  type: "Agency" | "Dmc" | "Hotel";
 }) {
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
@@ -219,22 +215,15 @@ export default function AdminPackagelisting({
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-5">
           <h2 className="lg:text-3xl md:text-2xl text-xl font-semibold">
-            Listing of <span className="text-[#fcaf1e]">{type}</span>
+            Listing of <span className="text-[#fcaf1e]">Influencers</span>
           </h2>
           <p className="font-medium text-sm text-[#36454F]">
             <span className="font-bold">
               {table.getFilteredRowModel().rows.length}
             </span>{" "}
-            Total {type}
+            Total Influencers
           </p>
         </div>
-
-        {/* <Button
-          asChild
-          className="bg-[#fcaf1e] hover:bg-[#fcaf1e]/80"
-        >
-          <Link href="/admin/companies/add-company">Add Listing +</Link>
-        </Button> */}
       </div>
       <div className="flex items-center">
         <Input

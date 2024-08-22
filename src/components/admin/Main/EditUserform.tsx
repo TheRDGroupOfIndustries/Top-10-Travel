@@ -87,7 +87,6 @@ const EditUserForm = ({ user }: { user: User }) => {
               <SelectContent>
                 <SelectItem value="ADMIN">Admin</SelectItem>
                 <SelectItem value="USER">User</SelectItem>
-                <SelectItem value="COMPANY">Company</SelectItem>
                 <SelectItem value="Influencer">Influencer</SelectItem>
               </SelectContent>
             </Select>

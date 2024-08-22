@@ -5,24 +5,30 @@ import { db } from "@/core/client/db";
 import { Prisma } from "@prisma/client";
 import getSessionorRedirect from "@/core/utils/getSessionorRedirect";
 
-export const deleteCompany = async ({
+export type Company = {
+  name: string;
+  priority: number;
+  isCertified: boolean;
+  speciality: string;
+  state_priority: number;
+};
+
+export const editInfluencerAdmin = async ({
   id,
-  type,
+  data,
 }: {
   id: string;
-  type: "Agency" | "Dmc" | "Hotel";
+  data: Company;
 }) => {
   const session = await getSessionorRedirect();
   if (session.user.role !== "ADMIN")
     return { error: "Unauthorized! Admin only" };
   try {
-    if (type === "Agency") {
-      await db.agency.delete({ where: { id } });
-    } else if (type === "Dmc") await db.dMC.delete({ where: { id } });
-    else if (type === "Hotel") await db.hotel.delete({ where: { id } });
+    await db.influencerData.update({ where: { id }, data: { ...data } });
 
-    revalidateTag(`/admin/${type.toLowerCase()}`);
-    return { success: "Company Deleted Successfully." };
+    revalidateTag("admin-influencer");
+
+    return { success: "Influencer Updated Successfully." };
   } catch (error) {
     if (error instanceof Prisma.PrismaClientKnownRequestError) {
       if (error.code === "P2025") {

@@ -441,11 +441,43 @@ export async function GET() {
   //             "description": "A project that designed and promoted adrenaline-pumping adventure trails, including trekking, mountain biking, and extreme sports activities, across rugged terrains and scenic landscapes."
   //           }
   //         ]
-          
+
   //       }
   //     },
   //   });
   //   console.log("update dmc");
   // }
+  // const agencySpecial = ["Luxury Travel", "Budget Travel"];
+  // const agencyPrimary = ["Corporate Travel", "Leisure Travel"];
+
+  // const dmcCore = ["Event Planning & Execution", "Group Tours & Incentives"];
+  // const dmcSpecial = ["Luxury Travel Experiences", "Adventure Tourism"];
+  // const hotelSer = ["Room service", "Housekeeping"];
+  // const hotelSpecial = ["Business Hotels", "Boutique Hotels"];
+
+  // console.log(
+  //   await db.agency.updateMany({
+  //     data: {
+  //       specializedTravelTypes: { set: agencySpecial },
+  //       primaryServices: { set: agencyPrimary },
+  //     },
+  //   })
+  // );
+  // console.log(
+  //   await db.dMC.updateMany({
+  //     data: {
+  //       coreServices: { set: dmcCore },
+  //       specialization: { set: dmcSpecial },
+  //     },
+  //   })
+  // );
+  // console.log(
+  //   await db.hotel.updateMany({
+  //     data: {
+  //       services: { set: hotelSer },
+  //       specialization: { set: hotelSpecial },
+  //     },
+  //   })
+  // );
   return NextResponse.json("hi");
 }

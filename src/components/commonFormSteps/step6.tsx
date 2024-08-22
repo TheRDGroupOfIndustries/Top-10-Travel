@@ -9,6 +9,7 @@ import { useEffect, useState } from "react";
 import { Button } from "../ui/button";
 import { RxCross2 } from "react-icons/rx";
 import { cn } from "@/lib/utils";
+import { FaPlus } from "react-icons/fa6";
 
 type PastProjectType = z.infer<typeof PastProjectSchema>;
 type ClientReferenceType = z.infer<typeof ClientReferenceSchema>;
@@ -151,7 +152,15 @@ const InitClient: ClientReferenceType = {
   contactPhone: "",
   testimonial: "",
 };
-const Step6 = ({ setValue, errors, hidden }: { setValue: any; errors: any, hidden?:boolean }) => {
+const Step6 = ({
+  setValue,
+  errors,
+  hidden,
+}: {
+  setValue: any;
+  errors: any;
+  hidden?: boolean;
+}) => {
   const [form, setForm] = useState<PastProjectType[]>([InitProject]);
   const [form2, setForm2] = useState<ClientReferenceType[]>([InitClient]);
   const add = () => {
@@ -189,17 +198,16 @@ const Step6 = ({ setValue, errors, hidden }: { setValue: any; errors: any, hidde
 
   return (
     <div className={cn(hidden ? "hidden" : "")}>
-
       <div>
         <Label className="text-sm font-medium">
           Past Projects{" "}
           <Button
             type="button"
             size="icon"
-            className="h-7 w-7 text-2xl"
+            className="h-7 w-7"
             onClick={add}
           >
-            +
+            <FaPlus />
           </Button>
         </Label>
         <div className="p-8 pt-3 space-y-4">
@@ -221,10 +229,10 @@ const Step6 = ({ setValue, errors, hidden }: { setValue: any; errors: any, hidde
           <Button
             type="button"
             size="icon"
-            className="h-7 w-7 text-2xl"
+            className="h-7 w-7"
             onClick={add2}
           >
-            +
+            <FaPlus />
           </Button>
         </Label>
         <div className="p-8 pt-3 space-y-4">
