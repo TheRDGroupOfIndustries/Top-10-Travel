@@ -223,7 +223,7 @@ function HomeHero() {
         <h3
           id="firstLine"
           aria-hidden
-          className="xl:text-4xl lg:text-[32px] md:text-2xl sm:text-xl text-lg font-medium leading-[23px] overflow-hidden sm:leading-[30px] md:leading-[35px] lg:leading-[43px] font-cinzel"
+          className="xl:text-4xl lg:text-[32px] md:text-2xl sm:text-xl xs:text-lg text-xl font-medium leading-[23px] overflow-hidden sm:leading-[30px] md:leading-[35px] lg:leading-[43px] font-cinzel"
         >
           <motion.span
             className="inline-block"
@@ -236,7 +236,7 @@ function HomeHero() {
         </h3>
         <h1
           id="secondLine"
-          className="uppercase font-cinzel font-bold text-2xl sm:text-4xl md:text-4xl lg:text-6xl xl:text-7xl overflow-hidden xl:leading-loose leading-[50px] sm:leading-[65px] md:leading-[80px] lg:leading-[129px]"
+          className="uppercase font-cinzel font-bold text-3xl xs:text-2xl sm:text-4xl md:text-4xl lg:text-6xl xl:text-7xl overflow-hidden xl:leading-loose leading-[50px] sm:leading-[65px] md:leading-[80px] lg:leading-[129px]"
         >
           <motion.span
             className="inline-block"
@@ -249,7 +249,7 @@ function HomeHero() {
         </h1>
         <p
           id="thirdLine"
-          className="font-semibold leading-[20px] text-balance overflow-hidden sm:leading-6 md:leading-[30px] lg:leading-[39px] text-[12px] sm:text-lg md:text-xl lg:text-2xl xl:text-3xl w-52 sm:w-64 md:w-80 lg:w-full"
+          className="font-semibold leading-[20px] text-balance overflow-hidden sm:leading-6 md:leading-[30px] lg:leading-[39px] text-[16px] xs:text-[12px] sm:text-lg md:text-xl lg:text-2xl xl:text-3xl w-52 sm:w-64 md:w-80 lg:w-full"
         >
           <motion.span
             className="inline-block"
