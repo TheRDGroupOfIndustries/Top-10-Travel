@@ -5,7 +5,7 @@ import { Label } from "@/components/ui/label";
 import {
   updatePrimaryAction,
   updateSpecialAction,
-} from "@/core/server/actions/agency/services";
+} from "@/core/server/actions/hotel/services";
 import useMutation from "@/hooks/useMutation";
 import { useEffect, useMemo, useState } from "react";
 import {
@@ -13,24 +13,31 @@ import {
   MdOutlineCheckBoxOutlineBlank as Unchecked,
 } from "react-icons/md";
 import { toast } from "sonner";
-
-const primaryServices = [
-  "Corporate Travel",
-  "Leisure Travel",
-  "Group Tours",
-  "Individual Travel Packages",
-  "Adventure Travel",
-  "Cruise Packages",
+const services = [
+  "Room service",
+  "Housekeeping",
+  "Free Wi-Fi",
+  "Concierge service",
+  "24-hour front desk",
+  "Restaurant and bar",
+  "Laundry service",
+  "Fitness center",
+  "Swimming pool",
+  "Airport shuttle",
 ];
 
-const specializedTravelTypes = [
-  "Luxury Travel",
-  "Budget Travel",
-  "Eco friendly Travel",
-  "Cultural Tours",
-  "Religious Tours",
+const specialization = [
+  "Business Hotels",
+  "Boutique Hotels",
+  "Resort Hotels",
+  "Luxury Hotels",
+  "Budget Hotels",
+  "Extended Stay Hotels",
+  "Airport Hotels",
+  "Eco-Friendly Hotels",
+  "Spa Hotels",
+  "Family Hotels",
 ];
-
 function arraysAreEqual(arr1: string[], arr2: string[]) {
   return (
     arr1.length === arr2.length &&
@@ -38,7 +45,7 @@ function arraysAreEqual(arr1: string[], arr2: string[]) {
   );
 }
 
-const UpdateAgencyPrimary = ({
+const UpdateHotelPrimary = ({
   primary,
   special,
 }: {
@@ -86,32 +93,30 @@ const UpdateAgencyPrimary = ({
         <div>
           <div className="text-2xl font-semibold">
             <div>
-              <span className="text-[#FCAE1D]">Primary </span>
+              <span className="text-[#FCAE1D]">Core </span>
               Services
             </div>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2">
-            {Array.from(new Set(primaryServices.concat(newPrimary))).map(
-              (s) => (
-                <span
-                  className="text-muted-foreground flex items-center gap-2 text-sm p-1"
-                  key={s}
-                >
-                  {newPrimary.includes(s) ? (
-                    <Checked
-                      onClick={() => handleUncheckPrimary(s)}
-                      className="text-black text-xl hover:cursor-pointer"
-                    />
-                  ) : (
-                    <Unchecked
-                      onClick={() => handleCheckPrimary(s)}
-                      className="text-black text-xl hover:cursor-pointer"
-                    />
-                  )}
-                  {s}
-                </span>
-              )
-            )}
+            {Array.from(new Set(services.concat(newPrimary))).map((s) => (
+              <span
+                className="text-muted-foreground flex items-center gap-2 text-sm p-1"
+                key={s}
+              >
+                {newPrimary.includes(s) ? (
+                  <Checked
+                    onClick={() => handleUncheckPrimary(s)}
+                    className="text-black text-xl hover:cursor-pointer"
+                  />
+                ) : (
+                  <Unchecked
+                    onClick={() => handleCheckPrimary(s)}
+                    className="text-black text-xl hover:cursor-pointer"
+                  />
+                )}
+                {s}
+              </span>
+            ))}
           </div>
           <div className="flex items-center gap-4">
             <form
@@ -158,32 +163,29 @@ const UpdateAgencyPrimary = ({
         <div>
           <div className="text-2xl font-semibold">
             <div>
-              <span className="text-[#FCAE1D]">Specialized </span>
-              Travel Types
+              <span className="text-[#FCAE1D]">Specialization </span>
             </div>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2">
-            {Array.from(new Set(specializedTravelTypes.concat(newSpecial))).map(
-              (s) => (
-                <span
-                  className="text-muted-foreground flex items-center gap-2 text-sm p-1"
-                  key={s}
-                >
-                  {newSpecial.includes(s) ? (
-                    <Checked
-                      onClick={() => handleUncheckSpecial(s)}
-                      className="text-black text-xl hover:cursor-pointer"
-                    />
-                  ) : (
-                    <Unchecked
-                      onClick={() => handleCheckSpecial(s)}
-                      className="text-black text-xl hover:cursor-pointer"
-                    />
-                  )}
-                  {s}
-                </span>
-              )
-            )}
+            {Array.from(new Set(specialization.concat(newSpecial))).map((s) => (
+              <span
+                className="text-muted-foreground flex items-center gap-2 text-sm p-1"
+                key={s}
+              >
+                {newSpecial.includes(s) ? (
+                  <Checked
+                    onClick={() => handleUncheckSpecial(s)}
+                    className="text-black text-xl hover:cursor-pointer"
+                  />
+                ) : (
+                  <Unchecked
+                    onClick={() => handleCheckSpecial(s)}
+                    className="text-black text-xl hover:cursor-pointer"
+                  />
+                )}
+                {s}
+              </span>
+            ))}
           </div>
           <div className="flex items-center gap-4">
             <form
@@ -231,4 +233,4 @@ const UpdateAgencyPrimary = ({
     </Card>
   );
 };
-export default UpdateAgencyPrimary;
+export default UpdateHotelPrimary;

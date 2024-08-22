@@ -357,7 +357,7 @@ const DmcFo = () => {
                 >
                   {primary.includes(s) ? (
                     <Checked
-                      className="text-black text-xl"
+                      className="text-black text-xl hover:cursor-pointer"
                       onClick={(e) => {
                         setValue(
                           "coreServices",
@@ -367,7 +367,7 @@ const DmcFo = () => {
                     />
                   ) : (
                     <Unchecked
-                      className="text-black text-xl"
+                      className="text-black text-xl hover:cursor-pointer"
                       onClick={(e) => {
                         setValue("coreServices", [...primary, s]);
                       }}
@@ -475,7 +475,7 @@ const DmcFo = () => {
                 >
                   {regions.includes(s) ? (
                     <Checked
-                      className="text-black text-xl"
+                      className="text-black text-xl hover:cursor-pointer"
                       onClick={(e) => {
                         setValue(
                           "regionsCovered",
@@ -485,7 +485,7 @@ const DmcFo = () => {
                     />
                   ) : (
                     <Unchecked
-                      className="text-black text-xl"
+                      className="text-black text-xl hover:cursor-pointer"
                       onClick={(e) => {
                         setValue("regionsCovered", [...regions, s]);
                       }}
@@ -518,7 +518,7 @@ const DmcFo = () => {
                 >
                   {certificates.includes(s) ? (
                     <Checked
-                      className="text-black text-xl"
+                      className="text-black text-xl hover:cursor-pointer"
                       onClick={(e) => {
                         setValue(
                           "internationalCertifications",
@@ -528,7 +528,7 @@ const DmcFo = () => {
                     />
                   ) : (
                     <Unchecked
-                      className="text-black text-xl"
+                      className="text-black text-xl hover:cursor-pointer"
                       onClick={(e) => {
                         setValue("internationalCertifications", [
                           ...certificates,
@@ -569,7 +569,7 @@ const DmcFo = () => {
                 >
                   {membership.includes(s) ? (
                     <Checked
-                      className="text-black text-xl"
+                      className="text-black text-xl hover:cursor-pointer"
                       onClick={(e) => {
                         setValue(
                           "memberships",
@@ -579,7 +579,7 @@ const DmcFo = () => {
                     />
                   ) : (
                     <Unchecked
-                      className="text-black text-xl"
+                      className="text-black text-xl hover:cursor-pointer"
                       onClick={(e) => {
                         setValue("memberships", [...membership, s]);
                       }}

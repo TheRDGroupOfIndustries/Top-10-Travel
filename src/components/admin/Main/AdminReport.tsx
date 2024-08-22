@@ -27,10 +27,11 @@ const AdminReport = ({ report }: { report: ReportData }) => {
 
   // Filter report data based on search input
   const filteredReport = report.filter((company) =>
-    company.legalName.toLowerCase().includes(search.toLowerCase())
+    company.name.toLowerCase().includes(search.toLowerCase())
   );
 
-  const getValidUrl = (url: any) => {
+  const getValidUrl = (url: string) => {
+    if (url.startsWith("/")) return url;
     try {
       const u = new URL(url);
       return u.href;
@@ -44,7 +45,9 @@ const AdminReport = ({ report }: { report: ReportData }) => {
       <Card className="bg-[#f3f3f3]">
         <CardHeader>
           <CardTitle className="lg:text-3xl md:text-2xl text-xl font-semibold">
-            <p>Company <span className="text-[#fcaf1e]">Report</span></p>
+            <p>
+              Company <span className="text-[#fcaf1e]">Report</span>
+            </p>
             <p className="md:text-base text-sm mt-1">
               <span className="font-bold my-4">{filteredReport.length}</span>{" "}
               total listings
@@ -68,26 +71,41 @@ const AdminReport = ({ report }: { report: ReportData }) => {
       </Card>
 
       {filteredReport.map((company) => (
-        <Card key={company.id} className="bg-[#f3f3f3]">
+        <Card
+          key={company.id}
+          className="bg-[#f3f3f3]"
+        >
           <CardHeader className="flex flex-col sm:flex-row gap-8 md:gap-24 items-center justify-between">
             <div className="flex flex-col">
               <CardTitle className="font-bold my-4 text-center sm:text-left">
-                {company.legalName}
+                {company.name} ({company.type})
               </CardTitle>
               <div className="text-sm flex items-center sm:items-start gap-2 flex-wrap mt-4 max-w-sm lg:max-w-lg">
-                <Badge className="text-[#FCAE1D] font-semibold bg-[#fcae1d11]">Total reviews: {company.reviews}</Badge>
-                <Badge className="text-[#FCAE1D] font-semibold bg-[#fcae1d11]">Rating: {company.rating}</Badge>
-                <Badge className="text-[#FCAE1D] font-semibold bg-[#fcae1d11]">Country Priority: {company.priority}</Badge>
-                <Badge className="text-[#FCAE1D] font-semibold bg-[#fcae1d11]">City Priority: {company.state_priority}</Badge>
-                <Badge className="text-[#FCAE1D] font-semibold bg-[#fcae1d11]">Country : {company.country}</Badge>
-                <Badge className="text-[#FCAE1D] font-semibold bg-[#fcae1d11]">City : {company.city}</Badge>
+                <Badge className="text-[#FCAE1D] font-semibold bg-[#fcae1d11]">
+                  Total reviews: {company.reviews}
+                </Badge>
+                <Badge className="text-[#FCAE1D] font-semibold bg-[#fcae1d11]">
+                  Rating: {company.rating}
+                </Badge>
+                <Badge className="text-[#FCAE1D] font-semibold bg-[#fcae1d11]">
+                  Country Priority: {company.priority}
+                </Badge>
+                <Badge className="text-[#FCAE1D] font-semibold bg-[#fcae1d11]">
+                  City Priority: {company.city_priority}
+                </Badge>
+                <Badge className="text-[#FCAE1D] font-semibold bg-[#fcae1d11]">
+                  Country : {company.country}
+                </Badge>
+                <Badge className="text-[#FCAE1D] font-semibold bg-[#fcae1d11]">
+                  City : {company.city}
+                </Badge>
               </div>
             </div>
             <Image
-              src={getValidUrl(company.image ?? "")}
+              src={getValidUrl(company.images[0] ?? "")}
               width={200}
               height={100}
-              alt={company.legalName}
+              alt={company.name}
               className="rounded-md object-cover"
             />
           </CardHeader>
@@ -103,8 +121,11 @@ const AdminReport = ({ report }: { report: ReportData }) => {
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {company.company_reviews.map((review) => (
-                  <TableRow key={review.id}   className="hover:bg-[#dbdbdb]">
+                {company.Reviews.map((review) => (
+                  <TableRow
+                    key={review.id}
+                    className="hover:bg-[#dbdbdb]"
+                  >
                     <TableCell>{review.id}</TableCell>
                     <TableCell>{review.name}</TableCell>
                     <TableCell className="min-w-[200px] md:w-[300px]">
