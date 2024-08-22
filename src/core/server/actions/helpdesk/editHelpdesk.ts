@@ -6,7 +6,7 @@ import { revalidatePath, revalidateTag } from "next/cache";
 import getSessionorRedirect from "@/core/utils/getSessionorRedirect";
 
 export const updateHelpdeskAction = async (
-  values: Pick<HelpDesk, "status"|"description"|"id">
+  values: Pick<HelpDesk, "status" | "description" | "id">
 ) => {
   //   const validatedFields = FormSchema.safeParse(values);
   const session = await getSessionorRedirect();
@@ -18,7 +18,7 @@ export const updateHelpdeskAction = async (
 
   try {
     await db.helpDesk.update({
-      where: { id:values.id },
+      where: { id: values.id },
       data: {
         status: values.status,
         description: values.description,

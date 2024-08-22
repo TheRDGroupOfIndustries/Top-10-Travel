@@ -47,9 +47,9 @@ const AdminNotifications = async () => {
               className="flex flex-col p-2 gap-1 bg-secondary hover:bg:secondary/80"
               key={req.id}
             >
-              <p><strong>CompanyId:</strong>{req.companyId}</p>
+              <p><strong>UserId:</strong>{req.userId}</p>
               {req.message}
-              <AdminNotificationButtons id={req.id} />
+              <AdminNotificationButtons userId={req.userId} id={req.id} />
             </div>
           ))}
           {requests.length === 0 && (

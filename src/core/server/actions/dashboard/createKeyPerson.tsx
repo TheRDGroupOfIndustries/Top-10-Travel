@@ -3,8 +3,8 @@
 import { revalidatePath, revalidateTag } from "next/cache";
 import { db } from "@/core/client/db";
 import getSessionorRedirect from "@/core/utils/getSessionorRedirect";
-import { ClientReference, PastProject } from "@prisma/client";
-export const createClientRefAction = async ({
+import { ClientReference, KeyPersonnel, PastProject } from "@prisma/client";
+export const createKeyPersonAction = async ({
   agencyId,
   dmcId,
   data,
@@ -13,8 +13,8 @@ export const createClientRefAction = async ({
   agencyId?: string;
   dmcId?: string;
   data: Pick<
-    ClientReference,
-    "clientName" | "testimonial" | "contactEmail" | "contactPhone"
+    KeyPersonnel,
+    "name" | "position" | "specialization" | "yearsOfExperience"
   >;
   id?: string;
 }) => {
@@ -23,41 +23,41 @@ export const createClientRefAction = async ({
   try {
     let count = 0;
     if (agencyId) {
-      count = await db.clientReference.count({ where: { agencyId } });
+      count = await db.keyPersonnel.count({ where: { agencyId } });
     } else {
-      count = await db.clientReference.count({ where: { dmcId } });
+      count = await db.keyPersonnel.count({ where: { dmcId } });
     }
-    if (count >= 5) return { error: "Can Only Add upto 5 client References." };
+    if (count >= 5) return { error: "Can Only Add upto 5 Key Persons." };
 
     if (agencyId) {
       if (!id)
         await db.agency.update({
           where: { id: agencyId },
-          data: { clientReferences: { create: { ...data } } },
+          data: { keyPersonnel: { create: { ...data } } },
         });
       else
         await db.agency.update({
           where: { id: agencyId },
           data: {
-            clientReferences: { update: { where: { id }, data: { ...data } } },
+            keyPersonnel: { update: { where: { id }, data: { ...data } } },
           },
         });
     } else if (dmcId) {
       if (!id)
         await db.dMC.update({
           where: { id: dmcId },
-          data: { clientReferences: { create: { ...data } } },
+          data: { keyPersonnel: { create: { ...data } } },
         });
       else
         await db.dMC.update({
           where: { id: dmcId },
           data: {
-            clientReferences: { update: { where: { id }, data: { ...data } } },
+            keyPersonnel: { update: { where: { id }, data: { ...data } } },
           },
         });
     }
     revalidatePath("/dashboard/" + agencyId ?? dmcId);
-    return { success: "Past Project Added Succesfully." };
+    return { success: "Key Person Added Succesfully." };
   } catch (error) {
     return { error: "Something went wrong." };
   }

@@ -104,9 +104,9 @@ const coreServices = [
 ];
 
 const specialization = [
+  "Eco-Tourism",
   "Luxury Travel Experiences",
   "Adventure Tourism",
-  "Eco-Tourism",
   "Historical & Cultural Tours",
   "Religious Pilgrimages",
 ];

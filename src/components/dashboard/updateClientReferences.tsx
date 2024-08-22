@@ -1,24 +1,16 @@
-import { z } from "zod";
+import { createClientRefAction } from "@/core/server/actions/dashboard/createClientRef";
+import { deleteClientRefAction } from "@/core/server/actions/dashboard/deleteClientRef";
+import useMutation from "@/hooks/useMutation";
+import { ClientReference } from "@prisma/client";
+import { useState } from "react";
+import { FaPlus } from "react-icons/fa6";
+import { RxCross2 } from "react-icons/rx";
+import { toast } from "sonner";
+import { Button } from "../ui/button";
+import { Card, CardContent, CardHeader } from "../ui/card";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
-import {
-  ClientReferenceSchema,
-  PastProjectSchema,
-} from "../agency/agencySchema";
-import { useEffect, useState } from "react";
-import { Button } from "../ui/button";
-import { RxCross2 } from "react-icons/rx";
-import { cn } from "@/lib/utils";
-import { FaPlus } from "react-icons/fa6";
-import { ClientReference } from "@prisma/client";
-import { Card, CardHeader, CardContent } from "../ui/card";
 import { Textarea } from "../ui/textarea";
-import useMutation from "@/hooks/useMutation";
-import { deletePastProject } from "@/core/server/actions/dashboard/deletePastProject";
-import { toast } from "sonner";
-import { createPastProject } from "@/core/server/actions/dashboard/createPastProject";
-import { deleteClientRefAction } from "@/core/server/actions/dashboard/deleteClientRef";
-import { createClientRefAction } from "@/core/server/actions/dashboard/createClientRef";
 
 type PastPro = Pick<
   ClientReference,
@@ -51,7 +43,7 @@ const ClientRefInput = ({
     deleteClientRefAction
   );
   const { mutate, isPending } = useMutation(createClientRefAction);
-  const [isEditing, setIsEditing] = useState(false);
+  const [isEditing, setIsEditing] = useState(form.id === "");
 
   const handleSubmit = async (formData: FormData) => {
     const testimonial = formData.get("testimonial") as string;
@@ -60,11 +52,14 @@ const ClientRefInput = ({
     const contactEmail = formData.get("contactEmail") as string;
     const { success, error } = await mutate({
       data: { testimonial, clientName, contactPhone, contactEmail },
+      id: form.id === "" ? undefined : form.id,
       agencyId: info.type === "Agency" ? info.agencyId : undefined,
       dmcId: info.type === "Dmc" ? info.dmcId : undefined,
     });
-    if (success) toast.success(success);
-    else toast.error(error);
+    if (success) {
+      toast.success(success);
+      setIsEditing(false);
+    } else toast.error(error);
   };
 
   return (

@@ -8,6 +8,7 @@ export const createPastProject = async ({
   agencyId,
   dmcId,
   data,
+  id
 }: {
   agencyId?: string;
   dmcId?: string;
@@ -15,6 +16,7 @@ export const createPastProject = async ({
     PastProject,
     "clientName" | "description" | "projectName" | "year"
   >;
+  id?:string
 }) => {
   const session = await getSessionorRedirect();
 
@@ -28,14 +30,24 @@ export const createPastProject = async ({
     if(count>=5) return {error:"Can Only Add upto 5 past Projects"};
     
     if (agencyId) {
+      if(!id)
       await db.agency.update({
         where: { id: agencyId },
         data: { pastProjects: { create: { ...data } } },
       });
+      else await db.agency.update({
+        where: { id: agencyId },
+        data: { pastProjects: { update: { where:{id} , data:{...data} } } },
+      });
     } else if (dmcId) {
+      if(!id)
       await db.dMC.update({
         where: { id: dmcId },
         data: { pastProjects: { create: { ...data } } },
+      });
+      else await db.dMC.update({
+        where: { id: dmcId },
+        data: { pastProjects: { update: { where:{id} , data:{...data} } } },
       });
     }
     revalidatePath("/dashboard/" + agencyId ?? dmcId);

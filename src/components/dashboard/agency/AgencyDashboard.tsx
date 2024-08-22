@@ -18,6 +18,8 @@ import UploadCompanyImagesCard from "./UploadAgencyImagesCard";
 import UpdateSocialMediaLinks from "../updateSocialMediaLinks";
 import UpdatePastProjects from "../updatePastProjects";
 import UpdateClientReferences from "../updateClientReferences";
+import UpdateKeyPersonnel from "../updateKeyPersons";
+import UpdateAgencyPrimary from "./UpdateAgencyPrimary";
 
 const AgencyDashboard = ({
   data,
@@ -160,12 +162,17 @@ const AgencyDashboard = ({
         socialMediaLinkId={data.socialMediaLinks[0].id}
         info={{ type: "Agency", agencyId: data.id }}
       />
+      <UpdateAgencyPrimary data={data.primaryServices} />
       <UpdatePastProjects
         initProjects={data.pastProjects}
         info={{ type: "Agency", agencyId: data.id }}
       />
       <UpdateClientReferences
         initProjects={data.clientReferences}
+        info={{ type: "Agency", agencyId: data.id }}
+      />
+      <UpdateKeyPersonnel
+        initProjects={data.keyPersonnel}
         info={{ type: "Agency", agencyId: data.id }}
       />
       <Card className="border-none bg-[#F3F3F3] mt-4">

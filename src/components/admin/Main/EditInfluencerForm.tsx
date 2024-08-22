@@ -1,6 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import {
   Select,
@@ -9,32 +10,31 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import useMutation from "@/hooks/useMutation";
 
 import { toast } from "sonner";
 
-import { Company } from "./Admin_Package_listing";
-import { editListingAdmin } from "@/core/server/actions/admin/editListingAdmin";
 import { Textarea } from "@/components/ui/textarea";
+import { editInfluencerAdmin } from "@/core/server/actions/admin/editInfluencerAdmin";
+import { Company } from "./Admin_Influencer_Listing";
 
-const EditListingForm = ({ company }: { company: Company }) => {
-  const { mutate, isPending } = useMutation(editListingAdmin);
+const EditInfluencerForm = ({ company }: { company: Company }) => {
+  const { mutate, isPending } = useMutation(editInfluencerAdmin);
   const handleUpdate = async (e: any) => {
     e.preventDefault();
     const name = e.target.name.value as string;
     const priority = Number(e.target.priority.value);
-    const methodology = e.target.methodology.value;
-    const city_priority = Number(e.target.city_priority.value);
+    const state_priority = Number(e.target.state_priority.value);
     const isCertified = e.target.isCertified.value === "true";
+    const speciality = e.target.speciality.value as string;
 
     const { success, error } = await mutate({
       data: {
-        city_priority,
+        state_priority,
         isCertified,
-        methodology,
         name,
         priority,
+        speciality,
       },
       id: company.id,
       // @ts-expect-error
@@ -46,7 +46,7 @@ const EditListingForm = ({ company }: { company: Company }) => {
   return (
     <Card className="w-full">
       <CardHeader>
-        <CardTitle>Edit {company.type} Details</CardTitle>
+        <CardTitle>Edit Influencer Details</CardTitle>
       </CardHeader>
       <CardContent>
         <form
@@ -88,32 +88,31 @@ const EditListingForm = ({ company }: { company: Company }) => {
           </div>
           <div className="space-y-2">
             <label
-              htmlFor="methodology"
+              htmlFor="speciality"
               className="text-sm font-medium"
             >
-              Methodology
+              Speciality
             </label>
-            <Textarea
-              defaultValue={company.methodology || ""}
-              id="methodology"
-              name="methodology"
-              placeholder="Enter methodology"
-              rows={3}
-              minLength={10}
-              maxLength={500}
+            <Input
+              defaultValue={company.speciality || ""}
+              id="speciality"
+              name="speciality"
+              placeholder="Enter speciality"
+              minLength={3}
+              maxLength={50}
             />
           </div>
           <div className="space-y-2">
             <label
-              htmlFor="city_priority"
+              htmlFor="state_priority"
               className="text-sm font-medium"
             >
               Priority(city)
             </label>
             <Input
-              defaultValue={company.city_priority}
-              id="city_priority"
-              name="city_priority"
+              defaultValue={company.state_priority}
+              id="state_priority"
+              name="state_priority"
               type="number"
               min={0}
               max={1000}
@@ -155,4 +154,4 @@ const EditListingForm = ({ company }: { company: Company }) => {
   );
 };
 
-export default EditListingForm;
+export default EditInfluencerForm;

@@ -1,30 +1,38 @@
-import { createPastProject } from "@/core/server/actions/dashboard/createPastProject";
-import { deletePastProject } from "@/core/server/actions/dashboard/deletePastProject";
-import useMutation from "@/hooks/useMutation";
-import { PastProject } from "@prisma/client";
-import { useState } from "react";
-import { FaPlus } from "react-icons/fa6";
-import { RxCross2 } from "react-icons/rx";
-import { toast } from "sonner";
-import { Button } from "../ui/button";
-import { Card, CardContent, CardHeader } from "../ui/card";
+import { z } from "zod";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
+import {
+  ClientReferenceSchema,
+  PastProjectSchema,
+} from "../agency/agencySchema";
+import { useEffect, useState } from "react";
+import { Button } from "../ui/button";
+import { RxCross2 } from "react-icons/rx";
+import { cn } from "@/lib/utils";
+import { FaPlus } from "react-icons/fa6";
+import { KeyPersonnel, PastProject } from "@prisma/client";
+import { Card, CardHeader, CardContent } from "../ui/card";
 import { Textarea } from "../ui/textarea";
+import useMutation from "@/hooks/useMutation";
+import { deletePastProject } from "@/core/server/actions/dashboard/deletePastProject";
+import { toast } from "sonner";
+import { createPastProject } from "@/core/server/actions/dashboard/createPastProject";
+import { deleteKeyPersonAction } from "@/core/server/actions/dashboard/deleteKeyPerson";
+import { createKeyPersonAction } from "@/core/server/actions/dashboard/createKeyPerson";
 
 type PastPro = Pick<
-  PastProject,
-  "id" | "clientName" | "description" | "projectName" | "year"
+  KeyPersonnel,
+  "name" | "position" | "specialization" | "yearsOfExperience" | "id"
 >;
 type Info =
   | { type: "Agency"; agencyId: string }
   | { type: "Dmc"; dmcId: string };
 
 const InitProject = {
-  projectName: "",
-  clientName: "",
-  description: "",
-  year: 0,
+  name: "",
+  position: "",
+  specialization: "",
+  yearsOfExperience: 0,
   id: "",
 };
 
@@ -39,26 +47,27 @@ const PastProjectInput = ({
   form: PastPro;
   info: Info;
 }) => {
-  const { mutate: deleteProject, isPending: isPendingDelete } =
-    useMutation(deletePastProject);
-  const { mutate, isPending } = useMutation(createPastProject);
+  const { mutate: deleteKeyPerson, isPending: isPendingDelete } = useMutation(
+    deleteKeyPersonAction
+  );
+  const { mutate, isPending } = useMutation(createKeyPersonAction);
   const [isEditing, setIsEditing] = useState(form.id==="");
 
   const handleSubmit = async (formData: FormData) => {
-    const projectName = formData.get("projectName") as string;
-    const clientName = formData.get("clientName") as string;
-    const description = formData.get("description") as string;
-    const year = parseInt(formData.get("year") as string);
+    const name = formData.get("name") as string;
+    const position = formData.get("position") as string;
+    const specialization = formData.get("specialization") as string;
+    const yearsOfExperience = parseInt(
+      formData.get("yearsOfExperience") as string
+    );
     const { success, error } = await mutate({
-      data: { projectName, clientName, description, year },
-      id: form.id === "" ? undefined : form.id,
+      data: { name, position, specialization, yearsOfExperience },
+      id:form.id===""?undefined:form.id,
       agencyId: info.type === "Agency" ? info.agencyId : undefined,
       dmcId: info.type === "Dmc" ? info.dmcId : undefined,
     });
-    if (success) {
-      toast.success(success);
-      setIsEditing(false);
-    } else toast.error(error);
+    if (success) toast.success(success);
+    else toast.error(error);
   };
 
   return (
@@ -80,26 +89,29 @@ const PastProjectInput = ({
             remove(ind);
             return;
           }
-          const { success, error } = await deleteProject({
+          const { success, error } = await deleteKeyPerson({
             id: form.id,
             agencyId: info.type === "Agency" ? info.agencyId : undefined,
             dmcId: info.type === "Dmc" ? info.dmcId : undefined,
           });
-          if (success) toast.success(success);
+          if (success) {
+            toast.success(success);
+            setIsEditing(false);
+          }
           else toast.error(error);
         }}
       >
         <RxCross2 />
       </Button>
       <div className="">
-        <Label htmlFor="projectName">Name of Project</Label>
+        <Label htmlFor="name">Name of Person</Label>
         <Input
           autoFocus={form.id === ""}
           disabled={!isEditing}
           type="text"
-          name="projectName"
-          placeholder="Name of project"
-          defaultValue={form.projectName}
+          name="name"
+          placeholder="Name of person"
+          defaultValue={form.name}
           className="m-0 mt-1"
           required
           minLength={3}
@@ -107,14 +119,14 @@ const PastProjectInput = ({
         />
       </div>
       <div className="">
-        <Label htmlFor="clientName">Client Name</Label>
+        <Label htmlFor="position">Position</Label>
 
         <Input
-          name="clientName"
+          name="position"
           disabled={!isEditing}
           type="text"
-          placeholder="Client Name"
-          defaultValue={form.clientName}
+          placeholder="Position"
+          defaultValue={form.position}
           className="m-0 mt-1"
           required
           minLength={3}
@@ -122,13 +134,13 @@ const PastProjectInput = ({
         />
       </div>
       <div className="">
-        <Label htmlFor="description">Description of Project</Label>
+        <Label htmlFor="specialization">Specispecialization</Label>
 
         <Textarea
           disabled={!isEditing}
-          name="description"
-          placeholder="Project Description"
-          defaultValue={form.description}
+          name="specialization"
+          placeholder="Person's Specispecialization"
+          defaultValue={form.specialization}
           className="m-0 mt-1"
           required
           minLength={10}
@@ -136,17 +148,17 @@ const PastProjectInput = ({
         />
       </div>
       <div className="">
-        <Label htmlFor="year">Year</Label>
+        <Label htmlFor="yearsOfExperience">years Of Experience</Label>
 
         <Input
           disabled={!isEditing}
-          name="year"
+          name="yearsOfExperience"
           type="number"
-          placeholder="Year"
-          defaultValue={form.year === 0 ? undefined : form.year}
+          placeholder="Years Of Experience"
+          defaultValue={form.yearsOfExperience}
           className="m-0 mt-1"
-          min={1900}
-          max={new Date().getFullYear()}
+          min={0}
+          max={80}
         />
       </div>
       {isEditing ? (
@@ -182,7 +194,7 @@ const PastProjectInput = ({
   );
 };
 
-const UpdatePastProjects = ({
+const UpdateKeyPersonnel = ({
   initProjects,
   info,
 }: {
@@ -205,7 +217,7 @@ const UpdatePastProjects = ({
     <Card className="border-none bg-[#F3F3F3] mt-4">
       <CardHeader className="text-2xl font-semibold">
         <div>
-          Past<span className="text-[#FCAE1D]"> Projects</span>
+          Key<span className="text-[#FCAE1D]"> Persons</span>
           {form.length >= 5 ? null : (
             <Button
               type="button"
@@ -225,12 +237,12 @@ const UpdatePastProjects = ({
             form={f}
             info={info}
             ind={i}
-            key={`pastPro-${i}`}
+            key={`keyPerson-${i}`}
           />
         ))}
-        {form.length === 0 && <strong>No Past Projects to show.</strong>}
+        {form.length === 0 && <strong>No Key Person to show.</strong>}
       </CardContent>
     </Card>
   );
 };
-export default UpdatePastProjects;
+export default UpdateKeyPersonnel;

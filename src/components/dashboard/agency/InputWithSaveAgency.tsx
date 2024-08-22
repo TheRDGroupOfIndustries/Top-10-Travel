@@ -127,7 +127,7 @@ const InputWithSave = ({
             )}
             onDoubleClick={() => setIsChanging(true)}
           >
-            {value}
+            {value.substring(0, 200) + (value.length > 200 ? "..." : "")}
             <Edit
               onClick={() => setIsChanging(true)}
               className="h-4 w-4 text-muted-foreground transition-colors cursor-pointer hover:text-foreground"
