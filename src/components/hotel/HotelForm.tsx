@@ -168,8 +168,11 @@ const HotelForm = () => {
     }
   };
   return (
-    <section className="absolute inset-0 flex flex-col justify-between p-10 max-h-screen overflow-auto">
+    <section className="flex flex-col xl:col-span-2 justify-between p-10 max-h-screen overflow-auto">
       {/* steps */}
+      <h2 className="text-3xl font-bold mb-4">
+        Register as <span className="text-[#FCAE1D]">Hotel</span>
+      </h2>
       <nav aria-label="Progress">
         <ol
           role="list"
@@ -189,10 +192,10 @@ const HotelForm = () => {
                 </div>
               ) : currentStep === index ? (
                 <div
-                  className="flex w-full flex-col border-l-4 border-sky-600 py-2 pl-4 md:border-l-0 md:border-t-4 md:pb-0 md:pl-0 md:pt-4"
+                  className="flex w-full flex-col border-l-4 border-[#FCAE1D] py-2 pl-4 md:border-l-0 md:border-t-4 md:pb-0 md:pl-0 md:pt-4"
                   aria-current="step"
                 >
-                  <span className="text-sm font-medium text-sky-600">
+                  <span className="text-sm font-medium text-[#FCAE1D]">
                     {step.id}
                   </span>
                   <span className="text-sm font-medium">{step.name}</span>
@@ -209,10 +212,10 @@ const HotelForm = () => {
           ))}
         </ol>
         <div
-          className="flex md:hidden w-full flex-col border-l-4 border-sky-600 py-2 pl-4 md:border-l-0 md:border-t-4 md:pb-0 md:pl-0 md:pt-4"
+          className="flex md:hidden w-full flex-col border-l-4 border-[#FCAE1D] py-2 pl-4 md:border-l-0 md:border-t-4 md:pb-0 md:pl-0 md:pt-4"
           aria-current="step"
         >
-          <span className="text-sm font-medium text-sky-600">
+          <span className="text-sm font-medium text-[#FCAE1D]">
             {currentStep === steps.length ? 5 : steps[currentStep].id}
           </span>
           <span className="text-sm font-medium">
@@ -352,7 +355,7 @@ const HotelForm = () => {
           {currentStep > 0 && <Button onClick={() => prev()}>Prev</Button>}
           {currentStep < 7 && (
             <Button
-              className="ml-auto"
+              className="ml-auto bg-[#FCAE1D] hover:bg-[#dea02f]"
               onClick={async () => await next()}
             >
               Next
