@@ -28,11 +28,12 @@ const CarouselCard = ({ agency }: { agency: AgencyApiResult }) => (
       //  y: 0,
     }}
     transition={{
-      duration: 1.2,
-      delay: 0.8,
+      duration: 0.5,
+      delay: 0.4,
       ease: "easeInOut",
       staggerChildren: 0.6,
     }}
+    viewport={{ once: true }}
     className="flex md:hover:-translate-y-4 duration-300 transition-all w-full flex-col h-full"
   >
     <div className="relative h-48 sm:h-56 md:h-64 lg:h-72 rounded-lg overflow-hidden">
