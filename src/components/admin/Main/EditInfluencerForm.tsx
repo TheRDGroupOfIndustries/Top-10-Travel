@@ -143,7 +143,7 @@ const EditInfluencerForm = ({ company }: { company: Company }) => {
 
           <Button
             type="submit"
-            className="w-full"
+            className="bg-[#fcaf1e] w-full hover:bg-[#fcaf1e]/80"
             disabled={isPending}
           >
             Save Changes

@@ -23,6 +23,7 @@ type CompanyType = {
   city: string;
   description: string | null;
   address: string;
+  contactPhoneNumber: string;
   images: string[];
   specializedTravelTypes?: string[];
   primaryServices?: string[];
@@ -196,9 +197,7 @@ const Details = ({
               </div>
 
               <div className="flex gap-2 w-full flex-grow">
-                {info.type !== "Hotel" && (
-                  <PhoneCallButton phoneNumber="1234567890" />
-                )}
+                {info.type !== "Hotel" && <PhoneCallButton phoneNumber={data?.contactPhoneNumber} />}
                 <EnquireDialog
                   images={data?.images}
                   name={data?.name}
@@ -355,7 +354,7 @@ const Details = ({
 
               <div className="flex gap-2 w-full flex-grow">
                 {info.type !== "Hotel" && (
-                  <PhoneCallButton phoneNumber="1234567890" />
+                  <PhoneCallButton phoneNumber={data.contactPhoneNumber} />
                 )}
                 <EnquireDialog
                   images={data?.images}

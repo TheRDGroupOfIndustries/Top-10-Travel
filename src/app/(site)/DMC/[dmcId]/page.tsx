@@ -21,6 +21,7 @@ const DMCPage = async ({ params }: { params: { dmcId: string } }) => {
       rating: true,
       description: true,
       address: true,
+      contactPhoneNumber: true,
       socialMediaLinks: true,
       specialization: true,
       coreServices: true,

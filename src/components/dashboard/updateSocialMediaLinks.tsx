@@ -107,10 +107,10 @@ const UpdateSocialMediaLinks = ({
               className="m-0 mt-1"
             />
           </div>
-          <Button
-            className="sm:col-span-2 w-fit"
+          <Button            
             type="submit"
             disabled={isPending}
+            className="bg-[#fcaf1e] hover:bg-[#fcaf1e]/80 sm:col-span-2 w-fit"
           >
             Save
           </Button>

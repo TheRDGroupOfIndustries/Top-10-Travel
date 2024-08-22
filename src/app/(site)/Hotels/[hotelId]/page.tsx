@@ -20,6 +20,7 @@ const HotelPage = async ({ params }: { params: { hotelId: string } }) => {
       reviews: true,
       rating: true,
       description: true,
+      contactPhoneNumber: true,
       address: true,
       socialMediaLinks: true,
       services: true,

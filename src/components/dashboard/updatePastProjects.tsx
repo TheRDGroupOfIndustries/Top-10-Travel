@@ -11,6 +11,7 @@ import { Card, CardContent, CardHeader } from "../ui/card";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import { Textarea } from "../ui/textarea";
+import { useEffect } from 'react';
 
 type PastPro = Pick<
   PastProject,
@@ -152,7 +153,7 @@ const PastProjectInput = ({
       {isEditing ? (
         <div>
           <Button
-            className="mt-2 bg-[#FCAE1D] hover:bg-[#dea02f]"
+            className="mt-2 bg-[#fcaf1e] hover:bg-[#fcaf1e]/80"
             size="sm"
             type="submit"
             disabled={isPending}
@@ -170,7 +171,7 @@ const PastProjectInput = ({
         </div>
       ) : (
         <Button
-          className="mt-2 bg-[#FCAE1D] hover:bg-[#dea02f]"
+          className="mt-2 bg-[#fcaf1e] hover:bg-[#fcaf1e]/80"
           size="sm"
           onClick={() => setIsEditing(true)}
           type="button"
@@ -190,6 +191,10 @@ const UpdatePastProjects = ({
   info: Info;
 }) => {
   const [form, setForm] = useState(initProjects);
+
+  useEffect(() => {
+    setForm(initProjects);
+  }, [initProjects]);
 
   const add = () => {
     if (form.length >= 5) return;
