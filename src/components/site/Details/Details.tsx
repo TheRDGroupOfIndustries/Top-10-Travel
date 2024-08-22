@@ -7,7 +7,7 @@ import { getIconFromName } from "@/components/reusable/Icons";
 import { getValidUrl } from "@/lib/utils";
 import Link from "next/link";
 import AnimatedImage from "./AnimatedImage";
-import PackagesCarousel from "./PackagesCarousel";
+// import PackagesCarousel from "./PackagesCarousel";
 import ReviewSSR from "./ReviewSSR";
 import type { PastProject, SocialMediaLinks } from "@prisma/client";
 import { TbMapPin } from "react-icons/tb";

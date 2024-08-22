@@ -22,7 +22,7 @@ function AdminSidebar() {
       href: "/admin/influencer",
     },
     { name: "Help Desk", icon: HelpCircle, href: "/admin/helpdesk" },
-    // { name: "Report", icon: FileText, href: "/admin/report" },
+    { name: "Report", icon: FileText, href: "/admin/report" },
   ];
 
   return (
