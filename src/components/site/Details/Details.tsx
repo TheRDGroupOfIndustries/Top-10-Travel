@@ -1,25 +1,17 @@
 import EnquireDialog from "@/components/company/EnquireDialogwButton/EnquireDialog";
-import HeroHeading from "@/components/reusable/HeroHeading";
+import { getIconFromName } from "@/components/reusable/Icons";
+import PhoneCallButton from "@/components/reusable/PhoneCallButton";
 import ShareButton from "@/components/reusable/shareButton";
 import StarRating from "@/components/reusable/StarRating";
-import { Button } from "@/components/ui/button";
-import { getIconFromName } from "@/components/reusable/Icons";
-import { getValidUrl } from "@/lib/utils";
-import Link from "next/link";
-import AnimatedImage from "./AnimatedImage";
-import PackagesCarousel from "./PackagesCarousel";
-import ReviewSSR from "./ReviewSSR";
-import type { PastProject, SocialMediaLinks } from "@prisma/client";
-import { TbMapPin } from "react-icons/tb";
-import PastProjects from "./PastProjects";
-import PhoneCallButton from "@/components/reusable/PhoneCallButton";
 import { GetIconByTag } from "@/components/reusable/TagIcons";
-import { FaPeopleGroup } from "react-icons/fa6";
-import { GiSunbeams } from "react-icons/gi";
-import { PiHairDryerBold } from "react-icons/pi";
-import { MdAttachMoney, MdRoomService } from "react-icons/md";
-import { GiMountainRoad } from "react-icons/gi";
-import { MdEventAvailable, MdOutlineCardTravel } from "react-icons/md";
+import { Button } from "@/components/ui/button";
+import { getValidUrl } from "@/lib/utils";
+import type { PastProject, SocialMediaLinks } from "@prisma/client";
+import Link from "next/link";
+import { TbMapPin } from "react-icons/tb";
+import AnimatedImage from "./AnimatedImage";
+import PastProjects from "./PastProjects";
+import ReviewSSR from "./ReviewSSR";
 
 type CompanyType = {
   reviews: number;
@@ -177,16 +169,15 @@ const Details = ({
                 </p>
               </div>
 
-              <div className="w-full flex flex-wrap items-center justify-between gap-1">
+              <div className="w-full flex flex-wrap items-center my-2 justify-between gap-1">
                 {data.socialMediaLinks.map((link, index) =>
                   socialPlatforms.map((platform) => {
                     const url = link[platform as keyof SocialMediaLinks];
                     if (url) {
                       return (
-                        <Button
+                        <div
                           key={`${platform}-${index}`}
-                          className="rounded-full"
-                          variant="outline"
+                          className="hover:bg-white"
                         >
                           <Link
                             href={url}
@@ -194,9 +185,9 @@ const Details = ({
                             rel="noopener noreferrer"
                             className="w-full h-full flex items-center gap-2"
                           >
-                            {getIconFromName(url)}
+                            {getIconFromName(url, "text-3xl")}
                           </Link>
-                        </Button>
+                        </div>
                       );
                     }
                     return null;
@@ -204,54 +195,32 @@ const Details = ({
                 )}
               </div>
 
-              <div className="flex gap-1 py-4 w-full flex-grow">
-                <PhoneCallButton phoneNumber="1234567890" />
+              <div className="flex gap-2 w-full flex-grow">
+                {info.type !== "Hotel" && (
+                  <PhoneCallButton phoneNumber="1234567890" />
+                )}
                 <EnquireDialog
                   images={data?.images}
                   name={data?.name}
-                  className="flex-1 border-black border-[1px] py-3 rounded-full text-xl leading-6 font-medium"
                   info={info}
                 />
                 <ShareButton />
               </div>
             </div>
 
-            {/* {data?.companyData?.socialLinks.map((link) => (
-              <div
-                key={`banner-${link}`}
-                className="h-[250px] cursor-pointer lg:hidden rounded-2xl overflow-hidden relative"
-              >
-                <Link
-                  href={link}
-                  target="_blank"
-                  className="w-full h-full flex items-center gap-2"
-                >
-                  <Image
-                    src="https://images.unsplash.com/photo-1499696010180-025ef6e1a8f9?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80"
-                    layout="fill"
-                    className="object-cover"
-                    alt="Hotel room image"
-                  />
-                  <div className="absolute inset-0 bg-black/80 opacity-50"></div>
-                  <div className="w-[60px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 absolute h-[47px]">
-                    {getIconFromName(link, false, "w-full h-full text-white")}
-                  </div>
-                </Link>
-              </div>
-            ))} */}
-
             <div className="flex flex-col gap-4 sm:px-0 px-2">
-              <div className="flex flex-row flex-wrap gap-1">
-                {/* {TAGS.map((tag: string) => (
+              <div className="flex flex-row flex-wrap gap-2">
+                {TAGS.map((tag: string) => (
                   <div
                     key={tag}
-                    className="bg-slate-100 flex gap-1 border-[2px] border-slate-400 font-semibold uppercase px-2 py-1.5 md:text-base text-sm rounded-full"
+                    className="bg-slate-100 flex items-center gap-1 border-[2px] border-slate-400 font-semibold uppercase px-3 py-1.5 md:text-base text-sm rounded-lg"
                   >
-                    <GetIconByTag tag={tag} />
+                    <GetIconByTag tag={tag} className="text-xl" />
                     <span>{tag}</span>
                   </div>
-                ))} */}
-                {info.type === "Agency" && (
+                ))}
+
+                {/* {info.type === "Agency" && (
                   <>
                     <div className="bg-slate-100 flex items-center gap-1 border-[2px] border-slate-400 font-semibold uppercase px-2 py-1.5 md:text-base text-sm rounded-full">
                       <MdOutlineCardTravel />
@@ -271,7 +240,6 @@ const Details = ({
                     </div>
                   </>
                 )}
-
                 {info.type === "Dmc" && (
                   <>
                     <div className="bg-slate-100 flex items-center gap-1 border-[2px] border-slate-400 font-semibold uppercase px-2 py-1.5 md:text-base text-sm rounded-full">
@@ -292,7 +260,6 @@ const Details = ({
                     </div>
                   </>
                 )}
-
                 {info.type === "Hotel" && (
                   <>
                     <div className="bg-slate-100 flex items-center gap-1 border-[2px] border-slate-400 font-semibold uppercase px-2 py-1.5 md:text-base text-sm rounded-full">
@@ -312,7 +279,7 @@ const Details = ({
                       <span>Event Hosting</span>
                     </div>
                   </>
-                )}
+                )} */}
               </div>
 
               <div className="text-justify text-base leading-6 font-medium">
@@ -360,16 +327,15 @@ const Details = ({
                 </p>
               </div>
 
-              <div className="w-full flex flex-wrap items-center justify-between gap-1">
+              <div className="w-full flex flex-wrap my-2 items-center justify-between gap-1">
                 {data.socialMediaLinks.map((link, index) =>
                   socialPlatforms.map((platform) => {
                     const url = link[platform as keyof SocialMediaLinks];
                     if (url) {
                       return (
-                        <Button
+                        <div
                           key={`${platform}-${index}`}
-                          className="rounded-full"
-                          variant="outline"
+                          className="hover:bg-white"
                         >
                           <Link
                             href={url}
@@ -377,9 +343,9 @@ const Details = ({
                             rel="noopener noreferrer"
                             className="w-full h-full flex items-center gap-2"
                           >
-                            {getIconFromName(url)}
+                            {getIconFromName(url, "text-3xl")}
                           </Link>
-                        </Button>
+                        </div>
                       );
                     }
                     return null;
@@ -387,12 +353,13 @@ const Details = ({
                 )}
               </div>
 
-              <div className="flex gap-1 py-4 w-full flex-grow">
-                <PhoneCallButton phoneNumber="1234567890" />
+              <div className="flex gap-2 w-full flex-grow">
+                {info.type !== "Hotel" && (
+                  <PhoneCallButton phoneNumber="1234567890" />
+                )}
                 <EnquireDialog
                   images={data?.images}
                   name={data?.name}
-                  className="flex-1 border-black border-[1px] py-3 rounded-full text-xl leading-6 font-medium"
                   info={info}
                 />
                 <ShareButton />
