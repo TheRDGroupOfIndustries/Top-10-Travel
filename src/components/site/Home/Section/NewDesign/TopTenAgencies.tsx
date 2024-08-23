@@ -170,7 +170,7 @@ const TopTenAgencies = () => {
               data.slice(0, 10).map((agency) => (
                 <div
                   key={agency.id}
-                  className="flex flex-col items-center justify-center gap-5 w-[80%] h-full sm:w-[50vw]"
+                  className="flex flex-col items-center justify-center gap-5 w-[80%] h-full sm:w-[70vw]"
                 >
                   <CarouselCard agency={agency} />
                 </div>

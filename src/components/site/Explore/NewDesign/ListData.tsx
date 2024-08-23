@@ -82,10 +82,10 @@ function ListData({
                 <div className="w-full flex items-center justify-between">
                   <h1 className="text-2xl font-semibold">{item?.name}</h1>
                 </div>
-                <div className="absolute z-20 top-4 right-4 lg:p-2 p-1 rounded-full cursor-pointer border-slate-300 bg-white/60 border-2">
+                {/* <div className="absolute z-20 top-4 right-4 lg:p-2 p-1 rounded-full cursor-pointer border-slate-300 bg-white/60 border-2">
                   <RiHeart3Line className="text-slate-500 size-6" />
+                </div> */}
                   {/* Heart with Fill is <RiHeart3Fill /> */}
-                </div>
 
                 <div className="flex gap-3">
                   <div className="flex gap-1 items-center">
