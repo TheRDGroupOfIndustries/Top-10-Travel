@@ -6,6 +6,7 @@ import {
   FaFacebook,
   FaTwitter,
   FaLinkedin,
+  FaXTwitter
 } from "react-icons/fa6";
 
 import { useState } from "react";
@@ -31,7 +32,7 @@ const linksArr = [
   },
   {
     href: "https://x.com/traveltop_10",
-    icon: <FaLinkedin />,
+    icon: <FaXTwitter />,
   },
   {
     href: "https://www.instagram.com/traveltop10.in/",
