@@ -10,6 +10,7 @@ import { Button } from "../ui/button";
 import { RxCross2 } from "react-icons/rx";
 import { cn } from "@/lib/utils";
 import { FaPlus } from "react-icons/fa6";
+import { Textarea } from "../ui/textarea";
 
 type PastProjectType = z.infer<typeof PastProjectSchema>;
 type ClientReferenceType = z.infer<typeof ClientReferenceSchema>;
@@ -55,8 +56,8 @@ const PastProjectInput = ({ remove, ind, onChange, form, error }: any) => {
           {error.description.message}
         </p>
       )}
-      <Input
-        type="text"
+      <Textarea
+        // type="text"
         placeholder="Project Description"
         value={form.description}
         onChange={(e) => onChange(ind, "description", e.target.value)}
@@ -201,12 +202,7 @@ const Step6 = ({
       <div>
         <Label className="text-sm font-medium">
           Past Projects{" "}
-          <Button
-            type="button"
-            size="icon"
-            className="h-7 w-7"
-            onClick={add}
-          >
+          <Button type="button" size="icon" className="h-7 w-7" onClick={add}>
             <FaPlus />
           </Button>
         </Label>
@@ -226,12 +222,7 @@ const Step6 = ({
       <div>
         <Label className="text-sm font-medium">
           Client References{" "}
-          <Button
-            type="button"
-            size="icon"
-            className="h-7 w-7"
-            onClick={add2}
-          >
+          <Button type="button" size="icon" className="h-7 w-7" onClick={add2}>
             <FaPlus />
           </Button>
         </Label>
