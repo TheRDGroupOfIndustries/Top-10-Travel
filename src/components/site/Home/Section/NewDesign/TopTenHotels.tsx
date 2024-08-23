@@ -162,7 +162,7 @@ function TopTenHotels() {
           </CarouselContent>
         </Carousel>
         <div className="block md:hidden">
-          <div className="w-full flex border-black border-2 flex-col items-center justify-center gap-5">
+          <div className="w-full flex flex-col items-center justify-center gap-5">
             {isLoading ? (
               Array.from({ length: 5 }).map((_, index) => (
                 <div
