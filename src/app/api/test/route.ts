@@ -454,14 +454,6 @@ export async function GET() {
   // const dmcSpecial = ["Luxury Travel Experiences", "Adventure Tourism"];
   // const hotelSer = ["Room service", "Housekeeping"];
   // const hotelSpecial = ["Business Hotels", "Boutique Hotels"];
-  // const all = await db.user.findMany();
-  // const user1 = all[0]
-  // const user2 = all[1];
-  // const review =
-  //   "The service was exceptional and the experience was unforgettable.";
-  // const rating = 5;
-  // const review2 = "Had a pleasant stay, but there were a few minor issues.";
-  // const rating2 = 4;
 
   //
   // function getRandomCountryAndCity() {
@@ -590,6 +582,45 @@ export async function GET() {
   //     });
   //     console.log("hotel update")
   //   }
+  // const all = await db.user.findMany();
+  // const user1 = all[0];
+  // const user2 = all[1];
+  // console.log(user1.email, user2.email)
+  // const review =
+  //   "The service was exceptional and the experience was unforgettable.";
+  // const review2 = "Had a pleasant stay, but there were a few minor issues.";
+  // const [agencies, dmcs, hotels] = await Promise.all([
+  //   db.agency.findMany(),
+  //   db.dMC.findMany(),
+  //   db.hotel.findMany(),
+  // ]);
+  //   for (const agency of agencies) {
+  //     await db.agency.update({
+  //       where: { id: agency.id },
+  //       data: {
+  //         reviews:{increment:2}
+  //       },
+  //     });
+  //     console.log("agency update")
+  //   }
+  //   for (const agency of dmcs) {
 
+  //     await db.dMC.update({
+  //       where: { id: agency.id },
+  //       data: {
+  //         reviews:{increment:2}
+  //       },
+  //     });
+  //     console.log("dmc update")
+  //   }
+  //   for (const agency of hotels) {
+  //     await db.hotel.update({
+  //       where: { id: agency.id },
+  //       data: {
+  //         reviews:{increment:2}
+  //       },
+  //     });
+  //     console.log("hotel update")
+  //   }
   return NextResponse.json("hi");
 }
