@@ -10,6 +10,14 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import React from "react";
+import {
+  FaInstagram,
+  FaYoutube,
+  FaFacebook,
+  FaTwitter,
+  FaLinkedin,
+  FaXTwitter
+} from "react-icons/fa6";
 
 const contactInfo = [
   { icon: Phone, text: "+91 9358XXXXX" },
@@ -25,9 +33,31 @@ const companyLinks = [
   "Contact Us",
 ];
 
-const top10Links = ["Hotels", "Travel Agencies", "DMC", "Influencers"];
+const top10Links: {name: string, link: string}[] = [
+  {name: "Travel Agencies", link: "/Agency"},
+  {name:"Hotels", link: "/Hotels"}, 
+  {name: "DMC", link: "/DMC"}, 
+  {name: "Influencers", link: "/Influencers"}
+  ];
 
-const socialIcons = [Linkedin, Instagram, Twitter, Facebook, Youtube];
+const socialIcons = [
+  {
+    href: "https://www.facebook.com",
+    icon: FaFacebook,
+  },
+  {
+    href: "https://www.youtube.com/@TravelTop10",
+    icon: FaYoutube,
+  },
+  {
+    href: "https://x.com/traveltop_10",
+    icon: FaXTwitter,
+  },
+  {
+    href: "https://www.instagram.com/traveltop10.in/",
+    icon: FaInstagram,
+  },
+];
 
 function Footer() {
   return (
@@ -95,10 +125,10 @@ function Footer() {
               TOP 10
             </div>
             <nav className="flex flex-col gap-4">
-              {top10Links?.map((link, index) => (
+              {top10Links?.map((item, index) => (
                 <div key={index}>
-                  <Link href="#" className="cool-link-black font-medium">
-                    {link}
+                  <Link href={item.link} className="cool-link-black font-medium">
+                    {item.name}
                   </Link>
                 </div>
               ))}
@@ -110,12 +140,17 @@ function Footer() {
             <div className="mb-4 font-bold uppercase tracking-widest text-xl md:text-2xl">
               Follow us
             </div>
-            <nav className="flex items-center justify-start gap-4">
-              {socialIcons?.map((Icon, index) => (
-                <Icon
+            <nav className="flex items-center justify-start gap-5">
+              {socialIcons?.map((item, index) => (
+                <Link
+                  href={item.href}
                   key={index}
-                  className="w-5 h-5 hover:scale-150 transition-all duration-300 cursor-pointer"
-                />
+                  className="hover:scale-150 transition-all duration-300 cursor-pointer"
+                >
+                  <item.icon
+                    className="w-5 h-5"
+                  />
+                </Link>
               ))}
             </nav>
           </div>
