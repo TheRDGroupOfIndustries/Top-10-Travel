@@ -216,7 +216,7 @@ function HomeHero() {
   return (
     <div
       ref={divref}
-      className="relative w-full h-fit min-h-[50vh] md:max-h-screen min-[768]:h-[calc(100vh+60px)] max-[820]:h-fit lg:h-fit xl:h-[calc(100vh+60px)] pt-10 lg:pt-0 px-2 md:px-3 lg:px-6 xl:px-8 overflow-hidden"
+      className="relative w-full h-fit min-h-[50vh] md:max-h-screen min-[768]:h-[calc(100vh+60px)] max-[820]:h-fit lg:h-fit xl:h-[calc(100vh+60px)] pt-10 lg:pt-0 px-2 md:px-3 lg:px-6 xl:px-8 "
     >
       <div className="h-full flex flex-col md:gap-0 lg:gap-0 gap-1 justify-start pt-16 md:pt-24 lg:pt-32 xl:pt-40 w-full overflow-hidden">
         <h3

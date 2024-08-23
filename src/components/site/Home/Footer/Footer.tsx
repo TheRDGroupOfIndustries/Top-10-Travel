@@ -25,7 +25,12 @@ const companyLinks = [
   "Contact Us",
 ];
 
-const top10Links = ["Hotels", "Travel Agencies", "DMC", "Influencers"];
+const top10Links: {name: string, link: string}[] = [
+  {name: "Travel Agencies", link: "/Agency"},
+  {name:"Hotels", link: "/Hotels"}, 
+  {name: "DMC", link: "/DMC"}, 
+  {name: "Influencers", link: "/Influencers"}
+  ];
 
 const socialIcons = [Linkedin, Instagram, Twitter, Facebook, Youtube];
 
@@ -95,10 +100,10 @@ function Footer() {
               TOP 10
             </div>
             <nav className="flex flex-col gap-4">
-              {top10Links?.map((link, index) => (
+              {top10Links?.map((item, index) => (
                 <div key={index}>
-                  <Link href="#" className="cool-link-black font-medium">
-                    {link}
+                  <Link href={item.link} className="cool-link-black font-medium">
+                    {item.name}
                   </Link>
                 </div>
               ))}
