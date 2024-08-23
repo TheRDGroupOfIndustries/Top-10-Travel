@@ -98,7 +98,7 @@ function ListData({
                       size={16}
                     />
                     <div className="text-sm p-[2px] text-white rounded-lg bg-[#FFA500]">
-                      {item?.rating}
+                      {item?.rating?.toFixed(1)}
                     </div>
                   </div>
                   <span className="text-slate-600 text-[16px]">
@@ -163,7 +163,7 @@ function ListData({
                       size={16}
                     />
                     <div className="text-sm p-[2px] text-white rounded-lg bg-[#FFA500]">
-                      {item?.rating}
+                      {item?.rating?.toFixed(1)}
                     </div>
                   </div>
                   <span className="text-slate-600 text-[16px]">

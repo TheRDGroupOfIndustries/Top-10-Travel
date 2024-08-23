@@ -85,7 +85,7 @@ const AdminReport = ({ report }: { report: ReportData }) => {
                   Total reviews: {company.reviews}
                 </Badge>
                 <Badge className="text-[#FCAE1D] font-semibold bg-[#fcae1d11]">
-                  Rating: {company.rating}
+                  Rating: {company.rating.toFixed(1)}
                 </Badge>
                 <Badge className="text-[#FCAE1D] font-semibold bg-[#fcae1d11]">
                   Country Priority: {company.priority}

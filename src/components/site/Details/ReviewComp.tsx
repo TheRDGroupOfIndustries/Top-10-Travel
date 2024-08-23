@@ -124,7 +124,7 @@ function ReviewsComponent({
           <div className="flex flex-col gap-2">
             <div className="flex items-center">
               {/* Reviewer image */}
-              <div className="sm:h-[66px] h-[48px] w-[48px] rounded-full sm:w-[66px] relative">
+              <div className="h-[48px] w-[48px] rounded-full relative">
                 <Image
                   src={review.user.image ?? "/stockUser.png"}
                   alt="Review img"
