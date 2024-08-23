@@ -454,107 +454,173 @@ export async function GET() {
   // const dmcSpecial = ["Luxury Travel Experiences", "Adventure Tourism"];
   // const hotelSer = ["Room service", "Housekeeping"];
   // const hotelSpecial = ["Business Hotels", "Boutique Hotels"];
+
+  //
+  // function getRandomCountryAndCity() {
+  //   const countries = {
+  //     "United States": [
+  //       "New York",
+  //       "Los Angeles",
+  //       "Chicago",
+  //       "Houston",
+  //       "Phoenix",
+  //     ],
+  //     India: ["Mumbai", "Delhi", "Bangalore", "Hyderabad", "Chennai"],
+  //     Japan: ["Tokyo", "Osaka", "Nagoya", "Kyoto", "Hiroshima"],
+  //     France: ["Paris", "Marseille", "Lyon", "Toulouse", "Nice"],
+  //     Brazil: [
+  //       "São Paulo",
+  //       "Rio de Janeiro",
+  //       "Brasília",
+  //       "Salvador",
+  //       "Fortaleza",
+  //     ],
+  //   };
+
+  //   const countryNames = Object.keys(countries);
+  //   const randomCountry =
+  //     countryNames[Math.floor(Math.random() * countryNames.length)];
+  //   // @ts-expect-error
+  //   const cities = countries[randomCountry];
+  //   const randomCity = cities[Math.floor(Math.random() * cities.length)];
+
+  //   return { country: randomCountry, city: randomCity };
+  // }
+  function getRandomPersonName() {
+    const names = [
+      "John Doe",
+      "Jane Smith",
+      "Alice Johnson",
+      "Michael Brown",
+      "Emily Davis",
+      "David Wilson",
+      "Sophia Garcia",
+      "James Miller",
+      "Olivia Martinez",
+      "Ethan Rodriguez",
+    ];
+
+    const randomIndex = Math.floor(Math.random() * names.length);
+    return names[randomIndex];
+  }
+  // function getRandomImage() {
+  //   const imageCount = 4;
+  //   const randomIndex = Math.floor(Math.random() * imageCount) + 1;
+  //   return `/person${randomIndex}.jpg`;
+  // }
+  // const influencers = await db.influencerData.findMany();
+  // for (const inf of influencers) {
+  //   const { country, city } = getRandomCountryAndCity();
+  //   await db.influencerData.update({
+  //     where: { id: inf.id },
+  //     data: {
+  //       country,
+  //       state: city,
+  //       name: getRandomPersonName(),
+  //       image: getRandomImage(),
+  //     },
+  //   });
+  //   console.log("inf update");
+  // }
+  // const reviews = await db.reviews.findMany({ include: { user: true } });
+  // for(const review of reviews){
+  //   await db.reviews.update({where:{id:review.id}, data:{
+  //       name:getRandomPersonName()
+  //   }})
+  //   console.log("inf update")
+  // }
+  // function getRandomImageArray() {
+  //   const images = ["/image1.jpg", "/image2.jpg", "/image3.jpg", "/image4.jpg", "/image5.jpg"];
+
+  //   // Shuffle the array to get a random order
+  //   for (let i = images.length - 1; i > 0; i--) {
+  //       const j = Math.floor(Math.random() * (i + 1));
+  //       [images[i], images[j]] = [images[j], images[i]];
+  //   }
+
+  //   return images;
+  // }
+  // const [agencies, dmcs, hotels] = await Promise.all([
+  //     db.agency.findMany(),
+  //     db.dMC.findMany(),
+  //     db.hotel.findMany(),
+  //   ]);
+  //   for (const agency of agencies) {
+  //     const {country, city} = getRandomCountryAndCity()
+  //     await db.agency.update({
+  //       where: { id: agency.id },
+  //       data: {
+  //           images: getRandomImageArray(),
+  //           country,
+  //           city
+  //       },
+  //     });
+  //     console.log("agency update")
+  //   }
+  //   for (const agency of dmcs) {
+  //     const {country, city} = getRandomCountryAndCity()
+
+  //     await db.dMC.update({
+  //       where: { id: agency.id },
+  //       data: {
+  //         images: getRandomImageArray(),
+  //         country,
+  //         city
+  //       },
+  //     });
+  //     console.log("dmc update")
+  //   }
+  //   for (const agency of hotels) {
+  //     const {country, city} = getRandomCountryAndCity()
+  //     await db.hotel.update({
+  //       where: { id: agency.id },
+  //       data: {
+  //         images: getRandomImageArray(),
+  //         country,
+  //         city
+  //       },
+  //     });
+  //     console.log("hotel update")
+  //   }
   // const all = await db.user.findMany();
-  // const user1 = all[0]
+  // const user1 = all[0];
   // const user2 = all[1];
+  // console.log(user1.email, user2.email)
   // const review =
   //   "The service was exceptional and the experience was unforgettable.";
-  // const rating = 5;
   // const review2 = "Had a pleasant stay, but there were a few minor issues.";
-  // const rating2 = 4;
-
   // const [agencies, dmcs, hotels] = await Promise.all([
   //   db.agency.findMany(),
   //   db.dMC.findMany(),
   //   db.hotel.findMany(),
   // ]);
-  // for (const agency of agencies) {
-  //   await db.agency.update({
-  //     where: { id: agency.id },
-  //     data: {
-  //       Reviews: {
-  //         create: [
-  //           {
-  //             name: user1?.username,
-  //             rating: rating,
-  //             review,
-  //             user: { connect: { id: user1.id } },
-  //           },
-  //           {
-  //             name: user2?.username,
-  //             rating: rating2,
-  //             review:review2,
-  //             user: { connect: { id: user2.id } },
-  //           },
-  //         ],
+  //   for (const agency of agencies) {
+  //     await db.agency.update({
+  //       where: { id: agency.id },
+  //       data: {
+  //         reviews:{increment:2}
   //       },
-  //     },
-  //   });
-  //   console.log("agency create")
-  // }
-  // for (const agency of dmcs) {
-  //   await db.dMC.update({
-  //     where: { id: agency.id },
-  //     data: {
-  //       Reviews: {
-  //         create: [
-  //           {
-  //             name: user1?.username,
-  //             rating: rating,
-  //             review,
-  //             user: { connect: { id: user1.id } },
-  //           },
-  //           {
-  //             name: user2?.username,
-  //             rating: rating2,
-  //             review:review2,
-  //             user: { connect: { id: user2.id } },
-  //           },
-  //         ],
-  //       },
-  //     },
-  //   });
-  //   console.log("dmc create")
-  // }
-  // for (const agency of hotels) {
-  //   await db.hotel.update({
-  //     where: { id: agency.id },
-  //     data: {
-  //       Reviews: {
-  //         create: [
-  //           {
-  //             name: user1?.username,
-  //             rating: rating,
-  //             review,
-  //             user: { connect: { id: user1.id } },
-  //           },
-  //           {
-  //             name: user2?.username,
-  //             rating: rating2,
-  //             review:review2,
-  //             user: { connect: { id: user2.id } },
-  //           },
-  //         ],
-  //       },
-  //     },
-  //   });
-  //   console.log("hotel create")
-  // }
-  // console.log(
-  //   await db.agency.updateMany({
-  //     data: { reviews: { increment: 2 }, rating: 4.5 },
-  //   })
-  // );
-  // console.log(
-  //   await db.dMC.updateMany({
-  //     data: { reviews: { increment: 2 }, rating: 4.5 },
-  //   })
-  // );
-  // console.log(
-  //   await db.hotel.updateMany({
-  //     data: { reviews: { increment: 2 }, rating: 4.5 },
-  //   })
-  // );
+  //     });
+  //     console.log("agency update")
+  //   }
+  //   for (const agency of dmcs) {
 
+  //     await db.dMC.update({
+  //       where: { id: agency.id },
+  //       data: {
+  //         reviews:{increment:2}
+  //       },
+  //     });
+  //     console.log("dmc update")
+  //   }
+  //   for (const agency of hotels) {
+  //     await db.hotel.update({
+  //       where: { id: agency.id },
+  //       data: {
+  //         reviews:{increment:2}
+  //       },
+  //     });
+  //     console.log("hotel update")
+  //   }
   return NextResponse.json("hi");
 }
