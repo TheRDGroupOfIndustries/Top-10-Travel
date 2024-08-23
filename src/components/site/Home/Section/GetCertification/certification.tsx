@@ -69,7 +69,7 @@ function CountUp({ target }: { target: number }) {
 }
 
 function Certification() {
-  const { status } = useSession();
+  const session = useSession();
 
   return (
     <div className="w-full h-auto mt-10 py-5 bg-colorAll">
@@ -93,15 +93,26 @@ function Certification() {
         <h2 className="font-bold md:text-4xl text-2xl lg:text-[45px] font-serif text-center  my-3 lg:my-10">
           WANT TO GET CERTIFIED?
         </h2>
-        <Link href="/auth/get-started">
-          <motion.div
-            className="bg-black px-5 lg:px-10 lg:py-5 py-2  lg:mt-2 mb-2 mx-auto hover:bg-gray-800 w-fit transition-colors lg:text-[20px] text-[14px] text-white font-bold rounded-[40px]"
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.9 }}
-          >
-            <button>REGISTER</button>
-          </motion.div>
-        </Link>
+        {session.status !== "authenticated"? (
+           <motion.div
+              onClick={() => signIn("google")}
+              className="bg-black px-5 lg:px-10 cursor-pointer lg:py-5 py-2  lg:mt-2 mb-2 mx-auto hover:bg-gray-800 w-fit transition-colors lg:text-[20px] text-[14px] text-white font-bold rounded-[40px]"
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+            >
+              REGISTER
+            </motion.div>
+        ): (
+          <Link href="/auth/get-started">
+            <motion.div
+              className="bg-black px-5 lg:px-10 cursor-pointer lg:py-5 py-2  lg:mt-2 mb-2 mx-auto hover:bg-gray-800 w-fit transition-colors lg:text-[20px] text-[14px] text-white font-bold rounded-[40px]"
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+            >
+              REGISTER
+            </motion.div>
+          </Link>
+        )}
       </div>
     </div>
   );
