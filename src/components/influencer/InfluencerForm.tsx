@@ -18,6 +18,8 @@ import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
+import { Textarea } from "../ui/textarea";
+import { useRouter } from "next/navigation";
 
 const InfluencerForm = () => {
   const [formData, setFormData] = useState({
@@ -34,7 +36,7 @@ const InfluencerForm = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
   const [file, setFile] = useState<File | null>(null);
-
+  const router = useRouter();
   const handleFile = (e: ChangeEvent<HTMLInputElement>) => {
     const { files } = e.target;
     if (!files) return;
@@ -65,24 +67,34 @@ const InfluencerForm = () => {
     if (success) {
       await update({ role: "Influencer" });
       toast.success(success);
+      setFormData({
+        name: "",
+        description: "",
+        introduction: "",
+        speciality: "",
+        socialLinks: "",
+        country: "",
+        state: "",
+      });
+      router.push("/");
     } else if (error) toast.error(error);
   };
 
   return (
     <div className="min-h-screen flex flex-row relative bg-white text-black">
-      <Image
+      {/* <Image
         src={img}
         alt="Form Background"
         layout="fill"
         objectFit="cover"
-        className="object-cover blur-sm absolute inset-0 md:hidden"
-      />
-      <div className="w-[50%] min-h-full relative hidden md:block">
-        <div className="absolute top-1/4 left-1/2 transform -translate-x-1/2 font-serif text-3xl font-bold text-center text-white z-20 border-white w-[110%] spa">
-          <p className="xl:text-[42px] lg:text-[38px] md:text-[28px] text-center text-wrap uppercase">
-            LOGIN AS Influencer
+        className="object-cover blur-sm absolute inset-0 md:hidden brightness-75"
+      /> */}
+      <div className="w-[40%] min-h-full relative hidden md:block">
+        <div className="absolute p-4 max-w-full top-1/4 left-1/2 transform -translate-x-1/2 font-cinzel text-3xl font-bold text-center text-white z-20 border-white w-[110%] spa">
+          <p className="xl:text-[42px] lg:text-[38px] md:text-[32px] text-center text-wrap uppercase">
+            LOGIN AS <span className="text-[#FCAE1D]">Influencer</span>
           </p>
-          <p className="text-[25px] font-[200] max-w-xs mx-auto mt-8">
+          <p className="text-xl xl:text-[25px] font-[200] max-w-xs mx-auto mt-8">
             Sharing your travel adventures and inspire others.
           </p>
         </div>
@@ -92,10 +104,13 @@ const InfluencerForm = () => {
           alt="Form Background"
           layout="fill"
           objectFit="cover"
-          className="object-cover"
+          className="object-cover brightness-75"
         />
       </div>
-      <div className="w-full md:w-[50%] my-10 z-10 flex flex-col items-center justify-center">
+      <div className="w-full p-10 md:w-[60%] z-10 flex flex-col items-center justify-center">
+        <p className="text-[32px] font-cinzel md:hidden font-extrabold text-center text-wrap uppercase">
+          LOGIN AS <span className="text-[#FCAE1D]">Influencer</span>
+        </p>
         <form
           onSubmit={handleSubmit}
           className="w-full max-w-md m-2 rounded-lg bg-gray-200 p-8 space-y-4"
@@ -103,7 +118,7 @@ const InfluencerForm = () => {
           <div className="w-full">
             <label
               htmlFor="name"
-              className="p-2"
+              className="p-2 font-semibold"
             >
               Name
             </label>
@@ -121,7 +136,7 @@ const InfluencerForm = () => {
           <div className="flex flex-col space-y-2">
             <label
               htmlFor="image"
-              className="p-2"
+              className="font-semibold"
             >
               Your Public Image
             </label>
@@ -137,7 +152,7 @@ const InfluencerForm = () => {
           <div className="w-full">
             <label
               htmlFor="description"
-              className="p-2"
+              className="p-2 font-semibold"
             >
               Description
             </label>
@@ -153,7 +168,7 @@ const InfluencerForm = () => {
             />
             <label
               htmlFor="introduction"
-              className="p-2"
+              className="p-2 font-semibold"
             >
               Introduction
             </label>
@@ -171,7 +186,7 @@ const InfluencerForm = () => {
           <div className="w-full">
             <label
               htmlFor="speciality"
-              className="p-2"
+              className="p-2 font-semibold"
             >
               Speciality
             </label>
@@ -188,22 +203,27 @@ const InfluencerForm = () => {
           <div className="w-full">
             <label
               htmlFor="socialLinks"
-              className="p-2"
+              className="p-2 font-semibold"
             >
               SocialLinks (comma separated)
             </label>
-            <Input
+            <Textarea
               id="socialLinks"
               name="socialLinks"
               value={formData.socialLinks}
+              // @ts-expect-error
               onChange={handleInputChange}
-              type="text"
-              placeholder="Instagram, Facebook, Youtube etc..."
+              placeholder="Instagram, Facebook, Youtube links etc..."
               required
             />
           </div>
           <div>
-            <label htmlFor="country">Country</label>
+            <label
+              htmlFor="country"
+              className="font-semibold"
+            >
+              Country
+            </label>
             <Select
               name="country"
               required
@@ -230,7 +250,7 @@ const InfluencerForm = () => {
           <div className="w-full">
             <label
               htmlFor="city"
-              className="p-2"
+              className="p-2 font-semibold"
             >
               City
             </label>

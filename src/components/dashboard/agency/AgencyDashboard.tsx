@@ -72,7 +72,7 @@ const AgencyDashboard = ({
                   City Priority : {data.priority}
                 </Badge>
                 <Badge className="font-medium text-[14px] text-[#FCAE1D] rounded-sm bg-[#fcae1d11]">
-                  Ratings : {data.rating}
+                  Ratings : {data.rating.toFixed(1)}
                 </Badge>
                 <Badge className="font-medium text-[14px] text-[#FCAE1D] rounded-sm bg-[#fcae1d11]">
                   Total Reviews : {data.reviews}
