@@ -21,7 +21,16 @@ function ReviewsComponent({
     | { type: "Dmc"; dmcId: string }
     | { type: "Hotel"; hotelId: string };
 
-  reviews: Pick<Reviews, "name" | "rating" | "review" | "id">[];
+  reviews: {
+    id: string;
+    name: string;
+    rating: number;
+    review: string;
+    createdAt: Date | null;
+    user: {
+      image: string | null;
+    };
+  }[];
 }) {
   // Sample reviews data
 
@@ -65,9 +74,9 @@ function ReviewsComponent({
               {/* Reviewer image */}
               <div className="sm:h-[66px] h-[48px] w-[48px] rounded-full sm:w-[66px] relative">
                 <Image
-                  src="/DetailsReviewImg.png"
+                  src={review.user.image ?? "/stockUser.png"}
                   alt="Review img"
-                  className="object-cover"
+                  className="object-cover rounded-full"
                   layout="fill"
                 />
               </div>

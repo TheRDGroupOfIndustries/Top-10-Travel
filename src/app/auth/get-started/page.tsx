@@ -1,10 +1,10 @@
 import Link from "next/link";
 // modified the tailwind css of this
 import { FaPersonHiking } from "react-icons/fa6";
+import { FaRegMap } from "react-icons/fa6";
+import { MdOutlineHotel, MdOutlineTravelExplore } from "react-icons/md";
 
 const GetStarted = async () => {
- 
-
   return (
     <div className="relative h-screen font-sans">
       <div className="absolute top-0 left-0 w-full h-1/2 bg-white"></div>
@@ -13,27 +13,33 @@ const GetStarted = async () => {
         <div className="bg-white p-8 rounded-2xl shadow-lg border-[1px] text-center ">
           <h2 className="text-2xl font-bold mb-6">Continue using</h2>
           <Link href="agency">
-            <button className="w-full md:lg:w-[30vw] bg-[#FFEBB8]  rounded-xl p-3 flex items-center justify-left mb-2">
-              <span className="mr-2">🏢</span>
+            <button className="w-full md:lg:w-[30vw] bg-[#FFEBB8] hover:bg-[#ffc65d] transition-colors rounded-xl p-3 flex items-center justify-left mb-2">
+              <span className="mr-2">
+                <MdOutlineTravelExplore className="text-2xl" />
+              </span>
               Continue as Agency
             </button>
           </Link>
           <Link href="dmc">
-            <button className="w-full md:lg:w-[30vw] bg-[#FFEBB8]  rounded-xl p-3 flex items-center justify-left mb-2">
-              <span className="mr-2">🏢</span>
+            <button className="w-full md:lg:w-[30vw] bg-[#FFEBB8] hover:bg-[#ffc65d] transition-colors rounded-xl p-3 flex items-center justify-left mb-2">
+              <span className="mr-2">
+                <FaRegMap className="text-2xl" />
+              </span>
               Continue as DMC
             </button>
           </Link>
           <Link href="hotel">
-            <button className="w-full md:lg:w-[30vw] bg-[#FFEBB8]  rounded-xl p-3 flex items-center justify-left mb-2">
-              <span className="mr-2">🏢</span>
+            <button className="w-full md:lg:w-[30vw] bg-[#FFEBB8] hover:bg-[#ffc65d] transition-colors rounded-xl p-3 flex items-center justify-left mb-2">
+              <span className="mr-2">
+                <MdOutlineHotel className="text-2xl" />
+              </span>
               Continue as Hotel
             </button>
           </Link>
           <Link href="influencer">
-            <button className="w-full md:lg:w-[30vw] bg-[#FFEBB8]  rounded-xl p-3 flex items-center justify-left mb-2">
+            <button className="w-full md:lg:w-[30vw] bg-[#FFEBB8] hover:bg-[#ffc65d] transition-colors rounded-xl p-3 flex items-center justify-left mb-2">
               <span className="mr-2">
-                <FaPersonHiking />
+                <FaPersonHiking className="text-2xl" />
               </span>
               Continue as Influencer
             </button>

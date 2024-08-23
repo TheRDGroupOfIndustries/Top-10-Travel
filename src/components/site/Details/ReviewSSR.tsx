@@ -13,7 +13,9 @@ const ReviewSSR = async ({ name, info }: { name: string; info: Info }) => {
     rating: number;
     review: string;
     createdAt: Date | null;
+    user: { image: string | null };
   }[] = [];
+
   if (info.type === "Agency") {
     reviews = await db.reviews.findMany({
       where: { agencyId: info.agencyId },
@@ -23,6 +25,7 @@ const ReviewSSR = async ({ name, info }: { name: string; info: Info }) => {
         rating: true,
         review: true,
         createdAt: true,
+        user: { select: { image: true } },
       },
       orderBy: {
         createdAt: "desc",
@@ -37,6 +40,7 @@ const ReviewSSR = async ({ name, info }: { name: string; info: Info }) => {
         rating: true,
         review: true,
         createdAt: true,
+        user: { select: { image: true } },
       },
       orderBy: {
         createdAt: "desc",
@@ -51,6 +55,7 @@ const ReviewSSR = async ({ name, info }: { name: string; info: Info }) => {
         rating: true,
         review: true,
         createdAt: true,
+        user: { select: { image: true } },
       },
       orderBy: {
         createdAt: "desc",

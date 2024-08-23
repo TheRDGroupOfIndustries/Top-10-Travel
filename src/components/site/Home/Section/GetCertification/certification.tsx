@@ -93,19 +93,15 @@ function Certification() {
         <h2 className="font-bold md:text-4xl text-2xl lg:text-[45px] font-serif text-center  my-3 lg:my-10">
           WANT TO GET CERTIFIED?
         </h2>
-        <motion.div
-          className="bg-black px-5 lg:px-10 lg:py-5 py-2  lg:mt-2 mb-2 mx-auto hover:bg-gray-800 w-fit transition-colors lg:text-[20px] text-[14px] text-white font-bold rounded-[40px]"
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.9 }}
-        >
-          <button
-            onClick={() => {
-              if (status !== "authenticated") signIn("google");
-            }}
+        <Link href="/auth/get-started">
+          <motion.div
+            className="bg-black px-5 lg:px-10 lg:py-5 py-2  lg:mt-2 mb-2 mx-auto hover:bg-gray-800 w-fit transition-colors lg:text-[20px] text-[14px] text-white font-bold rounded-[40px]"
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
           >
-            REGISTER
-          </button>
-        </motion.div>
+            <button>REGISTER</button>
+          </motion.div>
+        </Link>
       </div>
     </div>
   );
