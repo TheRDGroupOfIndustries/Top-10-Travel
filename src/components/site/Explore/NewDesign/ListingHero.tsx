@@ -7,6 +7,7 @@ import Image, { StaticImageData } from "next/image";
 import AgencyImg from "@/resources/images/Agency-Hero.png";
 import DMCImg from "@/resources/images/DMC-Hero.jpg";
 import HotelsImg from "@/resources/images/Hotels-Hero.jpg";
+import InfluencersImg from "@/resources/images/Influencers-Hero.jpg";
 import AnimatedImage from "../../Details/AnimatedImage";
 import { motion } from "framer-motion";
 import { usePathname } from "next/navigation";
@@ -59,7 +60,15 @@ function ListingHero({
 
   console.log(pathname);
   const image =
-    pathname === "/Hotels" ? HotelsImg : pathname === "/Agency" ? AgencyImg : pathname === "/DMC" ? DMCImg : "";
+    pathname === "/Hotels"
+      ? HotelsImg
+      : pathname === "/Agency"
+      ? AgencyImg
+      : pathname === "/DMC"
+      ? DMCImg
+      : pathname === "/Influencers"
+      ? InfluencersImg
+      : AgencyImg;
 
   return (
     <div className="w-full pt-20">
