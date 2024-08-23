@@ -39,8 +39,8 @@ export const HomeContextProvider = ({ children }: { children: ReactNode }) => {
     const countries = Object.keys(data);
     Object.keys(data);
     setAllCountries(countries);
-    setSelectedCountry(countries[0]);
-    setAllCities(data[countries[0]]);
+    setSelectedCountry("India");
+    setAllCities(data["India"]);
   };
 
   const toggleVisible = (tag: "DMC" | "AGENCY" | "HOTEL" | "Influencer") => {
