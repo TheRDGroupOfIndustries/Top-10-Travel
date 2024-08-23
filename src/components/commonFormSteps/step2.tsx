@@ -60,7 +60,7 @@ const Step2 = ({
           htmlFor={"businessLicenseUpload"}
           className="text-sm font-medium"
         >
-          Business License Upload
+          Business License Upload (PDF Only)
           {errors.businessLicenseUpload && (
             <p className="text-red-500 text-xs">
               {errors.businessLicenseUpload.message}
@@ -85,7 +85,7 @@ const Step2 = ({
           htmlFor={"insuranceCertificateUpload"}
           className="text-sm font-medium"
         >
-          Insurance Certificate Upload
+          Insurance Certificate Upload (PDF Only)
           {errors.insuranceCertificateUpload && (
             <p className="text-red-500 text-xs">
               {errors.insuranceCertificateUpload.message}
