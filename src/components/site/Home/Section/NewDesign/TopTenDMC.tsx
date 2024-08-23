@@ -32,7 +32,7 @@ const CarouselCard = ({ dmc }: { dmc: DMCHotelApiResult }) => (
       staggerChildren: 0.6,
     }}
     viewport={{ once: true }}
-    className="flex flex-col md:hover:-translate-y-4 duration-300 transition-all h-full"
+    className="flex flex-col md:hover:-translate-y-4 w-full duration-300 transition-all h-full"
   >
     <div className="relative h-48 sm:h-56 md:h-64 lg:h-72 rounded-lg overflow-hidden">
       <div className="absolute top-0 left-0 bg-colorAll w-[80%] h-[70%] rounded-lg"></div>
@@ -166,7 +166,7 @@ const TopTenDMC = () => {
               data.slice(0, 10).map((dmc) => (
                 <div
                   key={dmc.id}
-                  className="flex flex-col items-center justify-center gap-5"
+                  className="flex flex-col items-center justify-center gap-5 w-[80%] h-full sm:w-[70vw]"
                 >
                   <CarouselCard dmc={dmc} />
                 </div>

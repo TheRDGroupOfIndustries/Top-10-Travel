@@ -33,7 +33,7 @@ const CarouselCard = ({ hotel }: { hotel: DMCHotelApiResult }) => (
       staggerChildren: 0.6,
     }}
     viewport={{ once: true }}
-    className="h-72 rounded-xl overflow-hidden md:hover:-translate-y-4 hover:shadow-lg duration-300 transition-all relative"
+    className="h-72 rounded-xl min-w-80 overflow-hidden md:hover:-translate-y-4 hover:shadow-lg duration-300 transition-all relative"
   >
     <div className="w-full h-full absolute inset-0 bg-black/30">
       <div className="absolute bottom-0 w-full flex items-center justify-between p-3">
@@ -162,7 +162,7 @@ function TopTenHotels() {
           </CarouselContent>
         </Carousel>
         <div className="block md:hidden">
-          <div className="w-full flex flex-col items-center justify-center gap-5">
+          <div className="w-full flex border-black border-2 flex-col items-center justify-center gap-5">
             {isLoading ? (
               Array.from({ length: 5 }).map((_, index) => (
                 <div
@@ -176,7 +176,7 @@ function TopTenHotels() {
               data.slice(0, 10).map((hotel) => (
                 <div
                   key={hotel.id}
-                  className="flex flex-col items-center justify-center gap-5"
+                  className="h-full w-full"
                 >
                   <CarouselCard hotel={hotel} />
                 </div>
