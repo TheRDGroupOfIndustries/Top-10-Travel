@@ -4,7 +4,7 @@ import { ChevronDown } from "lucide-react";
 import React, { useState, useEffect, useMemo } from "react";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import Image, { StaticImageData } from "next/image";
-import AgencyImg from "@/resources/images/Agency-Hero.png";
+import AgencyImg from "@/resources/images/Agency-Hero.jpg";
 import DMCImg from "@/resources/images/DMC-Hero.jpg";
 import HotelsImg from "@/resources/images/Hotels-Hero.jpg";
 import InfluencersImg from "@/resources/images/Influencers-Hero.jpg";
