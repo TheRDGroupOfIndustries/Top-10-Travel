@@ -8,7 +8,6 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { HomeContext } from "@/hooks/context/HomeContext";
-import HeroEllipse from "@/resources/images/Hero_Ellipse.png";
 import Hot_Air_Balloon from "@/resources/images/Hot_Air_Balloon_Hero.png";
 import axios from "axios";
 import { AnimatePresence, motion, useAnimate } from "framer-motion";
@@ -147,7 +146,7 @@ function HomeHero() {
     },
     {
       key: "DMC",
-      text: "DMC's",
+      text: "DMCs",
     },
     {
       key: "Influencer",
@@ -259,7 +258,7 @@ function HomeHero() {
           >
             The only place where you can find Top 10{" "}
             <span className="text-colorAll mr-1">
-              Hotels, Agencies,
+              Agencies, Hotels,
               <br /> DMC&apos;s
             </span>
             &nbsp;all around the world.

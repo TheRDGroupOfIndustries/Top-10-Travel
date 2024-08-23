@@ -212,9 +212,9 @@ const Details = ({
                 {TAGS.map((tag: string) => (
                   <div
                     key={tag}
-                    className="bg-slate-100 flex items-center gap-1 border-[2px] border-slate-400 font-semibold uppercase px-3 py-1.5 md:text-base text-sm rounded-lg"
+                    className="flex items-center md:gap-2 gap-1.5 border-[1px] border-slate-200 md:py-3 font-light md:px-5 px-4 py-2.5 md:text-base text-sm rounded-lg"
                   >
-                    <GetIconByTag tag={tag} className="text-xl" />
+                    <GetIconByTag tag={tag} className="md:text-3xl text-2xl" />
                     <span>{tag}</span>
                   </div>
                 ))}

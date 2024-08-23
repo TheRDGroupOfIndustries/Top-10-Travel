@@ -11,7 +11,7 @@ function HomePage() {
     <HomeContextProvider>
       <HomeHero />
       {/* mt-20 sm:mt-16 md:mt-36 xl:mt-16  */}
-      <div className="space-y-6 overflow-x-hidden">
+      <div className="space-y-6 md:mt-20 overflow-x-hidden">
         <TopTenAgencies />
         <TopTenHotels />
         <TopTenDMC />

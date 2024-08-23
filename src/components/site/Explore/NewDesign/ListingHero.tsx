@@ -1,10 +1,15 @@
+"use client";
+
 import { ChevronDown } from "lucide-react";
 import React, { useState, useEffect, useMemo } from "react";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import Image, { StaticImageData } from "next/image";
-import hero from "@/resources/images/Agency-Hero.png";
+import AgencyImg from "@/resources/images/Agency-Hero.png";
+import DMCImg from "@/resources/images/DMC-Hero.jpg";
+import HotelsImg from "@/resources/images/Hotels-Hero.jpg";
 import AnimatedImage from "../../Details/AnimatedImage";
 import { motion } from "framer-motion";
+import { usePathname } from "next/navigation";
 
 function ListingHero({
   title,
@@ -28,6 +33,7 @@ function ListingHero({
     () => Array.from(new Set(countriesData.map((d) => d.country))),
     [countriesData]
   );
+  const pathname = usePathname();
   useEffect(() => {
     if (selectedCountry) {
       const country = countries.find((c) => c === selectedCountry);
@@ -51,11 +57,15 @@ function ListingHero({
     setStates([]);
   };
 
+  console.log(pathname);
+  const image =
+    pathname === "/Hotels" ? HotelsImg : pathname === "/Agency" ? AgencyImg : pathname === "/DMC" ? DMCImg : "";
+
   return (
     <div className="w-full pt-20">
-      <div className="relative h-72 w-full mb-5">
+      <div className="relative h-80 w-full mb-5">
         <AnimatedImage
-          src={hero}
+          src={image}
           alt="hero"
           fill
           // className="w-full h-full object-center"
