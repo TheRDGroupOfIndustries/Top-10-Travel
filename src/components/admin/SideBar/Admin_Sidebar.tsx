@@ -3,10 +3,9 @@
 import { signOut } from "next-auth/react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { FileText, HelpCircle, Home, List, LogOut, Users } from "react-feather";
+import { FileText, HelpCircle, Home, LogOut, Users } from "react-feather";
 import { FaRegMap } from "react-icons/fa6";
-import { MdOutlineHotel, MdOutlineTravelExplore } from "react-icons/md";
-import { MdOutlineBookOnline } from "react-icons/md";
+import { MdOutlineBookOnline, MdOutlineHotel, MdOutlineTravelExplore } from "react-icons/md";
 
 function AdminSidebar() {
   const pathname = usePathname();
