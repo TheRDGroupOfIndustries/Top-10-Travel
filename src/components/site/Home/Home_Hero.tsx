@@ -248,7 +248,7 @@ function HomeHero() {
         </h1>
         <p
           id="thirdLine"
-          className="font-semibold leading-[20px] text-balance overflow-hidden sm:leading-6 md:leading-[30px] lg:leading-[39px] text-[16px] xs:text-[12px] sm:text-lg md:text-xl lg:text-2xl xl:text-3xl w-52 sm:w-64 md:w-80 lg:w-full"
+          className="md:font-semibold font-[550] leading-[20px] text-balance overflow-hidden sm:leading-6 md:leading-[30px] lg:leading-[39px] text-[15px] xs:text-[12px] sm:text-lg md:text-xl lg:text-2xl xl:text-3xl w-52 sm:w-64 md:w-80 lg:w-full"
         >
           <motion.span
             className="inline-block"
@@ -329,7 +329,10 @@ function HomeHero() {
                 </SelectTrigger>
                 <SelectContent>
                   {allCountries?.map((country) => (
-                    <SelectItem key={country} value={country}>
+                    <SelectItem
+                      key={country}
+                      value={country}
+                    >
                       {country}
                     </SelectItem>
                   ))}
@@ -346,7 +349,10 @@ function HomeHero() {
                 </SelectTrigger>
                 <SelectContent>
                   {allCities?.map((city) => (
-                    <SelectItem key={city} value={city}>
+                    <SelectItem
+                      key={city}
+                      value={city}
+                    >
                       {city}
                     </SelectItem>
                   ))}
@@ -380,7 +386,10 @@ function HomeHero() {
             clipPath: "ellipse(100% 53% at 100% 47%)",
           }}
         >
-          <source src="/sky_video.mp4" type="video/mp4" />
+          <source
+            src="/sky_video.mp4"
+            type="video/mp4"
+          />
           Your browser does not support the video tag.
         </video>
         <AnimatePresence>
