@@ -337,7 +337,10 @@ function HomeHero() {
                 </SelectTrigger>
                 <SelectContent>
                   {allCountries?.map((country) => (
-                    <SelectItem key={country} value={country}>
+                    <SelectItem
+                      key={country}
+                      value={country}
+                    >
                       {country}
                     </SelectItem>
                   ))}
@@ -354,7 +357,10 @@ function HomeHero() {
                 </SelectTrigger>
                 <SelectContent>
                   {allCities?.map((city) => (
-                    <SelectItem key={city} value={city}>
+                    <SelectItem
+                      key={city}
+                      value={city}
+                    >
                       {city}
                     </SelectItem>
                   ))}
@@ -388,7 +394,10 @@ function HomeHero() {
             clipPath: "ellipse(100% 53% at 100% 47%)",
           }}
         >
-          <source src="/sky_video.mp4" type="video/mp4" />
+          <source
+            src="/sky_video.mp4"
+            type="video/mp4"
+          />
           Your browser does not support the video tag.
         </video>
         <AnimatePresence>
