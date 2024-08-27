@@ -406,7 +406,7 @@ function HomeHero() {
           </motion.div>
           <motion.div
             id="bigBalloon"
-            className="absolute top-[48%] sm:top-[53%] lg:top-[45%] xl:-left-5 md:-left-10 w-[70%] xl:h-[32%] lg:h-[27%] md:h-[22%] sm:h-[17%] h-[12%]"
+            className="absolute top-[40%] sm:top-[53%] lg:top-[45%] xl:-left-5 md:-left-10 w-[70%] xl:h-[32%] lg:h-[27%] md:h-[22%] sm:h-[17%] h-[12%]"
             style={{ opacity: 0 }}
           >
             <Image
