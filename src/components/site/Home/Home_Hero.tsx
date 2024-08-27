@@ -8,6 +8,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { HomeContext } from "@/hooks/context/HomeContext";
+import { cn } from "@/lib/utils";
 import Hot_Air_Balloon from "@/resources/images/Hot_Air_Balloon_Hero.png";
 import axios from "axios";
 import { AnimatePresence, motion, useAnimate } from "framer-motion";
@@ -28,7 +29,7 @@ const MobileDropdown = ({ items, visible, toggle }: any) => {
     <div className="relative w-full">
       <div
         onClick={() => setIsOpen(!isOpen)}
-        className="relative sm:ml-8 ml-4 w-24 h-7 flex items-center justify-center cursor-pointer text-white"
+        className="relative ml-12 w-24 h-7 flex items-center justify-center cursor-pointer text-white"
       >
         <Image
           src={"/Hero_Filter_Small.png"}
@@ -37,10 +38,17 @@ const MobileDropdown = ({ items, visible, toggle }: any) => {
           alt="hero_filter_img"
         />
         <span className="text-xs font-semibold">Select</span>
-        <ChevronDownIcon className="w-4 h-4" />
+        <ChevronDownIcon
+          className={cn(
+            "w-4 h-4",
+            isOpen
+              ? "rotate-180 duration-150 transition-all"
+              : "rotate-0 duration-150 transition-all"
+          )}
+        />
       </div>
       {isOpen && (
-        <ul className="absolute right-0 w-fit bg-white border rounded mt-1 z-50">
+        <ul className="absolute right-0 w-fit bg-white border rounded-md overflow-hidden mt-1 z-50">
           {items.map(({ key, text }: any) => (
             <li
               key={key}
@@ -218,11 +226,11 @@ function HomeHero() {
       ref={divref}
       className="relative w-full h-fit min-h-[50vh] md:max-h-screen min-[768]:h-[calc(100vh+60px)] max-[820]:h-fit lg:h-fit xl:h-[calc(100vh+60px)] pt-10 lg:pt-0 px-2 md:px-3 lg:px-6 xl:px-8 "
     >
-      <div className="h-full flex flex-col md:gap-0 lg:gap-0 gap-1 justify-start pt-16 md:pt-24 lg:pt-32 xl:pt-40 w-full overflow-hidden">
+      <div className="h-full flex flex-col md:gap-3 lg:gap-0 gap-1.5 justify-start pt-16 md:pt-24 lg:pt-32 pb-24 xl:pt-40 w-full overflow-x-hidden">
         <h3
           id="firstLine"
           aria-hidden
-          className="xl:text-4xl lg:text-[32px] md:text-2xl sm:text-xl xs:text-lg text-xl font-medium leading-[23px] overflow-hidden sm:leading-[30px] md:leading-[35px] lg:leading-[43px] font-cinzel"
+          className="xl:text-4xl lg:text-[32px] md:text-3xl sm:text-2xl text-xl font-medium leading-[23px] overflow-hidden sm:leading-10 md:leading-[40px] lg:leading-[45px] font-cinzel"
         >
           <motion.span
             className="inline-block"
@@ -235,7 +243,7 @@ function HomeHero() {
         </h3>
         <h1
           id="secondLine"
-          className="uppercase font-cinzel font-bold text-3xl xs:text-2xl sm:text-4xl md:text-4xl lg:text-6xl xl:text-7xl overflow-hidden xl:leading-loose leading-[50px] sm:leading-[65px] md:leading-[80px] lg:leading-[129px]"
+          className="uppercase font-cinzel font-bold text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl overflow-hidden xl:leading-loose leading-[50px] sm:leading-[65px] md:leading-[80px] lg:leading-[129px]"
         >
           <motion.span
             className="inline-block"
@@ -248,7 +256,7 @@ function HomeHero() {
         </h1>
         <p
           id="thirdLine"
-          className="md:font-semibold font-[550] leading-[20px] text-balance overflow-hidden sm:leading-6 md:leading-[30px] lg:leading-[39px] text-[15px] xs:text-[12px] sm:text-lg md:text-xl lg:text-2xl xl:text-3xl w-52 sm:w-64 md:w-80 lg:w-full"
+          className="font-semibold leading-normal overflow-hidden sm:leading-6 md:leading-[30px] lg:leading-[39px] text-[16px] sm:text-lg md:text-2xl xl:text-3xl w-7/12 md:w-7/12 lg:w-full"
         >
           <motion.span
             className="inline-block"
@@ -258,8 +266,8 @@ function HomeHero() {
           >
             The only place where you can find Top 10{" "}
             <span className="text-colorAll mr-1">
-              Agencies, Hotels,
-              <br /> DMC&apos;s
+              Agencies, <br className="hidden lg:block xl:hidden" /> Hotels,
+              <br className="hidden xl:block" /> DMC&apos;s
             </span>
             &nbsp;all around the world.
           </motion.span>
@@ -268,7 +276,7 @@ function HomeHero() {
           initial={{ y: 50, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.8, delay: 1.4, type: "spring" }}
-          className="w-full pt-20 md:pt-10 lg:overflow-hidden lg:pt-24 md:max-w-[430px] lg:max-w-[730px]"
+          className="w-full pt-14 md:pt-10 lg:overflow-hidden lg:pt-24 md:max-w-[430px] lg:max-w-[730px]"
         >
           <div className="w-full ml-4 flex items-end justify-start">
             <div className="relative max-w-60 h-9 flex items-center justify-center">
@@ -318,7 +326,7 @@ function HomeHero() {
               ))}
             </div>
           </div>
-          <div className="w-full h-12 sm:h-14 flex items-center justify-between rounded-lg px-3 bg-gray-200">
+          <div className="md:max-w-3xl sm:max-w-sm max-w-[330px] h-12 sm:h-14 flex items-center justify-between rounded-lg px-3 bg-gray-200">
             <div className="flex items-center lg:gap-5 md:gap-2 gap-1">
               <Select
                 value={selectedCountry}
@@ -395,7 +403,7 @@ function HomeHero() {
         <AnimatePresence>
           <motion.div
             id="smallBalloon"
-            className="absolute top-[20%] sm:top-[10%] md:top-[12%] lg:top-[18%] xl:top-[18%] xl:-left-16 lg:-left-14 md:-left-10 sm:-left-12 -left-5 w-[40%] xl:h-[35%] lg:h-[30%] md:h-[25%] sm:h-[20%] h-[15%]"
+            className="absolute top-[16%] sm:top-[10%] md:top-[12%] lg:top-[18%] xl:top-[18%] xl:-left-7 w-[40%] xl:h-[35%] lg:h-[30%] md:h-[25%] sm:h-[20%] h-[15%]"
             style={{ opacity: 0 }}
           >
             <Image
@@ -407,7 +415,7 @@ function HomeHero() {
           </motion.div>
           <motion.div
             id="bigBalloon"
-            className="absolute top-[45%] sm:top-[50%] md:top-[50%] lg:top-[45%] xl:top-[45%] xl:-left-10 lg:-left-14 md:-left-14 sm:-left-12 -left-5 w-[75%] xl:h-[32%] lg:h-[27%] md:h-[22%] sm:h-[17%] h-[12%]"
+            className="absolute top-[40%] sm:top-[53%] lg:top-[45%] xl:-left-5 md:-left-10 w-[70%] xl:h-[32%] lg:h-[27%] md:h-[22%] sm:h-[17%] h-[12%]"
             style={{ opacity: 0 }}
           >
             <Image
