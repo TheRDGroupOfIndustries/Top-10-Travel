@@ -29,7 +29,7 @@ const MobileDropdown = ({ items, visible, toggle }: any) => {
     <div className="relative w-full">
       <div
         onClick={() => setIsOpen(!isOpen)}
-        className="relative ml-12 w-24 h-7 flex items-center justify-center cursor-pointer text-white"
+        className="relative ml-[3px] xs:ml-3 sm:ml-12 w-20 h-5 xs:w-24 xs:h-7 flex items-center justify-center cursor-pointer text-white"
       >
         <Image
           src={"/Hero_Filter_Small.png"}
@@ -37,7 +37,9 @@ const MobileDropdown = ({ items, visible, toggle }: any) => {
           className="absolute -z-10"
           alt="hero_filter_img"
         />
-        <span className="text-xs font-semibold">Select</span>
+        <span className="text-[10px] leading-[14px] xs:text-xs font-semibold">
+          Select
+        </span>
         <ChevronDownIcon
           className={cn(
             "w-4 h-4",
@@ -243,7 +245,7 @@ function HomeHero() {
         </h3>
         <h1
           id="secondLine"
-          className="uppercase font-cinzel font-bold text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl overflow-hidden xl:leading-loose leading-[50px] sm:leading-[65px] md:leading-[80px] lg:leading-[129px]"
+          className="uppercase font-cinzel font-bold text-[28px] xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl overflow-hidden xl:leading-loose leading-10 xs:leading-[50px] sm:leading-[65px] md:leading-[80px] lg:leading-[129px]"
         >
           <motion.span
             className="inline-block"
@@ -278,15 +280,15 @@ function HomeHero() {
           transition={{ duration: 0.8, delay: 1.4, type: "spring" }}
           className="w-full pt-14 md:pt-10 lg:overflow-hidden lg:pt-24 md:max-w-[430px] lg:max-w-[730px]"
         >
-          <div className="w-full ml-4 flex items-end justify-start">
-            <div className="relative max-w-60 h-9 flex items-center justify-center">
+          <div className="w-full ml-1 xs:ml-4 flex items-end justify-start">
+            <div className="relative max-w-48 xs:max-w-60 h-7 xs:h-9 flex items-center justify-center">
               <Image
                 src={"/Hero_Filter_Large.png"}
                 fill
                 className="absolute"
                 alt="hero_filter_img"
               />
-              <span className="text-black z-10 px-6 lg:text-sm text-xs font-semibold ">
+              <span className="text-black z-10 px-3 xs:px-6 lg:text-sm text-[10px] leading-[14px] xs:text-xs font-semibold ">
                 FIND YOUR TOP 10
               </span>
             </div>
@@ -326,8 +328,8 @@ function HomeHero() {
               ))}
             </div>
           </div>
-          <div className="md:max-w-3xl sm:max-w-sm max-w-[330px] h-12 sm:h-14 flex items-center justify-between rounded-lg px-3 bg-gray-200">
-            <div className="flex items-center lg:gap-5 md:gap-2 gap-1">
+          <div className="md:max-w-3xl sm:max-w-sm xs:max-w-[320px] max-w-fit max-h-fit xs:h-12 sm:h-14 flex flex-col xs:flex-row gap-1 py-1 items-center justify-between rounded-lg px-1 xs:px-3 bg-gray-200">
+            <div className="flex items-center lg:gap-5 md:gap-2 xs:gap-1 gap-2">
               <Select
                 value={selectedCountry}
                 onValueChange={(val) => setCountry(val)}
@@ -364,9 +366,9 @@ function HomeHero() {
             <div>
               <Button
                 onClick={handleFind}
-                className="bg-colorAll hover:bg-[#ffcc66] inline-flex items-center lg:gap-2 px-2 py-1"
+                className="bg-colorAll hover:bg-colorAll xs:hover:bg-[#ffcc66] inline-flex items-center text-xs xs:text-sm lg:gap-2 px-2 xs:py-0.5"
               >
-                <SearchIcon className="w-5 h-5" />
+                <SearchIcon className="xs:w-5 xs:h-5 w-4 h-4" />
                 Search
               </Button>
             </div>
