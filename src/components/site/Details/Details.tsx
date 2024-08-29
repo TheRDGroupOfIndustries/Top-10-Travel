@@ -142,7 +142,7 @@ const Details = ({
             <div className="rounded-md flex lg:hidden flex-col gap-4 py-10 sm:px-8 px-4 shadow shadow-black/50">
               <div className="flex flex-col gap-5">
                 <div className="flex flex-col gap-3">
-                  <h3 className="text-[32px] font-bold leading-tight xl:leading-6">
+                  <h3 className="text-[32px] font-bold leading-snug xl:leading-6">
                     {data?.name}
                   </h3>
                   <div className="text-sm flex items-center leading-4 font-medium">
@@ -298,7 +298,7 @@ const Details = ({
             <div className="rounded-md lg:flex hidden flex-col xl:gap-10 lg:gap-6 xl:py-16 lg:py-10 xl:px-8 lg:px-4 shadow shadow-black/50">
               <div className="flex flex-col gap-5">
                 <div className="flex flex-col gap-3">
-                  <h3 className="text-[32px] font-bold leading-tight xl:leading-6">
+                  <h3 className="text-[32px] font-bold leading-snug">
                     {data?.name}
                   </h3>
                   <div className="text-sm flex items-center leading-4 font-medium">
