@@ -14,6 +14,11 @@ const nextConfig = {
       },
       {
         protocol: "https",
+        hostname: "i.pinimg.com",
+        port: "",
+      },
+      {
+        protocol: "https",
         hostname: "flowbite.s3.amazonaws.com",
         port: "",
       },
@@ -58,6 +63,7 @@ const nextConfig = {
       "img.freepik.com",
       "www.istockphoto.com",
       "www.google.com",
+      "i.pinimg.com",
     ],
   },
 };
