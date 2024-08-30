@@ -51,7 +51,12 @@ const ExploreMore = ({
         setSelectedState={setSelectedState}
       />
 
-      <ListData role={role} data={filteredData} />
+      <ListData
+        selectedCountry={selectedCountry}
+        selectedState={selectedState}
+        role={role}
+        data={filteredData}
+      />
     </div>
   );
 };

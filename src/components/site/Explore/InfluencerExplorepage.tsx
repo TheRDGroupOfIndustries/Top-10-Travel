@@ -6,19 +6,15 @@ import ListData from "./NewDesign/ListData";
 import ListDataInfluencer from "./NewDesign/ListDataInfluencer";
 
 type Data = {
-    image: string;
-    id: string;
-    name: string;
-    country: string;
-    state: string;
-    description: string;
-    speciality:string
+  image: string;
+  id: string;
+  name: string;
+  country: string;
+  state: string;
+  description: string;
+  speciality: string;
 }[];
-const InfluencerExploreMore = ({
-  data,
-}: {
-  data: Data;
-}) => {
+const InfluencerExploreMore = ({ data }: { data: Data }) => {
   const [selectedCountry, setSelectedCountry] = useState("");
   const [selectedState, setSelectedState] = useState("");
 
@@ -49,7 +45,11 @@ const InfluencerExploreMore = ({
         setSelectedState={setSelectedState}
       />
 
-      <ListDataInfluencer data={filteredData} />
+      <ListDataInfluencer
+        selectedCountry={selectedCountry}
+        selectedState={selectedState}
+        data={filteredData}
+      />
     </div>
   );
 };
