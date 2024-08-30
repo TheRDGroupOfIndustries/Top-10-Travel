@@ -16,7 +16,7 @@ import {
   FaFacebook,
   FaTwitter,
   FaLinkedin,
-  FaXTwitter
+  FaXTwitter,
 } from "react-icons/fa6";
 
 const contactInfo = [
@@ -33,12 +33,12 @@ const companyLinks = [
   "Contact Us",
 ];
 
-const top10Links: {name: string, link: string}[] = [
-  {name: "Travel Agencies", link: "/Agency"},
-  {name:"Hotels", link: "/Hotels"}, 
-  {name: "DMC", link: "/DMC"}, 
-  {name: "Influencers", link: "/Influencers"}
-  ];
+const top10Links: { name: string; link: string }[] = [
+  { name: "Travel Agencies", link: "/Agency" },
+  { name: "Hotels", link: "/Hotels" },
+  { name: "DMC", link: "/DMC" },
+  { name: "Influencers", link: "/Influencers" },
+];
 
 const socialIcons = [
   {
@@ -127,7 +127,10 @@ function Footer() {
             <nav className="flex flex-col gap-4">
               {top10Links?.map((item, index) => (
                 <div key={index}>
-                  <Link href={item.link} className="cool-link-black font-medium">
+                  <Link
+                    href={item.link}
+                    className="cool-link-black font-medium"
+                  >
                     {item.name}
                   </Link>
                 </div>
@@ -147,9 +150,7 @@ function Footer() {
                   key={index}
                   className="hover:scale-150 transition-all duration-300 cursor-pointer"
                 >
-                  <item.icon
-                    className="w-5 h-5"
-                  />
+                  <item.icon className="w-5 h-5" />
                 </Link>
               ))}
             </nav>
@@ -157,7 +158,7 @@ function Footer() {
         </div>
 
         <div className="cursor-default select-none border-t py-8 text-center text-sm font-semibold">
-          All rights Reserved © Your Company, 2021
+          All rights Reserved © Top 10 Travel, 2021
         </div>
       </footer>
     </div>

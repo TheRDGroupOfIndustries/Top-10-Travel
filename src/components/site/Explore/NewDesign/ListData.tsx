@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { getValidUrl } from "@/lib/utils";
 import { TbMapPin, TbPhoneCall } from "react-icons/tb";
 import { RiHeart3Line } from "react-icons/ri";
@@ -28,21 +28,28 @@ type Data = {
 }[];
 
 function ListData({
+  selectedCountry,
+  selectedState,
   role,
   data,
 }: {
   role: "Agency" | "Hotels" | "DMC";
+  selectedCountry: string;
+  selectedState: string;
   data: Data;
 }) {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 5;
 
-  const router = useRouter();
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = data?.slice(indexOfFirstItem, indexOfLastItem);
 
   let hotelData: Data = [];
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [selectedCountry, selectedState]);
 
   if (role === "Hotels") {
     currentItems.map((item) => {
