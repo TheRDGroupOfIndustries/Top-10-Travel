@@ -12,7 +12,7 @@ export default function SiteLayout({
   return (
     <main>
       <ModalProvider>
-        <Loader />
+        {/* <Loader /> */}
         <Navbar />
         <Toaster richColors />
         {children}

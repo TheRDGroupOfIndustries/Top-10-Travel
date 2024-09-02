@@ -38,12 +38,12 @@ const Loader = () => {
       ref={loaderRef}
       className="h-[100vh] flex items-center justify-center w-full transition-all duration-700 z-50 top-0 fixed bg-black"
     >
-      <h1 className="sm:text-6xl text-4xl animate-load bg-clip-text text-transparent bg-gradient-to-r leading-normal from-yellow-500 to-orange-500 font-bold">
-        Top 10&nbsp;
+      <div className="sm:text-6xl py-4 text-4xl animate-load bg-clip-text text-transparent bg-gradient-to-r from-yellow-500 to-orange-500 font-bold">
+        Travel Top 10&nbsp;
         <span ref={textRef} className="">
           Agency
         </span>
-      </h1>
+      </div>
     </div>
   );
 };

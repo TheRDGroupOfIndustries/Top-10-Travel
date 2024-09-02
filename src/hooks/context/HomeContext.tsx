@@ -23,10 +23,10 @@ export const HomeContext = createContext<Homecontext>({} as Homecontext);
 
 export const HomeContextProvider = ({ children }: { children: ReactNode }) => {
   const [visible, setVisible] = useState({
-    DMC: true,
     AGENCY: true,
-    HOTEL: true,
-    Influencer: true,
+    DMC: false,
+    HOTEL: false,
+    Influencer: false,
   });
   const [selectedCountry, setSelectedCountry] = useState("");
   const [selectedCity, setSelectedCity] = useState("");
@@ -43,20 +43,30 @@ export const HomeContextProvider = ({ children }: { children: ReactNode }) => {
     setAllCities(data["India"]);
   };
 
+  // const toggleVisible = (tag: "DMC" | "AGENCY" | "HOTEL" | "Influencer") => {
+  //   setVisible((prev) => {
+  //     const allOthersFalse = Object.keys(prev)
+  //       .filter((key) => key !== tag)
+  //       .every((key) => !prev[key as typeof tag]);
+
+  //     // If all others are false, do not toggle the current one
+  //     if (allOthersFalse) {
+  //       return prev;
+  //     }
+
+  //     return { ...prev, [tag]: !prev[tag] };
+  //   });
+  // };
+
   const toggleVisible = (tag: "DMC" | "AGENCY" | "HOTEL" | "Influencer") => {
-    setVisible((prev) => {
-      const allOthersFalse = Object.keys(prev)
-        .filter((key) => key !== tag)
-        .every((key) => !prev[key as typeof tag]);
-
-      // If all others are false, do not toggle the current one
-      if (allOthersFalse) {
-        return prev;
-      }
-
-      return { ...prev, [tag]: !prev[tag] };
+    setVisible({
+      DMC: tag === "DMC",
+      AGENCY: tag === "AGENCY",
+      HOTEL: tag === "HOTEL",
+      Influencer: tag === "Influencer",
     });
   };
+
   const setCountry = (country: string) => {
     setSelectedCountry(country);
     if (data) setAllCities([...data[country]]);
