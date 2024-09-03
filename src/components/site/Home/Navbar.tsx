@@ -41,7 +41,7 @@ const navMenus = [
 
 function Navbar() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const [prevScrollPos, setPrevScrollPos] = useState(window.scrollY);
+  const [prevScrollPos, setPrevScrollPos] = useState(0);
   const [visible, setVisible] = useState(true);
   const route = usePathname();
   const session = useSession();
@@ -54,17 +54,19 @@ function Navbar() {
   };
 
   useEffect(() => {
-    const handleScroll = () => {
-      const currentScrollPos = window.scrollY;
-      const visible = prevScrollPos > currentScrollPos;
+    if (typeof window !== "undefined") {
+      setPrevScrollPos(window.scrollY);
 
-      setVisible(visible);
-      setPrevScrollPos(currentScrollPos);
-    };
+      const handleScroll = () => {
+        const currentScrollPos = window.scrollY;
+        setVisible(prevScrollPos > currentScrollPos);
+        setPrevScrollPos(currentScrollPos);
+      };
 
-    window.addEventListener("scroll", handleScroll);
+      window.addEventListener("scroll", handleScroll);
 
-    return () => window.removeEventListener("scroll", handleScroll);
+      return () => window.removeEventListener("scroll", handleScroll);
+    }
   }, [prevScrollPos]);
 
   const renderMenuItem = () => {
