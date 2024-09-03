@@ -1,20 +1,18 @@
 "use client";
 
 import EnquireDialog from "@/components/company/EnquireDialogwButton/EnquireDialog";
+import { getIconFromName } from "@/components/reusable/Icons";
 import PhoneCallButton from "@/components/reusable/PhoneCallButton";
 import ShareButton from "@/components/reusable/shareButton";
-import React, { useEffect, useState } from "react";
-import ReviewSSR from "./ReviewSSR";
-import { getIconFromName } from "@/components/reusable/Icons";
-import Link from "next/link";
-import { motion, useScroll, useTransform } from "framer-motion";
-import type { PastProject, SocialMediaLinks } from "@prisma/client";
 import StarRating from "@/components/reusable/StarRating";
-import { TbMapPin } from "react-icons/tb";
-import PastProjects from "./PastProjects";
 import { GetIconByTag } from "@/components/reusable/TagIcons";
-import AnimatedImage from "./AnimatedImage";
 import { getValidUrl } from "@/lib/utils";
+import type { PastProject, SocialMediaLinks } from "@prisma/client";
+import Link from "next/link";
+import { TbMapPin } from "react-icons/tb";
+import AnimatedImage from "./AnimatedImage";
+import PastProjects from "./PastProjects";
+import ReviewSSR from "./ReviewSSR";
 
 type CompanyType = {
   reviews: number;
