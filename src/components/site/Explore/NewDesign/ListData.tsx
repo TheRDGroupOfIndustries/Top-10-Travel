@@ -1,17 +1,14 @@
 "use client";
 
 import StarRating from "@/components/reusable/StarRating";
+import { GetIconByTag } from "@/components/reusable/TagIcons";
 import { Button } from "@/components/ui/button";
+import { motion } from "framer-motion";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
-import { getValidUrl } from "@/lib/utils";
 import { TbMapPin, TbPhoneCall } from "react-icons/tb";
-import { RiHeart3Line } from "react-icons/ri";
-import { ChevronLeft, ChevronRight } from "lucide-react";
-import { GetIconByTag } from "@/components/reusable/TagIcons";
-import { useRouter } from "next/navigation";
 
 type Data = {
   id: string;
@@ -82,10 +79,10 @@ function ListData({
                     className="w-full h-full object-cover"
                   />
                 </div>
-                <div className="lg:w-[70%] w-full h-full rounded-lg overflow-hidden flex flex-col items-start justify-start gap-3 md:p-1 px-3 pb-3">
-                  <div className="w-full flex items-center justify-between">
-                    <h1 className="text-2xl font-semibold">{item?.name}</h1>
-                  </div>
+                <div className="lg:w-[70%] w-full h-full rounded-lg overflow-hidden flex flex-col items-start justify-start gap-2 md:p-1 px-3 pb-3">
+                  <h1 className="text-2xl line-clamp-2 font-semibold">
+                    {item?.name}
+                  </h1>
                   {/* <div className="absolute z-20 top-4 right-4 lg:p-2 p-1 rounded-full cursor-pointer border-slate-300 bg-white/60 border-2">
                     <RiHeart3Line className="text-slate-500 size-6" />
                   </div> */}
@@ -118,7 +115,9 @@ function ListData({
                     </div>
                   </div>
 
-                  <p className="text-sm line-clamp-3">{item?.methodology}</p>
+                  <p className="text-sm lg:line-clamp-3 line-clamp-2">
+                    {item?.methodology}
+                  </p>
 
                   <Button className="text-xl group bg-[#FFEF9E] text-colorAll hover:bg-colorAll hover:text-[#FFEF9E]">
                     <span>Call Us</span>
@@ -148,10 +147,10 @@ function ListData({
                     className="w-full h-full object-cover"
                   />
                 </div>
-                <div className="lg:w-[70%] w-full h-full rounded-lg overflow-hidden flex flex-col items-start justify-start gap-3 p-1">
-                  <div className="w-full flex items-center justify-between">
-                    <h1 className="text-2xl font-semibold">{item?.name}</h1>
-                  </div>
+                <div className="lg:w-[70%] w-full h-full rounded-lg overflow-hidden flex flex-col items-start justify-start gap-2 p-1">
+                  <h1 className="text-2xl line-clamp-1 font-semibold">
+                    {item?.name}
+                  </h1>
                   <div className="flex gap-1 items-center">
                     <TbMapPin className="text-slate-400 text-sm md:text-lg" />
                     <div className="text-sm md:text-lg text-slate-400 leading-none">
@@ -177,7 +176,7 @@ function ListData({
                       &nbsp;reviews
                     </span>
                   </div>
-                  <div className="flex flex-wrap items-center gap-2">
+                  <div className="flex flex-wrap md:hidden lg:flex items-center gap-2">
                     {item?.tags?.map((tag, i) =>
                       i <= 3 ? (
                         <div
@@ -193,9 +192,27 @@ function ListData({
                       ) : null
                     )}
                   </div>
+
+                  <div className="flex-wrap gap-2 items-center md:flex hidden lg:hidden">
+                    {item?.tags?.map((tag, i) =>
+                      i <= 1 ? (
+                        <div
+                          className="lg:text-sm text-xs flex lg:font-semibold uppercase items-center gap-1 border-slate-400 border-[1px] bg-slate-100 rounded-lg px-2 lg:py-1 py-0.5"
+                          key={tag}
+                        >
+                          <GetIconByTag
+                            tag={tag}
+                            className="lg:text-sm text-xs"
+                          />
+                          {tag}
+                        </div>
+                      ) : null
+                    )}
+                  </div>
+
                   <div className="flex flex-col gap-1">
                     {/* <span className="text-xl">Methodology</span> */}
-                    <p className="text-sm line-clamp-3">{item?.methodology}</p>
+                    <p className="text-sm line-clamp-2">{item?.methodology}</p>
                   </div>
                 </div>
               </motion.div>

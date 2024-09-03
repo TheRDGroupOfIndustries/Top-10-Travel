@@ -1,18 +1,12 @@
 "use client";
 
-import SkeletonListData from "@/components/reusable/SkeletonListData";
-import StarRating from "@/components/reusable/StarRating";
 import { Button } from "@/components/ui/button";
-import type { InfluencerData } from "@prisma/client";
-import { ChevronLeft, ChevronRight } from "lucide-react";
 import { motion } from "framer-motion";
-import { TbMapPin, TbPhoneCall } from "react-icons/tb";
-import { RiHeart3Line } from "react-icons/ri";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { getValidUrl } from "@/lib/utils";
-import { useRouter } from "next/navigation";
+import { TbMapPin, TbPhoneCall } from "react-icons/tb";
 
 type Data = {
   image: string;
@@ -39,7 +33,6 @@ function ListDataInfluencer({
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = data?.slice(indexOfFirstItem, indexOfLastItem);
-  const router = useRouter();
 
   useEffect(() => {
     setCurrentPage(1);
@@ -111,21 +104,17 @@ function ListDataInfluencer({
                   className="w-full h-full object-cover"
                 />
               </div>
-              <div className="lg:w-[70%] w-full h-full rounded-lg overflow-hidden flex flex-col items-start justify-start gap-3 md:p-1 px-3 pb-3">
-                <div className="w-full flex items-center justify-between">
-                  <h1 className="text-2xl font-semibold">{item?.name}</h1>
-                </div>
-                <div className="absolute z-20 top-4 right-4 lg:p-2 p-1 rounded-full cursor-pointer border-slate-300 bg-white/60 backdrop-blur-lg border-2">
-                  <RiHeart3Line className="text-slate-500 size-6" />
+              <div className="lg:w-[70%] w-full h-full rounded-lg overflow-hidden flex flex-col items-start justify-start gap-2 md:p-1 px-3 pb-3">
+                <h1 className="text-2xl line-clamp-1 font-semibold">{item?.name}</h1>
+                {/* <div className="absolute z-20 top-4 right-4 lg:p-2 p-1 rounded-full cursor-pointer border-slate-300 bg-white/60 backdrop-blur-lg border-2">
+                  <RiHeart3Line className="text-slate-500 size-6" /> */}
                   {/* Heart with Fill is <RiHeart3Fill /> */}
-                </div>
+                {/* </div> */}
 
-                <div className="flex gap-3">
-                  <div className="flex gap-1 items-center">
-                    {item.speciality}
-                  </div>
+                <div>
+                  {item.speciality}
                 </div>
-
+                
                 <div className="flex gap-1 items-center">
                   <TbMapPin className="text-slate-400 text-sm md:text-lg" />
                   <div className="text-sm md:text-lg text-slate-400 leading-none">
@@ -133,7 +122,7 @@ function ListDataInfluencer({
                   </div>
                 </div>
 
-                <p className="text-sm line-clamp-3">{item?.description}</p>
+                <p className="text-sm line-clamp-2">{item?.description}</p>
 
                 <Button className="text-xl group bg-[#FFEF9E] text-colorAll hover:bg-colorAll hover:text-[#FFEF9E]">
                   <span>Call Us</span>

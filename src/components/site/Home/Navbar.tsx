@@ -3,7 +3,7 @@ import ButtonFancy from "@/components/reusable/ButtonFancy";
 import { LogOutIcon, MenuIcon, User } from "lucide-react";
 import { signIn, signOut, useSession } from "next-auth/react";
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FcGoogle } from "react-icons/fc";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
@@ -41,6 +41,8 @@ const navMenus = [
 
 function Navbar() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [prevScrollPos, setPrevScrollPos] = useState(0);
+  const [visible, setVisible] = useState(true);
   const route = usePathname();
   const session = useSession();
 
@@ -51,15 +53,28 @@ function Navbar() {
     });
   };
 
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setPrevScrollPos(window.scrollY);
+
+      const handleScroll = () => {
+        const currentScrollPos = window.scrollY;
+        setVisible(prevScrollPos > currentScrollPos);
+        setPrevScrollPos(currentScrollPos);
+      };
+
+      window.addEventListener("scroll", handleScroll);
+
+      return () => window.removeEventListener("scroll", handleScroll);
+    }
+  }, [prevScrollPos]);
+
   const renderMenuItem = () => {
     if (session?.data?.user.role === "Influencer") {
       return (
         <>
           <DropdownMenuItem>
-            <Link
-              href="/Influencer"
-              className="w-full h-full"
-            >
+            <Link href="/Influencer" className="w-full h-full">
               <div className="flex items-center gap-2">
                 <User size={18} />
                 <span>My Account</span>
@@ -67,10 +82,7 @@ function Navbar() {
             </Link>
           </DropdownMenuItem>
           <DropdownMenuItem>
-            <Link
-              href="/auth"
-              className="w-full h-full"
-            >
+            <Link href="/auth" className="w-full h-full">
               <div className="flex items-center gap-2">
                 <User size={18} />
                 <span>Start as Influencer</span>
@@ -83,10 +95,7 @@ function Navbar() {
       return (
         <>
           <DropdownMenuItem>
-            <Link
-              href="/admin"
-              className="w-full h-full"
-            >
+            <Link href="/admin" className="w-full h-full">
               <div className="flex items-center gap-2">
                 <User size={18} />
                 <span>Go to Admin Dashboard</span>
@@ -115,10 +124,7 @@ function Navbar() {
       return (
         <>
           <DropdownMenuItem>
-            <Link
-              href="/auth/agency"
-              className="w-full h-full"
-            >
+            <Link href="/auth/agency" className="w-full h-full">
               <div className="flex items-center gap-2">
                 <User size={18} />
                 <span>Start as Agency</span>
@@ -126,10 +132,7 @@ function Navbar() {
             </Link>
           </DropdownMenuItem>
           <DropdownMenuItem>
-            <Link
-              href="/auth/hotel"
-              className="w-full h-full"
-            >
+            <Link href="/auth/hotel" className="w-full h-full">
               <div className="flex items-center gap-2">
                 <User size={18} />
                 <span>Start as Hotel</span>
@@ -137,10 +140,7 @@ function Navbar() {
             </Link>
           </DropdownMenuItem>
           <DropdownMenuItem>
-            <Link
-              href="/auth/dmc"
-              className="w-full h-full"
-            >
+            <Link href="/auth/dmc" className="w-full h-full">
               <div className="flex items-center gap-2">
                 <User size={18} />
                 <span>Start as DMC</span>
@@ -148,10 +148,7 @@ function Navbar() {
             </Link>
           </DropdownMenuItem>
           <DropdownMenuItem>
-            <Link
-              href="/auth/influencer"
-              className="w-full h-full"
-            >
+            <Link href="/auth/influencer" className="w-full h-full">
               <div className="flex items-center gap-2">
                 <User size={18} />
                 <span>Start as Influencer</span>
@@ -165,12 +162,13 @@ function Navbar() {
 
   return (
     <>
-      <nav className="flex bg-white/80 backdrop-blur-sm justify-between items-center h-[60px] w-[100vw] fixed top-0 z-40 px-2 md:px-3 lg:px-6 xl:px-8">
+      <nav
+        className={`flex bg-white/80 backdrop-blur-sm justify-between items-center h-[60px] w-[100vw] fixed top-0 z-40 px-2 md:px-3 lg:px-6 xl:px-8 transition-transform duration-300 ${
+          visible ? "translate-y-0" : "-translate-y-full"
+        }`}
+      >
         <div className="navbar-start">
-          <Link
-            href="/"
-            className="text-2xl font-bold"
-          >
+          <Link href="/" className="text-2xl font-bold">
             LOGO
           </Link>
         </div>
