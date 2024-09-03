@@ -22,7 +22,10 @@ import {
 const contactInfo = [
   { icon: Phone, text: "+91 9358XXXXX" },
   { icon: Mail, text: "Top10travelagency@gmail.com" },
-  { icon: MapPin, text: "123 Travel Street, City, Country" },
+  {
+    icon: MapPin,
+    text: "Office No 9 to 10 & 17 to 27 Liberty Plaza 3-6-365, Himaythnagar , Hyderabad (India)",
+  },
 ];
 
 const companyLinks = [
@@ -158,7 +161,7 @@ function Footer() {
         </div>
 
         <div className="cursor-default select-none border-t py-8 text-center text-sm font-semibold">
-          All rights Reserved © Top 10 Travel, 2021
+          All rights Reserved © Top 10 Travel, {new Date().getFullYear()}
         </div>
       </footer>
     </div>
