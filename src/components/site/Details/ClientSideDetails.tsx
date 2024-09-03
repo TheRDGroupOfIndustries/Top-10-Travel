@@ -209,7 +209,7 @@ const ClientSideDetails = ({
             </div>
           </div>
 
-          <div className="flex-1 lg:flex hidden flex-col gap-5 max-w-[509px]">
+          <div className="flex-1 lg:flex hidden sticky h-[1318px] top-10 flex-col gap-5 max-w-[509px]">
             <div className="rounded-md lg:flex hidden flex-col xl:gap-10 lg:gap-6 xl:py-16 lg:py-10 xl:px-8 lg:px-4 shadow shadow-black/50">
               <div className="flex flex-col gap-5">
                 <div className="flex flex-col gap-3">
