@@ -99,8 +99,10 @@ function Footer() {
                   key={index}
                   className="flex hover:scale-110 transition-all duration-500 cursor-pointer items-center justify-center gap-2 font-semibold"
                 >
-                  <item.icon className="w-5 h-5 stroke-black" />
-                  {item.text}
+                  <span className="flex-1">
+                    <item.icon className="w-5 h-5 stroke-black" />
+                  </span>
+                  <span>{item.text}</span>
                 </div>
               ))}
             </div>
