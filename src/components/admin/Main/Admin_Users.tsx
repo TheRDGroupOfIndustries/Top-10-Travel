@@ -174,13 +174,13 @@ function AdminUsers({ users }: { users: User[] }) {
       <div className="flex items-center justify-between">
         <div className="flex items-end gap-5">
           <h2 className="lg:text-5xl md:text-4xl text-3xl font-semibold text-[#fcaf1e]">
-            Users
+            Visitors
           </h2>
           <p className="font-medium text-sm text-[#36454F]">
             <span className="font-bold">
               {table.getFilteredRowModel().rows.length}
             </span>{" "}
-            total users
+            total visitors
           </p>
         </div>
         {/* <Dialog
