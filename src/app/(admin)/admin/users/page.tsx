@@ -2,9 +2,14 @@ import AdminUsers from "@/components/admin/Main/Admin_Users";
 import { db } from "@/core/client/db";
 
 const getAllUsers = async () => {
-  return await db.user.findMany();
+  return await db.user.findMany({
+    where: {
+      role: {
+        not: "Influencer",
+      },
+    },
+  });
 };
-
 
 async function Page() {
   const users = await getAllUsers();
