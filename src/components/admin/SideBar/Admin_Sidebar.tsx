@@ -11,7 +11,7 @@ function AdminSidebar() {
   const pathname = usePathname();
   const menuItems = [
     { name: "Dashboard", icon: Home, href: "/admin" },
-    { name: "Users", icon: Users, href: "/admin/users" },
+    { name: "Visitors", icon: Users, href: "/admin/visitors" },
     { name: "Agencies", icon: MdOutlineTravelExplore, href: "/admin/agency" },
     { name: "Hotels", icon: MdOutlineHotel, href: "/admin/hotel" },
     { name: "Dmc's", icon: FaRegMap, href: "/admin/dmc" },

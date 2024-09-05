@@ -13,15 +13,25 @@ import { signOut } from "next-auth/react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { FileText, HelpCircle, Home, List, LogOut, Users } from "react-feather";
+import { MdOutlineBookOnline, MdOutlineHotel, MdOutlineTravelExplore } from "react-icons/md";
 import { FiSidebar } from "react-icons/fi";
+import { FaRegMap } from "react-icons/fa6";
+
 
 const SmallScreenSidebar = () => {
   const pathname = usePathname();
 
   const AdminMenuItems = [
     { name: "Dashboard", icon: Home, href: "/admin" },
-    { name: "Users", icon: Users, href: "/admin/users" },
-    { name: "Companies", icon: List, href: "/admin/companies" },
+    { name: "Visitors", icon: Users, href: "/admin/visitors" },
+    { name: "Agencies", icon: MdOutlineTravelExplore, href: "/admin/agency" },
+    { name: "Hotels", icon: MdOutlineHotel, href: "/admin/hotel" },
+    { name: "Dmc's", icon: FaRegMap, href: "/admin/dmc" },
+    {
+      name: "Influencer's",
+      icon: MdOutlineBookOnline,
+      href: "/admin/influencer",
+    },
     { name: "Help Desk", icon: HelpCircle, href: "/admin/helpdesk" },
     { name: "Report", icon: FileText, href: "/admin/report" },
   ];
