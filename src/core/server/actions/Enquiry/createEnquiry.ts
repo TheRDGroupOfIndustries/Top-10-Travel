@@ -9,7 +9,7 @@ export const createEnquiryAction = async ({
   values,
   info,
 }: {
-  values: Pick<Enquiry, "title" | "message">;
+  values: Pick<Enquiry, "phoneNumber" | "message">;
   info:
     | { type: "Agency"; agencyId: string }
     | { type: "Dmc"; dmcId: string }
@@ -47,7 +47,8 @@ export const createEnquiryAction = async ({
 
     const res = await db.enquiry.create({
       data: {
-        title: values.title,
+        // title: values.title,
+        phoneNumber: values.phoneNumber,
         message: values.message,
         user: { connect: { id: session.user.id } },
         ...config,
@@ -61,6 +62,7 @@ export const createEnquiryAction = async ({
           session.user.name,
           session.user.email,
           values.message,
+          values.phoneNumber,
           companyEmail.name
         ),
       });

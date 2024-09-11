@@ -18,6 +18,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 import { createEnquiryAction } from "@/core/server/actions/Enquiry/createEnquiry";
 import useMutation from "@/hooks/useMutation";
 import { cn } from "@/lib/utils";
@@ -52,13 +53,13 @@ export default function EnquireDialog({
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     // @ts-expect-error
-    const title = e.target[0].value;
+    const phoneNumber = e.target[0].value;
     // @ts-expect-error
     const message = e.target[1].value;
     // console.log(name, email, message);
     setResponse({});
 
-    const res = await mutate({ values: { message, title }, info });
+    const res = await mutate({ values: { message, phoneNumber }, info });
     setOpen(false);
     if (res.success) {
       setTimeout(() => window.print(), 200);
@@ -77,14 +78,6 @@ export default function EnquireDialog({
       )}
     >
       <Modal>
-        {/* <ModalTrigger className="bg-black rounded-full w-full flex-1 dark:bg-white dark:text-black text-white flex justify-center group/modal-btn">
-          <span className="group-hover/modal-btn:translate-x-64 w-full text-base rounded-full text-center transition duration-500">
-            Contact Us
-          </span>
-          <div className="-translate-x-64 rounded-full w-full group-hover/modal-btn:translate-x-0 flex items-center justify-center absolute inset-0 transition duration-500 text-white z-20">
-            📞
-          </div>
-        </ModalTrigger> */}
         <ModalTrigger className="w-full border-black border-[1px] rounded-full sm:text-xl min-[421px]:text-base text-xs font-medium transform hover:-translate-y-1 transition duration-200 hover:shadow-md">
           Contact Us
         </ModalTrigger>
@@ -102,14 +95,6 @@ export default function EnquireDialog({
                 </span>
                 &nbsp;✉️
               </h4>
-              {/* {response.error && (
-                <span className="bg-destructive text-destructive-foreground rounded-md">
-                  {response.error}
-                </span>
-              )}
-              {response.success && (
-                <span className="text-green-500">{response.success}</span>
-              )} */}
 
               <div className="flex justify-center items-center">
                 {images &&
@@ -143,27 +128,26 @@ export default function EnquireDialog({
               </div>
               <div className="py-2 flex flex-wrap gap-x-4 gap-y-1 items-start justify-start max-w-sm mx-auto">
                 <div className="w-full flex flex-col gap-[2px]">
-                  <label htmlFor="title" className="p-1">
-                    Title
+                  <label htmlFor="phoneNumber" className="p-1">
+                    Phone Number :-
                   </label>
                   <Input
-                    id="title"
-                    name="title"
+                    id="phoneNumber"
+                    name="phoneNumber"
                     type="text"
-                    placeholder="Enter enquiry Title"
+                    placeholder="Enter phone number"
                     required
                   />
                 </div>
 
                 <div className="w-full flex flex-col gap-[2px]">
                   <label htmlFor="message" className="p-1">
-                    Message
+                    Message :-
                   </label>
-                  <Input
+                  <Textarea
                     id="message"
                     name="message"
-                    type="text"
-                    placeholder="Enter your message"
+                    placeholder="Enter message"
                     required
                   />
                 </div>
