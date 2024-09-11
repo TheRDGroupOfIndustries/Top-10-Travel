@@ -76,7 +76,7 @@ const ClientSideDetails = ({
             <div className="grid gap-4">
               {/* Main Image */}
               <div className="relative rounded-lg w-full h-64 md:h-96 lg:h-[450px]">
-                {data.promotionalVideoUpload ? (
+                {/* {data.promotionalVideoUpload ? (
                   <video
                     src={data.promotionalVideoUpload}
                     className="w-full h-full border rounded-lg"
@@ -89,7 +89,13 @@ const ClientSideDetails = ({
                     fill
                     className="rounded-lg object-cover"
                   />
-                )}
+                )} */}
+                <AnimatedImage
+                  src={getValidUrl(data?.images[0] ?? "")}
+                  alt="main image"
+                  fill
+                  className="rounded-lg object-cover"
+                />
               </div>
 
               {/* Grid of Thumbnails */}

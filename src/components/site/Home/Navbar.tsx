@@ -15,6 +15,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
+import Image from "next/image";
 
 const navMenus = [
   {
@@ -167,11 +168,13 @@ function Navbar() {
           visible ? "translate-y-0" : "-translate-y-full"
         }`}
       >
-        <div className="navbar-start">
+        <div className="relative navbar-start h-8 w-8">
           <Link href="/" className="text-2xl font-bold">
+            {/* <Image src="/logo.png" alt="logo" fill /> */} 
             LOGO
           </Link>
         </div>
+
         <ul className="ml-32 hidden lg:flex gap-12 justify-end items-center">
           {navMenus.map((el, i) => (
             <Link

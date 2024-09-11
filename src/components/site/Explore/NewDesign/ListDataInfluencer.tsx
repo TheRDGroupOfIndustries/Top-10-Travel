@@ -125,7 +125,7 @@ function ListDataInfluencer({
                 <p className="text-sm line-clamp-2">{item?.description}</p>
 
                 <Button className="text-xl group bg-[#FFEF9E] text-colorAll hover:bg-colorAll hover:text-[#FFEF9E]">
-                  <span>Call Us</span>
+                  <span>Enquire now</span>
                   <TbPhoneCall size={20} className="stroke-2 ml-1" />
                 </Button>
               </div>
