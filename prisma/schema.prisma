@@ -75,7 +75,7 @@ model PastProject {
 }
 
 model ClientReference {
-  id           String     @id @default(cuid())
+  id           String  @id @default(cuid())
   clientName   String
   contactEmail String
   contactPhone String
@@ -326,20 +326,21 @@ model Request {
 
 // unauth user
 model Enquiry {
-  id        String    @id @default(cuid())
-  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId    String
+  id          String    @id @default(cuid())
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId      String
   // 
-  title     String
-  message   String
-  createdAt DateTime? @default(now())
+  title       String?
+  phoneNumber String
+  message     String
+  createdAt   DateTime? @default(now())
   // 
-  agencyId  String?
-  dmcId     String?
-  hotelId   String?
-  Agency    Agency?   @relation(fields: [agencyId], references: [id], onDelete: Cascade)
-  Dmc       DMC?      @relation(fields: [dmcId], references: [id], onDelete: Cascade)
-  Hotel     Hotel?    @relation(fields: [hotelId], references: [id], onDelete: Cascade)
+  agencyId    String?
+  dmcId       String?
+  hotelId     String?
+  Agency      Agency?   @relation(fields: [agencyId], references: [id], onDelete: Cascade)
+  Dmc         DMC?      @relation(fields: [dmcId], references: [id], onDelete: Cascade)
+  Hotel       Hotel?    @relation(fields: [hotelId], references: [id], onDelete: Cascade)
 
   @@unique([userId, agencyId])
   @@unique([userId, dmcId])

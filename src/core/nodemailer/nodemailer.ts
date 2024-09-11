@@ -10,6 +10,7 @@ const transporter = nodemailer.createTransport({
     pass: process.env.SMTP_PASSWORD,
   },
 });
+
 export async function sendMail({
   toEmail,
   html,
@@ -17,17 +18,17 @@ export async function sendMail({
   text,
 }: {
   toEmail: string;
-  subject: string;
   html: string;
+  subject: string;
   text: string;
 }) {
   try {
     await transporter.sendMail({
       from: process.env.SMTP_USER,
       to: toEmail,
+      html,
       subject,
       text,
-      html,
     });
     return true; // Email sent successfully
   } catch (error) {

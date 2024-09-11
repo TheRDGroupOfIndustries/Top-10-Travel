@@ -86,12 +86,19 @@ The Travel-Top-10 Team`,
   };
 }
 
-export function getRequestAcceptedTemplate(companyName: string, isAccepted:boolean) {
+export function getRequestAcceptedTemplate(
+  companyName: string,
+  isAccepted: boolean
+) {
   return {
     subject: "Profile Update Request Accepted",
     text: `Dear ${companyName},
 
-We are pleased to inform you that your request for profile updates or changes has been ${isAccepted?"accepted and the necessary updates have been made":"rejected"}.
+We are pleased to inform you that your request for profile updates or changes has been ${
+      isAccepted
+        ? "accepted and the necessary updates have been made"
+        : "rejected"
+    }.
 
 Thank you for your patience and cooperation.
 
@@ -99,7 +106,11 @@ Best regards,
 The Travel-Top-10 Team`,
     html: `<p>Dear ${companyName},</p>
 
-<p>We are pleased to inform you that your request for profile updates or changes has been ${isAccepted?"accepted and the necessary updates have been made.":"rejected."}</p>
+<p>We are pleased to inform you that your request for profile updates or changes has been ${
+      isAccepted
+        ? "accepted and the necessary updates have been made."
+        : "rejected."
+    }</p>
 
 <p>Thank you for your patience and cooperation.</p>
 
@@ -147,7 +158,8 @@ export function getHotelInquiryTemplate(
   userName: string,
   userEmail: string,
   userMessage: string,
-  hotelName: string,
+  userPhoneNumber: string,
+  hotelName: string
 ) {
   return {
     subject: `New Inquiry about ${hotelName}`,
@@ -157,6 +169,7 @@ You have received a new inquiry about your hotel, ${hotelName}.
 
 Name: ${userName}
 Email: ${userEmail}
+Phone Number: ${userPhoneNumber}
 
 Message:
 ${userMessage}
