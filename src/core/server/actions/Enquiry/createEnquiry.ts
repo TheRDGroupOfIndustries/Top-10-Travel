@@ -45,11 +45,11 @@ export const createEnquiryAction = async ({
         select: { contactEmail: true, name: true },
       });
 
+    // title: values.title,
     const res = await db.enquiry.create({
       data: {
-        // title: values.title,
-        phoneNumber: values.phoneNumber,
         message: values.message,
+        phoneNumber: values.phoneNumber,
         user: { connect: { id: session.user.id } },
         ...config,
       },

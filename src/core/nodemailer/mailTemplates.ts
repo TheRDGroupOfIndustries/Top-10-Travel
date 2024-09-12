@@ -170,6 +170,7 @@ You have received a new inquiry about your hotel, ${hotelName}.
 Name: ${userName}
 Email: ${userEmail}
 Phone Number: ${userPhoneNumber}
+Date: ${new Date().getDate()}/${new Date().getMonth() + 1}/${new Date().getFullYear()}
 
 Message:
 ${userMessage}
@@ -183,8 +184,12 @@ The Travel-Top-10 Team`,
 
 <p>You have received a new inquiry about your hotel, <strong>${hotelName}</strong>.</p>
 
+<p><strong>Contact Us -</strong></p>
 <p><strong>Name:</strong> ${userName}</p>
 <p><strong>Email:</strong> ${userEmail}</p>
+<p><strong>Phone Number:</strong> ${userPhoneNumber}</p>
+<p><strong>Date:</strong> ${new Date().getDate()}/${new Date().getMonth() + 1}/${new Date().getFullYear()}</p>
+
 
 <p><strong>Message:</strong></p>
 <p>${userMessage}</p>

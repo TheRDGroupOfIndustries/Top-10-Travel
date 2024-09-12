@@ -331,7 +331,7 @@ model Enquiry {
   userId      String
   // 
   title       String?
-  phoneNumber String
+  phoneNumber String    @default("9999900000")
   message     String
   createdAt   DateTime? @default(now())
   // 

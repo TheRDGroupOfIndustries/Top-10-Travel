@@ -8,15 +8,6 @@ import {
   useModal,
 } from "@/components/ui/animated-modal";
 import { Button } from "@/components/ui/button";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { createEnquiryAction } from "@/core/server/actions/Enquiry/createEnquiry";
@@ -26,16 +17,19 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import { useParams } from "next/navigation";
 import { FormEvent, useState } from "react";
+import { TbPhoneCall } from "react-icons/tb";
 import { toast } from "sonner";
 
 export default function EnquireDialog({
   images,
   name,
   className,
+  type = "Details",
   info,
 }: {
   images?: string[];
   name: string;
+  type?: "Details" | "Listing";
   className?: string;
   info:
     | { type: "Agency"; agencyId: string }
@@ -57,6 +51,7 @@ export default function EnquireDialog({
     // @ts-expect-error
     const message = e.target[1].value;
     // console.log(name, email, message);
+    console.log(phoneNumber, message);
     setResponse({});
 
     const res = await mutate({ values: { message, phoneNumber }, info });
@@ -74,13 +69,20 @@ export default function EnquireDialog({
     <div
       className={cn(
         "flex items-center justify-center",
-        info.type === "Hotel" ? "flex-1" : "w-1/3"
+       type === "Details" ? (info.type === "Hotel" ? "flex-1" : "w-1/3") : ""
       )}
     >
       <Modal>
-        <ModalTrigger className="w-full border-black border-[1px] rounded-full sm:text-xl min-[421px]:text-base text-xs font-medium transform hover:-translate-y-1 transition duration-200 hover:shadow-md">
-          Contact Us
-        </ModalTrigger>
+        {type === "Details" ? (
+          <ModalTrigger className="w-full border-black border-[1px] rounded-full sm:text-xl min-[421px]:text-base text-xs font-medium transform hover:-translate-y-1 transition duration-200 hover:shadow-md">
+            Contact Us
+          </ModalTrigger>
+        ) : (
+          <ModalTrigger className="xs:text-lg text-base group flex bg-[#FFEF9E] text-colorAll hover:bg-colorAll hover:text-[#FFEF9E]">
+            <span>Enquire now</span>
+            <TbPhoneCall size={20} className="stroke-2 ml-1" />
+          </ModalTrigger>
+        )}
 
         <ModalBody>
           <form

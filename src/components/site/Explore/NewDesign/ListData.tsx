@@ -1,5 +1,6 @@
 "use client";
 
+import EnquireDialog from "@/components/company/EnquireDialogwButton/EnquireDialog";
 import StarRating from "@/components/reusable/StarRating";
 import { GetIconByTag } from "@/components/reusable/TagIcons";
 import { Button } from "@/components/ui/button";
@@ -62,13 +63,13 @@ function ListData({
       <div className="w-full flex flex-col gap-10">
         {role !== "Hotels" &&
           currentItems?.map((item, i) => (
-            <Link href={`/${role}/${item.id}`} key={item.id}>
               <motion.div
+                key={item.id}
                 initial={{ opacity: 0, translateY: -100 }}
                 whileInView={{ opacity: 1, translateY: 0 }}
                 transition={{ duration: 0.4, delay: i * 0.1 }}
                 viewport={{ once: true }}
-                className="relative w-full cursor-pointer lg:h-60 rounded-lg flex flex-col md:flex-row items-center justify-between gap-5 shadow shadow-black/30"
+                className="relative w-full lg:h-60 rounded-lg flex flex-col md:flex-row items-center justify-between gap-5 shadow shadow-black/30"
               >
                 <div className="lg:w-[30%] w-full lg:h-full h-60 rounded-lg overflow-hidden">
                   <Image
@@ -79,7 +80,7 @@ function ListData({
                     className="w-full h-full object-cover"
                   />
                 </div>
-                <div className="lg:w-[70%] w-full h-full rounded-lg overflow-hidden flex flex-col items-start justify-start gap-2 md:p-1 px-3 pb-3">
+                <div className="lg:w-[70%] w-full h-full rounded-lg overflow-hidden flex flex-col items-start justify-start gap-2 md:p-1 px-3 pb-8">
                   <h1 className="text-2xl line-clamp-2 font-semibold">
                     {item?.name}
                   </h1>
@@ -119,13 +120,29 @@ function ListData({
                     {item?.methodology}
                   </p>
 
-                  <Button className="text-xl group bg-[#FFEF9E] text-colorAll hover:bg-colorAll hover:text-[#FFEF9E]">
+                  {/* <Button className="text-xl group bg-[#FFEF9E] text-colorAll hover:bg-colorAll hover:text-[#FFEF9E]">
                     <span>Enquire now</span>
                     <TbPhoneCall size={20} className="stroke-2 ml-1" />
-                  </Button>
+                  </Button> */}
+                  <div className="flex w-full gap-2 justify-start">
+                    <EnquireDialog
+                      images={item?.images || [""]}
+                      name={item?.name}
+                      type="Listing"
+                      info={
+                        role === "Agency"
+                          ? { type: "Agency", agencyId: item.id }
+                          : { type: "Dmc", dmcId: item.id }
+                      }
+                    />
+                    <Link href={`/${role}/${item.id}`}>
+                      <Button className="h-full group xs:text-lg text-base flex bg-[#FFEF9E] text-colorAll hover:bg-colorAll hover:text-[#FFEF9E]">
+                        View More
+                      </Button>
+                    </Link>
+                  </div>
                 </div>
               </motion.div>
-            </Link>
           ))}
 
         {role === "Hotels" &&
