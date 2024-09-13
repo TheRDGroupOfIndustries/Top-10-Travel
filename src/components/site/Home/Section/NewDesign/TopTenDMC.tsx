@@ -47,7 +47,7 @@ const CarouselCard = ({ dmc }: { dmc: DMCHotelApiResult }) => (
     </div>
     <div className="flex-grow flex flex-col items-start justify-center gap-2 p-3">
       <h2 className="text-lg font-bold text-black line-clamp-1">{dmc.name}</h2>
-      <span className="text-sm font-semibold text-yellow-500">
+      <span className="text-sm font-semibold text-colorAll">
         {"★".repeat(Math.round(dmc.rating))} {dmc.reviews} Reviews
       </span>
       <p className="text-sm line-clamp-3">{dmc.methodology}</p>
