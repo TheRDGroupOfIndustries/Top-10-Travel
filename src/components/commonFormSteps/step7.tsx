@@ -32,57 +32,57 @@ const Step7 = ({
   const [percentUploaded, setPercentUploaded] = useState(0);
 
   const session = useSession();
-  const uploadVideo = async () => {
-    if (!session.data) return;
-    const file = inputRef.current?.files && inputRef.current.files[0];
-    if (!file) {
-      toast.error("No file selected");
-      return;
-    }
-    if (file.type !== "video/mp4") {
-      toast.error("Invalid file type");
-      return;
-    }
+  // const uploadVideo = async () => {
+  //   if (!session.data) return;
+  //   const file = inputRef.current?.files && inputRef.current.files[0];
+  //   if (!file) {
+  //     toast.error("No file selected");
+  //     return;
+  //   }
+  //   if (file.type !== "video/mp4") {
+  //     toast.error("Invalid file type");
+  //     return;
+  //   }
 
-    try {
-      // Get a signature using server action
-      setIsUploading(true);
-      const { timestamp, signature } = await getSignature(type);
+  //   try {
+  //     // Get a signature using server action
+  //     setIsUploading(true);
+  //     const { timestamp, signature } = await getSignature(type);
 
-      // Upload to Cloudinary using the signature
-      const formData = new FormData();
-      formData.append("file", file);
-      formData.append("api_key", process.env.NEXT_PUBLIC_CLOUDINARY_API_KEY!);
-      formData.append("signature", signature);
-      formData.append("timestamp", timestamp);
-      formData.append("folder", "top10travels");
-      formData.append("public_id", `${type}-${session.data.user.id}-video`);
+  //     // Upload to Cloudinary using the signature
+  //     const formData = new FormData();
+  //     formData.append("file", file);
+  //     formData.append("api_key", process.env.NEXT_PUBLIC_CLOUDINARY_API_KEY!);
+  //     formData.append("signature", signature);
+  //     formData.append("timestamp", timestamp);
+  //     formData.append("folder", "top10travels");
+  //     formData.append("public_id", `${type}-${session.data.user.id}-video`);
 
-      const endpoint = process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_URL!;
-      const sr = await axios.post(endpoint, formData, {
-        onUploadProgress(e) {
-          setPercentUploaded((e.loaded / (e.total ?? 1)) * 100);
-        },
-      });
-      const data = sr.data;
-      setValue("promotionalVideoUpload", data.secure_url);
+  //     const endpoint = process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_URL!;
+  //     const sr = await axios.post(endpoint, formData, {
+  //       onUploadProgress(e) {
+  //         setPercentUploaded((e.loaded / (e.total ?? 1)) * 100);
+  //       },
+  //     });
+  //     const data = sr.data;
+  //     setValue("promotionalVideoUpload", data.secure_url);
 
-      // // Write to the database using server actions
-      // const res = await saveToDatabase({
-      //   version: data?.version,
-      //   signature: data?.signature,
-      //   public_id: data?.public_id,
-      // });
+  //     // // Write to the database using server actions
+  //     // const res = await saveToDatabase({
+  //     //   version: data?.version,
+  //     //   signature: data?.signature,
+  //     //   public_id: data?.public_id,
+  //     // });
 
-      // if (res?.success)
-      toast.success("Video Uploaded Succesfully.");
-    } catch (error) {
-      console.error("Upload failed", error);
-      toast.error("Upload failed. Please try again.");
-    } finally {
-      setIsUploading(false);
-    }
-  };
+  //     // if (res?.success)
+  //     toast.success("Video Uploaded Succesfully.");
+  //   } catch (error) {
+  //     console.error("Upload failed", error);
+  //     toast.error("Upload failed. Please try again.");
+  //   } finally {
+  //     setIsUploading(false);
+  //   }
+  // };
 
   return (
     <div className={cn(hidden ? "hidden" : "")}>
@@ -168,7 +168,7 @@ const Step7 = ({
           </div>
         </div>
       </div>
-      <div className="space-y-2">
+      {/* <div className="space-y-2">
         <Label className="text-sm font-medium">
           Promotional Video Upload
           <p className="text-green-400 font-semibold">
@@ -197,8 +197,8 @@ const Step7 = ({
         >
           Upload
         </Button>
-      </div>
-      <div>
+      </div> */}
+      <div className="mt-2">
         <Label className="text-sm font-medium">
           Image Upload
           {errors?.images && errors.images && (

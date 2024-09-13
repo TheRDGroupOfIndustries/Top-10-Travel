@@ -121,7 +121,7 @@ export const AgencySchema = z.object({
       message: "Only PDF files are allowed",
     }),
   socialMediaLinks: SocialMediaLinksSchema,
-  promotionalVideoUpload: z.string().url(),
+  // promotionalVideoUpload: z.string().url(),
   images: z
     .preprocess(
       (fileList: any) => fileList,

@@ -32,7 +32,7 @@ type CompanyType = {
   coreServices?: string[];
   services?: string[];
   socialMediaLinks: SocialMediaLinks[];
-  promotionalVideoUpload?: string;
+  // promotionalVideoUpload?: string;
   pastProjects?: PastProject[];
 };
 

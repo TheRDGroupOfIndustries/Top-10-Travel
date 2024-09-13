@@ -4,7 +4,7 @@ import {
   FaFacebook,
   FaInstagram,
   FaXTwitter,
-  FaYoutube
+  FaYoutube,
 } from "react-icons/fa6";
 
 import { TextGenerateEffect } from "@/components/ui/text-generate-effect";
@@ -36,6 +36,7 @@ const linksArr = [
     icon: <FaInstagram />,
   },
 ];
+
 const ContactUsComp = () => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");

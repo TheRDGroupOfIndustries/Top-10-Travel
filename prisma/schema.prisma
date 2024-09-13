@@ -123,7 +123,7 @@ model Agency {
   caseStudyPdf                String?
   // step7
   socialMediaLinks            SocialMediaLinks[]
-  promotionalVideoUpload      String
+  // promotionalVideoUpload      String
   images                      String[]
   // 
   rating                      Float              @default(0.0)
@@ -175,7 +175,7 @@ model DMC {
   caseStudyPdf                String?
   // step7
   socialMediaLinks            SocialMediaLinks[]
-  promotionalVideoUpload      String
+  // promotionalVideoUpload      String
   images                      String[]
   // 
   rating                      Float              @default(0.0)
@@ -215,7 +215,7 @@ model Hotel {
   services                   String[]
   // step4
   socialMediaLinks           SocialMediaLinks[]
-  promotionalVideoUpload     String
+  // promotionalVideoUpload     String
   images                     String[]
   // 
   rating                     Float              @default(0.0)

@@ -51,7 +51,7 @@ export const HotelSchema = z.object({
     .array(z.string().min(1, "Required"))
     .min(1, "Select At least one"),
   socialMediaLinks: SocialMediaLinksSchema,
-  promotionalVideoUpload: z.string().url(),
+  // promotionalVideoUpload: z.string().url(),
   images: z
     .preprocess(
       (fileList: any) => fileList,
