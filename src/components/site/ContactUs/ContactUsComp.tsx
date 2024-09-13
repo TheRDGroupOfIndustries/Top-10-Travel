@@ -1,24 +1,21 @@
 "use client";
 // import { Linkedin, Facebook, Instagram, Twitter, Youtube } from "lucide-react";
 import {
-  FaInstagram,
-  FaYoutube,
   FaFacebook,
-  FaTwitter,
-  FaLinkedin,
-  FaXTwitter
+  FaInstagram,
+  FaXTwitter,
+  FaYoutube
 } from "react-icons/fa6";
 
-import { useState } from "react";
-import Link from "next/link";
-import useMutation from "@/hooks/useMutation";
-import { sendContactEmail } from "@/core/server/actions/contact/contact";
-import { toast } from "sonner";
-import { motion } from "framer-motion";
 import { TextGenerateEffect } from "@/components/ui/text-generate-effect";
+import { sendContactEmail } from "@/core/server/actions/contact/contact";
+import useMutation from "@/hooks/useMutation";
 import emailIcon from "@/resources/icons/EmailIcon.png";
-import phoneIcon from "@/resources/icons/PhoneIcon.png";
+import { motion } from "framer-motion";
 import Image from "next/image";
+import Link from "next/link";
+import { useState } from "react";
+import { toast } from "sonner";
 
 // const iconsArr = [Linkedin, Facebook, Instagram, Twitter, Youtube];
 const linksArr = [
@@ -122,15 +119,16 @@ const ContactUsComp = () => {
                     width="30"
                   />
                 </div>
-                <p className="my-2 text-orange-300 underline text-lg">
-                  Top10Travel agency@gmail.com
+                <p className="my-2 cursor-pointer text-orange-300 hover:underline text-lg">
+                  <a href="mailto:Contact@traveltop10.in">
+                    Contact@traveltop10.in
+                  </a>
                 </p>
               </div>
             </div>
 
-            <div>
+            {/* <div>
               <p className="text-3xl font-semibold text-black">Phone</p>
-
               <div className="flex  items-center gap-2">
                 <div>
                   <Image
@@ -144,7 +142,7 @@ const ContactUsComp = () => {
                   +1 302 354 7282
                 </p>
               </div>
-            </div>
+            </div> */}
           </div>
 
           <div className="text-[20px] font-[500] text-black mt-[13%] underline underline-offset-[20%]">
