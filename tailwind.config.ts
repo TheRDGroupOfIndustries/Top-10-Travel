@@ -30,6 +30,8 @@ const config = {
         cinzel: ["Cinzel"],
       },
       colors: {
+        mainColor: "#FCAE1D",
+        mainColorSecondary: "#FDBE4A",
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",

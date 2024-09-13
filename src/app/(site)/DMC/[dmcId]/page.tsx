@@ -25,7 +25,7 @@ const DMCPage = async ({ params }: { params: { dmcId: string } }) => {
       socialMediaLinks: true,
       specialization: true,
       coreServices: true,
-      promotionalVideoUpload: true,
+      // promotionalVideoUpload: true,
       pastProjects:true
       // companyData: {
       //   select: {

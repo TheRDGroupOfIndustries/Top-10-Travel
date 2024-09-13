@@ -61,7 +61,9 @@ const steps = [
   {
     id: "Step 4",
     name: "Digital Presence and Marketing",
-    fields: ["socialMediaLinks", "promotionalVideoUpload", "images"],
+    fields: ["socialMediaLinks", 
+      // "promotionalVideoUpload", 
+      "images"],
   },
 ];
 

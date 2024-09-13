@@ -1,5 +1,6 @@
 "use client";
 
+import EnquireDialog from "@/components/company/EnquireDialogwButton/EnquireDialog";
 import StarRating from "@/components/reusable/StarRating";
 import { GetIconByTag } from "@/components/reusable/TagIcons";
 import { Button } from "@/components/ui/button";
@@ -62,70 +63,86 @@ function ListData({
       <div className="w-full flex flex-col gap-10">
         {role !== "Hotels" &&
           currentItems?.map((item, i) => (
-            <Link href={`/${role}/${item.id}`} key={item.id}>
-              <motion.div
-                initial={{ opacity: 0, translateY: -100 }}
-                whileInView={{ opacity: 1, translateY: 0 }}
-                transition={{ duration: 0.4, delay: i * 0.1 }}
-                viewport={{ once: true }}
-                className="relative w-full cursor-pointer lg:h-60 rounded-lg flex flex-col md:flex-row items-center justify-between gap-5 shadow shadow-black/30"
-              >
-                <div className="lg:w-[30%] w-full lg:h-full h-60 rounded-lg overflow-hidden">
-                  <Image
-                    src={item?.images?.[0] || "/stockPhoto.jpg"}
-                    alt={`travel image`}
-                    width={300}
-                    height={300}
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-                <div className="lg:w-[70%] w-full h-full rounded-lg overflow-hidden flex flex-col items-start justify-start gap-2 md:p-1 px-3 pb-3">
-                  <h1 className="text-2xl line-clamp-2 font-semibold">
-                    {item?.name}
-                  </h1>
-                  {/* <div className="absolute z-20 top-4 right-4 lg:p-2 p-1 rounded-full cursor-pointer border-slate-300 bg-white/60 border-2">
+            <motion.div
+              key={item.id}
+              initial={{ opacity: 0, translateY: -100 }}
+              whileInView={{ opacity: 1, translateY: 0 }}
+              transition={{ duration: 0.4, delay: i * 0.1 }}
+              viewport={{ once: true }}
+              className="relative w-full lg:h-60 rounded-lg flex flex-col md:flex-row items-center justify-between gap-5 shadow shadow-black/30"
+            >
+              <div className="lg:w-[30%] w-full lg:h-full h-60 rounded-lg overflow-hidden">
+                <Image
+                  src={item?.images?.[0] || "/stockPhoto.jpg"}
+                  alt={`travel image`}
+                  width={300}
+                  height={300}
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <div className="lg:w-[70%] w-full h-full rounded-lg overflow-hidden flex flex-col items-start justify-start gap-2 md:p-1 px-3 pb-8">
+                <h1 className="text-2xl line-clamp-2 font-semibold">
+                  {item?.name}
+                </h1>
+                {/* <div className="absolute z-20 top-4 right-4 lg:p-2 p-1 rounded-full cursor-pointer border-slate-300 bg-white/60 border-2">
                     <RiHeart3Line className="text-slate-500 size-6" />
                   </div> */}
-                  {/* Heart with Fill is <RiHeart3Fill /> */}
+                {/* Heart with Fill is <RiHeart3Fill /> */}
 
-                  <div className="flex gap-3">
-                    <div className="flex gap-1 items-center">
-                      <StarRating
-                        maxRating={5}
-                        color="#FCAE1D"
-                        readOnly={true}
-                        showNumber={false}
-                        defaultRating={item?.rating}
-                        size={16}
-                      />
-                      <div className="text-sm p-[2px] text-white rounded-lg bg-[#FFA500]">
-                        {item?.rating?.toFixed(1)}
-                      </div>
-                    </div>
-                    <span className="text-slate-600 text-[16px]">
-                      <span className="font-bold">{item.reviews}</span>
-                      &nbsp;reviews
-                    </span>
-                  </div>
-
+                <div className="flex gap-3">
                   <div className="flex gap-1 items-center">
-                    <TbMapPin className="text-slate-400 text-sm md:text-lg" />
-                    <div className="text-sm md:text-lg text-slate-400 leading-none">
-                      {item?.country}, {item?.city}
+                    <StarRating
+                      maxRating={5}
+                      color="#FCAE1D"
+                      readOnly={true}
+                      showNumber={false}
+                      defaultRating={item?.rating}
+                      size={16}
+                    />
+                    <div className="text-sm p-[2px] text-white rounded-lg bg-[#FFA500]">
+                      {item?.rating?.toFixed(1)}
                     </div>
                   </div>
+                  <span className="text-slate-600 text-[16px]">
+                    <span className="font-bold">{item.reviews}</span>
+                    &nbsp;reviews
+                  </span>
+                </div>
 
-                  <p className="text-sm lg:line-clamp-3 line-clamp-2">
-                    {item?.methodology}
-                  </p>
+                <div className="flex gap-1 items-center">
+                  <TbMapPin className="text-slate-400 text-sm md:text-lg" />
+                  <div className="text-sm md:text-lg text-slate-400 leading-none">
+                    {item?.country}, {item?.city}
+                  </div>
+                </div>
 
-                  <Button className="text-xl group bg-[#FFEF9E] text-colorAll hover:bg-colorAll hover:text-[#FFEF9E]">
+                <p className="text-sm lg:line-clamp-3 line-clamp-2">
+                  {item?.methodology}
+                </p>
+
+                {/* <Button className="text-xl group bg-[#FFEF9E] text-colorAll hover:bg-colorAll hover:text-[#FFEF9E]">
                     <span>Enquire now</span>
                     <TbPhoneCall size={20} className="stroke-2 ml-1" />
-                  </Button>
+                  </Button> */}
+                <div className="flex w-full gap-2 justify-start">
+                  <EnquireDialog
+                    images={item?.images || [""]}
+                    name={item?.name}
+                    type="Listing"
+                    info={
+                      role === "Agency"
+                        ? { type: "Agency", agencyId: item.id }
+                        : { type: "Dmc", dmcId: item.id }
+                    }
+                  />
+                  <Link href={`/${role}/${item.id}`}>
+                    <Button className="h-full group xs:text-lg text-base flex bg-[#FFEF9E] text-colorAll hover:bg-colorAll hover:text-[#FFEF9E]">
+                      View More
+                    </Button>
+                  </Link>
                 </div>
-              </motion.div>
-            </Link>
+              </div>
+            </motion.div>
           ))}
 
         {role === "Hotels" &&

@@ -82,7 +82,9 @@ const steps = [
   {
     id: "Step 7",
     name: "Digital Presence and Marketing",
-    fields: ["socialMediaLinks", "promotionalVideoUpload", "images"],
+    fields: ["socialMediaLinks", 
+      // "promotionalVideoUpload",
+       "images"],
   },
   {
     id: "Step 8",
