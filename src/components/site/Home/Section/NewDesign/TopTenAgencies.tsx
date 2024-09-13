@@ -51,7 +51,7 @@ const CarouselCard = ({ agency }: { agency: AgencyApiResult }) => (
       <h2 className="text-lg font-bold text-black line-clamp-1">
         {agency.name}
       </h2>
-      <span className="text-sm font-semibold text-yellow-500">
+      <span className="text-sm font-semibold text-colorAll">
         {"★".repeat(Math.round(agency.rating))} {agency.reviews} Reviews
       </span>
       <p className="text-sm line-clamp-3">{agency.methodology}</p>

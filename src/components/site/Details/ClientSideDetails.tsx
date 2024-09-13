@@ -135,7 +135,7 @@ const ClientSideDetails = ({
                 </div>
 
                 <StarRating
-                  color="#734E03"
+                  color="#FCAE1D"
                   maxRating={5}
                   readOnly={true}
                   size={18}
@@ -232,7 +232,7 @@ const ClientSideDetails = ({
                 </div>
 
                 <StarRating
-                  color="#734E03"
+                  color="#FCAE1D"
                   maxRating={5}
                   readOnly={true}
                   size={18}
