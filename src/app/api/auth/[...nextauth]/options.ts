@@ -1,9 +1,8 @@
-import NextAuth, { DefaultSession, NextAuthOptions } from "next-auth";
-import Google from "next-auth/providers/google";
-import { db } from "@/core/client/db";
 import createUser from "@/core/server/users/createUserifnot";
-import { $Enums } from "@prisma/client";
 import getUserInfo from "@/core/server/users/getUserInfo";
+import { $Enums } from "@prisma/client";
+import { DefaultSession, NextAuthOptions } from "next-auth";
+import Google from "next-auth/providers/google";
 
 declare module "next-auth" {
   interface Session {
@@ -96,8 +95,9 @@ export const authOptions: NextAuthOptions = {
   },
   secret: process.env.NEXTAUTH_SECRET as string,
   pages: {
-    signIn: "/auth",
-    error: "/auth",
+    // TODO: To check letter
+    // signIn: "/auth",
+    // error: "/auth",
     newUser: "/",
   },
 };
