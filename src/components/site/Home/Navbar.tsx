@@ -168,10 +168,9 @@ function Navbar() {
           visible ? "translate-y-0" : "-translate-y-full"
         }`}
       >
-        <div className="relative navbar-start -translate-x-2.5 h-14 xs:h-16 sm:h-20 w-44 xs:w-48 sm:w-56">
+        <div className="relative navbar-start h-6 xs:h-7 sm:h-8 w-44 xs:w-48 sm:w-56">
           <Link href="/" className="text-2xl font-bold">
             <Image src="/logo.png" alt="logo" fill /> 
-            {/* LOGO */}
           </Link>
         </div>
 

@@ -8,6 +8,7 @@ import {
   Twitter,
   Youtube,
 } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import {
@@ -68,7 +69,7 @@ function Footer() {
       <footer className="mx-auto max-w-screen-2xl px-4 md:px-8">
         <div className="mb-16 grid grid-cols-2 gap-12 pt-10 md:grid-cols-4 lg:grid-cols-5 lg:gap-8 lg:pt-5">
           <div className="col-span-full lg:col-span-2">
-            <div className="mb-4 lg:-mt-2">
+            {/* <div className="mb-4 lg:-mt-2">
               <Link
                 href="/"
                 className="inline-flex items-center gap-2 text-xl font-bold text-black md:text-2xl"
@@ -85,6 +86,11 @@ function Footer() {
                   <path d="M96 0V47L48 94H0V47L48 0H96Z" />
                 </svg>
                 LOGO
+              </Link>
+            </div> */}
+            <div className="relative mb-6 h-6 xs:h-7 sm:h-8 w-44 xs:w-48 sm:w-56">
+              <Link href="/">
+                <Image src="/logo.png" alt="logo" fill />
               </Link>
             </div>
 
