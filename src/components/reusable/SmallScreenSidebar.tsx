@@ -38,7 +38,6 @@ const SmallScreenSidebar = ({
   hotel?: boolean;
 }) => {
   const pathname = usePathname();
-  console.log(pathname);
 
   const AdminMenuItems: MenuItem[] = [
     { name: "Dashboard", icon: Home, href: "/admin" },
