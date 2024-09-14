@@ -26,11 +26,7 @@ export default async function CompanyLayout({
 
       <div className="w-full h-full grid grid-cols-12">
         <div className="col-span-2 min-h-screen hidden xl:block">
-          <AgencySidebar
-            agency={!!agency}
-            dmc={!!dmc}
-            hotel={!!hotel}
-          />
+          <AgencySidebar agency={!!agency} dmc={!!dmc} hotel={!!hotel} />
         </div>
         <div className="xl:col-span-10 col-span-12 p-2 xl:pl-0 mx-1 lg:mx-8">
           <CompanyHeader />

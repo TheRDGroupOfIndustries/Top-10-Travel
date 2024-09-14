@@ -13,15 +13,34 @@ import { signOut } from "next-auth/react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { FileText, HelpCircle, Home, List, LogOut, Users } from "react-feather";
-import { MdOutlineBookOnline, MdOutlineHotel, MdOutlineTravelExplore } from "react-icons/md";
+import {
+  MdOutlineBookOnline,
+  MdOutlineHotel,
+  MdOutlineTravelExplore,
+} from "react-icons/md";
 import { FiSidebar } from "react-icons/fi";
 import { FaRegMap } from "react-icons/fa6";
 
+// Define the types for your menu items
+type MenuItem = {
+  name: string;
+  icon: React.ComponentType<{ className?: string }>;
+  href: string;
+};
 
-const SmallScreenSidebar = () => {
+const SmallScreenSidebar = ({
+  agency,
+  dmc,
+  hotel,
+}: {
+  agency?: boolean;
+  dmc?: boolean;
+  hotel?: boolean;
+}) => {
   const pathname = usePathname();
+  console.log(pathname);
 
-  const AdminMenuItems = [
+  const AdminMenuItems: MenuItem[] = [
     { name: "Dashboard", icon: Home, href: "/admin" },
     { name: "Visitors", icon: Users, href: "/admin/visitors" },
     { name: "Agencies", icon: MdOutlineTravelExplore, href: "/admin/agency" },
@@ -36,11 +55,20 @@ const SmallScreenSidebar = () => {
     { name: "Report", icon: FileText, href: "/admin/report" },
   ];
 
-  const CompanyMenuItems = [
-    { name: "Dashboard", icon: Home, href: "/company" },
-    { name: "Request", icon: ArrowDownUp, href: "/company/request" },
-    { name: "Packages", icon: List, href: "/company/packages" },
-    { name: "Help Desk", icon: HelpCircle, href: "/company/helpdesk" },
+  const CompanyMenuItems: (MenuItem | undefined)[] = [
+    agency
+      ? {
+          name: "Agency",
+          icon: MdOutlineTravelExplore,
+          href: "/dashboard/agency",
+        }
+      : undefined,
+    dmc ? { name: "Dmc", icon: FaRegMap, href: "/dashboard/dmc" } : undefined,
+    hotel
+      ? { name: "Hotel", icon: MdOutlineHotel, href: "/dashboard/hotel" }
+      : undefined,
+    { name: "Request", icon: ArrowDownUp, href: "/dashboard/request" },
+    { name: "Help Desk", icon: HelpCircle, href: "/dashboard/helpdesk" },
   ];
 
   return (
@@ -76,8 +104,8 @@ const SmallScreenSidebar = () => {
               </SheetClose>
             ))}
 
-          {pathname.startsWith("/company") &&
-            CompanyMenuItems.map((item, index) => (
+          {pathname.startsWith("/dashboard") &&
+            CompanyMenuItems.filter((item): item is MenuItem => Boolean(item)).map((item, index) => (
               <SheetClose asChild key={index}>
                 <Link
                   href={item.href}
