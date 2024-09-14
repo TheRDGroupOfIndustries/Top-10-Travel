@@ -24,7 +24,7 @@ const contactInfo = [
   { icon: Mail, text: "Top10travelagency@gmail.com" },
   {
     icon: MapPin,
-    text: "Office No 9 to 10 & 17 to 27 Liberty Plaza 3-6-365, Himaythnagar , Hyderabad (India)",
+    text: "Hyderabad, India.",
   },
 ];
 
