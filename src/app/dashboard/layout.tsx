@@ -6,9 +6,9 @@ import getSessionorRedirect from "@/core/utils/getSessionorRedirect";
 import { db } from "@/core/client/db";
 
 const things = async (userId: string) => {
-  const apr = db.agency.findUnique({ where: { userId }, select: { id: true } });
-  const dpr = db.dMC.findUnique({ where: { userId }, select: { id: true } });
-  const hpr = db.hotel.findUnique({ where: { userId }, select: { id: true } });
+  const apr = db.agency.findFirst({ where: { userId }, select: { id: true } });
+  const dpr = db.dMC.findFirst({ where: { userId }, select: { id: true } });
+  const hpr = db.hotel.findFirst({ where: { userId }, select: { id: true } });
   const [agency, dmc, hotel] = await Promise.all([apr, dpr, hpr]);
   return { agency, dmc, hotel };
 };

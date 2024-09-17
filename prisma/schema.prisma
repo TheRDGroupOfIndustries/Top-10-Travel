@@ -33,21 +33,21 @@ enum HelpDeskStatus {
 }
 
 model User {
-  id             String          @id @default(cuid())
+  id             String           @id @default(cuid())
   username       String
-  email          String          @unique
+  email          String           @unique
   image          String?
-  role           Role            @default(USER)
-  createdAt      DateTime?       @default(now())
-  updatedAt      DateTime?       @updatedAt
-  influencerData InfluencerData?
+  role           Role             @default(USER)
+  createdAt      DateTime?        @default(now())
+  updatedAt      DateTime?        @updatedAt
+  influencerData InfluencerData[]
   Helpdesks      HelpDesk[]
   Reviews        Reviews[]
   Requests       Request[]
   Enquiries      Enquiry[]
-  Agency         Agency?
-  Dmc            DMC?
-  Hotel          Hotel?
+  Agency         Agency[]
+  Dmc            DMC[]
+  Hotel          Hotel[]
 }
 
 model KeyPersonnel {
@@ -92,7 +92,7 @@ model Agency {
   city_priority               Int                @default(0)
   isCertified                 Boolean            @default(false)
   User                        User               @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId                      String             @unique
+  userId                      String
   // step1
   name                        String
   country                     String
@@ -144,7 +144,7 @@ model DMC {
   city_priority               Int                @default(0)
   isCertified                 Boolean            @default(false)
   User                        User               @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId                      String             @unique
+  userId                      String
   //step1
   name                        String
   country                     String
@@ -195,7 +195,7 @@ model Hotel {
   city_priority              Int                @default(0)
   isCertified                Boolean            @default(false)
   User                       User               @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId                     String             @unique
+  userId                     String
   // step1
   name                       String
   country                    String
@@ -249,7 +249,7 @@ model InfluencerData {
   user        User    @relation(fields: [userId], references: [id], onDelete: Cascade)
   isCertified Boolean @default(false)
 
-  userId         String    @unique
+  userId         String
   name           String
   image          String
   description    String

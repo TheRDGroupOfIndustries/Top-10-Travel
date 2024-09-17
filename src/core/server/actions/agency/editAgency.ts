@@ -5,20 +5,19 @@ import { Agency } from "@prisma/client";
 import { revalidatePath, revalidateTag } from "next/cache";
 import { z } from "zod";
 
-
-export const editAgencyAction = async (values: Partial<Agency>) => {
+export const editAgencyAction = async ({ values, id }:{ values: Partial<Agency>, id: string}) => {
   const session = await getSessionorRedirect();
   const keys = Object.keys(values);
   keys.forEach((key) => {
     // @ts-expect-error
-    if (typeof values[key]==="string" && values[key]?.trim().length < 3) {
+    if (typeof values[key] === "string" && values[key]?.trim().length < 3) {
       return { error: `${key} must be atleast 3 characters.` };
     }
   });
 
   try {
     const res = await db.agency.update({
-      where: { userId: session.user.id },
+      where: { id },
       data: { ...values },
       select: { id: true },
     });

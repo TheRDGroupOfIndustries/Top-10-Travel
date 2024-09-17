@@ -4,7 +4,7 @@ import getSessionorRedirect from "@/core/utils/getSessionorRedirect";
 import { notFound } from "next/navigation";
 
 const dashboardData = async (userId: string) => {
-  const dmc = await db.dMC.findUnique({
+  const dmc = await db.dMC.findFirst({
     where: { userId: userId },
     include: { socialMediaLinks: true,keyPersonnel: true,
       pastProjects: true,

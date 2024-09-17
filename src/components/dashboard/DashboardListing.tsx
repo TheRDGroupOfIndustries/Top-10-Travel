@@ -1,6 +1,6 @@
 "use client";
 
-import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+import { Dialog, DialogTrigger } from "@/components/ui/dialog";
 import {
   ColumnDef,
   ColumnFiltersState,
@@ -13,7 +13,7 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-import { ChevronDown, SquarePen } from "lucide-react";
+import { ChevronDown, Plus, SquarePen } from "lucide-react";
 import * as React from "react";
 
 import AnimatedImage from "@/components/site/Details/AnimatedImage";
@@ -37,10 +37,8 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { deleteCompany } from "@/core/server/actions/company/deleteCompany";
-import { FaTrashCan } from "react-icons/fa6";
-import { toast } from "sonner";
-import EditListingForm from "./EditListingForm";
+import type { Prisma } from "@prisma/client";
+import Link from "next/link";
 
 export type Company = {
   id: string;
@@ -55,14 +53,18 @@ export type Company = {
   methodology: string | null;
   type: string;
 };
-async function deleteListing(id: string, type: string) {
-  // @ts-expect-error
-  const res = await deleteCompany({ id, type });
-  if (res.success) {
-    toast.success(res.success);
-  } else toast.error(res.error);
-}
-export const columns: ColumnDef<Company>[] = [
+
+export const columns: ColumnDef<
+  Prisma.AgencyGetPayload<{
+    include: {
+      socialMediaLinks: true;
+      pastProjects: true;
+      clientReferences: true;
+      keyPersonnel: true;
+      Reviews: true;
+    };
+  }>
+>[] = [
   {
     accessorKey: "images",
     header: "Image",
@@ -97,14 +99,6 @@ export const columns: ColumnDef<Company>[] = [
     header: "Name",
   },
   {
-    accessorKey: "priority",
-    header: "Priority (Country)",
-  },
-  {
-    accessorKey: "city_priority",
-    header: "Priority (city)",
-  },
-  {
     accessorKey: "isCertified",
     header: "Is Certified",
   },
@@ -130,7 +124,7 @@ export const columns: ColumnDef<Company>[] = [
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent>
-            <DropdownMenuLabel>{listing.type} actions</DropdownMenuLabel>
+            <DropdownMenuLabel>actions</DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuItem asChild>
               <Dialog>
@@ -139,20 +133,10 @@ export const columns: ColumnDef<Company>[] = [
                     variant="ghost"
                     className="flex justify-between items-center px-2 gap-2 w-full"
                   >
-                    Edit Info <SquarePen className="h-4 w-4" />
+                    Open
                   </Button>
                 </DialogTrigger>
-                <DialogContent className="sm:max-w-[425px]">
-                  <EditListingForm company={listing} />
-                </DialogContent>
               </Dialog>
-            </DropdownMenuItem>
-            <DropdownMenuItem
-              className="flex items-center justify-start gap-2"
-              onClick={() => deleteListing(row.original.id, row.original.type)}
-            >
-              Delete {listing.type}
-              <FaTrashCan />
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
@@ -161,11 +145,21 @@ export const columns: ColumnDef<Company>[] = [
   },
 ];
 
-export default function AdminPackagelisting({
+export default function DashboardListing({
   listings,
   type,
+  setSelectedAgency,
 }: {
-  listings: Company[];
+  listings: Prisma.AgencyGetPayload<{
+    include: {
+      socialMediaLinks: true;
+      pastProjects: true;
+      clientReferences: true;
+      keyPersonnel: true;
+      Reviews: true;
+    };
+  }>[];
+  setSelectedAgency: (listing: any) => void;
   type: "Agency" | "Dmc" | "Hotel";
 }) {
   const [sorting, setSorting] = React.useState<SortingState>([]);
@@ -185,6 +179,99 @@ export default function AdminPackagelisting({
     );
   }, [searchValue, listings]);
 
+  const columns: ColumnDef<
+    Prisma.AgencyGetPayload<{
+      include: {
+        socialMediaLinks: true;
+        pastProjects: true;
+        clientReferences: true;
+        keyPersonnel: true;
+        Reviews: true;
+      };
+    }>
+  >[] = [
+    {
+      accessorKey: "images",
+      header: "Image",
+      cell: ({ row }) => {
+        let href = null;
+        // @ts-expect-error
+        const url = row.getValue("images")[0];
+        try {
+          href = new URL(url).href;
+        } catch (error) {
+          if (!url?.startsWith("/")) href = null;
+          else href = url;
+        }
+        return (
+          <div className="w-20 h-14 overflow-hidden rounded-lg">
+            <AnimatedImage
+              src={href ?? "/UploadImage.jpg"}
+              alt={"Company Image"}
+              fill
+              className="w-full h-full"
+            />
+          </div>
+        );
+      },
+    },
+    {
+      accessorKey: "id",
+      header: "Company Id",
+    },
+    {
+      accessorKey: "name",
+      header: "Name",
+    },
+    {
+      accessorKey: "isCertified",
+      header: "Is Certified",
+    },
+    {
+      accessorKey: "country",
+      header: "Country",
+    },
+    {
+      accessorKey: "city",
+      header: "City",
+    },
+    {
+      id: "actions",
+      enableHiding: false,
+      header: "Actions",
+      cell: ({ row }) => {
+        const listing = row.original;
+        
+        return (
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button size="icon" variant="ghost">
+                <SquarePen className="h-4 w-4" />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent>
+              <DropdownMenuLabel>actions</DropdownMenuLabel>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem asChild>
+                <Dialog>
+                  <DialogTrigger asChild>
+                    <Button
+                      variant="ghost"
+                      onClick={() => setSelectedAgency(listing)}
+                      className="flex justify-between items-center px-2 gap-2 w-full"
+                    >
+                      Open
+                    </Button>
+                  </DialogTrigger>
+                </Dialog>
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        );
+      },
+    },
+  ];
+
   const table = useReactTable({
     data: data,
     columns,
@@ -202,6 +289,12 @@ export default function AdminPackagelisting({
       columnVisibility,
       rowSelection,
     },
+    initialState: {
+      pagination: {
+        pageIndex: 0, //custom initial page index
+        pageSize: 2, //custom default page size
+      },
+    },
   });
 
   return (
@@ -209,7 +302,7 @@ export default function AdminPackagelisting({
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-5">
           <h2 className="lg:text-3xl md:text-2xl text-xl font-semibold">
-            Listing of <span className="text-[#fcaf1e]">{type}</span>
+            <span className="text-mainColor">{type}</span> created by Admin
           </h2>
           <p className="font-medium text-sm text-[#36454F]">
             <span className="font-bold">
@@ -218,14 +311,8 @@ export default function AdminPackagelisting({
             Total {type}
           </p>
         </div>
-
-        {/* <Button
-          asChild
-          className="bg-[#fcaf1e] hover:bg-[#fcaf1e]/80"
-        >
-          <Link href="/admin/companies/add-company">Add Listing +</Link>
-        </Button> */}
       </div>
+
       <div className="flex items-center">
         <Input
           placeholder="Search by name or id..."
@@ -237,15 +324,28 @@ export default function AdminPackagelisting({
           className="max-w-sm bg-[#fbfbfb] focus-visible:ring-0"
         />
 
+        <Link
+          href={`/auth/${type.toLowerCase()}`}
+          className="ml-auto inline-block"
+        >
+          <Button
+            variant="outline"
+            className="bg-[#F3F3F3] hover:bg-[#dbdbdb] border-mainColor"
+          >
+            Add {type} <Plus className="ml-2 h-4 w-4" />
+          </Button>
+        </Link>
+
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button
               variant="outline"
-              className="ml-auto bg-[#F3F3F3] hover:bg-[#dbdbdb]"
+              className="ml-1 bg-[#F3F3F3] hover:bg-[#dbdbdb] border-mainColor"
             >
               Columns <ChevronDown className="ml-2 h-4 w-4" />
             </Button>
           </DropdownMenuTrigger>
+
           <DropdownMenuContent align="end">
             {table
               .getAllColumns()
@@ -321,7 +421,6 @@ export default function AdminPackagelisting({
           </TableBody>
         </Table>
       </div>
-      
       <div className="flex items-center justify-end space-x-2 py-4">
         <div className="flex-1 text-sm text-muted-foreground">
           Showing{" "}
@@ -348,7 +447,10 @@ export default function AdminPackagelisting({
           <Button
             variant="outline"
             size="sm"
-            onClick={() => table.nextPage()}
+            onClick={() => {
+              table.nextPage();
+              console.log("clicked");
+            }}
             disabled={!table.getCanNextPage()}
           >
             Next

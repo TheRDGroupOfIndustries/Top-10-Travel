@@ -1,22 +1,46 @@
+"use server";
+
 import AgencyDashboard from "@/components/dashboard/agency/AgencyDashboard";
 import { db } from "@/core/client/db";
 import getSessionorRedirect from "@/core/utils/getSessionorRedirect";
 import { notFound } from "next/navigation";
+import { useState } from "react";
+import DashboardForAdminAgency from "./DashboardForAdminAgency";
 
-const dashboardData = async (userId: string) => {
-  const agency = await db.agency.findUnique({
+
+const oneAgencyData = async (userId: string) => {
+  const agency = await db.agency.findFirst({
     where: { userId: userId },
     include: {
       socialMediaLinks: true,
       keyPersonnel: true,
       pastProjects: true,
       clientReferences: true,
+      Reviews: true,
     },
   });
   return { agency };
 };
 
-const getReviews = async (agencyId: string) => {
+const getAllAgenciesByAdmin = async () => {
+  const agencies = await db.agency.findMany({
+    where: {
+      User: {
+        role: "ADMIN", // Filter by users with the 'ADMIN' role
+      },
+    },
+    include: {
+      socialMediaLinks: true,
+      keyPersonnel: true,
+      pastProjects: true,
+      clientReferences: true,
+      Reviews: true,
+    },
+  });
+  return { agencies };
+};
+
+const getReviewsOfOneAgency = async (agencyId: string) => {
   return await db.reviews.findMany({
     where: { agencyId },
   });
@@ -24,15 +48,32 @@ const getReviews = async (agencyId: string) => {
 
 const AgencyDashboardPage = async () => {
   const session = await getSessionorRedirect();
-  const { agency } = await dashboardData(session?.user.id);
-  if (!agency) return notFound();
-  const reviews = await getReviews(agency.id);
+  const { agencies } = await getAllAgenciesByAdmin();
 
-  return (
-    <AgencyDashboard
-      reviews={reviews}
-      data={agency}
-    />
-  );
+  if (session.user.role === "USER" || session.user.role === "Influencer") {
+    const { agency } = await oneAgencyData(session?.user.id);
+    if (!agency) return notFound();
+    const reviews = await getReviewsOfOneAgency(agency.id);
+
+    return (
+      <AgencyDashboard
+        reviews={agency.Reviews}
+        data={agency}
+      />
+    );
+  } else if (session.user.role === "ADMIN") {
+    const agenciesWithReviews = await Promise.all(
+      agencies.map(async (agency) => {
+        const Reviews = await getReviewsOfOneAgency(agency.id);
+        return { ...agency, Reviews };
+      })
+    );
+
+    return (
+      <DashboardForAdminAgency
+        data={agenciesWithReviews}
+      />
+    );
+  }
 };
 export default AgencyDashboardPage;

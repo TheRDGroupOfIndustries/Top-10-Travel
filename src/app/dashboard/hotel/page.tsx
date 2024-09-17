@@ -5,7 +5,7 @@ import getSessionorRedirect from "@/core/utils/getSessionorRedirect";
 import { notFound } from "next/navigation";
 
 const dashboardData = async (userId: string) => {
-  const hotel = await db.hotel.findUnique({
+  const hotel = await db.hotel.findFirst({
     where: { userId: userId },
     include: {
       socialMediaLinks: true,

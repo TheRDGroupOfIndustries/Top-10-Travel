@@ -4,12 +4,12 @@ import getSessionorRedirect from "@/core/utils/getSessionorRedirect";
 import { Agency } from "@prisma/client";
 import { revalidatePath, revalidateTag } from "next/cache";
 
-export const updatePrimaryAction = async (value: string[]) => {
+export const updatePrimaryAction = async ({ value, id }:{ value: string[], id: string}) => {
   const session = await getSessionorRedirect();
 
   try {
     const res = await db.agency.update({
-      where: { userId: session.user.id },
+      where: { id },
       data: { primaryServices: value },
       select: { id: true },
     });
@@ -22,12 +22,12 @@ export const updatePrimaryAction = async (value: string[]) => {
   }
 };
 
-export const updateSpecialAction = async (value: string[]) => {
+export const updateSpecialAction = async ({ value, id }:{ value: string[], id: string}) => {
   const session = await getSessionorRedirect();
 
   try {
     const res = await db.agency.update({
-      where: { userId: session.user.id },
+      where: { id },
       data: { specializedTravelTypes: value },
       select: { id: true },
     });

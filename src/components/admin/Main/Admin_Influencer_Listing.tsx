@@ -14,8 +14,6 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
-import { ChevronDown, SquarePen } from "lucide-react";
-
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import {
@@ -40,6 +38,7 @@ import EditUserForm from "./EditUserform";
 import AddUserForm from "./AddUserForm";
 import { Card } from "@/components/ui/card";
 import Image from "next/image";
+import { ChevronDown, Plus, SquarePen } from "lucide-react";
 import Link from "next/link";
 import { $Enums } from "@prisma/client";
 import EditListingForm from "./EditListingForm";
@@ -235,12 +234,22 @@ export default function AdminPackagelisting({
           }}
           className="max-w-sm bg-[#fbfbfb] focus-visible:ring-0"
         />
+        {/* Influencer */}
+
+        <Link href="/auth/influencer" className="ml-auto inline-block">
+          <Button
+            variant="outline"
+            className="bg-[#F3F3F3] hover:bg-[#dbdbdb] border-mainColor"
+          >
+            Add Influencer <Plus className="ml-2 h-4 w-4" />
+          </Button>
+        </Link>
 
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button
               variant="outline"
-              className="ml-auto bg-[#F3F3F3] hover:bg-[#dbdbdb]"
+              className="ml-1 bg-[#F3F3F3] hover:bg-[#dbdbdb] border-mainColor"
             >
               Columns <ChevronDown className="ml-2 h-4 w-4" />
             </Button>

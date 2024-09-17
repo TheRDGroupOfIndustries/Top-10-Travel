@@ -5,11 +5,19 @@ import { redirect } from "next/navigation";
 
 const AgencyLoginPage = async () => {
   const session = await getSessionorRedirect();
-  const agency = await db.hotel.findUnique({
-    where: { userId: session.user.id },
-    select: { id: true },
-  });
-  if (agency) return redirect(`/dashboard/hotel`);
+
+  if (session.user.role === "USER" || session.user.role === "Influencer") {
+    const agency = await db.hotel.findFirst({
+      where: {
+        userId: session.user.id,
+      },
+      select: {
+        id: true,
+      },
+    });
+
+    if (agency) return redirect(`/dashboard/hotel`);
+  }
 
   return <HotelForm />;
 };
