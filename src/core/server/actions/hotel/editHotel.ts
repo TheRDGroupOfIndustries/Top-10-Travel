@@ -27,7 +27,7 @@ export const editHotelActionAdmin = async (
     return { error: "Something went wrong while applying changes." };
   }
 };
-export const editHotelAction = async (values: Partial<Hotel>) => {
+export const editHotelAction = async ({ values, id }:{ values: Partial<Hotel>, id: string}) => {
   const session = await getSessionorRedirect();
   const keys = Object.keys(values);
   keys.forEach((key) => {
@@ -39,7 +39,7 @@ export const editHotelAction = async (values: Partial<Hotel>) => {
 
   try {
     const res = await db.hotel.update({
-      where: { userId: session.user.id },
+      where: { id },
       data: { ...values },
       select: { id: true },
     });

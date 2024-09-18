@@ -1,8 +1,8 @@
 "use server";
 import { db } from "@/core/client/db";
 import getSessionorRedirect from "@/core/utils/getSessionorRedirect";
-import { DMC } from "@prisma/client";
-import { revalidatePath, revalidateTag } from "next/cache";
+import { DMC, type Hotel,  } from "@prisma/client";
+import { revalidatePath } from "next/cache";
 
 export const editDMCActionAdmin = async (
   values: Pick<
@@ -15,7 +15,7 @@ export const editDMCActionAdmin = async (
     return { error: "Unauthorized" };
   }
   try {
-    const res = await db.agency.update({
+    const res = await db.dMC.update({
       where: { id: values.id },
       data: { ...values },
       select: { id: true },
@@ -27,8 +27,8 @@ export const editDMCActionAdmin = async (
     return { error: "Something went wrong while applying changes." };
   }
 };
-export const editDMCAction = async (values: Partial<DMC>) => {
-  const session = await getSessionorRedirect();
+
+export const editDMCAction = async ({ values, id }:{ values: Partial<DMC>, id: string}) => {
   const keys = Object.keys(values);
   keys.forEach((key) => {
     // @ts-expect-error
@@ -38,8 +38,8 @@ export const editDMCAction = async (values: Partial<DMC>) => {
   });
 
   try {
-    const res = await db.agency.update({
-      where: { userId: session.user.id },
+    const res = await db.dMC.update({
+      where: { id },
       data: { ...values },
       select: { id: true },
     });

@@ -18,6 +18,7 @@ const getAllListing = unstable_cache(
         methodology: true,
       },
     });
+
     return data.map((d) => ({ ...d, type: "Agency" }));
   },
   undefined,
@@ -28,6 +29,7 @@ async function Page() {
   const listings = await getAllListing();
 
   return (
+    
     <AdminPackagelisting
       listings={listings}
       type="Agency"

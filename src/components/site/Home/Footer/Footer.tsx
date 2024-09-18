@@ -1,23 +1,15 @@
 import {
-  Facebook,
-  Instagram,
-  Linkedin,
   Mail,
   MapPin,
-  Phone,
-  Twitter,
-  Youtube,
+  Phone
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
 import {
-  FaInstagram,
-  FaYoutube,
   FaFacebook,
-  FaTwitter,
-  FaLinkedin,
+  FaInstagram,
   FaXTwitter,
+  FaYoutube
 } from "react-icons/fa6";
 
 const contactInfo = [

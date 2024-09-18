@@ -1,21 +1,21 @@
 "use client";
-import { ChangeEvent, useState } from "react";
+import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Button } from "@/components/ui/button";
-import useMutation from "@/hooks/useMutation";
-import { editDMCAction } from "@/core/server/actions/dmc/editDmc";
-import { Edit, Upload, UserRoundPen } from "lucide-react";
-import { cn } from "@/lib/utils";
-import { toast } from "sonner";
-import Image from "next/image";
 import { Textarea } from "@/components/ui/textarea";
+import { editDMCAction } from "@/core/server/actions/dmc/editDmc";
+import useMutation from "@/hooks/useMutation";
+import { cn } from "@/lib/utils";
+import { Edit } from "lucide-react";
+import { useState } from "react";
+import { toast } from "sonner";
 
 const InputWithSave = ({
   name,
   text,
   value,
   className,
+  id,
   minLength,
   maxLength,
   type,
@@ -25,6 +25,7 @@ const InputWithSave = ({
   value: string;
   text: string;
   className?: string;
+  id: string;
   minLength?: number;
   maxLength?: number;
   type?: string;
@@ -53,7 +54,10 @@ const InputWithSave = ({
               return; // value didn't change, no need to save
             }
             console.log({ [name]: val });
-            const { success, error } = await mutate({ [name]: val });
+            const { success, error } = await mutate({
+              values: { [name]: val },
+              id,
+            });
             if (success) toast.success(success);
             else toast.error(error);
             setIsChanging(false);

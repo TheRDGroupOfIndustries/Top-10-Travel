@@ -6,10 +6,13 @@ import InfluencerForm from "@/components/influencer/InfluencerForm";
 const InfluencerAuthPage = async () => {
   const session = await getServersession();
   if (!session) return redirect("/auth");
-  const alreadyhaveData = await db.influencerData.findUnique({
+
+  if(session.user.role === 'USER' || session.user.role === 'Influencer'){
+  const alreadyhaveData = await db.influencerData.findFirst({
     where: { userId: session.user.id },
   });
-  if (alreadyhaveData) return redirect("/Influencers/" + alreadyhaveData.id);
+
+  if (alreadyhaveData) return redirect("/Influencers/" + alreadyhaveData.id);}
 
   return <InfluencerForm />;
 };

@@ -1,15 +1,14 @@
 "use client";
-import { ChangeEvent, useState } from "react";
+import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Button } from "@/components/ui/button";
-import useMutation from "@/hooks/useMutation";
-import { editAgencyAction } from "@/core/server/actions/agency/editAgency";
-import { Edit, Upload, UserRoundPen } from "lucide-react";
-import { cn } from "@/lib/utils";
-import { toast } from "sonner";
-import Image from "next/image";
 import { Textarea } from "@/components/ui/textarea";
+import { editAgencyAction } from "@/core/server/actions/agency/editAgency";
+import useMutation from "@/hooks/useMutation";
+import { cn } from "@/lib/utils";
+import { Edit } from "lucide-react";
+import { useState } from "react";
+import { toast } from "sonner";
 
 const InputWithSave = ({
   name,
@@ -17,6 +16,7 @@ const InputWithSave = ({
   value,
   className,
   minLength,
+  id,
   maxLength,
   type,
   hideLabel = false,
@@ -27,6 +27,7 @@ const InputWithSave = ({
   className?: string;
   minLength?: number;
   maxLength?: number;
+  id: string;
   type?: string;
   hideLabel?: boolean;
 }) => {
@@ -52,7 +53,11 @@ const InputWithSave = ({
               setIsChanging(false);
               return; // value didn't change, no need to save
             }
-            const { success, error } = await mutate({ [name]: val });
+
+            const { success, error } = await mutate({
+              values: { [name]: val },
+              id,
+            });
             if (success) toast.success(success);
             else toast.error(error);
             setIsChanging(false);
@@ -85,7 +90,7 @@ const InputWithSave = ({
             disabled={isPending}
             type="submit"
             size="sm"
-            className="bg-[#fcaf1e] hover:bg-[#fcaf1e]/80"
+            className="bg-mainColor hover:bg-mainColorSecondary"
           >
             {isPending ? "Saving..." : "Save"}
           </Button>

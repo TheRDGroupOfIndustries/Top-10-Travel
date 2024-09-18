@@ -48,9 +48,11 @@ function arraysAreEqual(arr1: string[], arr2: string[]) {
 const UpdateHotelPrimary = ({
   primary,
   special,
+  id,
 }: {
   primary: string[];
   special: string[];
+  id: string;
 }) => {
   const [newPrimary, setNewPrimary] = useState<string[]>([]);
   const [newSpecial, setNewSpecial] = useState<string[]>([]);
@@ -152,7 +154,10 @@ const UpdateHotelPrimary = ({
               className="ml-auto bg-[#fcaf1e] hover:bg-[#fcaf1e]/80"
               disabled={!hasPrimaryChanged || isPendingPrimary}
               onClick={async (e) => {
-                const { success, error } = await primaryAction(newPrimary);
+                const { success, error } = await primaryAction({
+                  value: newPrimary,
+                  id,
+                });
                 if (success) toast.success(success);
                 else toast.error(error);
               }}
@@ -222,7 +227,10 @@ const UpdateHotelPrimary = ({
               className="ml-auto bg-[#fcaf1e] hover:bg-[#fcaf1e]/80"
               disabled={isPendingSpecial || !hasSpecialChanged}
               onClick={async (e) => {
-                const { success, error } = await specialAction(newSpecial);
+                const { success, error } = await specialAction({
+                  value: newPrimary,
+                  id,
+                });
                 if (success) toast.success(success);
                 else toast.error(error);
               }}
