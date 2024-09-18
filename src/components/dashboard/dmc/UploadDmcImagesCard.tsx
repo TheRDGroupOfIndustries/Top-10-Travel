@@ -45,10 +45,7 @@ const UploadAgencyImagesCard = ({
       <CardHeader>
         <CardTitle>
           <span className="text-[#FCAE1D]">Company </span>Images
-          <Dialog
-            open={isVisible}
-            onOpenChange={setIsVisible}
-          >
+          <Dialog open={isVisible} onOpenChange={setIsVisible}>
             <DialogTrigger asChild>
               <Button
                 className={cn("ml-4", images.length === 4 ? "hidden" : "")}

@@ -15,7 +15,7 @@ export const editDMCActionAdmin = async (
     return { error: "Unauthorized" };
   }
   try {
-    const res = await db.agency.update({
+    const res = await db.dMC.update({
       where: { id: values.id },
       data: { ...values },
       select: { id: true },
@@ -38,7 +38,7 @@ export const editDMCAction = async ({ values, id }:{ values: Partial<DMC>, id: s
   });
 
   try {
-    const res = await db.agency.update({
+    const res = await db.dMC.update({
       where: { id },
       data: { ...values },
       select: { id: true },

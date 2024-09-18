@@ -13,7 +13,7 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-import { ChevronDown, SquarePen } from "lucide-react";
+import { ChevronDown, Plus, SquarePen } from "lucide-react";
 import * as React from "react";
 
 import AnimatedImage from "@/components/site/Details/AnimatedImage";
@@ -41,6 +41,7 @@ import { deleteCompany } from "@/core/server/actions/company/deleteCompany";
 import { FaTrashCan } from "react-icons/fa6";
 import { toast } from "sonner";
 import EditListingForm from "./EditListingForm";
+import Link from "next/link";
 
 export type Company = {
   id: string;
@@ -226,7 +227,7 @@ export default function AdminPackagelisting({
           <Link href="/admin/companies/add-company">Add Listing +</Link>
         </Button> */}
       </div>
-      <div className="flex items-center">
+      <div className="flex items-center flex-wrap p-1 md:p-0">
         <Input
           placeholder="Search by name or id..."
           value={searchValue}
@@ -237,15 +238,28 @@ export default function AdminPackagelisting({
           className="max-w-sm bg-[#fbfbfb] focus-visible:ring-0"
         />
 
+        <Link
+          href={`/auth/${type.toLowerCase()}`}
+          className="ml-auto inline-block"
+        >
+          <Button
+            variant="outline"
+            className="bg-[#F3F3F3] hover:bg-[#dbdbdb] border-mainColor"
+          >
+            Add {type} <Plus className="ml-2 h-4 w-4" />
+          </Button>
+        </Link>
+
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button
               variant="outline"
-              className="ml-auto bg-[#F3F3F3] hover:bg-[#dbdbdb]"
+              className="ml-1 bg-[#F3F3F3] border-mainColor hover:bg-[#dbdbdb]"
             >
               Columns <ChevronDown className="ml-2 h-4 w-4" />
             </Button>
           </DropdownMenuTrigger>
+
           <DropdownMenuContent align="end">
             {table
               .getAllColumns()
@@ -321,7 +335,7 @@ export default function AdminPackagelisting({
           </TableBody>
         </Table>
       </div>
-      
+
       <div className="flex items-center justify-end space-x-2 py-4">
         <div className="flex-1 text-sm text-muted-foreground">
           Showing{" "}

@@ -1,15 +1,14 @@
 "use client";
-import { ChangeEvent, useState } from "react";
+import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Button } from "@/components/ui/button";
-import useMutation from "@/hooks/useMutation";
-import { editDMCAction } from "@/core/server/actions/dmc/editDmc";
-import { Edit, Upload, UserRoundPen } from "lucide-react";
-import { cn } from "@/lib/utils";
-import { toast } from "sonner";
-import Image from "next/image";
 import { Textarea } from "@/components/ui/textarea";
+import { editDMCAction } from "@/core/server/actions/dmc/editDmc";
+import useMutation from "@/hooks/useMutation";
+import { cn } from "@/lib/utils";
+import { Edit } from "lucide-react";
+import { useState } from "react";
+import { toast } from "sonner";
 
 const InputWithSave = ({
   name,

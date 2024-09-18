@@ -1,30 +1,27 @@
 "use client";
-import { Agency, Prisma, Reviews } from "@prisma/client";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "../../ui/card";
-import Image from "next/image";
-import InputWithSave from "./InputWithSaveDmc";
-import { Badge } from "../../ui/badge";
+import { Prisma, Reviews } from "@prisma/client";
 import Link from "next/link";
-import { Button } from "../../ui/button";
-import { Plus } from "lucide-react";
-import { cn } from "@/lib/utils";
-import UploadCompanyImagesCard from "./UploadDmcImagesCard";
-import UpdateSocialMediaLinks from "../updateSocialMediaLinks";
-import UpdatePastProjects from "../updatePastProjects";
+import { Badge } from "../../ui/badge";
+import { Card, CardContent, CardHeader, CardTitle } from "../../ui/card";
 import UpdateClientReferences from "../updateClientReferences";
 import UpdateKeyPersonnel from "../updateKeyPersons";
+import UpdatePastProjects from "../updatePastProjects";
+import UpdateSocialMediaLinks from "../updateSocialMediaLinks";
+import InputWithSave from "./InputWithSaveDmc";
+import UploadCompanyImagesCard from "./UploadDmcImagesCard";
 
 const DmcDashboard = ({
   data,
   reviews,
 }: {
-  data: Prisma.DMCGetPayload<{ include: { socialMediaLinks: true, pastProjects:true, clientReferences:true, keyPersonnel:true } }>;
+  data: Prisma.DMCGetPayload<{
+    include: {
+      socialMediaLinks: true;
+      pastProjects: true;
+      clientReferences: true;
+      keyPersonnel: true;
+    };
+  }>;
   reviews: Reviews[];
 }) => {
   return (
@@ -37,6 +34,7 @@ const DmcDashboard = ({
               <InputWithSave
                 name="name"
                 value={data.name}
+                id={data.id}
                 hideLabel
                 text="Edit Your Agency Name"
                 className="text-3xl font-bold text-center my-2 "
@@ -44,6 +42,7 @@ const DmcDashboard = ({
               <div className="text-lg md:flex-row flex  flex-wrap items-center justify-center md:justify-start  text-gray-950  md:gap-8 gap-5 my-2">
                 <InputWithSave
                   name="country"
+                  id={data.id}
                   value={data.country}
                   text="Country"
                   className="text-medium text-gray-900 "
@@ -51,6 +50,7 @@ const DmcDashboard = ({
 
                 <InputWithSave
                   name="city"
+                  id={data.id}
                   value={data.city}
                   text="City"
                   className="text-medium text-gray-900"
@@ -92,6 +92,7 @@ const DmcDashboard = ({
             <InputWithSave
               name="contactPerson"
               value={data.contactPerson}
+              id={data.id}
               text="Edit Owner Name"
               minLength={5}
             />
@@ -99,6 +100,7 @@ const DmcDashboard = ({
               name="contactEmail"
               value={data.contactEmail}
               text="Edit Contact Email"
+              id={data.id}
               minLength={5}
               type="email"
             />
@@ -106,6 +108,7 @@ const DmcDashboard = ({
             <InputWithSave
               name="contactPhoneNumber"
               value={data.contactPhoneNumber}
+              id={data.id}
               type="number"
               text="Edit Contact Phone Number"
             />
@@ -115,6 +118,7 @@ const DmcDashboard = ({
               name="address"
               value={data.address}
               text="Edit Your Address"
+              id={data.id}
               minLength={10}
               maxLength={150}
             />
@@ -122,9 +126,11 @@ const DmcDashboard = ({
             <InputWithSave
               name="country"
               value={data.country}
+              id={data.id}
               text="Edit Your country"
             />
             <InputWithSave
+              id={data.id}
               name="city"
               value={data.city}
               text="Edit Your city"
@@ -133,6 +139,7 @@ const DmcDashboard = ({
           <div className="w-full flex flex-col item-center justify-start gap-2">
             <InputWithSave
               name="companyRegistrationNumber"
+              id={data.id}
               value={data.companyRegistrationNumber}
               text="Edit Your company Registration Number"
             />
@@ -141,14 +148,12 @@ const DmcDashboard = ({
               value={data.description}
               text="Edit Your Description"
               minLength={40}
+              id={data.id}
             />
           </div>
         </CardContent>
       </Card>
-      <UploadCompanyImagesCard
-        companyId={data.id}
-        images={data.images ?? []}
-      />
+      <UploadCompanyImagesCard companyId={data.id} images={data.images ?? []} />
       <UpdateSocialMediaLinks
         links={data.socialMediaLinks[0]}
         socialMediaLinkId={data.socialMediaLinks[0].id}
