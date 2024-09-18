@@ -27,8 +27,6 @@ const AgencyDashboard = ({
   }>;
   reviews: Reviews[];
 }) => {
-  console.log(data.id);
-
   return (
     <div className="space-y-4 mt-5">
       <Card className="border-none bg-[#F3F3F3]">

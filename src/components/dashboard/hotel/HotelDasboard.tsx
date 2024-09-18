@@ -1,22 +1,12 @@
 "use client";
-import { Agency, Prisma, Reviews } from "@prisma/client";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "../../ui/card";
-import Image from "next/image";
-import InputWithSave from "./InputWithSaveHotel";
-import { Badge } from "../../ui/badge";
+import { Prisma, Reviews } from "@prisma/client";
 import Link from "next/link";
-import { Button } from "../../ui/button";
-import { Plus } from "lucide-react";
-import { cn } from "@/lib/utils";
-import UploadCompanyImagesCard from "./UploadHotelImagesCard";
+import { Badge } from "../../ui/badge";
+import { Card, CardContent, CardHeader, CardTitle } from "../../ui/card";
 import UpdateSocialMediaLinks from "../updateSocialMediaLinks";
+import InputWithSave from "./InputWithSaveHotel";
 import UpdateHotelPrimary from "./UpdateHotelPrimary";
+import UploadCompanyImagesCard from "./UploadHotelImagesCard";
 
 const HotelDashboard = ({
   data,
@@ -36,6 +26,7 @@ const HotelDashboard = ({
                 name="name"
                 value={data.name}
                 hideLabel
+                id={data.id}
                 text="Edit Your Agency Name"
                 className="text-3xl font-bold text-center my-2 "
               />
@@ -43,6 +34,7 @@ const HotelDashboard = ({
                 <InputWithSave
                   name="country"
                   value={data.country}
+                  id={data.id}
                   text="Country"
                   className="text-medium text-gray-900 "
                 />
@@ -51,6 +43,7 @@ const HotelDashboard = ({
                   name="city"
                   value={data.city}
                   text="City"
+                  id={data.id}
                   className="text-medium text-gray-900"
                 />
               </div>
@@ -90,12 +83,14 @@ const HotelDashboard = ({
             <InputWithSave
               name="contactPerson"
               value={data.contactPerson}
+              id={data.id}
               text="Edit Owner Name"
               minLength={5}
             />
             <InputWithSave
               name="contactEmail"
               value={data.contactEmail}
+              id={data.id}
               text="Edit Contact Email"
               minLength={5}
               type="email"
@@ -103,6 +98,7 @@ const HotelDashboard = ({
 
             <InputWithSave
               name="contactPhoneNumber"
+              id={data.id}
               value={data.contactPhoneNumber}
               type="number"
               text="Edit Contact Phone Number"
@@ -112,6 +108,7 @@ const HotelDashboard = ({
             <InputWithSave
               name="address"
               value={data.address}
+              id={data.id}
               text="Edit Your Address"
               minLength={10}
               maxLength={150}
@@ -121,32 +118,33 @@ const HotelDashboard = ({
               name="country"
               value={data.country}
               text="Edit Your country"
+              id={data.id}
             />
             <InputWithSave
               name="city"
               value={data.city}
               text="Edit Your city"
+              id={data.id}
             />
           </div>
           <div className="w-full flex flex-col item-center justify-start gap-2">
             <InputWithSave
               name="companyRegistrationNumber"
               value={data.companyRegistrationNumber}
+              id={data.id}
               text="Edit Your company Registration Number"
             />
             <InputWithSave
               name="description"
               value={data.description}
+              id={data.id}
               text="Edit Your Description"
               minLength={40}
             />
           </div>
         </CardContent>
       </Card>
-      <UploadCompanyImagesCard
-        companyId={data.id}
-        images={data.images ?? []}
-      />
+      <UploadCompanyImagesCard companyId={data.id} images={data.images ?? []} />
       <UpdateSocialMediaLinks
         links={data.socialMediaLinks[0]}
         socialMediaLinkId={data.socialMediaLinks[0].id}
@@ -154,6 +152,7 @@ const HotelDashboard = ({
       />
       <UpdateHotelPrimary
         primary={data.services}
+        id={data.id}
         special={data.specialization}
       />
       <Card className="border-none bg-[#F3F3F3] mt-4">

@@ -1,7 +1,8 @@
 "use client";
 
 import AgencyDashboard from "@/components/dashboard/agency/AgencyDashboard";
-import DashboardListing from "@/components/dashboard/DashboardListing";
+import DashboardListingAgency from "@/components/dashboard/DashboardListingAgency";
+import DashboardListing from "@/components/dashboard/DashboardListingAgency";
 
 import type { Prisma } from "@prisma/client";
 import { useState } from "react";
@@ -18,13 +19,15 @@ const DashboardForAdminAgency = ({
       Reviews: true;
     };
   }>[];
-  
 }) => {
-  const [selectedAgency, setSelectedAgency] = useState(data[1]);
+  const [selectedAgency, setSelectedAgency] = useState(data[0]);
 
   return (
     <>
-      <DashboardListing listings={data} type="Agency" setSelectedAgency={setSelectedAgency}  />
+      <DashboardListingAgency
+        listings={data}
+        setSelectedAgency={setSelectedAgency}
+      />
       <AgencyDashboard data={selectedAgency} reviews={selectedAgency.Reviews} />
     </>
   );

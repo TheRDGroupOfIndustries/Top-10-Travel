@@ -19,12 +19,14 @@ const InputWithSave = ({
   minLength,
   maxLength,
   type,
+  id,
   hideLabel = false,
 }: {
   name: string;
   value: string;
   text: string;
   className?: string;
+  id: string;
   minLength?: number;
   maxLength?: number;
   type?: string;
@@ -53,7 +55,10 @@ const InputWithSave = ({
               return; // value didn't change, no need to save
             }
             console.log({ [name]: val });
-            const { success, error } = await mutate({ [name]: val });
+            const { success, error } = await mutate({
+              values: { [name]: val },
+              id,
+            });
             if (success) toast.success(success);
             else toast.error(error);
             setIsChanging(false);

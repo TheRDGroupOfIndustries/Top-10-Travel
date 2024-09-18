@@ -4,9 +4,7 @@ import AgencyDashboard from "@/components/dashboard/agency/AgencyDashboard";
 import { db } from "@/core/client/db";
 import getSessionorRedirect from "@/core/utils/getSessionorRedirect";
 import { notFound } from "next/navigation";
-import { useState } from "react";
 import DashboardForAdminAgency from "./DashboardForAdminAgency";
-
 
 const oneAgencyData = async (userId: string) => {
   const agency = await db.agency.findFirst({
@@ -40,40 +38,33 @@ const getAllAgenciesByAdmin = async () => {
   return { agencies };
 };
 
-const getReviewsOfOneAgency = async (agencyId: string) => {
-  return await db.reviews.findMany({
-    where: { agencyId },
-  });
-};
+// const getReviewsOfOneAgency = async (agencyId: string) => {
+//   return await db.reviews.findMany({
+//     where: { agencyId },
+//   });
+// };
 
 const AgencyDashboardPage = async () => {
   const session = await getSessionorRedirect();
-  const { agencies } = await getAllAgenciesByAdmin();
 
   if (session.user.role === "USER" || session.user.role === "Influencer") {
     const { agency } = await oneAgencyData(session?.user.id);
     if (!agency) return notFound();
-    const reviews = await getReviewsOfOneAgency(agency.id);
 
-    return (
-      <AgencyDashboard
-        reviews={agency.Reviews}
-        data={agency}
-      />
-    );
+    return <AgencyDashboard reviews={agency.Reviews} data={agency} />;
   } else if (session.user.role === "ADMIN") {
-    const agenciesWithReviews = await Promise.all(
-      agencies.map(async (agency) => {
-        const Reviews = await getReviewsOfOneAgency(agency.id);
-        return { ...agency, Reviews };
-      })
-    );
+    const { agencies } = await getAllAgenciesByAdmin();
+    // const agenciesWithReviews = await Promise.all(
+    //   agencies.map(async (agency) => {
+    //     // const Reviews = await getReviewsOfOneAgency(agency.id);
+    //     return {
+    //       ...agency,
+    //       //  Reviews
+    //     };
+    //   })
+    // );
 
-    return (
-      <DashboardForAdminAgency
-        data={agenciesWithReviews}
-      />
-    );
+    return <DashboardForAdminAgency data={agencies} />;
   }
 };
 export default AgencyDashboardPage;

@@ -40,127 +40,17 @@ import {
 import type { Prisma } from "@prisma/client";
 import Link from "next/link";
 
-export type Company = {
-  id: string;
-  images: string[];
-  isCertified: boolean;
-  userId: string;
-  name: string;
-  priority: number;
-  city_priority: number;
-  country: string;
-  city: string;
-  methodology: string | null;
-  type: string;
-};
-
-export const columns: ColumnDef<
-  Prisma.AgencyGetPayload<{
-    include: {
-      socialMediaLinks: true;
-      pastProjects: true;
-      clientReferences: true;
-      keyPersonnel: true;
-      Reviews: true;
-    };
-  }>
->[] = [
-  {
-    accessorKey: "images",
-    header: "Image",
-    cell: ({ row }) => {
-      let href = null;
-      // @ts-expect-error
-      const url = row.getValue("images")[0];
-      try {
-        href = new URL(url).href;
-      } catch (error) {
-        if (!url?.startsWith("/")) href = null;
-        else href = url;
-      }
-      return (
-        <div className="w-20 h-14 overflow-hidden rounded-lg">
-          <AnimatedImage
-            src={href ?? "/UploadImage.jpg"}
-            alt={"Company Image"}
-            fill
-            className="w-full h-full"
-          />
-        </div>
-      );
-    },
-  },
-  {
-    accessorKey: "id",
-    header: "Company Id",
-  },
-  {
-    accessorKey: "name",
-    header: "Name",
-  },
-  {
-    accessorKey: "isCertified",
-    header: "Is Certified",
-  },
-  {
-    accessorKey: "country",
-    header: "Country",
-  },
-  {
-    accessorKey: "city",
-    header: "City",
-  },
-  {
-    id: "actions",
-    enableHiding: false,
-    header: "Actions",
-    cell: ({ row }) => {
-      const listing = row.original;
-      return (
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button size="icon" variant="ghost">
-              <SquarePen className="h-4 w-4" />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent>
-            <DropdownMenuLabel>actions</DropdownMenuLabel>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem asChild>
-              <Dialog>
-                <DialogTrigger asChild>
-                  <Button
-                    variant="ghost"
-                    className="flex justify-between items-center px-2 gap-2 w-full"
-                  >
-                    Open
-                  </Button>
-                </DialogTrigger>
-              </Dialog>
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
-      );
-    },
-  },
-];
-
-export default function DashboardListing({
+export default function DashboardListingHotel({
   listings,
-  type,
-  setSelectedAgency,
+  setSelectedHotel,
 }: {
-  listings: Prisma.AgencyGetPayload<{
+  listings: Prisma.HotelGetPayload<{
     include: {
       socialMediaLinks: true;
-      pastProjects: true;
-      clientReferences: true;
-      keyPersonnel: true;
       Reviews: true;
     };
   }>[];
-  setSelectedAgency: (listing: any) => void;
-  type: "Agency" | "Dmc" | "Hotel";
+  setSelectedHotel: (listing: any) => void;
 }) {
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
@@ -169,7 +59,6 @@ export default function DashboardListing({
   const [columnVisibility, setColumnVisibility] =
     React.useState<VisibilityState>({});
   const [rowSelection, setRowSelection] = React.useState({});
-  const [showAddUserForm, setShowAddUserForm] = React.useState(false);
   const [searchValue, setSearchValue] = React.useState("");
 
   const data = React.useMemo(() => {
@@ -180,12 +69,9 @@ export default function DashboardListing({
   }, [searchValue, listings]);
 
   const columns: ColumnDef<
-    Prisma.AgencyGetPayload<{
+    Prisma.HotelGetPayload<{
       include: {
         socialMediaLinks: true;
-        pastProjects: true;
-        clientReferences: true;
-        keyPersonnel: true;
         Reviews: true;
       };
     }>
@@ -241,7 +127,7 @@ export default function DashboardListing({
       header: "Actions",
       cell: ({ row }) => {
         const listing = row.original;
-        
+
         return (
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
@@ -257,7 +143,7 @@ export default function DashboardListing({
                   <DialogTrigger asChild>
                     <Button
                       variant="ghost"
-                      onClick={() => setSelectedAgency(listing)}
+                      onClick={() => setSelectedHotel(listing)}
                       className="flex justify-between items-center px-2 gap-2 w-full"
                     >
                       Open
@@ -302,13 +188,13 @@ export default function DashboardListing({
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-5">
           <h2 className="lg:text-3xl md:text-2xl text-xl font-semibold">
-            <span className="text-mainColor">{type}</span> created by Admin
+            <span className="text-mainColor">Hotel</span> created by Admin
           </h2>
           <p className="font-medium text-sm text-[#36454F]">
             <span className="font-bold">
               {table.getFilteredRowModel().rows.length}
             </span>{" "}
-            Total {type}
+            Total Hotel
           </p>
         </div>
       </div>
@@ -324,15 +210,12 @@ export default function DashboardListing({
           className="max-w-sm bg-[#fbfbfb] focus-visible:ring-0"
         />
 
-        <Link
-          href={`/auth/${type.toLowerCase()}`}
-          className="ml-auto inline-block"
-        >
+        <Link href={`/auth/hotel`} className="ml-auto inline-block">
           <Button
             variant="outline"
             className="bg-[#F3F3F3] hover:bg-[#dbdbdb] border-mainColor"
           >
-            Add {type} <Plus className="ml-2 h-4 w-4" />
+            Add Hotel <Plus className="ml-2 h-4 w-4" />
           </Button>
         </Link>
 
