@@ -366,7 +366,7 @@ function HomeHero() {
             <div>
               <Button
                 onClick={handleFind}
-                className="bg-mainColor hover:bg-mainColor xs:hover:bg-[#ffcc66] inline-flex items-center text-xs xs:text-sm lg:gap-2 px-2 xs:py-0.5"
+                className="bg-mainColor hover:bg-mainColor xs:hover:bg-mainColorSecondary inline-flex items-center text-xs xs:text-sm lg:gap-2 px-2 xs:py-0.5"
               >
                 <SearchIcon className="xs:w-5 xs:h-5 w-4 h-4" />
                 Search
