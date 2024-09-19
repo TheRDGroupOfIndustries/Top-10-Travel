@@ -103,31 +103,32 @@ model Agency {
   contactPhoneNumber          String
   websiteUrl                  String?
   // step2
-  companyRegistrationNumber   String?
-  yearOfEstablishment         Int?
-  businessLicenseUpload       String?
-  insuranceCertificateUpload  String?
+  companyRegistrationNumber   String
+  yearOfEstablishment         Int
+  businessLicenseUpload       String
+  insuranceCertificateUpload  String
   // step3
-  primaryServices             String[]           // Required list of strings
-  specializedTravelTypes      String[]           // Required list of strings
-  regionsOfOperation          String[]           // Required list of strings
+  primaryServices             String[]
+  specializedTravelTypes      String[]
+  regionsOfOperation          String[]
   // step4
-  internationalCertifications String[]           // Required list of strings
-  memberships                 String[]           // Required list of strings
+  internationalCertifications String[]
+  memberships                 String[]
   // step5
-  numberOfEmployees           Int?
-  keyPersonnel                KeyPersonnel[]     // Required list of KeyPersonnel
+  numberOfEmployees           Int
+  keyPersonnel                KeyPersonnel[]
   // step6
-  pastProjects                PastProject[]      // Required list of PastProjects
-  clientReferences            ClientReference[] // Required list of ClientReferences
+  pastProjects                PastProject[]
+  clientReferences            ClientReference[]
   caseStudyPdf                String?
   // step7
-  socialMediaLinks            SocialMediaLinks[] // Required list of SocialMediaLinks
-  images                      String[]           // Required list of strings
+  socialMediaLinks            SocialMediaLinks[]
+  // promotionalVideoUpload      String
+  images                      String[]
   // 
-  rating                      Float?              @default(0.0)
-  reviews                     Int?                @default(0)
-  description                 String?
+  rating                      Float              @default(0.0)
+  reviews                     Int                @default(0)
+  description                 String
   methodology                 String?
   createdAt                   DateTime           @default(now())
   updatedAt                   DateTime           @updatedAt
@@ -136,6 +137,56 @@ model Agency {
   Reviews                     Reviews[]
 }
 
+// updated - Agency Schema
+// model Agency {
+//   id                          String             @id @default(cuid())
+//   priority                    Int                @default(0)
+//   city_priority               Int                @default(0)
+//   isCertified                 Boolean            @default(false)
+//   User                        User               @relation(fields: [userId], references: [id], onDelete: Cascade)
+//   userId                      String
+//   // step1
+//   name                        String
+//   country                     String
+//   city                        String
+//   address                     String
+//   contactPerson               String
+//   contactEmail                String             @unique
+//   contactPhoneNumber          String
+//   websiteUrl                  String?
+//   // step2
+//   companyRegistrationNumber   String?
+//   yearOfEstablishment         Int?
+//   businessLicenseUpload       String?
+//   insuranceCertificateUpload  String?
+//   // step3
+//   primaryServices             String[]           // Required list of strings
+//   specializedTravelTypes      String[]           // Required list of strings
+//   regionsOfOperation          String[]           // Required list of strings
+//   // step4
+//   internationalCertifications String[]           // Required list of strings
+//   memberships                 String[]           // Required list of strings
+//   // step5
+//   numberOfEmployees           Int?
+//   keyPersonnel                KeyPersonnel[]     // Required list of KeyPersonnel
+//   // step6
+//   pastProjects                PastProject[]      // Required list of PastProjects
+//   clientReferences            ClientReference[] // Required list of ClientReferences
+//   caseStudyPdf                String?
+//   // step7
+//   socialMediaLinks            SocialMediaLinks[] // Required list of SocialMediaLinks
+//   images                      String[]           // Required list of strings
+//   // 
+//   rating                      Float?              @default(0.0)
+//   reviews                     Int?                @default(0)
+//   description                 String?
+//   methodology                 String?
+//   createdAt                   DateTime           @default(now())
+//   updatedAt                   DateTime           @updatedAt
+//   // 
+//   Enquiries                   Enquiry[]
+//   Reviews                     Reviews[]
+// }
 
 // DMC Model
 model DMC {
