@@ -8,12 +8,12 @@ const GetStarted = async () => {
   return (
     <div className="relative h-screen font-sans">
       <div className="absolute top-0 left-0 w-full h-1/2 bg-white"></div>
-      <div className="absolute bottom-0 left-0 w-full h-1/2 bg-colorAll"></div>
+      <div className="absolute bottom-0 left-0 w-full h-1/2 bg-mainColor"></div>
       <div className="flex items-center justify-center h-full z-30 relative  ">
         <div className="bg-white p-8 rounded-2xl shadow-lg border-[1px] text-center ">
           <h2 className="text-2xl font-bold mb-6">Continue using</h2>
           <Link href="agency">
-            <button className="w-full md:lg:w-[30vw] bg-[#FFEBB8] hover:bg-[#ffc65d] transition-colors rounded-xl p-3 flex items-center justify-left mb-2">
+            <button className="w-full md:lg:w-[30vw] bg-mainColor hover:bg-mainColorSecondary transition-colors rounded-xl p-3 flex items-center justify-left mb-2">
               <span className="mr-2">
                 <MdOutlineTravelExplore className="text-2xl" />
               </span>
@@ -21,7 +21,7 @@ const GetStarted = async () => {
             </button>
           </Link>
           <Link href="dmc">
-            <button className="w-full md:lg:w-[30vw] bg-[#FFEBB8] hover:bg-[#ffc65d] transition-colors rounded-xl p-3 flex items-center justify-left mb-2">
+            <button className="w-full md:lg:w-[30vw] bg-mainColor hover:bg-mainColorSecondary transition-colors rounded-xl p-3 flex items-center justify-left mb-2">
               <span className="mr-2">
                 <FaRegMap className="text-2xl" />
               </span>
@@ -29,7 +29,7 @@ const GetStarted = async () => {
             </button>
           </Link>
           <Link href="hotel">
-            <button className="w-full md:lg:w-[30vw] bg-[#FFEBB8] hover:bg-[#ffc65d] transition-colors rounded-xl p-3 flex items-center justify-left mb-2">
+            <button className="w-full md:lg:w-[30vw] bg-mainColor hover:bg-mainColorSecondary transition-colors rounded-xl p-3 flex items-center justify-left mb-2">
               <span className="mr-2">
                 <MdOutlineHotel className="text-2xl" />
               </span>
@@ -37,7 +37,7 @@ const GetStarted = async () => {
             </button>
           </Link>
           <Link href="influencer">
-            <button className="w-full md:lg:w-[30vw] bg-[#FFEBB8] hover:bg-[#ffc65d] transition-colors rounded-xl p-3 flex items-center justify-left mb-2">
+            <button className="w-full md:lg:w-[30vw] bg-mainColor hover:bg-mainColorSecondary transition-colors rounded-xl p-3 flex items-center justify-left mb-2">
               <span className="mr-2">
                 <FaPersonHiking className="text-2xl" />
               </span>
@@ -53,7 +53,7 @@ const GetStarted = async () => {
             </div>
           </div>
           <Link href="/">
-            <button className=" font-bold w-full bg-white border border-colorAll rounded-xl p-3 flex items-center text-colorAll justify-left">
+            <button className=" font-bold w-full bg-white border border-mainColor rounded-xl p-3 flex items-center text-mainColor justify-left">
               <span className="mr-2">➡️</span>
               Skip
             </button>

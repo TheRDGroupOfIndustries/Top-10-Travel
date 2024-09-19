@@ -92,7 +92,7 @@ const InfluencerForm = () => {
       <div className="w-[40%] min-h-full relative hidden md:block">
         <div className="absolute p-4 max-w-full top-1/4 left-1/2 transform -translate-x-1/2 font-cinzel text-3xl font-bold text-center text-white z-20 border-white w-[110%] spa">
           <p className="xl:text-[42px] lg:text-[38px] md:text-[32px] text-center text-wrap uppercase">
-            LOGIN AS <span className="text-[#FCAE1D]">Influencer</span>
+            LOGIN AS <span className="text-mainColor">Influencer</span>
           </p>
           <p className="text-xl xl:text-[25px] font-[200] max-w-xs mx-auto mt-8">
             Sharing your travel adventures and inspire others.
@@ -109,17 +109,14 @@ const InfluencerForm = () => {
       </div>
       <div className="w-full p-10 md:w-[60%] z-10 flex flex-col items-center justify-center">
         <p className="text-[32px] font-cinzel md:hidden font-extrabold text-center text-wrap uppercase">
-          LOGIN AS <span className="text-[#FCAE1D]">Influencer</span>
+          LOGIN AS <span className="text-mainColor">Influencer</span>
         </p>
         <form
           onSubmit={handleSubmit}
           className="w-full max-w-md m-2 rounded-lg bg-gray-200 p-8 space-y-4"
         >
           <div className="w-full">
-            <label
-              htmlFor="name"
-              className="p-2 font-semibold"
-            >
+            <label htmlFor="name" className="p-2 font-semibold">
               Name
             </label>
             <Input
@@ -134,10 +131,7 @@ const InfluencerForm = () => {
             />
           </div>
           <div className="flex flex-col space-y-2">
-            <label
-              htmlFor="image"
-              className="font-semibold"
-            >
+            <label htmlFor="image" className="font-semibold">
               Your Public Image
             </label>
             <Input
@@ -150,10 +144,7 @@ const InfluencerForm = () => {
             />
           </div>
           <div className="w-full">
-            <label
-              htmlFor="description"
-              className="p-2 font-semibold"
-            >
+            <label htmlFor="description" className="p-2 font-semibold">
               Description
             </label>
             <Input
@@ -166,10 +157,7 @@ const InfluencerForm = () => {
               minLength={25}
               required
             />
-            <label
-              htmlFor="introduction"
-              className="p-2 font-semibold"
-            >
+            <label htmlFor="introduction" className="p-2 font-semibold">
               Introduction
             </label>
             <Input
@@ -184,10 +172,7 @@ const InfluencerForm = () => {
             />
           </div>
           <div className="w-full">
-            <label
-              htmlFor="speciality"
-              className="p-2 font-semibold"
-            >
+            <label htmlFor="speciality" className="p-2 font-semibold">
               Speciality
             </label>
             <Input
@@ -201,10 +186,7 @@ const InfluencerForm = () => {
             />
           </div>
           <div className="w-full">
-            <label
-              htmlFor="socialLinks"
-              className="p-2 font-semibold"
-            >
+            <label htmlFor="socialLinks" className="p-2 font-semibold">
               SocialLinks (comma separated)
             </label>
             <Textarea
@@ -218,10 +200,7 @@ const InfluencerForm = () => {
             />
           </div>
           <div>
-            <label
-              htmlFor="country"
-              className="font-semibold"
-            >
+            <label htmlFor="country" className="font-semibold">
               Country
             </label>
             <Select
@@ -237,10 +216,7 @@ const InfluencerForm = () => {
               </SelectTrigger>
               <SelectContent>
                 {countries.map((country) => (
-                  <SelectItem
-                    key={country.name}
-                    value={country.name}
-                  >
+                  <SelectItem key={country.name} value={country.name}>
                     {country.name}
                   </SelectItem>
                 ))}
@@ -248,10 +224,7 @@ const InfluencerForm = () => {
             </Select>
           </div>
           <div className="w-full">
-            <label
-              htmlFor="city"
-              className="p-2 font-semibold"
-            >
+            <label htmlFor="city" className="p-2 font-semibold">
               City
             </label>
             <Input
@@ -267,18 +240,12 @@ const InfluencerForm = () => {
           <Button
             type="submit"
             disabled={isPending}
-            className="bg-[#fcb62a] hover:bg-[#c28b1e] text-white"
+            className="bg-mainColor hover:bg-mainColorSecondary text-white"
           >
             Create Account
           </Button>
-          <Link
-            href="/"
-            className="ml-8"
-          >
-            <Button
-              type="button"
-              variant="secondary"
-            >
+          <Link href="/" className="ml-8">
+            <Button type="button" variant="secondary">
               Cancel
             </Button>
           </Link>

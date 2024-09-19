@@ -34,10 +34,7 @@ const CompanyEnquiriesDropdown = async () => {
     <>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <Button
-            variant="ghost"
-            size="icon"
-          >
+          <Button variant="ghost" size="icon">
             <Bell className="w-6 h-6 stroke-primary" />
           </Button>
         </DropdownMenuTrigger>
@@ -55,7 +52,7 @@ const CompanyEnquiriesDropdown = async () => {
                 Enquiry from <strong>{enq.user.username}</strong> (
                 {enq.user.email})
               </p>
-              <strong className="text-[#FCAE1D] flex flex-col md:flex-row">
+              <strong className="text-mainColor flex flex-col md:flex-row">
                 {enq.title}
               </strong>
               <p className="break-words text-sm">{enq.message}</p>

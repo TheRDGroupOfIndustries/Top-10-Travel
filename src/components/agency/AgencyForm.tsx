@@ -82,9 +82,11 @@ const steps = [
   {
     id: "Step 7",
     name: "Digital Presence and Marketing",
-    fields: ["socialMediaLinks", 
+    fields: [
+      "socialMediaLinks",
       // "promotionalVideoUpload",
-       "images"],
+      "images",
+    ],
   },
   {
     id: "Step 8",
@@ -215,7 +217,7 @@ const AgencyForm = () => {
     <section className="flex flex-col xl:col-span-2 justify-between p-10 max-h-screen overflow-auto">
       {/* steps */}
       <h2 className="text-3xl font-bold mb-4">
-        Register as <span className="text-[#FCAE1D]">Agency</span>
+        Register as <span className="text-mainColor">Agency</span>
       </h2>
       <nav aria-label="Progress">
         <ol
@@ -223,10 +225,7 @@ const AgencyForm = () => {
           className="hidden space-y-4 xl:flex lg:space-x-8 lg:space-y-0"
         >
           {steps.map((step, index) => (
-            <li
-              key={step.name}
-              className="md:flex-1"
-            >
+            <li key={step.name} className="md:flex-1">
               {currentStep > index ? (
                 <div className="group flex w-full flex-col border-l-4 border-sky-600 py-2 pl-4 transition-colors md:border-l-0 md:border-t-4 md:pb-0 md:pl-0 md:pt-4">
                   <span className="text-sm font-medium text-sky-600 transition-colors ">
@@ -236,10 +235,10 @@ const AgencyForm = () => {
                 </div>
               ) : currentStep === index ? (
                 <div
-                  className="flex w-full flex-col border-l-4 border-[#FCAE1D] py-2 pl-4 md:border-l-0 md:border-t-4 md:pb-0 md:pl-0 md:pt-4"
+                  className="flex w-full flex-col border-l-4 border-mainColor py-2 pl-4 md:border-l-0 md:border-t-4 md:pb-0 md:pl-0 md:pt-4"
                   aria-current="step"
                 >
-                  <span className="text-sm font-medium text-[#FCAE1D]">
+                  <span className="text-sm font-medium text-mainColor">
                     {step.id}
                   </span>
                   <span className="text-sm font-medium">{step.name}</span>
@@ -270,16 +269,13 @@ const AgencyForm = () => {
               const isCurrent = originalIndex === currentStep;
 
               return (
-                <li
-                  key={step.name}
-                  className="md:flex-1"
-                >
+                <li key={step.name} className="md:flex-1">
                   <div
                     className={`group flex w-full flex-col border-l-4 py-2 pl-4 md:border-l-0 md:border-t-4 md:pb-0 md:pl-0 md:pt-4 ${
                       isCompleted
                         ? "border-sky-600"
                         : isCurrent
-                        ? "border-[#FCAE1D]"
+                        ? "border-mainColor"
                         : "border-gray-200"
                     }`}
                     aria-current={isCurrent ? "step" : undefined}
@@ -289,7 +285,7 @@ const AgencyForm = () => {
                         isCompleted
                           ? "text-sky-600"
                           : isCurrent
-                          ? "text-[#FCAE1D]"
+                          ? "text-mainColor"
                           : "text-gray-500"
                       }`}
                     >
@@ -302,10 +298,10 @@ const AgencyForm = () => {
             })}
         </ol>
         <div
-          className="flex md:hidden w-full flex-col border-l-4 border-[#FCAE1D] py-2 pl-4 md:border-l-0 md:border-t-4 md:pb-0 md:pl-0 md:pt-4"
+          className="flex md:hidden w-full flex-col border-l-4 border-mainColor py-2 pl-4 md:border-l-0 md:border-t-4 md:pb-0 md:pl-0 md:pt-4"
           aria-current="step"
         >
-          <span className="text-sm font-medium text-[#FCAE1D]">
+          <span className="text-sm font-medium text-mainColor">
             {currentStep === steps.length ? 8 : steps[currentStep].id}
           </span>
           <span className="text-sm font-medium">
@@ -322,11 +318,7 @@ const AgencyForm = () => {
           await processForm(getValues());
         }}
       >
-        <Step1
-          register={register}
-          errors={errors}
-          hidden={currentStep !== 0}
-        />
+        <Step1 register={register} errors={errors} hidden={currentStep !== 0} />
 
         <Step2
           register={register}
@@ -337,10 +329,7 @@ const AgencyForm = () => {
 
         <div className={cn(currentStep !== 2 ? "hidden" : "")}>
           <div>
-            <Label
-              htmlFor={"primaryServices"}
-              className="text-sm font-medium"
-            >
+            <Label htmlFor={"primaryServices"} className="text-sm font-medium">
               Primary Services
               {errors.primaryServices && (
                 <p className="text-red-500 text-xs">
@@ -550,10 +539,7 @@ const AgencyForm = () => {
             />
           </div>
           <div>
-            <Label
-              htmlFor={"memberships"}
-              className="text-sm font-medium"
-            >
+            <Label htmlFor={"memberships"} className="text-sm font-medium">
               Memberships
               {errors.memberships && (
                 <p className="text-red-500 text-xs">
@@ -604,11 +590,7 @@ const AgencyForm = () => {
           hidden={currentStep !== 4}
         />
 
-        <Step6
-          setValue={setValue}
-          errors={errors}
-          hidden={currentStep !== 5}
-        />
+        <Step6 setValue={setValue} errors={errors} hidden={currentStep !== 5} />
 
         <Step7
           register={register}
@@ -624,7 +606,7 @@ const AgencyForm = () => {
           {currentStep > 0 && <Button onClick={() => prev()}>Prev</Button>}
           {currentStep < 7 && (
             <Button
-              className="ml-auto bg-[#FCAE1D] hover:bg-[#dea02f]"
+              className="ml-auto bg-mainColor hover:bg-[#dea02f]"
               onClick={async () => await next()}
             >
               Next

@@ -194,7 +194,7 @@ export default function DashboardListingAgency({
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-5">
           <h2 className="lg:text-3xl md:text-2xl text-xl font-semibold">
-            <span className="text-mainColor">Agency</span> created by Admin
+            <span className="text-mainColor">Agency</span> Management
           </h2>
           <p className="font-medium text-sm text-[#36454F]">
             <span className="font-bold">

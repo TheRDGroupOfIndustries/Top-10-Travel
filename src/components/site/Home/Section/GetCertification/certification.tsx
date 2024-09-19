@@ -59,10 +59,7 @@ function CountUp({ target }: { target: number }) {
   }, [isVisible, target]);
 
   return (
-    <span
-      ref={ref}
-      className="lg:text-2xl  text-md font-bold"
-    >
+    <span ref={ref} className="lg:text-2xl  text-md font-bold">
       {count}+
     </span>
   );
@@ -72,7 +69,7 @@ function Certification() {
   const session = useSession();
 
   return (
-    <div className="w-full h-auto mt-10 py-5 bg-colorAll">
+    <div className="w-full h-auto mt-10 py-5 bg-mainColor">
       <div className="px-2 md:px-3 lg:px-6 xl:px-8 w-full h-full flex flex-col items-center justify-between">
         <h1 className="font-bold md:text-4xl lg:text-[35px] text-xl my-3 lg:my-6">
           Our legacy
@@ -93,16 +90,16 @@ function Certification() {
         <h2 className="font-bold md:text-4xl text-2xl lg:text-[45px] font-serif text-center  my-3 lg:my-10">
           WANT TO GET CERTIFIED?
         </h2>
-        {session.status !== "authenticated"? (
-           <motion.div
-              onClick={() => signIn("google")}
-              className="bg-black px-5 lg:px-10 cursor-pointer lg:py-5 py-2  lg:mt-2 mb-2 mx-auto hover:bg-gray-800 w-fit transition-colors lg:text-[20px] text-[14px] text-white font-bold rounded-[40px]"
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.9 }}
-            >
-              REGISTER
-            </motion.div>
-        ): (
+        {session.status !== "authenticated" ? (
+          <motion.div
+            onClick={() => signIn("google")}
+            className="bg-black px-5 lg:px-10 cursor-pointer lg:py-5 py-2  lg:mt-2 mb-2 mx-auto hover:bg-gray-800 w-fit transition-colors lg:text-[20px] text-[14px] text-white font-bold rounded-[40px]"
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
+          >
+            REGISTER
+          </motion.div>
+        ) : (
           <Link href="/auth/get-started">
             <motion.div
               className="bg-black px-5 lg:px-10 cursor-pointer lg:py-5 py-2  lg:mt-2 mb-2 mx-auto hover:bg-gray-800 w-fit transition-colors lg:text-[20px] text-[14px] text-white font-bold rounded-[40px]"

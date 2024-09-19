@@ -11,7 +11,7 @@ import { Card, CardContent, CardHeader } from "../ui/card";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import { Textarea } from "../ui/textarea";
-import { useEffect } from 'react';
+import { useEffect } from "react";
 
 type PastPro = Pick<
   PastProject,
@@ -43,7 +43,7 @@ const PastProjectInput = ({
   const { mutate: deleteProject, isPending: isPendingDelete } =
     useMutation(deletePastProject);
   const { mutate, isPending } = useMutation(createPastProject);
-  const [isEditing, setIsEditing] = useState(form.id==="");
+  const [isEditing, setIsEditing] = useState(form.id === "");
 
   const handleSubmit = async (formData: FormData) => {
     const projectName = formData.get("projectName") as string;
@@ -153,7 +153,7 @@ const PastProjectInput = ({
       {isEditing ? (
         <div>
           <Button
-            className="mt-2 bg-[#fcaf1e] hover:bg-[#fcaf1e]/80"
+            className="mt-2 bg-mainColor hover:bg-mainColor/80"
             size="sm"
             type="submit"
             disabled={isPending}
@@ -171,7 +171,7 @@ const PastProjectInput = ({
         </div>
       ) : (
         <Button
-          className="mt-2 bg-[#fcaf1e] hover:bg-[#fcaf1e]/80"
+          className="mt-2 bg-mainColor hover:bg-mainColor/80"
           size="sm"
           onClick={() => setIsEditing(true)}
           type="button"
@@ -210,12 +210,12 @@ const UpdatePastProjects = ({
     <Card className="border-none bg-[#F3F3F3] mt-4">
       <CardHeader className="text-2xl font-semibold">
         <div>
-          Past<span className="text-[#FCAE1D]"> Projects</span>
+          Past<span className="text-mainColor"> Projects</span>
           {form.length >= 5 ? null : (
             <Button
               type="button"
               size="icon"
-              className="h-7 w-7 ml-2 bg-[#FCAE1D] hover:bg-[#dea02f]"
+              className="h-7 w-7 ml-2 bg-mainColor hover:bg-[#dea02f]"
               onClick={add}
             >
               <FaPlus />

@@ -61,9 +61,11 @@ const steps = [
   {
     id: "Step 4",
     name: "Digital Presence and Marketing",
-    fields: ["socialMediaLinks", 
-      // "promotionalVideoUpload", 
-      "images"],
+    fields: [
+      "socialMediaLinks",
+      // "promotionalVideoUpload",
+      "images",
+    ],
   },
 ];
 
@@ -173,7 +175,7 @@ const HotelForm = () => {
     <section className="flex flex-col xl:col-span-2 justify-between p-10 max-h-screen overflow-auto">
       {/* steps */}
       <h2 className="text-3xl font-bold mb-4">
-        Register as <span className="text-[#FCAE1D]">Hotel</span>
+        Register as <span className="text-mainColor">Hotel</span>
       </h2>
       <nav aria-label="Progress">
         <ol
@@ -181,10 +183,7 @@ const HotelForm = () => {
           className="hidden space-y-4 md:flex md:space-x-8 md:space-y-0"
         >
           {steps.map((step, index) => (
-            <li
-              key={step.name}
-              className="md:flex-1"
-            >
+            <li key={step.name} className="md:flex-1">
               {currentStep > index ? (
                 <div className="group flex w-full flex-col border-l-4 border-sky-600 py-2 pl-4 transition-colors md:border-l-0 md:border-t-4 md:pb-0 md:pl-0 md:pt-4">
                   <span className="text-sm font-medium text-sky-600 transition-colors ">
@@ -194,10 +193,10 @@ const HotelForm = () => {
                 </div>
               ) : currentStep === index ? (
                 <div
-                  className="flex w-full flex-col border-l-4 border-[#FCAE1D] py-2 pl-4 md:border-l-0 md:border-t-4 md:pb-0 md:pl-0 md:pt-4"
+                  className="flex w-full flex-col border-l-4 border-mainColor py-2 pl-4 md:border-l-0 md:border-t-4 md:pb-0 md:pl-0 md:pt-4"
                   aria-current="step"
                 >
-                  <span className="text-sm font-medium text-[#FCAE1D]">
+                  <span className="text-sm font-medium text-mainColor">
                     {step.id}
                   </span>
                   <span className="text-sm font-medium">{step.name}</span>
@@ -214,10 +213,10 @@ const HotelForm = () => {
           ))}
         </ol>
         <div
-          className="flex md:hidden w-full flex-col border-l-4 border-[#FCAE1D] py-2 pl-4 md:border-l-0 md:border-t-4 md:pb-0 md:pl-0 md:pt-4"
+          className="flex md:hidden w-full flex-col border-l-4 border-mainColor py-2 pl-4 md:border-l-0 md:border-t-4 md:pb-0 md:pl-0 md:pt-4"
           aria-current="step"
         >
-          <span className="text-sm font-medium text-[#FCAE1D]">
+          <span className="text-sm font-medium text-mainColor">
             {currentStep === steps.length ? 5 : steps[currentStep].id}
           </span>
           <span className="text-sm font-medium">
@@ -249,10 +248,7 @@ const HotelForm = () => {
 
         <div className={cn(currentStep !== 2 ? "hidden" : "")}>
           <div>
-            <Label
-              htmlFor={"services"}
-              className="text-sm font-medium"
-            >
+            <Label htmlFor={"services"} className="text-sm font-medium">
               Services Offered
               {errors.services && (
                 <p className="text-red-500 text-xs">
@@ -295,10 +291,7 @@ const HotelForm = () => {
             />
           </div>
           <div>
-            <Label
-              htmlFor={"specialization"}
-              className="text-sm font-medium"
-            >
+            <Label htmlFor={"specialization"} className="text-sm font-medium">
               Specilization
               {errors.specialization && (
                 <p className="text-red-500 text-xs">
@@ -357,7 +350,7 @@ const HotelForm = () => {
           {currentStep > 0 && <Button onClick={() => prev()}>Prev</Button>}
           {currentStep < 7 && (
             <Button
-              className="ml-auto bg-[#FCAE1D] hover:bg-[#dea02f]"
+              className="ml-auto bg-mainColor hover:bg-[#dea02f]"
               onClick={async () => await next()}
             >
               Next

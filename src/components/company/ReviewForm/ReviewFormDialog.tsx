@@ -65,7 +65,7 @@ export default function ReviewDialog({
       <DialogTrigger asChild>
         <Button
           variant="outline"
-          className="rounded-md w-fit text-white hover:text-white bg-[#FCAE1D] hover:bg-[#fcae1dcc]"
+          className="rounded-md w-fit text-white hover:text-white bg-mainColor hover:bg-mainColorSecondary"
         >
           <PlusCircle className="mr-2" />
           Add a Review

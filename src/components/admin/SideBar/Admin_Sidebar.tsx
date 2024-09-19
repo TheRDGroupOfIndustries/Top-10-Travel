@@ -2,10 +2,15 @@
 
 import { signOut } from "next-auth/react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { FileText, HelpCircle, Home, LogOut, Users } from "react-feather";
 import { FaRegMap } from "react-icons/fa6";
-import { MdOutlineBookOnline, MdOutlineHotel, MdOutlineTravelExplore } from "react-icons/md";
+import {
+  MdOutlineBookOnline,
+  MdOutlineHotel,
+  MdOutlineTravelExplore,
+} from "react-icons/md";
 
 function AdminSidebar() {
   const pathname = usePathname();
@@ -26,9 +31,12 @@ function AdminSidebar() {
 
   return (
     <div className="lg:w-[17vw] h-[100vh] left-0 top-0 fixed text-black flex flex-col border-r-2 border-[#7F7F7F] px-4">
-      <div className="p-2 mt-5 mb-12">
-        <Link href="/">LOGO</Link>
+      <div className="relative mt-7 mb-12 h-6 w-48">
+        <Link href="/">
+          <Image src="/logo.png" alt="logo" fill />
+        </Link>
       </div>
+
       <nav className="flex-grow">
         <ul className="">
           {menuItems.map((item, index) => (
@@ -37,7 +45,7 @@ function AdminSidebar() {
                 href={item.href}
                 className={`py-3 mx-[1px] flex items-center justify-start mt-1  hover:bg-[#F3F3F3] transition-colors duration-200 rounded-lg  ${
                   pathname === item.href
-                    ? "bg-[#FCAE1D] hover:bg-[#FCAE1C] text-white"
+                    ? "bg-mainColor hover:bg-[#FCAE1C] text-white"
                     : "text-black"
                 }`}
                 onClick={() => {

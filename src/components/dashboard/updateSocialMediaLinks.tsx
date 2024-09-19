@@ -44,7 +44,7 @@ const UpdateSocialMediaLinks = ({
     <Card className="border-none bg-[#F3F3F3] mt-4">
       <CardHeader className="text-2xl font-semibold">
         <div>
-          <span className="text-[#FCAE1D]">Social-Media </span>
+          <span className="text-mainColor">Social-Media </span>
           Links
         </div>
       </CardHeader>
@@ -110,7 +110,7 @@ const UpdateSocialMediaLinks = ({
           <Button
             type="submit"
             disabled={isPending}
-            className="bg-[#fcaf1e] hover:bg-[#fcaf1e]/80 sm:col-span-2 w-fit"
+            className="bg-mainColor hover:bg-mainColor/80 sm:col-span-2 w-fit"
           >
             Save
           </Button>

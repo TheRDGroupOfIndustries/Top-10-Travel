@@ -77,7 +77,7 @@ const AdminReportDownload = ({ report }: { report: ReportData }) => {
   return (
     <Button
       onClick={generatePDF}
-      className="bg-[#fcaf1e] hover:bg-[#fcaf1e]/80"
+      className="bg-mainColor hover:bg-mainColor/80"
     >
       Download pdf
     </Button>

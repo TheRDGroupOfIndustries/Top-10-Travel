@@ -173,7 +173,7 @@ function AdminUsers({ users }: { users: User[] }) {
     <Card className="mt-5 p-4 bg-[#F3F3F3]">
       <div className="flex items-center justify-between">
         <div className="flex items-end gap-5">
-          <h2 className="lg:text-5xl md:text-4xl text-3xl font-semibold text-[#fcaf1e]">
+          <h2 className="lg:text-5xl md:text-4xl text-3xl font-semibold text-mainColor">
             Visitors
           </h2>
           <p className="font-medium text-sm text-[#36454F]">
@@ -195,7 +195,7 @@ function AdminUsers({ users }: { users: User[] }) {
           </DialogContent>
         </Dialog> */}
       </div>
-      <div className="flex items-center">
+      <div className="flex items-center flex-wrap p-1 md:p-0">
         <Input
           placeholder="Search by email..."
           value={(table.getColumn("email")?.getFilterValue() as string) ?? ""}
@@ -208,7 +208,7 @@ function AdminUsers({ users }: { users: User[] }) {
           <DropdownMenuTrigger asChild>
             <Button
               variant="outline"
-              className="ml-auto bg-[#F3F3F3] hover:bg-[#dbdbdb]"
+              className="ml-auto bg-[#F3F3F3] hover:bg-[#dbdbdb] border-mainColor"
             >
               Columns <ChevronDown className="ml-2 h-4 w-4" />
             </Button>

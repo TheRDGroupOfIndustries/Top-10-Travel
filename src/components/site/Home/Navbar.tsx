@@ -75,21 +75,21 @@ function Navbar() {
       return (
         <>
           <DropdownMenuItem>
-            <Link href="/Influencer" className="w-full h-full">
+            <Link href="/dashboard" className="w-full h-full">
               <div className="flex items-center gap-2">
                 <User size={18} />
                 <span>My Account</span>
               </div>
             </Link>
           </DropdownMenuItem>
-          <DropdownMenuItem>
+          {/* <DropdownMenuItem>
             <Link href="/auth" className="w-full h-full">
               <div className="flex items-center gap-2">
                 <User size={18} />
                 <span>Start as Influencer</span>
               </div>
             </Link>
-          </DropdownMenuItem>
+          </DropdownMenuItem> */}
         </>
       );
     } else if (session?.data?.user.role === "ADMIN") {

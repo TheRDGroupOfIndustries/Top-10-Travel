@@ -78,7 +78,7 @@ export default function EnquireDialog({
             Contact Us
           </ModalTrigger>
         ) : (
-          <ModalTrigger className="xs:text-lg text-base group flex bg-[#FFEF9E] text-colorAll hover:bg-colorAll hover:text-[#FFEF9E]">
+          <ModalTrigger className="xs:text-lg text-base group flex bg-white text-mainColor border-mainColor border-[2px] rounded-md hover:bg-mainColor hover:text-white">
             <span>Enquire now</span>
             <TbPhoneCall size={20} className="stroke-2 ml-1" />
           </ModalTrigger>

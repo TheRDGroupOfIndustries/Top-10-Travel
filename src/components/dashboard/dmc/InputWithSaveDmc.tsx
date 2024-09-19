@@ -90,7 +90,7 @@ const InputWithSave = ({
             disabled={isPending}
             type="submit"
             size="sm"
-            className="bg-[#fcaf1e] hover:bg-[#fcaf1e]/80"
+            className="bg-mainColor hover:bg-mainColor/80"
           >
             {isPending ? "Saving..." : "Save"}
           </Button>

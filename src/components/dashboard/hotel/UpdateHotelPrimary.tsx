@@ -95,7 +95,7 @@ const UpdateHotelPrimary = ({
         <div>
           <div className="text-2xl font-semibold">
             <div>
-              <span className="text-[#FCAE1D]">Core </span>
+              <span className="text-mainColor">Core </span>
               Services
             </div>
           </div>
@@ -144,14 +144,14 @@ const UpdateHotelPrimary = ({
               <Button
                 size="sm"
                 type="submit"
-                className="bg-[#fcaf1e] hover:bg-[#fcaf1e]/80"
+                className="bg-mainColor hover:bg-mainColor/80"
               >
                 Add
               </Button>
             </form>
             <Button
               size="sm"
-              className="ml-auto bg-[#fcaf1e] hover:bg-[#fcaf1e]/80"
+              className="ml-auto bg-mainColor hover:bg-mainColor/80"
               disabled={!hasPrimaryChanged || isPendingPrimary}
               onClick={async (e) => {
                 const { success, error } = await primaryAction({
@@ -169,7 +169,7 @@ const UpdateHotelPrimary = ({
         <div>
           <div className="text-2xl font-semibold">
             <div>
-              <span className="text-[#FCAE1D]">Specialization </span>
+              <span className="text-mainColor">Specialization </span>
             </div>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2">
@@ -217,14 +217,14 @@ const UpdateHotelPrimary = ({
               <Button
                 size="sm"
                 type="submit"
-                className="bg-[#fcaf1e] hover:bg-[#fcaf1e]/80"
+                className="bg-mainColor hover:bg-mainColor/80"
               >
                 Add
               </Button>
             </form>
             <Button
               size="sm"
-              className="ml-auto bg-[#fcaf1e] hover:bg-[#fcaf1e]/80"
+              className="ml-auto bg-mainColor hover:bg-mainColor/80"
               disabled={isPendingSpecial || !hasSpecialChanged}
               onClick={async (e) => {
                 const { success, error } = await specialAction({

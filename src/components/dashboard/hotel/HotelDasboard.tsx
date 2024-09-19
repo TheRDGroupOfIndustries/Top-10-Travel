@@ -48,21 +48,21 @@ const HotelDashboard = ({
                 />
               </div>
               <div className="flex md:items-start md:justify-start items-center justify-center gap-2 flex-wrap">
-                <Badge className="font-medium text-[14px] text-[#FCAE1D] rounded-sm bg-[#fcae1d11]">
+                <Badge className="font-medium text-[14px] text-mainColor rounded-sm bg-slate-700">
                   Priority : {data.city_priority}
                 </Badge>
-                <Badge className="font-medium text-[14px] text-[#FCAE1D] rounded-sm bg-[#fcae1d11]">
+                <Badge className="font-medium text-[14px] text-mainColor rounded-sm bg-slate-700">
                   City Priority : {data.priority}
                 </Badge>
-                <Badge className="font-medium text-[14px] text-[#FCAE1D] rounded-sm bg-[#fcae1d11]">
+                <Badge className="font-medium text-[14px] text-mainColor rounded-sm bg-slate-700">
                   Ratings : {data.rating.toFixed(1)}
                 </Badge>
-                <Badge className="font-medium text-[14px] text-[#FCAE1D] rounded-sm bg-[#fcae1d11]">
+                <Badge className="font-medium text-[14px] text-mainColor rounded-sm bg-slate-700">
                   Total Reviews : {data.reviews}
                 </Badge>
                 {!data.isCertified && (
                   <Badge
-                    className="font-medium text-[14px] text-[#FCAE1D] rounded-sm bg-[#fcae1d15]"
+                    className="font-medium text-[14px] text-mainColor rounded-sm bg-slate-700"
                     variant="destructive"
                     title="Contact admin to get certified."
                   >
@@ -76,7 +76,7 @@ const HotelDashboard = ({
       </Card>
       <Card className="border-none bg-[#F3F3F3] px-2 py-4">
         <CardTitle className="text-center text-[25px] md:text-left font-semibold font-sans">
-          <span className="text-[#FCAE1D] p-3">Company</span>Details
+          <span className="text-mainColor p-3">Company</span>Details
         </CardTitle>
         <CardContent className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3  gap-2 p-2 md:p-5">
           <div className="w-full flex flex-col gap-2">

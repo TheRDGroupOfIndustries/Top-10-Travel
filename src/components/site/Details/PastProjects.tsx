@@ -70,7 +70,7 @@ const PastProjects = ({ pastProjects }: { pastProjects: PastProject[] }) => {
               className={`rounded-lg ${
                 currentPage === 1
                   ? "bg-[#fdcb6e] cursor-not-allowed"
-                  : "bg-[#FCAE1D] hover:bg-[rgba(252,174,29,0.8)]"
+                  : "bg-mainColor hover:bg-[rgba(252,174,29,0.8)]"
               }`}
               disabled={currentPage === 1}
             >
@@ -82,7 +82,7 @@ const PastProjects = ({ pastProjects }: { pastProjects: PastProject[] }) => {
               className={`rounded-lg ${
                 currentPage === Math.ceil(pastProjects.length / itemsPerPage)
                   ? "bg-[#fdcb6e] cursor-not-allowed"
-                  : "bg-[#FCAE1D] hover:bg-[rgba(252,174,29,0.8)]"
+                  : "bg-mainColor hover:bg-[rgba(252,174,29,0.8)]"
               }`}
               disabled={
                 currentPage === Math.ceil(pastProjects.length / itemsPerPage)

@@ -210,7 +210,7 @@ export default function AdminPackagelisting({
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-5">
           <h2 className="lg:text-3xl md:text-2xl text-xl font-semibold">
-            Listing of <span className="text-[#fcaf1e]">{type}</span>
+            Listing of <span className="text-mainColor">{type}</span>
           </h2>
           <p className="font-medium text-sm text-[#36454F]">
             <span className="font-bold">
@@ -222,7 +222,7 @@ export default function AdminPackagelisting({
 
         {/* <Button
           asChild
-          className="bg-[#fcaf1e] hover:bg-[#fcaf1e]/80"
+          className="bg-mainColor hover:bg-mainColor/80"
         >
           <Link href="/admin/companies/add-company">Add Listing +</Link>
         </Button> */}
