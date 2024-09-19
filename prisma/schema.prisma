@@ -103,32 +103,31 @@ model Agency {
   contactPhoneNumber          String
   websiteUrl                  String?
   // step2
-  companyRegistrationNumber   String
-  yearOfEstablishment         Int
-  businessLicenseUpload       String
-  insuranceCertificateUpload  String
+  companyRegistrationNumber   String?
+  yearOfEstablishment         Int?
+  businessLicenseUpload       String?
+  insuranceCertificateUpload  String?
   // step3
-  primaryServices             String[]
-  specializedTravelTypes      String[]
-  regionsOfOperation          String[]
+  primaryServices             String[]           // Required list of strings
+  specializedTravelTypes      String[]           // Required list of strings
+  regionsOfOperation          String[]           // Required list of strings
   // step4
-  internationalCertifications String[]
-  memberships                 String[]
+  internationalCertifications String[]           // Required list of strings
+  memberships                 String[]           // Required list of strings
   // step5
-  numberOfEmployees           Int
-  keyPersonnel                KeyPersonnel[]
+  numberOfEmployees           Int?
+  keyPersonnel                KeyPersonnel[]     // Required list of KeyPersonnel
   // step6
-  pastProjects                PastProject[]
-  clientReferences            ClientReference[]
+  pastProjects                PastProject[]      // Required list of PastProjects
+  clientReferences            ClientReference[] // Required list of ClientReferences
   caseStudyPdf                String?
   // step7
-  socialMediaLinks            SocialMediaLinks[]
-  // promotionalVideoUpload      String
-  images                      String[]
+  socialMediaLinks            SocialMediaLinks[] // Required list of SocialMediaLinks
+  images                      String[]           // Required list of strings
   // 
-  rating                      Float              @default(0.0)
-  reviews                     Int                @default(0)
-  description                 String
+  rating                      Float?              @default(0.0)
+  reviews                     Int?                @default(0)
+  description                 String?
   methodology                 String?
   createdAt                   DateTime           @default(now())
   updatedAt                   DateTime           @updatedAt
@@ -136,6 +135,7 @@ model Agency {
   Enquiries                   Enquiry[]
   Reviews                     Reviews[]
 }
+
 
 // DMC Model
 model DMC {

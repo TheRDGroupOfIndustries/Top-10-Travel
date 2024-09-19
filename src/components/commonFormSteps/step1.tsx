@@ -66,6 +66,7 @@ const Step1 = ({
         <select
           className="p-2 w-full block border rounded-lg max-w-xs"
           {...register("country")}
+          defaultValue="India"
         >
           {countries.map(({ code, name }) => (
             <option key={code} value={name} className="max-w-[200px]">
