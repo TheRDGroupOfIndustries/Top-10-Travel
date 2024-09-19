@@ -1,6 +1,6 @@
 "use client";
 import ButtonFancy from "@/components/reusable/ButtonFancy";
-import { LogOutIcon, MenuIcon, User } from "lucide-react";
+import { LogOutIcon, MenuIcon, SquareChartGantt, User } from "lucide-react";
 import { signIn, signOut, useSession } from "next-auth/react";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
@@ -99,10 +99,20 @@ function Navbar() {
             <Link href="/admin" className="w-full h-full">
               <div className="flex items-center gap-2">
                 <User size={18} />
-                <span>Go to Admin Dashboard</span>
+                <span>Admin Dashboard</span>
               </div>
             </Link>
           </DropdownMenuItem>
+
+          <DropdownMenuItem>
+            <Link href="/dashboard" className="w-full h-full">
+              <div className="flex items-center gap-2">
+                <SquareChartGantt size={18} />
+                <span>Management Dashboard</span>
+              </div>
+            </Link>
+          </DropdownMenuItem>
+          
           {/* <DropdownMenuItem>
             <Link href="/auth">
               <div className="flex items-center gap-2">
@@ -111,6 +121,7 @@ function Navbar() {
               </div>
             </Link>
           </DropdownMenuItem>
+          
           <DropdownMenuItem>
             <Link href="/auth">
               <div className="flex items-center gap-2">
@@ -170,7 +181,7 @@ function Navbar() {
       >
         <div className="relative navbar-start h-6 xs:h-7 sm:h-8 w-44 xs:w-48 sm:w-56">
           <Link href="/" className="text-2xl font-bold">
-            <Image src="/logo.png" alt="logo" fill /> 
+            <Image src="/logo.png" alt="logo" fill />
           </Link>
         </div>
 
