@@ -78,6 +78,7 @@ const PastProjectInput = ({ remove, ind, onChange, form, error }: any) => {
     </div>
   );
 };
+
 const ClientRefInput = ({ remove, ind, onChange, form, error }: any) => {
   return (
     <div className="relative">
