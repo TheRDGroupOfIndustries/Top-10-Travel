@@ -98,7 +98,7 @@ export const ModalBody = ({
             opacity: 0,
             backdropFilter: "blur(0px)",
           }}
-          className="fixed [perspective:800px] [transform-style:preserve-3d] inset-0 h-full w-full  flex items-center justify-center z-50"
+          className="fixed [perspective:800px] [transform-style:preserve-3d] inset-0 h-full w-full flex items-center justify-center z-50"
         >
           <Overlay />
 
@@ -194,10 +194,14 @@ const Overlay = ({ className }: { className?: string }) => {
 
 const CloseIcon = () => {
   const { setOpen } = useModal();
+
   return (
     <button
-      onClick={() => setOpen(false)}
-      className="absolute top-4 right-4 group"
+      onClick={() => { 
+        setOpen(false);
+        console.log('clicked');
+      }}
+      className="absolute top-4 cursor-pointer right-4 group"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"

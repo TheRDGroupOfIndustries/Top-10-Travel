@@ -136,7 +136,7 @@ function ListData({
                     }
                   />
                   <Link href={`/${role}/${item.id}`}>
-                    <Button className="h-full group xs:text-lg text-base flex bg-[#FFEF9E] text-mainCbg-mainColor hover:bg-mainColor hover:text-[#FFEF9E]">
+                    <Button className="h-full xs:text-lg text-base flex bg-white text-mainColor border-mainColor border-[2px] rounded-md hover:bg-mainColor hover:text-white">
                       View More
                     </Button>
                   </Link>
