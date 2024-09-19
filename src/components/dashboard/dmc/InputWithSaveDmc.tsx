@@ -62,7 +62,7 @@ const InputWithSave = ({
             else toast.error(error);
             setIsChanging(false);
           }}
-          className="flex  items-center  justify-center"
+          className="flex items-center justify-center"
         >
           {name === "description" ? (
             <Textarea
