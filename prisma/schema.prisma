@@ -105,8 +105,8 @@ model Agency {
   // step2
   companyRegistrationNumber   String
   yearOfEstablishment         Int
-  businessLicenseUpload       String
-  insuranceCertificateUpload  String
+  businessLicenseUpload       String?
+  insuranceCertificateUpload  String?
   // step3
   primaryServices             String[]
   specializedTravelTypes      String[]
@@ -208,8 +208,8 @@ model DMC {
   //step2
   companyRegistrationNumber   String
   yearOfEstablishment         Int
-  businessLicenseUpload       String
-  insuranceCertificateUpload  String
+  businessLicenseUpload       String?
+  insuranceCertificateUpload  String?
   // step3
   coreServices                String[]
   specialization              String[]
@@ -259,8 +259,8 @@ model Hotel {
   // step2
   companyRegistrationNumber  String
   yearOfEstablishment        Int
-  businessLicenseUpload      String
-  insuranceCertificateUpload String
+  businessLicenseUpload      String?
+  insuranceCertificateUpload String?
   // step3
   specialization             String[]
   services                   String[]

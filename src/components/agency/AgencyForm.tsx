@@ -9,13 +9,6 @@ import Step1 from "../commonFormSteps/step1";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import Step2 from "../commonFormSteps/step2";
-// import {
-//   Select,
-//   SelectContent,
-//   SelectItem,
-//   SelectTrigger,
-//   SelectValue,
-// } from "@/components/ui/select";
 import countries from "@/lib/countries.json";
 import {
   MdOutlineCheckBox as Checked,
@@ -170,18 +163,21 @@ const AgencyForm = () => {
       data.memberships && data.memberships.concat(otherMemberships);
     const fdata = new FormData();
 
-    if (
-      data.businessLicenseUpload &&
-      data.insuranceCertificateUpload &&
-      data.images
-    ) {
+    if (data.businessLicenseUpload) {
       fdata.append("businessLicenseUpload", data.businessLicenseUpload);
+    }
+
+    if (data.insuranceCertificateUpload) {
       fdata.append(
         "insuranceCertificateUpload",
         data.insuranceCertificateUpload
       );
+    }
+
+    if (data.images) {
       fdata.append("images", data.images);
     }
+
     const {
       businessLicenseUpload,
       insuranceCertificateUpload,

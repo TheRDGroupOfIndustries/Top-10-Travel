@@ -50,7 +50,8 @@ export const createPastProject = async ({
         data: { pastProjects: { update: { where:{id} , data:{...data} } } },
       });
     }
-    revalidatePath("/dashboard/" + agencyId ?? dmcId);
+    
+    revalidatePath("/dashboard/" + (agencyId || dmcId));
     return { success: "Past Project Added Succesfully." };
   } catch (error) {
     return { error: "Something went wrong." };
