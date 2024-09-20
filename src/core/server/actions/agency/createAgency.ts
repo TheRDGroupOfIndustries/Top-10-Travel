@@ -86,13 +86,13 @@ export const createAgencyAction = async ({
         caseStudyPdf: undefined,
       },
     });
+
     return { success: "Agency created Succesfully" };
   } catch (error: any) {
     console.log("Error creating agency : ", error.message);
     return { error: "Error creating agency" };
   }
 };
-
 
 // updated - gd
 
