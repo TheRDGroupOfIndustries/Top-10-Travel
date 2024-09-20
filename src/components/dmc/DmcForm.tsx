@@ -1,36 +1,28 @@
 "use client";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useState } from "react";
-import { DmcSchema } from "./dmcSchema";
-import { z } from "zod";
-import { useForm, SubmitHandler, Controller } from "react-hook-form";
-import { Button } from "../ui/button";
-import Step1 from "../commonFormSteps/step1";
-import { Input } from "../ui/input";
-import { Label } from "../ui/label";
-import Step2 from "../commonFormSteps/step2";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+import { createDmcAction } from "@/core/server/actions/dmc/createDmc";
+import useMutation from "@/hooks/useMutation";
 import countries from "@/lib/countries.json";
+import { cn } from "@/lib/utils";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { SubmitHandler, useForm } from "react-hook-form";
 import {
   MdOutlineCheckBox as Checked,
   MdOutlineCheckBoxOutlineBlank as Unchecked,
 } from "react-icons/md";
-import { cn } from "@/lib/utils";
+import { toast } from "sonner";
+import { z } from "zod";
+import FinalStep from "../commonFormSteps/finalStep";
+import Step1 from "../commonFormSteps/step1";
+import Step2 from "../commonFormSteps/step2";
 import Step5 from "../commonFormSteps/step5";
 import Step6 from "../commonFormSteps/step6";
 import Step7 from "../commonFormSteps/step7";
-import FinalStep from "../commonFormSteps/finalStep";
-import useMutation from "@/hooks/useMutation";
-import { createAgencyAction } from "@/core/server/actions/agency/createAgency";
-import { toast } from "sonner";
-import { useRouter } from "next/navigation";
-import { createDmcAction } from "@/core/server/actions/dmc/createDmc";
+import { Button } from "../ui/button";
+import { Input } from "../ui/input";
+import { Label } from "../ui/label";
+import { DmcSchema } from "./dmcSchema";
 
 type Inputs = z.infer<typeof DmcSchema>;
 
@@ -160,13 +152,17 @@ const DmcFo = () => {
   const { isPending, mutate } = useMutation(createDmcAction);
   const processForm: SubmitHandler<Inputs> = async (data) => {
     console.log("called");
-    data.coreServices = data.coreServices.concat(otherCoreServices);
-    data.specialization = data.specialization.concat(otherSpecialServices);
-    data.regionsCovered = data.regionsCovered.concat(otherRegions);
-    data.internationalCertifications = data.internationalCertifications.concat(
-      otherInternationalCertifications
-    );
-    data.memberships = data.memberships.concat(otherMemberships);
+    data.coreServices =
+      data.coreServices && data.coreServices.concat(otherCoreServices);
+    data.specialization =
+      data.specialization && data.specialization.concat(otherSpecialServices);
+    data.regionsCovered =
+      data.regionsCovered && data.regionsCovered.concat(otherRegions);
+    data.internationalCertifications =
+      data.internationalCertifications &&
+      data.internationalCertifications.concat(otherInternationalCertifications);
+    data.memberships =
+      data.memberships && data.memberships.concat(otherMemberships);
     const fdata = new FormData();
 
     if (data.businessLicenseUpload) {
