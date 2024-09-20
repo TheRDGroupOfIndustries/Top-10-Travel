@@ -170,18 +170,21 @@ const AgencyForm = () => {
       data.memberships && data.memberships.concat(otherMemberships);
     const fdata = new FormData();
 
-    if (
-      data.businessLicenseUpload &&
-      data.insuranceCertificateUpload &&
-      data.images
-    ) {
+    if (data.businessLicenseUpload) {
       fdata.append("businessLicenseUpload", data.businessLicenseUpload);
+    }
+
+    if (data.insuranceCertificateUpload) {
       fdata.append(
         "insuranceCertificateUpload",
         data.insuranceCertificateUpload
       );
+    }
+
+    if (data.images) {
       fdata.append("images", data.images);
     }
+
     const {
       businessLicenseUpload,
       insuranceCertificateUpload,

@@ -70,7 +70,9 @@ export const AgencySchema = z.object({
     .refine((file) => file.type === "application/pdf", {
       // Check for PDF file type
       message: "Only PDF files are allowed",
-    }),
+    })
+    .optional(),
+
   insuranceCertificateUpload: z
     .preprocess(
       (fileList: any) => fileList,
@@ -83,7 +85,9 @@ export const AgencySchema = z.object({
     .refine((file) => file.type === "application/pdf", {
       // Check for PDF file type
       message: "Only PDF files are allowed",
-    }),
+    })
+    .optional(),
+
   primaryServices: z
     .array(z.string().min(1, "Required"))
     .min(1, "Select At least one"),
@@ -141,8 +145,6 @@ export const AgencySchema = z.object({
     .max(500, "Description  cannot exceed 500 characters."),
 });
 
-
-
 // updated - agency validation :
 // import { z } from "zod";
 
@@ -188,7 +190,6 @@ export const AgencySchema = z.object({
 //   twitter: z.union([z.literal(""), z.string().trim().url()]).optional(),
 //   youtube: z.union([z.literal(""), z.string().trim().url()]).optional(),
 // });
-
 
 // export const AgencySchema = z.object({
 //   name: z.string().min(3, "Name must be at least 3 characters"),
