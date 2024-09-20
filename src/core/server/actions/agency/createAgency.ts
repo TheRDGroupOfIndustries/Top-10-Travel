@@ -3,49 +3,52 @@
 import { AgencySchema } from "@/components/agency/agencySchema";
 import { db } from "@/core/client/db";
 import getSessionorRedirect from "@/core/utils/getSessionorRedirect";
-import {
-  uploadFile,
-  uploadFileDefault,
-  uploadImage,
-} from "../../cloudinary/cloudinary";
-import { z } from "zod";
+import { uploadFile, uploadFileDefault } from "../../cloudinary/cloudinary";
 
 const uploadFiles = async (
   userId: string,
-  businessLicenseUpload: File,
-  insuranceCertificateUpload: File,
+  businessLicenseUpload: File | null,
+  insuranceCertificateUpload: File | null,
   images: File
 ) => {
-  const businessBufferPromise = businessLicenseUpload.arrayBuffer(),
-    insuranceBufferPromise = insuranceCertificateUpload.arrayBuffer(),
-    imagesBufferPromise = images.arrayBuffer();
+  const uploadPromises: Promise<any>[] = [];
+  const imageBufferPromise = images.arrayBuffer();
 
-  const [businessArrayBuffer, insuranceArrayBuffer, imagesArrayBuffer] =
-    await Promise.all([
-      businessBufferPromise,
-      insuranceBufferPromise,
-      imagesBufferPromise,
-    ]);
-  const businessBuffer = Buffer.from(businessArrayBuffer),
-    insuranceBuffer = Buffer.from(insuranceArrayBuffer),
-    imagesBuffer = Buffer.from(imagesArrayBuffer);
-  const businessPromise = uploadFile(
-    businessBuffer,
-    `agency-${userId}-businessLicense`
-  );
-  const insurancePromise = uploadFile(
-    insuranceBuffer,
-    `agency-${userId}-insurance`
-  );
-  const imagePromise = uploadFileDefault(imagesBuffer);
-  const [businessUpload, insuranceUpload, imageUpload]: any[] =
-    await Promise.all([businessPromise, insurancePromise, imagePromise]);
+  if (businessLicenseUpload) {
+    const businessBufferPromise = businessLicenseUpload.arrayBuffer();
+    uploadPromises.push(
+      businessBufferPromise.then((buffer) =>
+        uploadFile(Buffer.from(buffer), `agency-${userId}-businessLicense`)
+      )
+    );
+  }
+
+  if (insuranceCertificateUpload) {
+    const insuranceBufferPromise = insuranceCertificateUpload.arrayBuffer();
+    uploadPromises.push(
+      insuranceBufferPromise.then((buffer) =>
+        uploadFile(Buffer.from(buffer), `agency-${userId}-insurance`)
+      )
+    );
+  }
+
+  const imagesBuffer = await imageBufferPromise;
+  uploadPromises.push(uploadFileDefault(Buffer.from(imagesBuffer)));
+
+  const uploadResults = await Promise.all(uploadPromises);
+  const businessUrl = businessLicenseUpload
+    ? uploadResults[0].secure_url
+    : null;
+  const insuranceUrl = insuranceCertificateUpload
+    ? uploadResults[1].secure_url
+    : null;
+  const imageUrl = uploadResults[uploadResults.length - 1].secure_url;
 
   console.log("Files uploaded");
   return {
-    businessUrl: businessUpload.secure_url,
-    insuranceUrl: insuranceUpload.secure_url,
-    imageUrl: imageUpload.secure_url,
+    businessUrl,
+    insuranceUrl,
+    imageUrl,
   };
 };
 
@@ -53,7 +56,7 @@ export const createAgencyAction = async ({
   values,
   formData,
 }: {
-  values: any;
+  values: any; // Adjust this type according to your schema
   formData: FormData;
 }) => {
   const session = await getSessionorRedirect();
@@ -62,16 +65,17 @@ export const createAgencyAction = async ({
     insuranceCertificateUpload: true,
     images: true,
   }).safeParse(values);
-  console.log(error);
+
   if (!success) return { error: "Something went wrong!" };
+
   try {
     const { businessUrl, insuranceUrl, imageUrl } = await uploadFiles(
       session.user.id,
-      formData.get("businessLicenseUpload") as File,
-      formData.get("insuranceCertificateUpload") as File,
-
+      formData.get("businessLicenseUpload") as File | null,
+      formData.get("insuranceCertificateUpload") as File | null,
       formData.get("images") as File
     );
+
     await db.agency.create({
       data: {
         ...data,
@@ -86,13 +90,12 @@ export const createAgencyAction = async ({
         caseStudyPdf: undefined,
       },
     });
-    return { success: "Agency created Succesfully" };
+    return { success: "Agency created Successfully" };
   } catch (error: any) {
-    console.log("Error creating agency : ", error.message);
+    console.log("Error creating agency: ", error.message);
     return { error: "Error creating agency" };
   }
 };
-
 
 // updated - gd
 
