@@ -75,7 +75,7 @@ export default function EnquireDialog({
     >
       <Modal>
         {type === "Details" ? (
-          <ModalTrigger className="w-full border-black border-[1px] rounded-full sm:text-xl min-[421px]:text-base text-xs font-medium transform hover:-translate-y-1 transition duration-200 hover:shadow-md">
+          <ModalTrigger className="w-full border-black text-center border-[1px] rounded-full sm:text-xl min-[421px]:text-base text-xs font-medium transform hover:-translate-y-1 transition duration-200 hover:shadow-md">
             Contact Us
           </ModalTrigger>
         ) : (

@@ -52,7 +52,7 @@ export const ModalTrigger = ({
   return (
     <button
       className={cn(
-        "px-4 py-2 flex items-center rounded-md text-black dark:text-white text-center relative overflow-hidden",
+        "px-4 py-2 flex items-center justify-center rounded-md text-black dark:text-white text-center relative overflow-hidden",
         className
       )}
       onClick={(e) => setOpen(true)}
@@ -197,9 +197,9 @@ const CloseIcon = () => {
 
   return (
     <button
-      onClick={() => { 
+      onClick={() => {
         setOpen(false);
-        console.log('clicked');
+        console.log("clicked");
       }}
       className="absolute top-4 cursor-pointer right-4 group"
     >
