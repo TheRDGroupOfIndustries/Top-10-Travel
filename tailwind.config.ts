@@ -41,10 +41,10 @@ const config = {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",
         },
-        colorAll: {
-          DEFAULT: "hsl(var(--color-all))",
-          foreground: "hsl(var(--primary-foreground))",
-        },
+        // colorAll: {
+        //   DEFAULT: "hsl(var(--color-all))",
+        //   foreground: "hsl(var(--primary-foreground))",
+        // },
         secondary: {
           DEFAULT: "hsl(var(--secondary))",
           foreground: "hsl(var(--secondary-foreground))",

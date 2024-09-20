@@ -59,7 +59,7 @@ const MobileDropdown = ({ items, visible, toggle }: any) => {
                 setIsOpen(false);
               }}
               className={`p-2 hover:bg-gray-100 cursor-pointer text-xs ${
-                visible[key] ? "bg-colorAll text-white" : "text-black"
+                visible[key] ? "bg-mainColor text-white" : "text-black"
               }`}
             >
               {text}
@@ -253,7 +253,7 @@ function HomeHero() {
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.8, delay: 0.4, type: "spring" }}
           >
-            travel <span className="text-colorAll">Top 10</span>
+            travel <span className="text-mainColor">Top 10</span>
           </motion.span>
         </h1>
         <p
@@ -267,7 +267,7 @@ function HomeHero() {
             transition={{ duration: 0.8, delay: 1, type: "spring" }}
           >
             The only place where you can find Top 10{" "}
-            <span className="text-colorAll mr-1">
+            <span className="text-mainColor mr-1">
               Agencies, <br className="hidden lg:block xl:hidden" /> Hotels,
               <br className="hidden xl:block" /> DMC&apos;s
             </span>
@@ -366,7 +366,7 @@ function HomeHero() {
             <div>
               <Button
                 onClick={handleFind}
-                className="bg-colorAll hover:bg-colorAll xs:hover:bg-[#ffcc66] inline-flex items-center text-xs xs:text-sm lg:gap-2 px-2 xs:py-0.5"
+                className="bg-mainColor hover:bg-mainColor xs:hover:bg-mainColorSecondary inline-flex items-center text-xs xs:text-sm lg:gap-2 px-2 xs:py-0.5"
               >
                 <SearchIcon className="xs:w-5 xs:h-5 w-4 h-4" />
                 Search

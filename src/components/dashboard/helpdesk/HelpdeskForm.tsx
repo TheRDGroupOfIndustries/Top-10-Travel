@@ -33,12 +33,14 @@ export default function HelpDeskForm() {
   return (
     <Card className="border-none bg-[#F3F3F3]">
       <CardHeader>
-        <CardTitle>Create a <span className="text-[#FCAE1D]">Helpdesk</span></CardTitle>
+        <CardTitle>
+          Create a <span className="text-mainColor">Helpdesk</span>
+        </CardTitle>
         <CardDescription>
           Here you can create a helpdesk for the admin regarding your queries.
         </CardDescription>
       </CardHeader>
-      <CardContent >
+      <CardContent>
         <form>
           <div className="grid w-full items-center gap-4">
             <div className="flex flex-col space-y-1.5">
@@ -57,7 +59,7 @@ export default function HelpDeskForm() {
         <Button
           disabled={isPending}
           onClick={handleSend}
-          className="bg-[#fcaf1e] hover:bg-[#fcaf1e]/80"
+          className="bg-mainColor hover:bg-mainColor/80"
         >
           {isPending ? "Creating..." : "Create Helpdesk"}
         </Button>

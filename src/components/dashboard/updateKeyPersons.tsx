@@ -51,7 +51,7 @@ const PastProjectInput = ({
     deleteKeyPersonAction
   );
   const { mutate, isPending } = useMutation(createKeyPersonAction);
-  const [isEditing, setIsEditing] = useState(form.id==="");
+  const [isEditing, setIsEditing] = useState(form.id === "");
 
   const handleSubmit = async (formData: FormData) => {
     const name = formData.get("name") as string;
@@ -62,7 +62,7 @@ const PastProjectInput = ({
     );
     const { success, error } = await mutate({
       data: { name, position, specialization, yearsOfExperience },
-      id:form.id===""?undefined:form.id,
+      id: form.id === "" ? undefined : form.id,
       agencyId: info.type === "Agency" ? info.agencyId : undefined,
       dmcId: info.type === "Dmc" ? info.dmcId : undefined,
     });
@@ -97,8 +97,7 @@ const PastProjectInput = ({
           if (success) {
             toast.success(success);
             setIsEditing(false);
-          }
-          else toast.error(error);
+          } else toast.error(error);
         }}
       >
         <RxCross2 />
@@ -164,7 +163,7 @@ const PastProjectInput = ({
       {isEditing ? (
         <div>
           <Button
-            className="mt-2 bg-[#fcaf1e] hover:bg-[#fcaf1e]/80"
+            className="mt-2 bg-mainColor hover:bg-mainColor/80"
             size="sm"
             type="submit"
             disabled={isPending}
@@ -182,7 +181,7 @@ const PastProjectInput = ({
         </div>
       ) : (
         <Button
-          className="mt-2 bg-[#fcaf1e] hover:bg-[#fcaf1e]/80"
+          className="mt-2 bg-mainColor hover:bg-mainColor/80"
           size="sm"
           onClick={() => setIsEditing(true)}
           type="button"
@@ -221,12 +220,12 @@ const UpdateKeyPersonnel = ({
     <Card className="border-none bg-[#F3F3F3] mt-4">
       <CardHeader className="text-2xl font-semibold">
         <div>
-          Key<span className="text-[#FCAE1D]"> Persons</span>
+          Key<span className="text-mainColor"> Persons</span>
           {form.length >= 5 ? null : (
             <Button
               type="button"
               size="icon"
-              className="h-7 w-7 ml-2 bg-[#FCAE1D] hover:bg-[#dea02f]"
+              className="h-7 w-7 ml-2 bg-mainColor hover:bg-[#dea02f]"
               onClick={add}
             >
               <FaPlus />

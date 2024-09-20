@@ -37,7 +37,7 @@ const AdminNotificationButtons = ({
         disabled={pendingAccept}
         onClick={acceptReq}
         size="sm"
-        className="bg-[#FCAE1D] hover:bg-[#d28c09]"
+        className="bg-mainColor hover:bg-[#d28c09]"
       >
         Accept
       </Button>

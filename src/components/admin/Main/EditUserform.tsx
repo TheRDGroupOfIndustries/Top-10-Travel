@@ -37,15 +37,9 @@ const EditUserForm = ({ user }: { user: User }) => {
         <CardTitle>Edit User Details</CardTitle>
       </CardHeader>
       <CardContent>
-        <form
-          onSubmit={handleUpdate}
-          className="space-y-4"
-        >
+        <form onSubmit={handleUpdate} className="space-y-4">
           <div className="space-y-2">
-            <label
-              htmlFor="username"
-              className="text-sm font-medium"
-            >
+            <label htmlFor="username" className="text-sm font-medium">
               Username
             </label>
             <Input
@@ -56,10 +50,7 @@ const EditUserForm = ({ user }: { user: User }) => {
             />
           </div>
           <div className="space-y-2">
-            <label
-              htmlFor="email"
-              className="text-sm font-medium"
-            >
+            <label htmlFor="email" className="text-sm font-medium">
               Email
             </label>
             <Input
@@ -71,16 +62,10 @@ const EditUserForm = ({ user }: { user: User }) => {
             />
           </div>
           <div className="space-y-2">
-            <label
-              htmlFor="role"
-              className="text-sm font-medium"
-            >
+            <label htmlFor="role" className="text-sm font-medium">
               Role
             </label>
-            <Select
-              defaultValue={user.role}
-              name="role"
-            >
+            <Select defaultValue={user.role} name="role">
               <SelectTrigger>
                 <SelectValue placeholder="Select role" />
               </SelectTrigger>
@@ -109,7 +94,7 @@ const EditUserForm = ({ user }: { user: User }) => {
           <Button
             type="submit"
             disabled={isPending}
-            className="bg-[#fcaf1e] w-full hover:bg-[#fcaf1e]/80"
+            className="bg-mainColor w-full hover:bg-mainColor/80"
           >
             Save Changes
           </Button>

@@ -63,21 +63,15 @@ export function AdminDashboard({
     <Card className="col-span-4 mt-5 bg-[#F3F3F3]">
       <CardHeader>
         <CardTitle className="text-5xl font-semibold">
-          Total <span className="text-[#fcaf1e]">Statistics</span>
+          Total <span className="text-mainColor">Statistics</span>
         </CardTitle>
         <CardDescription className="font-medium text-sm text-[#36454F]">
           Overview of key metrics
         </CardDescription>
       </CardHeader>
       <CardContent className="p-0 mb-5">
-        <ChartContainer
-          config={chartConfig}
-          className="w-full h-[65vh] p-0"
-        >
-          <BarChart
-            accessibilityLayer
-            data={chartData}
-          >
+        <ChartContainer config={chartConfig} className="w-full h-[65vh] p-0">
+          <BarChart accessibilityLayer data={chartData}>
             <CartesianGrid vertical={false} />
             <XAxis
               dataKey="category"
@@ -85,20 +79,9 @@ export function AdminDashboard({
               tickMargin={10}
               axisLine={false}
             />
-            <YAxis
-              tickLine={false}
-              tickMargin={10}
-              axisLine={false}
-            />
-            <ChartTooltip
-              cursor={false}
-              content={<ChartTooltipContent />}
-            />
-            <Bar
-              dataKey="total"
-              fill="#FCAF1E"
-              radius={8}
-            >
+            <YAxis tickLine={false} tickMargin={10} axisLine={false} />
+            <ChartTooltip cursor={false} content={<ChartTooltipContent />} />
+            <Bar dataKey="total" fill="#fcae1d" radius={8}>
               <LabelList
                 position="top"
                 offset={12}

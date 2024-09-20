@@ -62,7 +62,7 @@ const InputWithSave = ({
             else toast.error(error);
             setIsChanging(false);
           }}
-          className="flex  items-center  justify-center"
+          className="flex items-center justify-center"
         >
           {name === "description" ? (
             <Textarea
@@ -90,7 +90,7 @@ const InputWithSave = ({
             disabled={isPending}
             type="submit"
             size="sm"
-            className="bg-[#fcaf1e] hover:bg-[#fcaf1e]/80"
+            className="bg-mainColor hover:bg-mainColor/80"
           >
             {isPending ? "Saving..." : "Save"}
           </Button>

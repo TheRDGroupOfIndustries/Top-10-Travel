@@ -165,8 +165,8 @@ function ReviewsComponent({
               onClick={prevPage}
               className={`rounded-lg ${
                 currentPage === 1
-                  ? "bg-[#fdcb6e] cursor-not-allowed"
-                  : "bg-[#FCAE1D] hover:bg-[rgba(252,174,29,0.8)]"
+                  ? "bg-mainColor cursor-not-allowed"
+                  : "bg-mainColor hover:bg-mainColorSecondary"
               }`}
               disabled={currentPage === 1}
             >
@@ -178,8 +178,8 @@ function ReviewsComponent({
               size={"icon"}
               className={`rounded-lg ${
                 currentPage === Math.ceil(reviews.length / itemsPerPage)
-                  ? "bg-[#fdcb6e] cursor-not-allowed"
-                  : "bg-[#FCAE1D] hover:bg-[rgba(252,174,29,0.8)]"
+                  ? "bg-mainColor cursor-not-allowed"
+                  : "bg-mainColor hover:bg-mainColorSecondary"
               }`}
               disabled={
                 currentPage === Math.ceil(reviews.length / itemsPerPage)
@@ -191,11 +191,7 @@ function ReviewsComponent({
         ) : null}
 
         {/* Review dialog */}
-        <ReviewDialog
-          revalidate={revalidate}
-          info={info}
-          name={name}
-        />
+        <ReviewDialog revalidate={revalidate} info={info} name={name} />
       </div>
     </div>
   );

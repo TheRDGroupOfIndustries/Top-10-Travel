@@ -13,6 +13,7 @@ import { signOut } from "next-auth/react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { FileText, HelpCircle, Home, List, LogOut, Users } from "react-feather";
+import Image from "next/image";
 import {
   MdOutlineBookOnline,
   MdOutlineHotel,
@@ -77,7 +78,13 @@ const SmallScreenSidebar = ({
       </SheetTrigger>
       <SheetContent side={"left"} className="flex flex-col h-full">
         <SheetHeader>
-          <SheetTitle>LOGO</SheetTitle>
+          <SheetTitle>
+            <div className="relative navbar-start h-6 xs:h-7 sm:h-8 w-44 xs:w-48 sm:w-56">
+              <Link href="/" className="text-2xl font-bold">
+                <Image src="/logo.png" alt="logo" fill />
+              </Link>
+            </div>
+          </SheetTitle>
         </SheetHeader>
         <div className="py-4 flex mt-[3vw] flex-col gap-3">
           {pathname.startsWith("/admin") &&
@@ -88,7 +95,7 @@ const SmallScreenSidebar = ({
                   className={`flex md:text-xl text-lg items-center transition-colors duration-200 rounded-lg px-3 py-3 hover:bg-[#F3F3F3]  cursor-pointer
                     ${
                       pathname === item.href
-                        ? "text-white bg-[#FCAE1D] hover:bg-[#FCAE1D]"
+                        ? "text-white bg-mainColor hover:bg-mainColor"
                         : "text-gray-900"
                     }`}
                   onClick={() => {
@@ -104,14 +111,16 @@ const SmallScreenSidebar = ({
             ))}
 
           {pathname.startsWith("/dashboard") &&
-            CompanyMenuItems.filter((item): item is MenuItem => Boolean(item)).map((item, index) => (
+            CompanyMenuItems.filter((item): item is MenuItem =>
+              Boolean(item)
+            ).map((item, index) => (
               <SheetClose asChild key={index}>
                 <Link
                   href={item.href}
                   className={`flex md:text-xl text-lg items-center transition-colors duration-200 rounded-lg px-3 py-3 hover:bg-[#F3F3F3]  cursor-pointer
                     ${
                       pathname === item.href
-                        ? "text-white bg-[#FCAE1D] hover:bg-[#FCAE1D]"
+                        ? "text-white bg-mainColor hover:bg-mainColor"
                         : "text-gray-900"
                     }`}
                   onClick={() => {
@@ -130,7 +139,7 @@ const SmallScreenSidebar = ({
           <SheetClose asChild>
             <div
               onClick={() => signOut()}
-              className={`flex w-full md:text-xl text-lg items-center transition-colors duration-200 rounded-lg px-3 py-3 cursor-pointer text-gray-900 hover:text-white hover:bg-[#FCAE1D]`}
+              className={`flex w-full md:text-xl text-lg items-center transition-colors duration-200 rounded-lg px-3 py-3 cursor-pointer text-gray-900 hover:text-white hover:bg-mainColor`}
             >
               <LogOut className="w-6 h-6 mr-3" />
               Logout

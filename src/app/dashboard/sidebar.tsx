@@ -2,6 +2,7 @@
 
 import { ArrowDownUp } from "lucide-react";
 import { signOut } from "next-auth/react";
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { HelpCircle, Home, List, LogOut } from "react-feather";
@@ -36,10 +37,16 @@ function AgencySidebar({
 
   return (
     <div className="lg:w-[17vw] h-[100vh] left-0 top-0 fixed text-black flex flex-col border-r-2  border-[#7F7F7F] px-4">
-      <div className="p-2 mt-5 mb-12">
+      {/* <div className="p-2 mt-5 mb-12">
         <Link href="/">LOGO</Link>
+      </div> */}
+      <div className="relative mt-7 mb-12 h-6 w-48">
+        <Link href="/">
+          <Image src="/logo.png" alt="logo" fill />
+        </Link>
       </div>
-      <nav className="flex-grow  ">
+
+      <nav className="flex-grow">
         <ul className="">
           {menuItems
             .filter((i) => i != undefined)
@@ -47,9 +54,9 @@ function AgencySidebar({
               <li key={index}>
                 <Link
                   href={item.href}
-                  className={`py-3 mx-[1px] flex items-center justify-start mt-1  hover:bg-[#F3F3F3] transition-colors duration-200 rounded-lg  ${
+                  className={`py-3 mx-[1px] flex items-center justify-start mt-1 hover:bg-[#F3F3F3] transition-colors duration-200 rounded-lg  ${
                     pathname === item.href
-                      ? "bg-[#FCAE1D] hover:bg-[#FCAE1C] text-white"
+                      ? "bg-mainColor hover:bg-mainColorSecondary text-white"
                       : "text-black"
                   }`}
                   onClick={() => {
@@ -68,7 +75,7 @@ function AgencySidebar({
       <div>
         <button
           onClick={() => signOut()}
-          className="py-3 w-full mx-[1px] mb-2 flex items-center justify-start mt-1 text-black hover:bg-[#FCAE1C] hover:text-white transition-colors duration-200 rounded-lg"
+          className="py-3 w-full mx-[1px] mb-2 flex items-center justify-start mt-1 text-black hover:bg-mainColor hover:text-white transition-colors duration-200 rounded-lg"
         >
           <LogOut className="w-12 h-5" />
           Logout

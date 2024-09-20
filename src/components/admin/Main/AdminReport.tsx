@@ -46,7 +46,7 @@ const AdminReport = ({ report }: { report: ReportData }) => {
         <CardHeader>
           <CardTitle className="lg:text-3xl md:text-2xl text-xl font-semibold">
             <p>
-              Company <span className="text-[#fcaf1e]">Report</span>
+              Company <span className="text-mainColor">Report</span>
             </p>
             <p className="md:text-base text-sm mt-1">
               <span className="font-bold my-4">{filteredReport.length}</span>{" "}
@@ -71,32 +71,29 @@ const AdminReport = ({ report }: { report: ReportData }) => {
       </Card>
 
       {filteredReport.map((company) => (
-        <Card
-          key={company.id}
-          className="bg-[#f3f3f3]"
-        >
+        <Card key={company.id} className="bg-[#f3f3f3]">
           <CardHeader className="flex flex-col sm:flex-row gap-8 md:gap-24 items-center justify-between">
             <div className="flex flex-col">
               <CardTitle className="font-bold my-4 text-center sm:text-left">
                 {company.name} ({company.type})
               </CardTitle>
               <div className="text-sm flex items-center sm:items-start gap-2 flex-wrap mt-4 max-w-sm lg:max-w-lg">
-                <Badge className="text-[#FCAE1D] font-semibold bg-[#fcae1d11]">
+                <Badge className="text-mainColor font-semibold bg-slate-700">
                   Total reviews: {company.reviews}
                 </Badge>
-                <Badge className="text-[#FCAE1D] font-semibold bg-[#fcae1d11]">
+                <Badge className="text-mainColor font-semibold bg-slate-700">
                   Rating: {company.rating.toFixed(1)}
                 </Badge>
-                <Badge className="text-[#FCAE1D] font-semibold bg-[#fcae1d11]">
+                <Badge className="text-mainColor font-semibold bg-slate-700">
                   Country Priority: {company.priority}
                 </Badge>
-                <Badge className="text-[#FCAE1D] font-semibold bg-[#fcae1d11]">
+                <Badge className="text-mainColor font-semibold bg-slate-700">
                   City Priority: {company.city_priority}
                 </Badge>
-                <Badge className="text-[#FCAE1D] font-semibold bg-[#fcae1d11]">
+                <Badge className="text-mainColor font-semibold bg-slate-700">
                   Country : {company.country}
                 </Badge>
-                <Badge className="text-[#FCAE1D] font-semibold bg-[#fcae1d11]">
+                <Badge className="text-mainColor font-semibold bg-slate-700">
                   City : {company.city}
                 </Badge>
               </div>
@@ -122,10 +119,7 @@ const AdminReport = ({ report }: { report: ReportData }) => {
               </TableHeader>
               <TableBody>
                 {company.Reviews.map((review) => (
-                  <TableRow
-                    key={review.id}
-                    className="hover:bg-[#dbdbdb]"
-                  >
+                  <TableRow key={review.id} className="hover:bg-[#dbdbdb]">
                     <TableCell>{review.id}</TableCell>
                     <TableCell>{review.name}</TableCell>
                     <TableCell className="min-w-[200px] md:w-[300px]">

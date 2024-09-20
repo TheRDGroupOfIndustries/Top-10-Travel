@@ -33,7 +33,7 @@ export default function RequestForm() {
     <Card className="border-none bg-[#F3F3F3]">
       <CardHeader>
         <CardTitle>
-          Create Your <span className="text-[#FCAE1D]">Request</span>
+          Create Your <span className="text-mainColor">Request</span>
         </CardTitle>
         <CardDescription>
           Here you can create a request for the admin to change your priority
@@ -59,7 +59,7 @@ export default function RequestForm() {
         <Button
           disabled={isPending}
           onClick={handleSend}
-          className="bg-[#fcaf1e] hover:bg-[#fcaf1e]/80"
+          className="bg-mainColor hover:bg-mainColor/80"
         >
           {isPending ? "Sending..." : "Send Request"}
         </Button>

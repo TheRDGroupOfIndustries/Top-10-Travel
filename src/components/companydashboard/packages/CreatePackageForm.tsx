@@ -80,7 +80,7 @@
 //     <Card className="w-full max-w-md mt-6 bg-[7F7F7F] border-none ">
 //       <CardHeader>
 //         <CardTitle>
-//           Create Your <span className="text-[#FCAE1D]">Package</span>
+//           Create Your <span className="text-mainColor">Package</span>
 //         </CardTitle>
 //         <CardDescription>
 //           Create a package by filling the following form.
@@ -205,7 +205,7 @@
 //           <Button
 //             disabled={isPending}
 //             type="submit"
-//             className="mt-4 bg-[#fcaf1e] hover:bg-[#fcaf1e]/80"
+//             className="mt-4 bg-mainColor hover:bg-mainColor/80"
 //           >
 //             {isPending ? "Creating..." : "Create Package"}
 //           </Button>

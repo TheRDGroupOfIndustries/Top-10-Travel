@@ -49,15 +49,9 @@ const EditInfluencerForm = ({ company }: { company: Company }) => {
         <CardTitle>Edit Influencer Details</CardTitle>
       </CardHeader>
       <CardContent>
-        <form
-          onSubmit={handleUpdate}
-          className="space-y-4"
-        >
+        <form onSubmit={handleUpdate} className="space-y-4">
           <div className="space-y-2">
-            <label
-              htmlFor="name"
-              className="text-sm font-medium"
-            >
+            <label htmlFor="name" className="text-sm font-medium">
               Name
             </label>
             <Input
@@ -70,10 +64,7 @@ const EditInfluencerForm = ({ company }: { company: Company }) => {
             />
           </div>
           <div className="space-y-2">
-            <label
-              htmlFor="priority"
-              className="text-sm font-medium"
-            >
+            <label htmlFor="priority" className="text-sm font-medium">
               Priority
             </label>
             <Input
@@ -87,10 +78,7 @@ const EditInfluencerForm = ({ company }: { company: Company }) => {
             />
           </div>
           <div className="space-y-2">
-            <label
-              htmlFor="speciality"
-              className="text-sm font-medium"
-            >
+            <label htmlFor="speciality" className="text-sm font-medium">
               Speciality
             </label>
             <Input
@@ -103,10 +91,7 @@ const EditInfluencerForm = ({ company }: { company: Company }) => {
             />
           </div>
           <div className="space-y-2">
-            <label
-              htmlFor="state_priority"
-              className="text-sm font-medium"
-            >
+            <label htmlFor="state_priority" className="text-sm font-medium">
               Priority(city)
             </label>
             <Input
@@ -121,10 +106,7 @@ const EditInfluencerForm = ({ company }: { company: Company }) => {
             />
           </div>
           <div className="space-y-2">
-            <label
-              htmlFor="isCertified"
-              className="text-sm font-medium"
-            >
+            <label htmlFor="isCertified" className="text-sm font-medium">
               Is Certified
             </label>
             <Select
@@ -143,7 +125,7 @@ const EditInfluencerForm = ({ company }: { company: Company }) => {
 
           <Button
             type="submit"
-            className="bg-[#fcaf1e] w-full hover:bg-[#fcaf1e]/80"
+            className="bg-mainColor w-full hover:bg-mainColor/80"
             disabled={isPending}
           >
             Save Changes

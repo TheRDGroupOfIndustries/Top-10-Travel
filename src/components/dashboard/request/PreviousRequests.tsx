@@ -9,9 +9,11 @@ const PreviousRequests = ({ requests }: { requests: Request[] }) => {
           className="border-none bg-[#F3F3F3] p-4 rounded-md"
           key={request.id}
         >
-          <p className=" text-base leading-relaxed ">{request.message.slice(17)}</p>
+          <p className=" text-base leading-relaxed ">
+            {request.message.slice(17)}
+          </p>
           <Badge
-          className="text-sm mt-2 border-[#FCAE1D] border-2 rounded-full"
+            className="text-sm mt-2 border-mainColor border-2 rounded-full"
             variant={
               request.status === "ACCEPTED"
                 ? "default"
@@ -24,7 +26,9 @@ const PreviousRequests = ({ requests }: { requests: Request[] }) => {
           </Badge>
         </div>
       ))}
-      {requests.length===0 && <h2 className="text-lg font-semibold">No Previews requests to show.</h2>}
+      {requests.length === 0 && (
+        <h2 className="text-lg font-semibold">No Previews requests to show.</h2>
+      )}
     </div>
   );
 };

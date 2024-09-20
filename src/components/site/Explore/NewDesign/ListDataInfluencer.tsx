@@ -65,7 +65,7 @@ function ListDataInfluencer({
           //       <Button
           //         asChild
           //         size="sm"
-          //         className="bg-colorAll hover:bg-[#fcaf1ed0] text-black rounded"
+          //         className="bg-mainColor hover:bg-mainColorSecondary text-black rounded"
           //       >
           //         <Link
           //           href={`/Influencers/${item?.id}`}
@@ -105,16 +105,16 @@ function ListDataInfluencer({
                 />
               </div>
               <div className="lg:w-[70%] w-full h-full rounded-lg overflow-hidden flex flex-col items-start justify-start gap-2 md:p-1 px-3 pb-3">
-                <h1 className="text-2xl line-clamp-1 font-semibold">{item?.name}</h1>
+                <h1 className="text-2xl line-clamp-1 font-semibold">
+                  {item?.name}
+                </h1>
                 {/* <div className="absolute z-20 top-4 right-4 lg:p-2 p-1 rounded-full cursor-pointer border-slate-300 bg-white/60 backdrop-blur-lg border-2">
                   <RiHeart3Line className="text-slate-500 size-6" /> */}
-                  {/* Heart with Fill is <RiHeart3Fill /> */}
+                {/* Heart with Fill is <RiHeart3Fill /> */}
                 {/* </div> */}
 
-                <div>
-                  {item.speciality}
-                </div>
-                
+                <div>{item.speciality}</div>
+
                 <div className="flex gap-1 items-center">
                   <TbMapPin className="text-slate-400 text-sm md:text-lg" />
                   <div className="text-sm md:text-lg text-slate-400 leading-none">
@@ -124,7 +124,7 @@ function ListDataInfluencer({
 
                 <p className="text-sm line-clamp-2">{item?.description}</p>
 
-                <Button className="text-xl group bg-[#FFEF9E] text-colorAll hover:bg-colorAll hover:text-[#FFEF9E]">
+                <Button className="text-xl group bg-[#FFEF9E] text-mainColor hover:bg-mainColor hover:text-[#FFEF9E]">
                   <span>Enquire now</span>
                   <TbPhoneCall size={20} className="stroke-2 ml-1" />
                 </Button>
@@ -142,7 +142,7 @@ function ListDataInfluencer({
               window.scrollTo({ top: 0 });
             }}
             disabled={currentPage === 1}
-            className="bg-colorAll hover:bg-[#fcaf1ed0] text-black"
+            className="bg-mainColor hover:bg-mainColorSecondary text-black"
           >
             <ChevronLeft />
           </Button>
@@ -158,7 +158,7 @@ function ListDataInfluencer({
               window.scrollTo({ top: 0 });
             }}
             disabled={currentPage === Math.ceil(data?.length / itemsPerPage)}
-            className="bg-colorAll hover:bg-[#fcaf1ed0] text-black"
+            className="bg-mainColor hover:bg-mainColorSecondary text-black"
           >
             <ChevronRight />
           </Button>

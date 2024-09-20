@@ -120,7 +120,7 @@ function ListData({
                   {item?.methodology}
                 </p>
 
-                {/* <Button className="text-xl group bg-[#FFEF9E] text-colorAll hover:bg-colorAll hover:text-[#FFEF9E]">
+                {/* <Button className="text-xl group bg-[#FFEF9E] text-mainCbg-mainColor hover:bg-mainColor hover:text-[#FFEF9E]">
                     <span>Enquire now</span>
                     <TbPhoneCall size={20} className="stroke-2 ml-1" />
                   </Button> */}
@@ -136,7 +136,7 @@ function ListData({
                     }
                   />
                   <Link href={`/${role}/${item.id}`}>
-                    <Button className="h-full group xs:text-lg text-base flex bg-[#FFEF9E] text-colorAll hover:bg-colorAll hover:text-[#FFEF9E]">
+                    <Button className="h-full xs:text-lg text-base flex bg-white text-mainColor border-mainColor border-[2px] rounded-md hover:bg-mainColor hover:text-white">
                       View More
                     </Button>
                   </Link>
@@ -246,7 +246,7 @@ function ListData({
               window.scrollTo({ top: 0 });
             }}
             disabled={currentPage === 1}
-            className="bg-colorAll hover:bg-[#fcaf1ed0] text-black"
+            className="bg-mainColor hover:bg-mainColorSecondary text-black"
           >
             <ChevronLeft />
           </Button>
@@ -262,7 +262,7 @@ function ListData({
               window.scrollTo({ top: 0 });
             }}
             disabled={currentPage === Math.ceil(data?.length / itemsPerPage)}
-            className="bg-colorAll hover:bg-[#fcaf1ed0] text-black"
+            className="bg-mainColor hover:bg-mainColorSecondary text-black"
           >
             <ChevronRight />
           </Button>

@@ -37,7 +37,7 @@ const CarouselCard = ({ agency }: { agency: AgencyApiResult }) => (
     className="flex md:hover:-translate-y-4 duration-300 transition-all w-full flex-col h-full"
   >
     <div className="relative h-48 sm:h-56 md:h-64 lg:h-72 rounded-lg overflow-hidden">
-      <div className="absolute top-0 left-0 bg-colorAll w-[80%] h-[70%] rounded-lg"></div>
+      <div className="absolute top-0 left-0 bg-mainColor w-[80%] h-[70%] rounded-lg"></div>
       <div className="absolute bottom-0 right-0 w-[95%] h-[95%] rounded-lg overflow-hidden">
         <Image
           fill
@@ -51,7 +51,7 @@ const CarouselCard = ({ agency }: { agency: AgencyApiResult }) => (
       <h2 className="text-lg font-bold text-black line-clamp-1">
         {agency.name}
       </h2>
-      <span className="text-sm font-semibold text-colorAll">
+      <span className="text-sm font-semibold text-mainColor">
         {"★".repeat(Math.round(agency.rating))} {agency.reviews} Reviews
       </span>
       <p className="text-sm line-clamp-3">{agency.methodology}</p>
