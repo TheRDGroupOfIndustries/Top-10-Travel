@@ -1,7 +1,5 @@
 import { z } from "zod";
-import {
-    SocialMediaLinksSchema
-} from "../agency/agencySchema";
+import { SocialMediaLinksSchema } from "../agency/agencySchema";
 
 export const HotelSchema = z.object({
   name: z.string().min(3, "Name must be atleast 3 characters"),
@@ -30,7 +28,8 @@ export const HotelSchema = z.object({
     .refine((file) => file.type === "application/pdf", {
       // Check for PDF file type
       message: "Only PDF files are allowed",
-    }),
+    })
+    .optional(),
   insuranceCertificateUpload: z
     .preprocess(
       (fileList: any) => fileList,
@@ -43,7 +42,8 @@ export const HotelSchema = z.object({
     .refine((file) => file.type === "application/pdf", {
       // Check for PDF file type
       message: "Only PDF files are allowed",
-    }),
+    })
+    .optional(),
   services: z
     .array(z.string().min(1, "Required"))
     .min(1, "Select At least one"),

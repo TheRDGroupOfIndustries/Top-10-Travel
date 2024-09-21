@@ -127,15 +127,28 @@ const HotelForm = () => {
     data.specialization = data.specialization.concat(otherSpecialServices);
     const fdata = new FormData();
 
-    fdata.append("businessLicenseUpload", data.businessLicenseUpload);
-    fdata.append("insuranceCertificateUpload", data.insuranceCertificateUpload);
-    fdata.append("images", data.images);
+    if (data.businessLicenseUpload) {
+      fdata.append("businessLicenseUpload", data.businessLicenseUpload);
+    }
+
+    if (data.insuranceCertificateUpload) {
+      fdata.append(
+        "insuranceCertificateUpload",
+        data.insuranceCertificateUpload
+      );
+    }
+
+    if (data.images) {
+      fdata.append("images", data.images);
+    }
+
     const {
       businessLicenseUpload,
       insuranceCertificateUpload,
       images,
       ...rest
     } = data;
+    
     const { success, error } = await mutate({ values: rest, formData: fdata });
 
     if (success) {

@@ -66,6 +66,7 @@ export const createAgencyAction = async ({
     images: true,
   }).safeParse(values);
 
+  console.log(error);
   if (!success) return { error: "Something went wrong!" };
 
   try {
@@ -84,9 +85,13 @@ export const createAgencyAction = async ({
         images: [imageUrl],
         User: { connect: { id: session.user.id } },
         // @ts-ignore
-        keyPersonnel: data.keyPersonnel ? { create: data.keyPersonnel } : undefined,
+        keyPersonnel: data.keyPersonnel
+          ? { create: data.keyPersonnel }
+          : undefined,
         // @ts-ignore
-        pastProjects: data.pastProjects ? { create: data.pastProjects } : undefined,
+        pastProjects: data.pastProjects
+          ? { create: data.pastProjects }
+          : undefined,
         // @ts-ignore
         clientReferences: data.clientReferences
           ? { create: data.clientReferences }
@@ -95,6 +100,7 @@ export const createAgencyAction = async ({
         caseStudyPdf: undefined,
       },
     });
+
     return { success: "Agency created Successfully" };
   } catch (error: any) {
     console.log("Error creating agency: ", error.message);

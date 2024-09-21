@@ -1,52 +1,54 @@
 "use server";
 
+import { HotelSchema } from "@/components/hotel/hotelSchema";
 import { db } from "@/core/client/db";
 import getSessionorRedirect from "@/core/utils/getSessionorRedirect";
-import {
-  uploadFile,
-  uploadFileDefault,
-  uploadImage,
-} from "../../cloudinary/cloudinary";
-import { z } from "zod";
-import { DmcSchema } from "@/components/dmc/dmcSchema";
-import { HotelSchema } from "@/components/hotel/hotelSchema";
+import { uploadFile, uploadFileDefault } from "../../cloudinary/cloudinary";
 
 const uploadFiles = async (
   userId: string,
-  businessLicenseUpload: File,
-  insuranceCertificateUpload: File,
+  businessLicenseUpload: File | null,
+  insuranceCertificateUpload: File | null,
   images: File
 ) => {
-  const businessBufferPromise = businessLicenseUpload.arrayBuffer(),
-    insuranceBufferPromise = insuranceCertificateUpload.arrayBuffer(),
-    imagesBufferPromise = images.arrayBuffer();
+  const uploadPromises: Promise<any>[] = [];
+  const imageBufferPromise = images.arrayBuffer();
 
-  const [businessArrayBuffer, insuranceArrayBuffer, imagesArrayBuffer] =
-    await Promise.all([
-      businessBufferPromise,
-      insuranceBufferPromise,
-      imagesBufferPromise,
-    ]);
-  const businessBuffer = Buffer.from(businessArrayBuffer),
-    insuranceBuffer = Buffer.from(insuranceArrayBuffer),
-    imagesBuffer = Buffer.from(imagesArrayBuffer);
-  const businessPromise = uploadFile(
-    businessBuffer,
-    `hotel-${userId}-businessLicense`
-  );
-  const insurancePromise = uploadFile(
-    insuranceBuffer,
-    `hotel-${userId}-insurance`
-  );
-  const imagePromise = uploadFileDefault(imagesBuffer);
-  const [businessUpload, insuranceUpload, imageUpload]: any[] =
-    await Promise.all([businessPromise, insurancePromise, imagePromise]);
+  if (businessLicenseUpload) {
+    const businessBufferPromise = businessLicenseUpload.arrayBuffer();
+    uploadPromises.push(
+      businessBufferPromise.then((buffer) =>
+        uploadFile(Buffer.from(buffer), `hotel-${userId}-businessLicense`)
+      )
+    );
+  }
+
+  if (insuranceCertificateUpload) {
+    const insuranceBufferPromise = insuranceCertificateUpload.arrayBuffer();
+    uploadPromises.push(
+      insuranceBufferPromise.then((buffer) =>
+        uploadFile(Buffer.from(buffer), `hotel-${userId}-insurance`)
+      )
+    );
+  }
+
+  const imagesBuffer = await imageBufferPromise;
+  uploadPromises.push(uploadFileDefault(Buffer.from(imagesBuffer)));
+
+  const uploadResults = await Promise.all(uploadPromises);
+  const businessUrl = businessLicenseUpload
+    ? uploadResults[0].secure_url
+    : null;
+  const insuranceUrl = insuranceCertificateUpload
+    ? uploadResults[1].secure_url
+    : null;
+  const imageUrl = uploadResults[uploadResults.length - 1].secure_url;
 
   console.log("Files uploaded");
   return {
-    businessUrl: businessUpload.secure_url,
-    insuranceUrl: insuranceUpload.secure_url,
-    imageUrl: imageUpload.secure_url,
+    businessUrl,
+    insuranceUrl,
+    imageUrl,
   };
 };
 
@@ -69,11 +71,11 @@ export const createHotelAction = async ({
   try {
     const { businessUrl, insuranceUrl, imageUrl } = await uploadFiles(
       session.user.id,
-      formData.get("businessLicenseUpload") as File,
-      formData.get("insuranceCertificateUpload") as File,
-
+      formData.get("businessLicenseUpload") as File | null,
+      formData.get("insuranceCertificateUpload") as File | null,
       formData.get("images") as File
     );
+
     await db.hotel.create({
       data: {
         ...data,
