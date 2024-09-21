@@ -83,9 +83,14 @@ export const createAgencyAction = async ({
         insuranceCertificateUpload: insuranceUrl,
         images: [imageUrl],
         User: { connect: { id: session.user.id } },
-        keyPersonnel: { create: data.keyPersonnel },
-        pastProjects: { create: data.pastProjects },
-        clientReferences: { create: data.clientReferences },
+        // @ts-ignore
+        keyPersonnel: data.keyPersonnel ? { create: data.keyPersonnel } : undefined,
+        // @ts-ignore
+        pastProjects: data.pastProjects ? { create: data.pastProjects } : undefined,
+        // @ts-ignore
+        clientReferences: data.clientReferences
+          ? { create: data.clientReferences }
+          : undefined,
         socialMediaLinks: { create: data.socialMediaLinks },
         caseStudyPdf: undefined,
       },
@@ -96,7 +101,6 @@ export const createAgencyAction = async ({
     return { error: "Error creating agency" };
   }
 };
-
 // updated - gd
 
 // "use server";

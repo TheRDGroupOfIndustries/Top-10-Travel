@@ -1,28 +1,34 @@
 import { z } from "zod";
 
-export const KeyPersonnelSchema = z.object({
-  name: z.string().min(1, { message: "Required" }),
-  position: z.string().min(1, { message: "Required" }),
-  yearsOfExperience: z.number().min(0, "Invalid value"),
-  specialization: z.string().min(1, { message: "Required" }),
-});
+export const KeyPersonnelSchema = z
+  .object({
+    name: z.string().optional(),
+    position: z.string().optional(),
+    yearsOfExperience: z.number().optional(),
+    specialization: z.string().optional(),
+  })
+  .optional();
 
-export const PastProjectSchema = z.object({
-  projectName: z.string().min(1, { message: "Required" }),
-  clientName: z.string().min(1, { message: "Required" }),
-  year: z
-    .number()
-    .min(1900, "Invalid Year")
-    .max(new Date().getFullYear() + 1, "Invalid Year"),
-  description: z.string().min(1, { message: "Required" }),
-});
+export const PastProjectSchema = z
+  .object({
+    projectName: z.string().optional(),
+    clientName: z.string().optional(),
+    year: z
+      .number()
+      .max(new Date().getFullYear() + 1, "Invalid Year")
+      .optional(),
+    description: z.string().optional(),
+  })
+  .optional();
 
-export const ClientReferenceSchema = z.object({
-  clientName: z.string().min(1, { message: "Required" }),
-  contactEmail: z.string().email(),
-  contactPhone: z.string().min(10).max(12),
-  testimonial: z.string().min(1, { message: "Required" }),
-});
+export const ClientReferenceSchema = z
+  .object({
+    clientName: z.string().optional(),
+    contactEmail: z.string().optional(),
+    contactPhone: z.string().max(12).optional(),
+    testimonial: z.string().optional(),
+  })
+  .optional();
 
 export const SocialMediaLinksSchema = z
   .object({
@@ -102,14 +108,15 @@ export const AgencySchema = z.object({
     .min(1, "Select at least one"),
   memberships: z
     .array(z.string().min(1, "Required"))
-    .min(1, "Select at least one"),
+    .min(1, "Select At least one"),
+  numberOfEmployees: z.coerce.number().optional(),
+  keyPersonnel: z.array(KeyPersonnelSchema).optional(),
+  // .min(1, "Select at least one."),
+  pastProjects: z.array(PastProjectSchema).optional(),
+  // .min(1, "Select at least one."),
+  clientReferences: z.array(ClientReferenceSchema).optional(),
 
-  numberOfEmployees: z.coerce.number().min(1, "Invalid number of employees"),
-
-  keyPersonnel: z.array(KeyPersonnelSchema).optional(), // Made optional
-  pastProjects: z.array(PastProjectSchema).optional(), // Made optional
-  clientReferences: z.array(ClientReferenceSchema).optional(), // Made optional
-
+  // .min(1, "Select at least one."),
   caseStudyPdf: z
     .preprocess(
       (fileList: any) => fileList,
