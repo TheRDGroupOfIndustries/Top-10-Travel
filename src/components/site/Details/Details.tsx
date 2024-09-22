@@ -65,8 +65,6 @@ const Details = ({
   // @ts-ignore
   const TAGS: string[] = [...setOfTags];
 
-  console.log(data);
-
   return (
     // <ClientSideDetails data={data} info={info} />
 
