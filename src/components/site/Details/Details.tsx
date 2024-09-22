@@ -65,6 +65,8 @@ const Details = ({
   // @ts-ignore
   const TAGS: string[] = [...setOfTags];
 
+  console.log(data);
+
   return (
     // <ClientSideDetails data={data} info={info} />
 
@@ -137,7 +139,7 @@ const Details = ({
 
               <div className="w-full flex flex-wrap items-center my-2 justify-between gap-1">
                 {data?.socialMediaLinks?.map((link, index) =>
-                  socialPlatforms.map((platform) => {
+                  socialPlatforms?.map((platform) => {
                     const url = link[platform as keyof SocialMediaLinks];
                     if (url) {
                       return (

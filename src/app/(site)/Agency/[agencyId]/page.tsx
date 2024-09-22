@@ -41,7 +41,7 @@ const AgencyPage = async ({ params }: { params: { agencyId: string } }) => {
   });
 
   if (!agency) return notFound();
-  // console.log(company);
+  console.log(agency);
 
   return (
     <div>

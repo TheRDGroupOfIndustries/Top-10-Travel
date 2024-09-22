@@ -1,4 +1,5 @@
 "use client";
+
 import { Button } from "@/components/ui/button";
 import { PastProject } from "@prisma/client";
 import { ChevronLeft, ChevronRight } from "lucide-react";
@@ -27,8 +28,6 @@ const PastProjects = ({ pastProjects }: { pastProjects: PastProject[] }) => {
       setCurrentPage(currentPage - 1);
     }
   };
-
-  console.log(pastProjects);
 
   return (
     <div className="flex flex-col shadow shadow-black/50 rounded-md gap-8 py-12 sm:px-8 px-4">
