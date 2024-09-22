@@ -139,7 +139,7 @@ function ReviewsComponent({
                 </div>
                 {/* Star rating component */}
                 <StarRating
-                  color="#734E03"
+                  color="#FCAE1D"
                   maxRating={5}
                   className="mt-2"
                   readOnly={true}
