@@ -130,18 +130,20 @@ function ListingHero({
             {isCountryOpen && (
               <ul className="absolute z-10 w-[180px] mt-1 bg-white border border-gray-300 rounded-md shadow-lg">
                 <ScrollArea className="h-[250px] rounded-md">
-                  {countries.map((country) => (
-                    <li
-                      key={country}
-                      onClick={() => {
-                        setSelectedCountry(country);
-                        setIsCountryOpen(false);
-                      }}
-                      className="px-4 py-2 hover:bg-gray-100 cursor-pointer text-xs"
-                    >
-                      {country}
-                    </li>
-                  ))}
+                  {countries
+                    ?.sort((a, b) => a.localeCompare(b))
+                    .map((country) => (
+                      <li
+                        key={country}
+                        onClick={() => {
+                          setSelectedCountry(country);
+                          setIsCountryOpen(false);
+                        }}
+                        className="px-4 py-2 hover:bg-gray-100 cursor-pointer text-xs"
+                      >
+                        {country}
+                      </li>
+                    ))}
                 </ScrollArea>
               </ul>
             )}
@@ -166,18 +168,20 @@ function ListingHero({
                       No Cities
                     </li>
                   )}
-                  {states.map((state) => (
-                    <li
-                      key={state}
-                      onClick={() => {
-                        setSelectedState(state);
-                        setIsStateOpen(false);
-                      }}
-                      className="px-4 py-2 hover:bg-gray-100 cursor-pointer text-xs"
-                    >
-                      {state}
-                    </li>
-                  ))}
+                  {states
+                    ?.sort((a, b) => a.localeCompare(b))
+                    .map((state) => (
+                      <li
+                        key={state}
+                        onClick={() => {
+                          setSelectedState(state);
+                          setIsStateOpen(false);
+                        }}
+                        className="px-4 py-2 hover:bg-gray-100 cursor-pointer text-xs"
+                      >
+                        {state}
+                      </li>
+                    ))}
                 </ScrollArea>
               </ul>
             )}

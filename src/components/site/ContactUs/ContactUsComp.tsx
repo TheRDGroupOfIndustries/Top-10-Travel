@@ -11,11 +11,13 @@ import { TextGenerateEffect } from "@/components/ui/text-generate-effect";
 import { sendContactEmail } from "@/core/server/actions/contact/contact";
 import useMutation from "@/hooks/useMutation";
 import emailIcon from "@/resources/icons/EmailIcon.png";
+import phoneIcon from "@/resources/icons/PhoneIcon.png";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { toast } from "sonner";
+// import { PhoneIcon } from "lucide-react";
 
 // const iconsArr = [Linkedin, Facebook, Instagram, Twitter, Youtube];
 const linksArr = [
@@ -128,9 +130,9 @@ const ContactUsComp = () => {
               </div>
             </div>
 
-            {/* <div>
+            <div>
               <p className="text-3xl font-semibold text-black">Phone</p>
-              <div className="flex  items-center gap-2">
+              <div className="flex items-center gap-2">
                 <div>
                   <Image
                     src={phoneIcon}
@@ -139,11 +141,11 @@ const ContactUsComp = () => {
                     width="30"
                   />
                 </div>
-                <p className="my-2 text-orange-300 underline text-lg">
-                  +1 302 354 7282
+                <p className="my-2 cursor-pointer text-orange-300 hover:underline text-lg">
+                  <a href="tel:+1234567890">+91 302 354 XXXX</a>
                 </p>
               </div>
-            </div> */}
+            </div>
           </div>
 
           <div className="text-[20px] font-[500] text-black mt-[13%] underline underline-offset-[20%]">
