@@ -338,11 +338,13 @@ function HomeHero() {
                   <SelectValue placeholder="Select Country" />
                 </SelectTrigger>
                 <SelectContent>
-                  {allCountries?.map((country) => (
-                    <SelectItem key={country} value={country}>
-                      {country}
-                    </SelectItem>
-                  ))}
+                  {allCountries
+                    ?.sort((a, b) => a.localeCompare(b))
+                    .map((country) => (
+                      <SelectItem key={country} value={country}>
+                        {country}
+                      </SelectItem>
+                    ))}
                 </SelectContent>
               </Select>
               <Select
@@ -355,11 +357,13 @@ function HomeHero() {
                   <SelectValue placeholder="Select City" />
                 </SelectTrigger>
                 <SelectContent>
-                  {allCities?.map((city) => (
-                    <SelectItem key={city} value={city}>
-                      {city}
-                    </SelectItem>
-                  ))}
+                  {allCities
+                    ?.sort((a, b) => a.localeCompare(b))
+                    .map((city) => (
+                      <SelectItem key={city} value={city}>
+                        {city}
+                      </SelectItem>
+                    ))}
                 </SelectContent>
               </Select>
             </div>
