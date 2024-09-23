@@ -123,14 +123,14 @@ const ContactUsComp = () => {
                   />
                 </div>
                 <p className="my-2 cursor-pointer text-orange-300 hover:underline text-lg">
-                  <a href="mailto:Contact@traveltop10.in">
-                    Contact@traveltop10.in
+                  <a href="mailto:indiatraveltop10@gmail.com">
+                    indiatraveltop10@gmail.com
                   </a>
                 </p>
               </div>
             </div>
 
-            <div>
+            {/* <div>
               <p className="text-3xl font-semibold text-black">Phone</p>
               <div className="flex items-center gap-2">
                 <div>
@@ -145,7 +145,7 @@ const ContactUsComp = () => {
                   <a href="tel:+1234567890">+91 302 354 XXXX</a>
                 </p>
               </div>
-            </div>
+            </div> */}
           </div>
 
           <div className="text-[20px] font-[500] text-black mt-[13%] underline underline-offset-[20%]">

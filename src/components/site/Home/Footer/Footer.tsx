@@ -4,17 +4,15 @@ import Link from "next/link";
 import {
   FaFacebook,
   FaInstagram,
+  FaReddit,
   FaXTwitter,
   FaYoutube,
 } from "react-icons/fa6";
 
 const contactInfo = [
-  { icon: Phone, text: "+91 9358XXXXX" },
-  { icon: Mail, text: "Top10travelagency@gmail.com" },
-  {
-    icon: MapPin,
-    text: "Hyderabad, India.",
-  },
+  // { icon: Phone, text: "+91 9358XXXXX" },
+  { name: "email", icon: Mail, text: "indiatraveltop10@gmail.com" },
+  { name: "address", icon: MapPin, text: "Hyderabad, India." },
 ];
 
 const companyLinks = [
@@ -49,6 +47,10 @@ const socialIcons = [
     href: "https://www.instagram.com/traveltop10.in/",
     icon: FaInstagram,
   },
+  // {
+  //   href: "https://www.instagram.com/traveltop10.in/",
+  //   icon: FaReddit,
+  // },
 ];
 
 function Footer() {
@@ -88,17 +90,31 @@ function Footer() {
             </p>
 
             <div className="flex flex-col items-start justify-center gap-4">
-              {contactInfo?.map((item, index) => (
-                <div
-                  key={index}
-                  className="flex hover:scale-110 transition-all duration-500 cursor-pointer items-center justify-center gap-2 font-semibold"
-                >
-                  <span className="flex-1">
-                    <item.icon className="w-5 h-5 stroke-black" />
-                  </span>
-                  <span>{item.text}</span>
-                </div>
-              ))}
+              {contactInfo?.map((item, index) =>
+                item.name === "email" ? (
+                  <Link href={`mailto:${item.text}`} key={index}>
+                    <div
+                      key={index}
+                      className="flex hover:scale-110 transition-all duration-500 cursor-pointer items-center justify-center gap-2 font-semibold"
+                    >
+                      <span className="flex-1">
+                        <item.icon className="w-5 h-5 stroke-black" />
+                      </span>
+                      <span>{item.text}</span>
+                    </div>
+                  </Link>
+                ) : (
+                  <div
+                    key={index}
+                    className="flex hover:scale-110 transition-all duration-500 cursor-pointer items-center justify-center gap-2 font-semibold"
+                  >
+                    <span className="flex-1">
+                      <item.icon className="w-5 h-5 stroke-black" />
+                    </span>
+                    <span>{item.text}</span>
+                  </div>
+                )
+              )}
             </div>
           </div>
 
