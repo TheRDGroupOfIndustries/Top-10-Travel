@@ -112,7 +112,7 @@ function Navbar() {
               </div>
             </Link>
           </DropdownMenuItem>
-          
+
           {/* <DropdownMenuItem>
             <Link href="/auth">
               <div className="flex items-center gap-2">
@@ -179,8 +179,8 @@ function Navbar() {
           visible ? "translate-y-0" : "-translate-y-full"
         }`}
       >
-        <div className="relative navbar-start h-6 xs:h-7 sm:h-8 w-44 xs:w-48 sm:w-56">
-          <Link href="/" className="text-2xl font-bold">
+        <div className="relative h-6 xs:h-7 sm:h-8 w-44 xs:w-48 sm:w-56">
+          <Link href="/">
             <Image src="/logo.png" alt="logo" fill />
           </Link>
         </div>

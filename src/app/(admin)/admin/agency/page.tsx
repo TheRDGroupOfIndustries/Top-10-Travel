@@ -8,6 +8,8 @@ const getAllListing = unstable_cache(
       select: {
         id: true,
         name: true,
+        // businessLicenseUpload: true,
+        // insuranceCertificateUpload: true,
         images: true,
         city: true,
         country: true,
@@ -28,13 +30,7 @@ const getAllListing = unstable_cache(
 async function Page() {
   const listings = await getAllListing();
 
-  return (
-    
-    <AdminPackagelisting
-      listings={listings}
-      type="Agency"
-    />
-  );
+  return <AdminPackagelisting listings={listings} type="Agency" />;
 }
 
 export default Page;

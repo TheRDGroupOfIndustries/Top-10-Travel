@@ -44,7 +44,7 @@ const UploadHotelImagesCard = ({
     <Card className="border-none bg-[#F3F3F3]">
       <CardHeader>
         <CardTitle>
-          <span className="text-mainColor">Company </span>Images
+          <span className="text-mainColor">Images</span>
           <Dialog open={isVisible} onOpenChange={setIsVisible}>
             <DialogTrigger asChild>
               <Button
@@ -57,9 +57,9 @@ const UploadHotelImagesCard = ({
             </DialogTrigger>
             <DialogContent>
               <DialogHeader>
-                <DialogTitle>Add a company Image</DialogTitle>
+                <DialogTitle>Add a Image</DialogTitle>
                 <DialogDescription>
-                  Upload a image to add to your company images.
+                  Upload a image to add to your images.
                 </DialogDescription>
               </DialogHeader>
               <UploadAgencyImages companyId={companyId} />

@@ -19,6 +19,7 @@ const getReportData = unstable_cache(
       },
       orderBy: { priority: "desc" },
     });
+    
     const dmc = await db.dMC.findMany({
       select: {
         name: true,
@@ -34,6 +35,7 @@ const getReportData = unstable_cache(
       },
       orderBy: { priority: "desc" },
     });
+
     const hotel = await db.hotel.findMany({
       select: {
         name: true,
@@ -64,6 +66,7 @@ export type ReportData = Awaited<ReturnType<typeof getReportData>>;
 
 const ReportPage = async () => {
   const reportData = await getReportData();
+
   return <AdminReport report={reportData} />;
 };
 export default ReportPage;

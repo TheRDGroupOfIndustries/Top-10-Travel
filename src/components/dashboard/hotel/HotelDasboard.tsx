@@ -48,7 +48,7 @@ const HotelDashboard = ({
                 />
               </div>
               <div className="flex md:items-start md:justify-start items-center justify-center gap-2 flex-wrap">
-                <Badge className="font-medium text-[14px] text-mainColor rounded-sm bg-slate-700">
+                {/* <Badge className="font-medium text-[14px] text-mainColor rounded-sm bg-slate-700">
                   Priority : {data.city_priority}
                 </Badge>
                 <Badge className="font-medium text-[14px] text-mainColor rounded-sm bg-slate-700">
@@ -59,7 +59,8 @@ const HotelDashboard = ({
                 </Badge>
                 <Badge className="font-medium text-[14px] text-mainColor rounded-sm bg-slate-700">
                   Total Reviews : {data.reviews}
-                </Badge>
+                </Badge> */}
+
                 {!data.isCertified && (
                   <Badge
                     className="font-medium text-[14px] text-mainColor rounded-sm bg-slate-700"
@@ -76,7 +77,7 @@ const HotelDashboard = ({
       </Card>
       <Card className="border-none bg-[#F3F3F3] px-2 py-4">
         <CardTitle className="text-center text-[25px] md:text-left font-semibold font-sans">
-          <span className="text-mainColor p-3">Company</span>Details
+          <span className="text-mainColor p-3">Details</span>
         </CardTitle>
         <CardContent className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3  gap-2 p-2 md:p-5">
           <div className="w-full flex flex-col gap-2">
