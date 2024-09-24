@@ -8,11 +8,11 @@ const getAllListing = unstable_cache(
       select: {
         id: true,
         name: true,
-        // businessLicenseUpload: true,
-        // insuranceCertificateUpload: true,
         images: true,
         city: true,
         country: true,
+        businessLicenseUpload: true,
+        insuranceCertificateUpload: true,
         priority: true,
         city_priority: true,
         isCertified: true,

@@ -31,10 +31,10 @@ const top10Links: { name: string; link: string }[] = [
 ];
 
 const socialIcons = [
-  {
-    href: "https://www.facebook.com",
-    icon: FaFacebook,
-  },
+  // {
+  //   href: "https://www.facebook.com",
+  //   icon: FaFacebook,
+  // },
   {
     href: "https://www.youtube.com/@TravelTop10",
     icon: FaYoutube,

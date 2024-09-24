@@ -1,6 +1,7 @@
 "use client";
 
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+import { TbLicense } from "react-icons/tb";
 import {
   ColumnDef,
   ColumnFiltersState,
@@ -52,10 +53,13 @@ export type Company = {
   priority: number;
   city_priority: number;
   country: string;
+  businessLicenseUpload: string | null;
+  insuranceCertificateUpload: string | null;
   city: string;
   methodology: string | null;
   type: string;
 };
+
 async function deleteListing(id: string, type: string) {
   // @ts-expect-error
   const res = await deleteCompany({ id, type });
@@ -63,6 +67,7 @@ async function deleteListing(id: string, type: string) {
     toast.success(res.success);
   } else toast.error(res.error);
 }
+
 export const columns: ColumnDef<Company>[] = [
   {
     accessorKey: "images",
@@ -117,6 +122,23 @@ export const columns: ColumnDef<Company>[] = [
     accessorKey: "city",
     header: "City",
   },
+  // {
+  //   accessorKey: "licenses",
+  //   header: "Licenses",
+  //   cell: ({ row }) => {
+  //     const listing = row.original;
+
+  //     return listing?.businessLicenseUpload ? (
+  //       <Link href={listing?.businessLicenseUpload}>
+  //         <Button size="icon" variant="ghost">
+  //           <TbLicense className="h-4 w-4" />
+  //         </Button>
+  //       </Link>
+  //     ) : (
+  //       <div className="text-center">-----</div>
+  //     );
+  //   },
+  // },
   {
     id: "actions",
     enableHiding: false,

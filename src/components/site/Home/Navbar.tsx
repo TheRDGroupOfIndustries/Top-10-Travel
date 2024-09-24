@@ -3,6 +3,7 @@ import ButtonFancy from "@/components/reusable/ButtonFancy";
 import { LogOutIcon, MenuIcon, SquareChartGantt, User } from "lucide-react";
 import { signIn, signOut, useSession } from "next-auth/react";
 import Link from "next/link";
+import { MdOutlineCreateNewFolder } from "react-icons/md";
 import React, { useEffect, useState } from "react";
 import { FcGoogle } from "react-icons/fc";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -71,7 +72,7 @@ function Navbar() {
   }, [prevScrollPos]);
 
   const renderMenuItem = () => {
-    if (session?.data?.user.role === "Influencer") {
+    if (session?.data?.user.role !== "ADMIN") {
       return (
         <>
           <DropdownMenuItem>
@@ -82,17 +83,18 @@ function Navbar() {
               </div>
             </Link>
           </DropdownMenuItem>
-          {/* <DropdownMenuItem>
+
+          <DropdownMenuItem>
             <Link href="/auth" className="w-full h-full">
               <div className="flex items-center gap-2">
-                <User size={18} />
-                <span>Start as Influencer</span>
+                <MdOutlineCreateNewFolder size={18} />
+                <span>Register</span>
               </div>
             </Link>
-          </DropdownMenuItem> */}
+          </DropdownMenuItem>
         </>
       );
-    } else if (session?.data?.user.role === "ADMIN") {
+    } else {
       return (
         <>
           <DropdownMenuItem>
@@ -113,57 +115,11 @@ function Navbar() {
             </Link>
           </DropdownMenuItem>
 
-          {/* <DropdownMenuItem>
-            <Link href="/auth">
-              <div className="flex items-center gap-2">
-                <User size={18} />
-                <span>Start as Influencer</span>
-              </div>
-            </Link>
-          </DropdownMenuItem>
-          
           <DropdownMenuItem>
-            <Link href="/auth">
+            <Link href="/auth" className="w-full h-full">
               <div className="flex items-center gap-2">
-                <User size={18} />
-                <span>Start as Company</span>
-              </div>
-            </Link>
-          </DropdownMenuItem> */}
-        </>
-      );
-    } else {
-      return (
-        <>
-          <DropdownMenuItem>
-            <Link href="/auth/agency" className="w-full h-full">
-              <div className="flex items-center gap-2">
-                <User size={18} />
-                <span>Start as Agency</span>
-              </div>
-            </Link>
-          </DropdownMenuItem>
-          <DropdownMenuItem>
-            <Link href="/auth/hotel" className="w-full h-full">
-              <div className="flex items-center gap-2">
-                <User size={18} />
-                <span>Start as Hotel</span>
-              </div>
-            </Link>
-          </DropdownMenuItem>
-          <DropdownMenuItem>
-            <Link href="/auth/dmc" className="w-full h-full">
-              <div className="flex items-center gap-2">
-                <User size={18} />
-                <span>Start as DMC</span>
-              </div>
-            </Link>
-          </DropdownMenuItem>
-          <DropdownMenuItem>
-            <Link href="/auth/influencer" className="w-full h-full">
-              <div className="flex items-center gap-2">
-                <User size={18} />
-                <span>Start as Influencer</span>
+                <MdOutlineCreateNewFolder size={18} />
+                <span>Register</span>
               </div>
             </Link>
           </DropdownMenuItem>

@@ -69,6 +69,8 @@ export const createAgencyAction = async ({
   console.log(error);
   if (!success) return { error: "Something went wrong!" };
 
+  // const userId = session?.user?.role !== "ADMIN" ? session?.user?.id : Math.random()
+
   try {
     const { businessUrl, insuranceUrl, imageUrl } = await uploadFiles(
       session.user.id,
@@ -107,6 +109,7 @@ export const createAgencyAction = async ({
     return { error: "Error creating agency" };
   }
 };
+
 // updated - gd
 
 // "use server";

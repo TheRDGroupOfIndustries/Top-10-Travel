@@ -21,10 +21,10 @@ import { toast } from "sonner";
 
 // const iconsArr = [Linkedin, Facebook, Instagram, Twitter, Youtube];
 const linksArr = [
-  {
-    href: "https://www.facebook.com",
-    icon: <FaFacebook />,
-  },
+  // {
+  //   href: "https://www.facebook.com",
+  //   icon: <FaFacebook />,
+  // },
   {
     href: "https://www.youtube.com/@TravelTop10",
     icon: <FaYoutube />,
