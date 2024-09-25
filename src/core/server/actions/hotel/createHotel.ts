@@ -6,7 +6,7 @@ import getSessionorRedirect from "@/core/utils/getSessionorRedirect";
 import { uploadFile, uploadFileDefault } from "../../cloudinary/cloudinary";
 
 const uploadFiles = async (
-  userId: string,
+  companyRegistrationNumber: string,
   businessLicenseUpload: File | null,
   insuranceCertificateUpload: File | null,
   images: File
@@ -18,7 +18,10 @@ const uploadFiles = async (
     const businessBufferPromise = businessLicenseUpload.arrayBuffer();
     uploadPromises.push(
       businessBufferPromise.then((buffer) =>
-        uploadFile(Buffer.from(buffer), `hotel-${userId}-businessLicense`)
+        uploadFile(
+          Buffer.from(buffer),
+          `hotel-${companyRegistrationNumber}-businessLicense`
+        )
       )
     );
   }
@@ -27,7 +30,10 @@ const uploadFiles = async (
     const insuranceBufferPromise = insuranceCertificateUpload.arrayBuffer();
     uploadPromises.push(
       insuranceBufferPromise.then((buffer) =>
-        uploadFile(Buffer.from(buffer), `hotel-${userId}-insurance`)
+        uploadFile(
+          Buffer.from(buffer),
+          `hotel-${companyRegistrationNumber}-insurance`
+        )
       )
     );
   }
@@ -70,7 +76,8 @@ export const createHotelAction = async ({
   if (!success) return { error: "Something went wrong!" };
   try {
     const { businessUrl, insuranceUrl, imageUrl } = await uploadFiles(
-      session.user.id,
+      // session.user.id,
+      values.companyRegistrationNumber,
       formData.get("businessLicenseUpload") as File | null,
       formData.get("insuranceCertificateUpload") as File | null,
       formData.get("images") as File

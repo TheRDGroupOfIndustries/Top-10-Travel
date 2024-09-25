@@ -122,23 +122,23 @@ export const columns: ColumnDef<Company>[] = [
     accessorKey: "city",
     header: "City",
   },
-  // {
-  //   accessorKey: "licenses",
-  //   header: "Licenses",
-  //   cell: ({ row }) => {
-  //     const listing = row.original;
+  {
+    accessorKey: "licenses",
+    header: "Licenses",
+    cell: ({ row }) => {
+      const listing = row.original;
 
-  //     return listing?.businessLicenseUpload ? (
-  //       <Link href={listing?.businessLicenseUpload}>
-  //         <Button size="icon" variant="ghost">
-  //           <TbLicense className="h-4 w-4" />
-  //         </Button>
-  //       </Link>
-  //     ) : (
-  //       <div className="text-center">-----</div>
-  //     );
-  //   },
-  // },
+      return listing?.businessLicenseUpload ? (
+        <Link target="_blank" href={listing?.businessLicenseUpload}>
+          <Button size="icon" variant="ghost">
+            <TbLicense className="h-4 w-4" />
+          </Button>
+        </Link>
+      ) : (
+        <div className="text-center">-----</div>
+      );
+    },
+  },
   {
     id: "actions",
     enableHiding: false,
