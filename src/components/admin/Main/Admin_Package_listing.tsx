@@ -123,8 +123,8 @@ export const columns: ColumnDef<Company>[] = [
     header: "City",
   },
   {
-    accessorKey: "licenses",
-    header: "Licenses",
+    accessorKey: "business_licenses",
+    header: "Business Licenses",
     cell: ({ row }) => {
       const listing = row.original;
 
