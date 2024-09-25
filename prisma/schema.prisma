@@ -103,7 +103,7 @@ model Agency {
   contactPhoneNumber          String
   websiteUrl                  String?
   // step2
-  companyRegistrationNumber   String
+  companyRegistrationNumber   String            @default("000000000000000")
   yearOfEstablishment         Int
   businessLicenseUpload       String?
   insuranceCertificateUpload  String?
@@ -206,7 +206,7 @@ model DMC {
   contactPhoneNumber          String
   websiteUrl                  String?
   //step2
-  companyRegistrationNumber   String
+  companyRegistrationNumber   String            @default("000000000000000")
   yearOfEstablishment         Int
   businessLicenseUpload       String?
   insuranceCertificateUpload  String?
@@ -257,7 +257,7 @@ model Hotel {
   contactPhoneNumber         String
   websiteUrl                 String?
   // step2
-  companyRegistrationNumber  String
+  companyRegistrationNumber  String            @default("000000000000000")
   yearOfEstablishment        Int
   businessLicenseUpload      String?
   insuranceCertificateUpload String?

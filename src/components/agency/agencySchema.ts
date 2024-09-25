@@ -61,7 +61,7 @@ export const AgencySchema = z.object({
   contactPhoneNumber: z.string().min(10).max(12),
   websiteUrl: z.string().optional(),
 
-  companyRegistrationNumber: z.string().min(1, { message: "Required" }),
+  companyRegistrationNumber: z.string().optional(),
   yearOfEstablishment: z.coerce
     .number()
     .min(1800, "Invalid year")

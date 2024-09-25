@@ -16,7 +16,7 @@ export const DmcSchema = z.object({
   contactPhoneNumber: z.string().min(10).max(12),
   websiteUrl: z.string().optional(),
 
-  companyRegistrationNumber: z.string().min(1, { message: "Required" }),
+  companyRegistrationNumber: z.string().optional(),
   yearOfEstablishment: z.coerce
     .number()
     .min(1800, "Invalid year")
@@ -102,7 +102,7 @@ export const DmcSchema = z.object({
       // Check for PDF file type
       message: "Only image files are allowed",
     }),
-    
+
   description: z
     .string()
     .min(10, "Description Must be at least 10 characters")

@@ -80,7 +80,9 @@ export const createAgencyAction = async ({
   try {
     const { businessUrl, insuranceUrl, imageUrl } = await uploadFiles(
       // session.user.id,
-      values.companyRegistrationNumber,
+      values.companyRegistrationNumber
+        ? values.companyRegistrationNumber
+        : Math.floor(10000000000 + Math.random() * 90000000000).toString(),
       formData.get("businessLicenseUpload") as File | null,
       formData.get("insuranceCertificateUpload") as File | null,
       formData.get("images") as File
