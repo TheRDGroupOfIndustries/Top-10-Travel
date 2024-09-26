@@ -21,7 +21,7 @@ const Page = async () => {
       rating: true,
       reviews: true,
     },
-    orderBy: { priority: "desc" },
+    orderBy: { priority: "asc" },
   });
 
   return (

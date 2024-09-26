@@ -11,7 +11,7 @@ export const DmcSchema = z.object({
   country: z.string().min(1, { message: "Required" }),
   city: z.string().min(1, { message: "Required" }),
   address: z.string().min(10, "Address must be at least 10 characters"),
-  contactPerson: z.string().min(1, { message: "Required" }),
+  contactPerson: z.string().optional(),
   contactEmail: z.string().email(),
   contactPhoneNumber: z.string().min(10).max(12),
   websiteUrl: z.string().optional(),
