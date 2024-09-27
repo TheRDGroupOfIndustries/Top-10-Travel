@@ -71,7 +71,18 @@ function ListData({
               viewport={{ once: true }}
               className="relative w-full lg:h-60 rounded-lg flex flex-col md:flex-row items-center justify-between gap-5 shadow shadow-black/30"
             >
-              <div className="lg:w-[30%] w-full lg:h-full h-60 rounded-lg overflow-hidden">
+              <div className="lg:w-[30%] relative w-full lg:h-full h-60 rounded-lg overflow-hidden">
+                {currentPage === 1 && (
+                  <div className="h-14 w-24 absolute left-1.5">
+                    <Image
+                      src={`/rankPngs/${i + 1}.png`}
+                      alt="ranks logo"
+                      objectFit="contain"
+                      width={3182}
+                      height={2000}
+                    />
+                  </div>
+                )}
                 <Image
                   src={item?.images?.[0] || "/stockPhoto.jpg"}
                   alt={`travel image`}
@@ -155,7 +166,18 @@ function ListData({
                 viewport={{ once: true }}
                 className="relative w-full cursor-pointer lg:h-60 rounded-lg flex flex-col md:flex-row items-center justify-between gap-5 shadow shadow-black/30"
               >
-                <div className="lg:w-[30%] w-full lg:h-full h-60 rounded-lg overflow-hidden">
+                <div className="lg:w-[30%] relative w-full lg:h-full h-60 rounded-lg overflow-hidden">
+                  {currentPage === 1 && (
+                    <div className="h-14 w-24 absolute left-1.5">
+                      <Image
+                        src={`/rankPngs/${i + 1}.png`}
+                        alt="ranks logo"
+                        objectFit="contain"
+                        width={3182}
+                        height={2000}
+                      />
+                    </div>
+                  )}
                   <Image
                     src={item?.images?.[0] || "/stockPhoto.jpg"}
                     alt={`image-${item.name}`}
