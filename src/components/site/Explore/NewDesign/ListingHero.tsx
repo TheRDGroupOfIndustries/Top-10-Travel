@@ -29,10 +29,12 @@ function ListingHero({
   const [states, setStates] = useState<string[]>([]);
   const [isCountryOpen, setIsCountryOpen] = useState(false);
   const [isStateOpen, setIsStateOpen] = useState(false);
+
   const countries = useMemo(
     () => Array.from(new Set(countriesData.map((d) => d.country))),
     [countriesData]
   );
+
   const pathname = usePathname();
 
   useEffect(() => {
@@ -48,9 +50,33 @@ function ListingHero({
           )
         )
       );
-      setSelectedState("");
+
+      let state;
+
+      if (pathname.includes("/Agency")) {
+        state = window.localStorage.getItem("Agency-State");
+      }
+      if (pathname.includes("/Hotels")) {
+        state = window.localStorage.getItem("Hotels-State");
+      }
+      if (pathname.includes("/DMC")) {
+        state = window.localStorage.getItem("DMC-State");
+      }
+
+      if (state) {
+        const check = Array.from(
+          new Set(
+            countriesData
+              .filter((d) => d.country === country)
+              .map((d) => d.state)
+          )
+        ).includes(state);
+        check ? setSelectedState(state) : setSelectedState("");
+      } else {
+        setSelectedState("");
+      }
     }
-  }, [selectedCountry, setSelectedState, countriesData, countries]);
+  }, [selectedCountry, setSelectedState, countriesData, countries, pathname]);
 
   const clearFilters = () => {
     setSelectedCountry("");
@@ -68,6 +94,31 @@ function ListingHero({
       : pathname === "/Influencers"
       ? InfluencersImg
       : AgencyImg;
+
+  const handleCountryClick = (country: string) => {
+    setSelectedCountry(country);
+    if (pathname.includes("/Agency"))
+      window.localStorage.setItem("Agency-Country", country);
+    if (pathname.includes("/Hotels"))
+      window.localStorage.setItem("Hotels-Country", country);
+    if (pathname.includes("/DMC"))
+      window.localStorage.setItem("DMC-Country", country);
+
+    setIsCountryOpen(false);
+  };
+
+  const handleStateClick = (state: string) => {
+    setSelectedState(state);
+
+    if (pathname.includes("/Agency"))
+      window.localStorage.setItem("Agency-State", state);
+    if (pathname.includes("/Hotels"))
+      window.localStorage.setItem("Hotels-State", state);
+    if (pathname.includes("/DMC"))
+      window.localStorage.setItem("DMC-State", state);
+
+    setIsStateOpen(false);
+  };
 
   return (
     <div className="w-full pt-20">
@@ -135,10 +186,7 @@ function ListingHero({
                     .map((country) => (
                       <li
                         key={country}
-                        onClick={() => {
-                          setSelectedCountry(country);
-                          setIsCountryOpen(false);
-                        }}
+                        onClick={() => handleCountryClick(country)}
                         className="px-4 py-2 hover:bg-gray-100 cursor-pointer text-xs"
                       >
                         {country}
@@ -173,10 +221,7 @@ function ListingHero({
                     .map((state) => (
                       <li
                         key={state}
-                        onClick={() => {
-                          setSelectedState(state);
-                          setIsStateOpen(false);
-                        }}
+                        onClick={() => handleStateClick(state)}
                         className="px-4 py-2 hover:bg-gray-100 cursor-pointer text-xs"
                       >
                         {state}
