@@ -34,6 +34,7 @@ function ListingHero({
     [countriesData]
   );
   const pathname = usePathname();
+
   useEffect(() => {
     if (selectedCountry) {
       const country = countries.find((c) => c === selectedCountry);
@@ -57,7 +58,6 @@ function ListingHero({
     setStates([]);
   };
 
-  console.log(pathname);
   const image =
     pathname === "/Hotels"
       ? HotelsImg
