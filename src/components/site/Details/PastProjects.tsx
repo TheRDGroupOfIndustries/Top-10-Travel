@@ -30,7 +30,7 @@ const PastProjects = ({ pastProjects }: { pastProjects: PastProject[] }) => {
   };
 
   return (
-    <div className="flex flex-col shadow shadow-black/50 rounded-md gap-8 py-12 sm:px-8 px-4">
+    <div className="flex flex-col shadow shadow-black/50 rounded-lg gap-8 py-12 sm:px-8 px-4">
       <h4 className="font-medium leading-6 text-[32px]">Past Projects</h4>
 
       {/* Display current reviews */}

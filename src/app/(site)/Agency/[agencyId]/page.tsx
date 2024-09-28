@@ -21,6 +21,7 @@ const AgencyPage = async ({ params }: { params: { agencyId: string } }) => {
       rating: true,
       description: true,
       contactPhoneNumber: true,
+      internationalCertifications: true,
       address: true,
       socialMediaLinks: true,
       primaryServices: true,

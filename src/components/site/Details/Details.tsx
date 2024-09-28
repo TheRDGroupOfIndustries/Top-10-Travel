@@ -2,9 +2,12 @@ import EnquireDialog from "@/components/company/EnquireDialogwButton/EnquireDial
 import { getIconFromName } from "@/components/reusable/Icons";
 import PhoneCallButton from "@/components/reusable/PhoneCallButton";
 import ShareButton from "@/components/reusable/shareButton";
+import { VscWorkspaceTrusted } from "react-icons/vsc";
+import { SiTrustpilot } from "react-icons/si";
 import StarRating from "@/components/reusable/StarRating";
 import { GetIconByTag } from "@/components/reusable/TagIcons";
 import { getValidUrl } from "@/lib/utils";
+import { FaStar } from "react-icons/fa6";
 import type { PastProject, SocialMediaLinks } from "@prisma/client";
 import Link from "next/link";
 import { TbMapPin } from "react-icons/tb";
@@ -25,12 +28,12 @@ type CompanyType = {
   contactPhoneNumber: string;
   images: string[];
   specializedTravelTypes?: string[];
+  internationalCertifications?: string[];
   primaryServices?: string[];
   specialization?: string[];
   coreServices?: string[];
   services?: string[];
   socialMediaLinks: SocialMediaLinks[];
-  // promotionalVideoUpload?: string;
   pastProjects?: PastProject[];
 };
 
@@ -68,7 +71,7 @@ const Details = ({
   return (
     // <ClientSideDetails data={data} info={info} />
 
-    <div className="mb-10 mt-20">
+    <div className="mb-10 mt-20 text-slate-900">
       <div className="px-2 md:px-3 lg:px-6 xl:px-8">
         <div className="w-full flex xl:gap-12 gap-6 pb-16 border-b-black border-b-[1px]">
           <div className="w-full flex flex-col gap-10 flex-1">
@@ -104,7 +107,7 @@ const Details = ({
               </div>
             </div>
 
-            <div className="rounded-md flex lg:hidden flex-col gap-4 py-10 sm:px-8 px-4 shadow shadow-black/50">
+            <div className="rounded-lg flex lg:hidden flex-col gap-4 py-10 sm:px-8 px-4 shadow shadow-black/50">
               <div className="flex flex-col gap-5">
                 <div className="flex flex-col gap-3">
                   <h3 className="text-[32px] font-bold leading-snug xl:leading-6">
@@ -187,9 +190,55 @@ const Details = ({
                 ))}
               </div>
 
-              <div className="text-justify text-base leading-6 font-medium">
+              <div className="text-justify mb-2 text-base leading-6 font-medium">
                 {data?.description}
               </div>
+
+              {data.internationalCertifications && (
+                <div className="select-none">
+                  <div className="flex gap-1 mb-1.5 items-center">
+                    <div>
+                      <VscWorkspaceTrusted className="text-mainColor size-5" />
+                    </div>
+
+                    <div className="text-slate-800 text-lg">
+                      Certifications:
+                    </div>
+                  </div>
+
+                  {data.internationalCertifications.map((cer, i) => (
+                    <div
+                      key={i}
+                      className="flex ml-3 select-none gap-2 items-center mb-1"
+                    >
+                      <div className="relative h-8 w-8 flex-shrink-0">
+                        <AnimatedImage
+                          src={
+                            cer ===
+                            "IATA (International Air Transport Association)"
+                              ? "/certifications/IATA.svg"
+                              : cer ===
+                                "UFTAA (United Federation of Travel Agents' Associations)"
+                              ? "/certifications/UFTAA.jpg"
+                              : cer ===
+                                "ASTA (American Society of Travel Advisors)"
+                              ? "/certifications/ASTA.png"
+                              : "/certifications/certified.webp"
+                          }
+                          objectFit="contain"
+                          fill
+                          alt={`International Certification ${i}`}
+                          className="rounded-lg object-contain h-8 w-8 flex-shrink-0"
+                        />
+                      </div>
+                      <div className="text-sm font-medium text-slate-700">
+                        {cer}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+
               {data?.pastProjects && (
                 <PastProjects pastProjects={data.pastProjects} />
               )}
@@ -201,7 +250,7 @@ const Details = ({
           </div>
 
           <div className="flex-1 lg:flex hidden flex-col gap-5 max-w-[509px]">
-            <div className="rounded-md lg:flex hidden flex-col xl:gap-10 lg:gap-6 xl:py-16 lg:py-10 xl:px-8 lg:px-4 shadow shadow-black/50">
+            <div className="rounded-lg lg:flex hidden flex-col xl:gap-10 lg:gap-6 xl:py-16 lg:py-10 xl:px-8 lg:px-4 shadow shadow-black/50">
               <div className="flex flex-col gap-5">
                 <div className="flex flex-col gap-3">
                   <h3 className="text-[32px] font-bold leading-snug">
