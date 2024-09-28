@@ -209,7 +209,7 @@ const Details = ({
                   {data.internationalCertifications.map((cer, i) => (
                     <div
                       key={i}
-                      className="flex ml-3 select-none gap-2 items-center mb-1"
+                      className="flex ml-3 select-none gap-2.5 items-center mb-1"
                     >
                       <div className="relative h-8 w-8 flex-shrink-0">
                         <AnimatedImage
