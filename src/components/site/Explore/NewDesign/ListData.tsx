@@ -77,13 +77,14 @@ function ListData({
                     <Image
                       src={`/rankPngs/${i + 1}.png`}
                       alt="ranks logo"
-                      objectFit="contain"
-                      className="object-contain w-full h-full "
+                      // objectFit="contain"
+                      className="object-cover w-full h-full"
                       width={3182}
                       height={2000}
                     />
                   </div>
                 )}
+                
                 <Image
                   src={item?.images?.[0] || "/stockPhoto.jpg"}
                   alt={`travel image`}
@@ -162,14 +163,14 @@ function ListData({
                 <div className="lg:w-[30%] relative w-full lg:h-full h-60 rounded-lg overflow-hidden">
                   {currentPage === 1 && (
                     <div className="absolute h-full">
-                        <Image
-                          src={`/rankPngs/${i + 1}.png`}
-                          alt="ranks logo"
-                          objectFit="contain"
-                          className="object-contain w-full h-full "
-                          width={3182}
-                          height={2000}
-                        />
+                      <Image
+                        src={`/rankPngs/${i + 1}.png`}
+                        alt="ranks logo"
+                        // objectFit="contain"
+                        className="object-cover w-full h-full"
+                        width={3182}
+                        height={2000}
+                      />
                     </div>
                   )}
                   <Image
