@@ -122,14 +122,14 @@ const Details = ({
                   </p>
                 </div>
 
-                <StarRating
+                {/* <StarRating
                   color="#FCAE1D"
                   maxRating={5}
                   readOnly={true}
                   size={18}
                   showNumber={true}
                   defaultRating={data?.rating}
-                />
+                /> */}
               </div>
 
               <div className="flex w-full">
@@ -165,9 +165,9 @@ const Details = ({
               </div>
 
               <div className="flex gap-2 w-full flex-grow">
-                {info?.type !== "Hotel" && (
+                {/* {info?.type !== "Hotel" && (
                   <PhoneCallButton phoneNumber={data?.contactPhoneNumber} />
-                )}
+                )} */}
                 <EnquireDialog
                   images={data?.images}
                   name={data?.name}
@@ -244,9 +244,10 @@ const Details = ({
               )}
             </div>
 
-            <div className="lg:hidden">
+            {/* <div className="lg:hidden">
               <ReviewSSR name={data?.name} info={info} />
             </div>
+             */}
           </div>
 
           <div className="flex-1 lg:flex hidden flex-col gap-5 max-w-[509px]">
@@ -265,14 +266,14 @@ const Details = ({
                   </p>
                 </div>
 
-                <StarRating
+                {/* <StarRating
                   color="#FCAE1D"
                   maxRating={5}
                   readOnly={true}
                   size={18}
                   showNumber={true}
                   defaultRating={data?.rating}
-                />
+                /> */}
               </div>
 
               <div className="flex w-full">
@@ -308,9 +309,9 @@ const Details = ({
               </div>
 
               <div className="flex gap-2 w-full flex-grow">
-                {info?.type !== "Hotel" && (
+                {/* {info?.type !== "Hotel" && (
                   <PhoneCallButton phoneNumber={data?.contactPhoneNumber} />
-                )}
+                )} */}
                 <EnquireDialog
                   images={data?.images}
                   name={data?.name}
@@ -320,7 +321,7 @@ const Details = ({
               </div>
             </div>
 
-            <ReviewSSR name={data?.name} info={info} />
+            {/* <ReviewSSR name={data?.name} info={info} /> */}
           </div>
         </div>
       </div>
