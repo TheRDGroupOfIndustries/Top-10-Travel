@@ -11,6 +11,8 @@ const getAllListing = unstable_cache(
         images: true,
         city: true,
         country: true,
+        businessLicenseUpload: true,
+        insuranceCertificateUpload: true,
         priority: true,
         city_priority: true,
         isCertified: true,
@@ -28,13 +30,7 @@ const getAllListing = unstable_cache(
 async function Page() {
   const listings = await getAllListing();
 
-  return (
-    
-    <AdminPackagelisting
-      listings={listings}
-      type="Agency"
-    />
-  );
+  return <AdminPackagelisting listings={listings} type="Agency" />;
 }
 
 export default Page;

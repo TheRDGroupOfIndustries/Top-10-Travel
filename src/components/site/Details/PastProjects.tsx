@@ -1,4 +1,5 @@
 "use client";
+
 import { Button } from "@/components/ui/button";
 import { PastProject } from "@prisma/client";
 import { ChevronLeft, ChevronRight } from "lucide-react";
@@ -29,37 +30,40 @@ const PastProjects = ({ pastProjects }: { pastProjects: PastProject[] }) => {
   };
 
   return (
-    <div className="flex flex-col shadow shadow-black/50 rounded-md gap-8 py-12 sm:px-8 px-4">
-      <h4 className="font-medium leading-6 text-[32px]">Past Projects</h4>
+    <div className="flex flex-col shadow shadow-black/50 rounded-lg gap-8 py-12 sm:px-8 px-4">
+      <h4 className="font-medium leading-6 text-[32px]">Recommendations</h4>
 
       {/* Display current reviews */}
       {pastProjects.length === 0 && (
-        <h2 className="font-bold text-lg">No past projects to show.</h2>
+        <h2 className="font-bold text-lg">No recommendations to show.</h2>
       )}
-      {currentReviews.map((review) => (
-        <div
-          key={review.id}
-          className="filter drop-shadow-md shadow-md sm:px-4 sm:py-4 px-2 py-3 rounded-2xl lg:px-6 lg:py-4"
-        >
-          <div className="flex flex-col gap-2">
-            <div className="flex items-center">
-              {/* Reviewer information */}
-              <div className="flex flex-col justify-center px-2">
-                <div className="font-medium xl:leading-6 leading-4 xl:text-2xl text-xl">
-                  {review.projectName}
+      {currentReviews.map(
+        (review) =>
+          review.projectName !== "" && (
+            <div
+              key={review.id}
+              className="filter drop-shadow-md shadow-md sm:px-4 sm:py-4 px-2 py-3 rounded-2xl lg:px-6 lg:py-4"
+            >
+              <div className="flex flex-col gap-2">
+                <div className="flex items-center">
+                  {/* Reviewer information */}
+                  <div className="flex flex-col justify-center px-2">
+                    <div className="font-medium xl:leading-6 leading-4 xl:text-2xl text-xl">
+                      {review.projectName}
+                    </div>
+                    <div className="font-medium text-lg text-muted-foreground">
+                      for {review.clientName}
+                    </div>
+                  </div>
                 </div>
-                <div className="font-medium text-lg text-muted-foreground">
-                  for {review.clientName}
+                {/* Review content */}
+                <div className="font-medium text-sm leading-[21px] p-2">
+                  {review.description}
                 </div>
               </div>
             </div>
-            {/* Review content */}
-            <div className="font-medium text-sm leading-[21px] p-2">
-              {review.description}
-            </div>
-          </div>
-        </div>
-      ))}
+          )
+      )}
       <div className="flex items-center justify-between">
         {/* Pagination */}
         {pastProjects.length > 1 ? (

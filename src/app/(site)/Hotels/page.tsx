@@ -23,7 +23,8 @@ const Page = async () => {
       services: true,
       specialization: true,
     },
-    orderBy: { priority: "desc" },
+
+    orderBy: { priority: "asc" },
   });
   return <ExploreMore role={"Hotels"} data={allHotels} />;
 };

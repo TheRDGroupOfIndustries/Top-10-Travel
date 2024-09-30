@@ -45,6 +45,7 @@ const getAllDmcsByAdmin = async () => {
 
 const DmcDashboardPage = async () => {
   const session = await getSessionorRedirect();
+  
   if (session.user.role === "USER" || session.user.role === "Influencer") {
     const { dmc } = await dashboardData(session?.user.id);
     if (!dmc) return notFound();

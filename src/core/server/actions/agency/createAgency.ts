@@ -6,7 +6,7 @@ import getSessionorRedirect from "@/core/utils/getSessionorRedirect";
 import { uploadFile, uploadFileDefault } from "../../cloudinary/cloudinary";
 
 const uploadFiles = async (
-  userId: string,
+  companyRegistrationNumber: string,
   businessLicenseUpload: File | null,
   insuranceCertificateUpload: File | null,
   images: File
@@ -18,7 +18,10 @@ const uploadFiles = async (
     const businessBufferPromise = businessLicenseUpload.arrayBuffer();
     uploadPromises.push(
       businessBufferPromise.then((buffer) =>
-        uploadFile(Buffer.from(buffer), `agency-${userId}-businessLicense`)
+        uploadFile(
+          Buffer.from(buffer),
+          `agency-${companyRegistrationNumber}-businessLicense`
+        )
       )
     );
   }
@@ -27,7 +30,10 @@ const uploadFiles = async (
     const insuranceBufferPromise = insuranceCertificateUpload.arrayBuffer();
     uploadPromises.push(
       insuranceBufferPromise.then((buffer) =>
-        uploadFile(Buffer.from(buffer), `agency-${userId}-insurance`)
+        uploadFile(
+          Buffer.from(buffer),
+          `agency-${companyRegistrationNumber}-insurance`
+        )
       )
     );
   }
@@ -66,11 +72,17 @@ export const createAgencyAction = async ({
     images: true,
   }).safeParse(values);
 
+  console.log(error);
   if (!success) return { error: "Something went wrong!" };
+
+  // const userId = session?.user?.role !== "ADMIN" ? session?.user?.id : Math.random()
 
   try {
     const { businessUrl, insuranceUrl, imageUrl } = await uploadFiles(
-      session.user.id,
+      // session.user.id,
+      values.companyRegistrationNumber
+        ? values.companyRegistrationNumber
+        : Math.floor(10000000000 + Math.random() * 90000000000).toString(),
       formData.get("businessLicenseUpload") as File | null,
       formData.get("insuranceCertificateUpload") as File | null,
       formData.get("images") as File
@@ -84,9 +96,13 @@ export const createAgencyAction = async ({
         images: [imageUrl],
         User: { connect: { id: session.user.id } },
         // @ts-ignore
-        keyPersonnel: data.keyPersonnel ? { create: data.keyPersonnel } : undefined,
+        keyPersonnel: data.keyPersonnel
+          ? { create: data.keyPersonnel }
+          : undefined,
         // @ts-ignore
-        pastProjects: data.pastProjects ? { create: data.pastProjects } : undefined,
+        pastProjects: data.pastProjects
+          ? { create: data.pastProjects }
+          : undefined,
         // @ts-ignore
         clientReferences: data.clientReferences
           ? { create: data.clientReferences }
@@ -95,12 +111,14 @@ export const createAgencyAction = async ({
         caseStudyPdf: undefined,
       },
     });
+
     return { success: "Agency created Successfully" };
   } catch (error: any) {
     console.log("Error creating agency: ", error.message);
     return { error: "Error creating agency" };
   }
 };
+
 // updated - gd
 
 // "use server";

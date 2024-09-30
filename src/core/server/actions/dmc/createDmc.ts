@@ -1,10 +1,12 @@
+"use server";
+
 import { DmcSchema } from "@/components/dmc/dmcSchema";
 import { db } from "@/core/client/db";
 import getSessionorRedirect from "@/core/utils/getSessionorRedirect";
 import { uploadFile, uploadFileDefault } from "../../cloudinary/cloudinary";
 
 const uploadFiles = async (
-  userId: string,
+  companyRegistrationNumber: string,
   businessLicenseUpload: File | null,
   insuranceCertificateUpload: File | null,
   images: File
@@ -16,7 +18,10 @@ const uploadFiles = async (
     const businessBufferPromise = businessLicenseUpload.arrayBuffer();
     uploadPromises.push(
       businessBufferPromise.then((buffer) =>
-        uploadFile(Buffer.from(buffer), `dmc-${userId}-businessLicense`)
+        uploadFile(
+          Buffer.from(buffer),
+          `dmc-${companyRegistrationNumber}-businessLicense`
+        )
       )
     );
   }
@@ -25,7 +30,10 @@ const uploadFiles = async (
     const insuranceBufferPromise = insuranceCertificateUpload.arrayBuffer();
     uploadPromises.push(
       insuranceBufferPromise.then((buffer) =>
-        uploadFile(Buffer.from(buffer), `dmc-${userId}-insurance`)
+        uploadFile(
+          Buffer.from(buffer),
+          `dmc-${companyRegistrationNumber}-insurance`
+        )
       )
     );
   }
@@ -64,11 +72,16 @@ export const createDmcAction = async ({
     images: true,
   }).safeParse(values);
 
+  console.log(error);
+
   if (!success) return { error: "Something went wrong!" };
 
   try {
     const { businessUrl, insuranceUrl, imageUrl } = await uploadFiles(
-      session.user.id,
+      // session.user.id,
+      values.companyRegistrationNumber
+        ? values.companyRegistrationNumber
+        : Math.floor(10000000000 + Math.random() * 90000000000).toString(),
       formData.get("businessLicenseUpload") as File | null,
       formData.get("insuranceCertificateUpload") as File | null,
       formData.get("images") as File
@@ -99,7 +112,7 @@ export const createDmcAction = async ({
     });
     return { success: "DMC created Successfully" };
   } catch (error: any) {
-    console.log("Error creating DMC: ", error.message);
+    console.log("Error creating dmc: ", error.message);
     return { error: "Error creating DMC" };
   }
 };

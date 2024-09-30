@@ -37,7 +37,7 @@ function ListData({
   data: Data;
 }) {
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 5;
+  const itemsPerPage = 10;
 
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
@@ -71,7 +71,20 @@ function ListData({
               viewport={{ once: true }}
               className="relative w-full lg:h-60 rounded-lg flex flex-col md:flex-row items-center justify-between gap-5 shadow shadow-black/30"
             >
-              <div className="lg:w-[30%] w-full lg:h-full h-60 rounded-lg overflow-hidden">
+              <div className="lg:w-[30%] relative w-full lg:h-full h-60 rounded-lg overflow-hidden">
+                {currentPage === 1 && (
+                  <div className="absolute h-full">
+                    <Image
+                      src={`/rankPngs/${i + 1}.png`}
+                      alt="ranks logo"
+                      // objectFit="contain"
+                      className="object-cover w-full h-full"
+                      width={3182}
+                      height={2000}
+                    />
+                  </div>
+                )}
+                
                 <Image
                   src={item?.images?.[0] || "/stockPhoto.jpg"}
                   alt={`travel image`}
@@ -84,12 +97,8 @@ function ListData({
                 <h1 className="text-2xl line-clamp-2 font-semibold">
                   {item?.name}
                 </h1>
-                {/* <div className="absolute z-20 top-4 right-4 lg:p-2 p-1 rounded-full cursor-pointer border-slate-300 bg-white/60 border-2">
-                    <RiHeart3Line className="text-slate-500 size-6" />
-                  </div> */}
-                {/* Heart with Fill is <RiHeart3Fill /> */}
 
-                <div className="flex gap-3">
+                {/* <div className="flex gap-3">
                   <div className="flex gap-1 items-center">
                     <StarRating
                       maxRating={5}
@@ -107,7 +116,7 @@ function ListData({
                     <span className="font-bold">{item.reviews}</span>
                     &nbsp;reviews
                   </span>
-                </div>
+                </div> */}
 
                 <div className="flex gap-1 items-center">
                   <TbMapPin className="text-slate-400 text-sm md:text-lg" />
@@ -120,11 +129,7 @@ function ListData({
                   {item?.methodology}
                 </p>
 
-                {/* <Button className="text-xl group bg-[#FFEF9E] text-mainCbg-mainColor hover:bg-mainColor hover:text-[#FFEF9E]">
-                    <span>Enquire now</span>
-                    <TbPhoneCall size={20} className="stroke-2 ml-1" />
-                  </Button> */}
-                <div className="flex w-full gap-2 justify-start">
+                <div className="flex mt-auto mb-1 w-full gap-2 justify-start">
                   <EnquireDialog
                     images={item?.images || [""]}
                     name={item?.name}
@@ -155,7 +160,19 @@ function ListData({
                 viewport={{ once: true }}
                 className="relative w-full cursor-pointer lg:h-60 rounded-lg flex flex-col md:flex-row items-center justify-between gap-5 shadow shadow-black/30"
               >
-                <div className="lg:w-[30%] w-full lg:h-full h-60 rounded-lg overflow-hidden">
+                <div className="lg:w-[30%] relative w-full lg:h-full h-60 rounded-lg overflow-hidden">
+                  {currentPage === 1 && (
+                    <div className="absolute h-full">
+                      <Image
+                        src={`/rankPngs/${i + 1}.png`}
+                        alt="ranks logo"
+                        // objectFit="contain"
+                        className="object-cover w-full h-full"
+                        width={3182}
+                        height={2000}
+                      />
+                    </div>
+                  )}
                   <Image
                     src={item?.images?.[0] || "/stockPhoto.jpg"}
                     alt={`image-${item.name}`}
@@ -174,7 +191,8 @@ function ListData({
                       {item?.country}, {item?.city}
                     </div>
                   </div>
-                  <div className="flex gap-3">
+
+                  {/* <div className="flex gap-3">
                     <div className="flex gap-1 items-center">
                       <StarRating
                         maxRating={5}
@@ -192,7 +210,8 @@ function ListData({
                       <span className="font-bold">{item.reviews}</span>
                       &nbsp;reviews
                     </span>
-                  </div>
+                  </div> */}
+
                   <div className="flex flex-wrap md:hidden lg:flex items-center gap-2">
                     {item?.tags?.map((tag, i) =>
                       i <= 3 ? (

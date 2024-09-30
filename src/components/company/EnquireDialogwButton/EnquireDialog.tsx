@@ -32,6 +32,7 @@ export default function EnquireDialog({
   name: string;
   type?: "Details" | "Listing";
   className?: string;
+
   info:
     | { type: "Agency"; agencyId: string }
     | { type: "Dmc"; dmcId: string }
@@ -70,7 +71,7 @@ export default function EnquireDialog({
     <div
       className={cn(
         "flex items-center justify-center",
-        type === "Details" ? (info.type === "Hotel" ? "flex-1" : "w-1/3") : ""
+        type === "Details" ?  "flex-1"  : ""
       )}
     >
       <Modal>

@@ -23,10 +23,11 @@ const DMCPage = async ({ params }: { params: { dmcId: string } }) => {
       address: true,
       contactPhoneNumber: true,
       socialMediaLinks: true,
+      internationalCertifications: true,
       specialization: true,
       coreServices: true,
       // promotionalVideoUpload: true,
-      pastProjects:true
+      pastProjects: true,
       // companyData: {
       //   select: {
       //     description: true,

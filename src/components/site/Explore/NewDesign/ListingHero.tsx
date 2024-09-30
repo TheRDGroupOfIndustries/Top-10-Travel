@@ -29,11 +29,14 @@ function ListingHero({
   const [states, setStates] = useState<string[]>([]);
   const [isCountryOpen, setIsCountryOpen] = useState(false);
   const [isStateOpen, setIsStateOpen] = useState(false);
+
   const countries = useMemo(
     () => Array.from(new Set(countriesData.map((d) => d.country))),
     [countriesData]
   );
+
   const pathname = usePathname();
+
   useEffect(() => {
     if (selectedCountry) {
       const country = countries.find((c) => c === selectedCountry);
@@ -47,9 +50,33 @@ function ListingHero({
           )
         )
       );
-      setSelectedState("");
+
+      let state;
+
+      if (pathname.includes("/Agency")) {
+        state = window.localStorage.getItem("Agency-State");
+      }
+      if (pathname.includes("/Hotels")) {
+        state = window.localStorage.getItem("Hotels-State");
+      }
+      if (pathname.includes("/DMC")) {
+        state = window.localStorage.getItem("DMC-State");
+      }
+
+      if (state) {
+        const check = Array.from(
+          new Set(
+            countriesData
+              .filter((d) => d.country === country)
+              .map((d) => d.state)
+          )
+        ).includes(state);
+        check ? setSelectedState(state) : setSelectedState("");
+      } else {
+        setSelectedState("");
+      }
     }
-  }, [selectedCountry, setSelectedState, countriesData, countries]);
+  }, [selectedCountry, setSelectedState, countriesData, countries, pathname]);
 
   const clearFilters = () => {
     setSelectedCountry("");
@@ -57,7 +84,6 @@ function ListingHero({
     setStates([]);
   };
 
-  console.log(pathname);
   const image =
     pathname === "/Hotels"
       ? HotelsImg
@@ -68,6 +94,31 @@ function ListingHero({
       : pathname === "/Influencers"
       ? InfluencersImg
       : AgencyImg;
+
+  const handleCountryClick = (country: string) => {
+    setSelectedCountry(country);
+    if (pathname.includes("/Agency"))
+      window.localStorage.setItem("Agency-Country", country);
+    if (pathname.includes("/Hotels"))
+      window.localStorage.setItem("Hotels-Country", country);
+    if (pathname.includes("/DMC"))
+      window.localStorage.setItem("DMC-Country", country);
+
+    setIsCountryOpen(false);
+  };
+
+  const handleStateClick = (state: string) => {
+    setSelectedState(state);
+
+    if (pathname.includes("/Agency"))
+      window.localStorage.setItem("Agency-State", state);
+    if (pathname.includes("/Hotels"))
+      window.localStorage.setItem("Hotels-State", state);
+    if (pathname.includes("/DMC"))
+      window.localStorage.setItem("DMC-State", state);
+
+    setIsStateOpen(false);
+  };
 
   return (
     <div className="w-full pt-20">
@@ -130,18 +181,17 @@ function ListingHero({
             {isCountryOpen && (
               <ul className="absolute z-10 w-[180px] mt-1 bg-white border border-gray-300 rounded-md shadow-lg">
                 <ScrollArea className="h-[250px] rounded-md">
-                  {countries.map((country) => (
-                    <li
-                      key={country}
-                      onClick={() => {
-                        setSelectedCountry(country);
-                        setIsCountryOpen(false);
-                      }}
-                      className="px-4 py-2 hover:bg-gray-100 cursor-pointer text-xs"
-                    >
-                      {country}
-                    </li>
-                  ))}
+                  {countries
+                    ?.sort((a, b) => a.localeCompare(b))
+                    .map((country) => (
+                      <li
+                        key={country}
+                        onClick={() => handleCountryClick(country)}
+                        className="px-4 py-2 hover:bg-gray-100 cursor-pointer text-xs"
+                      >
+                        {country}
+                      </li>
+                    ))}
                 </ScrollArea>
               </ul>
             )}
@@ -166,18 +216,17 @@ function ListingHero({
                       No Cities
                     </li>
                   )}
-                  {states.map((state) => (
-                    <li
-                      key={state}
-                      onClick={() => {
-                        setSelectedState(state);
-                        setIsStateOpen(false);
-                      }}
-                      className="px-4 py-2 hover:bg-gray-100 cursor-pointer text-xs"
-                    >
-                      {state}
-                    </li>
-                  ))}
+                  {states
+                    ?.sort((a, b) => a.localeCompare(b))
+                    .map((state) => (
+                      <li
+                        key={state}
+                        onClick={() => handleStateClick(state)}
+                        className="px-4 py-2 hover:bg-gray-100 cursor-pointer text-xs"
+                      >
+                        {state}
+                      </li>
+                    ))}
                 </ScrollArea>
               </ul>
             )}

@@ -1,8 +1,9 @@
 "use client";
 
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import ListingHero from "./NewDesign/ListingHero";
 import ListData from "./NewDesign/ListData";
+import { usePathname } from "next/navigation";
 
 type Data = {
   id: string;
@@ -23,6 +24,7 @@ const ExploreMore = ({
 }) => {
   const [selectedCountry, setSelectedCountry] = useState("");
   const [selectedState, setSelectedState] = useState("");
+  const pathname = usePathname();
 
   const filteredData = data?.filter((item) => {
     if (selectedCountry && selectedState) {
@@ -39,6 +41,32 @@ const ExploreMore = ({
     () => Array.from(data.map((d) => ({ country: d.country, state: d.city }))),
     [data]
   );
+
+  useEffect(() => {
+    let country;
+    let state;
+
+    if (pathname.includes("/Agency")) {
+      country = window.localStorage.getItem("Agency-Country");
+      state = window.localStorage.getItem("Agency-State");
+    }
+    if (pathname.includes("/Hotels")) {
+      country = window.localStorage.getItem("Hotels-Country");
+      state = window.localStorage.getItem("Hotels-State");
+    }
+    if (pathname.includes("/DMC")) {
+      country = window.localStorage.getItem("DMC-Country");
+      state = window.localStorage.getItem("DMC-State");
+    }
+
+    if (country) {
+      setSelectedCountry(country);
+    }
+
+    if (state) {
+      setSelectedState(state);
+    }
+  }, []);
 
   return (
     <div>

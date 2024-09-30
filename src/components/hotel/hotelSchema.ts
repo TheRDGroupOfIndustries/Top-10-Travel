@@ -1,19 +1,17 @@
 import { z } from "zod";
-import {
-    SocialMediaLinksSchema
-} from "../agency/agencySchema";
+import { SocialMediaLinksSchema } from "../agency/agencySchema";
 
 export const HotelSchema = z.object({
   name: z.string().min(3, "Name must be atleast 3 characters"),
   country: z.string().min(1, { message: "Required" }),
   city: z.string().min(1, { message: "Required" }),
   address: z.string().min(10, "Address must be at least 10 characters"),
-  contactPerson: z.string().min(1, { message: "Required" }),
+  contactPerson: z.string().optional(),
   contactEmail: z.string().email(),
   contactPhoneNumber: z.string().min(10).max(12),
   websiteUrl: z.string().optional(),
 
-  companyRegistrationNumber: z.string().min(1, { message: "Required" }),
+  companyRegistrationNumber: z.string().optional(),
   yearOfEstablishment: z.coerce
     .number()
     .min(1800, "Invalid year")
@@ -30,7 +28,8 @@ export const HotelSchema = z.object({
     .refine((file) => file.type === "application/pdf", {
       // Check for PDF file type
       message: "Only PDF files are allowed",
-    }).optional(),
+    })
+    .optional(),
   insuranceCertificateUpload: z
     .preprocess(
       (fileList: any) => fileList,
@@ -43,7 +42,8 @@ export const HotelSchema = z.object({
     .refine((file) => file.type === "application/pdf", {
       // Check for PDF file type
       message: "Only PDF files are allowed",
-    }).optional(),
+    })
+    .optional(),
   services: z
     .array(z.string().min(1, "Required"))
     .min(1, "Select At least one"),

@@ -1,17 +1,12 @@
 "use server";
 
+import { HotelSchema } from "@/components/hotel/hotelSchema";
 import { db } from "@/core/client/db";
 import getSessionorRedirect from "@/core/utils/getSessionorRedirect";
-import {
-  uploadFile,
-  uploadFileDefault,
-  uploadImage,
-} from "../../cloudinary/cloudinary";
-import { z } from "zod";
-import { DmcSchema } from "@/components/dmc/dmcSchema";
-import { HotelSchema } from "@/components/hotel/hotelSchema";
+import { uploadFile, uploadFileDefault } from "../../cloudinary/cloudinary";
+
 const uploadFiles = async (
-  userId: string,
+  companyRegistrationNumber: string,
   businessLicenseUpload: File | null,
   insuranceCertificateUpload: File | null,
   images: File
@@ -19,38 +14,40 @@ const uploadFiles = async (
   const uploadPromises: Promise<any>[] = [];
   const imageBufferPromise = images.arrayBuffer();
 
-  // Only upload business license if it's provided
   if (businessLicenseUpload) {
     const businessBufferPromise = businessLicenseUpload.arrayBuffer();
     uploadPromises.push(
       businessBufferPromise.then((buffer) =>
-        uploadFile(Buffer.from(buffer), `hotel-${userId}-businessLicense`)
+        uploadFile(
+          Buffer.from(buffer),
+          `hotel-${companyRegistrationNumber}-businessLicense`
+        )
       )
     );
-  } else {
-    uploadPromises.push(Promise.resolve(null));
   }
 
-  // Only upload insurance certificate if it's provided
   if (insuranceCertificateUpload) {
     const insuranceBufferPromise = insuranceCertificateUpload.arrayBuffer();
     uploadPromises.push(
       insuranceBufferPromise.then((buffer) =>
-        uploadFile(Buffer.from(buffer), `hotel-${userId}-insurance`)
+        uploadFile(
+          Buffer.from(buffer),
+          `hotel-${companyRegistrationNumber}-insurance`
+        )
       )
     );
-  } else {
-    uploadPromises.push(Promise.resolve(null));
   }
 
   const imagesBuffer = await imageBufferPromise;
   uploadPromises.push(uploadFileDefault(Buffer.from(imagesBuffer)));
 
   const uploadResults = await Promise.all(uploadPromises);
-
-  // Get the URLs only if the uploads were successful
-  const businessUrl = uploadResults[0]?.secure_url || null;
-  const insuranceUrl = uploadResults[1]?.secure_url || null;
+  const businessUrl = businessLicenseUpload
+    ? uploadResults[0].secure_url
+    : null;
+  const insuranceUrl = insuranceCertificateUpload
+    ? uploadResults[1].secure_url
+    : null;
   const imageUrl = uploadResults[uploadResults.length - 1].secure_url;
 
   console.log("Files uploaded");
@@ -79,7 +76,10 @@ export const createHotelAction = async ({
   if (!success) return { error: "Something went wrong!" };
   try {
     const { businessUrl, insuranceUrl, imageUrl } = await uploadFiles(
-      session.user.id,
+      // session.user.id,
+      values.companyRegistrationNumber
+        ? values.companyRegistrationNumber
+        : Math.floor(10000000000 + Math.random() * 90000000000).toString(),
       formData.get("businessLicenseUpload") as File | null,
       formData.get("insuranceCertificateUpload") as File | null,
       formData.get("images") as File

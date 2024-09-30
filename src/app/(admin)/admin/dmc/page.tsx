@@ -11,6 +11,8 @@ const getAllListing = unstable_cache(
         images: true,
         city: true,
         country: true,
+        businessLicenseUpload: true,
+        insuranceCertificateUpload: true,
         priority: true,
         city_priority: true,
         isCertified: true,

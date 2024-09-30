@@ -148,6 +148,7 @@ const HotelForm = () => {
       images,
       ...rest
     } = data;
+    
     const { success, error } = await mutate({ values: rest, formData: fdata });
 
     if (success) {

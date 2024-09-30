@@ -1,12 +1,9 @@
-import HeroHeading from "@/components/reusable/HeroHeading";
+import { getIconFromName } from "@/components/reusable/Icons";
 import ShareButton from "@/components/reusable/shareButton";
-import { Button } from "@/components/ui/button";
 import { type InfluencerData } from "@prisma/client";
 import Image from "next/image";
-import { FaFacebook, FaGoogle, FaInstagram, FaYoutube } from "react-icons/fa6";
-import AnimatedImage from "./AnimatedImage";
-import { getIconFromName } from "@/components/reusable/Icons";
 import Link from "next/link";
+import AnimatedImage from "./AnimatedImage";
 
 const InfluencerDetails = ({ data }: { data: InfluencerData }) => {
   return (

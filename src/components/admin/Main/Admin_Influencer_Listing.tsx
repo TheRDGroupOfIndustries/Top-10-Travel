@@ -86,7 +86,7 @@ export const columns: ColumnDef<Company>[] = [
   },
   {
     accessorKey: "id",
-    header: "Influencer Id",
+    header: "Id",
   },
   {
     accessorKey: "name",

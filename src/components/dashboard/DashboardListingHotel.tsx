@@ -178,7 +178,7 @@ export default function DashboardListingHotel({
     initialState: {
       pagination: {
         pageIndex: 0, //custom initial page index
-        pageSize: 2, //custom default page size
+        pageSize: 5, //custom default page size
       },
     },
   });
