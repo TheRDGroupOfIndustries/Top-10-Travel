@@ -142,6 +142,7 @@ const ClientRefInput = ({ remove, ind, onChange, form, error }: any) => {
     </div>
   );
 };
+
 const InitProject: PastProjectType = {
   projectName: "",
   clientName: "",
@@ -202,7 +203,7 @@ const Step6 = ({
     <div className={cn(hidden ? "hidden" : "")}>
       <div>
         <Label className="text-sm font-medium">
-          Past Projects{" "}
+          Recommendation{" "}
           <Button type="button" size="icon" className="h-7 w-7" onClick={add}>
             <FaPlus />
           </Button>
