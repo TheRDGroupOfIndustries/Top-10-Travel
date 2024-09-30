@@ -41,8 +41,10 @@ const ContactUsComp = () => {
   const [contact, setContact] = useState("");
   const [message, setMessage] = useState("");
   const { mutate, isPending } = useMutation(sendContactEmail);
+
   const handleSubmit = async (e: any) => {
     e.preventDefault();
+
     const obj = {
       firstName: firstName,
       lastName: lastName,
@@ -50,12 +52,14 @@ const ContactUsComp = () => {
       contact: contact,
       message: message,
     };
+    
     const { error, success } = await mutate({
       name: obj.firstName + " " + obj.lastName,
       email: obj.email,
       phone: obj.contact,
       message: obj.message,
     });
+
     if (success) toast.success(success);
     else if (error) toast.error(error);
   };

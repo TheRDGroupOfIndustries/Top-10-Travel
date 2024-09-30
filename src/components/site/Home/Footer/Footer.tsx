@@ -16,11 +16,26 @@ const contactInfo = [
 ];
 
 const companyLinks = [
-  "About Us",
-  "Services",
-  "Privacy Policy",
-  "Terms & Conditions",
-  "Contact Us",
+  {
+    name: "About Us",
+    link: "#",
+  },
+  {
+    name: "Services",
+    link: "#",
+  },
+  {
+    name: "Privacy Policy",
+    link: "#",
+  },
+  {
+    name: "Terms & Conditions",
+    link: "#",
+  },
+  {
+    name: "Contact Us",
+    link: "/ContactUs",
+  },
 ];
 
 const top10Links: { name: string; link: string }[] = [
@@ -59,25 +74,6 @@ function Footer() {
       <footer className="mx-auto max-w-screen-2xl px-4 md:px-8">
         <div className="mb-16 grid grid-cols-2 gap-12 pt-10 md:grid-cols-4 lg:grid-cols-5 lg:gap-8 lg:pt-5">
           <div className="col-span-full lg:col-span-2">
-            {/* <div className="mb-4 lg:-mt-2">
-              <Link
-                href="/"
-                className="inline-flex items-center gap-2 text-xl font-bold text-black md:text-2xl"
-                aria-label="logo"
-              >
-                <svg
-                  width="95"
-                  height="94"
-                  viewBox="0 0 95 94"
-                  className="h-auto w-5 text-black"
-                  fill="currentColor"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path d="M96 0V47L48 94H0V47L48 0H96Z" />
-                </svg>
-                LOGO
-              </Link>
-            </div> */}
             <div className="relative mb-6 h-6 xs:h-7 sm:h-8 w-44 xs:w-48 sm:w-56">
               <Link href="/">
                 <Image src="/logo.png" alt="logo" fill />
@@ -124,10 +120,13 @@ function Footer() {
               Company
             </div>
             <nav className="flex flex-col gap-4">
-              {companyLinks?.map((link, index) => (
+              {companyLinks?.map((item, index) => (
                 <div key={index}>
-                  <Link href="#" className="cool-link-black font-medium">
-                    {link}
+                  <Link
+                    href={item.link}
+                    className="cool-link-black font-medium"
+                  >
+                    {item.name}
                   </Link>
                 </div>
               ))}
@@ -139,6 +138,7 @@ function Footer() {
             <div className="mb-4 font-bold uppercase tracking-widest text-xl md:text-2xl">
               TOP 10
             </div>
+
             <nav className="flex flex-col gap-4">
               {top10Links?.map((item, index) => (
                 <div key={index}>
