@@ -18,7 +18,7 @@ const contactInfo = [
 const companyLinks = [
   {
     name: "About Us",
-    link: "#",
+    link: "/Aboutus",
   },
   {
     name: "Services",

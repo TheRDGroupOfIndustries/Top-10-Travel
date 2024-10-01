@@ -11,7 +11,13 @@ const data = [
   { id: 3, num: 200, title: "Reviews" },
 ];
 
-function CountUp({ target }: { target: number }) {
+export function CountUp({
+  target,
+  className,
+}: {
+  target: number;
+  className?: string;
+}) {
   const [count, setCount] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
   const ref = useRef<HTMLSpanElement>(null);
@@ -59,7 +65,10 @@ function CountUp({ target }: { target: number }) {
   }, [isVisible, target]);
 
   return (
-    <span ref={ref} className="lg:text-2xl  text-md font-bold">
+    <span
+      ref={ref}
+      className={className ? className : "lg:text-2xl text-md font-bold"}
+    >
       {count}+
     </span>
   );

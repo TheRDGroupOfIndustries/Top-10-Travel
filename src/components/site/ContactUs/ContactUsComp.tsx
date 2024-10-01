@@ -76,7 +76,7 @@ const ContactUsComp = () => {
       viewport={{ once: true }}
       className="pt-20 border-red-800"
     >
-      <div className="border-green-600 items-baseline flex flex-col gap-5 lg:gap-0 lg:flex-row justify-between px-4 md:px-8 lg:px-[5%] md:py-10">
+      <div className="items-baseline flex flex-col gap-5 lg:gap-0 lg:flex-row justify-between px-4 md:px-8 lg:px-[5%] md:py-10">
         {/* left view  */}
         <div className="w-full lg:w-[45%] border-red-700">
           <div className="items-center flex gap-3 cinzel-font text-3xl md:text-5xl lg:text-[60px] font-[700]">
