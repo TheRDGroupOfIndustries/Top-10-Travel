@@ -20,17 +20,17 @@ const companyLinks = [
     name: "About Us",
     link: "/Aboutus",
   },
-  {
-    name: "Services",
-    link: "#",
-  },
+  // {
+  //   name: "Services",
+  //   link: "/#",
+  // },
   {
     name: "Privacy Policy",
-    link: "#",
+    link: "/privacy-policy",
   },
   {
     name: "Terms & Conditions",
-    link: "#",
+    link: "/terms-conditions",
   },
   {
     name: "Contact Us",

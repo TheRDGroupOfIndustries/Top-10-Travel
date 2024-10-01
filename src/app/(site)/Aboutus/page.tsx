@@ -2,7 +2,8 @@ import AboutusComp from "@/components/site/Aboutus/AboutusComp";
 import React from "react";
 
 const Aboutus = () => {
-  return <AboutusComp />;
+  return 
+  <AboutusComp />;
 };
 
 export default Aboutus;

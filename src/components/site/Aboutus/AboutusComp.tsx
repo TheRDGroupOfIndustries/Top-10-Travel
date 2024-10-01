@@ -1,7 +1,6 @@
-import Image from "next/image";
-import React from "react";
 import { db } from "@/core/client/db";
-import { revalidatePath, unstable_cache } from "next/cache";
+import { unstable_cache } from "next/cache";
+import Image from "next/image";
 import { CountUp } from "../Home/Section/GetCertification/certification";
 
 const dashboardData = unstable_cache(
@@ -28,7 +27,7 @@ const AboutusComp = async () => {
 
   return (
     <div className="flex flex-col gap-5 lg:gap-5 lg:flex-row justify-between px-6 md:px-12 lg:px-[6%] py-20">
-      <div className="w-full h-full lg:h-[40rem] flex flex-col gap-8 px-3 py-8 shadow-sm rounded-2xl bg-slate-50">
+      <div className="w-full h-full lg:h-[40rem] flex flex-col gap-8 px-3 py-8 shadow-sm rounded-2xl bg-slate-100">
         <div className="uppercase tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-mainColor to-mainColorSecondary font-semibold text-2xl">
           About us
         </div>
@@ -36,19 +35,20 @@ const AboutusComp = async () => {
           Your Gateway to Seamless Travel Planning
         </div>
         <div className="text-slate-800 mt-auto textlg">
-          Comprehensive and user-friendly platform tailored for managing travel
-          services efficiently. It showcases a wide range of vacation packages,
-          destinations, and special offers, providing a seamless experience for
-          users to explore, plan, and book their trips. The website reflects the
-          agency’s commitment to delivering high-quality service with an
-          intuitive design, making it easy for customers to browse options,
-          access travel details, and receive personalized recommendations. Its
-          professional layout enhances customer engagement, streamlines
-          bookings, and promotes trust in the agency&apos;s services.
+          Our mission is to become the leader in the personalized premier travel
+          domain, redefining luxury travel experiences through tailored
+          itineraries, exceptional service, and unwavering dedication to our
+          client&apos;s satisfaction. We are committed to curating bespoke
+          journeys that surpass expectations, providing unparalleled access to
+          the world&apos;s most exclusive destinations, and delivering memorable
+          moments that last a lifetime. Through innovation, excellence, and a
+          passion for exploration, we strive to set the standard for luxury
+          travel, inspiring discerning travelers to embark on extraordinary
+          adventures with us as their trusted partner.
         </div>
       </div>
 
-      <div className="w-full h-[40rem] overflow-hidden rounded-2xl shadow-sm bg-slate-50">
+      <div className="w-full h-[40rem] overflow-hidden rounded-2xl shadow-sm bg-slate-100">
         <div className="relative rounded-2xl h-1/2 w-full">
           <Image
             src="/about.jpg"
@@ -67,6 +67,7 @@ const AboutusComp = async () => {
               Visitors
             </div>
           </div>
+
           <div className="bg-slate-200 flex flex-col p-6 items-center justify-center xs:items-start xs:justify-start rounded-2xl w-full">
             <div className="font-bold text-4xl xs:text-5xl text-slate-850">
               <CountUp target={agency} className="font-bold" />
@@ -75,6 +76,7 @@ const AboutusComp = async () => {
               Agencies
             </div>
           </div>
+
           <div className="bg-slate-200 flex flex-col p-6 items-center justify-center xs:items-start xs:justify-start rounded-2xl w-full">
             <div className="font-bold text-4xl xs:text-5xl text-slate-850">
               <CountUp target={dmc} className="font-bold" />
@@ -83,6 +85,7 @@ const AboutusComp = async () => {
               Dmcs
             </div>
           </div>
+
           <div className="bg-slate-200 flex flex-col p-6 items-center justify-center xs:items-start xs:justify-start rounded-2xl w-full">
             <div className="font-bold text-4xl xs:text-5xl text-slate-850">
               <CountUp target={hotel} className="font-bold" />
