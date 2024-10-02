@@ -78,13 +78,13 @@ function ListData({
                       src={`/rankPngs/${i + 1}.png`}
                       alt="ranks logo"
                       // objectFit="contain"
-                      className="object-cover w-full h-full"
+                      className="object-cover object-left w-full h-full"
                       width={3182}
                       height={2000}
                     />
                   </div>
                 )}
-                
+
                 <Image
                   src={item?.images?.[0] || "/stockPhoto.jpg"}
                   alt={`travel image`}
@@ -167,7 +167,7 @@ function ListData({
                         src={`/rankPngs/${i + 1}.png`}
                         alt="ranks logo"
                         // objectFit="contain"
-                        className="object-cover w-full h-full"
+                        className="object-cover object-left w-full h-full"
                         width={3182}
                         height={2000}
                       />

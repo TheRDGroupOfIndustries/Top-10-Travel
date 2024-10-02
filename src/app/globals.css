@@ -76,7 +76,7 @@
   display: block;
   width: 0;
   height: 2px;
-  background: gold;
+  background: crimson;
   transition: width 0.3s;
   position: absolute;
   left: 0;
@@ -139,13 +139,16 @@
 
 *::-webkit-scrollbar-thumb {
   border-radius: 5px;
-  background-color: #fbb913;
+  /* background-color: #fbb913; */
+  background-color: #f04a4a;
 }
 
 *::-webkit-scrollbar-thumb:hover {
-  background-color: #feca46;
+  /* background-color: #feca46; */
+  background-color: #ff8080;
 }
 
 *::-webkit-scrollbar-thumb:active {
-  background-color: #feca46;
+  /* background-color: #feca46; */
+  background-color: #ff8080;
 }

@@ -43,7 +43,7 @@ export function AdminDashboard({
   reviews: number;
 }) {
   const chartData = [
-    { category: "Users", total: user, link: "/admin/users" },
+    { category: "Visitors", total: user, link: "/admin/users" },
     { category: "Agencies", total: agency, link: "/admin/agencies" },
     { category: "Hotels", total: hotel, link: "/admin/hotels" },
     { category: "Dmc", total: dmc, link: "/admin/dmc" },

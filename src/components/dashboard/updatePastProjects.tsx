@@ -210,7 +210,7 @@ const UpdatePastProjects = ({
     <Card className="border-none bg-[#F3F3F3] mt-4">
       <CardHeader className="text-2xl font-semibold">
         <div>
-          Past<span className="text-mainColor"> Projects</span>
+          <span className="text-mainColor">Recommendation</span>
           {form.length >= 5 ? null : (
             <Button
               type="button"
@@ -233,7 +233,7 @@ const UpdatePastProjects = ({
             key={`pastPro-${i}`}
           />
         ))}
-        {form.length === 0 && <strong>No Past Projects to show.</strong>}
+        {form.length === 0 && <strong>No recommendation to show.</strong>}
       </CardContent>
     </Card>
   );

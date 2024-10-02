@@ -148,7 +148,7 @@ function Navbar() {
               key={i}
               className={cn(
                 "text-lg font-medium",
-                route === el.link ? "text-[#E87A1F]" : "cool-link"
+                route === el.link ? "text-mainColor" : "cool-link"
               )}
               onClick={() => {
                 window.scrollTo({
@@ -260,7 +260,7 @@ function Navbar() {
               href={el.link}
               className={cn(
                 "my-3 text-lg font-medium",
-                route === el.link ? "text-[#E87A1F]" : "cool-link"
+                route === el.link ? "text-mainColor" : "cool-link"
               )}
               onClick={toggleSidebar}
             >
