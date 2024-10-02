@@ -45,7 +45,7 @@ function AdminSidebar() {
                 href={item.href}
                 className={`py-3 mx-[1px] flex items-center justify-start mt-1  hover:bg-[#F3F3F3] transition-colors duration-200 rounded-lg  ${
                   pathname === item.href
-                    ? "bg-mainColor hover:bg-[#FCAE1C] text-white"
+                    ? "bg-mainColor hover:bg-mainColorSecondary text-white"
                     : "text-black"
                 }`}
                 onClick={() => {
@@ -64,7 +64,7 @@ function AdminSidebar() {
       <div>
         <button
           onClick={() => signOut()}
-          className="py-3 w-full mx-[1px] mb-2 flex items-center justify-start mt-1 text-black hover:bg-[#FCAE1C] hover:text-white transition-colors duration-200 rounded-lg"
+          className="py-3 w-full mx-[1px] mb-2 flex items-center justify-start mt-1 text-black hover:bg-[#f04a4a] hover:text-white transition-colors duration-200 rounded-lg"
         >
           <LogOut className="w-12 h-5" />
           Logout

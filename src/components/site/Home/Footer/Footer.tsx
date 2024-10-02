@@ -39,7 +39,7 @@ const companyLinks = [
 ];
 
 const top10Links: { name: string; link: string }[] = [
-  { name: "Travel Agencies", link: "/Agency" },
+  { name: "Agencies", link: "/Agency" },
   { name: "Hotels", link: "/Hotels" },
   { name: "DMC", link: "/DMC" },
   { name: "Influencers", link: "/Influencers" },

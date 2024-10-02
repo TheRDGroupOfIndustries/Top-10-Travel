@@ -81,7 +81,7 @@ export function AdminDashboard({
             />
             <YAxis tickLine={false} tickMargin={10} axisLine={false} />
             <ChartTooltip cursor={false} content={<ChartTooltipContent />} />
-            <Bar dataKey="total" fill="#fcae1d" radius={8}>
+            <Bar dataKey="total" fill="#f04a4a" radius={8}>
               <LabelList
                 position="top"
                 offset={12}
