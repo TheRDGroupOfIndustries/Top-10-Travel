@@ -22,12 +22,14 @@ type Homecontext = {
 export const HomeContext = createContext<Homecontext>({} as Homecontext);
 
 export const HomeContextProvider = ({ children }: { children: ReactNode }) => {
+  
   const [visible, setVisible] = useState({
     AGENCY: true,
     DMC: false,
     HOTEL: false,
     Influencer: false,
   });
+
   const [selectedCountry, setSelectedCountry] = useState("");
   const [selectedCity, setSelectedCity] = useState("");
   const [allCities, setAllCities] = useState<string[]>([]);
@@ -36,11 +38,21 @@ export const HomeContextProvider = ({ children }: { children: ReactNode }) => {
 
   const updateAllData = (data: any) => {
     setData(data);
-    const countries = Object.keys(data);
-    Object.keys(data);
+    const countries = Object.keys(data);   
     setAllCountries(countries);
-    setSelectedCountry("India");
-    setAllCities(data["India"]);
+
+     // Set default country to "India"
+    const defaultCountry = "India";
+    setSelectedCountry(defaultCountry);
+
+    // Set all cities for the selected country
+    const citiesInIndia = data[defaultCountry];
+    setAllCities(citiesInIndia);
+
+    // Set default city to the first city in the list of Indian cities
+    if (citiesInIndia.length > 0) {
+      setSelectedCity(citiesInIndia[0].trim()); // .trim() to handle any leading/trailing spaces
+    }
   };
 
   // const toggleVisible = (tag: "DMC" | "AGENCY" | "HOTEL" | "Influencer") => {
@@ -69,12 +81,17 @@ export const HomeContextProvider = ({ children }: { children: ReactNode }) => {
 
   const setCountry = (country: string) => {
     setSelectedCountry(country);
-    if (data) setAllCities([...data[country]]);
-    setSelectedCity("");
+    if (data) {
+      const cities = data[country];
+      setAllCities([...cities]);
+      setSelectedCity(cities[0].trim()); // Default to the first city of the selected country
+    }
   };
+
   const setCity = (city: string) => {
     setSelectedCity(city);
   };
+
   return (
     <HomeContext.Provider
       value={{

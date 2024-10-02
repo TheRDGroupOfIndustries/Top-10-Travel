@@ -136,12 +136,13 @@ function HomeHero() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await axios.get("/api/filter");
+        const res = await axios.get(`/api/filter`);
         updateAllData(res.data.countries);
       } catch (error) {
         console.log(error);
       }
     };
+    
     fetchData();
   }, []);
 
