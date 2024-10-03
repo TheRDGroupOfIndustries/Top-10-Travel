@@ -136,15 +136,30 @@ function HomeHero() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await axios.get(`/api/filter`);
+        const params = new URLSearchParams();
+
+        // Ensure visible is an object with keys and boolean values
+        Object.keys(visible).forEach((key: string) => {
+          if (visible[key as keyof typeof visible]) {
+            params.append(key, "true");
+          }
+        });
+
+        const res = await axios.get<{ countries: string[] }>("/api/filter", {
+          params: params,
+        });
+
         updateAllData(res.data.countries);
+        
       } catch (error) {
         console.log(error);
       }
     };
-    
+
     fetchData();
-  }, []);
+  }, [visible]);
+
+  // Adding visible to the dependency array to trigger on change
 
   const boxItems = [
     {

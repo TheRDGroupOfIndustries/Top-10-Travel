@@ -78,7 +78,7 @@ const Influencers = () => {
           )}
         >
           {isLoading && (
-            <>
+            <div>
               {Array.from({ length: 4 }).map((_, i) => (
                 <div
                   key={i}
@@ -87,7 +87,7 @@ const Influencers = () => {
                   <Skeleton className="w-full h-full absolute inset-0 bg-slate-200" />
                 </div>
               ))}
-            </>
+            </div>
           )}
           {!isLoading && <InfluencerCarousel data={data as Data} />}
         </div>

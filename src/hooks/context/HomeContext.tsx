@@ -22,7 +22,6 @@ type Homecontext = {
 export const HomeContext = createContext<Homecontext>({} as Homecontext);
 
 export const HomeContextProvider = ({ children }: { children: ReactNode }) => {
-  
   const [visible, setVisible] = useState({
     AGENCY: true,
     DMC: false,
@@ -38,22 +37,30 @@ export const HomeContextProvider = ({ children }: { children: ReactNode }) => {
 
   const updateAllData = (data: any) => {
     setData(data);
-    const countries = Object.keys(data);   
+    const countries = Object.keys(data);
     setAllCountries(countries);
 
-     // Set default country to "India"
-    const defaultCountry = "India";
+    // console.log(countries);
+
+    // Determine the default country, either "India" or the first country in the list
+    const defaultCountry = countries.includes("India") ? "India" : countries[0];
+
+    // Set the selected country and handle cities after that
     setSelectedCountry(defaultCountry);
 
-    // Set all cities for the selected country
-    const citiesInIndia = data[defaultCountry];
-    setAllCities(citiesInIndia);
+    // Use a callback to ensure we fetch cities only after the country is updated
+    const allCities = data[defaultCountry];
+    setAllCities(allCities);
 
-    // Set default city to the first city in the list of Indian cities
-    if (citiesInIndia.length > 0) {
-      setSelectedCity(citiesInIndia[0].trim()); // .trim() to handle any leading/trailing spaces
+    // console.log(data);
+    // console.log(allCities);
+
+    // Set the default city to the first city in the list of cities for the selected country
+    if (allCities.length > 0) {
+      setSelectedCity(allCities[0].trim()); // .trim() to handle any leading/trailing spaces
     }
   };
+
 
   // const toggleVisible = (tag: "DMC" | "AGENCY" | "HOTEL" | "Influencer") => {
   //   setVisible((prev) => {

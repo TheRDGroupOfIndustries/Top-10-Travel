@@ -79,7 +79,7 @@ const EditListingForm = ({ company }: { company: Company }) => {
           </div>
           <div className="space-y-2">
             <label htmlFor="methodology" className="text-sm font-medium">
-              Methodology
+              Small Description
             </label>
             <Textarea
               defaultValue={company.methodology || ""}

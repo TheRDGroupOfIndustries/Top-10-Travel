@@ -120,31 +120,34 @@ function TopTenHotels() {
             align: "start",
             loop: true,
           }}
-          plugins={[
-            Autoplay({
-              delay: 3000,
-              stopOnInteraction: false,
-              stopOnMouseEnter: true,
-            }),
-          ]}
-          className="w-full hidden md:block"
+          // plugins={[
+          // Autoplay({
+          //   delay: 3000,
+          //   stopOnInteraction: false,
+          //   stopOnMouseEnter: true,
+          // }),
+          // ]}
+          className="w-full hidden sm:block"
         >
-          <div className="absolute -top-7 right-10">
+          {/* <div className="absolute -top-7 right-10">
             <CarouselPrevious className="hidden sm:flex" />
             <CarouselNext className="hidden sm:flex" />
-          </div>
-          <CarouselContent className="-ml-2 my-7 md:-ml-4">
+          </div> */}
+
+          <CarouselContent className="-ml-2 grid gap-y-4 xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 my-7 md:-ml-4">
+            {/* <CarouselContent className="-ml-2 my-7 md:-ml-4"> */}
             {isLoading ? (
               Array.from({ length: 5 }).map((_, index) => (
                 <CarouselItem
                   key={index}
-                  className="pl-2 md:pl-4 basis-full sm:basis-1/2 lg:basis-1/3 xl:basis-1/4"
+                  className="pl-2 md:pl-4 basis-full sm:basis-1/2 my-4 lg:basis-1/3 xl:basis-1/4"
                 >
                   <HomeCompanySkeleton role="HOTEL" />
                 </CarouselItem>
               ))
             ) : data && data.length > 0 ? (
-              data.slice(0, 10).map((hotel) => (
+              data.slice(0, 8).map((hotel) => (
+                // data.slice(0, 10).map((hotel) => (
                 <CarouselItem
                   key={hotel.id}
                   className="pl-2 md:pl-4 basis-full sm:basis-1/2 lg:basis-1/3 xl:basis-1/4"
@@ -153,15 +156,14 @@ function TopTenHotels() {
                 </CarouselItem>
               ))
             ) : (
-              <CarouselItem className="pl-2 md:pl-4 basis-full">
-                <div className="h-72 flex items-center justify-center">
-                  <p className="text-lg font-semibold">No hotels available</p>
-                </div>
-              </CarouselItem>
+              <div className="w-full justify-self-center text-center py-10">
+                No Hotels found
+              </div>
             )}
           </CarouselContent>
         </Carousel>
-        <div className="block md:hidden">
+
+        <div className="block sm:hidden">
           <div className="w-full flex flex-col items-center justify-center gap-5">
             {isLoading ? (
               Array.from({ length: 5 }).map((_, index) => (
@@ -174,10 +176,7 @@ function TopTenHotels() {
               ))
             ) : data && data.length > 0 ? (
               data.slice(0, 10).map((hotel) => (
-                <div
-                  key={hotel.id}
-                  className="h-full w-full"
-                >
+                <div key={hotel.id} className="h-full w-full">
                   <CarouselCard hotel={hotel} />
                 </div>
               ))

@@ -32,7 +32,7 @@ const CarouselCard = ({ dmc }: { dmc: DMCHotelApiResult }) => (
       staggerChildren: 0.6,
     }}
     viewport={{ once: true }}
-    className="flex flex-col md:hover:-translate-y-4 w-full duration-300 transition-all h-full"
+    className="flex flex-col md:hover:-translate-y-2 w-full duration-300 transition-all h-full"
   >
     <div className="relative h-48 sm:h-56 md:h-64 lg:h-72 rounded-lg overflow-hidden">
       <div className="absolute top-0 left-0 bg-mainColor w-[80%] h-[70%] rounded-lg"></div>
@@ -114,20 +114,22 @@ const TopTenDMC = () => {
           opts={{
             align: "start",
           }}
-          plugins={[
-            Autoplay({
-              delay: 2000,
-              stopOnInteraction: false,
-              stopOnMouseEnter: true,
-            }),
-          ]}
-          className="w-full hidden md:block"
+          // plugins={[
+          //   Autoplay({
+          //     delay: 2000,
+          //     stopOnInteraction: false,
+          //     stopOnMouseEnter: true,
+          //   }),
+          // ]}
+          className="w-full hidden sm:block"
         >
-          <div className="absolute -top-7 right-10">
+          {/* <div className="absolute -top-7 right-10">
             <CarouselPrevious className="hidden sm:flex" />
             <CarouselNext className="hidden sm:flex" />
-          </div>
-          <CarouselContent className="-ml-2 my-7 md:-ml-4">
+          </div> */}
+
+          <CarouselContent className="-ml-2 grid gap-y-4 xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 my-7 md:-ml-4">
+            {/* <CarouselContent className="-ml-2 my-7 md:-ml-4"> */}
             {isLoading ? (
               Array.from({ length: 5 }).map((_, index) => (
                 <CarouselItem
@@ -138,7 +140,8 @@ const TopTenDMC = () => {
                 </CarouselItem>
               ))
             ) : data && data.length > 0 ? (
-              data.slice(0, 10).map((dmc) => (
+              data.slice(0, 8).map((dmc) => (
+                // data.slice(0, 10).map((dmc) => (
                 <CarouselItem
                   key={dmc.id}
                   className="pl-2 md:pl-4 sm:basis-1/2 lg:basis-1/3 xl:basis-1/4"
@@ -147,11 +150,14 @@ const TopTenDMC = () => {
                 </CarouselItem>
               ))
             ) : (
-              <div className="w-full text-center py-10">No DMCs found</div>
+              <div className="w-full text-center justify-self-center py-10">
+                No DMCs found
+              </div>
             )}
           </CarouselContent>
         </Carousel>
-        <div className="block md:hidden">
+
+        <div className="block sm:hidden">
           <div className="w-full flex flex-col items-center justify-center gap-5">
             {isLoading ? (
               Array.from({ length: 5 }).map((_, index) => (
