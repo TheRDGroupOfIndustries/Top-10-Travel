@@ -99,6 +99,7 @@ function TopTenHotels() {
             }${selectedCity && "-" + selectedCity.toUpperCase()}`}
           </motion.span>
         </h1>
+        
         <p className="text-base sm:text-lg text-center mb-8">
           <motion.span
             className="inline-block"
