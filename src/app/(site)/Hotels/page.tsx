@@ -10,6 +10,9 @@ const Page = async () => {
   const allHotels = await db.hotel.findMany({
     where: {
       isCertified: true,
+      priority: {
+        gt: 0,  // Filters agencies where priority is greater than 0
+      },
     },
     select: {
       id: true,
