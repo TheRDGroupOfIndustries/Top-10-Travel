@@ -5,6 +5,7 @@ import { redirect } from "next/navigation";
 // modified the tailwind css of this
 const GetStarted = async ({ searchParams }: { searchParams: any }) => {
   const session = await getServerSession();
+  
   if (session) return redirect("/auth/get-started");
   const error = searchParams.error;
 
