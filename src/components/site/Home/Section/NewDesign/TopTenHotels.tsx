@@ -2,16 +2,12 @@
 import HomeCompanySkeleton from "@/components/reusable/HomeCompanySkeleton";
 import {
   Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
+  CarouselItem
 } from "@/components/ui/carousel";
 import { HomeContext } from "@/hooks/context/HomeContext";
 import useAxios from "@/hooks/useAxios";
 import { cn, getValidUrl } from "@/lib/utils";
 import { DMCHotelApiResult } from "@/types/homeApiType";
-import Autoplay from "embla-carousel-autoplay";
 import { motion } from "framer-motion";
 import { SquareArrowUpRight } from "lucide-react";
 import Image from "next/image";
@@ -183,8 +179,8 @@ function TopTenHotels() {
               </div>
             </Carousel>
 
-            <div className="block sm:hidden">
-              <div className="w-full flex flex-col items-center justify-center gap-5">
+            <div className="w-full flex justify-center sm:hidden">
+              <div className="w-[95%] xs:w-[85%] flex flex-col items-center justify-center gap-5">
                 {isLoading ? (
                   Array.from({ length: 5 }).map((_, index) => (
                     <div
@@ -196,6 +192,7 @@ function TopTenHotels() {
                   ))
                 ) : data && data.length > 0 ? (
                   data.slice(0, 8).map((hotel, i) => (
+                    // <div key={i} className="h-full w-full">
                     <div key={i} className="h-full w-full">
                       <CarouselCard hotel={hotel} />
                     </div>

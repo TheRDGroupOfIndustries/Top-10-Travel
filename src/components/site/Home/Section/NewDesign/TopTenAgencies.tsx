@@ -1,21 +1,18 @@
 "use client";
-import useAxios from "@/hooks/useAxios";
-import Image from "next/image";
-import Link from "next/link";
-import React, { useContext, useEffect } from "react";
-import { motion } from "framer-motion";
+import HomeCompanySkeleton from "@/components/reusable/HomeCompanySkeleton";
 import {
   Carousel,
   CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
+  CarouselItem
 } from "@/components/ui/carousel";
-import HomeCompanySkeleton from "@/components/reusable/HomeCompanySkeleton";
-import Autoplay from "embla-carousel-autoplay";
 import { HomeContext } from "@/hooks/context/HomeContext";
+import useAxios from "@/hooks/useAxios";
 import { cn, getValidUrl } from "@/lib/utils";
 import { AgencyApiResult } from "@/types/homeApiType";
+import { motion } from "framer-motion";
+import Image from "next/image";
+import Link from "next/link";
+import { useContext } from "react";
 
 const CarouselCard = ({ agency }: { agency: AgencyApiResult }) => (
   <motion.div

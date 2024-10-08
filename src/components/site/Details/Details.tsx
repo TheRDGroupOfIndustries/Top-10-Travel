@@ -110,7 +110,7 @@ const Details = ({
             <div className="rounded-lg flex lg:hidden flex-col gap-4 py-10 sm:px-8 px-4 shadow shadow-black/50">
               <div className="flex flex-col gap-5">
                 <div className="flex flex-col gap-3">
-                  <h3 className="text-[32px] font-bold leading-snug xl:leading-6">
+                  <h3 className="text-xl xs:text-2xl sm:text-[32px] text-pretty font-bold leading-snug xl:leading-6">
                     {data?.name}
                   </h3>
                   <div className="text-sm flex items-center leading-4 font-medium">

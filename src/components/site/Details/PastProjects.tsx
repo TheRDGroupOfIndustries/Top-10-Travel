@@ -31,11 +31,11 @@ const PastProjects = ({ pastProjects }: { pastProjects: PastProject[] }) => {
 
   return (
     <div className="flex flex-col shadow shadow-black/50 rounded-lg gap-8 py-12 sm:px-8 px-4">
-      <h4 className="font-medium leading-6 text-[32px]">Recommendations</h4>
+      <h4 className="font-bold leading-6 text-xl xs:text-2xl sm:text-[32px] text-pretty">Recommendations</h4>
 
       {/* Display current reviews */}
       {pastProjects.length === 0 && (
-        <h2 className="font-bold text-lg">No recommendations to show.</h2>
+        <h2 className="font-semibold text-lg">No recommendations to show.</h2>
       )}
       {currentReviews.map(
         (review) =>
