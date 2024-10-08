@@ -62,13 +62,17 @@ const CarouselCard = ({ dmc }: { dmc: DMCHotelApiResult }) => (
 );
 
 const TopTenDMC = () => {
-  const { selectedCountry, selectedCity, visible } = useContext(HomeContext);
+  const { selectedCountry, allCities, setSelectedCity, selectedCity, visible } =
+    useContext(HomeContext);
+
   const { data, isLoading }: { data: DMCHotelApiResult[]; isLoading: boolean } =
     useAxios({
       url: `/api/home?country=${selectedCountry}&city=${selectedCity}&role=DMC`,
       selectedCity,
       selectedCountry,
     });
+
+  console.log(allCities);
 
   return (
     <section
@@ -95,6 +99,7 @@ const TopTenDMC = () => {
             }${selectedCity && "-" + selectedCity.toUpperCase()}`}
           </motion.span>
         </h1>
+
         <p className="text-base sm:text-lg text-center mb-8">
           <motion.span
             className="inline-block"
@@ -110,88 +115,107 @@ const TopTenDMC = () => {
             Experience Hassle-Free Room Hunting with Our Comprehensive Listing
           </motion.span>
         </p>
-        <Carousel
-          opts={{
-            align: "start",
-          }}
-          // plugins={[
-          //   Autoplay({
-          //     delay: 2000,
-          //     stopOnInteraction: false,
-          //     stopOnMouseEnter: true,
-          //   }),
-          // ]}
-          className="w-full hidden sm:block"
-        >
-          {/* <div className="absolute -top-7 right-10">
+
+        {selectedCity === "" || !selectedCity ? (
+          <div className="w-full grid xl:grid-cols-4 lg:grid-cols-3 lg:gap-5 md:gap-4 sm:gap-3 gap-2 grid-cols-2"
+          
+          >
+            {allCities.map((city, i) => (
+              <div key={i}
+               onClick={() => setSelectedCity(city)} 
+               className="flex cursor-pointer p-2 lg:hover:text-3xl lg:text-2xl sm:hover:text-2xl sm:text-xl hover:text-lg transform-all duration-300 items-center justify-center w-full h-32 border border-1 rounded-md">
+                <p className="text-wrap text-center break-words w-full">
+                  {city}
+                </p>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <>
+            <Carousel
+              opts={{
+                align: "start",
+              }}
+              // plugins={[
+              //   Autoplay({
+              //     delay: 2000,
+              //     stopOnInteraction: false,
+              //     stopOnMouseEnter: true,
+              //   }),
+              // ]}
+              className="w-full hidden sm:block"
+            >
+              {/* <div className="absolute -top-7 right-10">
             <CarouselPrevious className="hidden sm:flex" />
             <CarouselNext className="hidden sm:flex" />
           </div> */}
 
-          <CarouselContent className="-ml-2 grid gap-y-4 xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 my-7 md:-ml-4">
-            {/* <CarouselContent className="-ml-2 my-7 md:-ml-4"> */}
-            {isLoading ? (
-              Array.from({ length: 5 }).map((_, index) => (
-                <CarouselItem
-                  key={index}
-                  className="pl-2 md:pl-4 sm:basis-1/2 lg:basis-1/3 xl:basis-1/4"
-                >
-                  <HomeCompanySkeleton role="DMC" />
-                </CarouselItem>
-              ))
-            ) : data && data.length > 0 ? (
-              data.slice(0, 8).map((dmc) => (
-                // data.slice(0, 10).map((dmc) => (
-                <CarouselItem
-                  key={dmc.id}
-                  className="pl-2 md:pl-4 sm:basis-1/2 lg:basis-1/3 xl:basis-1/4"
-                >
-                  <CarouselCard dmc={dmc} />
-                </CarouselItem>
-              ))
-            ) : (
-              <div className="w-full text-center justify-self-center py-10">
-                No DMCs found
+              <CarouselContent className="-ml-2 grid gap-y-4 xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 my-7 md:-ml-4">
+                {/* <CarouselContent className="-ml-2 my-7 md:-ml-4"> */}
+                {isLoading ? (
+                  Array.from({ length: 5 }).map((_, index) => (
+                    <CarouselItem
+                      key={index}
+                      className="pl-2 md:pl-4 sm:basis-1/2 lg:basis-1/3 xl:basis-1/4"
+                    >
+                      <HomeCompanySkeleton role="DMC" />
+                    </CarouselItem>
+                  ))
+                ) : data && data.length > 0 ? (
+                  data.slice(0, 8).map((dmc) => (
+                    // data.slice(0, 10).map((dmc) => (
+                    <CarouselItem
+                      key={dmc.id}
+                      className="pl-2 md:pl-4 sm:basis-1/2 lg:basis-1/3 xl:basis-1/4"
+                    >
+                      <CarouselCard dmc={dmc} />
+                    </CarouselItem>
+                  ))
+                ) : (
+                  <div className="w-full text-center justify-self-center py-10">
+                    No DMCs found
+                  </div>
+                )}
+              </CarouselContent>
+            </Carousel>
+
+            <div className="block sm:hidden">
+              <div className="w-full flex flex-col items-center justify-center gap-5">
+                {isLoading ? (
+                  Array.from({ length: 5 }).map((_, index) => (
+                    <div
+                      key={index}
+                      className="flex flex-col items-center justify-center gap-5"
+                    >
+                      <HomeCompanySkeleton role="DMC" />
+                    </div>
+                  ))
+                ) : data && data.length > 0 ? (
+                  data.slice(0, 8).map((dmc) => (
+                    <div
+                      key={dmc.id}
+                      className="flex flex-col items-center justify-center gap-5 w-[80%] h-full sm:w-[70vw]"
+                    >
+                      <CarouselCard dmc={dmc} />
+                    </div>
+                  ))
+                ) : (
+                  <div className="w-full text-center py-10">No DMCs found</div>
+                )}
               </div>
-            )}
-          </CarouselContent>
-        </Carousel>
+            </div>
 
-        <div className="block sm:hidden">
-          <div className="w-full flex flex-col items-center justify-center gap-5">
-            {isLoading ? (
-              Array.from({ length: 5 }).map((_, index) => (
-                <div
-                  key={index}
-                  className="flex flex-col items-center justify-center gap-5"
-                >
-                  <HomeCompanySkeleton role="DMC" />
-                </div>
-              ))
-            ) : data && data.length > 0 ? (
-              data.slice(0, 10).map((dmc) => (
-                <div
-                  key={dmc.id}
-                  className="flex flex-col items-center justify-center gap-5 w-[80%] h-full sm:w-[70vw]"
-                >
-                  <CarouselCard dmc={dmc} />
-                </div>
-              ))
-            ) : (
-              <div className="w-full text-center py-10">No DMCs found</div>
-            )}
-          </div>
-        </div>
-
-        <Link href={`/DMC`}>
-          <motion.div
-            className="bg-black px-5 py-2 rounded-md mt-6 mb-5 mx-auto hover:bg-gray-800 w-fit transition-colors text-white font-bold"
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.9 }}
-          >
-            View more
-          </motion.div>
-        </Link>
+            <Link href={`/DMC`}>
+              <motion.div
+                className="bg-black px-5 py-2 rounded-md mt-6 mb-5 mx-auto hover:bg-gray-800 w-fit transition-colors text-white font-bold"
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+              >
+                View more
+              </motion.div>
+            </Link>
+          </>
+        )}
       </div>
     </section>
   );

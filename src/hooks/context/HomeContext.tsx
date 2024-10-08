@@ -12,6 +12,7 @@ type Homecontext = {
   toggleVisible: (tag: "DMC" | "AGENCY" | "HOTEL" | "Influencer") => void;
   selectedCountry: string;
   selectedCity: string;
+  setSelectedCity: (state: string) => void;
   setCountry: (country: string) => void;
   setCity: (state: string) => void;
   allCities: string[];
@@ -57,10 +58,11 @@ export const HomeContextProvider = ({ children }: { children: ReactNode }) => {
 
     // Set the default city to the first city in the list of cities for the selected country
     if (allCities.length > 0) {
-      setSelectedCity(allCities[0].trim()); // .trim() to handle any leading/trailing spaces
+      // setSelectedCity(allCities[0].trim());
+      // .trim() to handle any leading/trailing spaces
+      setSelectedCity("");
     }
   };
-
 
   // const toggleVisible = (tag: "DMC" | "AGENCY" | "HOTEL" | "Influencer") => {
   //   setVisible((prev) => {
@@ -91,7 +93,8 @@ export const HomeContextProvider = ({ children }: { children: ReactNode }) => {
     if (data) {
       const cities = data[country];
       setAllCities([...cities]);
-      setSelectedCity(cities[0].trim()); // Default to the first city of the selected country
+      // setSelectedCity(cities[0].trim()); // Default to the first city of the selected country
+      setSelectedCity("");
     }
   };
 
@@ -105,6 +108,7 @@ export const HomeContextProvider = ({ children }: { children: ReactNode }) => {
         visible,
         toggleVisible,
         selectedCountry,
+        setSelectedCity,
         selectedCity,
         setCountry,
         setCity,

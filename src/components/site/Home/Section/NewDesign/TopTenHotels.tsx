@@ -66,7 +66,8 @@ const CarouselCard = ({ hotel }: { hotel: DMCHotelApiResult }) => (
 );
 
 function TopTenHotels() {
-  const { selectedCountry, selectedCity, visible } = useContext(HomeContext);
+  const { selectedCountry, selectedCity, setSelectedCity, allCities, visible } =
+    useContext(HomeContext);
   const { data, isLoading }: { data: DMCHotelApiResult[]; isLoading: boolean } =
     useAxios({
       url: `/api/home?country=${selectedCountry}&city=${selectedCity}&role=Hotel`,
@@ -99,7 +100,7 @@ function TopTenHotels() {
             }${selectedCity && "-" + selectedCity.toUpperCase()}`}
           </motion.span>
         </h1>
-        
+
         <p className="text-base sm:text-lg text-center mb-8">
           <motion.span
             className="inline-block"
@@ -116,87 +117,107 @@ function TopTenHotels() {
           </motion.span>
         </p>
 
-        <Carousel
-          opts={{
-            align: "start",
-            loop: true,
-          }}
-          // plugins={[
-          // Autoplay({
-          //   delay: 3000,
-          //   stopOnInteraction: false,
-          //   stopOnMouseEnter: true,
-          // }),
-          // ]}
-          className="w-full hidden sm:block"
-        >
-          {/* <div className="absolute -top-7 right-10">
+        {selectedCity === "" || !selectedCity ? (
+          <div className="w-full grid xl:grid-cols-4 lg:grid-cols-3 lg:gap-5 md:gap-4 sm:gap-3 gap-2 grid-cols-2">
+            {allCities.map((city, i) => (
+              <div
+                key={i}
+                onClick={() => setSelectedCity(city)}
+                className="flex cursor-pointer p-2 lg:hover:text-3xl lg:text-2xl sm:hover:text-2xl sm:text-xl hover:text-lg transform-all duration-300 items-center justify-center w-full h-32 border border-1 rounded-md"
+              >
+                <p className="text-wrap text-center break-words w-full">
+                  {city}
+                </p>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <>
+            <Carousel
+              opts={{
+                align: "start",
+                loop: true,
+              }}
+              // plugins={[
+              // Autoplay({
+              //   delay: 3000,
+              //   stopOnInteraction: false,
+              //   stopOnMouseEnter: true,
+              // }),
+              // ]}
+              className="w-full hidden sm:block"
+            >
+              {/* <div className="absolute -top-7 right-10">
             <CarouselPrevious className="hidden sm:flex" />
             <CarouselNext className="hidden sm:flex" />
           </div> */}
 
-          <CarouselContent className="-ml-2 grid gap-y-4 xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 my-7 md:-ml-4">
-            {/* <CarouselContent className="-ml-2 my-7 md:-ml-4"> */}
-            {isLoading ? (
-              Array.from({ length: 5 }).map((_, index) => (
-                <CarouselItem
-                  key={index}
-                  className="pl-2 md:pl-4 basis-full sm:basis-1/2 my-4 lg:basis-1/3 xl:basis-1/4"
-                >
-                  <HomeCompanySkeleton role="HOTEL" />
-                </CarouselItem>
-              ))
-            ) : data && data.length > 0 ? (
-              data.slice(0, 8).map((hotel) => (
-                // data.slice(0, 10).map((hotel) => (
-                <CarouselItem
-                  key={hotel.id}
-                  className="pl-2 md:pl-4 basis-full sm:basis-1/2 lg:basis-1/3 xl:basis-1/4"
-                >
-                  <CarouselCard hotel={hotel} />
-                </CarouselItem>
-              ))
-            ) : (
-              <div className="w-full justify-self-center text-center py-10">
-                No Hotels found
+              <div className="-ml-2 grid gap-y-4 xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 my-7 md:-ml-4">
+                {/* <CarouselContent className="-ml-2 my-7 md:-ml-4"> */}
+                {isLoading ? (
+                  Array.from({ length: 5 }).map((_, index) => (
+                    <CarouselItem
+                      key={index}
+                      className="pl-2 md:pl-4 basis-full sm:basis-1/2 my-4 lg:basis-1/3 xl:basis-1/4"
+                    >
+                      <HomeCompanySkeleton role="HOTEL" />
+                    </CarouselItem>
+                  ))
+                ) : data && data.length > 0 ? (
+                  data.slice(0, 8).map((hotel, i) => (
+                    // data.slice(0, 10).map((hotel) => (
+                    <div
+                      key={i}
+                      className={cn(
+                        "pl-2 md:pl-4 basis-full sm:basis-1/2 lg:basis-1/3 xl:basis-1/4"
+                      )}
+                    >
+                      <CarouselCard hotel={hotel} />
+                    </div>
+                  ))
+                ) : (
+                  <div className="w-full justify-self-center text-center py-10">
+                    No Hotels found
+                  </div>
+                )}
               </div>
-            )}
-          </CarouselContent>
-        </Carousel>
+            </Carousel>
 
-        <div className="block sm:hidden">
-          <div className="w-full flex flex-col items-center justify-center gap-5">
-            {isLoading ? (
-              Array.from({ length: 5 }).map((_, index) => (
-                <div
-                  key={index}
-                  className="flex flex-col items-center justify-center gap-5"
-                >
-                  <HomeCompanySkeleton role="HOTEL" />
-                </div>
-              ))
-            ) : data && data.length > 0 ? (
-              data.slice(0, 10).map((hotel) => (
-                <div key={hotel.id} className="h-full w-full">
-                  <CarouselCard hotel={hotel} />
-                </div>
-              ))
-            ) : (
-              <div className="h-72 flex items-center justify-center">
-                <p className="text-lg font-semibold">No hotels available</p>
+            <div className="block sm:hidden">
+              <div className="w-full flex flex-col items-center justify-center gap-5">
+                {isLoading ? (
+                  Array.from({ length: 5 }).map((_, index) => (
+                    <div
+                      key={index}
+                      className="flex flex-col items-center justify-center gap-5"
+                    >
+                      <HomeCompanySkeleton role="HOTEL" />
+                    </div>
+                  ))
+                ) : data && data.length > 0 ? (
+                  data.slice(0, 8).map((hotel, i) => (
+                    <div key={i} className="h-full w-full">
+                      <CarouselCard hotel={hotel} />
+                    </div>
+                  ))
+                ) : (
+                  <div className="h-72 flex items-center justify-center">
+                    <p className="text-lg font-semibold">No hotels available</p>
+                  </div>
+                )}
               </div>
-            )}
-          </div>
-        </div>
-        <Link href={`/Hotels`}>
-          <motion.div
-            className="bg-black px-5 py-2 rounded-md mt-6 mb-5 mx-auto hover:bg-gray-800 w-fit transition-colors text-white font-bold"
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.9 }}
-          >
-            View more
-          </motion.div>
-        </Link>
+            </div>
+            <Link href={`/Hotels`}>
+              <motion.div
+                className="bg-black px-5 py-2 rounded-md mt-6 mb-5 mx-auto hover:bg-gray-800 w-fit transition-colors text-white font-bold"
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+              >
+                View more
+              </motion.div>
+            </Link>
+          </>
+        )}
       </div>
     </main>
   );
