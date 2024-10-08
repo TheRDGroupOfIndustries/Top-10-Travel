@@ -72,8 +72,6 @@ const TopTenDMC = () => {
       selectedCountry,
     });
 
-  console.log(allCities);
-
   return (
     <section
       className={cn(

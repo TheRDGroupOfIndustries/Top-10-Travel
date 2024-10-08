@@ -132,6 +132,25 @@ function HomeHero() {
     allCountries,
     updateAllData,
   } = useContext(HomeContext);
+  const [isSticky, setSticky] = useState<boolean>(false);
+  const elementRef = useRef<HTMLDivElement | null>(null);
+
+  const handleScroll = () => {
+    if (elementRef.current) {
+      const elementTop = elementRef.current.getBoundingClientRect().top;
+      // Check if the element has touched the top of the window
+      setSticky(elementTop <= 0);
+      console.log(elementTop, elementTop <= 0 );
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -150,7 +169,6 @@ function HomeHero() {
         });
 
         updateAllData(res.data.countries);
-        
       } catch (error) {
         console.log(error);
       }
@@ -290,11 +308,15 @@ function HomeHero() {
             &nbsp;all around the world.
           </motion.span>
         </p>
+
+        <div ref={elementRef} className="h-[1px] w-[1px]"></div>
         <motion.div
           initial={{ y: 50, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.8, delay: 1.4, type: "spring" }}
-          className="w-full pt-14 md:pt-10 lg:overflow-hidden lg:pt-24 md:max-w-[430px] lg:max-w-[730px]"
+          className={`w-full pt-14 md:pt-10 lg:overflow-hidden lg:pt-24 md:max-w-[430px] lg:max-w-[730px] ${
+            isSticky ? "fixed top-0 z-50 lg:pt-16 md:pt-16" : ""
+          }`}
         >
           <div className="w-full ml-1 xs:ml-4 flex items-end justify-start">
             <div className="relative max-w-48 xs:max-w-60 h-7 xs:h-9 flex items-center justify-center">
@@ -315,6 +337,7 @@ function HomeHero() {
                 toggle={toggle}
               />
             </div>
+
             <div className="hidden ml-5 lg:flex xl:gap-5 gap-4">
               {boxItems.map(({ key, text }) => (
                 <div
@@ -328,11 +351,29 @@ function HomeHero() {
                     toggle(key)
                   }
                 >
-                  {
+                  {/* {
                     // @ts-ignore
                     visible[key] && (
                       <Image
                         src={"/Hero_Filter_Small.png"}
+                        fill
+                        className="absolute -z-10"
+                        alt="hero_filter_img"
+                      />
+                    )
+                  } */}
+                   {
+                    // @ts-ignore
+                    visible[key] ? (
+                      <Image
+                        src={"/Hero_Filter_Small.png"}
+                        fill
+                        className="absolute -z-10"
+                        alt="hero_filter_img"
+                      />
+                    ) : (
+                      <Image
+                        src={"/Hero_Filter_Large.png"}
                         fill
                         className="absolute -z-10"
                         alt="hero_filter_img"
