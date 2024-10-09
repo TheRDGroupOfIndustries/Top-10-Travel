@@ -52,7 +52,7 @@ const ContactUsComp = () => {
       contact: contact,
       message: message,
     };
-    
+
     const { error, success } = await mutate({
       name: obj.firstName + " " + obj.lastName,
       email: obj.email,
@@ -204,7 +204,6 @@ const ContactUsComp = () => {
                 <div>
                   <input
                     required
-                    type="number"
                     className="w-full h-[63px] rounded-lg bg-slate-100 pl-5"
                     placeholder="Phone Number"
                     value={contact}
