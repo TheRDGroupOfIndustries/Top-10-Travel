@@ -45,7 +45,7 @@ function InfluencerCarousel({
       </div>
        */}
 
-      <CarouselContent className="hidden my-7 md:grid xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2  w-full mx-auto">
+      <div className="hidden my-7 gap-y-4 md:grid xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 w-full mx-auto">
         {data && data.length > 0 ? (
           data.slice(0, 8).map((inf) => (
             <CarouselItem
@@ -60,9 +60,9 @@ function InfluencerCarousel({
         ) : (
           <div className="w-full text-center py-10">No Influencers found</div>
         )}
-      </CarouselContent>
+      </div>
 
-      <div className="grid grid-cols-1 sm:hidden">
+      <div className="flex flex-col gap-4 sm:hidden">
         {data && data.length > 0 ? (
           data.slice(0, 8).map((inf) => (
             <CarouselItem key={inf.id} className="p-0">

@@ -1,15 +1,12 @@
 "use client";
 import InfluencerCarousel from "@/components/reusable/InfluencerCarousel";
 import { Skeleton } from "@/components/ui/skeleton";
-import { db } from "@/core/client/db";
-import { InfluencerData } from "@prisma/client";
-import { cn } from "@/lib/utils";
-import axios from "axios";
-import Link from "next/link";
-import { useContext, useEffect, useState } from "react";
 import { HomeContext } from "@/hooks/context/HomeContext";
 import useAxios from "@/hooks/useAxios";
+import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
+import Link from "next/link";
+import { useContext } from "react";
 
 type Data =
   | {
@@ -23,6 +20,7 @@ type Data =
       state: string;
     }[]
   | null;
+
 const Influencers = () => {
   const { selectedCountry, selectedCity, visible } = useContext(HomeContext);
   const { data, isLoading } = useAxios({

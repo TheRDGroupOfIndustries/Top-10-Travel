@@ -129,10 +129,12 @@ function HomeHero() {
     setCountry,
     toggleVisible,
     allCities,
+    isSticky,
+    setSticky,
     allCountries,
     updateAllData,
   } = useContext(HomeContext);
-  const [isSticky, setSticky] = useState<boolean>(false);
+  // const [isSticky, setSticky] = useState<boolean>(false);
   const elementRef = useRef<HTMLDivElement | null>(null);
 
   const handleScroll = () => {
@@ -140,7 +142,7 @@ function HomeHero() {
       const elementTop = elementRef.current.getBoundingClientRect().top;
       // Check if the element has touched the top of the window
       setSticky(elementTop <= 0);
-      console.log(elementTop, elementTop <= 0 );
+      console.log(elementTop, elementTop <= 0);
     }
   };
 
@@ -260,7 +262,7 @@ function HomeHero() {
   return (
     <div
       ref={divref}
-      className="relative w-full h-fit min-h-[50vh] md:max-h-screen min-[768]:h-[calc(100vh+60px)] max-[820]:h-fit lg:h-fit  pt-10 lg:pt-0 px-2 md:px-3 lg:px-6 xl:px-8 "
+      className="relative transition-all duration-300 w-full h-fit min-h-[50vh] md:max-h-screen min-[768]:h-[calc(100vh+60px)] max-[820]:h-fit lg:h-fit  pt-10 lg:pt-0 px-2 md:px-3 lg:px-6 xl:px-8 "
     >
       <div className="h-full flex flex-col md:gap-3 lg:gap-0 gap-1.5 justify-start pt-16 md:pt-24 lg:pt-32 pb-24 xl:pt-40 w-full overflow-x-hidden">
         <h3
@@ -310,12 +312,15 @@ function HomeHero() {
         </p>
 
         <div ref={elementRef} className="h-[1px] w-[1px]"></div>
+
         <motion.div
           initial={{ y: 50, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.8, delay: 1.4, type: "spring" }}
-          className={`w-full pt-14 md:pt-10 lg:overflow-hidden lg:pt-24 md:max-w-[430px] lg:max-w-[730px] ${
-            isSticky ? "fixed top-0 z-50 lg:pt-16 md:pt-16" : ""
+          className={`transition-all duration-300 w-full pt-14 md:pt-10 lg:overflow-hidden lg:pt-24 md:max-w-[430px] lg:max-w-[730px] ${
+            isSticky
+              ? "fixed top-0 z-40 left-0 lg:pt-[3.8rem] pb-4 md:pt-[3.8rem] bg-white/80 backdrop-blur-sm lg:overflow-visible md:max-w-full lg:max-w-full md:w-full px-2 md:px-3 lg:px-6 xl:px-8"
+              : ""
           }`}
         >
           <div className="w-full ml-1 xs:ml-4 flex items-end justify-start">
@@ -330,6 +335,7 @@ function HomeHero() {
                 FIND YOUR TOP 10
               </span>
             </div>
+
             <div className="lg:hidden">
               <MobileDropdown
                 items={boxItems}
@@ -362,7 +368,7 @@ function HomeHero() {
                       />
                     )
                   } */}
-                   {
+                  {
                     // @ts-ignore
                     visible[key] ? (
                       <Image

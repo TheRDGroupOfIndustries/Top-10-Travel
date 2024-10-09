@@ -17,6 +17,8 @@ type Homecontext = {
   setCity: (state: string) => void;
   allCities: string[];
   allCountries: string[];
+  isSticky: boolean;
+  setSticky: (val: boolean) => void;
   updateAllData: (data: any) => void;
 };
 
@@ -35,6 +37,7 @@ export const HomeContextProvider = ({ children }: { children: ReactNode }) => {
   const [allCities, setAllCities] = useState<string[]>([]);
   const [allCountries, setAllCountries] = useState<string[]>([]);
   const [data, setData] = useState<any>();
+  const [isSticky, setSticky] = useState<boolean>(false);
 
   const updateAllData = (data: any) => {
     setData(data);
@@ -109,6 +112,8 @@ export const HomeContextProvider = ({ children }: { children: ReactNode }) => {
         toggleVisible,
         selectedCountry,
         setSelectedCity,
+        isSticky,
+        setSticky,
         selectedCity,
         setCountry,
         setCity,

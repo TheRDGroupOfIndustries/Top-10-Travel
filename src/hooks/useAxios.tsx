@@ -26,7 +26,7 @@ const useAxios = ({
         setLoading(false);
       }
     };
-    console.log(selectedCity, selectedCountry);
+    // console.log(selectedCity, selectedCountry);
     if (selectedCountry !== "") {
       fetchData();
     }
