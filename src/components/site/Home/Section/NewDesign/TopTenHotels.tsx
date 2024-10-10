@@ -119,7 +119,7 @@ function TopTenHotels() {
               <div
                 key={i}
                 onClick={() => setSelectedCity(city)}
-                className="flex cursor-pointer p-2 lg:hover:text-3xl lg:text-2xl sm:hover:text-2xl sm:text-xl hover:text-lg transform-all duration-300 items-center justify-center w-full h-32 border border-1 rounded-md"
+                className="flex shadow cursor-pointer p-2 lg:hover:text-2xl lg:text-xl sm:hover:text-xl sm:text-lg hover:text-lg transform-all duration-300 items-center justify-center w-full h-32 border border-1 rounded-md"
               >
                 <p className="text-wrap text-center break-words w-full">
                   {city}

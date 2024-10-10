@@ -114,7 +114,7 @@ const TopTenAgencies = () => {
         </p>
 
         {selectedCity === "" || !selectedCity ? (
-          <div className="w-full grid xl:grid-cols-4 lg:grid-cols-3 lg:gap-5 md:gap-4 sm:gap-3 gap-2 grid-cols-2">
+          <div className="w-full grid xl:grid-cols-4 lg:grid-cols-3 lg:gap-6 md:gap-5 sm:gap-4 gap-1 grid-cols-2">
             {allCities.map((city, i) => (
               <div
                 key={i}
