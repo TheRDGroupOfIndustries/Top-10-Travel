@@ -5,6 +5,7 @@ import {
   CarouselContent,
   CarouselItem,
 } from "@/components/ui/carousel";
+import axios from "axios";
 import { HomeContext } from "@/hooks/context/HomeContext";
 import useAxios from "@/hooks/useAxios";
 import { cn, getValidUrl } from "@/lib/utils";
@@ -13,6 +14,7 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { useContext } from "react";
+import HomeCards from "@/components/reusable/HomeCards";
 
 const CarouselCard = ({ agency }: { agency: AgencyApiResult }) => (
   <motion.div
@@ -62,9 +64,30 @@ const CarouselCard = ({ agency }: { agency: AgencyApiResult }) => (
   </motion.div>
 );
 
+// const fetchImage = async ({
+//   city,
+//   country,
+//   role,
+// }: {
+//   city: string;
+//   country: string;
+//   role: string;
+// }) => {
+//   try {
+//     const res = await axios.get(
+//       `/api/image?country=${country}&city=${city}&role=${role}`
+//     );
+
+//     return res;
+//   } catch (error) {
+//     console.log(error);
+//   }
+// };
+
 const TopTenAgencies = () => {
   const { selectedCountry, selectedCity, setSelectedCity, allCities, visible } =
     useContext(HomeContext);
+
   const { data, isLoading }: { data: AgencyApiResult[]; isLoading: boolean } =
     useAxios({
       url: `/api/home?country=${selectedCountry}&city=${selectedCity}&role=Agency`,
@@ -114,18 +137,21 @@ const TopTenAgencies = () => {
         </p>
 
         {selectedCity === "" || !selectedCity ? (
-          <div className="w-full grid xl:grid-cols-4 lg:grid-cols-3 lg:gap-6 md:gap-5 sm:gap-4 gap-1 grid-cols-2">
-            {allCities.map((city, i) => (
-              <div
-                key={i}
-                onClick={() => setSelectedCity(city)}
-                className="flex shadow cursor-pointer p-2 lg:hover:text-2xl lg:text-xl sm:hover:text-xl sm:text-lg hover:text-lg transform-all duration-300 items-center justify-center w-full h-32 border border-1 rounded-md"
-              >
-                <p className="text-wrap text-center break-words w-full">
-                  {city}
-                </p>
-              </div>
-            ))}
+          <div className="w-full grid xl:grid-cols-4 lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 lg:gap-6 md:gap-5 sm:gap-4 gap-3">
+            {allCities.map((city, i) => {
+              if (i > 11) return;
+
+              return (
+                <HomeCards
+                  key={i}
+                  country={selectedCountry}
+                  city={city}
+                  setSelectedCity={setSelectedCity}
+                  role={"Agency"}
+                  image={`/image${i + 1}.jpg`}
+                />
+              );
+            })}
           </div>
         ) : (
           <>

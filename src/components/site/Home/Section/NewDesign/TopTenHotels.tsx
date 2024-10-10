@@ -1,9 +1,6 @@
 "use client";
 import HomeCompanySkeleton from "@/components/reusable/HomeCompanySkeleton";
-import {
-  Carousel,
-  CarouselItem
-} from "@/components/ui/carousel";
+import { Carousel, CarouselItem } from "@/components/ui/carousel";
 import { HomeContext } from "@/hooks/context/HomeContext";
 import useAxios from "@/hooks/useAxios";
 import { cn, getValidUrl } from "@/lib/utils";
@@ -13,6 +10,7 @@ import { SquareArrowUpRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useContext } from "react";
+import HomeCards from "@/components/reusable/HomeCards";
 
 const CarouselCard = ({ hotel }: { hotel: DMCHotelApiResult }) => (
   <motion.div
@@ -115,17 +113,20 @@ function TopTenHotels() {
 
         {selectedCity === "" || !selectedCity ? (
           <div className="w-full grid xl:grid-cols-4 lg:grid-cols-3 lg:gap-5 md:gap-4 sm:gap-3 gap-2 grid-cols-2">
-            {allCities.map((city, i) => (
-              <div
-                key={i}
-                onClick={() => setSelectedCity(city)}
-                className="flex shadow cursor-pointer p-2 lg:hover:text-2xl lg:text-xl sm:hover:text-xl sm:text-lg hover:text-lg transform-all duration-300 items-center justify-center w-full h-32 border border-1 rounded-md"
-              >
-                <p className="text-wrap text-center break-words w-full">
-                  {city}
-                </p>
-              </div>
-            ))}
+            {allCities.map((city, i) => {
+              if (i > 11) return;
+
+              return (
+                <HomeCards
+                  key={i}
+                  country={selectedCountry}
+                  city={city}
+                  setSelectedCity={setSelectedCity}
+                  role={"Hotel"}
+                  image={`/image${i + 1}.jpg`}
+                />
+              );
+            })}
           </div>
         ) : (
           <>

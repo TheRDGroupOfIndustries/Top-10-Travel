@@ -16,6 +16,7 @@ import { HomeContext } from "@/hooks/context/HomeContext";
 import { cn, getValidUrl } from "@/lib/utils";
 import { motion } from "framer-motion";
 import { DMCHotelApiResult } from "@/types/homeApiType";
+import HomeCards from "@/components/reusable/HomeCards";
 
 const CarouselCard = ({ dmc }: { dmc: DMCHotelApiResult }) => (
   <motion.div
@@ -115,18 +116,21 @@ const TopTenDMC = () => {
         </p>
 
         {selectedCity === "" || !selectedCity ? (
-          <div className="w-full grid xl:grid-cols-4 lg:grid-cols-3 lg:gap-5 md:gap-4 sm:gap-3 gap-2 grid-cols-2"
-          
-          >
-            {allCities.map((city, i) => (
-              <div key={i}
-               onClick={() => setSelectedCity(city)} 
-               className="flex shadow cursor-pointer p-2 lg:hover:text-2xl lg:text-xl sm:hover:text-xl sm:text-lg hover:text-lg transform-all duration-300 items-center justify-center w-full h-32 border border-1 rounded-md">
-                <p className="text-wrap text-center break-words w-full">
-                  {city}
-                </p>
-              </div>
-            ))}
+          <div className="w-full grid xl:grid-cols-4 lg:grid-cols-3 lg:gap-5 md:gap-4 sm:gap-3 gap-2 grid-cols-2">
+            {allCities.map((city, i) => {
+              if (i > 11) return;
+
+              return (
+                <HomeCards
+                  key={i}
+                  country={selectedCountry}
+                  city={city}
+                  setSelectedCity={setSelectedCity}
+                  role={"DMC"}
+                  image={`/image${i + 1}.jpg`}
+                />
+              );
+            })}
           </div>
         ) : (
           <>

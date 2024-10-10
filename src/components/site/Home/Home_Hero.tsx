@@ -142,7 +142,7 @@ function HomeHero() {
       const elementTop = elementRef.current.getBoundingClientRect().top;
       // Check if the element has touched the top of the window
       setSticky(elementTop <= 0);
-      console.log(elementTop, elementTop <= 0);
+      // console.log(elementTop, elementTop <= 0);
     }
   };
 

@@ -1,4 +1,5 @@
 "use client";
+import HomeCards from "@/components/reusable/HomeCards";
 import InfluencerCarousel from "@/components/reusable/InfluencerCarousel";
 import { Skeleton } from "@/components/ui/skeleton";
 import { HomeContext } from "@/hooks/context/HomeContext";
@@ -22,7 +23,8 @@ type Data =
   | null;
 
 const Influencers = () => {
-  const { selectedCountry, selectedCity, visible } = useContext(HomeContext);
+  const { selectedCountry, selectedCity, setSelectedCity, allCities, visible } =
+    useContext(HomeContext);
   const { data, isLoading } = useAxios({
     url: `/api/influencers?country=${selectedCountry}&city=${selectedCity}`,
     selectedCity,
@@ -69,36 +71,58 @@ const Influencers = () => {
             Experience Hassle-Free Room Hunting with Our Comprehensive listing
           </motion.span>
         </p>
-        <div
-          className={cn(
-            "w-full",
-            isLoading ? "flex md:flex-row flex-col gap-2" : ""
-          )}
-        >
-          {isLoading && (
-            <div>
-              {Array.from({ length: 4 }).map((_, i) => (
-                <div
-                  key={i}
-                  className="md:h-96 h-64 md:w-1/3 w-full rounded-lg overflow-hidden relative"
-                >
-                  <Skeleton className="w-full h-full absolute inset-0 bg-slate-200" />
-                </div>
-              ))}
-            </div>
-          )}
-          {!isLoading && <InfluencerCarousel data={data as Data} />}
-        </div>
 
-        <Link href={`/Influencers`}>
-          <motion.div
-            className="bg-black px-5 py-2 rounded-md mt-6 mb-5 mx-auto hover:bg-gray-800 w-fit transition-colors text-white font-bold"
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.9 }}
-          >
-            View more
-          </motion.div>
-        </Link>
+        {selectedCity === "" || !selectedCity ? (
+          <div className="w-full grid xl:grid-cols-4 lg:grid-cols-3 lg:gap-5 md:gap-4 sm:gap-3 gap-2 grid-cols-2">
+            {allCities.map((city, i) => {
+              if (i > 11) return;
+
+              return (
+                <HomeCards
+                  key={i}
+                  country={selectedCountry}
+                  city={city}
+                  setSelectedCity={setSelectedCity}
+                  role={"Influencer"}
+                  image={`/image${i + 1}.jpg`}
+                />
+              );
+            })}
+          </div>
+        ) : (
+          <>
+            <div
+              className={cn(
+                "w-full",
+                isLoading ? "flex md:flex-row flex-col gap-2" : ""
+              )}
+            >
+              {isLoading && (
+                <div>
+                  {Array.from({ length: 4 }).map((_, i) => (
+                    <div
+                      key={i}
+                      className="md:h-96 h-64 md:w-1/3 w-full rounded-lg overflow-hidden relative"
+                    >
+                      <Skeleton className="w-full h-full absolute inset-0 bg-slate-200" />
+                    </div>
+                  ))}
+                </div>
+              )}
+              {!isLoading && <InfluencerCarousel data={data as Data} />}
+            </div>
+
+            <Link href={`/Influencers`}>
+              <motion.div
+                className="bg-black px-5 py-2 rounded-md mt-6 mb-5 mx-auto hover:bg-gray-800 w-fit transition-colors text-white font-bold"
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+              >
+                View more
+              </motion.div>
+            </Link>
+          </>
+        )}
       </div>
     </main>
   );
