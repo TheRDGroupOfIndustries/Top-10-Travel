@@ -27,7 +27,7 @@ const CarouselCard = ({ hotel }: { hotel: DMCHotelApiResult }) => (
       staggerChildren: 0.6,
     }}
     viewport={{ once: true }}
-    className="h-72 rounded-xl overflow-hidden md:hover:-translate-y-4 hover:shadow-lg duration-300 transition-all relative"
+    className="h-72 rounded-xl overflow-hidden md:hover:-translate-y-2 hover:shadow-lg duration-300 transition-all relative"
   >
     <div className="w-full h-full absolute inset-0 bg-black/30">
       <div className="absolute bottom-0 w-full flex items-center justify-between p-3">
