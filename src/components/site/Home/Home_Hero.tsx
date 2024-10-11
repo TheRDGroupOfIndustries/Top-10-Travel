@@ -134,7 +134,6 @@ function HomeHero() {
     allCountries,
     updateAllData,
   } = useContext(HomeContext);
-  // const [isSticky, setSticky] = useState<boolean>(false);
   const elementRef = useRef<HTMLDivElement | null>(null);
 
   const handleScroll = () => {
@@ -262,8 +261,10 @@ function HomeHero() {
   return (
     <div
       ref={divref}
-      className="relative transition-all duration-300 w-full h-fit min-h-[50vh] md:max-h-screen min-[768]:h-[calc(100vh+60px)] max-[820]:h-fit lg:h-fit  pt-10 lg:pt-0 px-2 md:px-3 lg:px-6 xl:px-8 "
+      className="relative w-full h-fit min-h-[50vh] md:max-h-screen min-[768]:h-[calc(100vh+60px)] max-[820]:h-fit lg:h-fit  pt-10 lg:pt-0 px-2 md:px-3 lg:px-6 xl:px-8 "
     >
+      <div id="toNavigate" className="absolute bottom-14 left-0 h-[0.5px] w-[0.5px]"></div>
+
       <div className="h-full flex flex-col md:gap-3 lg:gap-0 gap-1.5 justify-start pt-16 md:pt-24 lg:pt-32 pb-24 xl:pt-40 w-full overflow-x-hidden">
         <h3
           id="firstLine"
@@ -311,14 +312,13 @@ function HomeHero() {
           </motion.span>
         </p>
 
-        <div ref={elementRef} className="h-[1px] w-[1px]"></div>
 
         <motion.div
           initial={{ y: 50, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.8, delay: 1.4, type: "spring" }}
-          className={`transition-all duration-300 w-full pt-14 md:pt-10 lg:overflow-hidden lg:pt-24 md:max-w-[430px] lg:max-w-[730px] ${
-            isSticky
+          className={`w-full pt-14 md:pt-10 lg:overflow-hidden lg:pt-24 md:max-w-[430px] lg:max-w-[730px] ${
+            isSticky && selectedCountry
               ? "fixed top-0 z-40 left-0 lg:pt-[3.8rem] pb-4 md:pt-[3.8rem] bg-white/80 backdrop-blur-sm lg:overflow-visible md:max-w-full lg:max-w-full md:w-full px-2 md:px-3 lg:px-6 xl:px-8"
               : ""
           }`}
@@ -441,7 +441,9 @@ function HomeHero() {
             </div>
           </div>
         </motion.div>
+        <div ref={elementRef} className="h-[1px] w-[1px]"></div>
       </div>
+
       <div
         ref={scope}
         className="absolute -z-20 right-0 top-0 bottom-0 md:h-full w-[45%] md:w-[45%] lg:w-[40%] xl:w-[35%]"

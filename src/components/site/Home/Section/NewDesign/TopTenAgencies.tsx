@@ -229,15 +229,37 @@ const TopTenAgencies = () => {
               </div>
             </div>
 
+          <div className="flex gap-4">
             <Link href={`/Agency`}>
               <motion.div
                 className="bg-black px-5 py-2 rounded-md mt-6 mb-5 mx-auto hover:bg-gray-800 w-fit transition-colors text-white font-bold"
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
-              >
+                >
                 View more
               </motion.div>
             </Link>
+
+           
+              <motion.div
+                onClick={() =>{ 
+                  setSelectedCity("");
+                  
+                  const element = document.getElementById("toNavigate"); 
+                  if (element) {
+                    element.scrollIntoView({
+                      // behavior: "smooth", // Smooth scrolling
+                      block: "nearest", // Align to the top of the element
+                    });
+                  }
+                }}
+                className="bg-black px-5 py-2 cursor-pointer rounded-md mt-6 mb-5 mx-auto hover:bg-gray-800 w-fit transition-colors text-white font-bold"
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+              >
+                Back To Cities
+              </motion.div>
+          </div>
           </>
         )}
       </div>

@@ -26,7 +26,16 @@ const HomeCards = ({
 
   return (
     <div
-      onClick={() => setSelectedCity(city)}
+      onClick={() => {
+        setSelectedCity(city);
+        const element = document.getElementById("toNavigate"); // Replace 'element-id' with the actual id of your target element
+        if (element) {
+          element.scrollIntoView({
+            behavior: "smooth", // Smooth scrolling
+            block: "nearest", // Align to the top of the element
+          });
+        }
+      }}
       className="relative flex items-end justify-center shadow cursor-pointer p-2 hover:-translate-y-1 transform-all duration-300 w-full h-48 border border-1 rounded-lg"
     >
       <Image

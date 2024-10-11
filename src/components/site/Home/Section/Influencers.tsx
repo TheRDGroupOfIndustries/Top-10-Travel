@@ -73,7 +73,7 @@ const Influencers = () => {
         </p>
 
         {selectedCity === "" || !selectedCity ? (
-          <div className="w-full grid xl:grid-cols-4 lg:grid-cols-3 lg:gap-5 md:gap-4 sm:gap-3 gap-2 grid-cols-2">
+          <div className="w-full grid xl:grid-cols-4 lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 lg:gap-6 md:gap-5 sm:gap-4 gap-3">
             {allCities.map((city, i) => {
               if (i > 11) return;
 
@@ -112,15 +112,36 @@ const Influencers = () => {
               {!isLoading && <InfluencerCarousel data={data as Data} />}
             </div>
 
-            <Link href={`/Influencers`}>
+            <div className="flex gap-4">
+              <Link href={`/Influencers`}>
+                <motion.div
+                  className="bg-black px-5 py-2 rounded-md mt-6 mb-5 mx-auto hover:bg-gray-800 w-fit transition-colors text-white font-bold"
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.9 }}
+                  >
+                  View more
+                </motion.div>
+              </Link>
+
               <motion.div
-                className="bg-black px-5 py-2 rounded-md mt-6 mb-5 mx-auto hover:bg-gray-800 w-fit transition-colors text-white font-bold"
+                onClick={() =>{ 
+                  setSelectedCity("");
+                  
+                  const element = document.getElementById("toNavigate"); 
+                  if (element) {
+                    element.scrollIntoView({
+                      // behavior: "smooth", // Smooth scrolling
+                      block: "nearest", // Align to the top of the element
+                    });
+                  }
+                }}
+                className="bg-black px-5 py-2 cursor-pointer rounded-md mt-6 mb-5 mx-auto hover:bg-gray-800 w-fit transition-colors text-white font-bold"
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
               >
-                View more
+                Back To Cities
               </motion.div>
-            </Link>
+            </div>
           </>
         )}
       </div>
