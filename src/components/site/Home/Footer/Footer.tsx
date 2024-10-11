@@ -8,6 +8,7 @@ import {
   FaXTwitter,
   FaYoutube,
 } from "react-icons/fa6";
+// Update
 
 const contactInfo = [
   // { icon: Phone, text: "+91 9358XXXXX" },
