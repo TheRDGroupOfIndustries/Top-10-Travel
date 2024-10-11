@@ -46,6 +46,7 @@ function Navbar() {
   const [prevScrollPos, setPrevScrollPos] = useState(0);
   const [visible, setVisible] = useState(true);
   const route = usePathname();
+  
   const session = useSession();
 
   const toggleSidebar = () => {

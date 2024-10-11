@@ -6,7 +6,7 @@ import {
   FaXTwitter,
   FaYoutube,
 } from "react-icons/fa6";
-
+import { signIn, signOut, useSession } from "next-auth/react";
 import { TextGenerateEffect } from "@/components/ui/text-generate-effect";
 import { sendContactEmail } from "@/core/server/actions/contact/contact";
 import useMutation from "@/hooks/useMutation";
@@ -40,28 +40,40 @@ const ContactUsComp = () => {
   const [email, setEmail] = useState("");
   const [contact, setContact] = useState("");
   const [message, setMessage] = useState("");
+  const session = useSession();
   const { mutate, isPending } = useMutation(sendContactEmail);
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
 
-    const obj = {
-      firstName: firstName,
-      lastName: lastName,
-      email: email,
-      contact: contact,
-      message: message,
-    };
+    if(session.status === "authenticated" ) {
+      const obj = {
+        firstName: firstName,
+        lastName: lastName,
+        email: email,
+        contact: contact,
+        message: message,
+      };
 
-    const { error, success } = await mutate({
-      name: obj.firstName + " " + obj.lastName,
-      email: obj.email,
-      phone: obj.contact,
-      message: obj.message,
-    });
+      const { error, success } = await mutate({
+        name: obj.firstName + " " + obj.lastName,
+        email: obj.email,
+        phone: obj.contact,
+        message: obj.message,
+      });
 
-    if (success) toast.success(success);
-    else if (error) toast.error(error);
+      if (success) {
+        toast.success(success);
+        setFirstName("");
+        setLastName("");
+        setEmail("");
+        setContact("");
+        setMessage("");
+      } else if (error) toast.error(error);
+    } else {
+       toast.error("You must log in to your account before proceeding.");
+    }
+    
   };
 
   return (
@@ -224,6 +236,7 @@ const ContactUsComp = () => {
                     }}
                   />
                 </div>
+
                 <div className="w-full flex justify-end">
                   <button
                     type="submit"
@@ -236,9 +249,19 @@ const ContactUsComp = () => {
               </form>
               <div className="text-[17px] font-[500] w-full text-black/50 mx-auto mt-4 border-green-500 text-center">
                 By contacting us, you agree to our
-                <span className="text-black mx-1">Terms of Service</span>
+                <Link
+                  href="/terms-conditions"
+                  className="text-black mx-1 hover:underline"
+                >
+                  Terms of Service
+                </Link>
                 and
-                <span className="text-black mx-1">Privacy Policy</span>
+                <Link
+                  href="/privacy-policy"
+                  className="text-black mx-1 hover:underline"
+                >
+                  Privacy Policy
+                </Link>
               </div>
             </div>
           </div>
