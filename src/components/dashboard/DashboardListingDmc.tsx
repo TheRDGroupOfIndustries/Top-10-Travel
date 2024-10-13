@@ -205,7 +205,7 @@ export default function DashboardListingDmc({
         </div>
       </div>
 
-      <div className="flex items-center">
+      <div className="flex items-center flex-wrap p-1 md:p-0">
         <Input
           placeholder="Search by name or id..."
           value={searchValue}
