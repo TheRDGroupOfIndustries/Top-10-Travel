@@ -104,7 +104,7 @@ function Navbar() {
                 <User size={18} />
                 <span>Admin Dashboard</span>
               </div>
-            </Link>
+            </Link> 
           </DropdownMenuItem>
 
           <DropdownMenuItem>
