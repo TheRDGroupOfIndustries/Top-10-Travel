@@ -20,7 +20,7 @@ function ShareButton() {
         className="border-black h-full w-1/3 border-[1px] rounded-full sm:text-xl min-[421px]:text-base text-xs font-medium transform hover:-translate-y-1 transition duration-200 hover:shadow-md hover:bg-white"
         variant="outline"
       >
-        Share Link
+        Share
       </Button>
     </RWebShare>
   );
