@@ -129,21 +129,56 @@ function HomeHero() {
     setCountry,
     toggleVisible,
     allCities,
+    isSticky,
+    setSticky,
     allCountries,
     updateAllData,
   } = useContext(HomeContext);
+  const elementRef = useRef<HTMLDivElement | null>(null);
+
+  const handleScroll = () => {
+    if (elementRef.current) {
+      const elementTop = elementRef.current.getBoundingClientRect().top;
+      // Check if the element has touched the top of the window
+      setSticky(elementTop <= 0);
+      // console.log(elementTop, elementTop <= 0);
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await axios.get("/api/filter");
+        const params = new URLSearchParams();
+
+        // Ensure visible is an object with keys and boolean values
+        Object.keys(visible).forEach((key: string) => {
+          if (visible[key as keyof typeof visible]) {
+            params.append(key, "true");
+          }
+        });
+
+        const res = await axios.get<{ countries: string[] }>("/api/filter", {
+          params: params,
+        });
+
         updateAllData(res.data.countries);
       } catch (error) {
         console.log(error);
       }
     };
+
     fetchData();
-  }, []);
+  }, [visible]);
+
+  // Adding visible to the dependency array to trigger on change
 
   const boxItems = [
     {
@@ -228,6 +263,8 @@ function HomeHero() {
       ref={divref}
       className="relative w-full h-fit min-h-[50vh] md:max-h-screen min-[768]:h-[calc(100vh+60px)] max-[820]:h-fit lg:h-fit  pt-10 lg:pt-0 px-2 md:px-3 lg:px-6 xl:px-8 "
     >
+      <div id="toNavigate" className="absolute bottom-14 left-0 h-[0.5px] w-[0.5px]"></div>
+
       <div className="h-full flex flex-col md:gap-3 lg:gap-0 gap-1.5 justify-start pt-16 md:pt-24 lg:pt-32 pb-24 xl:pt-40 w-full overflow-x-hidden">
         <h3
           id="firstLine"
@@ -274,11 +311,17 @@ function HomeHero() {
             &nbsp;all around the world.
           </motion.span>
         </p>
+
+
         <motion.div
           initial={{ y: 50, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.8, delay: 1.4, type: "spring" }}
-          className="w-full pt-14 md:pt-10 lg:overflow-hidden lg:pt-24 md:max-w-[430px] lg:max-w-[730px]"
+          className={`w-full pt-14 md:pt-10 lg:overflow-hidden lg:pt-24 md:max-w-[430px] lg:max-w-[730px] ${
+            isSticky && selectedCountry
+              ? "fixed top-0 z-40 left-0 lg:pt-[3.8rem] pb-4 md:pt-[3.8rem] bg-white/80 backdrop-blur-sm lg:overflow-visible md:max-w-full lg:max-w-full md:w-full px-2 md:px-3 lg:px-6 xl:px-8"
+              : ""
+          }`}
         >
           <div className="w-full ml-1 xs:ml-4 flex items-end justify-start">
             <div className="relative max-w-48 xs:max-w-60 h-7 xs:h-9 flex items-center justify-center">
@@ -292,6 +335,7 @@ function HomeHero() {
                 FIND YOUR TOP 10
               </span>
             </div>
+
             <div className="lg:hidden">
               <MobileDropdown
                 items={boxItems}
@@ -299,6 +343,7 @@ function HomeHero() {
                 toggle={toggle}
               />
             </div>
+
             <div className="hidden ml-5 lg:flex xl:gap-5 gap-4">
               {boxItems.map(({ key, text }) => (
                 <div
@@ -312,11 +357,29 @@ function HomeHero() {
                     toggle(key)
                   }
                 >
-                  {
+                  {/* {
                     // @ts-ignore
                     visible[key] && (
                       <Image
                         src={"/Hero_Filter_Small.png"}
+                        fill
+                        className="absolute -z-10"
+                        alt="hero_filter_img"
+                      />
+                    )
+                  } */}
+                  {
+                    // @ts-ignore
+                    visible[key] ? (
+                      <Image
+                        src={"/Hero_Filter_Small.png"}
+                        fill
+                        className="absolute -z-10"
+                        alt="hero_filter_img"
+                      />
+                    ) : (
+                      <Image
+                        src={"/Hero_Filter_Large.png"}
                         fill
                         className="absolute -z-10"
                         alt="hero_filter_img"
@@ -378,7 +441,9 @@ function HomeHero() {
             </div>
           </div>
         </motion.div>
+        <div ref={elementRef} className="h-[1px] w-[1px]"></div>
       </div>
+
       <div
         ref={scope}
         className="absolute -z-20 right-0 top-0 bottom-0 md:h-full w-[45%] md:w-[45%] lg:w-[40%] xl:w-[35%]"

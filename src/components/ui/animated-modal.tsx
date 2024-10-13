@@ -199,7 +199,7 @@ const CloseIcon = () => {
     <button
       onClick={() => { 
         setOpen(false);
-        console.log('clicked');
+        // console.log('clicked');
       }}
       className="absolute top-4 cursor-pointer right-4 group"
     >

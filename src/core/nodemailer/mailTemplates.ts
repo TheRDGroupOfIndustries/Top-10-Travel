@@ -128,7 +128,7 @@ export function getContactUsAdminTemplate(
     subject: "New Contact Us Submission",
     text: `Hi Admin,
 
-You have a new contact us submission from the website.
+You have a new contact us submission from the Travel Top 10.
 
 Name: ${userName}
 Email: ${userEmail}
@@ -141,7 +141,7 @@ Your Website Team`,
 
     html: `<strong>Hi Admin,</strong>
 
-<p>You have a new contact us submission from the website.</p>
+<p>You have a new contact us submission from the Travel Top 10.</p>
 
 <p><strong>Name:</strong> ${userName}</p>
 <p><strong>Email:</strong> ${userEmail}</p>
@@ -170,7 +170,9 @@ You have received a new inquiry about your hotel, ${hotelName}.
 Name: ${userName}
 Email: ${userEmail}
 Phone Number: ${userPhoneNumber}
-Date: ${new Date().getDate()}/${new Date().getMonth() + 1}/${new Date().getFullYear()}
+Date: ${new Date().getDate()}/${
+      new Date().getMonth() + 1
+    }/${new Date().getFullYear()}
 
 Message:
 ${userMessage}
@@ -188,7 +190,9 @@ The Travel-Top-10 Team`,
 <p><strong>Name:</strong> ${userName}</p>
 <p><strong>Email:</strong> ${userEmail}</p>
 <p><strong>Phone Number:</strong> ${userPhoneNumber}</p>
-<p><strong>Date:</strong> ${new Date().getDate()}/${new Date().getMonth() + 1}/${new Date().getFullYear()}</p>
+<p><strong>Date:</strong> ${new Date().getDate()}/${
+      new Date().getMonth() + 1
+    }/${new Date().getFullYear()}</p>
 
 
 <p><strong>Message:</strong></p>

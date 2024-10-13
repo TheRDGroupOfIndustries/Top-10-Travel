@@ -5,6 +5,7 @@ import TopTenDMC from "./Section/NewDesign/TopTenDMC";
 import TopTenHotels from "./Section/NewDesign/TopTenHotels";
 import { HomeContextProvider } from "@/hooks/context/HomeContext";
 import HomeHero from "./Home_Hero";
+import AboutusComp from "@/components/site/Aboutus/AboutusComp";
 
 function HomePage() {
   return (
@@ -15,8 +16,9 @@ function HomePage() {
         <TopTenAgencies />
         <TopTenHotels />
         <TopTenDMC />
-        <Certification />
         <Influencers />
+        <Certification />
+        <AboutusComp />
       </div>
     </HomeContextProvider>
   );

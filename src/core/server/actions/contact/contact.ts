@@ -14,12 +14,12 @@ export const sendContactEmail = async ({
   phone: string;
   message: string;
 }) => {
-  const cookieStore = cookies();
-  const emailSentCookie = cookieStore.get("emailSent");
+  // const cookieStore = cookies();
+  // const emailSentCookie = cookieStore.get("emailSent");
 
-  if (emailSentCookie && emailSentCookie.value === "true") {
-    return { error: "You cannot send multiple emails." };
-  }
+  // if (emailSentCookie && emailSentCookie.value === "true") {
+  //   return { error: "You cannot send multiple emails." };
+  // }
 
   const adminEmail = process.env.ADMIN_EMAIL;
 
@@ -35,13 +35,13 @@ export const sendContactEmail = async ({
   });
 
   if (sent) {
-    cookieStore.set({
-      name: "emailSent",
-      value: "true",
-      httpOnly: true,
-      path: "/",
-    });
-    
+    // cookieStore.set({
+    //   name: "emailSent",
+    //   value: "true",
+    //   httpOnly: true,
+    //   path: "/",
+    // });
+
     return {
       success:
         "Your message has been successfully sent. We appreciate you reaching out to us and will get back to you as soon as possible.",

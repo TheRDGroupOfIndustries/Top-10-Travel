@@ -46,6 +46,7 @@ function Navbar() {
   const [prevScrollPos, setPrevScrollPos] = useState(0);
   const [visible, setVisible] = useState(true);
   const route = usePathname();
+  
   const session = useSession();
 
   const toggleSidebar = () => {
@@ -131,7 +132,7 @@ function Navbar() {
   return (
     <>
       <nav
-        className={`flex bg-white/80 backdrop-blur-sm justify-between items-center h-[60px] w-[100vw] fixed top-0 z-40 px-2 md:px-3 lg:px-6 xl:px-8 transition-transform duration-300 ${
+        className={`flex bg-white/80 backdrop-blur-sm z-50 justify-between items-center h-[60px] w-[100vw] fixed top-0 px-2 md:px-3 lg:px-6 xl:px-8 transition-transform duration-300 ${
           visible ? "translate-y-0" : "-translate-y-full"
         }`}
       >

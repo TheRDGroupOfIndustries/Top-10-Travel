@@ -8,6 +8,7 @@ import {
   FaXTwitter,
   FaYoutube,
 } from "react-icons/fa6";
+// Update
 
 const contactInfo = [
   // { icon: Phone, text: "+91 9358XXXXX" },
@@ -39,7 +40,7 @@ const companyLinks = [
 ];
 
 const top10Links: { name: string; link: string }[] = [
-  { name: "Travel Agencies", link: "/Agency" },
+  { name: "Agencies", link: "/Agency" },
   { name: "Hotels", link: "/Hotels" },
   { name: "DMC", link: "/DMC" },
   { name: "Influencers", link: "/Influencers" },
@@ -80,7 +81,7 @@ function Footer() {
               </Link>
             </div>
 
-            <p className="mb-6 cursor-default sm:pr-8 font-semibold">
+            <p className="mb-6 cursor-default text-white sm:pr-8 font-semibold">
               Experience the Extraordinary: Top Travel Experts, Hotels, and
               Agencies at Your Fingertips
             </p>
@@ -91,10 +92,10 @@ function Footer() {
                   <Link href={`mailto:${item.text}`} key={index}>
                     <div
                       key={index}
-                      className="flex hover:scale-110 transition-all duration-500 cursor-pointer items-center justify-center gap-2 font-semibold"
+                      className="flex hover:scale-110 transition-all text-white duration-500 cursor-pointer items-center justify-center gap-2 font-semibold"
                     >
                       <span className="flex-1">
-                        <item.icon className="w-5 h-5 stroke-black" />
+                        <item.icon className="w-5 h-5 stroke-white" />
                       </span>
                       <span>{item.text}</span>
                     </div>
@@ -102,10 +103,10 @@ function Footer() {
                 ) : (
                   <div
                     key={index}
-                    className="flex hover:scale-110 transition-all duration-500 cursor-pointer items-center justify-center gap-2 font-semibold"
+                    className="flex hover:scale-110 transition-all text-white duration-500 cursor-pointer items-center justify-center gap-2 font-semibold"
                   >
                     <span className="flex-1">
-                      <item.icon className="w-5 h-5 stroke-black" />
+                      <item.icon className="w-5 h-5 stroke-white" />
                     </span>
                     <span>{item.text}</span>
                   </div>
@@ -116,7 +117,7 @@ function Footer() {
 
           {/* Company Links */}
           <div>
-            <div className="mb-4 font-bold uppercase tracking-widest text-xl md:text-2xl">
+            <div className="mb-4 font-bold text-white uppercase tracking-widest text-xl md:text-2xl">
               Company
             </div>
             <nav className="flex flex-col gap-4">
@@ -124,7 +125,7 @@ function Footer() {
                 <div key={index}>
                   <Link
                     href={item.link}
-                    className="cool-link-black font-medium"
+                    className="cool-link-black text-white font-medium"
                   >
                     {item.name}
                   </Link>
@@ -135,16 +136,16 @@ function Footer() {
 
           {/* Top 10 Links */}
           <div>
-            <div className="mb-4 font-bold uppercase tracking-widest text-xl md:text-2xl">
+            <div className="mb-4 font-bold uppercase text-white tracking-widest text-xl md:text-2xl">
               TOP 10
             </div>
 
-            <nav className="flex flex-col gap-4">
+            <nav className="flex flex-col text-white gap-4">
               {top10Links?.map((item, index) => (
                 <div key={index}>
                   <Link
                     href={item.link}
-                    className="cool-link-black font-medium"
+                    className="cool-link-black text-white font-medium"
                   >
                     {item.name}
                   </Link>
@@ -155,7 +156,7 @@ function Footer() {
 
           {/* Social Icons */}
           <div>
-            <div className="mb-4 font-bold uppercase tracking-widest text-xl md:text-2xl">
+            <div className="mb-4 text-white font-bold uppercase tracking-widest text-xl md:text-2xl">
               Follow us
             </div>
             <nav className="flex items-center justify-start gap-5">
@@ -165,14 +166,14 @@ function Footer() {
                   key={index}
                   className="hover:scale-150 transition-all duration-300 cursor-pointer"
                 >
-                  <item.icon className="w-5 h-5" />
+                  <item.icon className="w-5 text-white h-5" />
                 </Link>
               ))}
             </nav>
           </div>
         </div>
 
-        <div className="cursor-default select-none border-t py-8 text-center text-sm font-semibold">
+        <div className="cursor-default text-white select-none border-t py-8 text-center text-sm font-semibold">
           All rights Reserved © Top 10 Travel, {new Date().getFullYear()}
         </div>
       </footer>

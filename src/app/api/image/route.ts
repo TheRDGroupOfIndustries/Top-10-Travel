@@ -5,7 +5,7 @@ export const revalidate = 3600;
 
 export const GET = async (request: NextRequest) => {
   const { searchParams } = new URL(request.url);
-  
+
   let country = searchParams.get("country");
   const role = searchParams.get("role") as "DMC" | "Agency" | "Hotel";
   let city = searchParams.get("city")?.trim();
@@ -17,57 +17,33 @@ export const GET = async (request: NextRequest) => {
     const data = await db.agency.findMany({
       where: { isCertified: true, country, city: city || {} },
       select: {
-        id: true,
         images: true,
-        city: true,
-        country: true,
-        name: true,
-        rating: true,
-        reviews: true,
-        primaryServices: true,
-        yearOfEstablishment: true,
-        methodology: true,
       },
       orderBy: { priority: "desc" },
     });
-    return NextResponse.json({ result: data });
+
+    return NextResponse.json({ result: data[0] });
   } else if (role === "DMC") {
-    const data = await db.dMC.findMany({
+    const data = await db.dMC.findFirst({
       where: { isCertified: true, country, city: city || {} },
       select: {
-        id: true,
         images: true,
-        city: true,
-        country: true,
-        name: true,
-        rating: true,
-        reviews: true,
-        specialization: true,
-        yearOfEstablishment: true,
-        methodology: true,
       },
       orderBy: { priority: "desc" },
     });
+
     return NextResponse.json({ result: data });
   } else if (role === "Hotel") {
     const data = await db.hotel.findMany({
       where: { isCertified: true, country, city: city || {} },
       select: {
-        id: true,
         images: true,
-        city: true,
-        country: true,
-        name: true,
-        rating: true,
-        reviews: true,
-        specialization: true,
-        yearOfEstablishment: true,
-        methodology: true,
       },
       orderBy: { priority: "desc" },
     });
+
     return NextResponse.json(
-      { result: data },
+      { result: data[0] },
       { headers: { "Cache-Control": "public, max-age=300" } }
     );
   } else {

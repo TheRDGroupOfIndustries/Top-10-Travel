@@ -10,6 +10,9 @@ const Page = async () => {
   const allAgencies = await db.agency.findMany({
     where: {
       isCertified: true,
+      // priority: {
+      //   gt: 0,  // Filters agencies where priority is greater than 0
+      // },
     },
     select: {
       id: true,
@@ -21,6 +24,7 @@ const Page = async () => {
       rating: true,
       reviews: true,
     },
+
     orderBy: { priority: "asc" },
   });
 

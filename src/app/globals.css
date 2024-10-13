@@ -88,7 +88,7 @@
 }
 
 .cool-link-black {
-  @apply inline-block text-black no-underline relative;
+  @apply inline-block text-white no-underline relative;
 }
 
 .cool-link-black::after {
@@ -96,7 +96,7 @@
   display: block;
   width: 0;
   height: 1px;
-  background: black;
+  background: white;
   transition: width 0.3s;
   position: absolute;
   left: 0;

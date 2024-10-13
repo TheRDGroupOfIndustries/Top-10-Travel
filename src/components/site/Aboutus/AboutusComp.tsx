@@ -31,10 +31,10 @@ const AboutusComp = async () => {
         <div className="uppercase tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-mainColor to-mainColorSecondary font-semibold text-2xl">
           About us
         </div>
-        <div className="text-slate-850 font-semibold text-4xl">
+        <div className="text-slate-850 font-semibold text-4xl lg:text-5xl">
           Your Gateway to Seamless Travel Planning
         </div>
-        <div className="text-slate-800 mt-auto textlg">
+        <div className="text-slate-800 mt-auto xl:text-lg">
           Our mission is to become the leader in the personalized premier travel
           domain, redefining luxury travel experiences through tailored
           itineraries, exceptional service, and unwavering dedication to our

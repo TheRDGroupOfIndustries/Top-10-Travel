@@ -16,6 +16,7 @@ import { HomeContext } from "@/hooks/context/HomeContext";
 import { cn, getValidUrl } from "@/lib/utils";
 import { motion } from "framer-motion";
 import { DMCHotelApiResult } from "@/types/homeApiType";
+import HomeCards from "@/components/reusable/HomeCards";
 
 const CarouselCard = ({ dmc }: { dmc: DMCHotelApiResult }) => (
   <motion.div
@@ -32,7 +33,7 @@ const CarouselCard = ({ dmc }: { dmc: DMCHotelApiResult }) => (
       staggerChildren: 0.6,
     }}
     viewport={{ once: true }}
-    className="flex flex-col md:hover:-translate-y-4 w-full duration-300 transition-all h-full"
+    className="flex flex-col md:hover:-translate-y-2 w-full duration-300 transition-all h-full"
   >
     <div className="relative h-48 sm:h-56 md:h-64 lg:h-72 rounded-lg overflow-hidden">
       <div className="absolute top-0 left-0 bg-mainColor w-[80%] h-[70%] rounded-lg"></div>
@@ -62,7 +63,9 @@ const CarouselCard = ({ dmc }: { dmc: DMCHotelApiResult }) => (
 );
 
 const TopTenDMC = () => {
-  const { selectedCountry, selectedCity, visible } = useContext(HomeContext);
+  const { selectedCountry, allCities, setSelectedCity, selectedCity, visible } =
+    useContext(HomeContext);
+
   const { data, isLoading }: { data: DMCHotelApiResult[]; isLoading: boolean } =
     useAxios({
       url: `/api/home?country=${selectedCountry}&city=${selectedCity}&role=DMC`,
@@ -95,6 +98,7 @@ const TopTenDMC = () => {
             }${selectedCity && "-" + selectedCity.toUpperCase()}`}
           </motion.span>
         </h1>
+
         <p className="text-base sm:text-lg text-center mb-8">
           <motion.span
             className="inline-block"
@@ -110,82 +114,133 @@ const TopTenDMC = () => {
             Experience Hassle-Free Room Hunting with Our Comprehensive Listing
           </motion.span>
         </p>
-        <Carousel
-          opts={{
-            align: "start",
-          }}
-          plugins={[
-            Autoplay({
-              delay: 2000,
-              stopOnInteraction: false,
-              stopOnMouseEnter: true,
-            }),
-          ]}
-          className="w-full hidden md:block"
-        >
-          <div className="absolute -top-7 right-10">
+
+        {selectedCity === "" || !selectedCity ? (
+          <div className="w-full grid xl:grid-cols-4 lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 lg:gap-6 md:gap-5 sm:gap-4 gap-3">
+
+            {allCities.map((city, i) => {
+              if (i > 11) return;
+
+              return (
+                <HomeCards
+                  key={i}
+                  country={selectedCountry}
+                  city={city}
+                  setSelectedCity={setSelectedCity}
+                  role={"DMC"}
+                  image={`/image${i + 1}.jpg`}
+                />
+              );
+            })}
+          </div>
+        ) : (
+          <>
+            <Carousel
+              opts={{
+                align: "start",
+              }}
+              // plugins={[
+              //   Autoplay({
+              //     delay: 2000,
+              //     stopOnInteraction: false,
+              //     stopOnMouseEnter: true,
+              //   }),
+              // ]}
+              className="w-full hidden sm:block"
+            >
+              {/* <div className="absolute -top-7 right-10">
             <CarouselPrevious className="hidden sm:flex" />
             <CarouselNext className="hidden sm:flex" />
-          </div>
-          <CarouselContent className="-ml-2 my-7 md:-ml-4">
-            {isLoading ? (
-              Array.from({ length: 5 }).map((_, index) => (
-                <CarouselItem
-                  key={index}
-                  className="pl-2 md:pl-4 sm:basis-1/2 lg:basis-1/3 xl:basis-1/4"
-                >
-                  <HomeCompanySkeleton role="DMC" />
-                </CarouselItem>
-              ))
-            ) : data && data.length > 0 ? (
-              data.slice(0, 10).map((dmc) => (
-                <CarouselItem
-                  key={dmc.id}
-                  className="pl-2 md:pl-4 sm:basis-1/2 lg:basis-1/3 xl:basis-1/4"
-                >
-                  <CarouselCard dmc={dmc} />
-                </CarouselItem>
-              ))
-            ) : (
-              <div className="w-full text-center py-10">No DMCs found</div>
-            )}
-          </CarouselContent>
-        </Carousel>
-        <div className="block md:hidden">
-          <div className="w-full flex flex-col items-center justify-center gap-5">
-            {isLoading ? (
-              Array.from({ length: 5 }).map((_, index) => (
-                <div
-                  key={index}
-                  className="flex flex-col items-center justify-center gap-5"
-                >
-                  <HomeCompanySkeleton role="DMC" />
-                </div>
-              ))
-            ) : data && data.length > 0 ? (
-              data.slice(0, 10).map((dmc) => (
-                <div
-                  key={dmc.id}
-                  className="flex flex-col items-center justify-center gap-5 w-[80%] h-full sm:w-[70vw]"
-                >
-                  <CarouselCard dmc={dmc} />
-                </div>
-              ))
-            ) : (
-              <div className="w-full text-center py-10">No DMCs found</div>
-            )}
-          </div>
-        </div>
+          </div> */}
 
-        <Link href={`/DMC`}>
-          <motion.div
-            className="bg-black px-5 py-2 rounded-md mt-6 mb-5 mx-auto hover:bg-gray-800 w-fit transition-colors text-white font-bold"
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.9 }}
-          >
-            View more
-          </motion.div>
-        </Link>
+              <CarouselContent className="-ml-2 grid gap-y-4 xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 my-7 md:-ml-4">
+                {/* <CarouselContent className="-ml-2 my-7 md:-ml-4"> */}
+                {isLoading ? (
+                  Array.from({ length: 5 }).map((_, index) => (
+                    <CarouselItem
+                      key={index}
+                      className="pl-2 md:pl-4 sm:basis-1/2 lg:basis-1/3 xl:basis-1/4"
+                    >
+                      <HomeCompanySkeleton role="DMC" />
+                    </CarouselItem>
+                  ))
+                ) : data && data.length > 0 ? (
+                  data.slice(0, 8).map((dmc) => (
+                    // data.slice(0, 10).map((dmc) => (
+                    <CarouselItem
+                      key={dmc.id}
+                      className="pl-2 md:pl-4 sm:basis-1/2 lg:basis-1/3 xl:basis-1/4"
+                    >
+                      <CarouselCard dmc={dmc} />
+                    </CarouselItem>
+                  ))
+                ) : (
+                  <div className="w-full text-center justify-self-center py-10">
+                    No DMCs found
+                  </div>
+                )}
+              </CarouselContent>
+            </Carousel>
+
+            <div className="block sm:hidden">
+              <div className="w-full flex flex-col items-center justify-center gap-5">
+                {isLoading ? (
+                  Array.from({ length: 5 }).map((_, index) => (
+                    <div
+                      key={index}
+                      className="flex flex-col items-center justify-center gap-5"
+                    >
+                      <HomeCompanySkeleton role="DMC" />
+                    </div>
+                  ))
+                ) : data && data.length > 0 ? (
+                  data.slice(0, 8).map((dmc) => (
+                    <div
+                      key={dmc.id}
+                      className="flex flex-col items-center justify-center gap-5 w-[80%] h-full sm:w-[70vw]"
+                    >
+                      <CarouselCard dmc={dmc} />
+                    </div>
+                  ))
+                ) : (
+                  <div className="w-full text-center py-10">No DMCs found</div>
+                )}
+              </div>
+            </div>
+
+            <div className="flex gap-4">
+
+            <Link href={`/DMC`}>
+              <motion.div
+                className="bg-black px-5 py-2 rounded-md mt-6 mb-5 mx-auto hover:bg-gray-800 w-fit transition-colors text-white font-bold"
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+              >
+                View more
+              </motion.div>
+            </Link>
+
+              <motion.div
+                onClick={() =>{ 
+                  setSelectedCity("");
+                  
+                  const element = document.getElementById("toNavigate"); 
+                  if (element) {
+                    element.scrollIntoView({
+                      behavior: "smooth", // Smooth scrolling
+                      // block: "nearest", // Align to the top of the element
+                    });
+                  }
+                }}
+                className="bg-black px-5 py-2 cursor-pointer rounded-md mt-6 mb-5 mx-auto hover:bg-gray-800 w-fit transition-colors text-white font-bold"
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+              >
+                Back To Cities
+              </motion.div>
+            </div>
+          </>
+        )}
       </div>
     </section>
   );

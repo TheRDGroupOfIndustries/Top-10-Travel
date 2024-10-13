@@ -6,6 +6,7 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { BsFillHandIndexThumbFill } from "react-icons/bs";
 import { TbMapPin, TbPhoneCall } from "react-icons/tb";
 
 type Data = {
@@ -87,6 +88,7 @@ function ListDataInfluencer({
           //     </div>
           //   </div>
           // </motion.div>
+
           <Link href={`/Influencers/${item.id}`} key={item.id}>
             <motion.div
               initial={{ opacity: 0, translateY: -150 }}
@@ -95,7 +97,20 @@ function ListDataInfluencer({
               viewport={{ once: true }}
               className="relative w-full cursor-pointer lg:h-60 rounded-lg flex flex-col md:flex-row items-center justify-between gap-3 shadow shadow-black/30"
             >
-              <div className="lg:w-[30%] w-full lg:h-full h-60 rounded-lg overflow-hidden">
+              <div className="lg:w-[30%] relative w-full lg:h-full h-60 rounded-lg overflow-hidden">
+                {currentPage === 1 && (
+                  <div className="absolute h-full">
+                    <Image
+                      src={`/rankPngs/${index + 1}.png`}
+                      alt="ranks logo"
+                      // objectFit="contain"
+                      className="object-cover object-left w-full h-full"
+                      width={3182}
+                      height={2000}
+                    />
+                  </div>
+                )}
+
                 <Image
                   src={item?.image}
                   alt={`travel image`}
@@ -104,6 +119,7 @@ function ListDataInfluencer({
                   className="w-full h-full object-cover"
                 />
               </div>
+
               <div className="lg:w-[70%] w-full h-full rounded-lg overflow-hidden flex flex-col items-start justify-start gap-2 md:p-1 px-3 pb-3">
                 <h1 className="text-2xl line-clamp-1 font-semibold">
                   {item?.name}
@@ -124,15 +140,18 @@ function ListDataInfluencer({
 
                 <p className="text-sm line-clamp-2">{item?.description}</p>
 
-                <Button className="text-xl group bg-[#FFEF9E] text-mainColor hover:bg-mainColor hover:text-[#FFEF9E]">
-                  <span>Enquire now</span>
-                  <TbPhoneCall size={20} className="stroke-2 ml-1" />
-                </Button>
+                <div className="flex mt-auto mb-1 w-full gap-2 justify-start">
+                  <Button className="h-full xs:text-lg text-base flex bg-white text-mainColor border-mainColor border-[2px] rounded-md hover:bg-mainColor hover:text-white">
+                    <span>Enquire now</span>
+                    <TbPhoneCall size={20} className="stroke-2 ml-1" />
+                  </Button>
+                </div>
               </div>
             </motion.div>
           </Link>
         ))}
       </div>
+
       {data?.length > itemsPerPage && (
         <div className="mt-8 flex justify-center gap-4">
           <Button

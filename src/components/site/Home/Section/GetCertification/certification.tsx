@@ -2,7 +2,8 @@
 
 import { signIn, useSession } from "next-auth/react";
 import Link from "next/link";
-import React, { useState, useEffect, useRef } from "react";
+import { HomeContext } from "@/hooks/context/HomeContext";
+import React, { useState, useEffect, useRef, useContext } from "react";
 import { motion } from "framer-motion";
 
 const data = [
@@ -21,6 +22,7 @@ export function CountUp({
   const [count, setCount] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
   const ref = useRef<HTMLSpanElement>(null);
+
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -76,14 +78,33 @@ export function CountUp({
 
 function Certification() {
   const session = useSession();
+  const { isSticky, setSticky } = useContext(HomeContext);
+  const elementRef = useRef<HTMLDivElement | null>(null);
+
+  const handleScroll = () => {
+    if (elementRef.current) {
+      const elementTop = elementRef.current.getBoundingClientRect().top;
+      // Check if the element has touched the top of the window
+      // setSticky(elementTop <= 0);
+      if (elementTop <= 300) setSticky(false);
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
   return (
-    <div className="w-full h-auto mt-10 py-5 bg-mainColor">
+    <div ref={elementRef} className="w-full h-auto mt-16 py-5 bg-mainColor">
       <div className="px-2 md:px-3 lg:px-6 xl:px-8 w-full h-full flex flex-col items-center justify-between">
-        <h1 className="font-bold md:text-4xl lg:text-[35px] text-xl my-3 lg:my-6">
+        <h1 className="font-bold text-white md:text-4xl lg:text-[35px] text-xl my-3 lg:my-6">
           Our legacy
         </h1>
-        <div className="w-full grid grid-cols-3 gap-2 md:gap-10 lg:px-40 ">
+        <div className="w-full grid text-white grid-cols-3 gap-2 md:gap-10 lg:px-40 ">
           {data?.map((item, index) => (
             <div
               key={index}
@@ -96,13 +117,13 @@ function Certification() {
             </div>
           ))}
         </div>
-        <h2 className="font-bold md:text-4xl text-2xl lg:text-[45px] font-serif text-center  my-3 lg:my-10">
+        <h2 className="font-bold text-white md:text-4xl text-2xl lg:text-[45px] font-serif text-center  my-3 lg:my-10">
           WANT TO GET CERTIFIED?
         </h2>
         {session.status !== "authenticated" ? (
           <motion.div
             onClick={() => signIn("google")}
-            className="bg-black px-5 lg:px-10 cursor-pointer lg:py-5 py-2  lg:mt-2 mb-2 mx-auto hover:bg-gray-800 w-fit transition-colors lg:text-[20px] text-[14px] text-white font-bold rounded-[40px]"
+            className="bg-white px-5 lg:px-10 cursor-pointer lg:py-5 py-2  lg:mt-2 mb-2 mx-auto hover:bg-slate-100 w-fit transition-colors lg:text-[20px] text-[14px] text-black font-bold rounded-[40px]"
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
           >
@@ -111,7 +132,7 @@ function Certification() {
         ) : (
           <Link href="/auth/get-started">
             <motion.div
-              className="bg-black px-5 lg:px-10 cursor-pointer lg:py-5 py-2  lg:mt-2 mb-2 mx-auto hover:bg-gray-800 w-fit transition-colors lg:text-[20px] text-[14px] text-white font-bold rounded-[40px]"
+              className="bg-white px-5 lg:px-10 cursor-pointer lg:py-5 py-2  lg:mt-2 mb-2 mx-auto hover:bg-slate-100 w-fit transition-colors lg:text-[20px] text-[14px] text-black font-bold rounded-[40px]"
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
             >

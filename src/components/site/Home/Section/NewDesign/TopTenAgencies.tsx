@@ -1,21 +1,20 @@
 "use client";
-import useAxios from "@/hooks/useAxios";
-import Image from "next/image";
-import Link from "next/link";
-import React, { useContext, useEffect } from "react";
-import { motion } from "framer-motion";
+import HomeCompanySkeleton from "@/components/reusable/HomeCompanySkeleton";
 import {
   Carousel,
   CarouselContent,
   CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
 } from "@/components/ui/carousel";
-import HomeCompanySkeleton from "@/components/reusable/HomeCompanySkeleton";
-import Autoplay from "embla-carousel-autoplay";
+import axios from "axios";
 import { HomeContext } from "@/hooks/context/HomeContext";
+import useAxios from "@/hooks/useAxios";
 import { cn, getValidUrl } from "@/lib/utils";
 import { AgencyApiResult } from "@/types/homeApiType";
+import { motion } from "framer-motion";
+import Image from "next/image";
+import Link from "next/link";
+import { useContext } from "react";
+import HomeCards from "@/components/reusable/HomeCards";
 
 const CarouselCard = ({ agency }: { agency: AgencyApiResult }) => (
   <motion.div
@@ -34,7 +33,7 @@ const CarouselCard = ({ agency }: { agency: AgencyApiResult }) => (
       staggerChildren: 0.6,
     }}
     viewport={{ once: true }}
-    className="flex md:hover:-translate-y-4 duration-300 transition-all w-full flex-col h-full"
+    className="flex md:hover:-translate-y-2 duration-300 transition-all w-full flex-col h-full"
   >
     <div className="relative h-48 sm:h-56 md:h-64 lg:h-72 rounded-lg overflow-hidden">
       <div className="absolute top-0 left-0 bg-mainColor w-[80%] h-[70%] rounded-lg"></div>
@@ -65,8 +64,30 @@ const CarouselCard = ({ agency }: { agency: AgencyApiResult }) => (
   </motion.div>
 );
 
+// const fetchImage = async ({
+//   city,
+//   country,
+//   role,
+// }: {
+//   city: string;
+//   country: string;
+//   role: string;
+// }) => {
+//   try {
+//     const res = await axios.get(
+//       `/api/image?country=${country}&city=${city}&role=${role}`
+//     );
+
+//     return res;
+//   } catch (error) {
+//     console.log(error);
+//   }
+// };
+
 const TopTenAgencies = () => {
-  const { selectedCountry, selectedCity, visible } = useContext(HomeContext);
+  const { selectedCountry, selectedCity, setSelectedCity, allCities, visible } =
+    useContext(HomeContext);
+
   const { data, isLoading }: { data: AgencyApiResult[]; isLoading: boolean } =
     useAxios({
       url: `/api/home?country=${selectedCountry}&city=${selectedCity}&role=Agency`,
@@ -114,81 +135,133 @@ const TopTenAgencies = () => {
             Experience Hassle-Free Room Hunting with Our Comprehensive Listing
           </motion.span>
         </p>
-        <Carousel
-          opts={{
-            align: "start",
-          }}
-          plugins={[
-            Autoplay({
-              delay: 2000,
-              stopOnInteraction: false,
-              stopOnMouseEnter: true,
-            }),
-          ]}
-          className="w-full hidden md:block"
-        >
-          <div className="absolute -top-7 right-10">
+
+        {selectedCity === "" || !selectedCity ? (
+          <div className="w-full grid xl:grid-cols-4 lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 lg:gap-6 md:gap-5 sm:gap-4 gap-3">
+            {allCities.map((city, i) => {
+              if (i > 11) return;
+
+              return (
+                <HomeCards
+                  key={i}
+                  country={selectedCountry}
+                  city={city}
+                  setSelectedCity={setSelectedCity}
+                  role={"Agency"}
+                  image={`/image${i + 1}.jpg`}
+                />
+              );
+            })}
+          </div>
+        ) : (
+          <>
+            <Carousel
+              opts={{
+                align: "start",
+              }}
+              // plugins={[
+              //   Autoplay({
+              //     delay: 2000,
+              //     stopOnInteraction: false,
+              //     stopOnMouseEnter: true,
+              //   }),
+              // ]}
+              className="w-full hidden sm:block"
+            >
+              {/* <div className="absolute -top-7 right-10">
             <CarouselPrevious className="hidden sm:flex" />
             <CarouselNext className="hidden sm:flex" />
+          </div> */}
+              <CarouselContent className="-ml-2 grid gap-y-4 xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 my-7 md:-ml-4">
+                {/* <CarouselContent className="-ml-2 my-7 md:-ml-4"> */}
+                {isLoading ? (
+                  Array.from({ length: 5 }).map((_, i: number) => (
+                    <CarouselItem
+                      key={i}
+                      className="pl-2 md:pl-4 sm:basis-1/2 lg:basis-1/3 xl:basis-1/4"
+                    >
+                      <HomeCompanySkeleton role="AGENCY" />
+                    </CarouselItem>
+                  ))
+                ) : data && data.length > 0 ? (
+                  data.slice(0, 8).map((agency) => (
+                    // data.slice(0, 10).map((agency) => (
+                    <CarouselItem
+                      key={agency.id}
+                      className="pl-2 md:pl-4 sm:basis-1/2 lg:basis-1/3 xl:basis-1/4"
+                    >
+                      <CarouselCard agency={agency} />
+                    </CarouselItem>
+                  ))
+                ) : (
+                  <div className="w-full justify-self-center text-center py-10">
+                    No agencies found
+                  </div>
+                )}
+              </CarouselContent>
+            </Carousel>
+
+            <div className="block sm:hidden w-full">
+              <div className="w-full flex flex-col items-center justify-center gap-5">
+                {isLoading ? (
+                  Array.from({ length: 5 }).map((_, index) => (
+                    <div
+                      key={index}
+                      className="w-[80%] sm:w-[50vw] flex h-full flex-col items-center justify-center gap-5"
+                    >
+                      <HomeCompanySkeleton role="AGENCY" />
+                    </div>
+                  ))
+                ) : data && data.length > 0 ? (
+                  data.slice(0, 8).map((agency) => (
+                    <div
+                      key={agency.id}
+                      className="flex flex-col items-center justify-center gap-5 w-[80%] h-full sm:w-[70vw]"
+                    >
+                      <CarouselCard agency={agency} />
+                    </div>
+                  ))
+                ) : (
+                  <div className="w-full text-center py-10">
+                    No agencies found
+                  </div>
+                )}
+              </div>
+            </div>
+
+          <div className="flex gap-4">
+            <Link href={`/Agency`}>
+              <motion.div
+                className="bg-black px-5 py-2 rounded-md mt-6 mb-5 mx-auto hover:bg-gray-800 w-fit transition-colors text-white font-bold"
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+                >
+                View more
+              </motion.div>
+            </Link>
+
+           
+              <motion.div
+                onClick={() =>{ 
+                  setSelectedCity("");
+                  
+                  const element = document.getElementById("toNavigate"); 
+                  if (element) {
+                    element.scrollIntoView({
+                      // behavior: "smooth", // Smooth scrolling
+                      block: "nearest", // Align to the top of the element
+                    });
+                  }
+                }}
+                className="bg-black px-5 py-2 cursor-pointer rounded-md mt-6 mb-5 mx-auto hover:bg-gray-800 w-fit transition-colors text-white font-bold"
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+              >
+                Back To Cities
+              </motion.div>
           </div>
-          <CarouselContent className="-ml-2 my-7 md:-ml-4">
-            {isLoading ? (
-              Array.from({ length: 5 }).map((_, index) => (
-                <CarouselItem
-                  key={index}
-                  className="pl-2 md:pl-4 sm:basis-1/2 lg:basis-1/3 xl:basis-1/4"
-                >
-                  <HomeCompanySkeleton role="AGENCY" />
-                </CarouselItem>
-              ))
-            ) : data && data.length > 0 ? (
-              data.slice(0, 10).map((agency) => (
-                <CarouselItem
-                  key={agency.id}
-                  className="pl-2 md:pl-4 sm:basis-1/2 lg:basis-1/3 xl:basis-1/4"
-                >
-                  <CarouselCard agency={agency} />
-                </CarouselItem>
-              ))
-            ) : (
-              <div className="w-full text-center py-10">No agencies found</div>
-            )}
-          </CarouselContent>
-        </Carousel>
-        <div className="block md:hidden w-full">
-          <div className="w-full flex flex-col items-center justify-center gap-5">
-            {isLoading ? (
-              Array.from({ length: 5 }).map((_, index) => (
-                <div
-                  key={index}
-                  className="w-[80%] sm:w-[50vw] flex h-full flex-col items-center justify-center gap-5"
-                >
-                  <HomeCompanySkeleton role="AGENCY" />
-                </div>
-              ))
-            ) : data && data.length > 0 ? (
-              data.slice(0, 10).map((agency) => (
-                <div
-                  key={agency.id}
-                  className="flex flex-col items-center justify-center gap-5 w-[80%] h-full sm:w-[70vw]"
-                >
-                  <CarouselCard agency={agency} />
-                </div>
-              ))
-            ) : (
-              <div className="w-full text-center py-10">No agencies found</div>
-            )}
-          </div>
-        </div>
-        <Link href={`/Agency`}>
-          <motion.div
-            className="bg-black px-5 py-2 rounded-md mt-6 mb-5 mx-auto hover:bg-gray-800 w-fit transition-colors text-white font-bold"
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.9 }}
-          >
-            View more
-          </motion.div>
-        </Link>
+          </>
+        )}
       </div>
     </section>
   );
