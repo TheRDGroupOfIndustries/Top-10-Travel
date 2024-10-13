@@ -173,11 +173,11 @@ const ContactUsComp = () => {
                 onSubmit={handleSubmit}
                 className="grid gap-4 border-green-600 my-10 md:my-0"
               >
-                <div className="flex flex-col sm:flex-row gap-7">
+                <div className="flex flex-col sm:flex-row gap-4 sm:gap-7">
                   <input
                     required
                     type="text"
-                    className="w-full sm:w-[49%] h-[63px] rounded-lg bg-slate-100 pl-5"
+                    className="w-full sm:w-[49%] lg:h-[63px] h-10 rounded-lg bg-slate-100 pl-5"
                     placeholder="First Name"
                     value={firstName}
                     onChange={(e) => {
@@ -187,7 +187,7 @@ const ContactUsComp = () => {
                   <input
                     required
                     type="text"
-                    className="w-full sm:w-[49%] h-[63px] rounded-lg bg-slate-100 pl-5"
+                    className="w-full sm:w-[49%] lg:h-[63px] h-10 rounded-lg bg-slate-100 pl-5"
                     placeholder="Last Name"
                     value={lastName}
                     onChange={(e) => {
@@ -199,7 +199,7 @@ const ContactUsComp = () => {
                   <input
                     required
                     type="email"
-                    className="w-full h-[63px] rounded-lg bg-slate-100 pl-5"
+                    className="w-full lg:h-[63px] h-10 rounded-lg bg-slate-100 pl-5"
                     placeholder="Your Email"
                     value={email}
                     onChange={(e) => {
@@ -210,7 +210,7 @@ const ContactUsComp = () => {
                 <div>
                   <input
                     required
-                    className="w-full h-[63px] rounded-lg bg-slate-100 pl-5"
+                    className="w-full lg:h-[63px] h-10 rounded-lg bg-slate-100 pl-5"
                     placeholder="Phone Number"
                     value={contact}
                     onChange={(e: any) => {
@@ -222,7 +222,7 @@ const ContactUsComp = () => {
                   <textarea
                     required
                     minLength={10}
-                    className="w-full h-[179px] rounded-lg bg-slate-100 pl-5 pt-[5%]"
+                    className="w-full lg:h-[179px] h-16 rounded-lg bg-slate-100 p-5 lg:pt-[5%]"
                     placeholder="How can we help you?"
                     value={message}
                     onChange={(e) => {
@@ -235,7 +235,7 @@ const ContactUsComp = () => {
                   <button
                     type="submit"
                     disabled={isPending}
-                    className="text-[32px] font-[500] disabled:opacity-50 w-1/3 h-[68px] rounded-lg text-white bg-mainColor mt-4"
+                    className="lg:text-[32px] text-2xl font-[500] disabled:opacity-50 w-1/3 lg:h-[68px] h-14 rounded-lg text-white bg-mainColor mt-4"
                   >
                     Send
                   </button>
