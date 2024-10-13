@@ -174,7 +174,7 @@ function Footer() {
         </div>
 
         <div className="cursor-default text-white select-none border-t py-8 text-center text-sm font-semibold">
-          All rights Reserved © Top 10 Travel, {new Date().getFullYear()}
+          All rights Reserved © Travel Top 10, {new Date().getFullYear()}
         </div>
       </footer>
     </div>
