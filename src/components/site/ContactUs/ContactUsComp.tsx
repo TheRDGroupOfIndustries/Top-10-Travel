@@ -1,5 +1,5 @@
 "use client";
-// import { Linkedin, Facebook, Instagram, Twitter, Youtube } from "lucide-react";
+
 import {
   FaFacebook,
   FaInstagram,
@@ -17,7 +17,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { toast } from "sonner";
-// import { PhoneIcon } from "lucide-react";
 
 const linksArr = [
   {
@@ -88,23 +87,18 @@ const ContactUsComp = () => {
       viewport={{ once: true }}
       className="pt-20 border-red-800"
     >
-      <div className="items-baseline flex flex-col gap-5 lg:gap-0 lg:flex-row justify-between px-4 md:px-8 lg:px-[5%] md:py-10">
+      <div className="items-center flex gap-3 cinzel-font text-3xl md:text-5xl lg:text-[60px] font-[700] px-4 md:px-8 lg:px-[5%] md:pt-10">
+        <h1 className="font-thin mt-5">Contact <span className="text-mainColor">Us</span></h1>
+      </div>
+      <div className="sm:text-xl text-gray-400 my-1 px-4 md:px-8 lg:px-[5%]">
+        Have queries? Let&apos;s us help you!
+      </div>
+      
+      <div className="items-baseline flex flex-col gap-2 lg:gap-0 lg:flex-row justify-between px-4 md:px-8 lg:px-[5%] md:py-10">
         {/* left view  */}
-        <div className="w-full lg:w-[45%] border-red-700">
-          <div className="items-center flex gap-3 cinzel-font text-3xl md:text-5xl lg:text-[60px] font-[700]">
-            <TextGenerateEffect
-              className="font-thin"
-              duration={1.2}
-              words={"CONTACT"}
-            />
-            <h1 className="font-thin text-mainColor mt-5">US</h1>
-          </div>
-          <p className="text-xl text-gray-400 my-1">
-            Have queries? Let&apos;s us help you!
-          </p>
-
+        <div className="w-full order-2 lg:order-1 lg:w-[45%] border-red-700">
           <div className="text-[19px] font-[500] text-black/50 mt-[8%]">
-            <div className="my-5">
+            <div className="my-2">
               <p className="text-3xl font-semibold text-black">Email</p>
               <div className="flex items-center gap-2">
                 <div>
@@ -172,7 +166,7 @@ const ContactUsComp = () => {
         </div>
 
         {/* right view */}
-        <div className="w-full lg:w-[45%] border-red-700">
+        <div className="w-full lg:order-2 lg:w-[45%] border-red-700">
           <div className="border-green-500 w-full h-auto flex flex-col md:justify-center">
             <div className=" border-blue-950">
               <form
