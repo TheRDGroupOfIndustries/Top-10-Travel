@@ -38,8 +38,7 @@ const CarouselCard = ({ agency }: { agency: AgencyApiResult }) => (
     <div className="relative h-48 sm:h-56 md:h-64 lg:h-72 rounded-lg overflow-hidden">
       <div className="absolute top-0 left-0 bg-mainColor w-[80%] h-[70%] rounded-lg"></div>
       <div className="absolute bottom-0 right-0 w-[95%] h-[95%] rounded-lg overflow-hidden">
-        <Image
-          fill
+        <img
           src={getValidUrl(agency.images[0] ?? agency.images[1])}
           alt={agency.name}
           className="h-full w-full object-cover"

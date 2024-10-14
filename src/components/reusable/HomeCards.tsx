@@ -36,15 +36,14 @@ const HomeCards = ({
           });
         }
       }}
-      className="relative flex items-end justify-center shadow cursor-pointer p-2 hover:-translate-y-1 transform-all duration-300 w-full h-48 border border-1 rounded-lg"
+      className="relative flex items-end overflow-hidden justify-center shadow cursor-pointer hover:-translate-y-1 transform-all duration-300 w-full h-48 border border-1 rounded-lg"
     >
-      <Image
-        fill
+      <img
         src={image}
         alt={`Background image of ${role} card`}
         className="absolute object-cover rounded-lg -z-10"
       />
-      <div className="w-[95%] p-2 space-y-0.5 h-16 bg-white/80 backdrop-blur-sm rounded-lg">
+      <div className="w-[95%] p-2 m-2 space-y-0.5 h-16 bg-white/80 backdrop-blur-sm rounded-lg">
         <p className="font-bold text-lg text-slate-800">{city}</p>
         <p className="uppercase text-sm font-semibold tracking-wide text-slate-700">
           {country}
