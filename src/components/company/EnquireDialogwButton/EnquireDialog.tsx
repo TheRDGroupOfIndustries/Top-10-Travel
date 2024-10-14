@@ -20,6 +20,7 @@ import { useParams } from "next/navigation";
 import { FormEvent, useState } from "react";
 import { TbPhoneCall } from "react-icons/tb";
 import { toast } from "sonner";
+import { useEffect } from "react"; 
 
 export default function EnquireDialog({
   images,
@@ -58,14 +59,19 @@ export default function EnquireDialog({
 
     const res = await mutate({ values: { message, phoneNumber }, info });
     setOpen(false);
-    if (res.success) {
-      setTimeout(() => window.print(), 200);
-    }
+
+    // if (res.success) {
+    //   setTimeout(() => window.print(), 200);
+    // }
+
     setResponse(res);
 
+  };
+
+  useEffect(() => {
     response.success && toast.success(response.success);
     response.error && toast.error(response.error);
-  };
+  }, [response])
 
   return (
     <div
