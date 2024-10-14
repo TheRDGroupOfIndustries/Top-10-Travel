@@ -95,19 +95,23 @@ const Step5 = ({
   hidden?: boolean;
 }) => {
   const [form, setForm] = useState<KeyPersonnelType[]>([Init]);
+  
   const add = () => {
     if (form.length >= 5) return;
     setForm((prev) => [...prev, Init]);
   };
+
   const remove = (ind: number) => {
     if (form.length <= 1) return;
     setForm((prev) => prev.filter((_, i) => i !== ind));
   };
+
   const onChange = (ind: number, name: string, value: string) => {
     setForm((prev) =>
       prev.map((f, i) => (i === ind ? { ...f, [name]: value } : f))
     );
   };
+
   useEffect(() => {
     setValue("keyPersonnel", form);
   }, [form]);
