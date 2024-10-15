@@ -44,8 +44,7 @@ const ContactUsComp = () => {
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
-
-    if(session.status === "authenticated" ) {
+    // if(session.status === "authenticated" ) {
       const obj = {
         firstName: firstName,
         lastName: lastName,
@@ -69,9 +68,10 @@ const ContactUsComp = () => {
         setContact("");
         setMessage("");
       } else if (error) toast.error(error);
-    } else {
-       toast.error("You must log in to your account before proceeding.");
-    }
+    // } 
+    // else {
+    //    toast.error("You must log in to your account before proceeding.");
+    // }
     
   };
 

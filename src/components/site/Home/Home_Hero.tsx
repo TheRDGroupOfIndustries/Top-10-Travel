@@ -34,7 +34,7 @@ const MobileDropdown = ({ items, visible, toggle }: any) => {
         <Image
           src={"/Hero_Filter_Small.png"}
           fill
-          className="absolute -z-10"
+          className="absolute -z-10 filter hue-rotate-[310deg] saturate-[3] contrast-100"
           alt="hero_filter_img"
         />
         <span className="text-[10px] leading-[14px] xs:text-xs font-semibold">
