@@ -374,7 +374,7 @@ function HomeHero() {
                       <Image
                         src={"/Hero_Filter_Small.png"}
                         fill
-                        className="absolute -z-10 filter hue-rotate-[310deg] saturate-[3] contrast-100"
+                        className="absolute -z-10 "
                         alt="hero_filter_img"
                       />
                     ) : (
