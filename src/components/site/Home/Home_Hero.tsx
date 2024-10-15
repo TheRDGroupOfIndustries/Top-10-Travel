@@ -35,7 +35,7 @@ const MobileDropdown = ({ items, visible, toggle }: any) => {
         <Image
           src={"/Hero_Filter_Small.png"}
           fill
-          className="absolute -z-10 filter hue-rotate-[310deg] saturate-[3] contrast-100"
+          className="absolute -z-10 filter saturate-[1.5] contrast-100"
           alt="hero_filter_img"
         />
         <span className="text-[10px] leading-[14px] xs:text-xs font-semibold">
@@ -329,7 +329,7 @@ function HomeHero() {
               <Image
                 src={"/Hero_Filter_Large.png"}
                 fill
-                className="absolute filter hue-rotate-[310deg] saturate-[3] contrast-100"
+                className="absolute filter saturate-[1.] contrast-100"
                 alt="hero_filter_img"
               />
               <span className="text-black z-10 px-3 xs:px-6 lg:text-sm text-[10px] leading-[14px] xs:text-xs font-semibold ">
@@ -364,7 +364,7 @@ function HomeHero() {
                       <Image
                         src={"/Hero_Filter_Small.png"}
                         fill
-                        className="absolute -z-10 filter hue-rotate-[310deg] saturate-[3] contrast-100"
+                        className="absolute -z-10 filter hue-rotate-[1deg] saturate-[1.5] contrast-100"
                         alt="hero_filter_img"
                       />
                     )
@@ -375,14 +375,14 @@ function HomeHero() {
                       <Image
                         src={"/Hero_Filter_Small.png"}
                         fill
-                        className="absolute -z-10 filter hue-rotate-[310deg] saturate-[3] contrast-100"
+                        className="absolute -z-10 filter hue-rotate-[1deg] saturate-[1.5] contrast-100"
                         alt="hero_filter_img"
                       />
                     ) : (
                       <Image
                         src={"/Hero_Filter_Large.png"}
                         fill
-                        className="absolute -z-10 filter hue-rotate-[310deg] saturate-[3] contrast-100"
+                        className="absolute -z-10 filter hue-rotate-[1deg] saturate-[1.5] contrast-100"
                         alt="hero_filter_img"
                       />
                     )
