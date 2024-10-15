@@ -39,13 +39,13 @@ const ContactUsComp = () => {
   const [email, setEmail] = useState("");
   const [contact, setContact] = useState("");
   const [message, setMessage] = useState("");
-  const session = useSession();
+  // const session = useSession();
   const { mutate, isPending } = useMutation(sendContactEmail);
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
 
-    if(session.status === "authenticated" ) {
+    // if(session.status === "authenticated" ) {
       const obj = {
         firstName: firstName,
         lastName: lastName,
@@ -63,15 +63,16 @@ const ContactUsComp = () => {
 
       if (success) {
         toast.success(success);
+
         setFirstName("");
         setLastName("");
         setEmail("");
         setContact("");
         setMessage("");
       } else if (error) toast.error(error);
-    } else {
-       toast.error("You must log in to your account before proceeding.");
-    }
+    // } else {
+    //    toast.error("You must log in to your account before proceeding.");
+    // }
     
   };
 

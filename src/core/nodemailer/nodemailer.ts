@@ -4,7 +4,8 @@ import getSessionorRedirect from "../utils/getSessionorRedirect";
 
 // Function to create the transporter dynamically once session is available
 async function createTransporter() {
-  const session = await getSessionorRedirect(); // Wait for session data
+  // const session = await getSessionorRedirect(); // Wait for session data
+  
   return nodemailer.createTransport({
     host: process.env.SMTP_HOST,
     port: Number(process.env.SMTP_PORT),
@@ -36,6 +37,7 @@ export async function sendMail({
       subject, // Email subject
       text, // Plaintext body
     });
+
     console.log("Email sended successfully.");
     return true; // Email sent successfully
   } catch (error) {
