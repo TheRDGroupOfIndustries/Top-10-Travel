@@ -236,13 +236,13 @@ const ContactUsComp = () => {
                   <button
                     type="submit"
                     disabled={isPending}
-                    className="lg:text-[32px] text-2xl font-[500] disabled:opacity-50 w-1/3 lg:h-[68px] h-14 rounded-lg text-white bg-mainColor mt-4"
+                    className="lg:text-xl text-lg font-[500] disabled:opacity-50 sm:w-24 w-20 sm:h-12 h-10 rounded-lg text-white bg-mainColor hover:bg-opacity-80"
                   >
                     Send
                   </button>
                 </div>
               </form>
-              <div className="text-[17px] font-[500] w-full text-black/50 mx-auto mt-4 border-green-500 text-center">
+              <div className="text-[17px] font-[500] w-full text-black/50 mx-auto mt-6 border-green-500 text-center">
                 By contacting us, you agree to our
                 <Link
                   href="/terms-conditions"
