@@ -13,12 +13,12 @@ function HomePage() {
       <HomeHero />
       {/* mt-20 sm:mt-16 md:mt-36 xl:mt-16  */}
       <div className="space-y-6 md:mt-20 overflow-x-hidden">
+        <AboutusComp />
         <TopTenAgencies />
         <TopTenHotels />
         <TopTenDMC />
         <Influencers />
         <Certification />
-        <AboutusComp />
       </div>
     </HomeContextProvider>
   );
