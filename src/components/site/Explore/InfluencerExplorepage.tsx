@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import ListingHero from "./NewDesign/ListingHero";
 import ListData from "./NewDesign/ListData";
 import ListDataInfluencer from "./NewDesign/ListDataInfluencer";
@@ -33,6 +33,21 @@ const InfluencerExploreMore = ({ data }: { data: Data }) => {
     () => Array.from(data.map((d) => ({ country: d.country, state: d.state }))),
     [data]
   );
+
+  
+  useEffect(() => {
+    const country = window.localStorage.getItem("Influencers-Country");
+    const state = window.localStorage.getItem("Influencers-State");
+    
+    if (country) {
+      setSelectedCountry(country);
+    }
+
+    if (state) {
+      setSelectedState(state);
+    }
+  }, []);
+
 
   return (
     <div>

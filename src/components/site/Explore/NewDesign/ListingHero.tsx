@@ -62,6 +62,9 @@ function ListingHero({
       if (pathname.includes("/DMC")) {
         state = window.localStorage.getItem("DMC-State");
       }
+      if (pathname.includes("/Influencers")) {
+        state = window.localStorage.getItem("Influencers-State");
+      }
 
       if (state) {
         const check = Array.from(
@@ -103,6 +106,8 @@ function ListingHero({
       window.localStorage.setItem("Hotels-Country", country);
     if (pathname.includes("/DMC"))
       window.localStorage.setItem("DMC-Country", country);
+    if (pathname.includes("/Influencers"))
+      window.localStorage.setItem("Influencers-Country", country);
 
     setIsCountryOpen(false);
   };
@@ -116,6 +121,8 @@ function ListingHero({
       window.localStorage.setItem("Hotels-State", state);
     if (pathname.includes("/DMC"))
       window.localStorage.setItem("DMC-State", state);
+    if (pathname.includes("/Influencers"))
+      window.localStorage.setItem("Influencers-State", state);
 
     setIsStateOpen(false);
   };
