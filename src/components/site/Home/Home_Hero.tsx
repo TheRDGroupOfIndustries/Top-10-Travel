@@ -264,7 +264,7 @@ function HomeHero() {
       ref={divref}
       className="relative w-full h-fit min-h-[50vh] md:max-h-screen min-[768]:h-[calc(100vh+60px)] max-[820]:h-fit lg:h-fit  pt-10 lg:pt-0 px-2 md:px-3 lg:px-6 xl:px-8 "
     >
-      <div id="toNavigate" className="absolute bottom-14 left-0 h-[0.5px] w-[0.5px]"></div>
+     
 
       <div className="h-full flex flex-col md:gap-3 lg:gap-0 gap-1.5 justify-start pt-16 md:pt-24 lg:pt-32 pb-24 xl:pt-40 w-full overflow-x-hidden">
         <h3
