@@ -1,5 +1,8 @@
 "use server";
-import { getContactUsAdminTemplate } from "@/core/nodemailer/mailTemplates";
+import {
+  getContactUsAdminTemplate,
+  getContactUsAppreciationTemplate,
+} from "@/core/nodemailer/mailTemplates";
 import { sendMail } from "@/core/nodemailer/nodemailer";
 import { cookies } from "next/headers";
 
@@ -34,7 +37,12 @@ export const sendContactEmail = async ({
     ...getContactUsAdminTemplate(name, email, message, phone),
   });
 
-  if (sent) {
+  const sentToUser = await sendMail({
+    toEmail: email,
+    ...getContactUsAppreciationTemplate(name),
+  });
+
+  if (sent && sentToUser) {
     // cookieStore.set({
     //   name: "emailSent",
     //   value: "true",
