@@ -140,7 +140,7 @@ const ContactUsComp = () => {
               <p className="text-[19px] lg:text-[15px] font-[500] w-[100%]">
                 Customer Support
               </p>
-              <p className="text-[15px] lg:text-[12px] font-[500] text-black/50 w-full md:w-[191px] lg:w-[140px] mt-[5%]">
+              <p className="text-[15px] lg:text-[12px] font-[500] text-black/50 w-full md:w-[191px] lg:w-[140px] sm:mt-[5%] sm:mb-0 mb-[5%]">
                 Our Support team is available around the clock to address any
                 concerns and queries you may have
               </p>
@@ -149,7 +149,7 @@ const ContactUsComp = () => {
               <p className="text-[19px] lg:text-[15px] font-[500] w-[100%]">
                 Feedback and Suggestions
               </p>
-              <p className="text-[15px] lg:text-[12px] font-[500] text-black/50  w-full md:w-[191px] lg:w-[140px] mt-[5%]">
+              <p className="text-[15px] lg:text-[12px] font-[500] text-black/50  w-full md:w-[191px] lg:w-[140px] sm:mt-[5%] sm:mb-0 mb-[5%]">
                 Our Support team is available around the clock to address any
                 concerns and queries you may have
               </p>
@@ -158,7 +158,7 @@ const ContactUsComp = () => {
               <p className="text-[19px] lg:text-[15px] font-[500] w-[100%]">
                 Media Inquiries
               </p>
-              <p className="text-[15px] lg:text-[12px] font-[500] text-black/50  w-full md:w-[191px]  lg:w-[140px] mt-[5%]">
+              <p className="text-[15px] lg:text-[12px] font-[500] text-black/50  w-full md:w-[191px]  lg:w-[140px] sm:mt-[5%] sm:mb-0 mb-[5%]">
                 Our Support team is available around the clock to address any
                 concerns and queries you may have
               </p>
