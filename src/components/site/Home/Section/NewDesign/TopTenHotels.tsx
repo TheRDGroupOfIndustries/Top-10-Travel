@@ -206,7 +206,13 @@ function TopTenHotels() {
               </div>
             </div>
             <div className="flex gap-4">
-              <Link href={`/Hotels`}>
+              <Link 
+              href={`/Hotels`}
+              onClick={() => {
+                window.localStorage.setItem("Hotels-Country", selectedCountry);
+                window.localStorage.setItem("Hotels-State", selectedCity);
+              }}    
+              >
                 <motion.div
                   className="bg-black px-5 py-2 rounded-md mt-6 mb-5 mx-auto hover:bg-gray-800 w-fit transition-colors text-white font-bold"
                   whileHover={{ scale: 1.1 }}

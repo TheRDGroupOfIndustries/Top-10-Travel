@@ -209,16 +209,21 @@ const TopTenDMC = () => {
             </div>
 
             <div className="flex gap-4">
-
-            <Link href={`/DMC`}>
-              <motion.div
-                className="bg-black px-5 py-2 rounded-md mt-6 mb-5 mx-auto hover:bg-gray-800 w-fit transition-colors text-white font-bold"
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.9 }}
+              <Link 
+              href={`/DMC`}
+              onClick={() => {
+                window.localStorage.setItem("DMC-Country", selectedCountry);
+                window.localStorage.setItem("DMC-State", selectedCity);
+              }}
               >
-                View more
-              </motion.div>
-            </Link>
+                <motion.div
+                  className="bg-black px-5 py-2 rounded-md mt-6 mb-5 mx-auto hover:bg-gray-800 w-fit transition-colors text-white font-bold"
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.9 }}
+                >
+                  View more
+                </motion.div>
+              </Link>
 
               <motion.div
                 onClick={() =>{ 
