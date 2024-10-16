@@ -27,7 +27,7 @@ const AboutusComp = async () => {
 
   return (
     <div className="relative flex flex-col gap-5 lg:gap-5 lg:flex-row justify-between px-6 md:px-12 lg:px-[6%] py-20">
-      <div id="toNavigate" className="absolute bottom-36 left-0 h-[0.5px] w-[0.5px]"></div>
+      <div id="toNavigate" className="absolute bottom-44 left-0 h-[0.5px] w-[0.5px]"></div>
       <div className="w-full h-full lg:h-[40rem] flex flex-col gap-8 px-3 py-8 shadow-sm rounded-2xl bg-slate-100">
         <div className="uppercase tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-mainColor to-mainColorSecondary font-semibold text-2xl">
           About us
