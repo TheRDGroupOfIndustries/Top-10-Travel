@@ -22,7 +22,7 @@ import {
   useState,
 } from "react";
 
-const MobileDropdown = ({ items, visible, toggle }: any) => {
+export const MobileDropdown = ({ items, visible, toggle }: any) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -119,6 +119,25 @@ export const AnimatedText = ({
   );
 };
 
+export const boxItems = [
+    {
+      key: "AGENCY",
+      text: "Agencies",
+    },
+    {
+      key: "HOTEL",
+      text: "Hotels",
+    },
+    {
+      key: "DMC",
+      text: "DMCs",
+    },
+    {
+      key: "Influencer",
+      text: "Influencers",
+    },
+  ];
+
 function HomeHero() {
   const divref = useRef<HTMLDivElement>(null);
   const [scope, balloonAnimate] = useAnimate();
@@ -132,6 +151,7 @@ function HomeHero() {
     allCities,
     isSticky,
     setSticky,
+    setSearch,
     allCountries,
     updateAllData,
   } = useContext(HomeContext);
@@ -141,7 +161,10 @@ function HomeHero() {
     if (elementRef.current) {
       const elementTop = elementRef.current.getBoundingClientRect().top;
       // Check if the element has touched the top of the window
-      setSticky(elementTop <= 0);
+      // setSticky(elementTop <= 0);
+      setSearch(elementTop <= 0);
+
+      elementTop >= 0 && setSticky(false);
       // console.log(elementTop, elementTop <= 0);
     }
   };
@@ -181,24 +204,7 @@ function HomeHero() {
 
   // Adding visible to the dependency array to trigger on change
 
-  const boxItems = [
-    {
-      key: "AGENCY",
-      text: "Agencies",
-    },
-    {
-      key: "HOTEL",
-      text: "Hotels",
-    },
-    {
-      key: "DMC",
-      text: "DMCs",
-    },
-    {
-      key: "Influencer",
-      text: "Influencers",
-    },
-  ];
+  
 
   const toggle = (key: "DMC" | "AGENCY" | "HOTEL" | "Influencer") => {
     toggleVisible(key);
@@ -315,11 +321,12 @@ function HomeHero() {
           initial={{ y: 50, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.8, delay: 1.4, type: "spring" }}
-          className={`w-full pt-14 md:pt-10 lg:overflow-hidden lg:pt-24 md:max-w-[430px] lg:max-w-[730px] ${
-            isSticky && selectedCountry
-              ? "fixed top-0 z-40 left-0 lg:pt-[3.8rem] pb-4 md:pt-[3.8rem] bg-white/80 backdrop-blur-sm lg:overflow-visible md:max-w-full lg:max-w-full md:w-full px-2 md:px-3 lg:px-6 xl:px-8"
-              : ""
-          }`}
+          className={`w-full pt-14 md:pt-10 lg:overflow-hidden lg:pt-24 md:max-w-[430px] lg:max-w-[730px]`}
+          // ${
+          //   isSticky && selectedCountry
+          //     ? "fixed top-0 z-40 left-0 lg:pt-[3.8rem] pb-2 md:pt-[3.8rem] bg-white/80 backdrop-blur-md lg:overflow-visible md:max-w-full lg:max-w-full md:w-full px-2 md:px-3 lg:px-6 xl:px-8"
+          //     : ""
+          // }
         >
           <div className="w-full ml-1 xs:ml-4 flex items-end justify-start">
             <div className="relative max-w-48 xs:max-w-60 h-7 xs:h-9 flex items-center justify-center">

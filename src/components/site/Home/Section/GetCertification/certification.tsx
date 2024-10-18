@@ -78,28 +78,30 @@ export function CountUp({
 
 function Certification() {
   const session = useSession();
-  const { isSticky, setSticky } = useContext(HomeContext);
-  const elementRef = useRef<HTMLDivElement | null>(null);
+  // const { isSticky, setSticky } = useContext(HomeContext);
+  // const elementRef = useRef<HTMLDivElement | null>(null);
 
-  const handleScroll = () => {
-    if (elementRef.current) {
-      const elementTop = elementRef.current.getBoundingClientRect().top;
-      // Check if the element has touched the top of the window
-      // setSticky(elementTop <= 0);
-      if (elementTop <= 300) setSticky(false);
-    }
-  };
+  // const handleScroll = () => {
+  //   if (elementRef.current) {
+  //     const elementTop = elementRef.current.getBoundingClientRect().top;
+  //     // Check if the element has touched the top of the window
+  //     // setSticky(elementTop <= 0);
+  //     if (elementTop <= 300) setSticky(false);
+  //   }
+  // };
 
-  useEffect(() => {
-    window.addEventListener("scroll", handleScroll);
+  // useEffect(() => {
+  //   window.addEventListener("scroll", handleScroll);
 
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
+  //   return () => {
+  //     window.removeEventListener("scroll", handleScroll);
+  //   };
+  // }, []);
 
   return (
-    <div ref={elementRef} className="w-full h-auto mt-16 py-5 bg-mainColor">
+    <div 
+    //  ref={elementRef}
+     className="w-full h-auto mt-16 py-5 bg-mainColor">
       <div className="px-3 lg:px-6 xl:px-8 w-full h-full flex flex-col items-center justify-between">
         <h1 className="font-bold text-white md:text-4xl lg:text-[35px] text-xl my-3 lg:my-6">
           Our legacy
