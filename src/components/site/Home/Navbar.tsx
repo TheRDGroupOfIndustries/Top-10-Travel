@@ -449,7 +449,7 @@ function Navbar() {
           {search && (
             <span
                 className={cn(
-                  "xl:text-lg my-3 flex gap-1 items-center font-medium cursor-pointer", isSticky ? "text-mainColor": ""
+                  "text-lg my-3 flex gap-1 items-center font-medium cursor-pointer", isSticky ? "text-mainColor": ""
                 )}
                 onClick={() => {
                   setSticky((prev: boolean) => !prev)
