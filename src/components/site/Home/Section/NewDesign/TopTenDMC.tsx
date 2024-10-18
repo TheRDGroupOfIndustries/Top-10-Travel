@@ -165,7 +165,7 @@ const TopTenDMC = () => {
                     </CarouselItem>
                   ))
                 ) : data && data.length > 0 ? (
-                  data.slice(0, 8).map((dmc) => (
+                  data.slice(0, 10).map((dmc) => (
                     // data.slice(0, 10).map((dmc) => (
                     <CarouselItem
                       key={dmc.id}
@@ -194,7 +194,7 @@ const TopTenDMC = () => {
                     </div>
                   ))
                 ) : data && data.length > 0 ? (
-                  data.slice(0, 8).map((dmc) => (
+                  data.slice(0, 10).map((dmc) => (
                     <div
                       key={dmc.id}
                       className="flex flex-col items-center justify-center gap-5 w-[80%] h-full sm:w-[70vw]"

@@ -161,7 +161,7 @@ function TopTenHotels() {
                     </CarouselItem>
                   ))
                 ) : data && data.length > 0 ? (
-                  data.slice(0, 8).map((hotel, i) => (
+                  data.slice(0, 10).map((hotel, i) => (
                     // data.slice(0, 10).map((hotel) => (
                     <div
                       key={i}
@@ -192,7 +192,7 @@ function TopTenHotels() {
                     </div>
                   ))
                 ) : data && data.length > 0 ? (
-                  data.slice(0, 8).map((hotel, i) => (
+                  data.slice(0, 10).map((hotel, i) => (
                     // <div key={i} className="h-full w-full">
                     <div key={i} className="h-full w-full">
                       <CarouselCard hotel={hotel} />

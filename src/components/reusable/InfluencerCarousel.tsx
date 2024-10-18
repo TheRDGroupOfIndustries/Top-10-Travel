@@ -47,7 +47,7 @@ function InfluencerCarousel({
 
       <div className="hidden my-7 gap-y-4 md:grid xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 w-full mx-auto">
         {data && data.length > 0 ? (
-          data.slice(0, 8).map((inf) => (
+          data.slice(0, 10).map((inf) => (
             <CarouselItem
               key={inf.id}
               className="sm:basis-1/2 lg:basis-1/3 xl:basis-1/4"
@@ -64,7 +64,7 @@ function InfluencerCarousel({
 
       <div className="flex flex-col gap-4 sm:hidden">
         {data && data.length > 0 ? (
-          data.slice(0, 8).map((inf) => (
+          data.slice(0, 10).map((inf) => (
             <CarouselItem key={inf.id} className="p-0">
               <div className="p-1 w-full">
                 <InfluencerCard data={inf} />

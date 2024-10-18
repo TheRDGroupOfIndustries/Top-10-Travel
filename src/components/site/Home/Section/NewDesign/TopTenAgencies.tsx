@@ -183,7 +183,7 @@ const TopTenAgencies = () => {
                     </CarouselItem>
                   ))
                 ) : data && data.length > 0 ? (
-                  data.slice(0, 8).map((agency) => (
+                  data.slice(0, 10).map((agency) => (
                     // data.slice(0, 10).map((agency) => (
                     <CarouselItem
                       key={agency.id}
@@ -212,7 +212,7 @@ const TopTenAgencies = () => {
                     </div>
                   ))
                 ) : data && data.length > 0 ? (
-                  data.slice(0, 8).map((agency) => (
+                  data.slice(0, 10).map((agency) => (
                     <div
                       key={agency.id}
                       className="flex flex-col items-center justify-center gap-5 w-[80%] h-full sm:w-[70vw]"
