@@ -43,13 +43,6 @@ export const sendContactEmail = async ({
   });
 
   if (sent && sentToUser) {
-    // cookieStore.set({
-    //   name: "emailSent",
-    //   value: "true",
-    //   httpOnly: true,
-    //   path: "/",
-    // });
-
     return {
       success:
         "Your message has been successfully sent. We appreciate you reaching out to us and will get back to you as soon as possible.",
