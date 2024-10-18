@@ -132,9 +132,7 @@ function Navbar() {
   return (
     <>
       <nav
-        className={`flex bg-white/80 backdrop-blur-sm z-50 justify-between items-center h-[60px] w-[100vw] fixed top-0 px-2 md:px-3 lg:px-6 xl:px-8 transition-transform duration-300 ${
-          visible ? "translate-y-0" : "-translate-y-full"
-        }`}
+        className={`flex bg-white/80 backdrop-blur-sm z-50 justify-between items-center h-[60px] w-[100vw] fixed top-0 px-2 md:px-3 lg:px-6 xl:px-8 transition-transform duration-300 `}
       >
         <div className="relative h-6 xs:h-7 sm:h-8 w-44 xs:w-48 sm:w-56">
           <Link href="/">

@@ -3,6 +3,7 @@ import Navbar from "@/components/site/Home/Navbar";
 import FooterNav from "@/components/site/Home/FooterNav";
 import { ModalProvider } from "@/components/ui/animated-modal";
 import { Toaster } from "sonner";
+import { HomeContextProvider } from "@/hooks/context/HomeContext";
 import Loader from "@/components/customUI/Loader";
 
 export default function SiteLayout({
@@ -12,14 +13,16 @@ export default function SiteLayout({
 }>) {
   return (
     <main>
-      <ModalProvider>
-        {/* <Loader /> */}
-        <Navbar />
-        <Toaster richColors />
-        {children}
-        <Footer />
-        <FooterNav/>
-      </ModalProvider>
+      <HomeContextProvider>
+        <ModalProvider>
+          {/* <Loader /> */}
+          <Navbar />
+          <Toaster richColors />
+          {children}
+          <Footer />
+          <FooterNav/>
+        </ModalProvider>
+      </HomeContextProvider>
     </main>
   );
 }
