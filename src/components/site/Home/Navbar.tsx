@@ -162,7 +162,9 @@ function Navbar() {
 
   return (
     <>
-      <nav className="w-[100vw] fixed top-0 bg-white z-[999] px-2 md:px-3 lg:px-6 xl:px-8">
+      <nav className={cn("w-[100vw] fixed backdrop-blur-md bg-white/50 top-0 transition-all duration-300 z-[999] px-2 md:px-3 lg:px-6 xl:px-8")}>
+        {/* isSticky ? "backdrop-blur-md  bg-gradient-to-b from-white to-white/80": "" */}
+
         <div
           className={`flex justify-between items-center z-[60] h-[60px] transition-transform duration-300`}>
             <div className="relative h-6 xs:h-7 sm:h-8 w-44 xs:w-48 sm:w-56">
@@ -194,7 +196,7 @@ function Navbar() {
             {search && route === "/" && (
               <span
                 className={cn(
-                  "xl:text-lg flex gap-1 items-center font-medium cursor-pointer", isSticky ? "text-mainColor": ""
+                  "xl:text-lg flex gap-2 items-center font-medium cursor-pointer", isSticky ? "text-mainColor": ""
                 )}
                 onClick={() => {
                   setSticky((prev: boolean) => !prev)
