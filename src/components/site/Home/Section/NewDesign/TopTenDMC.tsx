@@ -153,7 +153,7 @@ const TopTenDMC = () => {
             <CarouselNext className="hidden sm:flex" />
           </div> */}
 
-              <CarouselContent className="-ml-2 grid gap-y-4 xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 my-7 md:-ml-4">
+              <CarouselContent className="-ml-2 grid gap-y-4 xl:grid-cols-5 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 my-7 md:-ml-4">
                 {/* <CarouselContent className="-ml-2 my-7 md:-ml-4"> */}
                 {isLoading ? (
                   Array.from({ length: 5 }).map((_, index) => (

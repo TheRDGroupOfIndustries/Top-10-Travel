@@ -72,6 +72,7 @@ function Navbar() {
   } = useContext(HomeContext);
   const route = usePathname();
   
+  
   const session = useSession();
 
   const toggleSidebar = () => {
@@ -165,7 +166,9 @@ function Navbar() {
         <div
           className={`flex justify-between items-center z-[60] h-[60px] transition-transform duration-300`}>
             <div className="relative h-6 xs:h-7 sm:h-8 w-44 xs:w-48 sm:w-56">
-              <Link href="/">
+              <Link href="/" onClick={() => {
+                setCity("");
+              }}>
                 <Image src="/logo.png" alt="logo" fill />
               </Link>
             </div>
@@ -188,8 +191,8 @@ function Navbar() {
                   {el.title}
                 </Link>
               ))}
-            {search &&  (
-            <span
+            {search && route === "/" && (
+              <span
                 className={cn(
                   "xl:text-lg flex gap-1 items-center font-medium cursor-pointer", isSticky ? "text-mainColor": ""
                 )}
@@ -198,14 +201,7 @@ function Navbar() {
                 }}
               >
                 Search  
-                <ChevronDownIcon
-                    className={cn(
-                      "w-5 h-5",
-                      isSticky
-                        ? "rotate-180 duration-150 transition-all"
-                        : "rotate-0 duration-150 transition-all"
-                    )}
-                  />
+                <SearchIcon className="animate-bounce w-4 h-4" />
               </span>)}
             </ul>
 
@@ -300,7 +296,7 @@ function Navbar() {
             initial={{ y: -30 }}
             animate={{ y: 0 }}
             // exit={{ y: -30 }}
-            className={cn(`w-full pt-2 pb-2 z-[59] lg:overflow-hidden md:max-w-[430px] lg:max-w-[730px]`)}
+            className={cn(`w-full mx-auto pt-2 pb-2 z-[59] lg:overflow-hidden md:max-w-[430px] lg:max-w-[730px]`)}
           >
               <div className="w-full ml-1 xs:ml-4 flex items-end justify-start">
                 <div className="relative max-w-48 xs:max-w-60 h-7 xs:h-9 flex items-center justify-center">
@@ -446,7 +442,7 @@ function Navbar() {
             </Link>
           ))}
 
-          {search && (
+          {search && route === "/" && (
             <span
                 className={cn(
                   "text-lg my-3 flex gap-1 items-center font-medium cursor-pointer", isSticky ? "text-mainColor": ""
@@ -456,14 +452,7 @@ function Navbar() {
                 }}
               >
                 Search  
-                <ChevronDownIcon
-                  className={cn(
-                    "w-5 h-5",
-                    isSticky
-                      ? "rotate-180 duration-150 transition-all"
-                      : "rotate-0 duration-150 transition-all"
-                  )}
-                />
+                <SearchIcon className="animate-pulse xs:w-5 xs:h-5 w-4 h-4" />
             </span>
           )}
         </div>
