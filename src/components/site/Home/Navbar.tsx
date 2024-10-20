@@ -1,4 +1,5 @@
 "use client";
+
 import ButtonFancy from "@/components/reusable/ButtonFancy";
 import { LogOutIcon, MenuIcon, SearchIcon, SquareChartGantt, User } from "lucide-react";
 import { signIn, signOut, useSession } from "next-auth/react";
@@ -193,6 +194,7 @@ function Navbar() {
                   {el.title}
                 </Link>
               ))}
+
             {search && route === "/" && (
               <span
                 className={cn(
@@ -204,14 +206,29 @@ function Navbar() {
               >
                 Search  
                 <SearchIcon className="animate-bounce w-4 h-4" />
-              </span>)}
+              </span>
+            )}
             </ul>
 
             <div className="flex items-center gap-2 lg:hidden">
+              {search && route === "/" && (
+              <Button
+                variant="blank"
+                size="icon"
+                className={cn(
+                  "xl:text-lg flex gap-2 items-center font-medium cursor-pointer", isSticky ? "text-mainColor": ""
+                )}
+                onClick={() => {
+                  setSticky((prev: boolean) => !prev)
+                }}
+              >
+                <SearchIcon className="w-5 h-5" />
+              </Button>
+            )}
               {session.status !== "authenticated" ? (
                 <div onClick={() => signIn("google")}>
                   <ButtonFancy className="flex gap-1 items-center">
-                    <FcGoogle className="text-xl" /> Login
+                    <FcGoogle className="text-xl" /> <span className="xs:inline-block hidden">Login</span>
                   </ButtonFancy>
                 </div>
               ) : (
@@ -444,7 +461,7 @@ function Navbar() {
             </Link>
           ))}
 
-          {search && route === "/" && (
+          {/* {search && route === "/" && (
             <span
                 className={cn(
                   "text-lg my-3 flex gap-1 items-center font-medium cursor-pointer", isSticky ? "text-mainColor": ""
@@ -456,7 +473,7 @@ function Navbar() {
                 Search  
                 <SearchIcon className="animate-pulse xs:w-5 xs:h-5 w-4 h-4" />
             </span>
-          )}
+          )} */}
         </div>
       </div>
 
