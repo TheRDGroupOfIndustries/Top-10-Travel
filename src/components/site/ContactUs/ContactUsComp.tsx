@@ -112,7 +112,7 @@ const ContactUsComp = () => {
                 </div>
                 <p className="my-2 cursor-pointer text-mainColor hover:underline text-lg">
                   <a href="mailto:contact@trveltop10.in">
-                    contact@traveltop10.in
+                    contact@trveltop10.in
                   </a>
                 </p>
               </div>
