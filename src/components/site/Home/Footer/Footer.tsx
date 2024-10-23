@@ -12,7 +12,7 @@ import {
 
 const contactInfo = [
   // { icon: Phone, text: "+91 9358XXXXX" },
-  { name: "email", icon: Mail, text: "indiatraveltop10@gmail.com" },
+  { name: "email", icon: Mail, text: "contact@traveltop10.in" },
   { name: "address", icon: MapPin, text: "Hyderabad, India." },
 ];
 
