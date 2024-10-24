@@ -172,7 +172,12 @@ function Navbar() {
               <Link href="/" onClick={() => {
                 setCity("");
               }}>
-                <Image src="/logo.png" alt="logo" fill />
+                {/* <Image src="/logo.png" alt="logo" fill className="opacity-50" /> */}
+                <h1
+                  className="uppercase text-mainColor text-nowrap inter-tight-font text-2xl xs:text-3xl sm:text-[32px] font-bold sm:tracking-tight [text-shadow:_0.5px_0.5px_0_rgb(0_0_0),_0.5px_-0.5px_0_rgb(0_0_0),_-0.5px_0.5px_0_rgb(0_0_0),_-0.5px_-0.5px_0_rgb(0_0_0),_1.5px_1.5px_1.5px_rgb(0_0_0)]  [transform:_scale(1,_1.2)]  "
+                >
+                  Travel <span className=" text-white [text-shadow:_0.5px_0.5px_0_rgb(0_0_0),_0.5px_-0.5px_0_rgb(0_0_0),_-0.5px_0.5px_0_rgb(0_0_0),_-0.5px_-0.5px_0_rgb(0_0_0),_1.5px_1.5px_1.5px_rgb(0_0_0)] ">{ ` Top `}</span> 10
+                </h1>
               </Link>
             </div>
 
