@@ -285,7 +285,7 @@ function HomeHero() {
         </h3>
         <h1
           id="secondLine"
-          className="uppercase font-cinzel font-bold text-[28px] xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl overflow-hidden xl:leading-loose leading-10 xs:leading-[50px] sm:leading-[65px] md:leading-[80px] lg:leading-[129px]"
+          className="uppercase inter-tight-font font-bold text-[28px] xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl overflow-hidden xl:leading-loose leading-10 xs:leading-[50px] sm:leading-[65px] md:leading-[80px] lg:leading-[129px]"
         >
           <motion.span
             className="inline-block"
