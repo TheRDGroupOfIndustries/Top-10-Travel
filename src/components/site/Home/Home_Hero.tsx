@@ -120,23 +120,23 @@ export const AnimatedText = ({
 };
 
 export const boxItems = [
-    {
-      key: "AGENCY",
-      text: "Agencies",
-    },
-    {
-      key: "HOTEL",
-      text: "Hotels",
-    },
-    {
-      key: "DMC",
-      text: "DMCs",
-    },
-    {
-      key: "Influencer",
-      text: "Influencers",
-    },
-  ];
+  {
+    key: "AGENCY",
+    text: "Agencies",
+  },
+  {
+    key: "HOTEL",
+    text: "Hotels",
+  },
+  {
+    key: "DMC",
+    text: "DMCs",
+  },
+  {
+    key: "Influencer",
+    text: "Influencers",
+  },
+];
 
 function HomeHero() {
   const divref = useRef<HTMLDivElement>(null);
@@ -203,8 +203,6 @@ function HomeHero() {
   }, [visible]);
 
   // Adding visible to the dependency array to trigger on change
-
-  
 
   const toggle = (key: "DMC" | "AGENCY" | "HOTEL" | "Influencer") => {
     toggleVisible(key);
@@ -308,12 +306,14 @@ function HomeHero() {
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.8, delay: 1, type: "spring" }}
           >
-            The only place where you can find Top 10{" "}
+            India’s first and largest initiative,
+            <br className="hidden xl:block" />
+            dedicated to identifying the best of{" "}
             <span className="text-mainColor mr-1">
-              Agencies, <br className="hidden lg:block xl:hidden" /> Hotels,
-              <br className="hidden xl:block" /> DMC&apos;s
+              Travel Brands <br className="hidden lg:block xl:hidden" />
+              {/* <br className="hidden xl:block" /> */}
             </span>
-            &nbsp;all around the world.
+            {/* &nbsp;all around the world. */}
           </motion.span>
         </p>
 
