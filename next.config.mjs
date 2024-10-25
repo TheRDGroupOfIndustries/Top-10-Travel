@@ -58,13 +58,6 @@ const nextConfig = {
         port: "",
       },
     ],
-    domains: [
-      "s3-alpha-sig.figma.com",
-      "img.freepik.com",
-      "www.istockphoto.com",
-      "www.google.com",
-      "i.pinimg.com",
-    ],
   },
 };
 

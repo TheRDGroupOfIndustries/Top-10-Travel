@@ -1,5 +1,6 @@
 import AdminHeader from "@/components/admin/Main/Admin_Header";
 import AdminSidebar from "@/components/admin/SideBar/Admin_Sidebar";
+import { HomeContextProvider } from "@/hooks/context/HomeContext";
 import { Toaster } from "sonner";
 
 export default function AdminLayout({
@@ -8,9 +9,9 @@ export default function AdminLayout({
   children: React.ReactNode;
 }>) {
   return (
+    <HomeContextProvider>
     <main className="min-h-screen w-full">
         <Toaster richColors />
-
         <div className="w-full h-full grid grid-cols-12">
           <div className="col-span-2 min-h-screen hidden xl:block">
             <AdminSidebar />
@@ -21,5 +22,6 @@ export default function AdminLayout({
           </div>
         </div>
     </main>
+    </HomeContextProvider>
   );
 }

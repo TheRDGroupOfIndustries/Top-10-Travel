@@ -1,9 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -11,25 +5,6 @@ generator client {
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
-}
-
-// User ralated and company related schemas
-
-enum Role {
-  USER
-  ADMIN
-  Influencer
-}
-
-enum RequestStatus {
-  PENDING
-  ACCEPTED
-  REJECTED
-}
-
-enum HelpDeskStatus {
-  PENDING
-  RESOLVED
 }
 
 model User {
@@ -40,14 +15,14 @@ model User {
   role           Role             @default(USER)
   createdAt      DateTime?        @default(now())
   updatedAt      DateTime?        @updatedAt
-  influencerData InfluencerData[]
-  Helpdesks      HelpDesk[]
-  Reviews        Reviews[]
-  Requests       Request[]
-  Enquiries      Enquiry[]
   Agency         Agency[]
   Dmc            DMC[]
+  Enquiries      Enquiry[]
+  Helpdesks      HelpDesk[]
   Hotel          Hotel[]
+  influencerData InfluencerData[]
+  Requests       Request[]
+  Reviews        Reviews[]
 }
 
 model KeyPersonnel {
@@ -91,9 +66,6 @@ model Agency {
   priority                    Int                @default(0)
   city_priority               Int                @default(0)
   isCertified                 Boolean            @default(false)
-  User                        User               @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId                      String
-  // step1
   name                        String
   country                     String
   city                        String
@@ -102,39 +74,32 @@ model Agency {
   contactEmail                String             @unique
   contactPhoneNumber          String
   websiteUrl                  String?
-  // step2
   companyRegistrationNumber   String             @default("000000000000000")
   yearOfEstablishment         Int
   businessLicenseUpload       String?
   insuranceCertificateUpload  String?
-  // step3
   primaryServices             String[]
   specializedTravelTypes      String[]
   regionsOfOperation          String[]
-  // step4
   internationalCertifications String[]
   memberships                 String[]
-  // step5
   numberOfEmployees           Int
-  keyPersonnel                KeyPersonnel[]
-  // step6
-  pastProjects                PastProject[]
-  clientReferences            ClientReference[]
   caseStudyPdf                String?
-  // step7
-  socialMediaLinks            SocialMediaLinks[]
-  // promotionalVideoUpload      String
   images                      String[]
-  // 
   rating                      Float              @default(0.0)
   reviews                     Int                @default(0)
   description                 String
   methodology                 String?
   createdAt                   DateTime           @default(now())
   updatedAt                   DateTime           @updatedAt
-  // 
+  userId                      String
+  User                        User               @relation(fields: [userId], references: [id], onDelete: Cascade)
+  clientReferences            ClientReference[]
   Enquiries                   Enquiry[]
+  keyPersonnel                KeyPersonnel[]
+  pastProjects                PastProject[]
   Reviews                     Reviews[]
+  socialMediaLinks            SocialMediaLinks[]
 }
 
 model DMC {
@@ -142,9 +107,6 @@ model DMC {
   priority                    Int                @default(0)
   city_priority               Int                @default(0)
   isCertified                 Boolean            @default(false)
-  User                        User               @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId                      String
-  //step1
   name                        String
   country                     String
   city                        String
@@ -153,39 +115,32 @@ model DMC {
   contactEmail                String             @unique
   contactPhoneNumber          String
   websiteUrl                  String?
-  //step2
   companyRegistrationNumber   String             @default("000000000000000")
   yearOfEstablishment         Int
   businessLicenseUpload       String?
   insuranceCertificateUpload  String?
-  // step3
   coreServices                String[]
   specialization              String[]
   regionsCovered              String[]
-  // step4
   internationalCertifications String[]
   memberships                 String[]
-  // step5
   numberOfEmployees           Int
-  keyPersonnel                KeyPersonnel[]
-  // step6
-  pastProjects                PastProject[]
-  clientReferences            ClientReference[]
   caseStudyPdf                String?
-  // step7
-  socialMediaLinks            SocialMediaLinks[]
-  // promotionalVideoUpload      String
   images                      String[]
-  // 
   rating                      Float              @default(0.0)
   reviews                     Int                @default(0)
   description                 String
   methodology                 String?
   createdAt                   DateTime           @default(now())
   updatedAt                   DateTime           @updatedAt
-  // 
+  userId                      String
+  clientReferences            ClientReference[]
+  User                        User               @relation(fields: [userId], references: [id], onDelete: Cascade)
   Enquiries                   Enquiry[]
+  keyPersonnel                KeyPersonnel[]
+  pastProjects                PastProject[]
   Reviews                     Reviews[]
+  socialMediaLinks            SocialMediaLinks[]
 }
 
 model Hotel {
@@ -193,9 +148,6 @@ model Hotel {
   priority                   Int                @default(0)
   city_priority              Int                @default(0)
   isCertified                Boolean            @default(false)
-  User                       User               @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId                     String
-  // step1
   name                       String
   country                    String
   city                       String
@@ -204,28 +156,24 @@ model Hotel {
   contactEmail               String             @unique
   contactPhoneNumber         String
   websiteUrl                 String?
-  // step2
   companyRegistrationNumber  String             @default("000000000000000")
   yearOfEstablishment        Int
   businessLicenseUpload      String?
   insuranceCertificateUpload String?
-  // step3
   specialization             String[]
   services                   String[]
-  // step4
-  socialMediaLinks           SocialMediaLinks[]
-  // promotionalVideoUpload     String
   images                     String[]
-  // 
   rating                     Float              @default(0.0)
   reviews                    Int                @default(0)
   description                String
   methodology                String?
   createdAt                  DateTime           @default(now())
   updatedAt                  DateTime           @updatedAt
-  // 
+  userId                     String
   Enquiries                  Enquiry[]
+  User                       User               @relation(fields: [userId], references: [id], onDelete: Cascade)
   Reviews                    Reviews[]
+  socialMediaLinks           SocialMediaLinks[]
 }
 
 model SocialMediaLinks {
@@ -244,10 +192,8 @@ model SocialMediaLinks {
 }
 
 model InfluencerData {
-  id          String  @id @default(cuid())
-  user        User    @relation(fields: [userId], references: [id], onDelete: Cascade)
-  isCertified Boolean @default(false)
-
+  id             String    @id @default(cuid())
+  isCertified    Boolean   @default(false)
   userId         String
   name           String
   image          String
@@ -260,29 +206,17 @@ model InfluencerData {
   state_priority Int       @default(0)
   socialLinks    String[]
   createdAt      DateTime? @default(now())
+  user           User      @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
-
-// model Package {
-//   id        String    @id @default(cuid())
-//   company   Company   @relation(fields: [companyId], references: [id], onDelete: Cascade)
-//   companyId String
-//   amenities String[]
-//   title     String
-//   desc      String
-//   image     String
-//   duration  String
-//   price     Float
-//   createdAt DateTime? @default(now())
-// }
 
 model HelpDesk {
   id          String         @id @default(cuid())
-  user        User           @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId      String
   title       String
   description String
   status      HelpDeskStatus
   createdAt   DateTime?      @default(now())
+  user        User           @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model Notification {
@@ -296,52 +230,92 @@ model Reviews {
   id        String    @id @default(cuid())
   name      String
   rating    Int       @default(1)
-  review    String    @db.Text
+  review    String
   userId    String
-  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
   agencyId  String?
   dmcId     String?
   hotelId   String?
+  createdAt DateTime? @default(now())
   Agency    Agency?   @relation(fields: [agencyId], references: [id], onDelete: Cascade)
   Dmc       DMC?      @relation(fields: [dmcId], references: [id], onDelete: Cascade)
   Hotel     Hotel?    @relation(fields: [hotelId], references: [id], onDelete: Cascade)
-  createdAt DateTime? @default(now())
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([userId, agencyId])
   @@unique([userId, dmcId])
   @@unique([userId, hotelId])
 }
 
-// Admin related schemas
-
 model Request {
   id        String        @id @default(cuid())
-  user      User          @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId    String
   message   String
   status    RequestStatus @default(PENDING)
   createdAt DateTime?     @default(now())
+  user      User          @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
-// unauth user
 model Enquiry {
   id          String    @id @default(cuid())
-  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId      String
-  // 
   title       String?
-  phoneNumber String    @default("9999900000")
   message     String
   createdAt   DateTime? @default(now())
-  // 
   agencyId    String?
   dmcId       String?
   hotelId     String?
+  phoneNumber String    @default("9999900000")
   Agency      Agency?   @relation(fields: [agencyId], references: [id], onDelete: Cascade)
   Dmc         DMC?      @relation(fields: [dmcId], references: [id], onDelete: Cascade)
   Hotel       Hotel?    @relation(fields: [hotelId], references: [id], onDelete: Cascade)
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([userId, agencyId])
   @@unique([userId, dmcId])
   @@unique([userId, hotelId])
+}
+
+model AboutContent {
+  id        String   @id
+  title     String
+  content   String
+  updatedAt DateTime
+}
+
+model PrivacyPolicyContent {
+  id        String   @id
+  content   String
+  updatedAt DateTime
+}
+
+model TermsContent {
+  id        String   @id
+  content   String
+  updatedAt DateTime
+}
+
+enum Role {
+  USER
+  ADMIN
+  Influencer
+}
+
+enum RequestStatus {
+  PENDING
+  ACCEPTED
+  REJECTED
+}
+
+enum HelpDeskStatus {
+  PENDING
+  RESOLVED
+}
+
+
+model City {
+  id        String   @id @default(cuid())
+  name     String
+  country  String
+  image    String
+  priority String?
 }

@@ -141,6 +141,7 @@ export const boxItems = [
 function HomeHero() {
   const divref = useRef<HTMLDivElement>(null);
   const [scope, balloonAnimate] = useAnimate();
+
   const {
     visible,
     selectedCity,
@@ -149,12 +150,12 @@ function HomeHero() {
     setCountry,
     toggleVisible,
     allCities,
-    isSticky,
     setSticky,
     setSearch,
     allCountries,
     updateAllData,
   } = useContext(HomeContext);
+  
   const elementRef = useRef<HTMLDivElement | null>(null);
 
   const handleScroll = () => {

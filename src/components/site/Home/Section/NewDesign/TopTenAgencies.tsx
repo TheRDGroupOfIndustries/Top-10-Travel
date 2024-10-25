@@ -158,20 +158,9 @@ const TopTenAgencies = () => {
               opts={{
                 align: "start",
               }}
-              // plugins={[
-              //   Autoplay({
-              //     delay: 2000,
-              //     stopOnInteraction: false,
-              //     stopOnMouseEnter: true,
-              //   }),
-              // ]}
               className="w-full hidden sm:block"
             >
-              {/* <div className="absolute -top-7 right-10">
-            <CarouselPrevious className="hidden sm:flex" />
-            <CarouselNext className="hidden sm:flex" />
-          </div> */}
-              <CarouselContent className="-ml-2 grid gap-y-4 xl:grid-cols-5 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 my-7 md:-ml-4">
+        <CarouselContent className="-ml-2 grid gap-y-4 xl:grid-cols-5 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 my-7 md:-ml-4">
                 {/* <CarouselContent className="-ml-2 my-7 md:-ml-4"> */}
                 {isLoading ? (
                   Array.from({ length: 5 }).map((_, i: number) => (
@@ -197,7 +186,7 @@ const TopTenAgencies = () => {
                     No agencies found
                   </div>
                 )}
-              </CarouselContent>
+        </CarouselContent>
             </Carousel>
 
             <div className="block sm:hidden w-full">

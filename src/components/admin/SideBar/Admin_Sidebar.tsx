@@ -4,7 +4,7 @@ import { signOut } from "next-auth/react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { FileText, HelpCircle, Home, LogOut, Users } from "react-feather";
+import { FileText, HelpCircle, Home, LogOut, Users, Umbrella } from "react-feather";
 import { FaRegMap } from "react-icons/fa6";
 import {
   MdOutlineBookOnline,
@@ -27,6 +27,7 @@ function AdminSidebar() {
     },
     { name: "Help Desk", icon: HelpCircle, href: "/admin/helpdesk" },
     { name: "Report", icon: FileText, href: "/admin/report" },
+    { name: "City", icon: Umbrella, href: "/admin/city" },
   ];
 
   return (
