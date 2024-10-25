@@ -168,7 +168,7 @@ function Navbar() {
 
         <div
           className={`flex justify-between items-center z-[60] h-[60px] transition-transform duration-300`}>
-            <div className="relative h-6 xs:h-7 sm:h-8 w-44 xs:w-8 sm:w-8">
+            <div className="relative h-6 xs:h-7 sm:h-8 w-8">
               <Link href="/" onClick={() => {
                 setCity("");
               }}>
