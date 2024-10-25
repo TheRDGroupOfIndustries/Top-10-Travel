@@ -345,3 +345,22 @@ model Enquiry {
   @@unique([userId, dmcId])
   @@unique([userId, hotelId])
 }
+
+model AboutContent {
+  id        String   @id @default(cuid())
+  title     String   
+  content   String   
+  updatedAt DateTime @updatedAt
+}
+
+model TermsContent {
+  id        String   @id @default(cuid())
+  content   String   
+  updatedAt DateTime @updatedAt
+}
+
+model PrivacyPolicyContent {
+  id        String   @id @default(cuid())
+  content   String   
+  updatedAt DateTime @updatedAt
+}
