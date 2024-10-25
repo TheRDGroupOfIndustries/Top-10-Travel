@@ -9,7 +9,7 @@ async function createTransporter() {
   return nodemailer.createTransport({
     host: process.env.SMTP_HOST,
     port: Number(process.env.SMTP_PORT),
-    secure: false, // upgrade later with STARTTLS
+    secure: true, // upgrade later with STARTTLS
     auth: {
       user: process.env.SMTP_USER, // Use session email or fallback
       pass: process.env.SMTP_PASSWORD,
