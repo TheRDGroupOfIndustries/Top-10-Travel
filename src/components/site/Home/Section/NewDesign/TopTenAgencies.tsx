@@ -63,25 +63,6 @@ const CarouselCard = ({ agency }: { agency: AgencyApiResult }) => (
   </motion.div>
 );
 
-// const fetchImage = async ({
-//   city,
-//   country,
-//   role,
-// }: {
-//   city: string;
-//   country: string;
-//   role: string;
-// }) => {
-//   try {
-//     const res = await axios.get(
-//       `/api/image?country=${country}&city=${city}&role=${role}`
-//     );
-
-//     return res;
-//   } catch (error) {
-//     console.log(error);
-//   }
-// };
 
 const TopTenAgencies = () => {
   const { selectedCountry, selectedCity, setSelectedCity, allCities, visible } =
