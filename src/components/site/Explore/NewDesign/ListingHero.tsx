@@ -10,6 +10,7 @@ import { ChevronDown } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 import AnimatedImage from "../../Details/AnimatedImage";
+import HotelCarousel from "@/components/hotel/HotelCarousel";
 
 function ListingHero({
   title,
@@ -129,13 +130,8 @@ function ListingHero({
 
   return (
     <div className="w-full pt-20">
-      <div className="relative h-80 w-full mb-5">
-        <AnimatedImage
-          src={image}
-          alt="hero"
-          fill
-          // className="w-full h-full object-center"
-        />
+      <div className="w-full mb-5">
+        <HotelCarousel/>
       </div>
       <div className="w-full h-full flex flex-col xl:flex-row xl:items-end xl:justify-between items-center justify-end gap-2 px-2 md:px-3 xl:px-8">
         <h1 className="md:text-2xl lg:text-3xl font-cinzel md:text-start text-balance text-center text-xl font-bold text-black">

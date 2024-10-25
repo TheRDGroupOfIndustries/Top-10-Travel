@@ -36,12 +36,12 @@ const HomeCards = ({
           });
         }
       }}
-      className="relative flex items-end overflow-hidden justify-center shadow cursor-pointer hover:-translate-y-1 transform-all duration-300 w-full h-48 border border-1 rounded-lg"
+      className="relative flex items-end  justify-center shadow cursor-pointer hover:-translate-y-1 transform-all duration-300 w-full h-48 border border-1 rounded-lg"
     >
       <img
         src={image}
         alt={`Background image of ${role} card`}
-        className="absolute object-cover rounded-lg -z-10"
+        className="absolute object-cover rounded-lg h-full w-full -z-10"
       />
       <div className="w-[95%] p-2 m-2 space-y-0.5 h-16 bg-white/80 backdrop-blur-sm rounded-lg">
         <p className="font-bold text-lg text-slate-800">{city}</p>
