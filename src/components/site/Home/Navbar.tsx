@@ -168,11 +168,11 @@ function Navbar() {
 
         <div
           className={`flex justify-between items-center z-[60] h-[60px] transition-transform duration-300`}>
-            <div className="relative h-6 xs:h-7 sm:h-8 w-44 xs:w-48 sm:w-56">
+            <div className="relative h-6 xs:h-7 sm:h-8 w-44 xs:w-8 sm:w-8">
               <Link href="/" onClick={() => {
                 setCity("");
               }}>
-                <Image src="/logo.png" alt="logo" fill />
+                <Image src="/roundLogo.jpg" className="rounded-full" alt="logo" fill />
               </Link>
             </div>
 

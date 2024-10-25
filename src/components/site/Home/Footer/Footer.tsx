@@ -75,9 +75,9 @@ function Footer() {
       <footer className="mx-auto max-w-screen-2xl px-4 md:px-8">
         <div className="mb-16 grid grid-cols-2 gap-12 pt-10 md:grid-cols-4 lg:grid-cols-5 lg:gap-8 lg:pt-5">
           <div className="col-span-full lg:col-span-2">
-            <div className="relative mb-6 h-6 xs:h-7 sm:h-8 w-44 xs:w-48 sm:w-56">
+            <div className="relative mb-6 h-6 xs:h-7 sm:h-8 w-8">
               <Link href="/">
-                <Image src="/logo.png" alt="logo" fill />
+                <Image src="/roundLogo.jpg" className="rounded-full" alt="logo" fill />
               </Link>
             </div>
 

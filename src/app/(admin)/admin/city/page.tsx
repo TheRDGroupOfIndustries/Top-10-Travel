@@ -1,9 +1,5 @@
-"use client";
-
-import { HomeContext } from "@/hooks/context/HomeContext";
-import useAxios from "@/hooks/useAxios";
-import { AgencyApiResult } from "@/types/homeApiType";
-import React, { useContext, useEffect, useState } from "react";
+// "use client";
+import React, { useState } from "react";
 import {
     Select,
     SelectContent,
@@ -13,7 +9,7 @@ import {
   } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
 
-function page() {
+function City() {
     const [overlay, setOverlay] = useState(false);
     const priority = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
     return (
@@ -48,4 +44,4 @@ function page() {
   );
 }
 
-export default page;
+export default City;

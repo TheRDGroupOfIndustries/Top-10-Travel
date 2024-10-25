@@ -37,6 +37,7 @@ function ListData({
   data: Data;
 }) {
   const [currentPage, setCurrentPage] = useState(1);
+  const [Listing, setListing] = useState(false);
   const itemsPerPage = 10;
 
   const indexOfLastItem = currentPage * itemsPerPage;
@@ -72,7 +73,7 @@ function ListData({
               className="relative w-full lg:h-60 rounded-lg flex flex-col md:flex-row items-center justify-between gap-5 shadow shadow-black/30"
             >
               <div className="lg:w-[30%] relative w-full lg:h-full h-60 rounded-lg overflow-hidden">
-                {currentPage === 1 && (
+                {/* {currentPage === 1 && (
                   <div className="absolute h-full">
                     <Image
                       src={`/rankPngs/${i + 1}.png`}
@@ -83,7 +84,7 @@ function ListData({
                       height={2000}
                     />
                   </div>
-                )}
+                )} */}
 
                 <Image
                   src={item?.images?.[0] || "/stockPhoto.jpg"}

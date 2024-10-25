@@ -42,7 +42,7 @@ function AgencySidebar({
       </div> */}
       <div className="relative mt-7 mb-12 h-6 w-48">
         <Link href="/">
-          <Image src="/logo.png" alt="logo" fill />
+          <Image src="/roundLogo.jpg" className="rounded-full" alt="logo" fill />
         </Link>
       </div>
 

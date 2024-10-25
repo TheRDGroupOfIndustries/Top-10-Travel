@@ -79,9 +79,9 @@ const SmallScreenSidebar = ({
       <SheetContent side={"left"} className="flex flex-col h-full">
         <SheetHeader>
           <SheetTitle>
-            <div className="relative navbar-start h-6 xs:h-7 sm:h-8 w-44 xs:w-48 sm:w-56">
+            <div className="relative navbar-start h-6 xs:h-7 sm:h-8 w-8">
               <Link href="/" className="text-2xl font-bold">
-                <Image src="/logo.png" alt="logo" fill />
+                <Image src="/roundLogo.jpg" className="rounded-full" alt="logo" fill />
               </Link>
             </div>
           </SheetTitle>

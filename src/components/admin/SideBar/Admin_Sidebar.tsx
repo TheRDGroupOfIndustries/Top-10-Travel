@@ -32,9 +32,9 @@ function AdminSidebar() {
 
   return (
     <div className="lg:w-[17vw] h-[100vh] left-0 top-0 fixed text-black flex flex-col border-r-2 border-[#7F7F7F] px-4">
-      <div className="relative mt-7 mb-12 h-6 w-48">
+      <div className="relative mt-7 mb-12 h-6 w-8">
         <Link href="/">
-          <Image src="/logo.png" alt="logo" fill />
+          <Image src="/roundLogo.jpg" alt="logo" fill className="rounded-full" />
         </Link>
       </div>
 
