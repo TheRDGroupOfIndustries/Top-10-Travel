@@ -29,9 +29,9 @@ export const HomeContext = createContext<Homecontext>({} as Homecontext);
 export const HomeContextProvider = ({ children }: { children: ReactNode }) => {
   const [visible, setVisible] = useState({
     AGENCY: true,
-    DMC: false,
-    HOTEL: false,
-    Influencer: false,
+    DMC: true,
+    HOTEL: true,
+    Influencer: true,
   });
 
   const [selectedCountry, setSelectedCountry] = useState("");
