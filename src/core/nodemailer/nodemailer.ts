@@ -7,8 +7,9 @@ async function createTransporter() {
   // const session = await getSessionorRedirect(); // Wait for session data
 
   return nodemailer.createTransport({
-    host: process.env.SMTP_HOST,
-    port: process.env.SMTP_PORT,
+    // host: process.env.SMTP_HOST,
+    host: process.env.SMTP_HOST,  
+    port: Number(process.env.SMTP_PORT),
     secure: false, // upgrade later with STARTTLS
     auth: {
       user: process.env.SMTP_USER, // Use session email or fallback
