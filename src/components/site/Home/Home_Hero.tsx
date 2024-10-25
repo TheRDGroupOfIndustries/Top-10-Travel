@@ -309,12 +309,7 @@ function HomeHero() {
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.8, delay: 1, type: "spring" }}
           >
-            The only place where you can find Top 10{" "}
-            <span className="text-mainColor mr-1">
-              Agencies, <br className="hidden lg:block xl:hidden" /> Hotels,
-              <br className="hidden xl:block" /> DMC&apos;s
-            </span>
-            &nbsp;all around the world.
+           India&apos;s first and largest initiative,<br />dedicated to identifying the best of<span className="text-mainColor mr-1"> Travel Brands</span>
           </motion.span>
         </p>
 
