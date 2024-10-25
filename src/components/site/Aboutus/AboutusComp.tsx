@@ -26,9 +26,6 @@ const dashboardData = unstable_cache(
 const AboutusComp = async () => {
   const { user, agency, influencer, dmc, hotel, helpdesk, reviews, aboutContent } =
     await dashboardData();
-
-    console.log("about content", aboutContent); 
-
   return (
     <div className="relative flex flex-col gap-5 lg:gap-5 lg:flex-row justify-between px-6 md:px-12 lg:px-[6%] py-20">
       <div id="toNavigate" className="absolute bottom-44 left-0 h-[0.5px] w-[0.5px]"></div>
