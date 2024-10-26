@@ -40,10 +40,18 @@ function AgencySidebar({
       {/* <div className="p-2 mt-5 mb-12">
         <Link href="/">LOGO</Link>
       </div> */}
-      <div className="relative mt-7 mb-12 h-6 w-48">
-        <Link href="/">
-          <Image src="/roundLogo.jpg" className="rounded-full" alt="logo" fill />
-        </Link>
+      <div className="relative mt-7 mb-12 h-6">
+      <Link href="/" className="flex gap-2">
+                <Image src="/roundLogo.jpg" className="rounded-full" alt="logo" width={40} height={30} />
+                <h1
+          id="secondLine"
+          className="uppercase font-cinzel font-bold text-3xl mt-1"
+        >
+          <span className="inline-block">
+            travel <span className="text-mainColor">Top 10</span>
+          </span>
+        </h1>
+              </Link>
       </div>
 
       <nav className="flex-grow">

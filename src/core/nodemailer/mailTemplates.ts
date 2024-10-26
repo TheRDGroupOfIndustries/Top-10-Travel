@@ -1,3 +1,5 @@
+import image from "/public/roundLogo.jpg"
+
 export function getSignupTemplate(userName: string) {
   return {
     subject: "Welcome to Travel-Top-10!",
@@ -199,7 +201,7 @@ export function getContactUsAppreciationTemplate(userName: string) {
           ✉️ <strong>Email:</strong> <a href="mailto:contact@trveltop10.in" style="color: #008CBA; text-decoration: none; font-weight: bold; cursor: pointer;">contact@trveltop10.in</a><br>
           🌐 <strong>Visit us:</strong> <a href="https://traveltop10.in/" style="color: #008CBA; text-decoration: none; font-weight: bold; cursor: pointer;">traveltop10.in</a>
         </p>
-
+      
         <div style="text-align: center; padding: 10px 0;">
           <a href="https://traveltop10.in/" style="background-color: #008CBA; color: #fff; padding: 10px 20px; text-decoration: none; border-radius: 5px; cursor: pointer; font-weight: bold;">Explore Destinations</a>
         </div>

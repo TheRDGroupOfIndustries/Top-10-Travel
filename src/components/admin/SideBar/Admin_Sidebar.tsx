@@ -32,10 +32,18 @@ function AdminSidebar() {
 
   return (
     <div className="lg:w-[17vw] h-[100vh] left-0 top-0 fixed text-black flex flex-col border-r-2 border-[#7F7F7F] px-4">
-      <div className="relative mt-7 mb-12 h-6 w-8">
-        <Link href="/">
-          <Image src="/roundLogo.jpg" alt="logo" fill className="rounded-full" />
-        </Link>
+      <div className="relative mt-7 mb-12 h-6">
+      <Link href="/" className="flex gap-2">
+                <Image src="/roundLogo.jpg" className="rounded-full" alt="logo" width={40} height={30} />
+                <h1
+          id="secondLine"
+          className="uppercase font-cinzel font-bold text-xl mt-2"
+        >
+          <span className="inline-block">
+            travel <span className="text-mainColor">Top 10</span>
+          </span>
+        </h1>
+              </Link>
       </div>
 
       <nav className="flex-grow">

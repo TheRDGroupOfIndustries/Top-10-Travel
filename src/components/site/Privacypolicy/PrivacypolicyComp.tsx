@@ -1,12 +1,17 @@
+import Image from "next/image";
 import React from "react";
+import image from "/public/image1.jpg";
 
 const PrivacypolicyComp = () => {
   return (
     <div className="mt-20 px-2 md:px-3 lg:px-6 xl:px-8">
-      <div className="flex flex-col gap-4 text-slate-800 border-2 border-slate-700 p-5 rounded-2xl bg-clip-padding backdrop-filter backdrop-blur-lg bg-opacity-20 w-full h-full">
+      <div className="flex flex-col gap-4 text-slate-800 p-5 bg-clip-padding backdrop-filter backdrop-blur-lg bg-opacity-20 w-full h-full">
         
         <div className="flex flex-col gap-6">
-          <h1 className="font-bold border-b-[1px] border-slate-600 pb-2 font-serif tracking-wide uppercase text-3xl sm:text-5xl text-slate-850">
+        <div className="w-full h-72">
+          <Image alt="Banner image" src={image.src} className="w-full h-full object-cover bg-center" width={1080} height={1080} />
+        </div>
+          <h1 className="font-bold border-b-[1px] border-slate-600 pb-2 font-cinzel tracking-wide text-3xl sm:text-5xl text-slate-850">
             Privacy Policy
           </h1>
 
@@ -25,7 +30,7 @@ const PrivacypolicyComp = () => {
           </h1>
 
           <div className="font-medium">
-            Personal Data :-
+            Personal Data -
             <div className="ml-2">
               We may collect personal details you provide, including:-
             </div>
@@ -39,7 +44,7 @@ const PrivacypolicyComp = () => {
           </div>
 
           <div className="font-medium">
-            Non-Personal Data :-
+            Non-Personal Data -
             <div className="ml-2">
               We also collect information about your visit to our Site, such
               as:-

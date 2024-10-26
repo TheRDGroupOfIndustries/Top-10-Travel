@@ -168,11 +168,24 @@ function Navbar() {
 
         <div
           className={`flex justify-between items-center z-[60] h-[60px] transition-transform duration-300`}>
-            <div className="relative h-6 xs:h-7 sm:h-8 w-8">
-              <Link href="/" onClick={() => {
+            <div className="relative h-6 xs:h-7 sm:h-8">
+              <Link href="/" className="flex gap-2" onClick={() => {
                 setCity("");
               }}>
-                <Image src="/roundLogo.jpg" className="rounded-full" alt="logo" fill />
+                <Image src="/roundLogo.jpg" className="rounded-full" alt="logo" width={40} height={30} />
+                <h1
+          id="secondLine"
+          className="uppercase font-cinzel font-bold text-3xl mt-1"
+        >
+          <motion.span
+            className="inline-block"
+            initial={{ y: 50, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ duration: 0.8, delay: 0.4, type: "spring" }}
+          >
+            travel <span className="text-mainColor">Top 10</span>
+          </motion.span>
+        </h1>
               </Link>
             </div>
 

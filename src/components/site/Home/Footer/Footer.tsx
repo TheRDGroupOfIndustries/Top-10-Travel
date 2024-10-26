@@ -71,13 +71,23 @@ const socialIcons = [
 
 function Footer() {
   return (
-    <div className="bg-mainColor pt-4 sm:pt-10 lg:pt-12 mt-20">
+    <div className="bg-mainColor pt-4 sm:pt-10 lg:pt-12 mt-20 h-auto">
       <footer className="mx-auto max-w-screen-2xl px-4 md:px-8">
-        <div className="mb-16 grid grid-cols-2 gap-12 pt-10 md:grid-cols-4 lg:grid-cols-5 lg:gap-8 lg:pt-5">
+        <div className="mb-8 grid grid-cols-2 gap-12 pt-4 md:grid-cols-4 lg:grid-cols-5 lg:gap-8 lg:pt-5">
           <div className="col-span-full lg:col-span-2">
-            <div className="relative mb-6 h-6 xs:h-7 sm:h-8 w-8">
-              <Link href="/">
-                <Image src="/roundLogo.jpg" className="rounded-full" alt="logo" fill />
+            <div className="relative mb-6 h-6 xs:h-7 sm:h-8">
+            <Link href="/" className="flex gap-2">
+                <Image src="/roundLogo.jpg" className="rounded-full" alt="logo" width={40} height={30} />
+                <h1
+          id="secondLine"
+          className="uppercase font-cinzel font-bold text-3xl mt-1"
+        >
+          <span
+            className="inline-block"
+          >
+            travel <span className="text-white">Top 10</span>
+          </span>
+        </h1>
               </Link>
             </div>
 
@@ -120,7 +130,7 @@ function Footer() {
             <div className="mb-4 font-bold text-white uppercase tracking-widest text-xl md:text-2xl">
               Company
             </div>
-            <nav className="flex flex-col gap-4">
+            <nav className="flex flex-col gap-2">
               {companyLinks?.map((item, index) => (
                 <div key={index}>
                   <Link
@@ -140,7 +150,7 @@ function Footer() {
               TOP 10
             </div>
 
-            <nav className="flex flex-col text-white gap-4">
+            <nav className="flex flex-col text-white gap-2">
               {top10Links?.map((item, index) => (
                 <div key={index}>
                   <Link
@@ -173,7 +183,7 @@ function Footer() {
           </div>
         </div>
 
-        <div className="cursor-default text-white select-none border-t py-8 text-center text-sm font-semibold">
+        <div className="cursor-default text-white select-none border-t py-4 text-center text-sm font-semibold">
           All rights Reserved © Travel Top 10, {new Date().getFullYear()}
         </div>
       </footer>
