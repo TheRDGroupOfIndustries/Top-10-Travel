@@ -217,8 +217,8 @@ const PrivacypolicyComp = async () => {
             Privacy Policy
           </h1>
 
-          <div className="text-lg">
-          <ReactMarkdown>{data?.content}</ReactMarkdown>
+          <div className="text-lg markdown-body">
+            <ReactMarkdown>{data?.content}</ReactMarkdown>
           </div>
         </div>
 

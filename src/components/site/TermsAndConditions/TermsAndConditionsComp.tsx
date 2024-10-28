@@ -159,7 +159,7 @@ const TermsAndConditionsComp = async() => {
             Terms & Conditions
           </h1>
 
-          <div className="text-lg">
+          <div className="text-lg markdown-body">
            <ReactMarkdown>{data?.content}</ReactMarkdown>
           </div>
         </div>

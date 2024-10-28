@@ -59,6 +59,10 @@ const AdminPrivacyPolicy = () => {
             status: false,
             autofocus: true,
             placeholder: "Start typing in markdown...",
+            previewRender: (plainText) => {
+              // This ensures the preview uses your custom markdown-body styles
+              return `<div class="markdown-body">${editorRef.current?.markdown(plainText)}</div>`;
+            },
           });
     
           // Attach the change event listener to the CodeMirror instance
