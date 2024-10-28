@@ -2,10 +2,11 @@ import { db } from "@/core/client/db";
 import { unstable_cache } from "next/cache";
 import Image from "next/image";
 import { CountUp } from "../Home/Section/GetCertification/certification";
+import { useEffect } from "react";
 
 const dashboardData = unstable_cache(
   async () => {
-    const [user, agency, influencer, dmc, hotel, helpdesk, reviews] =
+    const [user, agency, influencer, dmc, hotel, helpdesk, reviews, aboutContent] =
       await Promise.all([
         db.user.count(),
         db.agency.count(),
@@ -14,17 +15,17 @@ const dashboardData = unstable_cache(
         db.hotel.count(),
         db.helpDesk.count({ where: { status: "RESOLVED" } }),
         db.reviews.count(),
+        db.aboutContent.findFirst(),
       ]);
-    return { user, agency, influencer, dmc, hotel, helpdesk, reviews };
+    return { user, agency, influencer, dmc, hotel, helpdesk, reviews, aboutContent };
   },
   undefined,
   { tags: ["admin-dashboard"], revalidate: 300 }
 );
 
 const AboutusComp = async () => {
-  const { user, agency, influencer, dmc, hotel, helpdesk, reviews } =
+  const { user, agency, influencer, dmc, hotel, helpdesk, reviews, aboutContent } =
     await dashboardData();
-
   return (
     <div className="relative flex flex-col gap-5 lg:gap-5 lg:flex-row justify-between px-6 md:px-12 lg:px-[6%] py-20">
       <div id="toNavigate" className="absolute bottom-44 left-0 h-[0.5px] w-[0.5px]"></div>
@@ -33,19 +34,10 @@ const AboutusComp = async () => {
           About us
         </div>
         <div className="text-slate-850 font-semibold text-4xl lg:text-5xl">
-          Your Gateway to Seamless Travel Planning
+          {aboutContent?.title}
         </div>
         <div className="text-slate-800 mt-auto xl:text-lg">
-          Our mission is to become the leader in the personalized premier travel
-          domain, redefining luxury travel experiences through tailored
-          itineraries, exceptional service, and unwavering dedication to our
-          client&apos;s satisfaction. We are committed to curating bespoke
-          journeys that surpass expectations, providing unparalleled access to
-          the world&apos;s most exclusive destinations, and delivering memorable
-          moments that last a lifetime. Through innovation, excellence, and a
-          passion for exploration, we strive to set the standard for luxury
-          travel, inspiring discerning travelers to embark on extraordinary
-          adventures with us as their trusted partner.
+          {aboutContent?.content}
         </div>
       </div>
 

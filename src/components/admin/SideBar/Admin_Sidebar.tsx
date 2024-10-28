@@ -26,6 +26,9 @@ function AdminSidebar() {
       href: "/admin/influencer",
     },
     { name: "Help Desk", icon: HelpCircle, href: "/admin/helpdesk" },
+    {name: "About Us", icon: FileText, href: "/admin/aboutus"},
+    {name: "Terms & Conditions", icon: FileText, href: "/admin/terms"},
+    {name: "Privacy Policy", icon: FileText, href: "/admin/policy"},
     { name: "Report", icon: FileText, href: "/admin/report" },
     { name: "City", icon: Umbrella, href: "/admin/city" },
   ];
