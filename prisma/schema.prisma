@@ -293,3 +293,29 @@ model PrivacyPolicyContent {
   content   String   
   updatedAt DateTime @updatedAt
 }
+
+enum Role {
+  USER
+  ADMIN
+  Influencer
+}
+
+enum RequestStatus {
+  PENDING
+  ACCEPTED
+  REJECTED
+}
+
+enum HelpDeskStatus {
+  PENDING
+  RESOLVED
+}
+
+
+model City {
+  id        String   @id @default(cuid())
+  name     String
+  country  String
+  image    String
+  priority String?
+}

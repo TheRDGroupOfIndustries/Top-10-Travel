@@ -1,6 +1,8 @@
 import { db } from "@/core/client/db";
 import React from "react";
 import ReactMarkdown from "react-markdown";
+import image from "/public/image1.jpg";
+import Image from "next/image";
 
 // const PrivacypolicyComp = () => {
 //   return (

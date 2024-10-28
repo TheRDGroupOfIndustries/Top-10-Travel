@@ -61,7 +61,7 @@ const AdminTermsAndConditions = () => {
         placeholder: "Start typing in markdown...",
         previewRender: (plainText) => {
           // This ensures the preview uses your custom markdown-body styles
-          return `<div class="markdown-body">${editorRef.current?.markdown(plainText)}</div>`;
+          return `<div class="markdown-body">${(editorRef.current as any).markdown(plainText)}</div>`;
         },
       });
 
