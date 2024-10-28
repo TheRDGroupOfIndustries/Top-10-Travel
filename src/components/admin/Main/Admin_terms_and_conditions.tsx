@@ -1,20 +1,23 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Textarea } from "@/components/ui/textarea";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
+import EasyMDE from "easymde";
+import "easymde/dist/easymde.min.css";
 
 const AdminTermsAndConditions = () => {
   const [content, setContent] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const [isSaving, setIsSaving] = useState(false);
   const [message, setMessage] = useState("");
+  const editorRef = useRef<EasyMDE | null>(null); 
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSaving(true);
-    setMessage("done");
+    setMessage("Saving...");
 
-    console.log("form data",  content);
+    console.log("form data", content);
 
     try {
       const response = await fetch("/api/terms", {
@@ -40,21 +43,52 @@ const AdminTermsAndConditions = () => {
   };
 
   useEffect(() => {
-    fetchContent()
-  }, [])
+    fetchContent();
+  }, []);
+
+  useEffect(() => {
+    // Initialize EasyMDE when the component mounts
+    if (!editorRef.current) {
+      editorRef.current = new EasyMDE({
+        element: document.getElementById("markdown-editor") as HTMLElement,
+        initialValue: content,
+        spellChecker: false,
+        toolbar: [
+          "bold", "italic", "heading", "|", "quote", "unordered-list", "ordered-list", "|", "preview"
+        ],
+        status: false,
+        autofocus: true,
+        placeholder: "Start typing in markdown...",
+      });
+
+      // Attach the change event listener to the CodeMirror instance
+      editorRef.current.codemirror.on("change", () => {
+        const value = editorRef.current?.value();
+        setContent(value || "");
+      });
+    }
+
+    // Clean up the editor instance when the component unmounts
+    return () => {
+      if (editorRef.current) {
+        editorRef.current.toTextArea();
+        editorRef.current = null;
+      }
+    };
+  }, [content]);
 
   const fetchContent = async () => {
     try {
-      const response = await fetch('/api/terms')
-      const data = await response.json()
-
-      setContent(data.content)
+      const response = await fetch("/api/terms");
+      const data = await response.json();
+      setContent(data.content);
     } catch (error) {
-      console.error('Error fetching content:', error)
+      console.error("Error fetching content:", error);
     } finally {
-      setIsLoading(false)
+      setIsLoading(false);
     }
-  }
+  };
+
   return (
     <Card className="bg-[#f3f3f3]">
       <CardHeader>
@@ -71,11 +105,10 @@ const AdminTermsAndConditions = () => {
       <CardContent>Content</CardContent>
       <form onSubmit={handleSubmit}>
         <CardContent>
-          <Textarea
-            placeholder="Description"
-            value={content}
-            onChange={(e) => setContent(e.target.value)}
-            className=" min-h-32 h-60 focus-visible:ring-none focus-visible:ring-0 bg-[#fbfbfb]"
+          <textarea
+            id="markdown-editor"
+            defaultValue={content}
+            style={{ display: "none" }} 
           />
         </CardContent>
         <CardContent>

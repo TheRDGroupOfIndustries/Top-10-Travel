@@ -1,14 +1,16 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Textarea } from "@/components/ui/textarea";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import EasyMDE from "easymde";
+import "easymde/dist/easymde.min.css";
 
 const AdminPrivacyPolicy = () => {
     const [content, setContent] = useState("");
     const [isLoading, setIsLoading] = useState(true);
     const [isSaving, setIsSaving] = useState(false);
     const [message, setMessage] = useState("");
+    const editorRef = useRef<EasyMDE | null>(null);
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -43,6 +45,37 @@ const AdminPrivacyPolicy = () => {
       useEffect(() => {
         fetchContent()
       }, [])
+
+      useEffect(() => {
+        // Initialize EasyMDE when the component mounts
+        if (!editorRef.current) {
+          editorRef.current = new EasyMDE({
+            element: document.getElementById("markdown-editor") as HTMLElement,
+            initialValue: content,
+            spellChecker: false,
+            toolbar: [
+              "bold", "italic", "heading", "|", "quote", "unordered-list", "ordered-list", "|", "preview"
+            ],
+            status: false,
+            autofocus: true,
+            placeholder: "Start typing in markdown...",
+          });
+    
+          // Attach the change event listener to the CodeMirror instance
+          editorRef.current.codemirror.on("change", () => {
+            const value = editorRef.current?.value();
+            setContent(value || "");
+          });
+        }
+    
+        // Clean up the editor instance when the component unmounts
+        return () => {
+          if (editorRef.current) {
+            editorRef.current.toTextArea();
+            editorRef.current = null;
+          }
+        };
+      }, [content]);
     
       const fetchContent = async () => {
         try {
@@ -70,12 +103,11 @@ const AdminPrivacyPolicy = () => {
       </CardHeader>
       <CardContent>Content</CardContent>
       <form onSubmit={handleSubmit}>
-        <CardContent>
-          <Textarea
-            placeholder="Description"
-            value={content}
-            onChange={(e) => setContent(e.target.value)}
-            className=" min-h-32 h-60 focus-visible:ring-none focus-visible:ring-0 bg-[#fbfbfb]"
+      <CardContent>
+          <textarea
+            id="markdown-editor"
+            defaultValue={content}
+            style={{ display: "none" }} 
           />
         </CardContent>
         <CardContent>

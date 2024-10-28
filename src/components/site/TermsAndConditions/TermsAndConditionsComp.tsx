@@ -1,5 +1,6 @@
 import { db } from "@/core/client/db";
 import React from "react";
+import ReactMarkdown from "react-markdown";
 
 // const TermsAndConditionsComp = () => {
 //   return (
@@ -159,7 +160,7 @@ const TermsAndConditionsComp = async() => {
           </h1>
 
           <div className="text-lg">
-           {data?.content}
+           <ReactMarkdown>{data?.content}</ReactMarkdown>
           </div>
         </div>
 
