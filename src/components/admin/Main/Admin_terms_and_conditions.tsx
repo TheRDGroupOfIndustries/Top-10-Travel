@@ -4,6 +4,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useEffect, useState, useRef } from "react";
 import EasyMDE from "easymde";
 import "easymde/dist/easymde.min.css";
+import Image from "next/image";
+import image from '/public/image1.jpg'
 
 const AdminTermsAndConditions = () => {
   const [content, setContent] = useState("");
@@ -12,22 +14,29 @@ const AdminTermsAndConditions = () => {
   const [message, setMessage] = useState("");
   const editorRef = useRef<EasyMDE | null>(null); 
 
+  const [selectedImage, setSelectedImage] = useState<File | null>(null);
+  const [preview, setPreview] = useState("");
+
+
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSaving(true);
     setMessage("Saving...");
 
-    console.log("form data", content);
+
+    const formData = new FormData();
+
+    formData.append("content", content);
+
+    if (selectedImage) {
+      formData.append("image", selectedImage);
+    }
 
     try {
       const response = await fetch("/api/terms", {
         method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          content,
-        }),
+        body: formData,
       });
 
       if (response.ok) {
@@ -86,10 +95,21 @@ const AdminTermsAndConditions = () => {
       const response = await fetch("/api/terms");
       const data = await response.json();
       setContent(data.content);
+      setPreview(data.imageURL)
     } catch (error) {
       console.error("Error fetching content:", error);
     } finally {
       setIsLoading(false);
+    }
+  };
+
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target?.files;
+    if (files && files.length > 0) {
+      const file = files[0];
+      setSelectedImage(file);
+      setPreview(URL.createObjectURL(file));
+      // setUploadMessage('');
     }
   };
 
@@ -108,6 +128,26 @@ const AdminTermsAndConditions = () => {
       </CardHeader>
       <CardContent>Content</CardContent>
       <form onSubmit={handleSubmit}>
+      <CardContent>
+          <Card
+            title="Click to change"
+            className="relative w-full h-72 cursor-pointer"
+          >
+            <Image
+              alt="Banner image"
+              src={preview}
+              className="w-full h-full rounded-lg object-cover bg-center"
+              width={1080}
+              height={1080}
+            />
+            <input
+              type="file"
+              accept="image/*"
+              onChange={handleImageChange}
+              className="absolute top-0 left-0 cursor-pointer h-full w-full"
+            />
+          </Card>
+        </CardContent>
         <CardContent>
           <textarea
             id="markdown-editor"

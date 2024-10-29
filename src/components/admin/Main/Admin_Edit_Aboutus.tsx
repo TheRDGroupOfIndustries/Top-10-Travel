@@ -10,7 +10,10 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import Image from "next/image";
 import { useEffect, useState } from "react";
+import image from "/public/image1.jpg";
+import { set } from "zod";
 
 interface AboutContent {
   title: string;
@@ -24,23 +27,28 @@ const AdminEditAboutus = () => {
   const [isSaving, setIsSaving] = useState(false);
   const [message, setMessage] = useState("");
 
+  const [selectedImage, setSelectedImage] = useState<File | null>(null);
+  const [preview, setPreview] = useState("");
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSaving(true);
     setMessage("");
 
-    console.log("form data", title, content);
+
+    const formData = new FormData();
+    formData.append("title", title);
+    formData.append("content", content);
+
+    if (selectedImage) {
+      formData.append("image", selectedImage);
+    }
+
 
     try {
       const response = await fetch("/api/about", {
         method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          title,
-          content,
-        }),
+        body: formData,
       });
 
       if (response.ok) {
@@ -56,22 +64,33 @@ const AdminEditAboutus = () => {
   };
 
   useEffect(() => {
-    fetchContent()
-  }, [])
+    fetchContent();
+  }, []);
 
   const fetchContent = async () => {
     try {
-      const response = await fetch('/api/about')
-      const data = await response.json()
+      const response = await fetch("/api/about");
+      const data = await response.json();
 
-      setTitle(data.title)
-      setContent(data.content)
+      setTitle(data.title);
+      setContent(data.content);
+      setPreview(data.imageURL)
     } catch (error) {
-      console.error('Error fetching content:', error)
+      console.error("Error fetching content:", error);
     } finally {
-      setIsLoading(false)
+      setIsLoading(false);
     }
-  }
+  };
+
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target?.files;
+    if (files && files.length > 0) {
+      const file = files[0];
+      setSelectedImage(file);
+      setPreview(URL.createObjectURL(file));
+      // setUploadMessage('');
+    }
+  };
 
   return (
     <Card className="bg-[#f3f3f3]">
@@ -85,8 +104,29 @@ const AdminEditAboutus = () => {
           </p>
         </CardTitle>
       </CardHeader>
-      <CardContent>Content</CardContent>
+      {/* <CardContent>Content</CardContent> */}
       <form onSubmit={handleSubmit}>
+        <CardContent>
+          <Card
+            title="Click to change"
+            className="relative w-full h-72 cursor-pointer"
+          >
+            <Image
+              alt="Banner image"
+              src={preview}
+              className="w-full h-full rounded-lg object-cover bg-center"
+              width={1080}
+              height={1080}
+            />
+            <input
+              type="file"
+              accept="image/*"
+              onChange={handleImageChange}
+              className="absolute top-0 left-0 cursor-pointer h-full w-full"
+            />
+          </Card>
+        </CardContent>
+
         <CardContent>
           <Label>Title</Label>
           <Input

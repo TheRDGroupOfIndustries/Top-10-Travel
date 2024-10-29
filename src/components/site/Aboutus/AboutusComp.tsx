@@ -44,7 +44,7 @@ const AboutusComp = async () => {
       <div className="w-full h-[40rem] overflow-hidden rounded-2xl shadow-sm bg-slate-100">
         <div className="relative rounded-2xl h-1/2 w-full">
           <Image
-            src="/about.jpg"
+            src={aboutContent?.imageURL || ""}
             className="rounded-2xl"
             alt={"travel image"}
             fill

@@ -277,6 +277,8 @@ model Enquiry {
 
 model AboutContent {
   id        String   @id @default(cuid())
+  imageId   String?
+  imageURL  String?
   title     String   
   content   String   
   updatedAt DateTime @updatedAt
@@ -284,12 +286,16 @@ model AboutContent {
 
 model TermsContent {
   id        String   @id @default(cuid())
+  imageId   String?
+  imageURL  String?
   content   String   
   updatedAt DateTime @updatedAt
 }
 
 model PrivacyPolicyContent {
   id        String   @id @default(cuid())
+  imageId   String?
+  imageURL  String?
   content   String   
   updatedAt DateTime @updatedAt
 }
