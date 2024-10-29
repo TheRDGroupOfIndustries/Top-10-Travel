@@ -158,7 +158,7 @@ const TermsAndConditionsComp = async() => {
       <div className="flex flex-col gap-4 text-slate-800 p-5 bg-clip-padding backdrop-filter backdrop-blur-lg bg-opacity-20 w-full h-full">
         <div className="flex flex-col gap-6">
         <div className="w-full h-72">
-          <Image alt="Banner image" src={image.src} className="w-full h-full object-cover bg-center" width={1080} height={1080} />
+          <Image alt="Banner image" src={data?.imageURL as string} className="w-full h-full object-cover bg-center" width={1080} height={1080} />
         </div>
           <h1 className="font-bold border-b-[1px] border-slate-600 pb-2 font-cinzel tracking-wide text-3xl sm:text-5xl text-slate-850">
             Terms & Conditions
