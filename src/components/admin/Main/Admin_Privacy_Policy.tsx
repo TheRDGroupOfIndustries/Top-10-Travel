@@ -22,10 +22,16 @@ const AdminPrivacyPolicy = () => {
     setIsSaving(true);
     setMessage("done");
 
+    const value = editorRef.current?.value();
+
+    console.log("value", value);
+
+    // console.log("saving", content);
+
 
     const formData = new FormData();
 
-    formData.append("content", content);
+    formData.append("content", value as string);
 
     if (selectedImage) {
       formData.append("image", selectedImage);
@@ -85,7 +91,7 @@ const AdminPrivacyPolicy = () => {
       // Attach the change event listener to the CodeMirror instance
       editorRef.current.codemirror.on("change", () => {
         const value = editorRef.current?.value();
-        setContent(value || "");
+        // setContent(value || "");
       });
     }
 
@@ -142,7 +148,7 @@ const AdminPrivacyPolicy = () => {
           >
             <Image
               alt="Banner image"
-              src={image.src}
+              src={preview}
               className="w-full h-full rounded-lg object-cover bg-center"
               width={1080}
               height={1080}
