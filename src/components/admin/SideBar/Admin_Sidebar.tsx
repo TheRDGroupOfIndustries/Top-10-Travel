@@ -37,7 +37,7 @@ function AdminSidebar() {
     <div className="lg:w-[17vw] h-[100vh] left-0 top-0 fixed text-black flex flex-col border-r-2 border-[#7F7F7F] px-4">
       <div className="relative mt-7 mb-12 h-6">
       <Link href="/" className="flex gap-2">
-                <Image src="/roundLogo.jpg" className="rounded-full" alt="logo" width={40} height={30} />
+                <Image src="/roundLogo.jpg" className="rounded-full max-h-[40px]" alt="logo" width={40} height={30} />
                 <h1
           id="secondLine"
           className="uppercase font-cinzel font-bold text-xl mt-2"
