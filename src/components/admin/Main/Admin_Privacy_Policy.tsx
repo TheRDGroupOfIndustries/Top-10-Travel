@@ -20,7 +20,7 @@ const AdminPrivacyPolicy = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSaving(true);
-    setMessage("done");
+    setMessage("Saving...");
 
     const value = editorRef.current?.value();
 
