@@ -56,7 +56,7 @@ const AdminTop10 = () => {
       <CardHeader>
         <CardTitle className="lg:text-3xl md:text-2xl text-xl font-semibold">
           <p>
-            Top <span className="text-mainColor">10</span>
+            Top 10<span className="text-mainColor">City</span>
           </p>
           <p className="md:text-base text-sm mt-1">
             This is the Top 10 page.
@@ -66,7 +66,7 @@ const AdminTop10 = () => {
       <CardContent>
 
         {/* Filter */}
-      <div className="md:max-w-3xl sm:max-w-sm xs:max-w-[320px] max-w-fit max-h-fit xs:h-12 sm:h-14 flex flex-col xs:flex-row gap-1 py-1 items-center justify-between rounded-lg px-1 xs:px-3 bg-gray-200">
+      {/* <div className="md:max-w-3xl sm:max-w-sm xs:max-w-[320px] max-w-fit max-h-fit xs:h-12 sm:h-14 flex flex-col xs:flex-row gap-1 py-1 items-center justify-between rounded-lg px-1 xs:px-3 bg-gray-200">
             <div className="flex items-center lg:gap-5 md:gap-2 xs:gap-1 gap-2">
               <Select
                 value={selectedCountry}
@@ -114,7 +114,8 @@ const AdminTop10 = () => {
                 Search
               </Button>
             </div>
-          </div>
+          </div> */}
+        
       </CardContent>
       <CardContent>
         <TopTenAgencies/>

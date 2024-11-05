@@ -30,7 +30,7 @@ function AdminSidebar() {
     {name: "Terms & Conditions", icon: FileText, href: "/admin/terms"},
     {name: "Privacy Policy", icon: FileText, href: "/admin/policy"},
     { name: "Report", icon: FileText, href: "/admin/report" },
-    { name: "Top 10", icon: Umbrella, href: "/admin/top10" },
+    { name: "Top 10 city", icon: Umbrella, href: "/admin/top10" },
   ];
 
   return (
