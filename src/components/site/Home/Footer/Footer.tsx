@@ -77,7 +77,7 @@ function Footer() {
           <div className="col-span-full lg:col-span-2">
             <div className="relative mb-6 h-6 xs:h-7 sm:h-8">
             <Link href="/" className="flex gap-2">
-                <Image src="/roundLogo.jpg" className="rounded-full" alt="logo" width={40} height={30} />
+                <img src="/roundLogo.jpg" className="rounded-full" alt="logo" />
                 <h1
           id="secondLine"
           className="uppercase font-cinzel font-bold text-3xl mt-1"
