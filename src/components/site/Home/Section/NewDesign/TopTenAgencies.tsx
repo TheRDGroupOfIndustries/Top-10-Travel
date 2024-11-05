@@ -13,7 +13,7 @@ import { AgencyApiResult } from "@/types/homeApiType";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import HomeCards from "@/components/reusable/HomeCards";
 
 const CarouselCard = ({ agency }: { agency: AgencyApiResult }) => (
@@ -63,10 +63,17 @@ const CarouselCard = ({ agency }: { agency: AgencyApiResult }) => (
   </motion.div>
 );
 
+interface Item {
+  city : string;
+  image : string
+}
 
 const TopTenAgencies = () => {
   const { selectedCountry, selectedCity, setSelectedCity, allCities, visible } =
     useContext(HomeContext);
+
+
+  const [city, setCity] = useState([]);
 
   const { data, isLoading }: { data: AgencyApiResult[]; isLoading: boolean } =
     useAxios({
@@ -74,6 +81,15 @@ const TopTenAgencies = () => {
       selectedCity,
       selectedCountry,
     });
+
+    useEffect(() => {
+      const fetchData = async () => {
+        const response = await axios.get(`/api/topten?role=Agency`);
+        setCity(response.data.result);
+      };
+  
+      fetchData();
+    }, []);
 
   return (
     <section
@@ -118,17 +134,19 @@ const TopTenAgencies = () => {
 
         {selectedCity === "" || !selectedCity ? (
           <div className="w-full grid xl:grid-cols-4 lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 lg:gap-6 md:gap-5 sm:gap-4 gap-3">
-            {allCities.map((city, i) => {
-              if (i > 11) return;
+            {city.map((item:Item, i) => {
+              // if (i > 11) return;
 
               return (
                 <HomeCards
                   key={i}
                   country={selectedCountry}
-                  city={city}
+                  city={(item as any).city}
+                  // city={item}
+
                   setSelectedCity={setSelectedCity}
                   role={"Agency"}
-                  image={`/image${i + 1}.jpg`}
+                  image={`${item.image}`}
                 />
               );
             })}

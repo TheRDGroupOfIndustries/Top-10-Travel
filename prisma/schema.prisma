@@ -325,3 +325,33 @@ model City {
   image    String
   priority String?
 }
+
+model TopTenAgencyCity {
+  id        String    @id @default(cuid())
+  city      String    @unique
+  order     Int
+  image     String
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  @@index([city])
+}
+
+model TopTenDMCCity {
+  id        String    @id @default(cuid())
+  city      String  @unique
+  image     String
+  order     Int
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  @@index([city])
+}
+
+model TopTenHotelCity {
+  id        String    @id @default(cuid())
+  city      String    @unique
+  order     Int
+  image     String
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  @@index([city])
+}

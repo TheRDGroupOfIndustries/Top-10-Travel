@@ -1,6 +1,7 @@
 "use client";
 
-import React, { createContext, ReactNode, useState } from "react";
+import axios from "axios";
+import React, { createContext, ReactNode, useEffect, useState } from "react";
 
 type Homecontext = {
   visible: {
@@ -22,6 +23,10 @@ type Homecontext = {
   setSearch: (val: any) => void;
   setSticky: (val: any) => void;
   updateAllData: (data: any) => void;
+
+  allAgencies: [];
+  allDMC: [];
+  allHotels: [];
 };
 
 export const HomeContext = createContext<Homecontext>({} as Homecontext);
@@ -34,13 +39,17 @@ export const HomeContextProvider = ({ children }: { children: ReactNode }) => {
     Influencer: true,
   });
 
-  const [selectedCountry, setSelectedCountry] = useState("");
+  const [selectedCountry, setSelectedCountry] = useState("India");
   const [selectedCity, setSelectedCity] = useState("");
   const [allCities, setAllCities] = useState<string[]>([]);
   const [allCountries, setAllCountries] = useState<string[]>([]);
   const [data, setData] = useState<any>();
   const [search, setSearch] = useState<boolean>(false);
   const [isSticky, setSticky] = useState<boolean>(false);
+
+  const [allAgencies, setAllAgencies] = useState<[]>([]);
+  const [allDMC, setAllDMC] = useState<[]>([]);
+  const [allHotels, setAllHotels] = useState<[]>([]);
 
   const updateAllData = (data: any) => {
     setData(data);
@@ -108,6 +117,26 @@ export const HomeContextProvider = ({ children }: { children: ReactNode }) => {
     setSelectedCity(city);
   };
 
+
+
+  useEffect(()=>{
+    const fatchData =  async () => {
+
+      const [agencyDatas, dmcData, hotelData] = await Promise.all([
+        axios.get(`/api/allcity?role=Agency&country=${selectedCountry}`),
+        axios.get(`/api/allcity?role=DMC&country=${selectedCountry}`),
+        axios.get(`/api/allcity?role=Hotel&country=${selectedCountry}`),
+      ]);
+
+      console.log(agencyDatas.data.result);
+      setAllAgencies(agencyDatas.data.result);
+      setAllDMC(dmcData.data.result);
+      setAllHotels(hotelData.data.result);
+      
+    }
+
+    fatchData();
+  },[selectedCity, selectedCountry])
   return (
     <HomeContext.Provider
       value={{
@@ -125,6 +154,10 @@ export const HomeContextProvider = ({ children }: { children: ReactNode }) => {
         allCities,
         allCountries,
         updateAllData,
+
+        allAgencies,
+        allDMC,
+        allHotels
       }}
     >
       {children}

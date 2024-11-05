@@ -2,7 +2,7 @@
 import useAxios from "@/hooks/useAxios";
 import Image from "next/image";
 import Link from "next/link";
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   Carousel,
   CarouselContent,
@@ -17,6 +17,13 @@ import { cn, getValidUrl } from "@/lib/utils";
 import { motion } from "framer-motion";
 import { DMCHotelApiResult } from "@/types/homeApiType";
 import HomeCards from "@/components/reusable/HomeCards";
+import axios from "axios";
+import { PiCityBold } from "react-icons/pi";
+
+interface Item {
+  city : string;
+  image : string
+}
 
 const CarouselCard = ({ dmc }: { dmc: DMCHotelApiResult }) => (
   <motion.div
@@ -66,6 +73,8 @@ const TopTenDMC = () => {
   const { selectedCountry, allCities, setSelectedCity, selectedCity, visible } =
     useContext(HomeContext);
 
+    const [city, setCity] = useState([]);
+
   const { data, isLoading }: { data: DMCHotelApiResult[]; isLoading: boolean } =
     useAxios({
       url: `/api/home?country=${selectedCountry}&city=${selectedCity}&role=DMC`,
@@ -73,6 +82,14 @@ const TopTenDMC = () => {
       selectedCountry,
     });
 
+    useEffect(() => {
+      const fetchData = async () => {
+        const response = await axios.get(`/api/topten?role=DMC`);
+        setCity(response.data.result);
+      };
+  
+      fetchData();
+    }, []);
   return (
     <section
       className={cn(
@@ -118,17 +135,19 @@ const TopTenDMC = () => {
         {selectedCity === "" || !selectedCity ? (
           <div className="w-full grid xl:grid-cols-4 lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 lg:gap-6 md:gap-5 sm:gap-4 gap-3">
 
-            {allCities.map((city, i) => {
+            {city.map((item:Item, i) => {
               if (i > 11) return;
 
               return (
                 <HomeCards
                   key={i}
                   country={selectedCountry}
-                  city={city}
+                  city={(item as any).city}
+                  // city={item}
+
                   setSelectedCity={setSelectedCity}
                   role={"DMC"}
-                  image={`/image${i + 1}.jpg`}
+                  image={`${item.image}`}
                 />
               );
             })}
