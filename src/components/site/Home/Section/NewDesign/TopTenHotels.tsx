@@ -132,9 +132,10 @@ function TopTenHotels() {
                   key={i}
                   country={selectedCountry}
                   city={(item as any).city}
+                  // city={item}
                   setSelectedCity={setSelectedCity}
                   role={"Hotel"}
-                  image={`/image${i + 1}.jpg`}
+                  image={`${item.image}`}
                 />
               );
             })}

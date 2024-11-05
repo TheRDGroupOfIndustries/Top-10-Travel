@@ -29,10 +29,11 @@ export const GET = async (request: NextRequest) => {
     return NextResponse.json({ result: data });
   } else if (role === "DMC") {
     const data = await db.dMC.findMany({
-      where: { country },
+      // where: { country },
         select: {
-            id: true,
-            city: true,
+          images: true,
+          id: true,
+          city: true,
           },
           distinct: ['city'],
     });
@@ -41,8 +42,9 @@ export const GET = async (request: NextRequest) => {
     const data = await db.hotel.findMany({
       where: { country },
         select: {
-            id: true,
-            city: true,
+          images: true,
+          id: true,
+          city: true,
           },
           distinct: ['city'],
     });

@@ -18,6 +18,7 @@ import { motion } from "framer-motion";
 import { DMCHotelApiResult } from "@/types/homeApiType";
 import HomeCards from "@/components/reusable/HomeCards";
 import axios from "axios";
+import { PiCityBold } from "react-icons/pi";
 
 const CarouselCard = ({ dmc }: { dmc: DMCHotelApiResult }) => (
   <motion.div
@@ -137,9 +138,11 @@ const TopTenDMC = () => {
                   key={i}
                   country={selectedCountry}
                   city={(item as any).city}
+                  // city={item}
+
                   setSelectedCity={setSelectedCity}
                   role={"DMC"}
-                  image={`/image${i + 1}.jpg`}
+                  image={`${item.image}`}
                 />
               );
             })}

@@ -22,8 +22,8 @@ function TopTenHotels() {
   //   console.log("allAgencies", allHotels);
 
   const [isSaving, setIsSaving] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
-  const [placedCards, setPlacedCards] = useState(Array(16).fill(null));
+  const [isLoading, setIsLoading] = useState(true);
+  const [placedCards, setPlacedCards] = useState(Array(12).fill(null));
   const [draggedItem, setDraggedItem] = useState<{
     item: any;
     sourceType: "cities" | "grid";
@@ -43,6 +43,7 @@ function TopTenHotels() {
     const fetchData = async () => {
       const response = await axios.get(`/api/topten?role=Hotel`);
       setPlacedCards(response.data.result);
+      setIsLoading(false)
     };
 
     fetchData();
@@ -163,12 +164,16 @@ function TopTenHotels() {
     setIsSaving(true);
 
     try {
+
+      
       // Filter out null values and get ordered IDs
       const cityOrder = placedCards
         .filter((card) => card !== null)
         .map((card, index) => {
-          return { city: card.city, order: index };
+          return { city: card.city, order: index, image : card.image || card.images[0] };
         });
+
+        console.log("placecard", cityOrder);
 
       // console.log("cityOrder:", cityOrder);
 
@@ -239,7 +244,7 @@ function TopTenHotels() {
                   <CardContent className="relative  flex items-end  justify-center  cursor-pointer w-full h-full overflow-hidden p-2  ">
                     <img
                       src={
-                        "https://th.bing.com/th/id/OIP.-edFDcSqlon5xMykpg5qMgHaEK?w=1920&h=1080&rs=1&pid=ImgDetMain"
+                        card.image || card.images[0]
                       }
                       alt={`Background image of  card`}
                       className="absolute object-cover rounded-lg  "
@@ -285,7 +290,7 @@ function TopTenHotels() {
         <div className="mt-6 mb-8">
           <Button
             onClick={handleSubmit}
-            disabled={isSaving}
+            // disabled={isSaving}
             className="bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 disabled:bg-blue-300"
           >
             {isSaving ? "Saving..." : "Save Changes"}

@@ -14,8 +14,8 @@ const TopTenAgencies = () => {
   console.log("allAgencies", allAgencies);
 
   const [isSaving, setIsSaving] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
-  const [placedCards, setPlacedCards] = useState(Array(16).fill(null));
+  const [isLoading, setIsLoading] = useState(true);
+  const [placedCards, setPlacedCards] = useState(Array(12).fill(null));
   const [draggedItem, setDraggedItem] = useState<{
     item: any;
     sourceType: "cities" | "grid";
@@ -34,7 +34,13 @@ const TopTenAgencies = () => {
   useEffect(() => {
     const fetchData = async () => {
       const response = await axios.get(`/api/topten?role=Agency`);
-      setPlacedCards(response.data.result);
+      if(response.data.result) {
+
+        setPlacedCards(response.data.result);
+      }
+      console.log("fetchData",response.data.result);
+
+      setIsLoading(false)
     };
 
     fetchData();
@@ -145,6 +151,7 @@ const TopTenAgencies = () => {
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
+    console.log("submit");
     e.preventDefault();
     if (!selectedCountry) {
       // toast({
@@ -162,7 +169,7 @@ const TopTenAgencies = () => {
       const cityOrder = placedCards
         .filter((card) => card !== null)
         .map((card, index) => {
-          return { city: card.city, order: index };
+          return { city: card.city, order: index, image : card.image || card.images[0] };
         });
 
       // console.log("cityOrder:", cityOrder);
@@ -233,7 +240,7 @@ const TopTenAgencies = () => {
                 {card ? (
                   <CardContent className="relative  flex items-end  justify-center  cursor-pointer w-full h-full overflow-hidden p-2  ">
                     <img
-                      src={"https://th.bing.com/th/id/OIP.-edFDcSqlon5xMykpg5qMgHaEK?w=1920&h=1080&rs=1&pid=ImgDetMain"}
+                      src={ card.image || card.images[0] }
                       alt={`Background image of  card`}
                       className="absolute object-cover rounded-lg  "
                     />

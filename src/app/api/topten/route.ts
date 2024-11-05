@@ -10,6 +10,7 @@ export const GET = async (request: NextRequest) => {
     const data = await db.topTenAgencyCity.findMany({
         select: {
             id: true,
+            image:true,
             city: true,
           },
           orderBy: {
@@ -21,7 +22,9 @@ export const GET = async (request: NextRequest) => {
   } else if (role === "DMC") {
     const data = await db.topTenDMCCity.findMany({
       select: {
-        city: true,
+        id: true,
+            image:true,
+            city: true,
       },
       orderBy: {
         order: "asc",
@@ -32,7 +35,9 @@ export const GET = async (request: NextRequest) => {
   } else if (role === "Hotel") {
     const data = await db.topTenHotelCity.findMany({
       select: {
-        city: true,
+        id: true,
+            image:true,
+            city: true,
       },
       orderBy: {
         order: "asc",
@@ -51,54 +56,56 @@ export const GET = async (request: NextRequest) => {
 }
 
 export const PUT = async (request: NextRequest) => {
-    const { searchParams } = new URL(request.url);
-
-    const body = await request.json();
-    const cityOrder = body.cityOrder; 
+  const { searchParams } = new URL(request.url);
+  const body = await request.json();
+  const cityOrder = body.cityOrder;
 
   const role = searchParams.get("role") as "DMC" | "Agency" | "Hotel";
 
   if (role === "Agency") {
-
-    
-    for (let i = 0; i < cityOrder.length; i++) {
-        await db.topTenAgencyCity.updateMany({
-          where: {
-            city: cityOrder[i].city,
-          },
-          data: {
-            order: cityOrder[i].order,
-          },
-        });
+      try {
+          for (const city of cityOrder) {
+              await db.topTenAgencyCity.upsert({
+                  where: { city: city.city },
+                  update: { order: city.order },
+                  create: city,
+              });
+          }
+          return NextResponse.json({ message: "Agency data processed successfully" }, { status: 200 });
+      } catch (error) {
+          console.error("Database error:", error);
+          return NextResponse.json({ error: "Database error" }, { status: 500 });
       }
-
-
   } else if (role === "DMC") {
-    for (let i = 0; i < cityOrder.length; i++) {
-        await db.topTenDMCCity.updateMany({
-          where: {
-            city: cityOrder[i].city,
-          },
-          data: {
-            order: cityOrder[i].order,
-          },
-        });
+      try {
+          for (const city of cityOrder) {
+              await db.topTenDMCCity.upsert({
+                  where: { city: city.city },
+                  update: { order: city.order },
+                  create: city,
+              });
+          }
+          return NextResponse.json({ message: "DMC data processed successfully" }, { status: 200 });
+      } catch (error) {
+          console.error("Database error:", error);
+          return NextResponse.json({ error: "Database error" }, { status: 500 });
       }
   } else if (role === "Hotel") {
-    for (let i = 0; i < cityOrder.length; i++) {
-        await db.topTenHotelCity.updateMany({
-          where: {
-            city: cityOrder[i].city,
-          },
-          data: {
-            order: cityOrder[i].order,
-          },
-        });
+      try {
+          for (const city of cityOrder) {
+              await db.topTenHotelCity.upsert({
+                  where: { city: city.city },
+                  update: { order: city.order },
+                  create: city,
+              });
+          }
+          return NextResponse.json({ message: "Hotel data processed successfully" }, { status: 200 });
+      } catch (error) {
+          console.error("Database error:", error);
+          return NextResponse.json({ error: "Database error" }, { status: 500 });
       }
   } else {
-    // console.log(companies);
-    return NextResponse.json({ error: "Invalid Request" }, { status: 400 });
+      return NextResponse.json({ error: "Invalid Request" }, { status: 400 });
   }
-
-}
+};
 
