@@ -13,6 +13,12 @@ export const GET = async (request: NextRequest) => {
   if (!country)
     return NextResponse.json({ error: "Invalid Request" }, { status: 400 });
 
+  const where = {
+    isCertified: true,
+    country,
+  }
+  
+
   if (role === "Agency") {
     const data = await db.agency.findMany({
       where: { isCertified: true, country, city: city || {} },
