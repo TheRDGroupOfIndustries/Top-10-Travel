@@ -29,7 +29,7 @@ export const GET = async (request: NextRequest) => {
     return NextResponse.json({ result: data });
   } else if (role === "DMC") {
     const data = await db.dMC.findMany({
-      // where: { country },
+      where: { country },
         select: {
           images: true,
           id: true,
