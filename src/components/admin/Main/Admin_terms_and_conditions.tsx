@@ -25,9 +25,16 @@ const AdminTermsAndConditions = () => {
     setMessage("Saving...");
 
 
+    const value = editorRef.current?.value();
+
+    console.log("value", value);
+
+    // console.log("saving", content);
+
+
     const formData = new FormData();
 
-    formData.append("content", content);
+    formData.append("content", value as string);
 
     if (selectedImage) {
       formData.append("image", selectedImage);
@@ -77,7 +84,7 @@ const AdminTermsAndConditions = () => {
       // Attach the change event listener to the CodeMirror instance
       editorRef.current.codemirror.on("change", () => {
         const value = editorRef.current?.value();
-        setContent(value || "");
+        // setContent(value || "");
       });
     }
 
