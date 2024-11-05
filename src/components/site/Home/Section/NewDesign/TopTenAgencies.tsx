@@ -63,6 +63,10 @@ const CarouselCard = ({ agency }: { agency: AgencyApiResult }) => (
   </motion.div>
 );
 
+interface Item {
+  city : string;
+  image : string
+}
 
 const TopTenAgencies = () => {
   const { selectedCountry, selectedCity, setSelectedCity, allCities, visible } =
@@ -130,7 +134,7 @@ const TopTenAgencies = () => {
 
         {selectedCity === "" || !selectedCity ? (
           <div className="w-full grid xl:grid-cols-4 lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 lg:gap-6 md:gap-5 sm:gap-4 gap-3">
-            {city.map((item, i) => {
+            {city.map((item:Item, i) => {
               // if (i > 11) return;
 
               return (
