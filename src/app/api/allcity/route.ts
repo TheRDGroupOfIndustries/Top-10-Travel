@@ -20,6 +20,7 @@ export const GET = async (request: NextRequest) => {
     const data = await db.agency.findMany({
       where: { country },
       select: {
+        images: true,
         id: true,
         city: true,
       },

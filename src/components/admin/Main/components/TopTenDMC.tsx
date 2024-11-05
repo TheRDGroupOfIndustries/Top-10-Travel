@@ -231,7 +231,7 @@ const TopTenDMC = () => {
                 onDragOver={handleDragOver}
                 onDragLeave={handleDragLeave}
                 onDrop={(e) => handleDrop(e, index)}
-                className={`h-36 transition-all duration-200`}
+                className={`h-[180px] transition-all duration-200`}
               >
                 {card ? (
                   <CardContent className="relative  flex items-end  justify-center  cursor-pointer w-full h-full overflow-hidden p-2  ">
