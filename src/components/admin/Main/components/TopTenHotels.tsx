@@ -42,7 +42,10 @@ function TopTenHotels() {
   useEffect(() => {
     const fetchData = async () => {
       const response = await axios.get(`/api/topten?role=Hotel`);
-      setPlacedCards(response.data.result);
+      const data =  response.data.result
+      if(data.length > 0){
+        setPlacedCards(response.data.result);
+      }
       setIsLoading(false)
     };
 
@@ -124,26 +127,32 @@ function TopTenHotels() {
       if (targetIndex === draggedItem.sourceIndex) return;
 
       // Remove card from source
-      const [removed] = newPlacedCards.splice(draggedItem.sourceIndex, 1, null);
+      // const [removed] = newPlacedCards.splice(draggedItem.sourceIndex, 1, null);
 
       // If dropping on an empty spot
-      if (!newPlacedCards[targetIndex]) {
-        newPlacedCards[targetIndex] = removed;
-      }
-      // If dropping on an occupied spot, shift cards
-      else {
-        // Shift cards between source and target
-        if (targetIndex > draggedItem.sourceIndex) {
-          for (let i = draggedItem.sourceIndex; i < targetIndex; i++) {
-            newPlacedCards[i] = newPlacedCards[i + 1];
-          }
-        } else {
-          for (let i = draggedItem.sourceIndex; i > targetIndex; i--) {
-            newPlacedCards[i] = newPlacedCards[i - 1];
-          }
-        }
-        newPlacedCards[targetIndex] = removed;
-      }
+      // if (!newPlacedCards[targetIndex]) {
+      //   newPlacedCards[targetIndex] = removed;
+      // }
+      // // If dropping on an occupied spot, shift cards
+      // else {
+      //   // Shift cards between source and target
+      //   if (targetIndex > draggedItem.sourceIndex) {
+      //     for (let i = draggedItem.sourceIndex; i < targetIndex; i++) {
+      //       newPlacedCards[i] = newPlacedCards[i + 1];
+      //     }
+      //   } else {
+      //     for (let i = draggedItem.sourceIndex; i > targetIndex; i--) {
+      //       newPlacedCards[i] = newPlacedCards[i - 1];
+      //     }
+      //   }
+      //   newPlacedCards[targetIndex] = removed;
+      // }
+
+
+      [newPlacedCards[targetIndex], newPlacedCards[draggedItem.sourceIndex]] = [
+        newPlacedCards[draggedItem.sourceIndex],
+        newPlacedCards[targetIndex],
+      ];
     }
 
     setPlacedCards(newPlacedCards);
