@@ -17,6 +17,7 @@ const TopTenAgencies = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [placedCards, setPlacedCards] = useState(Array(16).fill(null));
   const [draggedItem, setDraggedItem] = useState<{
+    item: any;
     sourceType: "cities" | "grid";
     sourceIndex: number;
   } | null>(null);
@@ -30,9 +31,21 @@ const TopTenAgencies = () => {
     return placedCards.findIndex((card) => card && card.id === cardId);
   };
 
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await axios.get(`/api/topten?role=Agency`);
+      setPlacedCards(response.data.result);
+    };
+
+    fetchData();
+  }, []);
+
+
+
+
   const handleDragStart = (
     e: React.DragEvent,
-    item,
+    item : any,
     sourceType: "cities" | "grid",
     index: number
   ) => {
@@ -182,14 +195,7 @@ const TopTenAgencies = () => {
     return <div className="w-full text-center py-8">Loading...</div>;
   }
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const response = await axios.get(`/api/topten?role=Agency`);
-      setPlacedCards(response.data.result);
-    };
 
-    fetchData();
-  }, []);
 
   return (
     <section
@@ -217,7 +223,7 @@ const TopTenAgencies = () => {
                 key={`grid-${index}`}
                 draggable={!!card}
                 onDragStart={
-                  card ? (e) => handleDragStart(e, card, "grid", index) : null
+                  card ? (e) => handleDragStart(e, card, "grid", index) : undefined
                 }
                 onDragOver={handleDragOver}
                 onDragLeave={handleDragLeave}
@@ -249,7 +255,7 @@ const TopTenAgencies = () => {
             <div className="space-y-4 w-full overflow-y-auto">
               {allAgencies.map((agency, index) => (
                 <Card
-                  key={agency.id}
+                key={(agency as { id: string }).id}
                   draggable
                   onDragStart={(e) =>
                     handleDragStart(e, agency, "cities", index)
@@ -257,7 +263,7 @@ const TopTenAgencies = () => {
                   className="cursor-move hover:shadow-lg transition-shadow"
                 >
                   <CardHeader className="p-3">
-                    <h3 className="text-sm font-medium">{agency.city}</h3>
+                    <h3 className="text-sm font-medium">{(agency as { city: string }).city}</h3>
                   </CardHeader>
                 </Card>
               ))}

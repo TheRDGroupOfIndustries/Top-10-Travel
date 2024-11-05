@@ -124,14 +124,14 @@ function TopTenHotels() {
 
         {selectedCity === "" || !selectedCity ? (
           <div className="w-full grid xl:grid-cols-4 lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 lg:gap-6 md:gap-5 sm:gap-4 gap-3">
-            {city.map((city, i) => {
+            {city.map((item, i) => {
               if (i > 11) return;
 
               return (
                 <HomeCards
                   key={i}
                   country={selectedCountry}
-                  city={city.city}
+                  city={(item as any).city}
                   setSelectedCity={setSelectedCity}
                   role={"Hotel"}
                   image={`/image${i + 1}.jpg`}

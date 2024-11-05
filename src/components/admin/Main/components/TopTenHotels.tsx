@@ -1,31 +1,31 @@
 "use client";
+import HomeCards from "@/components/reusable/HomeCards";
 import HomeCompanySkeleton from "@/components/reusable/HomeCompanySkeleton";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Carousel, CarouselItem } from "@/components/ui/carousel";
 import { HomeContext } from "@/hooks/context/HomeContext";
 import useAxios from "@/hooks/useAxios";
 import { cn, getValidUrl } from "@/lib/utils";
 import { DMCHotelApiResult } from "@/types/homeApiType";
+import axios from "axios";
 import { motion } from "framer-motion";
 import { SquareArrowUpRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useContext, useEffect, useState } from "react";
-import HomeCards from "@/components/reusable/HomeCards";
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import axios from "axios";
-
 
 function TopTenHotels() {
-    const { selectedCountry, selectedCity, visible, allHotels } =
+  const { selectedCountry, selectedCity, visible, allHotels } =
     useContext(HomeContext);
 
-//   console.log("allAgencies", allHotels);
+  //   console.log("allAgencies", allHotels);
 
   const [isSaving, setIsSaving] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [placedCards, setPlacedCards] = useState(Array(16).fill(null));
   const [draggedItem, setDraggedItem] = useState<{
+    item: any;
     sourceType: "cities" | "grid";
     sourceIndex: number;
   } | null>(null);
@@ -39,9 +39,18 @@ function TopTenHotels() {
     return placedCards.findIndex((card) => card && card.id === cardId);
   };
 
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await axios.get(`/api/topten?role=Hotel`);
+      setPlacedCards(response.data.result);
+    };
+
+    fetchData();
+  }, []);
+
   const handleDragStart = (
     e: React.DragEvent,
-    item,
+    item: any,
     sourceType: "cities" | "grid",
     index: number
   ) => {
@@ -191,15 +200,6 @@ function TopTenHotels() {
     return <div className="w-full text-center py-8">Loading...</div>;
   }
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const response = await axios.get(`/api/topten?role=Hotel`);
-      setPlacedCards(response.data.result);
-    };
-
-    fetchData();
-  }, []);
-
   return (
     <section
       className={cn("w-full h-fit mt-10 px-2", visible.AGENCY ? "" : "hidden")}
@@ -226,7 +226,9 @@ function TopTenHotels() {
                 key={`grid-${index}`}
                 draggable={!!card}
                 onDragStart={
-                  card ? (e) => handleDragStart(e, card, "grid", index) : null
+                  card
+                    ? (e) => handleDragStart(e, card, "grid", index)
+                    : undefined
                 }
                 onDragOver={handleDragOver}
                 onDragLeave={handleDragLeave}
@@ -236,12 +238,16 @@ function TopTenHotels() {
                 {card ? (
                   <CardContent className="relative  flex items-end  justify-center  cursor-pointer w-full h-full overflow-hidden p-2  ">
                     <img
-                      src={"https://th.bing.com/th/id/OIP.-edFDcSqlon5xMykpg5qMgHaEK?w=1920&h=1080&rs=1&pid=ImgDetMain"}
+                      src={
+                        "https://th.bing.com/th/id/OIP.-edFDcSqlon5xMykpg5qMgHaEK?w=1920&h=1080&rs=1&pid=ImgDetMain"
+                      }
                       alt={`Background image of  card`}
                       className="absolute object-cover rounded-lg  "
                     />
                     <div className="w-[95%] p-2 m-2 space-y-0.5 h-fit bg-white/80 backdrop-blur-sm rounded-lg">
-                      <p className="font-bold text-lg line-clamp-1 text-nowrap text-slate-800">{card.city}</p>
+                      <p className="font-bold text-lg line-clamp-1 text-nowrap text-slate-800">
+                        {card.city}
+                      </p>
                     </div>
                   </CardContent>
                 ) : (
@@ -258,7 +264,7 @@ function TopTenHotels() {
             <div className="space-y-4 w-full overflow-y-auto">
               {allHotels.map((agency, index) => (
                 <Card
-                  key={agency.id}
+                  key={(agency as { id: string }).id}
                   draggable
                   onDragStart={(e) =>
                     handleDragStart(e, agency, "cities", index)
@@ -266,7 +272,9 @@ function TopTenHotels() {
                   className="cursor-move hover:shadow-lg transition-shadow"
                 >
                   <CardHeader className="p-3">
-                    <h3 className="text-sm font-medium">{agency.city}</h3>
+                    <h3 className="text-sm font-medium">
+                      {(agency as { city: string }).city}
+                    </h3>
                   </CardHeader>
                 </Card>
               ))}

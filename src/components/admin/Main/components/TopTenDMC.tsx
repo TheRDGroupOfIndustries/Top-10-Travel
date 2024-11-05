@@ -21,6 +21,7 @@ const TopTenDMC = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [placedCards, setPlacedCards] = useState(Array(16).fill(null));
   const [draggedItem, setDraggedItem] = useState<{
+    item: any;
     sourceType: "cities" | "grid";
     sourceIndex: number;
   } | null>(null);
@@ -30,13 +31,24 @@ const TopTenDMC = () => {
     setTimeout(() => setError(""), 3000);
   };
 
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await axios.get(`/api/topten?role=DMC`);
+      setPlacedCards(response.data.result);
+    };
+
+    fetchData();
+  }, []);
+
+
   const findCardIndex = (cardId: string) => {
     return placedCards.findIndex((card) => card && card.id === cardId);
   };
 
   const handleDragStart = (
     e: React.DragEvent,
-    item,
+    item : any,
     sourceType: "cities" | "grid",
     index: number
   ) => {
@@ -186,14 +198,7 @@ const TopTenDMC = () => {
     return <div className="w-full text-center py-8">Loading...</div>;
   }
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const response = await axios.get(`/api/topten?role=DMC`);
-      setPlacedCards(response.data.result);
-    };
-
-    fetchData();
-  }, []);
+ 
 
   return (
     <section
@@ -221,7 +226,7 @@ const TopTenDMC = () => {
                 key={`grid-${index}`}
                 draggable={!!card}
                 onDragStart={
-                  card ? (e) => handleDragStart(e, card, "grid", index) : null
+                  card ? (e) => handleDragStart(e, card, "grid", index) : undefined
                 }
                 onDragOver={handleDragOver}
                 onDragLeave={handleDragLeave}
@@ -253,7 +258,7 @@ const TopTenDMC = () => {
             <div className="space-y-4 w-full overflow-y-auto">
               {allDMC.map((agency, index) => (
                 <Card
-                  key={agency.id}
+                key={(agency as { id: string }).id}
                   draggable
                   onDragStart={(e) =>
                     handleDragStart(e, agency, "cities", index)
@@ -261,7 +266,7 @@ const TopTenDMC = () => {
                   className="cursor-move hover:shadow-lg transition-shadow"
                 >
                   <CardHeader className="p-3">
-                    <h3 className="text-sm font-medium">{agency.city}</h3>
+                  <h3 className="text-sm font-medium">{(agency as { city: string }).city}</h3>
                   </CardHeader>
                 </Card>
               ))}
