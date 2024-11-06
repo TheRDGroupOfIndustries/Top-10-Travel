@@ -198,7 +198,7 @@ export function getContactUsAppreciationTemplate(userName: string) {
         <div style="border-top: 1px solid #eee; margin: 20px 0;"></div>
 
         <p style="font-size: 14px; color: #555;">
-          ✉️ <strong>Email:</strong> <a href="mailto:contact@trveltop10.in" style="color: #008CBA; text-decoration: none; font-weight: bold; cursor: pointer;">contact@trveltop10.in</a><br>
+          ✉️ <strong>Email:</strong> <a href="mailto:contact@traveltop10.in" style="color: #008CBA; text-decoration: none; font-weight: bold; cursor: pointer;">contact@traveltop10.in</a><br>
           🌐 <strong>Visit us:</strong> <a href="https://traveltop10.in/" style="color: #008CBA; text-decoration: none; font-weight: bold; cursor: pointer;">traveltop10.in</a>
         </p>
       
