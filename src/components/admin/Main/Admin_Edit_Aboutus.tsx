@@ -47,7 +47,7 @@ const AdminEditAboutus = () => {
 
     try {
       const response = await fetch("/api/about", {
-        method: "PUT",
+        method: "POST",
         body: formData,
       });
 

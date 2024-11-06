@@ -42,7 +42,7 @@ const AdminTermsAndConditions = () => {
 
     try {
       const response = await fetch("/api/terms", {
-        method: "PUT",
+        method: "POST",
         body: formData,
       });
 
