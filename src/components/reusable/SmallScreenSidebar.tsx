@@ -80,8 +80,8 @@ const SmallScreenSidebar = ({
         <SheetHeader>
           <SheetTitle>
             <div className="relative navbar-start h-6 xs:h-7 sm:h-8">
-            <Link href="/" className="flex gap-2">
-                <img src="/roundLogo.jpg" className="rounded-full" alt="logo" />
+            <Link href="/" className="flex gap-2 h-full">
+                <img src="/roundLogo.jpg" className="rounded-full h-full" alt="logo" />
                 <h1
           id="secondLine"
           className="uppercase font-cinzel font-bold text-xl mt-1"
@@ -94,7 +94,7 @@ const SmallScreenSidebar = ({
             </div>
           </SheetTitle>
         </SheetHeader>
-        <div className="py-4 flex mt-[3vw] flex-col gap-3">
+        <div className="py-4 flex mt-[3vw] flex-col gap-3 overflow-y-auto pr-1">
           {pathname.startsWith("/admin") &&
             AdminMenuItems.map((item, index) => (
               <SheetClose asChild key={index}>

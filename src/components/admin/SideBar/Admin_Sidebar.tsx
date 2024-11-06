@@ -49,8 +49,8 @@ function AdminSidebar() {
               </Link>
       </div>
 
-      <nav className="flex-grow">
-        <ul className="">
+      <nav className="flex-grow overflow-y-auto">
+        <ul className="pr-2">
           {menuItems.map((item, index) => (
             <li key={index}>
               <Link
