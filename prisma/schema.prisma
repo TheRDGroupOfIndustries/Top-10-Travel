@@ -329,8 +329,10 @@ model City {
 model TopTenAgencyCity {
   id        String    @id @default(cuid())
   city      String    @unique
+  country   String    @default("unknown")
   order     Int
-  image     String
+  image     String    
+  imageId   String   @default("default_id")
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
   @@index([city])
