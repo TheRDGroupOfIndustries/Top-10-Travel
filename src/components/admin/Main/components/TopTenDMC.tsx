@@ -34,7 +34,7 @@ const TopTenDMC = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await axios.get(`/api/topten?role=DMC`);
+      const response = await axios.get(`/api/topten?role=DMC&country=${selectedCountry}`);
       const data =  response.data.result
       if(data.length > 0){
         setPlacedCards(response.data.result);
@@ -292,7 +292,7 @@ const TopTenDMC = () => {
         <div className="mt-6 mb-8">
           <Button
             onClick={handleSubmit}
-            // disabled={isSaving}
+            disabled={isSaving}
             className="bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 disabled:bg-blue-300"
           >
             {isSaving ? "Saving..." : "Save Changes"}

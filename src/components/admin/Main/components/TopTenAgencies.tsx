@@ -33,23 +33,22 @@ const TopTenAgencies = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await axios.get(`/api/topten?role=Agency`);
-      const data =  response.data.result
-      if(data.length > 0){
+      const response = await axios.get(
+        `/api/topten?role=Agency&country=${selectedCountry}`
+      );
+      const data = response.data.result;
+      if (data.length > 0) {
         setPlacedCards(response.data.result);
       }
-      setIsLoading(false)
+      setIsLoading(false);
     };
 
     fetchData();
   }, []);
 
-
-
-
   const handleDragStart = (
     e: React.DragEvent,
-    item : any,
+    item: any,
     sourceType: "cities" | "grid",
     index: number
   ) => {
@@ -143,7 +142,6 @@ const TopTenAgencies = () => {
       //   newPlacedCards[targetIndex] = removed;
       // }
 
-
       [newPlacedCards[targetIndex], newPlacedCards[draggedItem.sourceIndex]] = [
         newPlacedCards[draggedItem.sourceIndex],
         newPlacedCards[targetIndex],
@@ -173,7 +171,11 @@ const TopTenAgencies = () => {
       const cityOrder = placedCards
         .filter((card) => card !== null)
         .map((card, index) => {
-          return { city: card.city, order: index, image : card.image || card.images[0] };
+          return {
+            city: card.city,
+            order: index,
+            image: card.image || card.images[0],
+          };
         });
 
       // console.log("cityOrder:", cityOrder);
@@ -202,11 +204,25 @@ const TopTenAgencies = () => {
     }
   };
 
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>, index: number) => {
+    const files = e.target?.files;
+    if (files && files.length > 0) {
+      const file = files[0];
+      
+
+      setPlacedCards((pre)=>{
+        const newPlacedCards = [...pre];
+        newPlacedCards[index].image = URL.createObjectURL(file);
+        return newPlacedCards
+      })
+      // setPreview(URL.createObjectURL(file));
+      // setUploadMessage('');
+    }
+  };
+
   if (isLoading) {
     return <div className="w-full text-center py-8">Loading...</div>;
   }
-
-
 
   return (
     <section
@@ -228,30 +244,43 @@ const TopTenAgencies = () => {
         </h1>
 
         <div className="w-full flex flex-row gap-4">
-          <div className="w-4/5 h-fit grid xl:grid-cols-4 lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 lg:gap-6 md:gap-5 sm:gap-4 gap-3">
+          <div className="relative w-4/5 h-fit grid xl:grid-cols-3 lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 lg:gap-6 md:gap-5 sm:gap-4 gap-3">
             {placedCards.map((card, index) => (
               <div
                 key={`grid-${index}`}
                 draggable={!!card}
                 onDragStart={
-                  card ? (e) => handleDragStart(e, card, "grid", index) : undefined
+                  card
+                    ? (e) => handleDragStart(e, card, "grid", index)
+                    : undefined
                 }
                 onDragOver={handleDragOver}
                 onDragLeave={handleDragLeave}
                 onDrop={(e) => handleDrop(e, index)}
-                className={`h-[180px] transition-all duration-200`}
+                className={`h-[140px] transition-all duration-200`}
               >
                 {card ? (
-                  <CardContent className="relative  flex items-end  justify-center  cursor-pointer w-full h-full overflow-hidden p-2  ">
+                  <div className="relative flex items-end  justify-center shadow cursor-pointer  transform-all duration-300 w-full h-full border border-1 rounded-lg">
                     <img
-                      src={ card.image || card.images[0] }
+                      src={card.image || card.images[0]}
                       alt={`Background image of  card`}
-                      className="absolute object-cover rounded-lg  "
+                      className="absolute object-cover rounded-lg h-full w-full   "
                     />
-                    <div className="w-[95%] p-2 m-2 space-y-0.5 h-fit bg-white/80 backdrop-blur-sm rounded-lg">
-                      <p className="font-bold text-lg line-clamp-1 text-nowrap text-slate-800">{card.city}</p>
+                    <input
+                      type="file"
+                      accept="image/*"
+                      onChange={(e) => handleImageChange(e,index)}
+                      className="opacity-0 absolute top-0 left-0 cursor-pointer h-full w-full"
+                    />
+                    <div className="w-[100%] p-2 m-2 space-y-0.5 h-16 bg-white/80 backdrop-blur-sm rounded-lg">
+                      <p className="font-bold text-lg text-slate-800">
+                        {card.city}
+                      </p>
+                      <p className="uppercase text-sm font-semibold tracking-wide text-slate-700">
+                        {selectedCountry}
+                      </p>
                     </div>
-                  </CardContent>
+                  </div>
                 ) : (
                   <CardContent className="flex items-center justify-center h-full text-gray-500">
                     Drop here
@@ -261,20 +290,22 @@ const TopTenAgencies = () => {
             ))}
           </div>
 
-          <div className="w-[20%] min-w-[230px] border h-[60vh] flex flex-col items-center  p-4">
+          <div className="w-[20%]  border h-[60vh] flex flex-col items-center  p-4">
             <h2 className="font-semibold mb-4">Available Agencies</h2>
-            <div className="space-y-4 w-full overflow-y-auto">
+            <div className="space-y-4 w-full overflow-y-auto flex flex-col items-center">
               {allAgencies.map((agency, index) => (
                 <Card
-                key={(agency as { id: string }).id}
+                  key={(agency as { id: string }).id}
                   draggable
                   onDragStart={(e) =>
                     handleDragStart(e, agency, "cities", index)
                   }
-                  className="cursor-move hover:shadow-lg transition-shadow"
+                  className="cursor-move hover:shadow-lg transition-shadow w-full text-center"
                 >
                   <CardHeader className="p-3">
-                    <h3 className="text-sm font-medium">{(agency as { city: string }).city}</h3>
+                    <h3 className="text-sm font-medium">
+                      {(agency as { city: string }).city}
+                    </h3>
                   </CardHeader>
                 </Card>
               ))}

@@ -41,7 +41,7 @@ function TopTenHotels() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await axios.get(`/api/topten?role=Hotel`);
+      const response = await axios.get(`/api/topten?role=Hotel&country=${selectedCountry}`);
       const data =  response.data.result
       if(data.length > 0){
         setPlacedCards(response.data.result);

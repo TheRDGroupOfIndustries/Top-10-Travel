@@ -4,10 +4,15 @@ import { NextRequest, NextResponse } from "next/server";
 export const GET = async (request: NextRequest) => {
     const { searchParams } = new URL(request.url);
 
+    let country = searchParams.get("country");
   const role = searchParams.get("role") as "DMC" | "Agency" | "Hotel";
+
+  if (!country)
+    return NextResponse.json({ error: "Invalid Request" }, { status: 400 });
 
   if (role === "Agency") {
     const data = await db.topTenAgencyCity.findMany({
+        where : {country},
         select: {
             id: true,
             image:true,

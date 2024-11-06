@@ -66,7 +66,7 @@ const AdminTop10 = () => {
       <CardContent>
 
         {/* Filter */}
-      {/* <div className="md:max-w-3xl sm:max-w-sm xs:max-w-[320px] max-w-fit max-h-fit xs:h-12 sm:h-14 flex flex-col xs:flex-row gap-1 py-1 items-center justify-between rounded-lg px-1 xs:px-3 bg-gray-200">
+      <div className=" max-w-fit max-h-fit xs:h-12 sm:h-14 flex flex-col xs:flex-row gap-1 py-1 items-center justify-between rounded-lg px-1 xs:px-3 ">
             <div className="flex items-center lg:gap-5 md:gap-2 xs:gap-1 gap-2">
               <Select
                 value={selectedCountry}
@@ -85,27 +85,8 @@ const AdminTop10 = () => {
                     ))}
                 </SelectContent>
               </Select>
-              <Select
-                value={selectedCity}
-                onValueChange={(val) => {
-                  setCity(val);
-                }}
-              >
-                <SelectTrigger className="lg:w-[280px] md:w-[120px] w-[100px] focus:ring-0 focus:ring-none focus:ring-offset-0 bg-gray-300/50 text-black/50 text-xs lg:text-base">
-                  <SelectValue placeholder="Select City" />
-                </SelectTrigger>
-                <SelectContent>
-                  {allCities
-                    ?.sort((a, b) => a.localeCompare(b))
-                    .map((city) => (
-                      <SelectItem key={city} value={city}>
-                        {city}
-                      </SelectItem>
-                    ))}
-                </SelectContent>
-              </Select>
             </div>
-            <div>
+            {/* <div>
               <Button
                 // onClick={handleFind}
                 className="bg-mainColor hover:bg-mainColor xs:hover:bg-mainColorSecondary inline-flex items-center text-xs xs:text-sm lg:gap-2 px-2 xs:py-0.5"
@@ -113,8 +94,8 @@ const AdminTop10 = () => {
                 <SearchIcon className="xs:w-5 xs:h-5 w-4 h-4" />
                 Search
               </Button>
-            </div>
-          </div> */}
+            </div> */}
+          </div>
         
       </CardContent>
       <CardContent>
