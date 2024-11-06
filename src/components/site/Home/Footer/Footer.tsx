@@ -80,7 +80,7 @@ function Footer() {
             <img src="/roundLogo.jpg" className="rounded-full max-h-[40px]" alt="logo" />
                 <h1
           id="secondLine"
-          className="uppercase font-cinzel font-bold text-3xl mt-1"
+          className="uppercase font-cinzel font-bold text-xl mt-1"
         >
           <span
             className="inline-block"

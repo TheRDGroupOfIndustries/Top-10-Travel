@@ -45,7 +45,7 @@ function AgencySidebar({
                 <img src="/roundLogo.jpg" className="rounded-full" alt="logo" />
                 <h1
           id="secondLine"
-          className="uppercase font-cinzel font-bold text-3xl mt-1"
+          className="uppercase font-cinzel font-bold text-xl mt-1"
         >
           <span className="inline-block">
             travel <span className="text-mainColor">Top 10</span>
