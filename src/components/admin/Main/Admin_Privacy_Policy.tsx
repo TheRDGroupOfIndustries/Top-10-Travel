@@ -34,7 +34,7 @@ const AdminPrivacyPolicy = () => {
     }
   
     try {
-      const response = await axios.put("/api/policy", formData, {
+      const response = await axios.post("/api/policy", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
