@@ -6,6 +6,7 @@ import "easymde/dist/easymde.min.css";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import image from '/public/image1.jpg'
+import axios from "axios";
 
 const AdminPrivacyPolicy = () => {
   const [content, setContent] = useState("");
@@ -21,35 +22,32 @@ const AdminPrivacyPolicy = () => {
     e.preventDefault();
     setIsSaving(true);
     setMessage("Saving...");
-
+  
     const value = editorRef.current?.value();
-
     console.log("value", value);
-
-    // console.log("saving", content);
-
-
+  
     const formData = new FormData();
-
     formData.append("content", value as string);
-
+  
     if (selectedImage) {
       formData.append("image", selectedImage);
     }
-
+  
     try {
-      const response = await fetch("/api/policy", {
-        method: "PUT",
-        body: formData,
+      const response = await axios.put("/api/policy", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
       });
-
-      if (response.ok) {
+  
+      if (response.status === 200) {
         setMessage("Content updated successfully!");
       } else {
         setMessage("Failed to update content");
       }
     } catch (error) {
       setMessage("Error saving content");
+      console.error("Error:", error);
     } finally {
       setIsSaving(false);
     }
