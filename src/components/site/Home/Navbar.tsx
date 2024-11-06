@@ -370,7 +370,7 @@ function Navbar() {
                           <Image
                             src={"/Hero_Filter_Small.png"}
                             fill
-                            className="absolute -z-10 filter hue-rotate-[1deg] saturate-[1.5] contrast-100"
+                            className="absolute -z-10  "
                             alt="hero_filter_img"
                           />
                         )
@@ -381,14 +381,14 @@ function Navbar() {
                           <Image
                             src={"/Hero_Filter_Small.png"}
                             fill
-                            className="absolute -z-10 filter hue-rotate-[1deg] saturate-[1.5] contrast-100"
+                            className="absolute -z-10  "
                             alt="hero_filter_img"
                           />
                         ) : (
                           <Image
                             src={"/Hero_Filter_Large.png"}
                             fill
-                            className="absolute -z-10 filter hue-rotate-[1deg] saturate-[1.5] contrast-100"
+                            className="absolute -z-10  "
                             alt="hero_filter_img"
                           />
                         )
