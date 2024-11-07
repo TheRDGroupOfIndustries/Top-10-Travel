@@ -40,7 +40,12 @@ const TopTenDMC = () => {
       );
       const data = response.data.result;
       if (data.length > 0) {
-        setPlacedCards(response.data.result);
+        setPlacedCards((pre)=>{
+          for (let i = 0; i < data.length; i++) {
+            pre[i] = data[i]
+          }
+          return [...pre]
+        });
       }
 
       setIsLoading(false);
@@ -50,7 +55,7 @@ const TopTenDMC = () => {
   }, [selectedCountry]);
 
   const findCardIndex = (cardId: string) => {
-    return placedCards.findIndex((card) => card && card.id === cardId);
+    return placedCards.findIndex((card) => card && card.city === cardId);
   };
 
   const handleDragStart = (
@@ -83,7 +88,7 @@ const TopTenDMC = () => {
     // If dragging from cities list to grid
     if (draggedItem.sourceType === "cities") {
       // Check if card already exists in grid
-      const existingIndex = findCardIndex(draggedItem.item.id);
+      const existingIndex = findCardIndex(draggedItem.item.city);
       if (existingIndex !== -1) {
         // toast({
         //   title: "Warning",

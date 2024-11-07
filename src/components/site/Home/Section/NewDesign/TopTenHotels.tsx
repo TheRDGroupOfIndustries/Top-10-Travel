@@ -1,21 +1,22 @@
 "use client";
+import HomeCards from "@/components/reusable/HomeCards";
+import HomeCardsSkeleton from "@/components/reusable/HomeCardsSkeleton";
 import HomeCompanySkeleton from "@/components/reusable/HomeCompanySkeleton";
 import { Carousel, CarouselItem } from "@/components/ui/carousel";
 import { HomeContext } from "@/hooks/context/HomeContext";
 import useAxios from "@/hooks/useAxios";
 import { cn, getValidUrl } from "@/lib/utils";
 import { DMCHotelApiResult } from "@/types/homeApiType";
+import axios from "axios";
 import { motion } from "framer-motion";
 import { SquareArrowUpRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useContext, useEffect, useState } from "react";
-import HomeCards from "@/components/reusable/HomeCards";
-import axios from "axios";
 
 interface Item {
-  city : string;
-  image : string
+  city: string;
+  image: string;
 }
 
 const CarouselCard = ({ hotel }: { hotel: DMCHotelApiResult }) => (
@@ -75,16 +76,18 @@ function TopTenHotels() {
       selectedCountry,
     });
 
-    const [city, setCity] = useState([]);
+  const [city, setCity] = useState([]);
 
-    useEffect(() => {
-      const fetchData = async () => {
-        const response = await axios.get(`/api/topten?role=Hotel&country=${selectedCountry}`);
-        setCity(response.data.result);
-      };
-  
-      fetchData();
-    }, []);
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await axios.get(
+        `/api/topten?role=Hotel&country=${selectedCountry}`
+      );
+      setCity(response.data.result);
+    };
+
+    fetchData();
+  }, []);
   return (
     <main
       className={cn(
@@ -144,6 +147,11 @@ function TopTenHotels() {
                 />
               );
             })}
+
+            {city.length === 0 &&
+              Array.from({ length: 12 }).map((_, i: number) => (
+                <HomeCardsSkeleton key={i} />
+              ))}
           </div>
         ) : (
           <>
@@ -223,12 +231,15 @@ function TopTenHotels() {
               </div>
             </div>
             <div className="flex gap-4">
-              <Link 
-              href={`/Hotels`}
-              onClick={() => {
-                window.localStorage.setItem("Hotels-Country", selectedCountry);
-                window.localStorage.setItem("Hotels-State", selectedCity);
-              }}    
+              <Link
+                href={`/Hotels`}
+                onClick={() => {
+                  window.localStorage.setItem(
+                    "Hotels-Country",
+                    selectedCountry
+                  );
+                  window.localStorage.setItem("Hotels-State", selectedCity);
+                }}
               >
                 <motion.div
                   className="bg-black px-5 py-2 rounded-md mt-6 mb-5 mx-auto hover:bg-gray-800 w-fit transition-colors text-white font-bold"

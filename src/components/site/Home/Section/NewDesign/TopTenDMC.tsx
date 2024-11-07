@@ -1,8 +1,7 @@
 "use client";
-import useAxios from "@/hooks/useAxios";
-import Image from "next/image";
-import Link from "next/link";
-import React, { useContext, useEffect, useState } from "react";
+import HomeCards from "@/components/reusable/HomeCards";
+import HomeCardsSkeleton from "@/components/reusable/HomeCardsSkeleton";
+import HomeCompanySkeleton from "@/components/reusable/HomeCompanySkeleton";
 import {
   Carousel,
   CarouselContent,
@@ -10,19 +9,21 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-import HomeCompanySkeleton from "@/components/reusable/HomeCompanySkeleton";
-import Autoplay from "embla-carousel-autoplay";
 import { HomeContext } from "@/hooks/context/HomeContext";
+import useAxios from "@/hooks/useAxios";
 import { cn, getValidUrl } from "@/lib/utils";
-import { motion } from "framer-motion";
 import { DMCHotelApiResult } from "@/types/homeApiType";
-import HomeCards from "@/components/reusable/HomeCards";
 import axios from "axios";
+import Autoplay from "embla-carousel-autoplay";
+import { motion } from "framer-motion";
+import Image from "next/image";
+import Link from "next/link";
+import React, { useContext, useEffect, useState } from "react";
 import { PiCityBold } from "react-icons/pi";
 
 interface Item {
-  city : string;
-  image : string
+  city: string;
+  image: string;
 }
 
 const CarouselCard = ({ dmc }: { dmc: DMCHotelApiResult }) => (
@@ -73,7 +74,7 @@ const TopTenDMC = () => {
   const { selectedCountry, allCities, setSelectedCity, selectedCity, visible } =
     useContext(HomeContext);
 
-    const [city, setCity] = useState([]);
+  const [city, setCity] = useState([]);
 
   const { data, isLoading }: { data: DMCHotelApiResult[]; isLoading: boolean } =
     useAxios({
@@ -82,14 +83,16 @@ const TopTenDMC = () => {
       selectedCountry,
     });
 
-    useEffect(() => {
-      const fetchData = async () => {
-        const response = await axios.get(`/api/topten?role=DMC&country=${selectedCountry}`);
-        setCity(response.data.result);
-      };
-  
-      fetchData();
-    }, []);
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await axios.get(
+        `/api/topten?role=DMC&country=${selectedCountry}`
+      );
+      setCity(response.data.result);
+    };
+
+    fetchData();
+  }, []);
   return (
     <section
       className={cn(
@@ -134,8 +137,7 @@ const TopTenDMC = () => {
 
         {selectedCity === "" || !selectedCity ? (
           <div className="w-full grid xl:grid-cols-4 lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 lg:gap-6 md:gap-5 sm:gap-4 gap-3">
-
-            {city.map((item:Item, i) => {
+            {city.map((item: Item, i) => {
               if (i > 11) return;
 
               return (
@@ -151,6 +153,11 @@ const TopTenDMC = () => {
                 />
               );
             })}
+
+            {city.length === 0 &&
+              Array.from({ length: 12 }).map((_, i: number) => (
+                <HomeCardsSkeleton key={i} />
+              ))}
           </div>
         ) : (
           <>
@@ -228,12 +235,12 @@ const TopTenDMC = () => {
             </div>
 
             <div className="flex gap-4">
-              <Link 
-              href={`/DMC`}
-              onClick={() => {
-                window.localStorage.setItem("DMC-Country", selectedCountry);
-                window.localStorage.setItem("DMC-State", selectedCity);
-              }}
+              <Link
+                href={`/DMC`}
+                onClick={() => {
+                  window.localStorage.setItem("DMC-Country", selectedCountry);
+                  window.localStorage.setItem("DMC-State", selectedCity);
+                }}
               >
                 <motion.div
                   className="bg-black px-5 py-2 rounded-md mt-6 mb-5 mx-auto hover:bg-gray-800 w-fit transition-colors text-white font-bold"
@@ -245,10 +252,10 @@ const TopTenDMC = () => {
               </Link>
 
               <motion.div
-                onClick={() =>{ 
+                onClick={() => {
                   setSelectedCity("");
-                  
-                  const element = document.getElementById("toNavigate"); 
+
+                  const element = document.getElementById("toNavigate");
                   if (element) {
                     element.scrollIntoView({
                       behavior: "smooth", // Smooth scrolling

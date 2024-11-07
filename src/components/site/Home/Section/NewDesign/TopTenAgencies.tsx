@@ -15,6 +15,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useContext, useEffect, useState } from "react";
 import HomeCards from "@/components/reusable/HomeCards";
+import HomeCardsSkeleton from "@/components/reusable/HomeCardsSkeleton";
 
 const CarouselCard = ({ agency }: { agency: AgencyApiResult }) => (
   <motion.div
@@ -150,6 +151,12 @@ const TopTenAgencies = () => {
                 />
               );
             })}
+
+            {
+              city.length === 0 && Array.from({ length: 12 }).map((_, i: number) => (
+                <HomeCardsSkeleton key={i}  />
+              ))
+            }
           </div>
         ) : (
           <>
