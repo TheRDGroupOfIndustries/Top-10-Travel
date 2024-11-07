@@ -122,7 +122,7 @@ const AdminEditAboutus = () => {
               type="file"
               accept="image/*"
               onChange={handleImageChange}
-              className="absolute top-0 left-0 cursor-pointer h-full w-full"
+              className="absolute opacity-0 top-0 left-0 cursor-pointer h-full w-full"
             />
           </Card>
         </CardContent>

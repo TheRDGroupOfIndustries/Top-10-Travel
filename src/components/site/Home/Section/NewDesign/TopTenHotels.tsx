@@ -79,7 +79,7 @@ function TopTenHotels() {
 
     useEffect(() => {
       const fetchData = async () => {
-        const response = await axios.get(`/api/topten?role=Hotel`);
+        const response = await axios.get(`/api/topten?role=Hotel&country=${selectedCountry}`);
         setCity(response.data.result);
       };
   

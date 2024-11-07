@@ -84,7 +84,7 @@ const TopTenAgencies = () => {
 
     useEffect(() => {
       const fetchData = async () => {
-        const response = await axios.get(`/api/topten?role=Agency`);
+        const response = await axios.get(`/api/topten?role=Agency&country=${selectedCountry}`);
         setCity(response.data.result);
       };
   

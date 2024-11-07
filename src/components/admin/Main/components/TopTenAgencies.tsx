@@ -7,11 +7,13 @@ import axios from "axios";
 import { motion } from "framer-motion";
 import { useContext, useEffect, useState } from "react";
 
+const formData = new FormData();
+
 const TopTenAgencies = () => {
   const { selectedCountry, selectedCity, visible, allAgencies } =
     useContext(HomeContext);
 
-  console.log("allAgencies", allAgencies);
+  // console.log("allAgencies", allAgencies);
 
   const [isSaving, setIsSaving] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
@@ -22,6 +24,8 @@ const TopTenAgencies = () => {
     sourceIndex: number;
   } | null>(null);
   const [error, setError] = useState("");
+
+  const [btnMessage, setBtnMessage] = useState("Save Changes");
 
   const clearError = () => {
     setTimeout(() => setError(""), 3000);
@@ -37,14 +41,16 @@ const TopTenAgencies = () => {
         `/api/topten?role=Agency&country=${selectedCountry}`
       );
       const data = response.data.result;
+
       if (data.length > 0) {
+        console.log("data", data);
         setPlacedCards(response.data.result);
       }
       setIsLoading(false);
     };
 
     fetchData();
-  }, []);
+  }, [selectedCountry]);
 
   const handleDragStart = (
     e: React.DragEvent,
@@ -165,6 +171,24 @@ const TopTenAgencies = () => {
     }
 
     setIsSaving(true);
+    
+    if(Array.from(formData.entries()).length > 0) {
+      setBtnMessage("Saving Images");
+
+      
+        // const response = await axios.post(`/api/topten/image-upload`, {
+        //   formData
+        // });
+
+        const response = await fetch("/api/topten/image-upload", {
+          method: "POST",
+          body: formData,
+        });
+
+        
+    }
+
+    setBtnMessage("Saving new orders")
 
     try {
       // Filter out null values and get ordered IDs
@@ -174,6 +198,7 @@ const TopTenAgencies = () => {
           return {
             city: card.city,
             order: index,
+            country: selectedCountry,
             image: card.image || card.images[0],
           };
         });
@@ -204,19 +229,25 @@ const TopTenAgencies = () => {
     }
   };
 
-  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>, index: number) => {
+  const handleImageChange = (
+    e: React.ChangeEvent<HTMLInputElement>,
+    index: number,
+    id: String
+  ) => {
     const files = e.target?.files;
     if (files && files.length > 0) {
       const file = files[0];
-      
 
-      setPlacedCards((pre)=>{
+      setPlacedCards((pre) => {
         const newPlacedCards = [...pre];
         newPlacedCards[index].image = URL.createObjectURL(file);
-        return newPlacedCards
-      })
-      // setPreview(URL.createObjectURL(file));
-      // setUploadMessage('');
+        return newPlacedCards;
+      });
+
+      formData.append("id", String(id));
+      formData.append("role", "Agency");
+      formData.append("image", file);
+      
     }
   };
 
@@ -269,7 +300,7 @@ const TopTenAgencies = () => {
                     <input
                       type="file"
                       accept="image/*"
-                      onChange={(e) => handleImageChange(e,index)}
+                      onChange={(e) => handleImageChange(e, index, card.id)}
                       className="opacity-0 absolute top-0 left-0 cursor-pointer h-full w-full"
                     />
                     <div className="w-[100%] p-2 m-2 space-y-0.5 h-16 bg-white/80 backdrop-blur-sm rounded-lg">
@@ -282,17 +313,19 @@ const TopTenAgencies = () => {
                     </div>
                   </div>
                 ) : (
-                  <CardContent className="flex items-center justify-center h-full text-gray-500">
-                    Drop here
-                  </CardContent>
+                  <Card className="h-[140px] transition-all duration-200">
+                    <CardContent className="flex items-center justify-center h-full text-gray-500">
+                      Drop here
+                    </CardContent>
+                  </Card>
                 )}
               </div>
             ))}
           </div>
 
-          <div className="w-[20%]  border h-[60vh] flex flex-col items-center  p-4">
+          <div className="w-[20%]  border h-[635px] flex flex-col items-center  p-4">
             <h2 className="font-semibold mb-4">Available Agencies</h2>
-            <div className="space-y-4 w-full overflow-y-auto flex flex-col items-center">
+            <div className="space-y-4 w-full overflow-y-auto flex flex-col items-center pr-3">
               {allAgencies.map((agency, index) => (
                 <Card
                   key={(agency as { id: string }).id}
@@ -319,7 +352,7 @@ const TopTenAgencies = () => {
             disabled={isSaving}
             className="bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 disabled:bg-blue-300"
           >
-            {isSaving ? "Saving..." : "Save Changes"}
+            {btnMessage}
           </Button>
         </div>
       </div>

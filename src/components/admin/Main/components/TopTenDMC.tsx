@@ -1,21 +1,21 @@
 "use client";
-import React, { useContext, useEffect, useState } from "react";
-import { HomeContext } from "@/hooks/context/HomeContext";
-import { cn, getValidUrl } from "@/lib/utils";
-import { motion } from "framer-motion";
-import { DMCHotelApiResult } from "@/types/homeApiType";
 import HomeCards from "@/components/reusable/HomeCards";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { HomeContext } from "@/hooks/context/HomeContext";
+import { cn, getValidUrl } from "@/lib/utils";
+import { DMCHotelApiResult } from "@/types/homeApiType";
 import axios from "axios";
+import { motion } from "framer-motion";
+import React, { useContext, useEffect, useState } from "react";
 
-
+const formData = new FormData();
 
 const TopTenDMC = () => {
-    const { selectedCountry, selectedCity, visible, allDMC } =
+  const { selectedCountry, selectedCity, visible, allDMC } =
     useContext(HomeContext);
 
-//   console.log("allAgencies", allDMC);
+  //   console.log("allAgencies", allDMC);
 
   const [isSaving, setIsSaving] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
@@ -27,25 +27,27 @@ const TopTenDMC = () => {
   } | null>(null);
   const [error, setError] = useState("");
 
+  const [btnMessage, setBtnMessage] = useState("Save Changes");
+
   const clearError = () => {
     setTimeout(() => setError(""), 3000);
   };
 
-
   useEffect(() => {
     const fetchData = async () => {
-      const response = await axios.get(`/api/topten?role=DMC&country=${selectedCountry}`);
-      const data =  response.data.result
-      if(data.length > 0){
+      const response = await axios.get(
+        `/api/topten?role=DMC&country=${selectedCountry}`
+      );
+      const data = response.data.result;
+      if (data.length > 0) {
         setPlacedCards(response.data.result);
       }
 
-      setIsLoading(false)
+      setIsLoading(false);
     };
 
     fetchData();
-  }, []);
-
+  }, [selectedCountry]);
 
   const findCardIndex = (cardId: string) => {
     return placedCards.findIndex((card) => card && card.id === cardId);
@@ -53,7 +55,7 @@ const TopTenDMC = () => {
 
   const handleDragStart = (
     e: React.DragEvent,
-    item : any,
+    item: any,
     sourceType: "cities" | "grid",
     index: number
   ) => {
@@ -147,7 +149,6 @@ const TopTenDMC = () => {
       //   newPlacedCards[targetIndex] = removed;
       // }
 
-
       [newPlacedCards[targetIndex], newPlacedCards[draggedItem.sourceIndex]] = [
         newPlacedCards[draggedItem.sourceIndex],
         newPlacedCards[targetIndex],
@@ -171,16 +172,40 @@ const TopTenDMC = () => {
 
     setIsSaving(true);
 
+    if(Array.from(formData.entries()).length > 0) {
+      setBtnMessage("Saving Images");
+
+      
+        // const response = await axios.post(`/api/topten/image-upload`, {
+        //   formData
+        // });
+
+        const response = await fetch("/api/topten/image-upload", {
+          method: "POST",
+          body: formData,
+        });
+
+        
+    }
+
+  
+
+    setBtnMessage("Saving new orders")
+
     try {
       // Filter out null values and get ordered IDs
 
-      console.log("placecard", placedCards);
-
+      // console.log("placecard", placedCards);
 
       const cityOrder = placedCards
         .filter((card) => card !== null)
         .map((card, index) => {
-          return { city: card.city, order: index,  image : card.image || card.images[0] };
+          return {
+            city: card.city,
+            order: index,
+            country: selectedCountry,
+            image: card.image || card.images[0],
+          };
         });
 
       // console.log("cityOrder:", cityOrder);
@@ -209,11 +234,31 @@ const TopTenDMC = () => {
     }
   };
 
+  const handleImageChange = (
+    e: React.ChangeEvent<HTMLInputElement>,
+    index: number,
+    id: String
+  ) => {
+    const files = e.target?.files;
+    if (files && files.length > 0) {
+      const file = files[0];
+
+      setPlacedCards((pre) => {
+        const newPlacedCards = [...pre];
+        newPlacedCards[index].image = URL.createObjectURL(file);
+        return newPlacedCards;
+      });
+
+      formData.append("id", String(id));
+      formData.append("role", "DMC");
+      formData.append("image", file);
+      
+    }
+  };
+
   if (isLoading) {
     return <div className="w-full text-center py-8">Loading...</div>;
   }
-
- 
 
   return (
     <section
@@ -235,57 +280,85 @@ const TopTenDMC = () => {
         </h1>
 
         <div className="w-full flex flex-row gap-4">
-          <div className="w-4/5 h-fit grid xl:grid-cols-4 lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 lg:gap-6 md:gap-5 sm:gap-4 gap-3">
+          <div className="w-4/5 h-fit grid xl:grid-cols-3 lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 lg:gap-6 md:gap-5 sm:gap-4 gap-3">
             {placedCards.map((card, index) => (
               <div
                 key={`grid-${index}`}
                 draggable={!!card}
                 onDragStart={
-                  card ? (e) => handleDragStart(e, card, "grid", index) : undefined
+                  card
+                    ? (e) => handleDragStart(e, card, "grid", index)
+                    : undefined
                 }
                 onDragOver={handleDragOver}
                 onDragLeave={handleDragLeave}
                 onDrop={(e) => handleDrop(e, index)}
-                className={`h-[180px] transition-all duration-200`}
+                className={`h-[140px] transition-all duration-200`}
               >
                 {card ? (
-                  <CardContent className="relative  flex items-end  justify-center  cursor-pointer w-full h-full overflow-hidden p-2  ">
+                  <div className="relative flex items-end  justify-center shadow cursor-pointer  transform-all duration-300 w-full h-full border border-1 rounded-lg">
                     <img
                       src={card.image || card.images[0]}
-                      className="absolute object-cover rounded-lg  "
                       alt={`Background image of  card`}
+                      className="absolute object-cover rounded-lg h-full w-full   "
                     />
-                    <div className="w-[95%] p-2 m-2 space-y-0.5 h-fit bg-white/80 backdrop-blur-sm rounded-lg">
-                      <p className="font-bold text-lg line-clamp-1 text-nowrap text-slate-800">{card.city}</p>
+                    <input
+                      type="file"
+                      accept="image/*"
+                      onChange={(e) => handleImageChange(e, index, card.id)}
+                      className="opacity-0 absolute top-0 left-0 cursor-pointer h-full w-full"
+                    />
+                    <div className="w-[100%] p-2 m-2 space-y-0.5 h-16 bg-white/80 backdrop-blur-sm rounded-lg">
+                      <p className="font-bold text-lg text-slate-800">
+                        {card.city}
+                      </p>
+                      <p className="uppercase text-sm font-semibold tracking-wide text-slate-700">
+                        {selectedCountry}
+                      </p>
                     </div>
-                  </CardContent>
+                  </div>
                 ) : (
-                  <CardContent className="flex items-center justify-center h-full text-gray-500">
-                    Drop here
-                  </CardContent>
+                  <Card className="h-[140px] transition-all duration-200">
+                    <CardContent className="flex items-center justify-center h-full text-gray-500">
+                      Drop here
+                    </CardContent>
+                  </Card>
                 )}
               </div>
             ))}
           </div>
 
-          <div className="w-[20%] min-w-[230px] border h-[60vh] flex flex-col items-center  p-4">
+          <div className="w-[20%]  border h-[635px] flex flex-col items-center  p-4">
             <h2 className="font-semibold mb-4">Available Agencies</h2>
-            <div className="space-y-4 w-full overflow-y-auto">
+            <div className="space-y-4 w-full overflow-y-auto flex flex-col items-center pr-3">
               {allDMC.map((agency, index) => (
                 <Card
-                key={(agency as { id: string }).id}
+                  key={(agency as { id: string }).id}
                   draggable
                   onDragStart={(e) =>
                     handleDragStart(e, agency, "cities", index)
                   }
-                  className="cursor-move hover:shadow-lg transition-shadow"
+                  className="cursor-move hover:shadow-lg transition-shadow w-full text-center"
                 >
                   <CardHeader className="p-3">
-                  <h3 className="text-sm font-medium">{(agency as { city: string }).city}</h3>
+                    <h3 className="text-sm font-medium">
+                      {(agency as { city: string }).city}
+                    </h3>
                   </CardHeader>
                 </Card>
               ))}
             </div>
+            {
+                allDMC.length === 0 && (
+                  <div className=" h-full transition-shadow w-full text-center self-center ">
+                    <CardHeader className="p-3 mt-auto">
+                      <h3 className="text-sm font-medium">
+                        No City found
+                      </h3>
+                    </CardHeader>
+                  </div>
+                )
+              }
           </div>
         </div>
 
@@ -295,7 +368,7 @@ const TopTenDMC = () => {
             disabled={isSaving}
             className="bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 disabled:bg-blue-300"
           >
-            {isSaving ? "Saving..." : "Save Changes"}
+            {btnMessage}
           </Button>
         </div>
       </div>

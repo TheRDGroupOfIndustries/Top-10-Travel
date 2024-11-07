@@ -43,21 +43,6 @@ export async function GET() {
 
 export async function PUT(request: NextRequest) {
   try {
-    // const body = await request.json();
-    // const { title, content } = body;
-
-    // console.log("form data", title, content);
-
-    // const about = await db.aboutContent.update({
-    //   where: {
-    //     id: "cm2oketx90000s4rt7gk4uavf",
-    //   },
-    //   data: {
-    //     title,
-    //     content,
-    //   },
-    // });
-
     const formData = await request.formData();
 
     const title = formData.get("title") as string;
@@ -71,68 +56,65 @@ export async function PUT(request: NextRequest) {
       );
     }
 
-    // if (!(image instanceof File)) {
+    // Check if a record already exists
+    let existingContent = await db.aboutContent.findFirst();
+
+    // Check for unique title if creating a new record
+    // const titleExists = await db.aboutContent.findFirst({
+    //   where: { title },
+    // });
+    // if (titleExists && (!existingContent || existingContent.id !== titleExists.id)) {
     //   return NextResponse.json(
-    //     { error: "Invalid image format" },
+    //     { error: "A record with this title already exists." },
     //     { status: 400 }
     //   );
     // }
 
-    const updateData: AboutContent = {
-      title: title as string,
-      content: content as string,
-    };
-
-
+    // Prepare update data
+    const updateData: Partial<AboutContent> = { title, content };
 
     if (image) {
+      // Optional: Validate image size/type
+      const maxSizeInBytes = 5 * 1024 * 1024; // 5 MB limit
+      if (image.size > maxSizeInBytes) {
+        return NextResponse.json(
+          { error: "Image size exceeds 5MB limit." },
+          { status: 400 }
+        );
+      }
+
       try {
         const bytes = await image.arrayBuffer();
         const buffer = Buffer.from(bytes);
 
         const result = await new Promise<CloudinaryUploadResult>((resolve, reject) => {
-          const uploadStream = cloudinary.v2.uploader
-            .upload_stream(
-              { 
-                folder: `${FOLDER_NAME}/assets`,
-                resource_type: 'auto',
-                allowed_formats: ['jpg', 'jpeg', 'png', 'gif']
-              },
-              (error, result) => {
-                if (error || !result) {
-                  reject(error || new Error('No upload result'));
-                  return;
-                }
-                resolve(result as CloudinaryUploadResult);
+          const uploadStream = cloudinary.v2.uploader.upload_stream(
+            {
+              folder: `${FOLDER_NAME}/assets`,
+              resource_type: "auto",
+              allowed_formats: ["jpg", "jpeg", "png", "gif"],
+            },
+            (error, result) => {
+              if (error || !result) {
+                reject(error || new Error("No upload result"));
+                return;
               }
-            );
-          
-            uploadStream.end(buffer);
-          
+              resolve(result as CloudinaryUploadResult);
+            }
+          );
+          uploadStream.end(buffer);
         });
 
-  
-
         if (result) {
-          const existingContent = await db.aboutContent.findFirst();
+          // If there's an existing image, delete it
           if (existingContent && existingContent.imageId) {
             await cloudinary.v2.uploader.destroy(existingContent.imageId);
           }
 
+          // Update image fields
           updateData.imageURL = result.url;
           updateData.imageId = result.public_id;
-          console.log("imageURL", result.url);
-          console.log("imageId", result.public_id);
         }
-
-        const about = await db.aboutContent.update({
-          where: {
-            id: "cm2oketx90000s4rt7gk4uavf",
-          },
-          data: updateData
-        });
-
-        return NextResponse.json(about);
       } catch (error) {
         console.error("Error uploading to Cloudinary:", error);
         return NextResponse.json(
@@ -142,18 +124,23 @@ export async function PUT(request: NextRequest) {
       }
     }
 
-    const about = await db.aboutContent.update({
-      where: {
-        id: "cm2oketx90000s4rt7gk4uavf",
-      },
-      data: updateData
-    });
+    // Update or create the record
+    const about = existingContent
+      ? await db.aboutContent.update({
+          where: { id: existingContent.id },
+          data: updateData,
+        })
+      : await db.aboutContent.create({
+          data: updateData as AboutContent,
+        });
 
     return NextResponse.json(about);
   } catch (error) {
+    console.error("Error updating about content:", error);
     return NextResponse.json(
       { error: "Failed to update content" },
       { status: 500 }
     );
   }
 }
+

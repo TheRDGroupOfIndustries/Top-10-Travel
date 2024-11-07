@@ -69,6 +69,10 @@ export const PUT = async (request: NextRequest) => {
 
   if (role === "Agency") {
       try {
+          await db.topTenAgencyCity.updateMany({
+            data: { order: -1 }
+          });
+
           for (const city of cityOrder) {
               await db.topTenAgencyCity.upsert({
                   where: { city: city.city },
@@ -76,6 +80,10 @@ export const PUT = async (request: NextRequest) => {
                   create: city,
               });
           }
+
+          await db.topTenAgencyCity.deleteMany({
+            where: { order: -1 }
+          });
           return NextResponse.json({ message: "Agency data processed successfully" }, { status: 200 });
       } catch (error) {
           console.error("Database error:", error);
@@ -83,6 +91,10 @@ export const PUT = async (request: NextRequest) => {
       }
   } else if (role === "DMC") {
       try {
+        await db.topTenDMCCity.updateMany({
+          data: { order: -1 }
+        });
+
           for (const city of cityOrder) {
               await db.topTenDMCCity.upsert({
                   where: { city: city.city },
@@ -90,6 +102,11 @@ export const PUT = async (request: NextRequest) => {
                   create: city,
               });
           }
+
+
+          await db.topTenDMCCity.deleteMany({
+            where: { order: -1 }
+          });
           return NextResponse.json({ message: "DMC data processed successfully" }, { status: 200 });
       } catch (error) {
           console.error("Database error:", error);
@@ -97,6 +114,11 @@ export const PUT = async (request: NextRequest) => {
       }
   } else if (role === "Hotel") {
       try {
+        await db.topTenHotelCity.updateMany({
+          data: { order: -1 }
+        });
+
+
           for (const city of cityOrder) {
               await db.topTenHotelCity.upsert({
                   where: { city: city.city },
@@ -104,6 +126,10 @@ export const PUT = async (request: NextRequest) => {
                   create: city,
               });
           }
+
+          await db.topTenHotelCity.deleteMany({
+            where: { order: -1 }
+          });
           return NextResponse.json({ message: "Hotel data processed successfully" }, { status: 200 });
       } catch (error) {
           console.error("Database error:", error);
