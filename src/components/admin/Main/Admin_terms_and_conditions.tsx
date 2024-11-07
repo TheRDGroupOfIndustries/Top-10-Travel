@@ -143,7 +143,7 @@ const AdminTermsAndConditions = () => {
             <Image
               alt="Banner image"
               src={preview}
-              className="w-full h-full rounded-lg object-cover bg-center"
+              className="w-full h-full  rounded-lg object-cover bg-center"
               width={1080}
               height={1080}
             />
@@ -151,7 +151,7 @@ const AdminTermsAndConditions = () => {
               type="file"
               accept="image/*"
               onChange={handleImageChange}
-              className="absolute top-0 left-0 cursor-pointer h-full w-full"
+              className="absolute opacity-0 top-0 left-0 cursor-pointer h-full w-full"
             />
           </Card>
         </CardContent>

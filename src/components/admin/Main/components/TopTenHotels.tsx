@@ -15,6 +15,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { useContext, useEffect, useState } from "react";
 
+const formData = new FormData();
+
 function TopTenHotels() {
   const { selectedCountry, selectedCity, visible, allHotels } =
     useContext(HomeContext);
@@ -31,6 +33,8 @@ function TopTenHotels() {
   } | null>(null);
   const [error, setError] = useState("");
 
+  const [btnMessage, setBtnMessage] = useState("Save Changes");
+
   const clearError = () => {
     setTimeout(() => setError(""), 3000);
   };
@@ -41,16 +45,18 @@ function TopTenHotels() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await axios.get(`/api/topten?role=Hotel`);
-      const data =  response.data.result
-      if(data.length > 0){
+      const response = await axios.get(
+        `/api/topten?role=Hotel&country=${selectedCountry}`
+      );
+      const data = response.data.result;
+      if (data.length > 0) {
         setPlacedCards(response.data.result);
       }
-      setIsLoading(false)
+      setIsLoading(false);
     };
 
     fetchData();
-  }, []);
+  }, [selectedCountry]);
 
   const handleDragStart = (
     e: React.DragEvent,
@@ -148,7 +154,6 @@ function TopTenHotels() {
       //   newPlacedCards[targetIndex] = removed;
       // }
 
-
       [newPlacedCards[targetIndex], newPlacedCards[draggedItem.sourceIndex]] = [
         newPlacedCards[draggedItem.sourceIndex],
         newPlacedCards[targetIndex],
@@ -172,17 +177,38 @@ function TopTenHotels() {
 
     setIsSaving(true);
 
-    try {
+    if(Array.from(formData.entries()).length > 0) {
+      setBtnMessage("Saving Images");
 
       
+        // const response = await axios.post(`/api/topten/image-upload`, {
+        //   formData
+        // });
+
+        const response = await fetch("/api/topten/image-upload", {
+          method: "POST",
+          body: formData,
+        });
+
+        
+    }
+
+    setBtnMessage("Saving new orders")
+
+    try {
       // Filter out null values and get ordered IDs
       const cityOrder = placedCards
         .filter((card) => card !== null)
         .map((card, index) => {
-          return { city: card.city, order: index, image : card.image || card.images[0] };
+          return {
+            city: card.city,
+            order: index,
+            country: selectedCountry,
+            image: card.image || card.images[0],
+          };
         });
 
-        console.log("placecard", cityOrder);
+      console.log("placecard", cityOrder);
 
       // console.log("cityOrder:", cityOrder);
 
@@ -210,6 +236,28 @@ function TopTenHotels() {
     }
   };
 
+  const handleImageChange = (
+    e: React.ChangeEvent<HTMLInputElement>,
+    index: number,
+    id: String
+  ) => {
+    const files = e.target?.files;
+    if (files && files.length > 0) {
+      const file = files[0];
+
+      setPlacedCards((pre) => {
+        const newPlacedCards = [...pre];
+        newPlacedCards[index].image = URL.createObjectURL(file);
+        return newPlacedCards;
+      });
+
+      formData.append("id", String(id));
+      formData.append("role", "Hotel");
+      formData.append("image", file);
+      
+    }
+  };
+
   if (isLoading) {
     return <div className="w-full text-center py-8">Loading...</div>;
   }
@@ -234,7 +282,7 @@ function TopTenHotels() {
         </h1>
 
         <div className="w-full flex flex-row gap-4">
-          <div className="w-4/5 h-fit grid xl:grid-cols-4 lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 lg:gap-6 md:gap-5 sm:gap-4 gap-3">
+          <div className="w-4/5 h-fit grid xl:grid-cols-3 lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 lg:gap-6 md:gap-5 sm:gap-4 gap-3">
             {placedCards.map((card, index) => (
               <div
                 key={`grid-${index}`}
@@ -247,23 +295,30 @@ function TopTenHotels() {
                 onDragOver={handleDragOver}
                 onDragLeave={handleDragLeave}
                 onDrop={(e) => handleDrop(e, index)}
-                className={`h-[180px] transition-all duration-200`}
+                className={`h-[140px] transition-all duration-200`}
               >
                 {card ? (
-                  <CardContent className="relative  flex items-end  justify-center  cursor-pointer w-full h-full overflow-hidden p-2  ">
+                  <div className="relative flex items-end  justify-center shadow cursor-pointer  transform-all duration-300 w-full h-full border border-1 rounded-lg">
                     <img
-                      src={
-                        card.image || card.images[0]
-                      }
+                      src={card.image || card.images[0]}
                       alt={`Background image of  card`}
-                      className="absolute object-cover rounded-lg  "
+                      className="absolute object-cover rounded-lg h-full w-full   "
                     />
-                    <div className="w-[95%] p-2 m-2 space-y-0.5 h-fit bg-white/80 backdrop-blur-sm rounded-lg">
-                      <p className="font-bold text-lg line-clamp-1 text-nowrap text-slate-800">
+                    <input
+                      type="file"
+                      accept="image/*"
+                      onChange={(e) => handleImageChange(e, index, card.id)}
+                      className="opacity-0 absolute top-0 left-0 cursor-pointer h-full w-full"
+                    />
+                    <div className="w-[100%] p-2 m-2 space-y-0.5 h-16 bg-white/80 backdrop-blur-sm rounded-lg">
+                      <p className="font-bold text-lg text-slate-800">
                         {card.city}
                       </p>
+                      <p className="uppercase text-sm font-semibold tracking-wide text-slate-700">
+                        {selectedCountry}
+                      </p>
                     </div>
-                  </CardContent>
+                  </div>
                 ) : (
                   <CardContent className="flex items-center justify-center h-full text-gray-500">
                     Drop here
@@ -273,9 +328,9 @@ function TopTenHotels() {
             ))}
           </div>
 
-          <div className="w-[20%] min-w-[230px] border h-[60vh] flex flex-col items-center  p-4">
+          <div className="w-[20%]  border h-[635px] flex flex-col items-center  p-4">
             <h2 className="font-semibold mb-4">Available Agencies</h2>
-            <div className="space-y-4 w-full overflow-y-auto">
+            <div className="space-y-4 w-full overflow-y-auto flex flex-col items-center pr-3">
               {allHotels.map((agency, index) => (
                 <Card
                   key={(agency as { id: string }).id}
@@ -283,7 +338,7 @@ function TopTenHotels() {
                   onDragStart={(e) =>
                     handleDragStart(e, agency, "cities", index)
                   }
-                  className="cursor-move hover:shadow-lg transition-shadow"
+                  className="cursor-move hover:shadow-lg transition-shadow w-full text-center"
                 >
                   <CardHeader className="p-3">
                     <h3 className="text-sm font-medium">
@@ -299,10 +354,10 @@ function TopTenHotels() {
         <div className="mt-6 mb-8">
           <Button
             onClick={handleSubmit}
-            // disabled={isSaving}
+            disabled={isSaving}
             className="bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 disabled:bg-blue-300"
           >
-            {isSaving ? "Saving..." : "Save Changes"}
+            {btnMessage}
           </Button>
         </div>
       </div>

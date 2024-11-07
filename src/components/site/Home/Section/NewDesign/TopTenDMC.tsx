@@ -84,7 +84,7 @@ const TopTenDMC = () => {
 
     useEffect(() => {
       const fetchData = async () => {
-        const response = await axios.get(`/api/topten?role=DMC`);
+        const response = await axios.get(`/api/topten?role=DMC&country=${selectedCountry}`);
         setCity(response.data.result);
       };
   

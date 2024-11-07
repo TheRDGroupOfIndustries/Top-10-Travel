@@ -41,23 +41,20 @@ export async function GET() {
 
 export async function POST(request: Request) {
   try {
-    
     const formData = await request.formData();
-
     const content = formData.get("content") as string;
     const image = formData.get("image") as File;
 
     if (!content) {
       return NextResponse.json(
-        { error: "content are required" },
+        { error: "Content is required" },
         { status: 400 }
       );
     }
 
-    const updateData: termsContent = {
-      content: content as string,
-    };
-
+    // Check if there's an existing termsContent entry
+    let existingContent = await db.termsContent.findFirst();
+    const updateData: Partial<termsContent> = { content };
 
     if (image) {
       try {
@@ -65,48 +62,32 @@ export async function POST(request: Request) {
         const buffer = Buffer.from(bytes);
 
         const result = await new Promise<CloudinaryUploadResult>((resolve, reject) => {
-          const uploadStream = cloudinary.v2.uploader
-            .upload_stream(
-              { 
-                folder: `${FOLDER_NAME}/assets`,
-                resource_type: 'auto',
-                allowed_formats: ['jpg', 'jpeg', 'png', 'gif']
-              },
-              (error, result) => {
-                if (error || !result) {
-                  reject(error || new Error('No upload result'));
-                  return;
-                }
-                resolve(result as CloudinaryUploadResult);
+          const uploadStream = cloudinary.v2.uploader.upload_stream(
+            {
+              folder: `${FOLDER_NAME}/assets`,
+              resource_type: "auto",
+              allowed_formats: ["jpg", "jpeg", "png", "gif"]
+            },
+            (error, result) => {
+              if (error || !result) {
+                reject(error || new Error("No upload result"));
+                return;
               }
-            );
-          
-            uploadStream.end(buffer);
-          
+              resolve(result as CloudinaryUploadResult);
+            }
+          );
+          uploadStream.end(buffer);
         });
 
-  
-
         if (result) {
-          const existingContent = await db.termsContent.findFirst();
           if (existingContent && existingContent.imageId) {
+            // Delete the previous image if it exists
             await cloudinary.v2.uploader.destroy(existingContent.imageId);
           }
 
           updateData.imageURL = result.url;
           updateData.imageId = result.public_id;
-          console.log("imageURL", result.url);
-          console.log("imageId", result.public_id);
         }
-
-        const about = await db.termsContent.update({
-          where: {
-            id: "cm2ooa52a0000xyfk9o4rlroh",
-          },
-          data: updateData
-        });
-
-        return NextResponse.json(about);
       } catch (error) {
         console.error("Error uploading to Cloudinary:", error);
         return NextResponse.json(
@@ -116,18 +97,25 @@ export async function POST(request: Request) {
       }
     }
 
-
-    const about = await db.termsContent  .update({
-      where: {
-        id: "cm2ooa52a0000xyfk9o4rlroh",
-      },
-      data: {
-        content,
-      },
-    });
+    if (!updateData.content) {
+      return NextResponse.json(
+        { error: "Content is required" },
+        { status: 400 }
+      );
+    }
+    // Update or create the termsContent record
+    const about = existingContent
+      ? await db.termsContent.update({
+          where: { id: existingContent.id },
+          data: updateData
+        })
+      : await db.termsContent.create({
+          data: updateData as termsContent
+        });
 
     return NextResponse.json(about);
   } catch (error) {
+    console.error("Error updating terms content:", error);
     return NextResponse.json(
       { error: "Failed to update content" },
       { status: 500 }
