@@ -75,6 +75,7 @@ const TopTenDMC = () => {
     useContext(HomeContext);
 
   const [city, setCity] = useState([]);
+  const [cardIsLoading,  setCardIsLoading] = useState(true);
 
   const { data, isLoading }: { data: DMCHotelApiResult[]; isLoading: boolean } =
     useAxios({
@@ -89,6 +90,7 @@ const TopTenDMC = () => {
         `/api/topten?role=DMC&country=${selectedCountry}`
       );
       setCity(response.data.result);
+      setCardIsLoading(false);
     };
 
     fetchData();
@@ -154,7 +156,7 @@ const TopTenDMC = () => {
               );
             })}
 
-            {city.length === 0 &&
+            {cardIsLoading &&
               Array.from({ length: 12 }).map((_, i: number) => (
                 <HomeCardsSkeleton key={i} />
               ))}

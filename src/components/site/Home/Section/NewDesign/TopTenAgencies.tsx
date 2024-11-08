@@ -16,6 +16,7 @@ import Link from "next/link";
 import { useContext, useEffect, useState } from "react";
 import HomeCards from "@/components/reusable/HomeCards";
 import HomeCardsSkeleton from "@/components/reusable/HomeCardsSkeleton";
+import { set } from "zod";
 
 const CarouselCard = ({ agency }: { agency: AgencyApiResult }) => (
   <motion.div
@@ -75,6 +76,7 @@ const TopTenAgencies = () => {
 
 
   const [city, setCity] = useState([]);
+  const [cardIsLoading,  setCardIsLoading] = useState(true);
 
   const { data, isLoading }: { data: AgencyApiResult[]; isLoading: boolean } =
     useAxios({
@@ -84,9 +86,11 @@ const TopTenAgencies = () => {
     });
 
     useEffect(() => {
+      setCardIsLoading
       const fetchData = async () => {
         const response = await axios.get(`/api/topten?role=Agency&country=${selectedCountry}`);
         setCity(response.data.result);
+        setCardIsLoading(false);
       };
   
       fetchData();
@@ -153,7 +157,7 @@ const TopTenAgencies = () => {
             })}
 
             {
-              city.length === 0 && Array.from({ length: 12 }).map((_, i: number) => (
+              cardIsLoading && Array.from({ length: 12 }).map((_, i: number) => (
                 <HomeCardsSkeleton key={i}  />
               ))
             }

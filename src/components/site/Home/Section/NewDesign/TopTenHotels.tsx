@@ -77,6 +77,8 @@ function TopTenHotels() {
     });
 
   const [city, setCity] = useState([]);
+  const [cardIsLoading,  setCardIsLoading] = useState(true);
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -84,6 +86,7 @@ function TopTenHotels() {
         `/api/topten?role=Hotel&country=${selectedCountry}`
       );
       setCity(response.data.result);
+      setCardIsLoading(false);
     };
 
     fetchData();
@@ -148,7 +151,7 @@ function TopTenHotels() {
               );
             })}
 
-            {city.length === 0 &&
+            {cardIsLoading &&
               Array.from({ length: 12 }).map((_, i: number) => (
                 <HomeCardsSkeleton key={i} />
               ))}

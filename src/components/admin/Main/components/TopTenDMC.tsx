@@ -333,7 +333,11 @@ const TopTenDMC = () => {
             ))}
           </div>
 
-          <div className="w-[20%]  border h-[635px] flex flex-col items-center  p-4">
+          <div 
+          onDragOver={handleDragOver}
+          onDragLeave={handleDragLeave}
+          onDrop={(e) => handleDrop(e, -1)}
+        className="w-[20%] bg-transparent  border h-[635px] flex flex-col items-center  p-4">
             <h2 className="font-semibold mb-4">Available Agencies</h2>
             <div className="space-y-4 w-full overflow-y-auto flex flex-col items-center pr-3">
               {allDMC.map((agency, index) => (

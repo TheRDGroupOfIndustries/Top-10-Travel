@@ -285,16 +285,16 @@ const TopTenAgencies = () => {
           </div>
 
           <div 
+            onDragOver={handleDragOver}
+            onDragLeave={handleDragLeave}
             onDrop={(e) => handleDrop(e, -1)}
-          className="w-[20%]  border h-[635px] flex flex-col items-center  p-4">
+          className="w-[20%] bg-transparent  border h-[635px] flex flex-col items-center  p-4">
             <h2 className="font-semibold mb-4">Available Agencies</h2>
             <div 
             className="space-y-4 w-full overflow-y-auto flex flex-col items-center pr-3">
               {allAgencies.map((agency, index) => (
                 <Card
                   key={(agency as { id: string }).id}
-                  draggable
-                  onDrop={(e) => handleDrop(e, -1)}
                   onDragStart={(e) =>
                     handleDragStart(e, agency, "cities", index)
                   }
