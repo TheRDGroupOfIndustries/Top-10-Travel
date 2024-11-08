@@ -26,6 +26,7 @@ export const GET = async (request: NextRequest) => {
     return NextResponse.json({ result: data });
   } else if (role === "DMC") {
     const data = await db.topTenDMCCity.findMany({
+      where : {country},
       select: {
         id: true,
             image:true,
@@ -39,6 +40,7 @@ export const GET = async (request: NextRequest) => {
     return NextResponse.json({ result: data });
   } else if (role === "Hotel") {
     const data = await db.topTenHotelCity.findMany({
+      where : {country},
       select: {
         id: true,
             image:true,
