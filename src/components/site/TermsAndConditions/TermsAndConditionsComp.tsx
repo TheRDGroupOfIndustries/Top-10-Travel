@@ -2,7 +2,7 @@ import Image from "next/image";
 import React from "react";
 import ReactMarkdown from "react-markdown";
 const TermsAndConditionsComp = async () => {
-  const res = await fetch("/api/terms", { cache: "no-store" });
+  const res = await fetch(`${process.env.NEXTAUTH_URL}/api/terms`, { cache: "no-store" });
   const data = await res.json();
   if (!data) {
     return <div>Privacy policy content not available.</div>;

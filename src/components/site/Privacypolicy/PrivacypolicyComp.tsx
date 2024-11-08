@@ -4,7 +4,7 @@ import React from "react";
 import ReactMarkdown from "react-markdown";
 
 const PrivacypolicyComp = async () => {
-  const res =  await fetch("/api/policy", {cache: "no-store"});
+  const res =  await fetch(`${process.env.NEXTAUTH_URL}/api/policy`, {cache: "no-store"});
   const data = await res.json();
   if (!data) {
     return <div>Privacy policy content not available.</div>;
