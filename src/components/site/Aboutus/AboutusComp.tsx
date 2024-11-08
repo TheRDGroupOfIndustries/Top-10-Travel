@@ -1,31 +1,12 @@
-import { db } from "@/core/client/db";
-import { unstable_cache } from "next/cache";
 import Image from "next/image";
 import { CountUp } from "../Home/Section/GetCertification/certification";
-import { useEffect } from "react";
 
-const dashboardData = unstable_cache(
-  async () => {
-    const [user, agency, influencer, dmc, hotel, helpdesk, reviews, aboutContent] =
-      await Promise.all([
-        db.user.count(),
-        db.agency.count(),
-        db.influencerData.count(),
-        db.dMC.count(),
-        db.hotel.count(),
-        db.helpDesk.count({ where: { status: "RESOLVED" } }),
-        db.reviews.count(),
-        db.aboutContent.findFirst(),
-      ]);
-    return { user, agency, influencer, dmc, hotel, helpdesk, reviews, aboutContent };
-  },
-  undefined,
-  { tags: ["admin-dashboard"], revalidate: 300 }
-);
+
 
 const AboutusComp = async () => {
-  const { user, agency, influencer, dmc, hotel, helpdesk, reviews, aboutContent } =
-    await dashboardData();
+    const res =  await fetch(`${process.env.NEXTAUTH_URL}/api/about/client`, {cache: "no-store"});
+    const { user, agency, influencer, dmc, hotel, helpdesk, reviews, aboutContent } = await res.json();
+  
   return (
     <div className="relative flex flex-col gap-5 lg:gap-5 lg:flex-row justify-between px-6 md:px-12 lg:px-[6%] py-20">
       <div id="toNavigate" className="absolute bottom-44 left-0 h-[0.5px] w-[0.5px]"></div>

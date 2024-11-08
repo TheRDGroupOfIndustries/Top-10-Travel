@@ -12,8 +12,8 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import image from "/public/image1.jpg";
 import { set } from "zod";
+import image from "/public/image1.jpg";
 
 interface AboutContent {
   title: string;
@@ -35,7 +35,6 @@ const AdminEditAboutus = () => {
     setIsSaving(true);
     setMessage("");
 
-
     const formData = new FormData();
     formData.append("title", title);
     formData.append("content", content);
@@ -44,9 +43,8 @@ const AdminEditAboutus = () => {
       formData.append("image", selectedImage);
     }
 
-
     try {
-      const response = await fetch("/api/about", {
+      const response = await fetch("/api/about/admin", {
         method: "POST",
         body: formData,
       });
@@ -69,12 +67,12 @@ const AdminEditAboutus = () => {
 
   const fetchContent = async () => {
     try {
-      const response = await fetch("/api/about");
+      const response = await fetch("/api/about/admin");
       const data = await response.json();
 
       setTitle(data.title);
       setContent(data.content);
-      setPreview(data.imageURL)
+      setPreview(data.imageURL);
     } catch (error) {
       console.error("Error fetching content:", error);
     } finally {
