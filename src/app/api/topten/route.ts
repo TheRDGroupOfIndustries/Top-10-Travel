@@ -51,10 +51,7 @@ export const GET = async (request: NextRequest) => {
       },
       distinct: ["city"],
     });
-    return NextResponse.json(
-      { result: data },
-      { headers: { "Cache-Control": "public, max-age=300" } }
-    );
+    return NextResponse.json({ result: data });
   } else {
     // console.log(companies);
     return NextResponse.json({ error: "Invalid Request" }, { status: 400 });
