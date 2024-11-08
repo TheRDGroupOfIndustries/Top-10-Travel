@@ -41,8 +41,8 @@ function AgencySidebar({
         <Link href="/">LOGO</Link>
       </div> */}
       <div className="relative mt-7 mb-12 h-6">
-      <Link href="/" className="flex gap-2">
-                <img src="/roundLogo.jpg" className="rounded-full" alt="logo" />
+      <Link href="/" className="flex gap-2 h-full">
+                <img src="/roundLogo.jpg" className="rounded-full max-h-[40px]" alt="logo" />
                 <h1
           id="secondLine"
           className="uppercase font-cinzel font-bold text-xl mt-1"
@@ -54,7 +54,7 @@ function AgencySidebar({
               </Link>
       </div>
 
-      <nav className="flex-grow">
+      <nav className="flex-grow overflow-y-auto">
         <ul className="">
           {menuItems
             .filter((i) => i != undefined)
