@@ -78,9 +78,12 @@ function TopTenHotels() {
 
   const [city, setCity] = useState([]);
   const [cardIsLoading,  setCardIsLoading] = useState(true);
+  const [openCarousel, setOpenCarousel] = useState("");
 
 
   useEffect(() => {
+    setCardIsLoading(true);
+    setCity([])
     const fetchData = async () => {
       const response = await axios.get(
         `/api/topten?role=Hotel&country=${selectedCountry}`
@@ -90,7 +93,11 @@ function TopTenHotels() {
     };
 
     fetchData();
-  }, []);
+  }, [selectedCountry]);
+
+  useEffect(() => {
+    setOpenCarousel(selectedCity)
+  },[selectedCity]);
   return (
     <main
       className={cn(
@@ -133,21 +140,32 @@ function TopTenHotels() {
           </motion.span>
         </p>
 
-        {selectedCity === "" || !selectedCity ? (
+        {openCarousel === "" || !openCarousel ? (
           <div className="w-full grid xl:grid-cols-4 lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 lg:gap-6 md:gap-5 sm:gap-4 gap-3">
             {city.map((item: Item, i) => {
               if (i > 11) return;
 
               return (
-                <HomeCards
+                <div
                   key={i}
-                  country={selectedCountry}
-                  city={(item as Item).city}
-                  // city={item}
-                  setSelectedCity={setSelectedCity}
-                  role={"Hotel"}
-                  image={`${item.image}`}
-                />
+                  onClick={() => {
+                    setOpenCarousel((item as any).city);
+                
+                  }}
+                  className="relative flex items-end  justify-center shadow cursor-pointer hover:-translate-y-1 transform-all duration-300 w-full h-48 border border-1 rounded-lg"
+                >
+                  <img
+                    src={`${item.image}`}
+                    alt={`Background image of agency card`}
+                    className="absolute object-cover rounded-lg h-full w-full -z-10"
+                  />
+                  <div className="w-[95%] p-2 m-2 space-y-0.5 h-16 bg-white/80 backdrop-blur-sm rounded-lg">
+                    <p className="font-bold text-lg text-slate-800">{(item as any).city}</p>
+                    <p className="uppercase text-sm font-semibold tracking-wide text-slate-700">
+                      {selectedCountry}
+                    </p>
+                  </div>
+                </div>
               );
             })}
 
@@ -256,7 +274,7 @@ function TopTenHotels() {
               <motion.div
                 onClick={() => {
                   setSelectedCity("");
-
+                  setOpenCarousel("");
                   const element = document.getElementById("toNavigate");
                   if (element) {
                     element.scrollIntoView({

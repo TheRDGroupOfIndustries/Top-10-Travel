@@ -44,13 +44,20 @@ const TopTenAgencies = () => {
 
       if (data.length > 0) {
         // console.log("data", data);
-        setPlacedCards((pre)=>{
-          for (let i = 0; i < data.length; i++) {
-            pre[i] = data[i]
-          }
-          return [...pre]
-        });
+        const newPlacedCards = Array(12).fill(null)
+
+        for (let i = 0; i < data.length; i++) {
+          newPlacedCards[i] = data[i]
+        }
+
+        setPlacedCards(newPlacedCards)
+
       }
+
+      if(data.length === 0 && placedCards[0] !== null) {
+        setPlacedCards(Array(12).fill(null));
+      }
+
       setIsLoading(false);
     };
 
@@ -289,12 +296,13 @@ const TopTenAgencies = () => {
             onDragLeave={handleDragLeave}
             onDrop={(e) => handleDrop(e, -1)}
           className="w-[20%] bg-transparent  border h-[635px] flex flex-col items-center  p-4">
-            <h2 className="font-semibold mb-4">Available Agencies</h2>
+            <h2 className="font-semibold mb-4">Available City&apos;s</h2>
             <div 
             className="space-y-4 w-full overflow-y-auto flex flex-col items-center pr-3">
               {allAgencies.map((agency, index) => (
                 <Card
                   key={(agency as { id: string }).id}
+                  draggable
                   onDragStart={(e) =>
                     handleDragStart(e, agency, "cities", index)
                   }

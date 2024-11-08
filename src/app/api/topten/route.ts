@@ -69,19 +69,22 @@ export const PUT = async (request: NextRequest) => {
   if (role === "Agency") {
       try {
           await db.topTenAgencyCity.updateMany({
+            where: {
+              country : cityOrder[0].country
+            },
             data: { order: -1 }
           });
 
           for (const city of cityOrder) {
               await db.topTenAgencyCity.upsert({
-                  where: { city: city.city },
-                  update: { order: city.order },
+                  where: { city: city.city, country: city.country },
+                  update: { order: city.order  },
                   create: city,
               });
           }
 
           await db.topTenAgencyCity.deleteMany({
-            where: { order: -1 }
+            where: { order: -1, country: cityOrder[0].country }
           });
           return NextResponse.json({ message: "Agency data processed successfully" }, { status: 200 });
       } catch (error) {
@@ -91,12 +94,15 @@ export const PUT = async (request: NextRequest) => {
   } else if (role === "DMC") {
       try {
         await db.topTenDMCCity.updateMany({
+          where: {
+            country : cityOrder[0].country
+          },
           data: { order: -1 }
         });
 
           for (const city of cityOrder) {
               await db.topTenDMCCity.upsert({
-                  where: { city: city.city },
+                  where: { city: city.city, country: city.country },
                   update: { order: city.order },
                   create: city,
               });
@@ -104,7 +110,7 @@ export const PUT = async (request: NextRequest) => {
 
 
           await db.topTenDMCCity.deleteMany({
-            where: { order: -1 }
+            where: { order: -1, country: cityOrder[0].country }
           });
           return NextResponse.json({ message: "DMC data processed successfully" }, { status: 200 });
       } catch (error) {
@@ -114,20 +120,23 @@ export const PUT = async (request: NextRequest) => {
   } else if (role === "Hotel") {
       try {
         await db.topTenHotelCity.updateMany({
+          where: {
+            country : cityOrder[0].country
+          },
           data: { order: -1 }
         });
 
 
           for (const city of cityOrder) {
               await db.topTenHotelCity.upsert({
-                  where: { city: city.city },
+                  where: { city: city.city, country: city.country },
                   update: { order: city.order },
                   create: city,
               });
           }
 
           await db.topTenHotelCity.deleteMany({
-            where: { order: -1 }
+            where: { order: -1, country: cityOrder[0].country }
           });
           return NextResponse.json({ message: "Hotel data processed successfully" }, { status: 200 });
       } catch (error) {

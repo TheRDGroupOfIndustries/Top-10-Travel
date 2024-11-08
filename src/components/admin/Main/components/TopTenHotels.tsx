@@ -49,13 +49,18 @@ function TopTenHotels() {
         `/api/topten?role=Hotel&country=${selectedCountry}`
       );
       const data = response.data.result;
-      if (data.length > 0) {
-        setPlacedCards((pre)=>{
-          for (let i = 0; i < data.length; i++) {
-            pre[i] = data[i]
-          }
-          return [...pre]
-        });
+      if (data.length > 0 ) {
+        const newPlacedCards = Array(12).fill(null)
+
+        for (let i = 0; i < data.length; i++) {
+          newPlacedCards[i] = data[i]
+        }
+
+        setPlacedCards(newPlacedCards)
+      }
+
+      if(data.length === 0 && placedCards[0] !== null) {
+        setPlacedCards(Array(12).fill(null));
       }
       setIsLoading(false);
     };
@@ -325,9 +330,11 @@ function TopTenHotels() {
                     </div>
                   </div>
                 ) : (
-                  <CardContent className="flex items-center justify-center h-full text-gray-500">
-                    Drop here
-                  </CardContent>
+                  <Card className="h-[140px] transition-all duration-200">
+                    <CardContent className="flex items-center justify-center h-full text-gray-500">
+                      Drop here
+                    </CardContent>
+                  </Card>
                 )}
               </div>
             ))}
@@ -338,7 +345,7 @@ function TopTenHotels() {
           onDragLeave={handleDragLeave}
           onDrop={(e) => handleDrop(e, -1)}
         className="w-[20%] bg-transparent  border h-[635px] flex flex-col items-center  p-4">
-            <h2 className="font-semibold mb-4">Available Agencies</h2>
+            <h2 className="font-semibold mb-4">Available City&apos;s</h2>
             <div className="space-y-4 w-full overflow-y-auto flex flex-col items-center pr-3">
               {allHotels.map((agency, index) => (
                 <Card

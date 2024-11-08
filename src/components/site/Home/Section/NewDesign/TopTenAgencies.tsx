@@ -1,21 +1,21 @@
 "use client";
+import HomeCards from "@/components/reusable/HomeCards";
+import HomeCardsSkeleton from "@/components/reusable/HomeCardsSkeleton";
 import HomeCompanySkeleton from "@/components/reusable/HomeCompanySkeleton";
 import {
   Carousel,
   CarouselContent,
   CarouselItem,
 } from "@/components/ui/carousel";
-import axios from "axios";
 import { HomeContext } from "@/hooks/context/HomeContext";
 import useAxios from "@/hooks/useAxios";
 import { cn, getValidUrl } from "@/lib/utils";
 import { AgencyApiResult } from "@/types/homeApiType";
+import axios from "axios";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { useContext, useEffect, useState } from "react";
-import HomeCards from "@/components/reusable/HomeCards";
-import HomeCardsSkeleton from "@/components/reusable/HomeCardsSkeleton";
 import { set } from "zod";
 
 const CarouselCard = ({ agency }: { agency: AgencyApiResult }) => (
@@ -66,17 +66,17 @@ const CarouselCard = ({ agency }: { agency: AgencyApiResult }) => (
 );
 
 interface Item {
-  city : string;
-  image : string
+  city: string;
+  image: string;
 }
 
 const TopTenAgencies = () => {
   const { selectedCountry, selectedCity, setSelectedCity, allCities, visible } =
     useContext(HomeContext);
 
-
   const [city, setCity] = useState([]);
-  const [cardIsLoading,  setCardIsLoading] = useState(true);
+  const [cardIsLoading, setCardIsLoading] = useState(true);
+  const [openCarousel, setOpenCarousel] = useState("");
 
   const { data, isLoading }: { data: AgencyApiResult[]; isLoading: boolean } =
     useAxios({
@@ -85,16 +85,24 @@ const TopTenAgencies = () => {
       selectedCountry,
     });
 
-    useEffect(() => {
-      setCardIsLoading
-      const fetchData = async () => {
-        const response = await axios.get(`/api/topten?role=Agency&country=${selectedCountry}`);
-        setCity(response.data.result);
-        setCardIsLoading(false);
-      };
-  
-      fetchData();
-    }, []);
+  useEffect(() => {
+    setCardIsLoading(true);
+    setCity([]);
+
+    const fetchData = async () => {
+      const response = await axios.get(
+        `/api/topten?role=Agency&country=${selectedCountry}`
+      );
+      setCity(response.data.result);
+      setCardIsLoading(false);
+    };
+
+    fetchData();
+  }, [selectedCountry]);
+
+  useEffect(() => {
+    setOpenCarousel(selectedCity);
+  }, [selectedCity]);
 
   return (
     <section
@@ -137,30 +145,39 @@ const TopTenAgencies = () => {
           </motion.span>
         </p>
 
-        {selectedCity === "" || !selectedCity ? (
+        {openCarousel === "" || !openCarousel ? (
           <div className="w-full grid xl:grid-cols-4 lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 lg:gap-6 md:gap-5 sm:gap-4 gap-3">
-            {city.map((item:Item, i) => {
+            {city.map((item: Item, i) => {
               if (i > 11) return;
 
               return (
-                <HomeCards
+                <div
                   key={i}
-                  country={selectedCountry}
-                  city={(item as any).city}
-                  // city={item}
-
-                  setSelectedCity={setSelectedCity}
-                  role={"Agency"}
-                  image={`${item.image}`}
-                />
+                  onClick={() => {
+                    setOpenCarousel((item as any).city);
+                    
+                  }}
+                  className="relative flex items-end  justify-center shadow cursor-pointer hover:-translate-y-1 transform-all duration-300 w-full h-48 border border-1 rounded-lg"
+                >
+                  <img
+                    src={`${item.image}`}
+                    alt={`Background image of agency card`}
+                    className="absolute object-cover rounded-lg h-full w-full -z-10"
+                  />
+                  <div className="w-[95%] p-2 m-2 space-y-0.5 h-16 bg-white/80 backdrop-blur-sm rounded-lg">
+                    <p className="font-bold text-lg text-slate-800">{(item as any).city}</p>
+                    <p className="uppercase text-sm font-semibold tracking-wide text-slate-700">
+                      {selectedCountry}
+                    </p>
+                  </div>
+                </div>
               );
             })}
 
-            {
-              cardIsLoading && Array.from({ length: 12 }).map((_, i: number) => (
-                <HomeCardsSkeleton key={i}  />
-              ))
-            }
+            {cardIsLoading &&
+              Array.from({ length: 12 }).map((_, i: number) => (
+                <HomeCardsSkeleton key={i} />
+              ))}
           </div>
         ) : (
           <>
@@ -170,7 +187,7 @@ const TopTenAgencies = () => {
               }}
               className="w-full hidden sm:block"
             >
-        <CarouselContent className="-ml-2 grid gap-y-4 xl:grid-cols-5 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 my-7 md:-ml-4">
+              <CarouselContent className="-ml-2 grid gap-y-4 xl:grid-cols-5 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 my-7 md:-ml-4">
                 {/* <CarouselContent className="-ml-2 my-7 md:-ml-4"> */}
                 {isLoading ? (
                   Array.from({ length: 5 }).map((_, i: number) => (
@@ -196,7 +213,7 @@ const TopTenAgencies = () => {
                     No agencies found
                   </div>
                 )}
-        </CarouselContent>
+              </CarouselContent>
             </Carousel>
 
             <div className="block sm:hidden w-full">
@@ -227,28 +244,31 @@ const TopTenAgencies = () => {
               </div>
             </div>
 
-          <div className="flex gap-4">
-            <Link 
-            href={`/Agency`} 
-            onClick={() => {
-                window.localStorage.setItem("Agency-Country", selectedCountry);
-                window.localStorage.setItem("Agency-State", selectedCity);
-            }}>
-              <motion.div
-                className="bg-black px-5 py-2 rounded-md mt-6 mb-5 mx-auto hover:bg-gray-800 w-fit transition-colors text-white font-bold"
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.9 }}
+            <div className="flex gap-4">
+              <Link
+                href={`/Agency`}
+                onClick={() => {
+                  window.localStorage.setItem(
+                    "Agency-Country",
+                    selectedCountry
+                  );
+                  window.localStorage.setItem("Agency-State", selectedCity);
+                }}
+              >
+                <motion.div
+                  className="bg-black px-5 py-2 rounded-md mt-6 mb-5 mx-auto hover:bg-gray-800 w-fit transition-colors text-white font-bold"
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.9 }}
                 >
-                View more
-              </motion.div>
-            </Link>
+                  View more
+                </motion.div>
+              </Link>
 
-           
               <motion.div
-                onClick={() =>{ 
+                onClick={() => {
                   setSelectedCity("");
-                  
-                  const element = document.getElementById("toNavigate"); 
+                  setOpenCarousel("");
+                  const element = document.getElementById("toNavigate");
                   if (element) {
                     element.scrollIntoView({
                       // behavior: "smooth", // Smooth scrolling
@@ -262,7 +282,7 @@ const TopTenAgencies = () => {
               >
                 Back To Cities
               </motion.div>
-          </div>
+            </div>
           </>
         )}
       </div>

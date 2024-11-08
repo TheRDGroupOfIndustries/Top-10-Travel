@@ -111,6 +111,8 @@ export const GET = async (request: Request) => {
   const isDmcVisible = searchParams.get("DMC") === "true";
   const isInfluencerVisible = searchParams.get("Influencer") === "true";
 
+  console.log("searchParams",searchParams);
+
   let data: LocationData[] = [];
 
   // Fetch data for only the visible property
@@ -119,27 +121,39 @@ export const GET = async (request: Request) => {
       where: { isCertified: true },
       select: { country: true, city: true },
     });
-    data = agencies;
-  } else if (isHotelVisible) {
+    data = [...agencies];
+
+  } 
+  
+  if (isHotelVisible) {
     const hotels = await db.hotel.findMany({
       where: { isCertified: true },
       select: { country: true, city: true },
     });
-    data = hotels;
-  } else if (isDmcVisible) {
+    data = [...data, ...hotels];
+  }
+  
+  if (isDmcVisible) {
     const dmcs = await db.dMC.findMany({
       where: { isCertified: true },
       select: { country: true, city: true },
     });
-    data = dmcs;
-  } else if (isInfluencerVisible) {
+    data = [...data, ...dmcs];
+  }
+  
+  if (isInfluencerVisible) {
     const influencers = await db.influencerData.findMany({
-      select: { country: true, state: true },
-      distinct: ["country", "state"],
+        select: { country: true, state: true },
+        distinct: ["country", "state"],
     });
     // Normalize influencer data (rename "state" to "city" to match the structure)
-    data = influencers.map((i) => ({ country: i.country, city: i.state }));
-  }
+    const normalizedInfluencers = influencers.map((i) => ({
+        country: i.country,
+        city: i.state || "",
+    }));
+
+    data = [...data, ...normalizedInfluencers];
+}
 
   // Group cities by country
   const groupedByCountry = data.reduce<Record<string, string[]>>(
