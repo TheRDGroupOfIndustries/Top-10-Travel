@@ -12,7 +12,7 @@ import React, { useContext, useEffect, useState } from "react";
 const formData = new FormData();
 
 const TopTenDMC = () => {
-  const { selectedCountry, selectedCity, visible, allDMC } =
+  const { selectedCountry, selectedCity, visible } =
     useContext(HomeContext);
 
   //   console.log("allAgencies", allDMC);
@@ -26,6 +26,7 @@ const TopTenDMC = () => {
     sourceIndex: number;
   } | null>(null);
   const [error, setError] = useState("");
+  const [allCities, setAllCities] = useState<[]>([]);
 
   const [btnMessage, setBtnMessage] = useState("Save Changes");
 
@@ -35,11 +36,17 @@ const TopTenDMC = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await axios.get(
-        `/api/topten?role=DMC&country=${selectedCountry}`
-      );
-      const data = response.data.result;
+      const [cityOrder, allCities] = await Promise.all([
+        axios.get(
+          `/api/topten?role=DMC&country=${selectedCountry}`
+        ),
+        axios.get(`/api/allcity?role=DMC&country=${selectedCountry}`),
+      ]);
+      
+      const data = cityOrder.data.result;
+
       if (data.length > 0) {
+        // console.log("data", data);
         const newPlacedCards = Array(12).fill(null)
 
         for (let i = 0; i < data.length; i++) {
@@ -47,12 +54,14 @@ const TopTenDMC = () => {
         }
 
         setPlacedCards(newPlacedCards)
-      }
 
+      }
 
       if(data.length === 0 && placedCards[0] !== null) {
         setPlacedCards(Array(12).fill(null));
       }
+
+      setAllCities(allCities.data.result);
 
       setIsLoading(false);
     };
@@ -346,7 +355,7 @@ const TopTenDMC = () => {
         className="w-[20%] bg-transparent  border h-[635px] flex flex-col items-center  p-4">
             <h2 className="font-semibold mb-4">Available City&apos;s</h2>
             <div className="space-y-4 w-full overflow-y-auto flex flex-col items-center pr-3">
-              {allDMC.map((agency, index) => (
+              {allCities.map((agency, index) => (
                 <Card
                   key={(agency as { id: string }).id}
                   draggable
@@ -364,7 +373,7 @@ const TopTenDMC = () => {
               ))}
             </div>
             {
-                allDMC.length === 0 && (
+                allCities.length === 0 && (
                   <div className=" h-full transition-shadow w-full text-center self-center ">
                     <CardHeader className="p-3 mt-auto">
                       <h3 className="text-sm font-medium">

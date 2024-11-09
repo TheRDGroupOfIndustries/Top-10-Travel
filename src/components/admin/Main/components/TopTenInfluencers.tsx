@@ -325,6 +325,17 @@ const TopTenInfluencers = () => {
                 </Card>
               ))}
             </div>
+            {
+                allCities.length === 0 && (
+                  <div className=" h-full transition-shadow w-full text-center self-center ">
+                    <CardHeader className="p-3 mt-auto">
+                      <h3 className="text-sm font-medium">
+                        No City found
+                      </h3>
+                    </CardHeader>
+                  </div>
+                )
+              }
           </div>
         </div>
 

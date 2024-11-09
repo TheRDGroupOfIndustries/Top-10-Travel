@@ -1,9 +1,10 @@
 "use client";
 
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useContext, useEffect, useMemo, useState } from "react";
 import ListingHero from "./NewDesign/ListingHero";
 import ListData from "./NewDesign/ListData";
 import ListDataInfluencer from "./NewDesign/ListDataInfluencer";
+import { HomeContext } from "@/hooks/context/HomeContext";
 
 type Data = {
   image: string;
@@ -15,16 +16,19 @@ type Data = {
   speciality: string;
 }[];
 const InfluencerExploreMore = ({ data }: { data: Data }) => {
-  const [selectedCountry, setSelectedCountry] = useState("");
-  const [selectedState, setSelectedState] = useState("");
+  // const [selectedCountry, setSelectedCountry] = useState("");
+  // const [selectedState, setSelectedState] = useState("");
+
+  const { selectedCountry, setSelectedCountry, selectedCity, setSelectedCity, allCities, visible } =
+  useContext(HomeContext);
 
   const filteredData = data?.filter((item) => {
-    if (selectedCountry && selectedState) {
-      return item.country === selectedCountry && item.state === selectedState;
+    if (selectedCountry && selectedCity) {
+      return item.country === selectedCountry && item.state === selectedCity;
     } else if (selectedCountry) {
       return item.country === selectedCountry;
-    } else if (selectedState) {
-      return item.state === selectedState;
+    } else if (selectedCity) {
+      return item.state === selectedCity;
     }
     return true;
   });
@@ -36,16 +40,15 @@ const InfluencerExploreMore = ({ data }: { data: Data }) => {
 
   
   useEffect(() => {
-    const country = window.localStorage.getItem("Influencers-Country");
-    const state = window.localStorage.getItem("Influencers-State");
     
-    if (country) {
-      setSelectedCountry(country);
-    }
+    
+    
+      setSelectedCountry(selectedCountry);
+    
 
-    if (state) {
-      setSelectedState(state);
-    }
+    
+      setSelectedCity(selectedCity);
+    
   }, []);
 
 
@@ -56,13 +59,13 @@ const InfluencerExploreMore = ({ data }: { data: Data }) => {
         title={`TOP TRAVEL INFLUENCERS`}
         selectedCountry={selectedCountry}
         setSelectedCountry={setSelectedCountry}
-        selectedState={selectedState}
-        setSelectedState={setSelectedState}
+        selectedState={selectedCity}
+        setSelectedState={setSelectedCity}
       />
 
       <ListDataInfluencer
         selectedCountry={selectedCountry}
-        selectedState={selectedState}
+        selectedState={selectedCity}
         data={filteredData}
       />
     </div>

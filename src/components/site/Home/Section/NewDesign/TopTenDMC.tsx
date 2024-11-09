@@ -156,7 +156,7 @@ const TopTenDMC = () => {
                 <div
                   key={i}
                   onClick={() => {
-                    setSelectedCity((item as any).city);
+                    setSelectedCity(item.city);
                     naviagte.push('/DMC'); 
                     
                   }}

@@ -10,7 +10,7 @@ import { useContext, useEffect, useState } from "react";
 const formData = new FormData();
 
 const TopTenAgencies = () => {
-  const { selectedCountry, selectedCity, visible, allAgencies } =
+  const { selectedCountry, selectedCity, visible } =
     useContext(HomeContext);
 
   // console.log("allAgencies", allAgencies);
@@ -24,6 +24,7 @@ const TopTenAgencies = () => {
     sourceIndex: number;
   } | null>(null);
   const [error, setError] = useState("");
+  const [allCities, setAllCities] = useState<[]>([]);
 
   const [btnMessage, setBtnMessage] = useState("Save Changes");
 
@@ -37,10 +38,14 @@ const TopTenAgencies = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await axios.get(
-        `/api/topten?role=Agency&country=${selectedCountry}`
-      );
-      const data = response.data.result;
+      const [cityOrder, allCities] = await Promise.all([
+        axios.get(
+          `/api/topten?role=Agency&country=${selectedCountry}`
+        ),
+        axios.get(`/api/allcity?role=Agency&country=${selectedCountry}`),
+      ]);
+      
+      const data = cityOrder.data.result;
 
       if (data.length > 0) {
         // console.log("data", data);
@@ -57,6 +62,8 @@ const TopTenAgencies = () => {
       if(data.length === 0 && placedCards[0] !== null) {
         setPlacedCards(Array(12).fill(null));
       }
+
+      setAllCities(allCities.data.result);
 
       setIsLoading(false);
     };
@@ -299,7 +306,7 @@ const TopTenAgencies = () => {
             <h2 className="font-semibold mb-4">Available City&apos;s</h2>
             <div 
             className="space-y-4 w-full overflow-y-auto flex flex-col items-center pr-3">
-              {allAgencies.map((agency, index) => (
+              {allCities.map((agency, index) => (
                 <Card
                   key={(agency as { id: string }).id}
                   draggable
@@ -316,6 +323,17 @@ const TopTenAgencies = () => {
                 </Card>
               ))}
             </div>
+            {
+                allCities.length === 0 && (
+                  <div className=" h-full transition-shadow w-full text-center self-center ">
+                    <CardHeader className="p-3 mt-auto">
+                      <h3 className="text-sm font-medium">
+                        No City found
+                      </h3>
+                    </CardHeader>
+                  </div>
+                )
+              }
           </div>
         </div>
 

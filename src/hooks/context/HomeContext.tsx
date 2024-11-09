@@ -14,6 +14,7 @@ type Homecontext = {
   selectedCountry: string;
   selectedCity: string;
   setSelectedCity: (state: string) => void;
+  setSelectedCountry: (country: string) => void;
   setCountry: (country: string) => void;
   setCity: (state: string) => void;
   allCities: string[];
@@ -41,6 +42,7 @@ export const HomeContextProvider = ({ children }: { children: ReactNode }) => {
 
   const [selectedCountry, setSelectedCountry] = useState("India");
   const [selectedCity, setSelectedCity] = useState("");
+  console.log("selectedCity", selectedCity);
   const [allCities, setAllCities] = useState<string[]>([]);
   const [allCountries, setAllCountries] = useState<string[]>([]);
   const [data, setData] = useState<any>();
@@ -118,31 +120,33 @@ export const HomeContextProvider = ({ children }: { children: ReactNode }) => {
   };
 
 
+//* Dead code
+  // useEffect(()=>{
+  //   const fatchData =  async () => {
 
-  useEffect(()=>{
-    const fatchData =  async () => {
+  //     const [agencyDatas, dmcData, hotelData] = await Promise.all([
+  //       axios.get(`/api/allcity?role=Agency&country=${selectedCountry}`),
+  //       axios.get(`/api/allcity?role=DMC&country=${selectedCountry}`),
+  //       axios.get(`/api/allcity?role=Hotel&country=${selectedCountry}`),
+  //     ]);
 
-      const [agencyDatas, dmcData, hotelData] = await Promise.all([
-        axios.get(`/api/allcity?role=Agency&country=${selectedCountry}`),
-        axios.get(`/api/allcity?role=DMC&country=${selectedCountry}`),
-        axios.get(`/api/allcity?role=Hotel&country=${selectedCountry}`),
-      ]);
-
-      console.log(agencyDatas.data.result);
-      setAllAgencies(agencyDatas.data.result);
-      setAllDMC(dmcData.data.result);
-      setAllHotels(hotelData.data.result);
+  //     console.log(agencyDatas.data.result);
+  //     setAllAgencies(agencyDatas.data.result);
+  //     setAllDMC(dmcData.data.result);
+  //     setAllHotels(hotelData.data.result);
       
-    }
+  //   }
 
-    fatchData();
-  },[selectedCity, selectedCountry])
+  //   fatchData();
+  // },[selectedCity, selectedCountry])
+  
   return (
     <HomeContext.Provider
       value={{
         visible,
         toggleVisible,
         selectedCountry,
+        setSelectedCountry,
         setSelectedCity,
         search,
         setSearch,

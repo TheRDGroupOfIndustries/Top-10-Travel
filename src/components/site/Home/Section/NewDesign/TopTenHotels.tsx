@@ -152,7 +152,7 @@ function TopTenHotels() {
                 <div
                   key={i}
                   onClick={() => {
-                    setSelectedCity((item as any).city);
+                    setSelectedCity(item.city);
                     naviagte.push('/Hotels'); 
                     
                   }}

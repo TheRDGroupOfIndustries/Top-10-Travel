@@ -23,11 +23,11 @@ const ExploreMore = ({
   data: Data;
   role: "Agency" | "Hotels" | "DMC";
 }) => {
-  const [selectedCountryy, setSelectedCountry] = useState("");
+  // const [selectedCountryy, setSelectedCountry] = useState("");
   // const [selectedState, setSelectedState] = useState("");
   const pathname = usePathname();
 
-  const { selectedCountry, selectedCity, setSelectedCity, allCities, visible } =
+  const { selectedCountry, setSelectedCountry, selectedCity, setSelectedCity, allCities, visible } =
   useContext(HomeContext);
   // console.log("data",data);
 
@@ -49,29 +49,15 @@ const ExploreMore = ({
   );
 
   useEffect(() => {
-    let country;
-    let state;
+    
 
-    if (pathname.includes("/Agency")) {
-      country = window.localStorage.getItem("Agency-Country");
-      state = window.localStorage.getItem("Agency-State");
-    }
-    if (pathname.includes("/Hotels")) {
-      country = window.localStorage.getItem("Hotels-Country");
-      state = window.localStorage.getItem("Hotels-State");
-    }
-    if (pathname.includes("/DMC")) {
-      country = window.localStorage.getItem("DMC-Country");
-      state = window.localStorage.getItem("DMC-State");
-    }
-
-    if (country) {
+    
       setSelectedCountry( selectedCountry);
-    }
+    
 
-    if (state) {
+  
       setSelectedCity( selectedCity);
-    }
+    
   }, []);
 
 
