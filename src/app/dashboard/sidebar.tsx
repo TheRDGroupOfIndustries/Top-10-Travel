@@ -1,6 +1,6 @@
 "use client";
 
-import { ArrowDownUp } from "lucide-react";
+import { ArrowDownUp, FileText, Umbrella } from "lucide-react";
 import { signOut } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
@@ -33,6 +33,11 @@ function AgencySidebar({
       : undefined,
     { name: "Request", icon: ArrowDownUp, href: "/dashboard/request" },
     { name: "Help Desk", icon: HelpCircle, href: "/dashboard/helpdesk" },
+    {name: "About Us", icon: FileText, href: "/admin/aboutus"},
+    {name: "Terms & Conditions", icon: FileText, href: "/admin/terms"},
+    {name: "Privacy Policy", icon: FileText, href: "/admin/policy"},
+    { name: "Report", icon: FileText, href: "/admin/report" },
+    { name: "Top 10 city", icon: Umbrella, href: "/admin/top10" },
   ];
 
   return (

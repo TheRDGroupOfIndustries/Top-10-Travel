@@ -1,9 +1,10 @@
 "use client";
 
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useContext, useEffect, useMemo, useState } from "react";
 import ListingHero from "./NewDesign/ListingHero";
 import ListData from "./NewDesign/ListData";
 import { usePathname } from "next/navigation";
+import { HomeContext } from "@/hooks/context/HomeContext";
 
 type Data = {
   id: string;
@@ -22,17 +23,22 @@ const ExploreMore = ({
   data: Data;
   role: "Agency" | "Hotels" | "DMC";
 }) => {
-  const [selectedCountry, setSelectedCountry] = useState("");
-  const [selectedState, setSelectedState] = useState("");
+  const [selectedCountryy, setSelectedCountry] = useState("");
+  // const [selectedState, setSelectedState] = useState("");
   const pathname = usePathname();
 
+  const { selectedCountry, selectedCity, setSelectedCity, allCities, visible } =
+  useContext(HomeContext);
+  // console.log("data",data);
+
+
   const filteredData = data?.filter((item) => {
-    if (selectedCountry && selectedState) {
-      return item.country === selectedCountry && item.city === selectedState;
+    if (selectedCountry && selectedCity) {
+      return item.country === selectedCountry && item.city === selectedCity;
     } else if (selectedCountry) {
       return item.country === selectedCountry;
-    } else if (selectedState) {
-      return item.city === selectedState;
+    } else if (selectedCity) {
+      return item.city === selectedCity;
     }
     return true;
   });
@@ -60,13 +66,14 @@ const ExploreMore = ({
     }
 
     if (country) {
-      setSelectedCountry(country);
+      setSelectedCountry( selectedCountry);
     }
 
     if (state) {
-      setSelectedState(state);
+      setSelectedCity( selectedCity);
     }
   }, []);
+
 
   return (
     <div>
@@ -75,13 +82,13 @@ const ExploreMore = ({
         title={`TOP TRAVEL ${role}`}
         selectedCountry={selectedCountry}
         setSelectedCountry={setSelectedCountry}
-        selectedState={selectedState}
-        setSelectedState={setSelectedState}
+        selectedState={selectedCity}
+        setSelectedState={setSelectedCity}
       />
 
       <ListData
         selectedCountry={selectedCountry}
-        selectedState={selectedState}
+        selectedState={selectedCity}
         role={role}
         data={filteredData}
       />

@@ -1,13 +1,16 @@
 "use client";
 import HomeCards from "@/components/reusable/HomeCards";
+import HomeCardsSkeleton from "@/components/reusable/HomeCardsSkeleton";
 import InfluencerCarousel from "@/components/reusable/InfluencerCarousel";
 import { Skeleton } from "@/components/ui/skeleton";
 import { HomeContext } from "@/hooks/context/HomeContext";
 import useAxios from "@/hooks/useAxios";
 import { cn } from "@/lib/utils";
+import axios from "axios";
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { useContext } from "react";
+import { useRouter } from "next/navigation";
+import { useContext, useEffect, useState } from "react";
 
 type Data =
   | {
@@ -22,6 +25,11 @@ type Data =
     }[]
   | null;
 
+  interface Item {
+    state: string;
+    image: string;
+  }
+
 const Influencers = () => {
   const { selectedCountry, selectedCity, setSelectedCity, allCities, visible } =
     useContext(HomeContext);
@@ -30,6 +38,26 @@ const Influencers = () => {
     selectedCity,
     selectedCountry,
   });
+
+  const [city, setCity] = useState([]);
+  const [cardIsLoading, setCardIsLoading] = useState(true);
+
+  const naviagte = useRouter();
+
+  useEffect(() => {
+    setCardIsLoading(true);
+    setCity([]);
+
+    const fetchData = async () => {
+      const response = await axios.get(
+        `/api/topten?role=Influencer&country=${selectedCountry}`
+      );
+      setCity(response.data.result);
+      setCardIsLoading(false);
+    };
+
+    fetchData();
+  }, [selectedCountry]);
 
   return (
     <main
@@ -72,22 +100,40 @@ const Influencers = () => {
           </motion.span>
         </p>
 
-        {selectedCity === "" || !selectedCity ? (
+        {selectedCity === "" || !selectedCity || true ? (
           <div className="w-full grid xl:grid-cols-4 lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 lg:gap-6 md:gap-5 sm:gap-4 gap-3">
-            {allCities.map((city, i) => {
+              {city.map((item: Item, i) => {
               if (i > 11) return;
 
               return (
-                <HomeCards
+                <div
                   key={i}
-                  country={selectedCountry}
-                  city={city}
-                  setSelectedCity={setSelectedCity}
-                  role={"Influencer"}
-                  image={`/image${i + 1}.jpg`}
-                />
+                  onClick={() => {
+                    setSelectedCity(item.state);
+                    naviagte.push('/Influencers'); 
+                    
+                  }}
+                  className="relative flex items-end  justify-center shadow cursor-pointer hover:-translate-y-1 transform-all duration-300 w-full h-48 border border-1 rounded-lg"
+                >
+                  <img
+                    src={`${item.image}`}
+                    alt={`Background image of agency card`}
+                    className="absolute object-cover rounded-lg h-full w-full -z-10"
+                  />
+                  <div className="w-[95%] p-2 m-2 space-y-0.5 h-16 bg-white/80 backdrop-blur-sm rounded-lg">
+                    <p className="font-bold text-lg text-slate-800">{item.state}</p>
+                    <p className="uppercase text-sm font-semibold tracking-wide text-slate-700">
+                      {selectedCountry}
+                    </p>
+                  </div>
+                </div>
               );
             })}
+
+            {cardIsLoading &&
+              Array.from({ length: 12 }).map((_, i: number) => (
+                <HomeCardsSkeleton key={i} />
+              ))}
           </div>
         ) : (
           <>

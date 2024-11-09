@@ -12,6 +12,7 @@ import { motion } from "framer-motion";
 import { SquareArrowUpRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useContext, useEffect, useState } from "react";
 
 interface Item {
@@ -80,6 +81,8 @@ function TopTenHotels() {
   const [cardIsLoading,  setCardIsLoading] = useState(true);
   const [openCarousel, setOpenCarousel] = useState("");
 
+  const naviagte = useRouter();
+
 
   useEffect(() => {
     setCardIsLoading(true);
@@ -140,7 +143,7 @@ function TopTenHotels() {
           </motion.span>
         </p>
 
-        {openCarousel === "" || !openCarousel ? (
+        {openCarousel === "" || !openCarousel || true ? (
           <div className="w-full grid xl:grid-cols-4 lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 lg:gap-6 md:gap-5 sm:gap-4 gap-3">
             {city.map((item: Item, i) => {
               if (i > 11) return;
@@ -149,8 +152,9 @@ function TopTenHotels() {
                 <div
                   key={i}
                   onClick={() => {
-                    setOpenCarousel((item as any).city);
-                
+                    setSelectedCity((item as any).city);
+                    naviagte.push('/Hotels'); 
+                    
                   }}
                   className="relative flex items-end  justify-center shadow cursor-pointer hover:-translate-y-1 transform-all duration-300 w-full h-48 border border-1 rounded-lg"
                 >

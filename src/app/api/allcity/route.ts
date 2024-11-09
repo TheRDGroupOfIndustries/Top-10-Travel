@@ -7,7 +7,7 @@ export const GET = async (request: NextRequest) => {
   const { searchParams } = new URL(request.url);
   
   let country = searchParams.get("country");
-  const role = searchParams.get("role") as "DMC" | "Agency" | "Hotel";
+  const role = searchParams.get("role") as "DMC" | "Agency" | "Hotel" | "Influencer";
 
   if (!country)
     return NextResponse.json({ error: "Invalid Request" }, { status: 400 });
@@ -50,7 +50,20 @@ export const GET = async (request: NextRequest) => {
     });
     return NextResponse.json(
       { result: data },
-      { headers: { "Cache-Control": "public, max-age=300" } }
+    );
+  }else if (role === "Influencer") {
+    const data = await db.influencerData.findMany({
+      where: { country },
+        select: {
+          // images: true,
+          id: true,
+          state: true,
+          },
+          distinct: ['state'],
+    });
+    return NextResponse.json(
+      { result: data },
+      // { headers: { "Cache-Control": "public, max-age=300" } }
     );
   } else {
     // console.log(companies);

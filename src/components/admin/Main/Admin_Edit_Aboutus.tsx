@@ -132,16 +132,23 @@ const AdminEditAboutus = () => {
             value={title}
             onChange={(e) => setTitle(e.target.value)}
             required
+            maxLength={50}
             className=" max-w-sm focus-visible:ring-none focus-visible:ring-0 bg-[#fbfbfb]"
           />
         </CardContent>
         <CardContent>
           <Label>Description</Label>
           <Textarea
+            maxLength={100}
             placeholder="Description"
             value={content}
-            onChange={(e) => setContent(e.target.value)}
-            className=" min-h-32 focus-visible:ring-none focus-visible:ring-0 bg-[#fbfbfb]"
+            onChange={(e) => {
+              setContent(e.target.value);
+              e.target.style.height = "auto"; // Reset height
+              e.target.style.height = `${e.target.scrollHeight}px`; // Set height based on content
+            }}
+            rows={2} // Minimum height (2 rows)
+            className="min-h-32 resize-none focus-visible:ring-none focus-visible:ring-0 bg-[#fbfbfb]"
           />
         </CardContent>
         <CardContent>

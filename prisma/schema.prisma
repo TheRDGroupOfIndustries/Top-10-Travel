@@ -361,3 +361,15 @@ model TopTenHotelCity {
   updatedAt DateTime  @updatedAt
   @@index([city])
 }
+
+model TopTenInfluencerCity {
+  id        String    @id @default(cuid())
+  state      String    @unique
+  country   String    @default("unknown")
+  imageId   String   @default("default_id")
+  order     Int
+  image     String
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  @@index([state])
+}

@@ -5,7 +5,7 @@ export const GET = async (request: NextRequest) => {
     const { searchParams } = new URL(request.url);
 
     let country = searchParams.get("country");
-  const role = searchParams.get("role") as "DMC" | "Agency" | "Hotel";
+  const role = searchParams.get("role") as "DMC" | "Agency" | "Hotel" | "Influencer";
 
   if (!country)
     return NextResponse.json({ error: "Invalid Request" }, { status: 400 });
@@ -52,6 +52,20 @@ export const GET = async (request: NextRequest) => {
       distinct: ["city"],
     });
     return NextResponse.json({ result: data });
+  }else if (role === "Influencer") {
+    const data = await db.topTenInfluencerCity.findMany({
+      where : {country},
+      select: {
+        id: true,
+            image:true,
+            state: true,
+      },
+      orderBy: {
+        order: "asc",
+      },
+      distinct: ["state"],
+    });
+    return NextResponse.json({ result: data });
   } else {
     // console.log(companies);
     return NextResponse.json({ error: "Invalid Request" }, { status: 400 });
@@ -64,7 +78,7 @@ export const PUT = async (request: NextRequest) => {
   const body = await request.json();
   const cityOrder = body.cityOrder;
 
-  const role = searchParams.get("role") as "DMC" | "Agency" | "Hotel";
+  const role = searchParams.get("role") as "DMC" | "Agency" | "Hotel" | "Influencer";
 
   if (role === "Agency") {
       try {
@@ -143,7 +157,38 @@ export const PUT = async (request: NextRequest) => {
           console.error("Database error:", error);
           return NextResponse.json({ error: "Database error" }, { status: 500 });
       }
-  } else {
+  }else if (role === "Influencer") {
+    try {
+      await db.topTenInfluencerCity.updateMany({
+        where: {
+          country : cityOrder[0].country
+        },
+        data: { order: -1 }
+      });
+
+
+        for (const city of cityOrder) {
+            await db.topTenInfluencerCity.upsert({
+                where: { state: city.city, country: city.country },
+                update: { order: city.order },
+                create: {
+                  state: city.city,
+                  image: city.image || "",
+                  country: city.country,
+                  order: city.order,
+                },
+            });
+        }
+
+        await db.topTenInfluencerCity.deleteMany({
+          where: { order: -1, country: cityOrder[0].country }
+        });
+        return NextResponse.json({ message: "Influencer data processed successfully" }, { status: 200 });
+    } catch (error) {
+        console.error("Database error:", error);
+        return NextResponse.json({ error: "Database error" }, { status: 500 });
+    }
+} else {
       return NextResponse.json({ error: "Invalid Request" }, { status: 400 });
   }
 };

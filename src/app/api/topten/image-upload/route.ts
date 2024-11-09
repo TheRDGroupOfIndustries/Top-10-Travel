@@ -12,7 +12,7 @@ interface CloudinaryUploadResult extends UploadApiResponse {
 
 interface Images {
   id: string;
-  role: "DMC" | "Agency" | "Hotel";
+  role: "DMC" | "Agency" | "Hotel" | "Influencer";
   image: File;
 }
 
@@ -20,7 +20,7 @@ export async function POST(request: Request) {
   try {
     const formData = await request.formData();
     const ids = formData.getAll("id") as string[];
-    const roles = formData.getAll("role") as ("DMC" | "Agency" | "Hotel")[];
+    const roles = formData.getAll("role") as ("DMC" | "Agency" | "Hotel" | "Influencer")[];
     const images = formData.getAll("image") as File[];
 
     if (ids.length !== roles.length || ids.length !== images.length) {
@@ -40,7 +40,7 @@ export async function POST(request: Request) {
       );
     }
 
-    console.log("imageObjects", imageObjects);
+    // console.log("imageObjects", imageObjects);
 
     const cloudinaryConfig = {
       folder: `${FOLDER_NAME}/top10city`,
@@ -74,6 +74,7 @@ export async function POST(request: Request) {
             DMC: db.topTenDMCCity,
             Agency: db.topTenAgencyCity,
             Hotel: db.topTenHotelCity,
+            Influencer: db.topTenInfluencerCity,
           };
 
           const model = modelMap[img.role];

@@ -15,6 +15,7 @@ import { useContext, useEffect } from "react";
 import TopTenAgencies from "./components/TopTenAgencies";
 import TopTenDMC from "./components/TopTenDMC";
 import TopTenHotels from "./components/TopTenHotels";
+import TopTenInfluencers from "./components/TopTenInfluencers";
 
 const AdminTop10 = () => {
   const {
@@ -106,6 +107,9 @@ const AdminTop10 = () => {
       </CardContent>
       <CardContent>
         <TopTenHotels/>
+      </CardContent>
+      <CardContent>
+        <TopTenInfluencers/>
       </CardContent>
     </Card>
   );

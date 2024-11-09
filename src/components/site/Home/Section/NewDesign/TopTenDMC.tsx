@@ -18,6 +18,7 @@ import Autoplay from "embla-carousel-autoplay";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import React, { useContext, useEffect, useState } from "react";
 import { PiCityBold } from "react-icons/pi";
 
@@ -77,6 +78,8 @@ const TopTenDMC = () => {
   const [city, setCity] = useState([]);
   const [cardIsLoading,  setCardIsLoading] = useState(true);
   const [openCarousel, setOpenCarousel] = useState("");
+
+  const naviagte = useRouter();
 
   const { data, isLoading }: { data: DMCHotelApiResult[]; isLoading: boolean } =
     useAxios({
@@ -144,7 +147,7 @@ const TopTenDMC = () => {
           </motion.span>
         </p>
 
-        {openCarousel === "" || !openCarousel ? (
+        {openCarousel === "" || !openCarousel || true ? (
           <div className="w-full grid xl:grid-cols-4 lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 lg:gap-6 md:gap-5 sm:gap-4 gap-3">
             {city.map((item: Item, i) => {
               if (i > 11) return;
@@ -153,8 +156,9 @@ const TopTenDMC = () => {
                 <div
                   key={i}
                   onClick={() => {
-                    setOpenCarousel((item as any).city);
-                  
+                    setSelectedCity((item as any).city);
+                    naviagte.push('/DMC'); 
+                    
                   }}
                   className="relative flex items-end  justify-center shadow cursor-pointer hover:-translate-y-1 transform-all duration-300 w-full h-48 border border-1 rounded-lg"
                 >
