@@ -161,6 +161,15 @@ export function getContactUsAdminTemplate(
 
         //todo add image 
 
+         <div style="display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 20px;">
+          <a href="https://traveltop10.in/" style="text-decoration: none; color: #333;">
+            <img src="https://res.cloudinary.com/dfkiu7dq5/image/upload/w_1000,c_fill,ar_1:1,g_auto,r_max,bo_5px_solid_red,b_rgb:262c35/v1731307751/l0a51hrslrvfot2oo0ze.jpg" alt="logo" style="border-radius: 50%; max-height: 40px; vertical-align: middle;">
+            <span style="font-family: 'Cinzel', serif; font-weight: bold; font-size: 20px; text-transform: uppercase; color: #333;">
+              Travel <span style="color: #f04a4a;">Top 10</span>
+            </span>
+          </a>
+        </div>
+
         <div style="text-align: center; margin-top: 30px;">
           <p style="font-size: 16px; color: #888; margin-bottom: 10px;">Best regards,</p>
           <p style="font-size: 20px; color: #444; font-weight: bold;">The Travel-Top-10 Team 🤝</p>
@@ -205,6 +214,15 @@ export function getContactUsAppreciationTemplate(userName: string) {
         </p>
 
         //todo Add image/logo
+
+         <div style="display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 20px;">
+          <a href="https://traveltop10.in/" style="text-decoration: none; color: #333;">
+            <img src="https://res.cloudinary.com/dfkiu7dq5/image/upload/w_1000,c_fill,ar_1:1,g_auto,r_max,bo_5px_solid_red,b_rgb:262c35/v1731307751/l0a51hrslrvfot2oo0ze.jpg" alt="logo" style="border-radius: 50%; max-height: 40px; vertical-align: middle;">
+            <span style="font-family: 'Cinzel', serif; font-weight: bold; font-size: 20px; text-transform: uppercase; color: #333;">
+              Travel <span style="color: #f04a4a;">Top 10</span>
+            </span>
+          </a>
+        </div>
       
         <div style="text-align: center; padding: 10px 0;">
           <a href="https://traveltop10.in/" style="background-color: #008CBA; color: #fff; padding: 10px 20px; text-decoration: none; border-radius: 5px; cursor: pointer; font-weight: bold;">Explore Destinations</a>
