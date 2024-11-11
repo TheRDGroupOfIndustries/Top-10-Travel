@@ -62,7 +62,7 @@ function ListData({
   }
 
   return (
-    <main id='scrollList' className="w-full mt-20 px-2 md:px-3 lg:px-6 xl:px-8">
+    <main id='scrollList' className="w-full mt-20 py-14 px-2 md:px-3 lg:px-6 xl:px-8">
     <h1 className="md:text-2xl lg:text-3xl font-cinzel md:text-start text-balance text-center text-xl font-bold text-black">
           <motion.span
             className="inline-block uppercase"
