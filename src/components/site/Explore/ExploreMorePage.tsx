@@ -156,6 +156,7 @@ const ExploreMore = ({
       {selectedCity === "" || !selectedCity ? null : (<ListData
         selectedCountry={selectedCountry}
         selectedState={selectedCity}
+        title={`TOP TRAVEL ${role}`}
         role={role}
         data={filteredData}
       />)}

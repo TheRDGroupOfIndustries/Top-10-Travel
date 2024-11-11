@@ -143,9 +143,6 @@ function ListingHero({
             }}
             viewport={{ once: true }}
           >
-            {/* <TextGenerateEffect words={`${title}${selectedCountry && ", " + selectedCountry.toUpperCase()}${
-            selectedState && "-" + selectedState.toUpperCase()
-            }`} /> */}
             {`${title}${
               selectedCountry && ", " + selectedCountry.toUpperCase()
             }${selectedState && "-" + selectedState.toUpperCase()}`}
