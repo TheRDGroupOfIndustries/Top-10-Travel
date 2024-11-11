@@ -84,7 +84,17 @@ const InfluencerExploreMore = ({ data }: { data: Data }) => {
 
   return (
     <div>
-        <div className="w-full mt-[70px] grid xl:grid-cols-4 lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 lg:gap-6 md:gap-5 sm:gap-4 gap-3 px-7">
+      <ListingHero
+        countriesData={countriesData}
+        title={`TOP TRAVEL INFLUENCERS`}
+        selectedCountry={selectedCountry}
+        setSelectedCountry={setSelectedCountry}
+        selectedState={selectedCity}
+        setSelectedState={setSelectedCity}
+      />
+
+
+        <div className="w-full mt-[40px] grid xl:grid-cols-4 lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 lg:gap-6 md:gap-5 sm:gap-4 gap-3 px-7">
             {city.map((item:Item, i) => {
               if (i > 11) return;
 
@@ -94,6 +104,7 @@ const InfluencerExploreMore = ({ data }: { data: Data }) => {
                   onClick={() => {
                     setSelectedCity(item.state);
                     // naviagte.push(`/Influencers`); 
+                    document.getElementById("scrollList")?.scrollIntoView({ behavior: "smooth" });
                     
                   }}
                   className="relative flex items-end  justify-center shadow cursor-pointer hover:-translate-y-1 transform-all duration-300 w-full h-48 border border-1 rounded-lg"
@@ -120,20 +131,13 @@ const InfluencerExploreMore = ({ data }: { data: Data }) => {
           </div>
 
 
-      <ListingHero
-        countriesData={countriesData}
-        title={`TOP TRAVEL INFLUENCERS`}
-        selectedCountry={selectedCountry}
-        setSelectedCountry={setSelectedCountry}
-        selectedState={selectedCity}
-        setSelectedState={setSelectedCity}
-      />
+      
 
-      <ListDataInfluencer
+      {selectedCity === "" || !selectedCity ? null : ( <ListDataInfluencer
         selectedCountry={selectedCountry}
         selectedState={selectedCity}
         data={filteredData}
-      />
+      />)}
     </div>
   );
 };

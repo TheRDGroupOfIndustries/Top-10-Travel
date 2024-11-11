@@ -47,9 +47,13 @@ const ExploreMore = ({
   const filteredData = data?.filter((item) => {
     if (selectedCountry && selectedCity) {
       return item.country === selectedCountry && item.city === selectedCity;
-    } else if (selectedCountry) {
+    } 
+    
+    else if (selectedCountry) {
       return item.country === selectedCountry;
-    } else if (selectedCity) {
+    } 
+    
+    else if (selectedCity) {
       return item.city === selectedCity;
     }
     return true;
@@ -93,7 +97,16 @@ const ExploreMore = ({
 
     <div>
 
-        <div className="w-full mt-[70px] grid xl:grid-cols-4 lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 lg:gap-6 md:gap-5 sm:gap-4 gap-3 px-7">
+      <ListingHero
+        countriesData={countriesData}
+        title={`TOP TRAVEL ${role}`}
+        selectedCountry={selectedCountry}
+        setSelectedCountry={setSelectedCountry}
+        selectedState={selectedCity}
+        setSelectedState={setSelectedCity}
+      />
+
+        <div className="w-full mt-[40px] grid xl:grid-cols-4 lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 lg:gap-6 md:gap-5 sm:gap-4 gap-3 px-7">
             {city.map((item: Item, i) => {
               if (i > 11) return;
 
@@ -102,6 +115,8 @@ const ExploreMore = ({
                   key={i}
                   onClick={() => {
                     setSelectedCity((item as any).city);
+
+                    document.getElementById("scrollList")?.scrollIntoView({ behavior: "smooth" });
                     // naviagte.push(`/${role === "Hotel" ?  "Hotels" : role}`); 
                     
                   }}
@@ -129,21 +144,21 @@ const ExploreMore = ({
           </div>
 
 
-      <ListingHero
+      {/* <ListingHero
         countriesData={countriesData}
         title={`TOP TRAVEL ${role}`}
         selectedCountry={selectedCountry}
         setSelectedCountry={setSelectedCountry}
         selectedState={selectedCity}
         setSelectedState={setSelectedCity}
-      />
+      /> */}
 
-      <ListData
+      {selectedCity === "" || !selectedCity ? null : (<ListData
         selectedCountry={selectedCountry}
         selectedState={selectedCity}
         role={role}
         data={filteredData}
-      />
+      />)}
     </div>
   );
 };

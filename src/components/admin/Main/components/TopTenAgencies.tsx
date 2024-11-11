@@ -8,7 +8,11 @@ import { motion } from "framer-motion";
 import { useContext, useEffect, useState } from "react";
 
 const formData = new FormData();
-
+interface item {
+  id : string;
+  image : string;
+  city : string;
+}
 const TopTenAgencies = () => {
   const { selectedCountry, selectedCity, visible } =
     useContext(HomeContext);
@@ -303,19 +307,20 @@ const TopTenAgencies = () => {
             onDragLeave={handleDragLeave}
             onDrop={(e) => handleDrop(e, -1)}
           className="w-[20%] bg-transparent  border h-[635px] flex flex-col items-center  p-4">
-            <h2 className="font-semibold mb-4">Available City&apos;s</h2>
+            <h2 className="font-semibold mb-4">Available Cities</h2>
             <div 
-            className="space-y-4 w-full overflow-y-auto flex flex-col items-center pr-3">
-              {allCities.map((agency, index) => (
+            className={`"space-y-4 w-full overflow-y-auto flex flex-col items-center pr-3"`}>
+              {allCities.map((agency : { city: string, id: string,  }, index) => (
                 <Card
                   key={(agency as { id: string }).id}
                   draggable
                   onDragStart={(e) =>
                     handleDragStart(e, agency, "cities", index)
                   }
-                  className="cursor-move hover:shadow-lg transition-shadow w-full text-center"
+                  className={`cursor-move hover:shadow-lg transition-shadow w-full text-center ${placedCards.some(item => item?.city === agency?.city) ? "bg-red-300 text-black/50" : ""}`}
                 >
-                  <CardHeader className="p-3">
+                  <CardHeader className={`p-3  `}>
+
                     <h3 className="text-sm font-medium">
                       {(agency as { city: string }).city}
                     </h3>

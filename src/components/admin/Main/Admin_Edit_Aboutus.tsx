@@ -132,14 +132,14 @@ const AdminEditAboutus = () => {
             value={title}
             onChange={(e) => setTitle(e.target.value)}
             required
-            maxLength={50}
+            // maxLength={50}
             className=" max-w-sm focus-visible:ring-none focus-visible:ring-0 bg-[#fbfbfb]"
           />
         </CardContent>
         <CardContent>
           <Label>Description</Label>
           <Textarea
-            maxLength={100}
+            // maxLength={100}
             placeholder="Description"
             value={content}
             onChange={(e) => {

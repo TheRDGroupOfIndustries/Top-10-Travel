@@ -159,7 +159,6 @@ export function getContactUsAdminTemplate(
           </p>
         </div>
 
-        //todo add image 
 
          <div style="display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 20px;">
           <a href="https://traveltop10.in/" style="text-decoration: none; color: #333;">
@@ -213,7 +212,6 @@ export function getContactUsAppreciationTemplate(userName: string) {
           🌐 <strong>Visit us:</strong> <a href="https://traveltop10.in/" style="color: #008CBA; text-decoration: none; font-weight: bold; cursor: pointer;">traveltop10.in</a>
         </p>
 
-        //todo Add image/logo
 
          <div style="display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 20px;">
           <a href="https://traveltop10.in/" style="text-decoration: none; color: #333;">
