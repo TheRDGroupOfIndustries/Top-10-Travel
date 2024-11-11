@@ -31,7 +31,7 @@ function ListData({
   role,
   data,
 }: {
-  role: "Agency" | "Hotels" | "DMC";
+  role: "Agency" | "Hotel" | "DMC";
   selectedCountry: string;
   selectedState: string;
   data: Data;
@@ -50,7 +50,7 @@ function ListData({
     setCurrentPage(1);
   }, [selectedCountry, selectedState]);
 
-  if (role === "Hotels") {
+  if (role === "Hotel") {
     currentItems.map((item) => {
       const array = item?.services?.concat(item?.specialization!);
       const newTags = new Set(array);
@@ -62,7 +62,7 @@ function ListData({
   return (
     <main className="w-full mt-14 px-2 md:px-3 lg:px-6 xl:px-8">
       <div className="w-full flex flex-col gap-10">
-        {role !== "Hotels" &&
+        {role !== "Hotel" &&
           currentItems?.map((item, i) => (
             <motion.div
               key={item.id}
@@ -151,7 +151,7 @@ function ListData({
             </motion.div>
           ))}
 
-        {role === "Hotels" &&
+        {role === "Hotel" &&
           hotelData?.map((item, i) => (
             <Link href={`/${role}/${item.id}`} key={item.id}>
               <motion.div

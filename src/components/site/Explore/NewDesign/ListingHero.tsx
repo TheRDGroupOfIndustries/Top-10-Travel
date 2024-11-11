@@ -83,7 +83,7 @@ function ListingHero({
   }, [selectedCountry, setSelectedState, countriesData, countries, pathname]);
 
   const clearFilters = () => {
-    setSelectedCountry("");
+    // setSelectedCountry("");
     setSelectedState("");
     setStates([]);
   };
@@ -129,7 +129,7 @@ function ListingHero({
   };
 
   return (
-    <div className="w-full pt-20">
+    <div className="w-full pt-10">
       <div className="w-full h-full flex flex-col xl:flex-row xl:items-end xl:justify-between items-center justify-end gap-2 px-2 md:px-3 xl:px-8">
         <h1 className="md:text-2xl lg:text-3xl font-cinzel md:text-start text-balance text-center text-xl font-bold text-black">
           <motion.span

@@ -29,6 +29,6 @@ const Page = async () => {
 
     orderBy: { priority: "asc" },
   });
-  return <ExploreMore role={"Hotels"} data={allHotels} />;
+  return <ExploreMore role={"Hotel"} data={allHotels} />;
 };
 export default Page;
