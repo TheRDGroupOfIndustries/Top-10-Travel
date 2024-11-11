@@ -158,7 +158,7 @@ const TopTenDMC = () => {
                   onClick={() => {
                     setSelectedCity(item.city);
                     naviagte.push('/DMC'); 
-                    
+                    document.getElementById("scrollList")?.scrollIntoView({ behavior: "smooth" });
                   }}
                   className="relative flex items-end  justify-center shadow cursor-pointer hover:-translate-y-1 transform-all duration-300 w-full h-48 border border-1 rounded-lg"
                 >
