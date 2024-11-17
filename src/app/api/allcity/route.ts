@@ -29,27 +29,55 @@ export const GET = async (request: NextRequest) => {
     return NextResponse.json({ result: data });
   } else if (role === "DMC") {
     const data = await db.dMC.findMany({
-      where: { country },
+      // where: { country },
         select: {
           images: true,
           id: true,
-          city: true,
+          country: true,
           },
-          distinct: ['city'],
+          distinct: ['country'],  
     });
     return NextResponse.json({ result: data });
   } else if (role === "Hotel") {
     const data = await db.hotel.findMany({
-      where: { country },
+      // where: { country },
         select: {
           images: true,
           id: true,
           city: true,
+          country: true,
           },
-          distinct: ['city'],
+          // distinct: ['country'],
     });
+
+    const groupedData = Object.entries(
+      data.reduce((acc: { [key: string]: any }, hotel) => {
+        const { country, city, images } = hotel;
+        
+        if (!acc[country]) {
+          acc[country] = {}; // Initialize the country if not present
+        }
+        
+        if (!acc[country][city]) {
+          acc[country][city] = { images: new Set() }; // Initialize the city
+        }
+        
+        // Add images to the city
+        images.forEach((img) => acc[country][city].images.add(img));
+        
+        return acc;
+      }, {})
+    ).map(([country, cities]) => ({
+      country,
+      cities: Object.entries(cities).map(([name, data]) => ({
+        name,
+        images: Array.from((data as { images: Set<string> }).images),  // Convert Set back to an array
+      })),
+    }));
+    
+    
     return NextResponse.json(
-      { result: data },
+      { result: groupedData },
     );
   }else if (role === "Influencer") {
     const data = await db.influencerData.findMany({

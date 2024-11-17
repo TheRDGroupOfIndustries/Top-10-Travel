@@ -62,15 +62,16 @@ const TopTenDMC = () => {
       }
 
       setAllCities(allCities.data.result);
+      // console.log("allCities", allCities.data.result);
 
       setIsLoading(false);
     };
 
     fetchData();
-  }, [selectedCountry]);
+  }, []);
 
   const findCardIndex = (cardId: string) => {
-    return placedCards.findIndex((card) => card && card.city === cardId);
+    return placedCards.findIndex((card) => card && card.country === cardId);
   };
 
   const handleDragStart = (
@@ -103,7 +104,7 @@ const TopTenDMC = () => {
     // If dragging from cities list to grid
     if (draggedItem.sourceType === "cities") {
       // Check if card already exists in grid
-      const existingIndex = findCardIndex(draggedItem.item.city);
+      const existingIndex = findCardIndex(draggedItem.item.country);
       if (existingIndex !== -1) {
         // toast({
         //   title: "Warning",
@@ -221,9 +222,8 @@ const TopTenDMC = () => {
         .filter((card) => card !== null)
         .map((card, index) => {
           return {
-            city: card.city,
+            country: card.country,
             order: index,
-            country: selectedCountry,
             image: card.image || card.images[0],
           };
         });
@@ -316,7 +316,7 @@ const TopTenDMC = () => {
                 className={`h-[140px] transition-all duration-200`}
               >
                 {card ? (
-                  <div className="relative flex items-end  justify-center shadow cursor-pointer  transform-all duration-300 w-full h-full border border-1 rounded-lg">
+                  <div className="relative flex items-end  justify-center shadow cursor-pointer  transform-all duration-300 w-full h-full border border-1 rounded-lg">`
                     <img
                       src={card.image || card.images[0]}
                       alt={`Background image of  card`}
@@ -330,10 +330,10 @@ const TopTenDMC = () => {
                     />
                     <div className="w-[100%] p-2 m-2 space-y-0.5 h-16 bg-white/80 backdrop-blur-sm rounded-lg">
                       <p className="font-bold text-lg text-slate-800">
-                        {card.city}
+                        {card.country}
                       </p>
                       <p className="uppercase text-sm font-semibold tracking-wide text-slate-700">
-                        {selectedCountry}
+                        {card.country}
                       </p>
                     </div>
                   </div>
@@ -355,18 +355,18 @@ const TopTenDMC = () => {
         className="w-[20%] bg-transparent  border h-[635px] flex flex-col items-center  p-4">
             <h2 className="font-semibold mb-4">Available Cities</h2>
             <div className="space-y-4 w-full overflow-y-auto flex flex-col items-center pr-3">
-              {allCities.map((agency : { city: string, id: string,  }, index) => (
+              {allCities.map((agency : { country: string, id: string,  }, index) => (
                 <Card
                   key={(agency as { id: string }).id}
                   draggable
                   onDragStart={(e) =>
                     handleDragStart(e, agency, "cities", index)
                   }
-                  className={`cursor-move hover:shadow-lg transition-shadow w-full text-center ${placedCards.some(item => item?.city === agency?.city) ? "bg-red-300 text-black/50" : ""}`}
+                  className={`cursor-move hover:shadow-lg transition-shadow w-full text-center ${placedCards.some(item => item?.country === agency?.country) ? "bg-red-300 text-black/50" : ""}`}
                 >
                   <CardHeader className="p-3">
                     <h3 className="text-sm font-medium">
-                      {(agency as { city: string }).city}
+                      {(agency as { country: string }).country}
                     </h3>
                   </CardHeader>
                 </Card>

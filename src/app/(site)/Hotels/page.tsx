@@ -1,4 +1,5 @@
 import ExploreMore from "@/components/site/Explore/ExploreMorePage";
+import HotelExploreMorePage from "@/components/site/Explore/HotelExploreMorePage";
 import { db } from "@/core/client/db";
 import HotelHeroImg from "@/resources/images/Hotels-Hero.png";
 import { redirect } from "next/navigation";
@@ -29,6 +30,6 @@ const Page = async () => {
 
     orderBy: { priority: "asc" },
   });
-  return <ExploreMore role={"Hotel"} data={allHotels} />;
+  return <HotelExploreMorePage role={"Hotel"} data={allHotels} />;
 };
 export default Page;

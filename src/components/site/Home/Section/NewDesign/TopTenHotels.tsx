@@ -18,6 +18,7 @@ import { useContext, useEffect, useState } from "react";
 interface Item {
   city: string;
   image: string;
+  country: string;
 }
 
 const CarouselCard = ({ hotel }: { hotel: DMCHotelApiResult }) => (
@@ -68,7 +69,7 @@ const CarouselCard = ({ hotel }: { hotel: DMCHotelApiResult }) => (
 );
 
 function TopTenHotels() {
-  const { selectedCountry, selectedCity, setSelectedCity, allCities, visible } =
+  const { selectedCountry, setSelectedCountry,  selectedCity, setSelectedCity, allCities, visible } =
     useContext(HomeContext);
   const { data, isLoading }: { data: DMCHotelApiResult[]; isLoading: boolean } =
     useAxios({
@@ -96,7 +97,7 @@ function TopTenHotels() {
     };
 
     fetchData();
-  }, [selectedCountry]);
+  }, []);
 
   useEffect(() => {
     setOpenCarousel(selectedCity)
@@ -121,9 +122,10 @@ function TopTenHotels() {
             }}
             viewport={{ once: true }}
           >
-            {`TOP 10 HOTELS${
-              selectedCountry && ", " + selectedCountry.toUpperCase()
-            }${selectedCity && "-" + selectedCity.toUpperCase()}`}
+            {`TOP 10 HOTELS
+            
+            
+            `}
           </motion.span>
         </h1>
 
@@ -153,6 +155,7 @@ function TopTenHotels() {
                   key={i}
                   onClick={() => {
                     setSelectedCity(item.city);
+                    setSelectedCountry(item.country);
                     naviagte.push('/Hotels'); 
                     document.getElementById("scrollList")?.scrollIntoView({ behavior: "smooth" });
                   }}
@@ -164,9 +167,9 @@ function TopTenHotels() {
                     className="absolute object-cover rounded-lg h-full w-full -z-10"
                   />
                   <div className="w-[95%] p-2 m-2 space-y-0.5 h-16 bg-white/80 backdrop-blur-sm rounded-lg">
-                    <p className="font-bold text-lg text-slate-800">{(item as any).city}</p>
+                    <p className="line-clamp-1 font-bold text-lg text-slate-800">{`${item.city}, ${item.country}`}</p>
                     <p className="uppercase text-sm font-semibold tracking-wide text-slate-700">
-                      {selectedCountry}
+                      {item.country}
                     </p>
                   </div>
                 </div>

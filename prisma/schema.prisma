@@ -340,26 +340,26 @@ model TopTenAgencyCity {
 
 model TopTenDMCCity {
   id        String    @id @default(cuid())
-  city      String  @unique
-  country   String    @default("unknown")
+  city      String  @default("unknown") 
+  country   String  @unique 
   imageId   String   @default("default_id")
   image     String
   order     Int
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
-  @@index([city])
+  @@index([country])
 }
 
 model TopTenHotelCity {
   id        String    @id @default(cuid())
-  city      String    @unique
-  country   String    @default("unknown")
+  city      String    
+  country   String    @unique
   imageId   String   @default("default_id")
   order     Int
   image     String
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
-  @@index([city])
+  @@index([country])
 }
 
 model TopTenInfluencerCity {

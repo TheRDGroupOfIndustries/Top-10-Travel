@@ -26,30 +26,31 @@ export const GET = async (request: NextRequest) => {
     return NextResponse.json({ result: data });
   } else if (role === "DMC") {
     const data = await db.topTenDMCCity.findMany({
-      where : {country},
+      // where : {country},
       select: {
         id: true,
             image:true,
-            city: true,
+            country: true,
       },
       orderBy: {
         order: "asc",
       },
-      distinct: ["city"],
+      distinct: ["country"],
     });
     return NextResponse.json({ result: data });
   } else if (role === "Hotel") {
     const data = await db.topTenHotelCity.findMany({
-      where : {country},
+      // where : {country},
       select: {
         id: true,
             image:true,
             city: true,
+            country: true,
       },
       orderBy: {
         order: "asc",
       },
-      distinct: ["city"],
+      // distinct: ["city"],
     });
     return NextResponse.json({ result: data });
   }else if (role === "Influencer") {
@@ -108,15 +109,12 @@ export const PUT = async (request: NextRequest) => {
   } else if (role === "DMC") {
       try {
         await db.topTenDMCCity.updateMany({
-          where: {
-            country : cityOrder[0].country
-          },
           data: { order: -1 }
         });
 
           for (const city of cityOrder) {
               await db.topTenDMCCity.upsert({
-                  where: { city: city.city, country: city.country },
+                  where: { country: city.country },
                   update: { order: city.order },
                   create: city,
               });
@@ -124,7 +122,7 @@ export const PUT = async (request: NextRequest) => {
 
 
           await db.topTenDMCCity.deleteMany({
-            where: { order: -1, country: cityOrder[0].country }
+            where: { order: -1 }
           });
           return NextResponse.json({ message: "DMC data processed successfully" }, { status: 200 });
       } catch (error) {
@@ -134,17 +132,14 @@ export const PUT = async (request: NextRequest) => {
   } else if (role === "Hotel") {
       try {
         await db.topTenHotelCity.updateMany({
-          where: {
-            country : cityOrder[0].country
-          },
           data: { order: -1 }
         });
 
 
           for (const city of cityOrder) {
               await db.topTenHotelCity.upsert({
-                  where: { city: city.city, country: city.country },
-                  update: { order: city.order },
+                  where: { country: city.country },
+                  update: { order: city.order, city: city.city },
                   create: city,
               });
           }

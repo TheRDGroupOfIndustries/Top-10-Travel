@@ -41,44 +41,41 @@ function TopTenHotels() {
   };
 
   const findCardIndex = (cardId: string) => {
-    return placedCards.findIndex((card) => card && card.city === cardId);
+    return placedCards.findIndex((card) => card && card.country === cardId);
   };
 
   useEffect(() => {
-
     const fetchData = async () => {
       const [cityOrder, allCities] = await Promise.all([
-        axios.get(
-          `/api/topten?role=Hotel&country=${selectedCountry}`
-        ),
+        axios.get(`/api/topten?role=Hotel&country=${selectedCountry}`),
         axios.get(`/api/allcity?role=Hotel&country=${selectedCountry}`),
       ]);
-      
+
       const data = cityOrder.data.result;
 
       if (data.length > 0) {
         // console.log("data", data);
-        const newPlacedCards = Array(12).fill(null)
+        const newPlacedCards = Array(12).fill(null);
 
         for (let i = 0; i < data.length; i++) {
-          newPlacedCards[i] = data[i]
+          newPlacedCards[i] = data[i];
         }
 
-        setPlacedCards(newPlacedCards)
-
+        setPlacedCards(newPlacedCards);
       }
 
-      if(data.length === 0 && placedCards[0] !== null) {
+      if (data.length === 0 && placedCards[0] !== null) {
         setPlacedCards(Array(12).fill(null));
       }
 
       setAllCities(allCities.data.result);
+      // console.log("allCities", allCities.data.result);
 
       setIsLoading(false);
     };
 
     fetchData();
-  }, [selectedCountry]);
+  }, []);
 
   const handleDragStart = (
     e: React.DragEvent,
@@ -103,14 +100,17 @@ function TopTenHotels() {
     e.preventDefault();
     e.currentTarget.classList.remove("bg-blue-100");
 
+    console.log("targetIndex", targetIndex);
+
     if (!draggedItem) return;
 
     const newPlacedCards = [...placedCards];
+    console.log("newPlacedCards", newPlacedCards);
 
     // If dragging from cities list to grid
     if (draggedItem.sourceType === "cities") {
       // Check if card already exists in grid
-      const existingIndex = findCardIndex(draggedItem.item.city);
+      const existingIndex = findCardIndex(draggedItem.item.country);
       if (existingIndex !== -1) {
         // toast({
         //   title: "Warning",
@@ -122,7 +122,11 @@ function TopTenHotels() {
 
       // If dropping on an empty spot
       if (!newPlacedCards[targetIndex]) {
-        newPlacedCards[targetIndex] = draggedItem.item;
+        try {
+          newPlacedCards[targetIndex] = draggedItem.item;
+        } catch (error) {
+          console.log("error", error);
+        }
       }
       // If dropping on an occupied spot, shift cards
       else {
@@ -199,23 +203,20 @@ function TopTenHotels() {
 
     setIsSaving(true);
 
-    if(Array.from(formData.entries()).length > 0) {
+    if (Array.from(formData.entries()).length > 0) {
       setBtnMessage("Saving Images");
 
-      
-        // const response = await axios.post(`/api/topten/image-upload`, {
-        //   formData
-        // });
+      // const response = await axios.post(`/api/topten/image-upload`, {
+      //   formData
+      // });
 
-        const response = await fetch("/api/topten/image-upload", {
-          method: "POST",
-          body: formData,
-        });
-
-        
+      const response = await fetch("/api/topten/image-upload", {
+        method: "POST",
+        body: formData,
+      });
     }
 
-    setBtnMessage("Saving new orders")
+    setBtnMessage("Saving new orders");
 
     try {
       // Filter out null values and get ordered IDs
@@ -224,8 +225,8 @@ function TopTenHotels() {
         .map((card, index) => {
           return {
             city: card.city,
+            country: card.country,
             order: index,
-            country: selectedCountry,
             image: card.image || card.images[0],
           };
         });
@@ -276,7 +277,8 @@ function TopTenHotels() {
       formData.append("id", String(id));
       formData.append("role", "Hotel");
       formData.append("image", file);
-      
+
+      console.log("id", String(id));
     }
   };
 
@@ -322,7 +324,7 @@ function TopTenHotels() {
                 {card ? (
                   <div className="relative flex items-end  justify-center shadow cursor-pointer  transform-all duration-300 w-full h-full border border-1 rounded-lg">
                     <img
-                      src={card.image || card.images[0]}
+                      src={card.image}
                       alt={`Background image of  card`}
                       className="absolute object-cover rounded-lg h-full w-full   "
                     />
@@ -333,11 +335,11 @@ function TopTenHotels() {
                       className="opacity-0 absolute top-0 left-0 cursor-pointer h-full w-full"
                     />
                     <div className="w-[100%] p-2 m-2 space-y-0.5 h-16 bg-white/80 backdrop-blur-sm rounded-lg">
-                      <p className="font-bold text-lg text-slate-800">
-                        {card.city}
+                      <p className=" line-clamp-1 font-bold text-lg text-slate-800">
+                        {`${card.city}, ${card.country}`}
                       </p>
                       <p className="uppercase text-sm font-semibold tracking-wide text-slate-700">
-                        {selectedCountry}
+                        {card.country}
                       </p>
                     </div>
                   </div>
@@ -352,41 +354,83 @@ function TopTenHotels() {
             ))}
           </div>
 
-          <div 
-          onDragOver={handleDragOver}
-          onDragLeave={handleDragLeave}
-          onDrop={(e) => handleDrop(e, -1)}
-        className="w-[20%] bg-transparent  border h-[635px] flex flex-col items-center  p-4">
+          <div
+            onDragOver={handleDragOver}
+            onDragLeave={handleDragLeave}
+            onDrop={(e) => handleDrop(e, -1)}
+            className="w-[20%] bg-transparent  border h-[635px] flex flex-col items-center  p-4"
+          >
             <h2 className="font-semibold mb-4">Available Cities</h2>
             <div className="space-y-4 w-full overflow-y-auto flex flex-col items-center pr-3">
-              {allCities.map((agency: { id: string; city: string }, index) => (
-                <Card
-                  key={(agency as { id: string }).id}
-                  draggable
-                  onDragStart={(e) =>
-                    handleDragStart(e, agency, "cities", index)
-                  }
-                  className={`cursor-move hover:shadow-lg transition-shadow w-full text-center ${placedCards.some(item => item?.city === agency?.city) ? "bg-red-300 text-black/50" : ""}`}
-                >
-                  <CardHeader className="p-3">
-                    <h3 className="text-sm font-medium">
-                      {(agency as { city: string }).city}
-                    </h3>
-                  </CardHeader>
-                </Card>
-              ))}
-            </div>
-            {
-                allCities.length === 0 && (
-                  <div className=" h-full transition-shadow w-full text-center self-center ">
-                    <CardHeader className="p-3 mt-auto">
-                      <h3 className="text-sm font-medium">
-                        No City found
-                      </h3>
-                    </CardHeader>
+              {allCities.map(
+                (
+                  group: {
+                    country: string;
+                    cities: {
+                      name: string;
+                      images: string[];
+                    }[];
+                  },
+                  groupIndex: number
+                ) => (
+                  <div key={groupIndex} className="mb-4">
+                    {/* Country Header */}
+                    <h2 className="text-lg font-bold mb-2">{group.country}</h2>
+
+                    {/* Cities List */}
+                    <div className="grid grid-cols-1 gap-4 ">
+                      {group.cities.map((city, cityIndex) => (
+                        <Card
+                          key={`${group.country}-${cityIndex}`}
+                          draggable
+                          onDragStart={(e) =>
+                            handleDragStart(
+                              e,
+                              {
+                                city: city.name,
+                                country: group.country,
+                                id: `${group.country}-${cityIndex}`,
+                                image: city.images[0] || "",
+                              },
+                              "cities",
+                              cityIndex
+                            )
+                          }
+                          className={`cursor-move hover:shadow-lg transition-shadow w-full text-center ${
+                            placedCards.some((item) => item?.country === group.country)
+                              ? "bg-red-300 text-black/50"
+                              : ""
+                          }`}
+                        >
+                          {/* City Images
+                          {city.images.length > 0 && (
+                            <div className="flex justify-center items-center mb-2">
+                              <img
+                                src={city.images[0]} // Display the first image
+                                alt={city.name}
+                                className="h-20 w-20 object-cover rounded-full"
+                              />
+                            </div>
+                          )} */}
+
+                          {/* City Name */}
+                          <CardHeader className="p-3">
+                            <h3 className="text-sm font-medium">{city.name}</h3>
+                          </CardHeader>
+                        </Card>
+                      ))}
+                    </div>
                   </div>
                 )
-              }
+              )}
+            </div>
+            {allCities.length === 0 && (
+              <div className=" h-full transition-shadow w-full text-center self-center ">
+                <CardHeader className="p-3 mt-auto">
+                  <h3 className="text-sm font-medium">No City found</h3>
+                </CardHeader>
+              </div>
+            )}
           </div>
         </div>
 

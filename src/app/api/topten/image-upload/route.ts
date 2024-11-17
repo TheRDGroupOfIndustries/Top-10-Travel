@@ -69,7 +69,7 @@ export async function POST(request: Request) {
               uploadStream.end(buffer);
             }
           );
-
+          // console.log("redult", result);
           const modelMap: { [key: string]: any } = {
             DMC: db.topTenDMCCity,
             Agency: db.topTenAgencyCity,

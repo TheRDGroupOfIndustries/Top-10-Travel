@@ -23,7 +23,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { PiCityBold } from "react-icons/pi";
 
 interface Item {
-  city: string;
+  country: string;
   image: string;
 }
 
@@ -72,7 +72,7 @@ const CarouselCard = ({ dmc }: { dmc: DMCHotelApiResult }) => (
 );
 
 const TopTenDMC = () => {
-  const { selectedCountry, allCities, setSelectedCity, selectedCity, visible } =
+  const { selectedCountry, setSelectedCountry, allCities, setSelectedCity, selectedCity, visible } =
     useContext(HomeContext);
 
   const [city, setCity] = useState([]);
@@ -100,7 +100,7 @@ const TopTenDMC = () => {
     };
 
     fetchData();
-  }, [selectedCountry]);
+  }, []);
 
   useEffect(() => {
     setOpenCarousel(selectedCity)
@@ -125,9 +125,7 @@ const TopTenDMC = () => {
             }}
             viewport={{ once: true }}
           >
-            {`TOP 10 DMC${
-              selectedCountry && ", " + selectedCountry.toUpperCase()
-            }${selectedCity && "-" + selectedCity.toUpperCase()}`}
+            {`TOP 10 DMC`}
           </motion.span>
         </h1>
 
@@ -156,7 +154,7 @@ const TopTenDMC = () => {
                 <div
                   key={i}
                   onClick={() => {
-                    setSelectedCity(item.city);
+                    setSelectedCountry(item.country);
                     naviagte.push('/DMC'); 
                     document.getElementById("scrollList")?.scrollIntoView({ behavior: "smooth" });
                   }}
@@ -168,9 +166,9 @@ const TopTenDMC = () => {
                     className="absolute object-cover rounded-lg h-full w-full -z-10"
                   />
                   <div className="w-[95%] p-2 m-2 space-y-0.5 h-16 bg-white/80 backdrop-blur-sm rounded-lg">
-                    <p className="font-bold text-lg text-slate-800">{(item as any).city}</p>
+                    <p className="font-bold text-lg text-slate-800">{(item as any).country}</p>
                     <p className="uppercase text-sm font-semibold tracking-wide text-slate-700">
-                      {selectedCountry}
+                    {(item as any).country}
                     </p>
                   </div>
                 </div>

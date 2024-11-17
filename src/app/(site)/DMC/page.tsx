@@ -1,3 +1,4 @@
+import DMCExploreMorePage from "@/components/site/Explore/DMCExploreMorePage";
 import ExploreMore from "@/components/site/Explore/ExploreMorePage";
 import { db } from "@/core/client/db";
 
@@ -26,6 +27,6 @@ const Page = async () => {
     orderBy: { priority: "asc" },
   });
 
-  return <ExploreMore data={allDMCS} role={"DMC"} />;
+  return <DMCExploreMorePage data={allDMCS} role={"DMC"} />;
 };
 export default Page;
