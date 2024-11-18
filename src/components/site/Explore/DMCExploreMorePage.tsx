@@ -92,6 +92,10 @@ const DMCExploreMorePage = ({
     fetchData();
   }, [role]);
 
+  useEffect(()=>{
+    document.getElementById("scrollList")?.scrollIntoView({ behavior: "smooth" });
+  },[])
+
 
   return (
 

@@ -70,6 +70,10 @@ const ExploreMore = ({
 
     setSelectedCity(selectedCity);
   }, []);
+  
+  useEffect(()=>{
+    document.getElementById("scrollList")?.scrollIntoView({ behavior: "smooth" });
+  },[])
 
   useEffect(() => {
     setCardIsLoading(true);

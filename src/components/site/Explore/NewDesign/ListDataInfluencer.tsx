@@ -23,10 +23,12 @@ function ListDataInfluencer({
   data,
   selectedCountry,
   selectedState,
+  title
 }: {
   data: Data;
   selectedCountry: string;
   selectedState: string;
+  title: string
 }) {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
@@ -41,6 +43,23 @@ function ListDataInfluencer({
 
   return (
     <main id='scrollList' className="w-full mt-14 px-2 md:px-3 lg:px-6 xl:px-8">
+      <h1 className="md:text-2xl lg:text-3xl font-cinzel md:text-start text-balance text-center text-xl font-bold text-black">
+          <motion.span
+            className="inline-block uppercase"
+            initial={{ y: 30, opacity: 0 }}
+            whileInView={{ y: 0, opacity: 1 }}
+            transition={{
+              duration: 0.8,
+              delay: 0.3,
+              type: "spring",
+            }}
+            viewport={{ once: true }}
+          >
+            {`${title}${
+              selectedCountry && ", " + selectedCountry.toUpperCase()
+            }${selectedState && "-" + selectedState.toUpperCase()}`}
+          </motion.span>
+        </h1>
       <div className="w-full flex flex-col gap-10">
         {currentItems?.map((item, index: number) => (
           // <motion.div

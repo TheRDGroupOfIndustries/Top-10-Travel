@@ -81,6 +81,10 @@ const InfluencerExploreMore = ({ data }: { data: Data }) => {
     fetchData();
   }, [selectedCountry]);
 
+  useEffect(()=>{
+    document.getElementById("scrollList")?.scrollIntoView({ behavior: "smooth" });
+  },[])
+
 
   return (
     <div>
@@ -140,6 +144,7 @@ const InfluencerExploreMore = ({ data }: { data: Data }) => {
         selectedCountry={selectedCountry}
         selectedState={selectedCity}
         data={filteredData}
+        title={`TOP TRAVEL INFLUENCERS`}
       />)}
     </div>
   );
