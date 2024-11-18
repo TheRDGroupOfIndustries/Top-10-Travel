@@ -35,11 +35,12 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-import { ChevronDown, SquarePen } from "lucide-react";
+import { ChevronDown, Plus, SquarePen } from "lucide-react";
 import * as React from "react";
 import { FaTrashCan } from "react-icons/fa6";
 import { toast } from "sonner";
 import EditInfluencerForm from "./EditInfluencerForm";
+import Link from "next/link";
 
 export type Company = {
   name: string;
@@ -227,7 +228,7 @@ export default function AdminPackagelisting({
           className="max-w-sm bg-[#fbfbfb] focus-visible:ring-0"
         />
         {/* Influencer */}
-        {/* 
+        
         <Link href="/auth/influencer" className="ml-auto inline-block">
           <Button
             variant="outline"
@@ -235,13 +236,13 @@ export default function AdminPackagelisting({
           >
             Add Influencer <Plus className="ml-2 h-4 w-4" />
           </Button>
-        </Link> */}
+        </Link>
 
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button
               variant="outline"
-              className="ml-auto bg-[#F3F3F3] hover:bg-[#dbdbdb] border-mainColor"
+              className=" ml-1 bg-[#F3F3F3] hover:bg-[#dbdbdb] border-mainColor"
             >
               Columns <ChevronDown className="ml-2 h-4 w-4" />
             </Button>
