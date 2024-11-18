@@ -371,9 +371,9 @@ function TopTenHotels() {
                   },
                   groupIndex: number
                 ) => (
-                  <div key={groupIndex} className="mb-4">
+                  <div key={groupIndex} className="mb-4 w-full">
                     {/* Country Header */}
-                    <h2 className="text-lg font-bold mb-2">{group.country}</h2>
+                    <h2 className="text-lg font-bold mb-2 text-center">{group.country}</h2>
 
                     {/* Cities List */}
                     <div className="grid grid-cols-1 gap-4 ">
