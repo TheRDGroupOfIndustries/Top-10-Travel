@@ -94,7 +94,7 @@ const DMCExploreMorePage = ({
 
   useEffect(()=>{
     document.getElementById("scrollList")?.scrollIntoView({ behavior: "smooth" });
-  },[])
+  },[selectedCountry,selectedCity])
 
 
   return (

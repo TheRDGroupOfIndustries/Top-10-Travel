@@ -73,7 +73,7 @@ const ExploreMore = ({
   
   useEffect(()=>{
     document.getElementById("scrollList")?.scrollIntoView({ behavior: "smooth" });
-  },[])
+  },[selectedCountry,selectedCity])
 
   useEffect(() => {
     setCardIsLoading(true);

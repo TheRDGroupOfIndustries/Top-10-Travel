@@ -95,7 +95,7 @@ const HotelExploreMorePage = ({
 
   useEffect(()=>{
     document.getElementById("scrollList")?.scrollIntoView({ behavior: "smooth" });
-  },[])
+  },[selectedCountry,selectedCity])
 
 
   return (

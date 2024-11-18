@@ -83,7 +83,7 @@ const InfluencerExploreMore = ({ data }: { data: Data }) => {
 
   useEffect(()=>{
     document.getElementById("scrollList")?.scrollIntoView({ behavior: "smooth" });
-  },[])
+  },[selectedCountry,selectedCity])
 
 
   return (
