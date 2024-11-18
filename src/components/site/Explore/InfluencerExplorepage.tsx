@@ -86,7 +86,10 @@ const InfluencerExploreMore = ({ data }: { data: Data }) => {
     <div>
       <ListingHero
         countriesData={countriesData}
-        title={`TOP TRAVEL INFLUENCERS`}
+        // title={`TOP TRAVEL INFLUENCERS`}
+        title={`TOP TRAVEL INFLUENCERS ${
+          selectedCountry && ", " + selectedCountry.toUpperCase()
+        }${selectedCity && "-" + selectedCity.toUpperCase()}`}
         selectedCountry={selectedCountry}
         setSelectedCountry={setSelectedCountry}
         selectedState={selectedCity}

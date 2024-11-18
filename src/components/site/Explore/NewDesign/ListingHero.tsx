@@ -143,9 +143,7 @@ function ListingHero({
             }}
             viewport={{ once: true }}
           >
-            {`${title}${
-              selectedCountry && ", " + selectedCountry.toUpperCase()
-            }${selectedState && "-" + selectedState.toUpperCase()}`}
+            {title}
           </motion.span>
         </h1>
         <motion.div

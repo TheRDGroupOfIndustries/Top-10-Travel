@@ -293,9 +293,7 @@ const TopTenDMC = () => {
             transition={{ duration: 0.8, delay: 0.3, type: "spring" }}
             viewport={{ once: true }}
           >
-            {`TOP 10 DMC${
-              selectedCountry ? ", " + selectedCountry.toUpperCase() : ""
-            }${selectedCity ? "-" + selectedCity.toUpperCase() : ""}`}
+            {`TOP 10 DMC`}
           </motion.span>
         </h1>
 
@@ -353,7 +351,7 @@ const TopTenDMC = () => {
           onDragLeave={handleDragLeave}
           onDrop={(e) => handleDrop(e, -1)}
         className="w-[20%] bg-transparent  border h-[635px] flex flex-col items-center  p-4">
-            <h2 className="font-semibold mb-4">Available Cities</h2>
+            <h2 className="font-semibold mb-4">Available Countries</h2>
             <div className="space-y-4 w-full overflow-y-auto flex flex-col items-center pr-3">
               {allCities.map((agency : { country: string, id: string,  }, index) => (
                 <Card
