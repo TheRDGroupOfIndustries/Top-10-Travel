@@ -150,22 +150,23 @@ const HotelExploreMorePage = ({
           </div>
 
 
-      {/* <ListingHero
-        countriesData={countriesData}
-        title={`TOP TRAVEL ${role}`}
-        selectedCountry={selectedCountry}
-        setSelectedCountry={setSelectedCountry}
-        selectedState={selectedCity}
-        setSelectedState={setSelectedCity}
-      /> */}
 
-      <ListData
+      {selectedCity === "" || !selectedCity ? null : (
+        <ListData
+          selectedCountry={selectedCountry}
+          selectedState={selectedCity}
+          title={`TOP TRAVEL ${role}`}
+          role={role}
+          data={filteredData}
+        />
+      )}
+      {/* <ListData
         selectedCountry={selectedCountry}
         selectedState={selectedCity}
         title={`TOP TRAVEL ${role}`}
         role={role}
         data={filteredData}
-      />
+      /> */}
     </div>
   );
 };

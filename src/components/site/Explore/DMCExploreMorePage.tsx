@@ -157,13 +157,23 @@ const DMCExploreMorePage = ({
         setSelectedState={setSelectedCity}
       /> */}
 
-      <ListData
+{selectedCity === "" || !selectedCity ? null : (
+        <ListData
+          selectedCountry={selectedCountry}
+          selectedState={selectedCity}
+          title={`TOP TRAVEL ${role}`}
+          role={role}
+          data={filteredData}
+        />
+      )}
+      
+      {/* <ListData
         selectedCountry={selectedCountry}
         selectedState={selectedCity}
         title={`TOP TRAVEL ${role}`}
         role={role}
         data={filteredData}
-      />
+      /> */}
     </div>
   );
 };
