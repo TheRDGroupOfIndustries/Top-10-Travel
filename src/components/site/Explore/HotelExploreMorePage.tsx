@@ -99,10 +99,10 @@ const HotelExploreMorePage = ({
 
 
   const handleClicked = (city:any, country:any) => {
-    setSelectedCity(selectedCity);
-    setSelectedCountry(selectedCountry);
+    setSelectedCity(city);
+    setSelectedCountry(country);
 
-    if (selectedCity === city && selectedCountry === country) {
+    if (selectedCity !== "" && selectedCountry !== "") {
       document.getElementById("scrollList")?.scrollIntoView({ behavior: "smooth" });
     }
   }  
