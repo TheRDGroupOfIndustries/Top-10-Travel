@@ -95,7 +95,15 @@ const DMCExploreMorePage = ({
   useEffect(()=>{
     document.getElementById("scrollList")?.scrollIntoView({ behavior: "smooth" });
   },[selectedCountry,selectedCity])
+  
+  const handleClicked = (city:any, country:any) => {
+    setSelectedCity(selectedCity);
+    setSelectedCountry(selectedCountry);
 
+    if (selectedCity === city && selectedCountry === country) {
+      document.getElementById("scrollList")?.scrollIntoView({ behavior: "smooth" });
+    }
+  } 
 
   return (
 
@@ -119,7 +127,7 @@ const DMCExploreMorePage = ({
                   key={i}
                   onClick={() => {
                     setSelectedCountry((item as any).country);
-
+                    // setSelectedCity((item as any).state);
                     document.getElementById("scrollList")?.scrollIntoView({ behavior: "smooth" });
                     // naviagte.push(`/${role === "Hotel" ?  "Hotels" : role}`); 
                     
@@ -166,7 +174,7 @@ const DMCExploreMorePage = ({
           data={filteredData}
         />
       )}
-      
+
       {/* <ListData
         selectedCountry={selectedCountry}
         selectedState={selectedCity}

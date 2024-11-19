@@ -98,6 +98,15 @@ const HotelExploreMorePage = ({
   },[selectedCountry,selectedCity])
 
 
+  const handleClicked = (city:any, country:any) => {
+    setSelectedCity(selectedCity);
+    setSelectedCountry(selectedCountry);
+
+    if (selectedCity === city && selectedCountry === country) {
+      document.getElementById("scrollList")?.scrollIntoView({ behavior: "smooth" });
+    }
+  }  
+
   return (
 
     <div>
@@ -118,14 +127,7 @@ const HotelExploreMorePage = ({
               return (
                 <div
                   key={i}
-                  onClick={() => {
-                    setSelectedCity(item.city);
-                    setSelectedCountry(item.country);
-
-                    document.getElementById("scrollList")?.scrollIntoView({ behavior: "smooth" });
-                    // naviagte.push(`/${role === "Hotel" ?  "Hotels" : role}`); 
-                    
-                  }}
+                  onClick={() => handleClicked(item.city, item.country)}
                   className="relative flex items-end  justify-center shadow cursor-pointer hover:-translate-y-1 transform-all duration-300 w-full h-48 border border-1 rounded-lg"
                 >
                   <img
