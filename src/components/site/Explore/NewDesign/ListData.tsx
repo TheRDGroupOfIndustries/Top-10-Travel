@@ -171,6 +171,8 @@ function ListData({
             </motion.div>
           ))}
 
+          
+
         {role === "Hotel" &&
           hotelData?.map((item, i) => (
             <Link href={`/${role}/${item.id}`} key={item.id}>
@@ -275,6 +277,19 @@ function ListData({
               </motion.div>
             </Link>
           ))}
+
+          {
+            (hotelData?.length === 0 || currentItems?.length === 0) && (
+              <div className="w-full flex flex-col items-center justify-center gap-3">
+                <h1 className="text-3xl font-bold text-black">
+                  No results found
+                </h1>
+                <p className="text-lg text-slate-600">
+                  Try changing your filters
+                </p>
+              </div>
+            )
+          }
       </div>
 
       {data?.length > itemsPerPage && (
