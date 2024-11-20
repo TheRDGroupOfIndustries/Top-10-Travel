@@ -154,9 +154,9 @@ function TopTenHotels() {
                 <div
                   key={i}
                   onClick={() => {
-                    setSelectedCity(item.city);
-                    setSelectedCountry(item.country);
-                    naviagte.push('/Hotels'); 
+                    // setSelectedCity(item.city);
+                    // setSelectedCountry(item.country);
+                    naviagte.push(`Hotels?queryCountry=${item.country}&queryCity=${item.city}`); 
                     document.getElementById("scrollList")?.scrollIntoView({ behavior: "smooth" });
                   }}
                   className="relative flex items-end  justify-center shadow cursor-pointer hover:-translate-y-1 transform-all duration-300 w-full h-48 border border-1 rounded-lg"
