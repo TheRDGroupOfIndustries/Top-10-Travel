@@ -67,18 +67,18 @@ function ListingHero({
         state = window.localStorage.getItem("Influencers-State");
       }
 
-      if (state) {
-        const check = Array.from(
-          new Set(
-            countriesData
-              .filter((d) => d.country === country)
-              .map((d) => d.state)
-          )
-        ).includes(state);
-        // check ? setSelectedState(state) : setSelectedState("");
-      } else {
-        setSelectedState("");
-      }
+      // if (state) {
+      //   const check = Array.from(
+      //     new Set(
+      //       countriesData
+      //         .filter((d) => d.country === country)
+      //         .map((d) => d.state)
+      //     )
+      //   ).includes(state);
+      //   // check ? setSelectedState(state) : setSelectedState("");
+      // } else {
+      //   setSelectedState("");
+      // }
     }
   }, [selectedCountry, setSelectedState, countriesData, countries, pathname]);
 
