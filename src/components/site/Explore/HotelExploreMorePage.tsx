@@ -100,6 +100,11 @@ const HotelExploreMorePage = ({
     fetchData();
   }, [role]);
 
+  const handleClicked = (city: string, country: string) => {
+    setSelectedCity(city);
+    setSelectedCountry(country);
+  };
+
 
 
 
