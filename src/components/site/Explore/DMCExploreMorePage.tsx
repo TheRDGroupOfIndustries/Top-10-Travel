@@ -3,7 +3,7 @@
 import React, { useContext, useEffect, useMemo, useState } from "react";
 import ListingHero from "./NewDesign/ListingHero";
 import ListData from "./NewDesign/ListData";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { HomeContext } from "@/hooks/context/HomeContext";
 import axios from "axios";
 import HomeCardsSkeleton from "@/components/reusable/HomeCardsSkeleton";
@@ -30,12 +30,14 @@ const DMCExploreMorePage = ({
   data: Data;
   role: "Agency" | "Hotel" | "DMC";
 }) => {
-  // const [selectedCountryy, setSelectedCountry] = useState("");
-  // const [selectedState, setSelectedState] = useState("");
-//   const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const queryCountry = searchParams.get("queryCountry");
+  // const queryCity = searchParams.get("queryCity");
 
-  const { selectedCountry, setSelectedCountry, selectedCity, setSelectedCity, allCities, visible } =
-  useContext(HomeContext);
+  
+
+  const [selectedCountry, setSelectedCountry] = useState("");
+  const [selectedCity, setSelectedCity] = useState("");
   // console.log("data",data);
 
   const [city, setCity] = useState([]);
@@ -64,18 +66,6 @@ const DMCExploreMorePage = ({
     [data]
   );
 
-  useEffect(() => {
-    
-
-    
-      setSelectedCountry( selectedCountry);
-    
-
-  
-      setSelectedCity( selectedCity);
-    
-  }, []);
-
 
   useEffect(() => {
     setCardIsLoading(true);
@@ -83,7 +73,7 @@ const DMCExploreMorePage = ({
 
     const fetchData = async () => {
       const response = await axios.get(
-        `/api/topten?role=${role}&country=${selectedCountry}`
+        `/api/topten?role=${role}&country=jk`
       );
       setCity(response.data.result);
       setCardIsLoading(false);
@@ -92,18 +82,18 @@ const DMCExploreMorePage = ({
     fetchData();
   }, [role]);
 
+  useEffect(() => {
+    
+    if ( queryCountry) {
+      console.log( queryCountry);
+      setSelectedCountry(queryCountry as string);
+      // setSelectedCity(queryCity as string);
+    }
+  }, []);
+
   useEffect(()=>{
     document.getElementById("scrollList")?.scrollIntoView({ behavior: "smooth" });
   },[selectedCountry,selectedCity])
-  
-  const handleClicked = (city:any, country:any) => {
-    setSelectedCity(selectedCity);
-    setSelectedCountry(selectedCountry);
-
-    if (selectedCity === city && selectedCountry === country) {
-      document.getElementById("scrollList")?.scrollIntoView({ behavior: "smooth" });
-    }
-  } 
 
   return (
 
@@ -165,23 +155,13 @@ const DMCExploreMorePage = ({
         setSelectedState={setSelectedCity}
       /> */}
 
-{selectedCity === "" || !selectedCity ? null : (
-        <ListData
-          selectedCountry={selectedCountry}
-          selectedState={selectedCity}
-          title={`TOP TRAVEL ${role}`}
-          role={role}
-          data={filteredData}
-        />
-      )}
-
-      {/* <ListData
+      { selectedCountry && <ListData
         selectedCountry={selectedCountry}
         selectedState={selectedCity}
         title={`TOP TRAVEL ${role}`}
         role={role}
         data={filteredData}
-      /> */}
+      />}
     </div>
   );
 };

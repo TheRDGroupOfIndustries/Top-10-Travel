@@ -110,7 +110,7 @@ const Influencers = () => {
                   key={i}
                   onClick={() => {
                     setSelectedCity(item.state);
-                    naviagte.push('/Influencers'); 
+                    naviagte.push(`/Influencers?queryCity=${item.state}&queryCountry=${selectedCountry}`); 
                     
                   }}
                   className="relative flex items-end  justify-center shadow cursor-pointer hover:-translate-y-1 transform-all duration-300 w-full h-48 border border-1 rounded-lg"

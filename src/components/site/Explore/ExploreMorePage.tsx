@@ -3,7 +3,7 @@
 import HomeCardsSkeleton from "@/components/reusable/HomeCardsSkeleton";
 import { HomeContext } from "@/hooks/context/HomeContext";
 import axios from "axios";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import React, { useContext, useEffect, useMemo, useState } from "react";
 import ListData from "./NewDesign/ListData";
 import ListingHero from "./NewDesign/ListingHero";
@@ -30,24 +30,19 @@ const ExploreMore = ({
   data: Data;
   role: "Agency" | "Hotel" | "DMC";
 }) => {
-  // const [selectedCountryy, setSelectedCountry] = useState("");
-  // const [selectedState, setSelectedState] = useState("");
-  const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const queryCountry = searchParams.get("queryCountry");
+  const queryCity = searchParams.get("queryCity");
 
-  const {
-    selectedCountry,
-    setSelectedCountry,
-    selectedCity,
-    setSelectedCity,
-    allCities,
-    visible,
-  } = useContext(HomeContext);
-  // console.log("data",data);
+  
+
+  const [selectedCountry, setSelectedCountry] = useState("India");
+  const [selectedCity, setSelectedCity] = useState("");
 
   const [city, setCity] = useState([]);
   const [cardIsLoading, setCardIsLoading] = useState(true);
 
-  const naviagte = useRouter();
+  // const naviagte = useRouter();
 
   const filteredData = data?.filter((item) => {
     if (selectedCountry && selectedCity) {
@@ -66,14 +61,18 @@ const ExploreMore = ({
   );
 
   useEffect(() => {
-    setSelectedCountry(selectedCountry);
-
-    setSelectedCity(selectedCity);
+    
+    if (queryCity && queryCountry) {
+      console.log(queryCity, queryCountry);
+      setSelectedCountry(queryCountry as string);
+      setSelectedCity(queryCity as string);
+    }
   }, []);
-  
+
   useEffect(()=>{
     document.getElementById("scrollList")?.scrollIntoView({ behavior: "smooth" });
   },[selectedCountry,selectedCity])
+
 
   useEffect(() => {
     setCardIsLoading(true);

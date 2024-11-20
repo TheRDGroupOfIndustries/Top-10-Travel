@@ -154,8 +154,8 @@ const TopTenDMC = () => {
                 <div
                   key={i}
                   onClick={() => {
-                    setSelectedCountry(item.country);
-                    naviagte.push('/DMC'); 
+                    // setSelectedCountry(item.country);
+                    naviagte.push(`/DMC?queryCountry=${item.country}`); 
                     document.getElementById("scrollList")?.scrollIntoView({ behavior: "smooth" });
                   }}
                   className="relative flex items-end  justify-center shadow cursor-pointer hover:-translate-y-1 transform-all duration-300 w-full h-48 border border-1 rounded-lg"

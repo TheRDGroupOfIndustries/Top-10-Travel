@@ -75,7 +75,7 @@ function ListingHero({
               .map((d) => d.state)
           )
         ).includes(state);
-        check ? setSelectedState(state) : setSelectedState("");
+        // check ? setSelectedState(state) : setSelectedState("");
       } else {
         setSelectedState("");
       }
@@ -83,7 +83,7 @@ function ListingHero({
   }, [selectedCountry, setSelectedState, countriesData, countries, pathname]);
 
   const clearFilters = () => {
-    // setSelectedCountry("");
+    setSelectedCountry("");
     setSelectedState("");
     setStates([]);
   };

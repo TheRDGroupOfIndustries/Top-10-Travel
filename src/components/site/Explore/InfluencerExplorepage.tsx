@@ -7,7 +7,7 @@ import ListDataInfluencer from "./NewDesign/ListDataInfluencer";
 import { HomeContext } from "@/hooks/context/HomeContext";
 import HomeCardsSkeleton from "@/components/reusable/HomeCardsSkeleton";
 import axios from "axios";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 
 interface Item {
@@ -25,11 +25,14 @@ type Data = {
   speciality: string;
 }[];
 const InfluencerExploreMore = ({ data }: { data: Data }) => {
-  // const [selectedCountry, setSelectedCountry] = useState("");
-  // const [selectedState, setSelectedState] = useState("");
+  const searchParams = useSearchParams();
+  const queryCountry = searchParams.get("queryCountry");
+  const queryCity = searchParams.get("queryCity");
 
-  const { selectedCountry, setSelectedCountry, selectedCity, setSelectedCity, allCities, visible } =
-  useContext(HomeContext);
+  
+
+  const [selectedCountry, setSelectedCountry] = useState("India");
+  const [selectedCity, setSelectedCity] = useState("");
 
   
   const [city, setCity] = useState([]);
@@ -54,17 +57,6 @@ const InfluencerExploreMore = ({ data }: { data: Data }) => {
   );
 
   
-  useEffect(() => {
-    
-    
-    
-      setSelectedCountry(selectedCountry);
-    
-
-    
-      setSelectedCity(selectedCity);
-    
-  }, []);
 
   useEffect(() => {
     setCardIsLoading(true);
@@ -80,6 +72,15 @@ const InfluencerExploreMore = ({ data }: { data: Data }) => {
 
     fetchData();
   }, [selectedCountry]);
+
+  useEffect(() => {
+    
+    if (queryCity && queryCountry) {
+      console.log(queryCity, queryCountry);
+      setSelectedCountry(queryCountry as string);
+      setSelectedCity(queryCity as string);
+    }
+  }, []);
 
   useEffect(()=>{
     document.getElementById("scrollList")?.scrollIntoView({ behavior: "smooth" });

@@ -3,7 +3,7 @@
 import React, { useContext, useEffect, useMemo, useState } from "react";
 import ListingHero from "./NewDesign/ListingHero";
 import ListData from "./NewDesign/ListData";
-import { usePathname, useRouter } from "next/navigation";
+import { useParams, usePathname, useRouter, useSearchParams } from "next/navigation";
 import { HomeContext } from "@/hooks/context/HomeContext";
 import axios from "axios";
 import HomeCardsSkeleton from "@/components/reusable/HomeCardsSkeleton";
@@ -33,10 +33,14 @@ const HotelExploreMorePage = ({
 }) => {
   // const [selectedCountryy, setSelectedCountry] = useState("");
   // const [selectedState, setSelectedState] = useState("");
-//   const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const queryCountry = searchParams.get("queryCountry");
+  const queryCity = searchParams.get("queryCity");
 
-  const { selectedCountry, setSelectedCountry, selectedCity, setSelectedCity, allCities, visible } =
-  useContext(HomeContext);
+  
+
+  const [selectedCountry, setSelectedCountry] = useState("");
+  const [selectedCity, setSelectedCity] = useState("");
   // console.log("data",data);
 
   const [city, setCity] = useState([]);
@@ -67,15 +71,18 @@ const HotelExploreMorePage = ({
 
   useEffect(() => {
     
-
-    
-      setSelectedCountry( selectedCountry);
-    
-
-  
-      setSelectedCity( selectedCity);
-    
+    if (queryCity && queryCountry) {
+      console.log(queryCity, queryCountry);
+      setSelectedCountry(queryCountry as string);
+      setSelectedCity(queryCity as string);
+    }
   }, []);
+
+  useEffect(()=>{
+    document.getElementById("scrollList")?.scrollIntoView({ behavior: "smooth" });
+  },[selectedCountry,selectedCity])
+
+
 
 
   useEffect(() => {
@@ -84,7 +91,7 @@ const HotelExploreMorePage = ({
 
     const fetchData = async () => {
       const response = await axios.get(
-        `/api/topten?role=${role}&country=${selectedCountry}`
+        `/api/topten?role=${role}&country=kl`
       );
       setCity(response.data.result);
       setCardIsLoading(false);
@@ -93,19 +100,9 @@ const HotelExploreMorePage = ({
     fetchData();
   }, [role]);
 
-  useEffect(()=>{
-    document.getElementById("scrollList")?.scrollIntoView({ behavior: "smooth" });
-  },[selectedCountry,selectedCity])
 
 
-  const handleClicked = (city:any, country:any) => {
-    setSelectedCity(city);
-    setSelectedCountry(country);
 
-    if (selectedCity !== "" && selectedCountry !== "") {
-      document.getElementById("scrollList")?.scrollIntoView({ behavior: "smooth" });
-    }
-  }  
 
   return (
 
@@ -152,23 +149,22 @@ const HotelExploreMorePage = ({
           </div>
 
 
+      {/* <ListingHero
+        countriesData={countriesData}
+        title={`TOP TRAVEL ${role}`}
+        selectedCountry={selectedCountry}
+        setSelectedCountry={setSelectedCountry}
+        selectedState={selectedCity}
+        setSelectedState={setSelectedCity}
+      /> */}
 
-      {selectedCity === "" || !selectedCity ? null : (
-        <ListData
-          selectedCountry={selectedCountry}
-          selectedState={selectedCity}
-          title={`TOP TRAVEL ${role}`}
-          role={role}
-          data={filteredData}
-        />
-      )}
-      {/* <ListData
+    { selectedCountry && selectedCity &&   <ListData
         selectedCountry={selectedCountry}
         selectedState={selectedCity}
         title={`TOP TRAVEL ${role}`}
         role={role}
         data={filteredData}
-      /> */}
+      />}
     </div>
   );
 };

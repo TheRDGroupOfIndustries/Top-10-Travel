@@ -159,8 +159,8 @@ const TopTenAgencies = () => {
                   key={i}
                   onClick={() => {
                     setSelectedCity((item as any).city);
-                    naviagte.push('/Agency'); 
-                    document.getElementById("scrollList")?.scrollIntoView({ behavior: "smooth" });
+                    naviagte.push(`/Agency?queryCity=${(item as any).city}&queryCountry=${selectedCountry}`); 
+                    
                   }}
                   className="relative flex items-end  justify-center shadow cursor-pointer hover:-translate-y-1 transform-all duration-300 w-full h-48 border border-1 rounded-lg"
                 >
