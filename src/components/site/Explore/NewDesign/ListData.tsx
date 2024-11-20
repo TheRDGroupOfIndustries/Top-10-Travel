@@ -63,7 +63,7 @@ function ListData({
 
   return (
     <main id='scrollList' className="w-full pt-16 mb-8 px-2 md:px-3 lg:px-6 xl:px-8">
-    <h1 className="md:text-2xl lg:text-3xl font-cinzel md:text-start text-balance text-center text-xl font-bold text-black">
+  {   (hotelData?.length > 0 || currentItems?.length > 0) &&  <h1 className="md:text-2xl lg:text-3xl font-cinzel md:text-start text-balance text-center text-xl font-bold text-black">
           <motion.span
             className="inline-block uppercase"
             initial={{ y: 30, opacity: 0 }}
@@ -79,7 +79,7 @@ function ListData({
               selectedCountry && ", " + selectedCountry.toUpperCase()
             }${selectedState && "-" + selectedState.toUpperCase()}`}
           </motion.span>
-        </h1>
+        </h1>}
       <div className="w-full flex flex-col gap-10">
 
         {role !== "Hotel" &&
@@ -280,7 +280,7 @@ function ListData({
 
           {
             (hotelData?.length === 0 || currentItems?.length === 0) && (
-              <div className="w-full flex flex-col items-center justify-center gap-3">
+              <div className="w-full mt-5 h-[50vh] flex flex-col items-center justify-center gap-3">
                 <h1 className="text-3xl font-bold text-black">
                   No results found
                 </h1>
