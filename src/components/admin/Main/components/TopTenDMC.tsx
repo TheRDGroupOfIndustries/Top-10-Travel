@@ -8,6 +8,7 @@ import { DMCHotelApiResult } from "@/types/homeApiType";
 import axios from "axios";
 import { motion } from "framer-motion";
 import React, { useContext, useEffect, useState } from "react";
+import { toast } from "sonner";
 
 const formData = new FormData();
 
@@ -106,11 +107,7 @@ const TopTenDMC = () => {
       // Check if card already exists in grid
       const existingIndex = findCardIndex(draggedItem.item.country);
       if (existingIndex !== -1) {
-        // toast({
-        //   title: "Warning",
-        //   description: "This agency is already placed in the grid!",
-        //   variant: "destructive",
-        // });
+        toast.error("This country is already placed in the grid!");
         return;
       }
 
@@ -183,11 +180,7 @@ const TopTenDMC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!selectedCountry) {
-      // toast({
-      //   title: "Error",
-      //   description: "Please select a country first",
-      //   variant: "destructive",
-      // });
+      toast.error("Please select a country first");
       return;
     }
 
@@ -235,20 +228,13 @@ const TopTenDMC = () => {
       });
 
       if (response.status === 200) {
-        // toast({
-        //   title: "Success",
-        //   description: "Top agencies order updated successfully!",
-        // });
+        toast.success("Top DMC order updated successfully!");
       } else {
         throw new Error("Failed to update order");
       }
     } catch (error) {
       console.error("Error saving order:", error);
-      // toast({
-      //   title: "Error",
-      //   description: "Failed to save changes",
-      //   variant: "destructive",
-      // });
+      toast.error("Failed to save changes");
     } finally {
       setIsSaving(false);
     }

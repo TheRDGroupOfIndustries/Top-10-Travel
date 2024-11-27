@@ -6,6 +6,7 @@ import { cn } from "@/lib/utils";
 import axios from "axios";
 import { motion } from "framer-motion";
 import { useContext, useEffect, useState } from "react";
+import { toast } from "sonner";
 
 const formData = new FormData();
 interface item {
@@ -141,11 +142,7 @@ const TopTenAgencies = () => {
     console.log("submit");
     e.preventDefault();
     if (!selectedCountry) {
-      // toast({
-      //   title: "Error",
-      //   description: "Please select a country first",
-      //   variant: "destructive",
-      // });
+      toast.error("Please select a country first")
       return;
     }
 
@@ -189,20 +186,13 @@ const TopTenAgencies = () => {
       });
 
       if (response.status === 200) {
-        // toast({
-        //   title: "Success",
-        //   description: "Top agencies order updated successfully!",
-        // });
+        toast.success("Top agencies order updated successfully!");
       } else {
         throw new Error("Failed to update order");
       }
     } catch (error) {
       console.error("Error saving order:", error);
-      // toast({
-      //   title: "Error",
-      //   description: "Failed to save changes",
-      //   variant: "destructive",
-      // });
+      toast.error("Failed to save changes");
     } finally {
       setIsSaving(false);
     }

@@ -1,6 +1,12 @@
 "use client";
 import HomeCards from "@/components/reusable/HomeCards";
 import HomeCompanySkeleton from "@/components/reusable/HomeCompanySkeleton";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Carousel, CarouselItem } from "@/components/ui/carousel";
@@ -14,6 +20,7 @@ import { SquareArrowUpRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useContext, useEffect, useState } from "react";
+import { toast } from "sonner";
 
 const formData = new FormData();
 
@@ -112,11 +119,7 @@ function TopTenHotels() {
       // Check if card already exists in grid
       const existingIndex = findCardIndex(draggedItem.item.country);
       if (existingIndex !== -1) {
-        // toast({
-        //   title: "Warning",
-        //   description: "This agency is already placed in the grid!",
-        //   variant: "destructive",
-        // });
+        toast.error("This country is already placed in the grid!");
         return;
       }
 
@@ -193,11 +196,7 @@ function TopTenHotels() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!selectedCountry) {
-      // toast({
-      //   title: "Error",
-      //   description: "Please select a country first",
-      //   variant: "destructive",
-      // });
+      toast.error("Please select a country first");
       return;
     }
 
@@ -240,20 +239,13 @@ function TopTenHotels() {
       });
 
       if (response.status === 200) {
-        // toast({
-        //   title: "Success",
-        //   description: "Top agencies order updated successfully!",
-        // });
+        toast.success("Top Hotels order updated successfully!");
       } else {
         throw new Error("Failed to update order");
       }
     } catch (error) {
       console.error("Error saving order:", error);
-      // toast({
-      //   title: "Error",
-      //   description: "Failed to save changes",
-      //   variant: "destructive",
-      // });
+      toast.error("Failed to save changes");
     } finally {
       setIsSaving(false);
     }
@@ -359,68 +351,72 @@ function TopTenHotels() {
             className="w-[20%] bg-transparent  border h-[635px] flex flex-col items-center  p-4"
           >
             <h2 className="font-semibold mb-4">Available Countries</h2>
-            <div className="space-y-4 w-full overflow-y-auto flex flex-col items-center pr-3">
-              {allCities.map(
-                (
-                  group: {
-                    country: string;
-                    cities: {
-                      name: string;
-                      images: string[];
-                    }[];
-                  },
-                  groupIndex: number
-                ) => (
-                  <div key={groupIndex} className="mb-4 w-full">
-                    {/* Country Header */}
-                    <h2 className="text-lg font-bold mb-2 text-center">{group.country}</h2>
+            <div className="space-y-4 w-full overflow-y-auto flex flex-col items-center pr-4">
+              <Accordion type="single" collapsible className="w-full  ">
+                {allCities.map(
+                  (
+                    group: {
+                      country: string;
+                      cities: {
+                        name: string;
+                        images: string[];
+                      }[];
+                    },
+                    groupIndex: number
+                  ) => (
+                    <AccordionItem key={groupIndex} className="" value="item-1">
+                      <div className="mb-4 w-full">
+                        {/* Country Header */}
+                        <AccordionTrigger>
+                          <h2 className="text-lg w-full font-bold mb-2 text-center">
+                            {group.country}
+                          </h2>
+                        </AccordionTrigger>
 
-                    {/* Cities List */}
-                    <div className="grid grid-cols-1 gap-4 ">
-                      {group.cities.map((city, cityIndex) => (
-                        <Card
-                          key={`${group.country}-${cityIndex}`}
-                          draggable
-                          onDragStart={(e) =>
-                            handleDragStart(
-                              e,
-                              {
-                                city: city.name,
-                                country: group.country,
-                                id: `${group.country}-${cityIndex}`,
-                                image: city.images[0] || "",
-                              },
-                              "cities",
-                              cityIndex
-                            )
-                          }
-                          className={`cursor-move hover:shadow-lg transition-shadow w-full text-center ${
-                            placedCards.some((item) => item?.country === group.country)
-                              ? "bg-red-300 text-black/50"
-                              : ""
-                          }`}
-                        >
-                          {/* City Images
-                          {city.images.length > 0 && (
-                            <div className="flex justify-center items-center mb-2">
-                              <img
-                                src={city.images[0]} // Display the first image
-                                alt={city.name}
-                                className="h-20 w-20 object-cover rounded-full"
-                              />
-                            </div>
-                          )} */}
-
-                          {/* City Name */}
-                          <CardHeader className="p-3">
-                            <h3 className="text-sm font-medium">{city.name}</h3>
-                          </CardHeader>
-                        </Card>
-                      ))}
-                    </div>
-                  </div>
-                )
-              )}
+                        {/* Cities List */}
+                        <div className="grid grid-cols-1 ">
+                          {group.cities.map((city, cityIndex) => (
+                            <AccordionContent
+                              key={`${group.country}-${cityIndex}`}
+                            >
+                              <Card
+                                draggable
+                                onDragStart={(e) =>
+                                  handleDragStart(
+                                    e,
+                                    {
+                                      city: city.name,
+                                      country: group.country,
+                                      id: `${group.country}-${cityIndex}`,
+                                      image: city.images[0] || "",
+                                    },
+                                    "cities",
+                                    cityIndex
+                                  )
+                                }
+                                className={`cursor-move hover:shadow-lg transition-shadow w-full text-center ${
+                                  placedCards.some(
+                                    (item) => item?.country === group.country
+                                  )
+                                    ? "bg-red-300 text-black/50"
+                                    : ""
+                                }`}
+                              >
+                                {/* City Name */}
+                                <CardHeader className="p-3">
+                                  <h3 className="text-sm font-medium">
+                                    {city.name}
+                                  </h3>
+                                </CardHeader>
+                              </Card>
+                            </AccordionContent>
+                          ))}
+                        </div>
+                      </div>
+                    </AccordionItem>
+                  )
+                )}
+              </Accordion>
             </div>
             {allCities.length === 0 && (
               <div className=" h-full transition-shadow w-full text-center self-center ">
