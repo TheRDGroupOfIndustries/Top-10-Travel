@@ -56,7 +56,7 @@ export const createClientRefAction = async ({
           },
         });
     }
-    revalidatePath("/dashboard/" + agencyId ?? dmcId);
+    revalidatePath("/dashboard/" + (agencyId?.toString() ?? dmcId));
     return { success: "Past Project Added Succesfully." };
   } catch (error) {
     return { error: "Something went wrong." };
