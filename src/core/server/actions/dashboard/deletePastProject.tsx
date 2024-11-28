@@ -22,7 +22,7 @@ export const deletePastProject = async ({
         dmcId,
       },
     });
-    revalidatePath("/dashboard/" + agencyId ?? dmcId);
+    revalidatePath("/dashboard/" +(agencyId?.toString() ?? dmcId));
     return { success: "Past Project Deleted Succesfully." };
   } catch (error) {
     return { error: "Something went wrong." };

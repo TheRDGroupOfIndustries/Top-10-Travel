@@ -22,7 +22,7 @@ export const deleteClientRefAction = async ({
         dmcId,
       },
     });
-    revalidatePath("/dashboard/" + agencyId ?? dmcId);
+    revalidatePath("/dashboard/" + (agencyId?.toString() ?? dmcId));
     return { success: "Client Reference Deleted Succesfully." };
   } catch (error) {
     return { error: "Something went wrong." };

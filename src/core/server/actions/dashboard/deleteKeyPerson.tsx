@@ -22,7 +22,7 @@ export const deleteKeyPersonAction = async ({
         dmcId,
       },
     });
-    revalidatePath("/dashboard/" + agencyId ?? dmcId);
+    revalidatePath("/dashboard/" + (agencyId?.toString() ?? dmcId));
     return { success: "Key Person Deleted Succesfully." };
   } catch (error) {
     return { error: "Something went wrong." };

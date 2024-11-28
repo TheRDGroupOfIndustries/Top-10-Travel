@@ -56,7 +56,7 @@ export const createKeyPersonAction = async ({
           },
         });
     }
-    revalidatePath("/dashboard/" + agencyId ?? dmcId);
+    revalidatePath("/dashboard/" + (agencyId?.toString() ?? dmcId));
     return { success: "Key Person Added Succesfully." };
   } catch (error) {
     return { error: "Something went wrong." };
