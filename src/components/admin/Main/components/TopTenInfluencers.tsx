@@ -136,7 +136,6 @@ const TopTenInfluencers = () => {
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
-    console.log("submit");
     e.preventDefault();
     if (!selectedCountry) {
       // toast({

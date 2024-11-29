@@ -54,7 +54,7 @@ export default function EnquireDialog({
     // @ts-expect-error
     const message = e.target[1].value;
     // console.log(name, email, message);
-    console.log(phoneNumber, message);
+    // console.log(phoneNumber, message);
     setResponse({});
 
     const res = await mutate({ values: { message, phoneNumber }, info });

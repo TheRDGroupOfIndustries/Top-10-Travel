@@ -338,7 +338,7 @@ export default function DashboardListingAgency({
             size="sm"
             onClick={() => {
               table.nextPage();
-              console.log("clicked");
+              // console.log("clicked");
             }}
             disabled={!table.getCanNextPage()}
           >

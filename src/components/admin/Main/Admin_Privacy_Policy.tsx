@@ -24,7 +24,7 @@ const AdminPrivacyPolicy = () => {
     setMessage("Saving...");
   
     const value = editorRef.current?.value();
-    console.log("value", value);
+    // console.log("value", value);
   
     const formData = new FormData();
     formData.append("content", value as string);

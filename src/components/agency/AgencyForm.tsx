@@ -155,7 +155,6 @@ const AgencyForm = () => {
 
   const { isPending, mutate } = useMutation(createAgencyAction);
   const processForm: SubmitHandler<Inputs> = async (data) => {
-    console.log("called");
     data.primaryServices =
       data.primaryServices && data.primaryServices.concat(otherPrimaryServices);
     data.specializedTravelTypes =

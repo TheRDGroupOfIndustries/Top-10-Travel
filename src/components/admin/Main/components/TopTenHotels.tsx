@@ -107,12 +107,12 @@ function TopTenHotels() {
     e.preventDefault();
     e.currentTarget.classList.remove("bg-blue-100");
 
-    console.log("targetIndex", targetIndex);
+    // console.log("targetIndex", targetIndex);
 
     if (!draggedItem) return;
 
     const newPlacedCards = [...placedCards];
-    console.log("newPlacedCards", newPlacedCards);
+    // console.log("newPlacedCards", newPlacedCards);
 
     // If dragging from cities list to grid
     if (draggedItem.sourceType === "cities") {
@@ -230,7 +230,7 @@ function TopTenHotels() {
           };
         });
 
-      console.log("placecard", cityOrder);
+      // console.log("placecard", cityOrder);
 
       // console.log("cityOrder:", cityOrder);
 
@@ -270,7 +270,7 @@ function TopTenHotels() {
       formData.append("role", "Hotel");
       formData.append("image", file);
 
-      console.log("id", String(id));
+      // console.log("id", String(id));
     }
   };
 
