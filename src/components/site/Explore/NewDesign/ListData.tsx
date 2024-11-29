@@ -175,7 +175,7 @@ function ListData({
 
         {role === "Hotel" &&
           hotelData?.map((item, i) => (
-            <Link href={`/${role}/${item.id}`} key={item.id}>
+            <Link href={`/${role}s/${item.id}`} key={item.id}>
               <motion.div
                 initial={{ opacity: 0, translateY: -100 }}
                 whileInView={{ opacity: 1, translateY: 0 }}
