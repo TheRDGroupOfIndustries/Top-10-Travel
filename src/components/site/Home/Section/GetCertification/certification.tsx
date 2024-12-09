@@ -6,11 +6,17 @@ import { HomeContext } from "@/hooks/context/HomeContext";
 import React, { useState, useEffect, useRef, useContext } from "react";
 import { motion } from "framer-motion";
 
-const data = [
-  { id: 1, num: 1000, title: "Happy Agencies" },
-  { id: 2, num: 400, title: "Certified Hotels" },
-  { id: 3, num: 200, title: "Reviews" },
-];
+interface Data {
+  id: number;
+  num: number;
+  title: string;
+}
+
+// const data = [
+//   { id: 1, num: 1000, title: "Happy Agencies" },
+//   { id: 2, num: 400, title: "Certified Hotels" },
+//   { id: 3, num: 200, title: "Reviews" },
+// ];
 
 export function CountUp({
   target,
@@ -77,6 +83,31 @@ export function CountUp({
 }
 
 function Certification() {
+
+  const [data, setData] = useState<Data[] | []>([]);
+
+  useEffect(()=>{
+    async function getData(){
+      const res =  await fetch(`/api/about/client`, {cache: "no-store"});
+    const { user, agency, influencer, dmc, hotel, helpdesk, reviews, aboutContent } = await res.json();
+
+    setData([
+      { id: 1, num: agency, title: "Happy Agencies" },
+      { id: 2, num: hotel, title: "Certified Hotels" },
+      { id: 3, num: reviews, title: "Reviews" },
+    ])
+
+    }
+
+    getData();
+
+    
+  },[])
+
+
+
+
+
   const session = useSession();
   // const { isSticky, setSticky } = useContext(HomeContext);
   // const elementRef = useRef<HTMLDivElement | null>(null);
