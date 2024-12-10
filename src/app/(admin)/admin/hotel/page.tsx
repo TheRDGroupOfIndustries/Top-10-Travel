@@ -18,6 +18,7 @@ const getAllListing = unstable_cache(
         isCertified: true,
         userId: true,
         methodology: true,
+        tags: true,
       },
     });
     return data.map((d) => ({ ...d, type: "Hotel" }));
@@ -26,12 +27,26 @@ const getAllListing = unstable_cache(
   { revalidate: 300, tags: ["admin-hotel"] }
 );
 
+const getTags = unstable_cache(
+  async () => {
+    return await db.tags.findMany({
+      select: {
+        id: true,
+        name: true,
+        url: true,
+      },
+    });
+  },
+  undefined,
+  { revalidate: 300, tags: ["tags"] }
+);
+
 async function Page() {
   const listings = await getAllListing();
-
+  const allTags = await getTags();
   return (
     <AdminPackagelisting
-      listings={listings}
+    listings={listings.map((d) => ({ ...d, allTags }))}
       type="Hotel"
     />
   );

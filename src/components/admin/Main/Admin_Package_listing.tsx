@@ -44,6 +44,15 @@ import { toast } from "sonner";
 import EditListingForm from "./EditListingForm";
 import Link from "next/link";
 
+type tags = {
+  id: string;
+  name: string;
+  createdAt: Date;
+  updatedAt: Date;
+  url: string;
+  imageId: string;
+}
+
 export type Company = {
   id: string;
   images: string[];
@@ -58,6 +67,12 @@ export type Company = {
   city: string;
   methodology: string | null;
   type: string;
+  tags: tags[];
+  allTags: {
+    id: string;
+    name: string;
+    url: string;
+}[]
 };
 
 async function deleteListing(id: string, type: string) {

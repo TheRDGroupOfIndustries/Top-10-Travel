@@ -1,6 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import {
   Select,
@@ -9,17 +10,39 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import useMutation from "@/hooks/useMutation";
 
 import { toast } from "sonner";
 
-import { Company } from "./Admin_Package_listing";
-import { editListingAdmin } from "@/core/server/actions/admin/editListingAdmin";
 import { Textarea } from "@/components/ui/textarea";
+import { editListingAdmin } from "@/core/server/actions/admin/editListingAdmin";
+import Image from "next/image";
+import { Company } from "./Admin_Package_listing";
+import { useState } from "react";
 
-const EditListingForm = ({ company }: { company: Company }) => {
+const EditListingForm = ({
+  company,
+}: {
+  company: Company
+}) => {
   const { mutate, isPending } = useMutation(editListingAdmin);
+
+
+  // List of tags that already exist 
+  const [tagAlreadySelected, setTagAlreadySelected] = useState(company.tags);
+
+  const handleTagSelect = (tag:any) => {
+    if (!tagAlreadySelected.map((tag) => tag.id).includes(tag.id)) {
+      setTagAlreadySelected([...tagAlreadySelected, tag ]);
+    } else {
+      toast.error("Tag already selected");
+    }
+  };
+
+  const handleTagRemove = (tagid: string) => {
+    setTagAlreadySelected(tagAlreadySelected.filter((t) => t.id !== tagid));
+  }
+
   const handleUpdate = async (e: any) => {
     e.preventDefault();
     const name = e.target.name.value as string;
@@ -44,12 +67,12 @@ const EditListingForm = ({ company }: { company: Company }) => {
     else toast.error(error);
   };
   return (
-    <Card className="w-full">
+    <Card className="w-full overflow-auto max-h-[90vh]">
       <CardHeader>
         <CardTitle>Edit {company.type} Details</CardTitle>
       </CardHeader>
       <CardContent>
-        <form onSubmit={handleUpdate} className="space-y-4">
+        <form onSubmit={handleUpdate} className="space-y-4 ">
           <div className="space-y-2">
             <label htmlFor="name" className="text-sm font-medium">
               Name
@@ -122,6 +145,46 @@ const EditListingForm = ({ company }: { company: Company }) => {
                 <SelectItem value="false">No</SelectItem>
               </SelectContent>
             </Select>
+          </div>
+
+          <div className="space-y-2">
+            <label htmlFor="isCertified" className="text-sm font-medium">
+              Tags
+            </label>
+            <Card className="flex h-[35px] flex-row items-center flex-wrap gap-4">
+              {
+                tagAlreadySelected.map((tag) => (
+                  <Image
+                    onClick={() => handleTagRemove(tag.id)}
+                    key={tag.id}
+                    src={tag.url}
+                    alt=""
+                    height={10}
+                    width={80}
+                    className="h-[30px] overflow-hidden"
+                  />
+                ))
+              }
+              
+            </Card>
+            <label htmlFor="isCertified" className="text-sm font-medium">
+              Select tags
+            </label>
+            <Card className="flex h-[35px] flex-row items-center flex-wrap gap-4">
+            {
+                company.allTags.map((tag) => (
+                  <Image
+                    onClick={() => handleTagSelect(tag)}
+                    key={tag.id}
+                    src={tag.url}
+                    alt=""
+                    height={10}
+                    width={80}
+                    className="h-[30px] overflow-hidden"
+                  />
+                ))
+              }
+            </Card>
           </div>
 
           <Button

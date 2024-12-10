@@ -100,6 +100,7 @@ model Agency {
   pastProjects                PastProject[]
   Reviews                     Reviews[]
   socialMediaLinks            SocialMediaLinks[]
+    tags                       Tags[]
 }
 
 model DMC {
@@ -141,6 +142,7 @@ model DMC {
   pastProjects                PastProject[]
   Reviews                     Reviews[]
   socialMediaLinks            SocialMediaLinks[]
+    tags                       Tags[]
 }
 
 model Hotel {
@@ -174,6 +176,7 @@ model Hotel {
   User                       User               @relation(fields: [userId], references: [id], onDelete: Cascade)
   Reviews                    Reviews[]
   socialMediaLinks           SocialMediaLinks[]
+  tags                       Tags[]
 }
 
 model SocialMediaLinks {
@@ -372,4 +375,19 @@ model TopTenInfluencerCity {
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
   @@index([state])
+}
+
+
+
+model Tags {
+  id        String   @id @default(cuid())
+  name      String   @unique
+  url       String
+  imageId   String  @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  Hotel Hotel[]
+  DMC DMC[]
+  Agency Agency[]
 }

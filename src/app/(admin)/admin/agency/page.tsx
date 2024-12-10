@@ -18,6 +18,7 @@ const getAllListing = unstable_cache(
         isCertified: true,
         userId: true,
         methodology: true,
+        tags: true,
       },
     });
 
@@ -27,10 +28,29 @@ const getAllListing = unstable_cache(
   { revalidate: 300, tags: ["admin-agency"] }
 );
 
+const getTags = unstable_cache(
+  async () => {
+    return await db.tags.findMany({
+      select: {
+        id: true,
+        name: true,
+        url: true,
+      },
+    });
+  },
+  undefined,
+  { revalidate: 300, tags: ["tags"] }
+);
+
 async function Page() {
   const listings = await getAllListing();
-
-  return <AdminPackagelisting listings={listings} type="Agency" />;
+  const allTags = await getTags();
+  return (
+    <AdminPackagelisting
+      listings={listings.map((d) => ({ ...d, allTags }))}
+      type="Agency"
+    />
+  );
 }
 
 export default Page;
