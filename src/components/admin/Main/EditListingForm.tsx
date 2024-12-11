@@ -50,6 +50,7 @@ const EditListingForm = ({
     const methodology = e.target.methodology.value;
     const city_priority = Number(e.target.city_priority.value);
     const isCertified = e.target.isCertified.value === "true";
+    const tags = tagAlreadySelected.map((tag) => tag.id);
 
     const { success, error } = await mutate({
       data: {
@@ -58,6 +59,7 @@ const EditListingForm = ({
         methodology,
         name,
         priority,
+        tags
       },
       id: company.id,
       // @ts-expect-error

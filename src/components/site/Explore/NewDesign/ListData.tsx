@@ -22,7 +22,15 @@ type Data = {
   methodology: string | null;
   services?: string[];
   specialization?: string[];
-  tags?: string[];
+  servicesTags?: string[];
+  tags: {
+    id: string;
+    url: string;
+    name: string;
+    createdAt: Date;
+    updatedAt: Date;
+    imageId: string;
+  }[];
 }[];
 
 function ListData({
@@ -30,13 +38,13 @@ function ListData({
   selectedState,
   role,
   data,
-  title
+  title,
 }: {
   role: "Agency" | "Hotel" | "DMC";
   selectedCountry: string;
   selectedState: string;
   data: Data;
-  title: string,
+  title: string;
 }) {
   const [currentPage, setCurrentPage] = useState(1);
   const [Listing, setListing] = useState(false);
@@ -57,13 +65,17 @@ function ListData({
       const array = item?.services?.concat(item?.specialization!);
       const newTags = new Set(array);
       // @ts-ignore
-      hotelData?.push({ ...item, tags: [...newTags] });
+      hotelData?.push({ ...item, servicesTags: [...newTags] });
     });
   }
 
   return (
-    <main id='scrollList' className="w-full pt-16 mb-8 px-2 md:px-3 lg:px-6 xl:px-8">
-  {   (hotelData?.length > 0 || currentItems?.length > 0) &&  <h1 className="md:text-2xl lg:text-3xl font-cinzel md:text-start text-balance text-center text-xl font-bold text-black">
+    <main
+      id="scrollList"
+      className="w-full pt-16 mb-8 px-2 md:px-3 lg:px-6 xl:px-8"
+    >
+      {(hotelData?.length > 0 || currentItems?.length > 0) && (
+        <h1 className="md:text-2xl lg:text-3xl font-cinzel md:text-start text-balance text-center text-xl font-bold text-black">
           <motion.span
             className="inline-block uppercase"
             initial={{ y: 30, opacity: 0 }}
@@ -79,9 +91,9 @@ function ListData({
               selectedCountry && ", " + selectedCountry.toUpperCase()
             }${selectedState && "-" + selectedState.toUpperCase()}`}
           </motion.span>
-        </h1>}
+        </h1>
+      )}
       <div className="w-full flex flex-col gap-10">
-
         {role !== "Hotel" &&
           currentItems?.map((item, i) => (
             <motion.div
@@ -171,8 +183,6 @@ function ListData({
             </motion.div>
           ))}
 
-          
-
         {role === "Hotel" &&
           hotelData?.map((item, i) => (
             <Link href={`/${role}s/${item.id}`} key={item.id}>
@@ -215,6 +225,19 @@ function ListData({
                     </div>
                   </div>
 
+                  <div className="flex flex-wrap md:hidden lg:flex items-center gap-2">
+                    {item?.tags.map((tag) => (
+                      <Image
+                        key={tag.id}
+                        src={tag.url}
+                        alt=""
+                        height={10}
+                        width={80}
+                        className="h-[30px] overflow-hidden"
+                      />
+                    ))}
+                  </div>
+
                   {/* <div className="flex gap-3">
                     <div className="flex gap-1 items-center">
                       <StarRating
@@ -236,7 +259,7 @@ function ListData({
                   </div> */}
 
                   <div className="flex flex-wrap md:hidden lg:flex items-center gap-2">
-                    {item?.tags?.map((tag, i) =>
+                    {item?.servicesTags?.map((tag, i) =>
                       i <= 3 ? (
                         <div
                           className="lg:text-sm text-xs flex lg:font-semibold uppercase items-center gap-1 border-slate-400 border-[1px] bg-slate-100 rounded-lg px-2 lg:py-1 py-0.5"
@@ -253,7 +276,7 @@ function ListData({
                   </div>
 
                   <div className="flex-wrap gap-2 items-center md:flex hidden lg:hidden">
-                    {item?.tags?.map((tag, i) =>
+                    {item?.servicesTags?.map((tag, i) =>
                       i <= 1 ? (
                         <div
                           className="lg:text-sm text-xs flex lg:font-semibold uppercase items-center gap-1 border-slate-400 border-[1px] bg-slate-100 rounded-lg px-2 lg:py-1 py-0.5"
@@ -278,18 +301,12 @@ function ListData({
             </Link>
           ))}
 
-          {
-            (hotelData?.length === 0 || currentItems?.length === 0) && (
-              <div className="w-full mt-5 h-[50vh] flex flex-col items-center justify-center gap-3">
-                <h1 className="text-3xl font-bold text-black">
-                  No results found
-                </h1>
-                <p className="text-lg text-slate-600">
-                  Try changing your filters
-                </p>
-              </div>
-            )
-          }
+        {(hotelData?.length === 0 || currentItems?.length === 0) && (
+          <div className="w-full mt-5 h-[50vh] flex flex-col items-center justify-center gap-3">
+            <h1 className="text-3xl font-bold text-black">No results found</h1>
+            <p className="text-lg text-slate-600">Try changing your filters</p>
+          </div>
+        )}
       </div>
 
       {data?.length > itemsPerPage && (

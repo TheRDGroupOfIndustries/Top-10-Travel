@@ -26,6 +26,7 @@ const Page = async () => {
       reviews: true,
       services: true,
       specialization: true,
+      tags: true,
     },
 
     orderBy: { priority: "asc" },

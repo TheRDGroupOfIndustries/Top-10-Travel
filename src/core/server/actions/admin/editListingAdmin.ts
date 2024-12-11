@@ -11,6 +11,7 @@ type Company = {
   priority: number;
   city_priority: number;
   methodology: string | null;
+  tags: string[];
 };
 
 export const editListingAdmin = async ({
@@ -27,11 +28,17 @@ export const editListingAdmin = async ({
     return { error: "Unauthorized! Admin only" };
   try {
     if (type === "Agency") {
-      await db.agency.update({ where: { id }, data: { ...data } });
+      await db.agency.update({ where: { id }, data: { ...data, tags: {
+        set: data.tags.map((tag) => ({ id: tag })),
+      } } });
     } else if (type === "Dmc")
-      await db.dMC.update({ where: { id }, data: { ...data } });
+      await db.dMC.update({ where: { id }, data: { ...data, tags: {
+        set: data.tags.map((tag) => ({ id: tag })),
+      } } });
     else if (type === "Hotel")
-      await db.hotel.update({ where: { id }, data: { ...data } });
+      await db.hotel.update({ where: { id }, data: { ...data, tags: {
+        set: data.tags.map((tag) => ({ id: tag })),
+      } } });
 
     revalidateTag(`/admin/${type.toLowerCase()}`);
     return { success: type + " Updated Successfully." };
