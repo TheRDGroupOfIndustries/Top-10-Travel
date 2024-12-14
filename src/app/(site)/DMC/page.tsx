@@ -23,6 +23,7 @@ const Page = async () => {
       methodology: true,
       rating: true,
       reviews: true,
+      tags: true
     },
     orderBy: { priority: "asc" },
   });
