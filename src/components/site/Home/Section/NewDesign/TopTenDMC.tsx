@@ -177,7 +177,7 @@ const TopTenDMC = () => {
 
             {cardIsLoading &&
               Array.from({ length: 12 }).map((_, i: number) => (
-                <HomeCardsSkeleton key={i} />
+                <HomeCardsSkeleton index={i} key={i} />
               ))}
           </div>
         ) : (

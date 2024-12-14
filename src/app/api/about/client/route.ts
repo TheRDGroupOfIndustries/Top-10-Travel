@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import { db } from '@/core/client/db';
 
-export const dynamic = 'force-dynamic';  // Ensures dynamic behavior for this route
+// export const dynamic = 'force-dynamic';  // Ensures dynamic behavior for this route
 
 const fetchDashboardData = async () => {
   const [
@@ -41,7 +41,7 @@ export async function GET() {
     const data = await fetchDashboardData();
     return NextResponse.json(data, {
       headers: {
-        'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate',
+        'Cache-Control': 'no-store',
         'Pragma': 'no-cache',
         'Expires': '0',
       },
