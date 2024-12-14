@@ -22,6 +22,14 @@ type Data = {
   city: string;
   rating: number;
   methodology: string | null;
+  tags: {
+    id: string;
+    url: string;
+    name: string;
+    createdAt: Date;
+    updatedAt: Date;
+    imageId: string;
+  }[];
 }[];
 const DMCExploreMorePage = ({
   data,
