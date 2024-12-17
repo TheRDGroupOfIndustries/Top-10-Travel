@@ -20,6 +20,7 @@ type Data = {
   images: string[] | null;
   country: string;
   city: string;
+  priority: number;
   rating: number;
   methodology: string | null;
   tags: {

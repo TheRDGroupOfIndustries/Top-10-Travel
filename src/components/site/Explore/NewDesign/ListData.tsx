@@ -18,6 +18,8 @@ type Data = {
   images: string[] | null;
   country: string;
   city: string;
+  city_priority?: number;
+  priority?: number;
   rating: number;
   methodology: string | null;
   services?: string[];
@@ -66,6 +68,67 @@ function ListData({
       const newTags = new Set(array);
       // @ts-ignore
       hotelData?.push({ ...item, servicesTags: [...newTags] });
+    });
+
+    hotelData.sort((a, b) => {
+      // If both have city_priority, compare them
+      if (a.city_priority !== undefined && b.city_priority !== undefined) {
+        // Treat 0 as the lowest priority (last)
+        if (a.city_priority === 0) return 1;
+        if (b.city_priority === 0) return -1;
+
+        // Otherwise, compare city priorities normally
+        return a.city_priority - b.city_priority;
+      }
+
+      // Items with non-zero city_priority come first
+      if (a.city_priority !== undefined && a.city_priority !== 0) return -1;
+      if (b.city_priority !== undefined && b.city_priority !== 0) return 1;
+
+      // If no city_priority, maintain original order
+      return 0;
+    });
+  }
+
+  if (role === "DMC"){
+    currentItems.sort((a, b) => {
+      // If both have city_priority, compare them
+      if (a.priority !== undefined && b.priority !== undefined) {
+        // Treat 0 as the lowest priority (last)
+        if (a.priority === 0) return 1;
+        if (b.priority === 0) return -1;
+
+        // Otherwise, compare city priorities normally
+        return a.priority - b.priority;
+      }
+
+      // Items with non-zero priority come first
+      if (a.priority !== undefined && a.priority !== 0) return -1;
+      if (b.priority !== undefined && b.priority !== 0) return 1;
+
+      // If no city_priority, maintain original order
+      return 0;
+    });
+  }
+
+  if(role === 'Agency'){
+    currentItems.sort((a, b) => {
+      // If both have city_priority, compare them
+      if (a.city_priority !== undefined && b.city_priority !== undefined) {
+        // Treat 0 as the lowest priority (last)
+        if (a.city_priority === 0) return 1;
+        if (b.city_priority === 0) return -1;
+
+        // Otherwise, compare city priorities normally
+        return a.city_priority - b.city_priority;
+      }
+
+      // Items with non-zero city_priority come first
+      if (a.city_priority !== undefined && a.city_priority !== 0) return -1;
+      if (b.city_priority !== undefined && b.city_priority !== 0) return 1;
+
+      // If no city_priority, maintain original order
+      return 0;
     });
   }
 

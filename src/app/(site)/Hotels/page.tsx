@@ -20,6 +20,7 @@ const Page = async () => {
       name: true,
       images: true,
       city: true,
+      city_priority: true,
       country: true,
       methodology: true,
       rating: true,
@@ -29,7 +30,7 @@ const Page = async () => {
       tags: true,
     },
 
-    orderBy: { priority: "asc" },
+    orderBy: { city_priority: "asc" },
   });
   return <HotelExploreMorePage role={"Hotel"} data={allHotels} />;
 };

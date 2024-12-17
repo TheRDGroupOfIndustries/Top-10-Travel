@@ -59,7 +59,9 @@ const EditListingForm = ({
         methodology,
         name,
         priority,
-        tags
+        tags,
+        city : company.city,
+        country : company.country
       },
       id: company.id,
       // @ts-expect-error

@@ -23,7 +23,8 @@ const Page = async () => {
       methodology: true,
       rating: true,
       reviews: true,
-      tags: true
+      tags: true,
+      city_priority: true,
     },
 
     orderBy: { priority: "asc" },
