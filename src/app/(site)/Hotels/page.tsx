@@ -6,6 +6,7 @@ import { redirect } from "next/navigation";
 
 // cache the page for one hour for ISR
 // export const revalidate = 3600;
+export const dynamic = "force-dynamic";
 
 const Page = async () => {
   const allHotels = await db.hotel.findMany({

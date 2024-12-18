@@ -4,6 +4,7 @@ import { db } from "@/core/client/db";
 
 // cache the page for one hour for ISR
 // export const revalidate = 3600;
+export const dynamic = "force-dynamic";
 
 const Page = async () => {
   // fetch all the DMC information
