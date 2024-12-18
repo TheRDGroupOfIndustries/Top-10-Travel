@@ -3,7 +3,7 @@ import ExploreMore from "@/components/site/Explore/ExploreMorePage";
 import { db } from "@/core/client/db";
 
 // cache the page for one hour for ISR
-export const revalidate = 3600;
+// export const revalidate = 3600;
 
 const Page = async () => {
   // fetch all the DMC information

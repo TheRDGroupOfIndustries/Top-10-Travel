@@ -5,7 +5,7 @@ import HotelHeroImg from "@/resources/images/Hotels-Hero.png";
 import { redirect } from "next/navigation";
 
 // cache the page for one hour for ISR
-export const revalidate = 3600;
+// export const revalidate = 3600;
 
 const Page = async () => {
   const allHotels = await db.hotel.findMany({
