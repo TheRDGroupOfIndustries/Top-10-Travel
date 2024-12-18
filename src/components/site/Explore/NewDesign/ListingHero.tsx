@@ -192,7 +192,7 @@ function ListingHero({
               </ul>
             )}
           </div>
-          <div className="relative">
+          {!pathname.includes("/DMC") && <div className="relative">
             <button
               onClick={() => setIsStateOpen(!isStateOpen)}
               className="w-[180px] bg-white border border-gray-300 rounded-md px-4 py-2 inline-flex items-center justify-between gap-2 text-black/50 text-sm"
@@ -226,7 +226,7 @@ function ListingHero({
                 </ScrollArea>
               </ul>
             )}
-          </div>
+          </div>}
           <button
             onClick={clearFilters}
             className="bg-white hover:border-black/50 border-transparent border-[1px] rounded-lg text-black/50 text-sm px-5 py-2"

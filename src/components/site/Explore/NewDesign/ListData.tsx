@@ -364,7 +364,7 @@ function ListData({
             </Link>
           ))}
 
-        {(hotelData?.length === 0 || currentItems?.length === 0) && (
+        {( currentItems?.length === 0) && (
           <div className="w-full mt-5 h-[50vh] flex flex-col items-center justify-center gap-3">
             <h1 className="text-3xl font-bold text-black">No results found</h1>
             <p className="text-lg text-slate-600">Try changing your filters</p>
