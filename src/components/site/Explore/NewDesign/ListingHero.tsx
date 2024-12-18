@@ -52,33 +52,33 @@ function ListingHero({
         )
       );
 
-      let state;
+      // let state;
 
-      if (pathname.includes("/Agency")) {
-        state = window.localStorage.getItem("Agency-State");
-      }
-      if (pathname.includes("/Hotels")) {
-        state = window.localStorage.getItem("Hotels-State");
-      }
-      if (pathname.includes("/DMC")) {
-        state = window.localStorage.getItem("DMC-State");
-      }
-      if (pathname.includes("/Influencers")) {
-        state = window.localStorage.getItem("Influencers-State");
-      }
+      // if (pathname.includes("/Agency")) {
+      //   state = window.localStorage.getItem("Agency-State");
+      // }
+      // if (pathname.includes("/Hotels")) {
+      //   state = window.localStorage.getItem("Hotels-State");
+      // }
+      // if (pathname.includes("/DMC")) {
+      //   state = window.localStorage.getItem("DMC-State");
+      // }
+      // if (pathname.includes("/Influencers")) {
+      //   state = window.localStorage.getItem("Influencers-State");
+      // }
 
-      if (state) {
-        const check = Array.from(
-          new Set(
-            countriesData
-              .filter((d) => d.country === country)
-              .map((d) => d.state)
-          )
-        ).includes(state);
-        // check ? setSelectedState(state) : setSelectedState("");
-      } else {
-        setSelectedState("");
-      }
+      // if (state) {
+      //   const check = Array.from(
+      //     new Set(
+      //       countriesData
+      //         .filter((d) => d.country === country)
+      //         .map((d) => d.state)
+      //     )
+      //   ).includes(state);
+      //   // check ? setSelectedState(state) : setSelectedState("");
+      // } else {
+      //   // setSelectedState("");
+      // }
     }
   }, [selectedCountry, setSelectedState, countriesData, countries, pathname]);
 
@@ -87,6 +87,8 @@ function ListingHero({
     setSelectedState("");
     setStates([]);
   };
+
+
 
   const image =
     pathname === "/Hotels"
