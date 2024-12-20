@@ -241,9 +241,9 @@ const Details = ({
                 </div>
               )}
 
-              {data?.pastProjects && (
+              {/* {data?.pastProjects && (
                 <PastProjects pastProjects={data.pastProjects} />
-              )}
+              )} */}
             </div>
 
             <div className="lg:hidden">
