@@ -25,6 +25,7 @@ export const GET = async (request: NextRequest) => {
         name: true,
         rating: true,
         review: true,
+        userId: true,
         createdAt: true,
         user: { select: { image: true } },
       },

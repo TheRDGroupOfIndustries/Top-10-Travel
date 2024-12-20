@@ -1,14 +1,14 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import Image from "next/image"; // Adjust import based on your setup
+import ReviewDialog from "@/components/company/ReviewForm/ReviewFormDialog";
 import StarRating from "@/components/reusable/StarRating";
 import { Button } from "@/components/ui/button";
-import ReviewDialog from "@/components/company/ReviewForm/ReviewFormDialog";
-import { ChevronLeft, ChevronRight } from "lucide-react";
-import axios from "axios";
 import { Skeleton } from "@/components/ui/skeleton";
+import axios from "axios";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useSession } from "next-auth/react";
+import Image from "next/image"; // Adjust import based on your setup
+import { useEffect, useState } from "react";
 // Adjust import based on your setup
 
 type Review = {
@@ -16,6 +16,7 @@ type Review = {
   name: string;
   rating: number;
   review: string;
+  userId: string;
   createdAt: Date | null;
   user: {
     image: string | null;
@@ -28,9 +29,9 @@ function ReviewsComponent({
   name: string;
 
   info:
-    | { type: "Agency"; agencyId: string, agencyName: string }
-    | { type: "Dmc"; dmcId: string, dmcName: string }
-    | { type: "Hotel"; hotelId: string, hotelName: string };
+    | { type: "Agency"; agencyId: string; agencyName: string }
+    | { type: "Dmc"; dmcId: string; dmcName: string }
+    | { type: "Hotel"; hotelId: string; hotelName: string };
 }) {
   // Sample reviews data
 
@@ -44,7 +45,7 @@ function ReviewsComponent({
   const currentReviews = reviews.slice(indexOfFirstReview, indexOfLastReview);
 
   const { data: session, status } = useSession();
-
+  const [yourComments, setYourComments] = useState(false);
 
   const nextPage = () => {
     if (currentPage < Math.ceil(reviews.length / itemsPerPage)) {
@@ -85,6 +86,14 @@ function ReviewsComponent({
           { signal: controller.signal }
         );
         setReviews(res.data.reviews);
+
+        const yourComments = res.data.reviews.filter(
+          (review: Review) => review.userId === session?.user.id
+        )
+
+        if (yourComments.length > 0) {
+          setYourComments(true);
+        }
       } catch (error) {
         if (!axios.isCancel(error)) {
           console.error("Something went wrong: ", error);
@@ -109,10 +118,8 @@ function ReviewsComponent({
       <h4 className="font-medium leading-6 text-[32px]">Recommendations</h4>
 
       {/* Display current reviews */}
-      {reviews.length === 0 && !isLoading &&  (
-        <h2 className="font-bold text-lg">
-          No review.
-        </h2>
+      {reviews.length === 0 && !isLoading && (
+        <h2 className="font-bold text-lg">No review.</h2>
       )}
       {isLoading && reviews.length === 0 && (
         <>
@@ -195,7 +202,9 @@ function ReviewsComponent({
         ) : null}
 
         {/* Review dialog */}
-        {session?.user.role  === "Influencer" && <ReviewDialog revalidate={revalidate} info={info} name={name} />}
+        {session?.user.role === "Influencer" && (
+          <ReviewDialog revalidate={revalidate} info={info} name={name} yourComments={yourComments} />
+        )}
       </div>
     </div>
   );
