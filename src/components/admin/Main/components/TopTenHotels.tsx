@@ -364,7 +364,7 @@ function TopTenHotels() {
                     },
                     groupIndex: number
                   ) => (
-                    <AccordionItem key={groupIndex} className="" value="item-1">
+                    <AccordionItem   key={`${group.country}-${groupIndex}`} className="" value={`${group.country}-${groupIndex}`}>
                       <div className="mb-4 w-full">
                         {/* Country Header */}
                         <AccordionTrigger>
