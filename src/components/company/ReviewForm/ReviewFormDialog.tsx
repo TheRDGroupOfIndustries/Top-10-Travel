@@ -71,7 +71,7 @@ export default function ReviewDialog({
           className="rounded-md w-fit text-white hover:text-white bg-mainColor hover:bg-mainColorSecondary"
         >
           <PlusCircle className="mr-2" />
-          [{yourComments ? "You can't add a review" : "Add a Review"}]
+          {yourComments ? "You can't add a review" : "Add a Review"}
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
