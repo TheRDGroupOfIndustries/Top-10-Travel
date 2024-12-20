@@ -68,6 +68,8 @@ const Details = ({
   // @ts-ignore
   const TAGS: string[] = [...setOfTags];
 
+  console.log("info", info);
+
   
 
   return (
@@ -323,7 +325,7 @@ const Details = ({
               </div>
             </div>
 
-            <ReviewSSR name={data?.name} info={info} />
+            {info?.type !== "Hotel" && <ReviewSSR name={data?.name} info={info} />}
           </div>
         </div>
       </div>
