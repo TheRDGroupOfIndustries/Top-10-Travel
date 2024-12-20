@@ -43,9 +43,9 @@ const Details = ({
 }: {
   data: CompanyType;
   info:
-    | { type: "Agency"; agencyId: string }
-    | { type: "Dmc"; dmcId: string }
-    | { type: "Hotel"; hotelId: string };
+    | { type: "Agency"; agencyId: string, agencyName: string }
+    | { type: "Dmc"; dmcId: string, dmcName: string }
+    | { type: "Hotel"; hotelId: string, hotelName: string };
 }) => {
   const socialPlatforms = [
     "facebook",
@@ -67,6 +67,8 @@ const Details = ({
   const setOfTags = new Set(preTags);
   // @ts-ignore
   const TAGS: string[] = [...setOfTags];
+
+  
 
   return (
     // <ClientSideDetails data={data} info={info} />
@@ -244,10 +246,10 @@ const Details = ({
               )}
             </div>
 
-            {/* <div className="lg:hidden">
+            <div className="lg:hidden">
               <ReviewSSR name={data?.name} info={info} />
             </div>
-             */}
+            
           </div>
 
           <div className="flex-1 lg:flex hidden flex-col gap-5 max-w-[509px]">
@@ -321,7 +323,7 @@ const Details = ({
               </div>
             </div>
 
-            {/* <ReviewSSR name={data?.name} info={info} /> */}
+            <ReviewSSR name={data?.name} info={info} />
           </div>
         </div>
       </div>

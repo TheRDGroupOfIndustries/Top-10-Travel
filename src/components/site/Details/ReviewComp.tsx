@@ -8,6 +8,7 @@ import ReviewDialog from "@/components/company/ReviewForm/ReviewFormDialog";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import axios from "axios";
 import { Skeleton } from "@/components/ui/skeleton";
+import { useSession } from "next-auth/react";
 // Adjust import based on your setup
 
 type Review = {
@@ -27,9 +28,9 @@ function ReviewsComponent({
   name: string;
 
   info:
-    | { type: "Agency"; agencyId: string }
-    | { type: "Dmc"; dmcId: string }
-    | { type: "Hotel"; hotelId: string };
+    | { type: "Agency"; agencyId: string, agencyName: string }
+    | { type: "Dmc"; dmcId: string, dmcName: string }
+    | { type: "Hotel"; hotelId: string, hotelName: string };
 }) {
   // Sample reviews data
 
@@ -41,6 +42,10 @@ function ReviewsComponent({
   const indexOfLastReview = currentPage * itemsPerPage;
   const indexOfFirstReview = indexOfLastReview - itemsPerPage;
   const currentReviews = reviews.slice(indexOfFirstReview, indexOfLastReview);
+
+  const { data: session, status } = useSession();
+
+  console.log('session?.user.role',session?.user.role);
 
   const nextPage = () => {
     if (currentPage < Math.ceil(reviews.length / itemsPerPage)) {
@@ -102,7 +107,7 @@ function ReviewsComponent({
 
   return (
     <div className="flex flex-col shadow shadow-black/50 rounded-lg gap-8 py-12 sm:px-8 px-4">
-      <h4 className="font-medium leading-6 text-[32px]">Reviews</h4>
+      <h4 className="font-medium leading-6 text-[32px]">Recommendations</h4>
 
       {/* Display current reviews */}
       {reviews.length === 0 && !isLoading && (
@@ -191,7 +196,7 @@ function ReviewsComponent({
         ) : null}
 
         {/* Review dialog */}
-        <ReviewDialog revalidate={revalidate} info={info} name={name} />
+        {session?.user.role  === "Influencer" && <ReviewDialog revalidate={revalidate} info={info} name={name} />}
       </div>
     </div>
   );

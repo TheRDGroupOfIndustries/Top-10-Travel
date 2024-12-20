@@ -234,10 +234,14 @@ model Reviews {
   name      String
   rating    Int       @default(1)
   review    String
+  approved  Boolean  @default(false)
   userId    String
+  agencyName String?
   agencyId  String?
   dmcId     String?
+  dmcName     String?
   hotelId   String?
+  hotelName   String?
   createdAt DateTime? @default(now())
   Agency    Agency?   @relation(fields: [agencyId], references: [id], onDelete: Cascade)
   Dmc       DMC?      @relation(fields: [dmcId], references: [id], onDelete: Cascade)

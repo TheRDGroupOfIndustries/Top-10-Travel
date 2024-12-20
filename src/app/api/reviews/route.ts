@@ -19,7 +19,7 @@ export const GET = async (request: NextRequest) => {
 
   if (type === "Agency") {
     reviews = await db.reviews.findMany({
-      where: { agencyId: id },
+      where: { agencyId: id, approved: true },
       select: {
         id: true,
         name: true,
@@ -34,7 +34,7 @@ export const GET = async (request: NextRequest) => {
     });
   } else if (type === "Dmc") {
     reviews = await db.reviews.findMany({
-      where: { dmcId: id },
+      where: { dmcId: id, approved: true },
       select: {
         id: true,
         name: true,
@@ -49,7 +49,7 @@ export const GET = async (request: NextRequest) => {
     });
   } else if (type === "Hotel") {
     reviews = await db.reviews.findMany({
-      where: { hotelId: id },
+      where: { hotelId: id, approved: true },
       select: {
         id: true,
         name: true,

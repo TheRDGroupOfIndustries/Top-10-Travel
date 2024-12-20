@@ -45,7 +45,7 @@ const AgencyPage = async ({ params }: { params: { agencyId: string } }) => {
 
   return (
     <div>
-      <Details data={agency} info={{ type: "Agency", agencyId: agency.id }} />
+      <Details data={agency} info={{ type: "Agency", agencyId: agency.id, agencyName: agency.name }} />
     </div>
   );
 };

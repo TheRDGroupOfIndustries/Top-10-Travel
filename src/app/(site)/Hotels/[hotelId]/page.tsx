@@ -5,7 +5,6 @@ import { notFound } from "next/navigation";
 export const revalidate = 3600;
 
 const HotelPage = async ({ params }: { params: { hotelId: string } }) => {
-  console.log("params", params);
   const hotel = await db.hotel.findUnique({
     where: {
       id: params.hotelId,
@@ -39,9 +38,6 @@ const HotelPage = async ({ params }: { params: { hotelId: string } }) => {
       // },
     },
   });
-
-  console.log("hotel id", hotel);
-
   if (!hotel) return notFound();
   // console.log(company);
 
@@ -49,7 +45,7 @@ const HotelPage = async ({ params }: { params: { hotelId: string } }) => {
     <div>
       <Details
         data={hotel}
-        info={{ type: "Hotel", hotelId: hotel.id }}
+        info={{ type: "Hotel", hotelId: hotel.id, hotelName: hotel.name }}
       />
     </div>
   );

@@ -12,7 +12,7 @@ import { ArrowDownUp, Umbrella } from "lucide-react";
 import { signOut } from "next-auth/react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { FileText, HelpCircle, Home, List, LogOut, Users } from "react-feather";
+import { Box, FileText, HelpCircle, Home, List, LogOut, Users } from "react-feather";
 import Image from "next/image";
 import {
   MdOutlineBookOnline,
@@ -57,6 +57,7 @@ const SmallScreenSidebar = ({
     {name: "Privacy Policy", icon: FileText, href: "/admin/policy"},
     { name: "Report", icon: FileText, href: "/admin/report" },
     { name: "Top 10 city", icon: Umbrella, href: "/admin/top10" },
+    { name: "Recommendations", icon: Box, href: "/admin/recommendations" },
   ];
 
   const CompanyMenuItems: (MenuItem | undefined)[] = [

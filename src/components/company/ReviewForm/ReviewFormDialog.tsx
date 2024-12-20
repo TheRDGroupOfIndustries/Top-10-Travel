@@ -14,6 +14,7 @@ import { cn } from "@/lib/utils";
 import { IoStar } from "react-icons/io5";
 import { FormEvent, useState, useEffect } from "react";
 import { PlusCircle } from "lucide-react";
+import { useSession } from "next-auth/react";
 
 export default function ReviewDialog({
   name,
@@ -22,19 +23,19 @@ export default function ReviewDialog({
 }: {
   name: string;
   info:
-    | { type: "Agency"; agencyId: string }
-    | { type: "Dmc"; dmcId: string }
-    | { type: "Hotel"; hotelId: string };
+    | { type: "Agency"; agencyId: string, agencyName: string }
+    | { type: "Dmc"; dmcId: string, dmcName: string }
+    | { type: "Hotel"; hotelId: string, hotelName: string };
   revalidate: (info: any) => void;
 }) {
   const [response, setResponse] = useState<{
     error?: string;
     success?: string;
   }>({});
-  const [rating, setRating] = useState(1);
+  const [rating, setRating] = useState(5);
   const [isOpen, setIsOpen] = useState(false);
   const { isPending, mutate } = useMutation(createReviewAction);
-
+  const { data: session, status } = useSession();
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     setResponse({});
     e.preventDefault();
@@ -115,6 +116,8 @@ export default function ReviewDialog({
             <Input
               id="name"
               name="name"
+              defaultValue={session?.user?.name}
+              disabled
               type="text"
               placeholder="Enter your name"
               required

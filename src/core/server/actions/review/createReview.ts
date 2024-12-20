@@ -2,7 +2,6 @@
 import { db } from "@/core/client/db";
 import getSessionorRedirect from "@/core/utils/getSessionorRedirect";
 import { Reviews } from "@prisma/client";
-import { headers } from "next/headers";
 
 export const createReviewAction = async ({
   values,
@@ -10,33 +9,57 @@ export const createReviewAction = async ({
 }: {
   values: Pick<Reviews, "review" | "name" | "rating">;
   info:
-    | { type: "Agency"; agencyId: string }
-    | { type: "Dmc"; dmcId: string }
-    | { type: "Hotel"; hotelId: string };
+    | { type: "Agency"; agencyId: string; agencyName: string }
+    | { type: "Dmc"; dmcId: string; dmcName: string }
+    | { type: "Hotel"; hotelId: string; hotelName: string };
 }) => {
   const session = await getSessionorRedirect();
+
+  // Role Check
+  if (session.user.role !== "Influencer") {
+    return { error: "Only users with the 'Influencer' role can create reviews." };
+  }
+
   let config: any;
-  if (info.type === "Agency")
+  let typeName: "agencyName" | "dmcName" | "hotelName";
+  let name: string;
+
+  // Determine the type and corresponding config and name
+  if (info.type === "Agency") {
     config = { Agency: { connect: { id: info.agencyId } } };
-  else if (info.type === "Dmc")
+    name = info.agencyName;
+    typeName = "agencyName";
+  } else if (info.type === "Dmc") {
     config = { Dmc: { connect: { id: info.dmcId } } };
-  else config = { Hotel: { connect: { id: info.hotelId } } };
+    name = info.dmcName;
+    typeName = "dmcName";
+  } else {
+    config = { Hotel: { connect: { id: info.hotelId } } };
+    name = info.hotelName;
+    typeName = "hotelName";
+  }
+
   try {
     await db.$transaction(async (tx) => {
+      // Create the review
       const res = await tx.reviews.create({
         data: {
           ...values,
           ...config,
           user: { connect: { id: session.user.id } },
+          [typeName]: name, // Store the name
         },
         select: { id: true },
       });
+
+      // Update average rating and review count
       const condition =
         info.type === "Agency"
           ? { agencyId: info.agencyId }
           : info.type === "Dmc"
           ? { dmcId: info.dmcId }
           : { hotelId: info.hotelId };
+
       const { _avg } = await tx.reviews.aggregate({
         where: condition,
         _avg: { rating: true },

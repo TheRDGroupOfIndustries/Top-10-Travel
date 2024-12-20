@@ -4,7 +4,7 @@ import { signOut } from "next-auth/react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { FileText, HelpCircle, Home, LogOut, Users, Umbrella } from "react-feather";
+import { FileText, HelpCircle, Home, LogOut, Users, Umbrella, Box } from "react-feather";
 import { FaRegMap } from "react-icons/fa6";
 import {
   MdOutlineBookOnline,
@@ -31,6 +31,7 @@ function AdminSidebar() {
     {name: "Privacy Policy", icon: FileText, href: "/admin/policy"},
     { name: "Report", icon: FileText, href: "/admin/report" },
     { name: "Top 10 city", icon: Umbrella, href: "/admin/top10" },
+    { name: "Recommendations", icon: Box, href: "/admin/recommendations" },
   ];
 
   return (
