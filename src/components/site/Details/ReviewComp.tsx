@@ -45,7 +45,6 @@ function ReviewsComponent({
 
   const { data: session, status } = useSession();
 
-  console.log('session?.user.role',session?.user.role);
 
   const nextPage = () => {
     if (currentPage < Math.ceil(reviews.length / itemsPerPage)) {
@@ -110,9 +109,9 @@ function ReviewsComponent({
       <h4 className="font-medium leading-6 text-[32px]">Recommendations</h4>
 
       {/* Display current reviews */}
-      {reviews.length === 0 && !isLoading && (
+      {reviews.length === 0 && !isLoading &&  (
         <h2 className="font-bold text-lg">
-          Be the first one to write a review.
+          No review.
         </h2>
       )}
       {isLoading && reviews.length === 0 && (

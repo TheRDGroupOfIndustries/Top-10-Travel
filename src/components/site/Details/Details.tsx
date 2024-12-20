@@ -247,7 +247,7 @@ const Details = ({
             </div>
 
             <div className="lg:hidden">
-              <ReviewSSR name={data?.name} info={info} />
+              {info?.type !== "Hotel" && <ReviewSSR name={data?.name} info={info} />}
             </div>
             
           </div>
