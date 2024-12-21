@@ -266,7 +266,7 @@ export default function AdminPackagelisting({
       </div>
       <div className="flex items-center flex-wrap p-1 md:p-0">
         <Input
-          placeholder="Search by name or id..."
+          placeholder="Search by Name, City or Country..."
           value={searchValue}
           onChange={(event) => {
             const value = event.target.value;
