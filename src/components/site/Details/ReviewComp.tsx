@@ -119,7 +119,7 @@ function ReviewsComponent({
 
       {/* Display current reviews */}
       {reviews.length === 0 && !isLoading && (
-        <h2 className="font-bold text-lg">No review.</h2>
+        <h2 className="font-bold text-lg">No Recommendations.</h2>
       )}
       {isLoading && reviews.length === 0 && (
         <>
