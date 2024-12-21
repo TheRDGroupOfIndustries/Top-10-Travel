@@ -32,6 +32,7 @@ function AdminSidebar() {
     { name: "Report", icon: FileText, href: "/admin/report" },
     { name: "Top 10 city", icon: Umbrella, href: "/admin/top10" },
     { name: "Recommendations", icon: Box, href: "/admin/recommendations" },
+    { name: "Badges", icon: Box, href: "/admin/badges" },
   ];
 
   return (

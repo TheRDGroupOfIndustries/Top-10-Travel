@@ -214,11 +214,26 @@ function ListData({
                   </span>
                 </div> */}
 
+
+
                 <div className="flex gap-1 items-center">
                   <TbMapPin className="text-slate-400 text-sm md:text-lg" />
                   <div className="text-sm md:text-lg text-slate-400 leading-none">
                     {item?.country}, {item?.city}
                   </div>
+                </div>
+
+                <div className="flex flex-wrap md:hidden lg:flex items-center gap-2">
+                    {item?.tags.map((tag) => (
+                      <Image
+                        key={tag.id}
+                        src={tag.url}
+                        alt=""
+                        height={10}
+                        width={80}
+                        className="h-[30px] overflow-hidden"
+                      />
+                    ))}
                 </div>
 
                 <p className="text-sm lg:line-clamp-3 line-clamp-2">
