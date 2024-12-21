@@ -219,7 +219,7 @@ export default function AdminPackagelisting({
   const data = React.useMemo(() => {
     const val = searchValue.toLowerCase().trim();
     return listings.filter(
-      (i) => { i.id.includes(val) || i.name.toLowerCase().includes(val) || i.country.toLowerCase().includes(val) || i.city.toLowerCase().includes(val)} 
+      (i) => i.id.includes(val) || i.name.toLowerCase().includes(val) 
     );
   }, [searchValue, listings]);
 
