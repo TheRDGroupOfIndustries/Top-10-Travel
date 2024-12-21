@@ -6,12 +6,12 @@ import { UploadApiResponse } from "cloudinary";
 import { NextRequest, NextResponse } from "next/server";
 
 
-interface CloudinaryUploadResult extends UploadApiResponse {
+export interface CloudinaryUploadResult extends UploadApiResponse {
   url: string;
   public_id: string;
 }
 
-interface AboutContent {
+export interface AboutContent {
   title: string;
   content: string;
   imageURL?: string;
