@@ -17,23 +17,18 @@ import { toast } from "sonner";
 import { Textarea } from "@/components/ui/textarea";
 import { editListingAdmin } from "@/core/server/actions/admin/editListingAdmin";
 import Image from "next/image";
-import { Company } from "./Admin_Package_listing";
 import { useState } from "react";
+import { Company } from "./Admin_Package_listing";
 
-const EditListingForm = ({
-  company,
-}: {
-  company: Company
-}) => {
+const EditListingForm = ({ company }: { company: Company }) => {
   const { mutate, isPending } = useMutation(editListingAdmin);
 
-
-  // List of tags that already exist 
+  // List of tags that already exist
   const [tagAlreadySelected, setTagAlreadySelected] = useState(company.tags);
 
-  const handleTagSelect = (tag:any) => {
+  const handleTagSelect = (tag: any) => {
     if (!tagAlreadySelected.map((tag) => tag.id).includes(tag.id)) {
-      setTagAlreadySelected([...tagAlreadySelected, tag ]);
+      setTagAlreadySelected([...tagAlreadySelected, tag]);
     } else {
       toast.error("Tag already selected");
     }
@@ -41,7 +36,7 @@ const EditListingForm = ({
 
   const handleTagRemove = (tagid: string) => {
     setTagAlreadySelected(tagAlreadySelected.filter((t) => t.id !== tagid));
-  }
+  };
 
   const handleUpdate = async (e: any) => {
     e.preventDefault();
@@ -60,8 +55,8 @@ const EditListingForm = ({
         name,
         priority,
         tags,
-        city : company.city,
-        country : company.country
+        city: company.city,
+        country: company.country,
       },
       id: company.id,
       // @ts-expect-error
@@ -90,20 +85,22 @@ const EditListingForm = ({
               maxLength={100}
             />
           </div>
-          <div className="space-y-2">
-            <label htmlFor="priority" className="text-sm font-medium">
-              Priority
-            </label>
-            <Input
-              defaultValue={company.priority}
-              id="priority"
-              name="priority"
-              type="number"
-              min={0}
-              max={1000}
-              placeholder="Enter priority"
-            />
-          </div>
+          {company.type === "Dmc" && (
+            <div className="space-y-2">
+              <label htmlFor="priority" className="text-sm font-medium">
+                Priority
+              </label>
+              <Input
+                defaultValue={company.priority}
+                id="priority"
+                name="priority"
+                type="number"
+                min={0}
+                max={1000}
+                placeholder="Enter priority"
+              />
+            </div>
+          )}
           <div className="space-y-2">
             <label htmlFor="methodology" className="text-sm font-medium">
               Small Description
@@ -118,21 +115,23 @@ const EditListingForm = ({
               maxLength={500}
             />
           </div>
-          <div className="space-y-2">
-            <label htmlFor="city_priority" className="text-sm font-medium">
-              Priority(city)
-            </label>
-            <Input
-              defaultValue={company.city_priority}
-              id="city_priority"
-              name="city_priority"
-              type="number"
-              min={0}
-              max={1000}
-              required
-              placeholder="Enter priority(city)"
-            />
-          </div>
+          {company.type !== "Dmc" && (
+            <div className="space-y-2">
+              <label htmlFor="city_priority" className="text-sm font-medium">
+                Priority(city)
+              </label>
+              <Input
+                defaultValue={company.city_priority}
+                id="city_priority"
+                name="city_priority"
+                type="number"
+                min={0}
+                max={1000}
+                required
+                placeholder="Enter priority(city)"
+              />
+            </div>
+          )}
           <div className="space-y-2">
             <label htmlFor="isCertified" className="text-sm font-medium">
               Is Certified
@@ -155,39 +154,34 @@ const EditListingForm = ({
             <label htmlFor="isCertified" className="text-sm font-medium">
               Tags
             </label>
-            <Card className="flex h-[45px] w-full overflow-auto flex-nowrap flex-row items-center gap-4">
-              {
-                tagAlreadySelected.map((tag) => (
-                  <Image
-                    onClick={() => handleTagRemove(tag.id)}
-                    key={tag.id}
-                    src={tag.url}
-                    alt=""
-                    height={10}
-                    width={80}
-                    className="h-[35px] w-fit"
-                  />
-                ))
-              }
-              
+            <Card className="flex h-[40px] w-full overflow-auto flex-nowrap flex-row items-center gap-4">
+              {tagAlreadySelected.map((tag) => (
+                <Image
+                  onClick={() => handleTagRemove(tag.id)}
+                  key={tag.id}
+                  src={tag.url}
+                  alt=""
+                  height={15}
+                  width={80}
+                  className="h-[25px] w-fit"
+                />
+              ))}
             </Card>
             <label htmlFor="isCertified" className="text-sm font-medium">
               Select tags
             </label>
-            <Card className="flex h-[45px] w-full overflow-auto flex-nowrap flex-row items-center gap-4">
-            {
-                company.allTags.map((tag) => (
-                  <Image
-                    onClick={() => handleTagSelect(tag)}
-                    key={tag.id}
-                    src={tag.url}
-                    alt=""
-                    height={10}
-                    width={80}
-                    className="h-[35px] w-fit "
-                  />
-                ))
-              }
+            <Card className="flex h-[40px] w-full overflow-auto flex-nowrap flex-row items-center gap-4">
+              {company.allTags.map((tag) => (
+                <Image
+                  onClick={() => handleTagSelect(tag)}
+                  key={tag.id}
+                  src={tag.url}
+                  alt=""
+                  height={15}
+                  width={80}
+                  className="h-[25px] w-fit "
+                />
+              ))}
             </Card>
           </div>
 

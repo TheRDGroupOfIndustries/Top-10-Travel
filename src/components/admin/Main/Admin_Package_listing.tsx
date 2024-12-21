@@ -1,7 +1,6 @@
 "use client";
 
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
-import { TbLicense } from "react-icons/tb";
 import {
   ColumnDef,
   ColumnFiltersState,
@@ -16,6 +15,7 @@ import {
 } from "@tanstack/react-table";
 import { ChevronDown, Plus, SquarePen } from "lucide-react";
 import * as React from "react";
+import { TbLicense } from "react-icons/tb";
 
 import AnimatedImage from "@/components/site/Details/AnimatedImage";
 import { Button } from "@/components/ui/button";
@@ -39,10 +39,10 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { deleteCompany } from "@/core/server/actions/company/deleteCompany";
+import Link from "next/link";
 import { FaTrashCan } from "react-icons/fa6";
 import { toast } from "sonner";
 import EditListingForm from "./EditListingForm";
-import Link from "next/link";
 
 type tags = {
   id: string;
@@ -51,7 +51,7 @@ type tags = {
   updatedAt: Date;
   url: string;
   imageId: string;
-}
+};
 
 export type Company = {
   id: string;
@@ -72,7 +72,7 @@ export type Company = {
     id: string;
     name: string;
     url: string;
-}[]
+  }[];
 };
 
 async function deleteListing(id: string, type: string) {
@@ -326,18 +326,30 @@ export default function AdminPackagelisting({
                 key={headerGroup.id}
                 className="bg-[#c2c2c2] hover:bg-[#c2c2c2] text-white"
               >
-                {headerGroup.headers.map((header) => {
-                  return (
-                    <TableHead key={header.id} className="text-white">
-                      {header.isPlaceholder
-                        ? null
-                        : flexRender(
-                            header.column.columnDef.header,
-                            header.getContext()
-                          )}
-                    </TableHead>
-                  );
-                })}
+                {headerGroup.headers
+                  .filter((val: any) => {
+                    if (type === "Dmc") {
+                      return (
+                        val.column.columnDef.accessorKey !== "city_priority"
+                      );
+                    } else if (type === "Agency" || type === "Hotel") {
+                      return val.column.columnDef.accessorKey !== "priority";
+                    } else {
+                      return true;
+                    }
+                  })
+                  .map((header) => {
+                    return (
+                      <TableHead key={header.id} className="text-white">
+                        {header.isPlaceholder
+                          ? null
+                          : flexRender(
+                              header.column.columnDef.header,
+                              header.getContext()
+                            )}
+                      </TableHead>
+                    );
+                  })}
               </TableRow>
             ))}
           </TableHeader>
@@ -349,14 +361,27 @@ export default function AdminPackagelisting({
                   data-state={row.getIsSelected() && "selected"}
                   className="hover:bg-[#dbdbdb]"
                 >
-                  {row.getVisibleCells().map((cell) => (
-                    <TableCell key={cell.id}>
-                      {flexRender(
-                        cell.column.columnDef.cell,
-                        cell.getContext()
-                      )}
-                    </TableCell>
-                  ))}
+                  {row
+                    .getVisibleCells()
+                    .filter((val: any) => {
+                      if (type === "Dmc") {
+                        return (
+                          val.column.columnDef.accessorKey !== "city_priority"
+                        );
+                      } else if (type === "Agency" || type === "Hotel") {
+                        return val.column.columnDef.accessorKey !== "priority";
+                      } else {
+                        return true;
+                      }
+                    })
+                    .map((cell) => (
+                      <TableCell key={cell.id}>
+                        {flexRender(
+                          cell.column.columnDef.cell,
+                          cell.getContext()
+                        )}
+                      </TableCell>
+                    ))}
                 </TableRow>
               ))
             ) : (

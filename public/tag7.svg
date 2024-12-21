@@ -1,0 +1,93 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 520 200" width="520" height="200">
+ <defs >
+  <style type="text/css">@import url('https://fonts.googleapis.com/css?family=Cinzel:bi,normal,i,b');  </style>
+ </defs>
+ <g className="page" style="">
+  <rect x="0" y="0" width="520" height="200" fill="rgb(0, 0, 0, 0)">
+  </rect>
+  <g className="element" id="TpV89bRL7v" transform="translate(34.39211794594012, 40.63804237822501) rotate(0)"  style="transform-origin:top left; filter:;">
+   <g >
+    
+    <defs>
+    <clipPath id="clip-TpV89bRL7v">
+      <path d="M 0 6 A 6 6 0 0 1 6 0 L 445.2157641081198 0 A 6 6 0 0 1 451.2157641081198 6 L 451.2157641081198 104.8451273647609 A 6 6 0 0 1 445.2157641081198 110.8451273647609 L 6 110.8451273647609 A 6 6 0 0 1 0 104.8451273647609 Z" />
+    </clipPath>
+  </defs>
+
+  <!-- Path for the fill -->
+  <path d="M 0 6 A 6 6 0 0 1 6 0 L 445.2157641081198 0 A 6 6 0 0 1 451.2157641081198 6 L 451.2157641081198 104.8451273647609 A 6 6 0 0 1 445.2157641081198 110.8451273647609 L 6 110.8451273647609 A 6 6 0 0 1 0 104.8451273647609 Z" fill="rgba(255,255,255,1)" transform="scale(1, 1)"/>
+
+  <!-- Path for the stroke, clipped by the star path -->
+  <path d="M 0 6 A 6 6 0 0 1 6 0 L 445.2157641081198 0 A 6 6 0 0 1 451.2157641081198 6 L 451.2157641081198 104.8451273647609 A 6 6 0 0 1 445.2157641081198 110.8451273647609 L 6 110.8451273647609 A 6 6 0 0 1 0 104.8451273647609 Z" fill="none" stroke="#0c0c0c" stroke-width="0" clip-path="url(#clip-TpV89bRL7v)" transform="scale(1, 1)" stroke-dasharray=""/>
+    
+     </g>
+  </g>
+  <g className="element" id="ZPz_OuIePd" transform="translate(48.70596891460956, 56.66850341958126) rotate(0)"  style="transform-origin:top left; filter:;">
+   <g style="transform:;">
+    <defs >
+     <clipPath id="clip-ZPz_OuIePd">
+      <rect x="0" y="0" width="78.78420528204828" height="78.7842052820483">
+      </rect>
+     </clipPath>
+    </defs>
+    <image xlink:href="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIj8+PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGhlaWdodD0iNTEyIiB2aWV3Qm94PSIwIDAgNTEyIDUxMiIgd2lkdGg9IjUxMiI+PHRpdGxlLz48cGF0aCBkPSJNMzk0LDQ4MGExNiwxNiwwLDAsMS05LjM5LTNMMjU2LDM4My43NiwxMjcuMzksNDc3YTE2LDE2LDAsMCwxLTI0LjU1LTE4LjA4TDE1MywzMTAuMzUsMjMsMjIxLjJBMTYsMTYsMCwwLDEsMzIsMTkySDE5Mi4zOGw0OC40LTE0OC45NWExNiwxNiwwLDAsMSwzMC40NCwwbDQ4LjQsMTQ5SDQ4MGExNiwxNiwwLDAsMSw5LjA1LDI5LjJMMzU5LDMxMC4zNWw1MC4xMywxNDguNTNBMTYsMTYsMCwwLDEsMzk0LDQ4MFoiIHN0eWxlPSJmaWxsOiByZ2IoMjU1LCAxNzQsIDApOyIvPjwvc3ZnPg==" x="0" y="0" width="78.7842052820483" height="78.7842052820483" preserveAspectRatio="none" clip-path="url(#clip-ZPz_OuIePd)">
+    </image>
+   </g>
+  </g>
+  <g className="element" id="V15SoWSfNX" transform="translate(130.4286820404902, 56.66850341958126) rotate(0)"  style="transform-origin:top left; filter:;">
+   <g style="transform:;">
+    <defs >
+     <clipPath id="clip-V15SoWSfNX">
+      <rect x="0" y="0" width="78.78420528204828" height="78.7842052820483">
+      </rect>
+     </clipPath>
+    </defs>
+    <image xlink:href="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIj8+PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGhlaWdodD0iNTEyIiB2aWV3Qm94PSIwIDAgNTEyIDUxMiIgd2lkdGg9IjUxMiI+PHRpdGxlLz48cGF0aCBkPSJNMzk0LDQ4MGExNiwxNiwwLDAsMS05LjM5LTNMMjU2LDM4My43NiwxMjcuMzksNDc3YTE2LDE2LDAsMCwxLTI0LjU1LTE4LjA4TDE1MywzMTAuMzUsMjMsMjIxLjJBMTYsMTYsMCwwLDEsMzIsMTkySDE5Mi4zOGw0OC40LTE0OC45NWExNiwxNiwwLDAsMSwzMC40NCwwbDQ4LjQsMTQ5SDQ4MGExNiwxNiwwLDAsMSw5LjA1LDI5LjJMMzU5LDMxMC4zNWw1MC4xMywxNDguNTNBMTYsMTYsMCwwLDEsMzk0LDQ4MFoiIHN0eWxlPSJmaWxsOiByZ2IoMjU1LCAxNzQsIDApOyIvPjwvc3ZnPg==" x="0" y="0" width="78.7842052820483" height="78.7842052820483" preserveAspectRatio="none" clip-path="url(#clip-V15SoWSfNX)">
+    </image>
+   </g>
+  </g>
+  <g className="element" id="SflERpD50v" transform="translate(213.71395796503646, 56.668503419581306) rotate(0)"  style="transform-origin:top left; filter:;">
+   <g style="transform:;">
+    <defs >
+     <clipPath id="clip-SflERpD50v">
+      <rect x="0" y="0" width="78.78420528204828" height="78.7842052820483">
+      </rect>
+     </clipPath>
+    </defs>
+    <image xlink:href="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIj8+PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGhlaWdodD0iNTEyIiB2aWV3Qm94PSIwIDAgNTEyIDUxMiIgd2lkdGg9IjUxMiI+PHRpdGxlLz48cGF0aCBkPSJNMzk0LDQ4MGExNiwxNiwwLDAsMS05LjM5LTNMMjU2LDM4My43NiwxMjcuMzksNDc3YTE2LDE2LDAsMCwxLTI0LjU1LTE4LjA4TDE1MywzMTAuMzUsMjMsMjIxLjJBMTYsMTYsMCwwLDEsMzIsMTkySDE5Mi4zOGw0OC40LTE0OC45NWExNiwxNiwwLDAsMSwzMC40NCwwbDQ4LjQsMTQ5SDQ4MGExNiwxNiwwLDAsMSw5LjA1LDI5LjJMMzU5LDMxMC4zNWw1MC4xMywxNDguNTNBMTYsMTYsMCwwLDEsMzk0LDQ4MFoiIHN0eWxlPSJmaWxsOiByZ2IoMjU1LCAxNzQsIDApOyIvPjwvc3ZnPg==" x="0" y="0" width="78.7842052820483" height="78.7842052820483" preserveAspectRatio="none" clip-path="url(#clip-SflERpD50v)">
+    </image>
+   </g>
+  </g>
+  <g className="element" id="hwJp0Dz8eC" transform="translate(297.37717474696376, 56.66850341958129) rotate(0)"  style="transform-origin:top left; filter:;">
+   <g style="transform:;">
+    <defs >
+     <clipPath id="clip-hwJp0Dz8eC">
+      <rect x="0" y="0" width="78.78420528204828" height="78.7842052820483">
+      </rect>
+     </clipPath>
+    </defs>
+    <image xlink:href="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIj8+PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGhlaWdodD0iNTEyIiB2aWV3Qm94PSIwIDAgNTEyIDUxMiIgd2lkdGg9IjUxMiI+PHRpdGxlLz48cGF0aCBkPSJNMzk0LDQ4MGExNiwxNiwwLDAsMS05LjM5LTNMMjU2LDM4My43NiwxMjcuMzksNDc3YTE2LDE2LDAsMCwxLTI0LjU1LTE4LjA4TDE1MywzMTAuMzUsMjMsMjIxLjJBMTYsMTYsMCwwLDEsMzIsMTkySDE5Mi4zOGw0OC40LTE0OC45NWExNiwxNiwwLDAsMSwzMC40NCwwbDQ4LjQsMTQ5SDQ4MGExNiwxNiwwLDAsMSw5LjA1LDI5LjJMMzU5LDMxMC4zNWw1MC4xMywxNDguNTNBMTYsMTYsMCwwLDEsMzk0LDQ4MFoiIHN0eWxlPSJmaWxsOiByZ2IoMjU1LCAxNzQsIDApOyIvPjwvc3ZnPg==" x="0" y="0" width="78.7842052820483" height="78.7842052820483" preserveAspectRatio="none" clip-path="url(#clip-hwJp0Dz8eC)">
+    </image>
+   </g>
+  </g>
+  <g className="element" id="oMlAfJEMse" transform="translate(376.16138002901204, 56.66850341958129) rotate(0)"  style="transform-origin:top left; filter:;">
+   <g style="transform:;">
+    <defs >
+     <clipPath id="clip-oMlAfJEMse">
+      <rect x="0" y="0" width="78.78420528204828" height="78.7842052820483">
+      </rect>
+     </clipPath>
+    </defs>
+    <image xlink:href="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIj8+PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGhlaWdodD0iNTEyIiB2aWV3Qm94PSIwIDAgNTEyIDUxMiIgd2lkdGg9IjUxMiI+PHRpdGxlLz48cGF0aCBkPSJNMzk0LDQ4MGExNiwxNiwwLDAsMS05LjM5LTNMMjU2LDM4My43NiwxMjcuMzksNDc3YTE2LDE2LDAsMCwxLTI0LjU1LTE4LjA4TDE1MywzMTAuMzUsMjMsMjIxLjJBMTYsMTYsMCwwLDEsMzIsMTkySDE5Mi4zOGw0OC40LTE0OC45NWExNiwxNiwwLDAsMSwzMC40NCwwbDQ4LjQsMTQ5SDQ4MGExNiwxNiwwLDAsMSw5LjA1LDI5LjJMMzU5LDMxMC4zNWw1MC4xMywxNDguNTNBMTYsMTYsMCwwLDEsMzk0LDQ4MFoiIHN0eWxlPSJmaWxsOiByZ2IoMjU1LCAxNzQsIDApOyIvPjwvc3ZnPg==" x="0" y="0" width="78.7842052820483" height="78.7842052820483" preserveAspectRatio="none" clip-path="url(#clip-oMlAfJEMse)">
+    </image>
+   </g>
+  </g>
+  <g className="element" id="DdeU6QvuMH" transform="translate(430.74197567973664, 4.939393939393293) rotate(0)"  style="transform-origin:top left; filter:;">
+   <g >
+    <text fill="rgba(255,175,0,1)" y="72" font-size="72px" text-anchor="middle" font-family="Cinzel" font-style="normal" font-weight="normal"  line-height="1.2" letter-spacing="0em" stroke-width="0" stroke="black">
+     <tspan x="47" dy="0">5     </tspan>
+    </text>
+   </g>
+  </g>
+ </g>
+</svg>
