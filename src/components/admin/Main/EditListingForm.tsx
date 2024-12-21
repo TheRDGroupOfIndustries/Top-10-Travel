@@ -39,11 +39,12 @@ const EditListingForm = ({ company }: { company: Company }) => {
   };
 
   const handleUpdate = async (e: any) => {
+    // company.type 
     e.preventDefault();
     const name = e.target.name.value as string;
-    const priority = e.target.priority.value !== undefined ? Number(e.target.priority.value) : 0;
+    const priority = company.type === "Dmc" ? Number(e.target.priority.value) : 0;
     const methodology = e.target.methodology.value;
-    const city_priority = e.target.city_priority.value !== undefined ? Number(e.target.city_priority.value) : 0;
+    const city_priority = company.type !== "Dmc" ? Number(e.target.city_priority.value) : 0;
     const isCertified = e.target.isCertified.value === "true";
     const tags = tagAlreadySelected.map((tag) => tag.id);
 
