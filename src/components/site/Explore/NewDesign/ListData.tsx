@@ -54,7 +54,8 @@ function ListData({
 
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = data?.slice(indexOfFirstItem, indexOfLastItem);
+  const currentItems = data
+
 
   let hotelData: Data = [];
 
@@ -87,7 +88,7 @@ function ListData({
 
       // If no city_priority, maintain original order
       return 0;
-    });
+    })?.slice(indexOfFirstItem, indexOfLastItem);;
   }
 
   if (role === "DMC"){
@@ -108,7 +109,7 @@ function ListData({
 
       // If no city_priority, maintain original order
       return 0;
-    });
+    })?.slice(indexOfFirstItem, indexOfLastItem);;
   }
 
   if(role === 'Agency'){
@@ -129,7 +130,9 @@ function ListData({
 
       // If no city_priority, maintain original order
       return 0;
-    });
+    })
+
+    console.log("Agency curent", currentItems);
   }
 
   return (

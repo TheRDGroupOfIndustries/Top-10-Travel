@@ -223,6 +223,8 @@ export default function AdminPackagelisting({
     );
   }, [searchValue, listings]);
 
+  console.log("alltags", listings[0].allTags);
+
   const table = useReactTable({
     data: data,
     columns,

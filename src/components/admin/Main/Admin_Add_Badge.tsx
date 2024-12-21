@@ -41,10 +41,10 @@ const AddBadge = () => {
         setMessage("Add Badge successfully!");
       } else {
         setMessage("Failed to Add Badge");
+        setSubmitting(false);
       }
     } catch (error) {
       setMessage("Error Addn Badge");
-    } finally {
       setSubmitting(false);
     }
   };
