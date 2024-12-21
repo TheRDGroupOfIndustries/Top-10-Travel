@@ -48,17 +48,6 @@ const EditListingForm = ({ company }: { company: Company }) => {
     const isCertified = e.target.isCertified.value === "true";
     const tags = tagAlreadySelected.map((tag) => tag.id);
 
-    console.log("data", {
-      city_priority,
-      isCertified,
-      methodology,
-      name,
-      priority,
-      tags,
-      city: company.city,
-      country: company.country,
-    },);
-
     const { success, error } = await mutate({
       data: {
         city_priority,
