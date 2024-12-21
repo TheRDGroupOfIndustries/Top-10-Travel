@@ -155,7 +155,7 @@ const EditListingForm = ({
             <label htmlFor="isCertified" className="text-sm font-medium">
               Tags
             </label>
-            <Card className="flex h-[35px] flex-row items-center flex-wrap gap-4">
+            <Card className="flex h-[45px] w-full overflow-auto flex-nowrap flex-row items-center gap-4">
               {
                 tagAlreadySelected.map((tag) => (
                   <Image
@@ -165,7 +165,7 @@ const EditListingForm = ({
                     alt=""
                     height={10}
                     width={80}
-                    className="h-[30px] overflow-hidden"
+                    className="h-[35px] w-fit"
                   />
                 ))
               }
@@ -174,7 +174,7 @@ const EditListingForm = ({
             <label htmlFor="isCertified" className="text-sm font-medium">
               Select tags
             </label>
-            <Card className="flex h-[35px] flex-row items-center flex-wrap gap-4">
+            <Card className="flex h-[45px] w-full overflow-auto flex-nowrap flex-row items-center gap-4">
             {
                 company.allTags.map((tag) => (
                   <Image
@@ -184,7 +184,7 @@ const EditListingForm = ({
                     alt=""
                     height={10}
                     width={80}
-                    className="h-[30px] overflow-hidden"
+                    className="h-[35px] w-fit "
                   />
                 ))
               }
