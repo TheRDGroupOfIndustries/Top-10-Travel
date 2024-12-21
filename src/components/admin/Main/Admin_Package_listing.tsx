@@ -330,7 +330,8 @@ export default function AdminPackagelisting({
                   .filter((val: any) => {
                     if (type === "Dmc") {
                       return (
-                        val.column.columnDef.accessorKey !== "city_priority"
+                        val.column.columnDef.accessorKey !== "city_priority" &&
+                        val.column.columnDef.accessorKey !== "city"
                       );
                     } else if (type === "Agency" || type === "Hotel") {
                       return val.column.columnDef.accessorKey !== "priority";
@@ -366,7 +367,9 @@ export default function AdminPackagelisting({
                     .filter((val: any) => {
                       if (type === "Dmc") {
                         return (
-                          val.column.columnDef.accessorKey !== "city_priority"
+                          val.column.columnDef.accessorKey !==
+                            "city_priority" &&
+                          val.column.columnDef.accessorKey !== "city"
                         );
                       } else if (type === "Agency" || type === "Hotel") {
                         return val.column.columnDef.accessorKey !== "priority";
