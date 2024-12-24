@@ -19,6 +19,7 @@ import { motion } from "framer-motion";
 import { SquareArrowUpRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import React from "react";
 import { useContext, useEffect, useState } from "react";
 import { toast } from "sonner";
 
@@ -42,6 +43,8 @@ function TopTenHotels() {
   const [allCities, setAllCities] = useState<[]>([]);
 
   const [btnMessage, setBtnMessage] = useState("Save Changes");
+
+  console.log("placedCards",placedCards);
 
   const clearError = () => {
     setTimeout(() => setError(""), 3000);
@@ -103,96 +106,138 @@ function TopTenHotels() {
     e.currentTarget.classList.remove("bg-blue-100");
   };
 
+  // const handleDrop = (e: React.DragEvent, targetIndex: number) => {
+  //   e.preventDefault();
+  //   e.currentTarget.classList.remove("bg-blue-100");
+
+  //   // console.log("targetIndex", targetIndex);
+
+  //   if (!draggedItem) return;
+
+  //   const newPlacedCards = [...placedCards];
+  //   // console.log("newPlacedCards", newPlacedCards);
+
+  //   // If dragging from cities list to grid
+  //   if (draggedItem.sourceType === "cities") {
+  //     // Check if card already exists in grid
+  //     const existingIndex = findCardIndex(draggedItem.item.country);
+  //     if (existingIndex !== -1) {
+  //       toast.error("This country is already placed in the grid!");
+  //       return;
+  //     }
+
+  //     // If dropping on an empty spot
+  //     if (!newPlacedCards[targetIndex]) {
+  //       try {
+  //         newPlacedCards[targetIndex] = draggedItem.item;
+  //       } catch (error) {
+  //         console.log("error", error);
+  //       }
+  //     }
+  //     // If dropping on an occupied spot, shift cards
+  //     else {
+  //       // Find the next empty spot
+  //       // const emptyIndex = newPlacedCards.indexOf(null);
+  //       // if (emptyIndex === -1) {
+  //       //   // toast({
+  //       //   //   title: "Warning",
+  //       //   //   description: "No empty spots available!",
+  //       //   //   variant: "destructive",
+  //       //   // });
+  //       //   return;
+  //       // }
+
+  //       // // Shift cards between target and empty spot
+  //       // if (emptyIndex > targetIndex) {
+  //       //   for (let i = emptyIndex; i > targetIndex; i--) {
+  //       //     newPlacedCards[i] = newPlacedCards[i - 1];
+  //       //   }
+  //       // } else {
+  //       //   for (let i = emptyIndex; i < targetIndex; i++) {
+  //       //     newPlacedCards[i] = newPlacedCards[i + 1];
+  //       //   }
+  //       // }
+  //       newPlacedCards[targetIndex] = draggedItem.item;
+  //     }
+  //   }
+  //   // If dragging from grid to grid
+  //   else if (draggedItem.sourceType === "grid") {
+  //     if (targetIndex === draggedItem.sourceIndex) return;
+
+  //     // Remove card from source
+  //     // const [removed] = newPlacedCards.splice(draggedItem.sourceIndex, 1, null);
+
+  //     // If dropping on an empty spot
+  //     // if (!newPlacedCards[targetIndex]) {
+  //     //   newPlacedCards[targetIndex] = removed;
+  //     // }
+  //     // // If dropping on an occupied spot, shift cards
+  //     // else {
+  //     //   // Shift cards between source and target
+  //     //   if (targetIndex > draggedItem.sourceIndex) {
+  //     //     for (let i = draggedItem.sourceIndex; i < targetIndex; i++) {
+  //     //       newPlacedCards[i] = newPlacedCards[i + 1];
+  //     //     }
+  //     //   } else {
+  //     //     for (let i = draggedItem.sourceIndex; i > targetIndex; i--) {
+  //     //       newPlacedCards[i] = newPlacedCards[i - 1];
+  //     //     }
+  //     //   }
+  //     //   newPlacedCards[targetIndex] = removed;
+  //     // }
+
+  //     [newPlacedCards[targetIndex], newPlacedCards[draggedItem.sourceIndex]] = [
+  //       newPlacedCards[draggedItem.sourceIndex],
+  //       newPlacedCards[targetIndex],
+  //     ];
+  //   }
+
+  //   setPlacedCards(newPlacedCards);
+  //   setDraggedItem(null);
+  // };
+
   const handleDrop = (e: React.DragEvent, targetIndex: number) => {
     e.preventDefault();
     e.currentTarget.classList.remove("bg-blue-100");
-
-    // console.log("targetIndex", targetIndex);
-
+  
     if (!draggedItem) return;
-
+  
     const newPlacedCards = [...placedCards];
-    // console.log("newPlacedCards", newPlacedCards);
-
+  
     // If dragging from cities list to grid
     if (draggedItem.sourceType === "cities") {
-      // Check if card already exists in grid
-      const existingIndex = findCardIndex(draggedItem.item.country);
-      if (existingIndex !== -1) {
-        toast.error("This country is already placed in the grid!");
-        return;
-      }
-
-      // If dropping on an empty spot
-      if (!newPlacedCards[targetIndex]) {
-        try {
+      if (targetIndex !== undefined) {
+        // Check if the card already exists in the grid
+        const existingIndex = findCardIndex(draggedItem.item.country);
+        if (existingIndex !== -1) return;
+  
+        // Place the item in the target grid position if it's empty
+        if (!newPlacedCards[targetIndex]) {
           newPlacedCards[targetIndex] = draggedItem.item;
-        } catch (error) {
-          console.log("error", error);
+        } else {
+          // Handle any shifting cards logic here if needed
+          newPlacedCards[targetIndex] = draggedItem.item;
         }
       }
-      // If dropping on an occupied spot, shift cards
-      else {
-        // Find the next empty spot
-        // const emptyIndex = newPlacedCards.indexOf(null);
-        // if (emptyIndex === -1) {
-        //   // toast({
-        //   //   title: "Warning",
-        //   //   description: "No empty spots available!",
-        //   //   variant: "destructive",
-        //   // });
-        //   return;
-        // }
-
-        // // Shift cards between target and empty spot
-        // if (emptyIndex > targetIndex) {
-        //   for (let i = emptyIndex; i > targetIndex; i--) {
-        //     newPlacedCards[i] = newPlacedCards[i - 1];
-        //   }
-        // } else {
-        //   for (let i = emptyIndex; i < targetIndex; i++) {
-        //     newPlacedCards[i] = newPlacedCards[i + 1];
-        //   }
-        // }
-        newPlacedCards[targetIndex] = draggedItem.item;
-      }
     }
-    // If dragging from grid to grid
-    else if (draggedItem.sourceType === "grid") {
+    // If dragging from grid to cities list, remove the item from the grid
+    else if (draggedItem.sourceType === "grid" && targetIndex === -1) {
+      newPlacedCards[draggedItem.sourceIndex] = null; // Clear data by setting to null
+    }
+    // If dragging from grid to grid, perform the swap
+    else if (draggedItem.sourceType === "grid" && targetIndex !== undefined) {
       if (targetIndex === draggedItem.sourceIndex) return;
-
-      // Remove card from source
-      // const [removed] = newPlacedCards.splice(draggedItem.sourceIndex, 1, null);
-
-      // If dropping on an empty spot
-      // if (!newPlacedCards[targetIndex]) {
-      //   newPlacedCards[targetIndex] = removed;
-      // }
-      // // If dropping on an occupied spot, shift cards
-      // else {
-      //   // Shift cards between source and target
-      //   if (targetIndex > draggedItem.sourceIndex) {
-      //     for (let i = draggedItem.sourceIndex; i < targetIndex; i++) {
-      //       newPlacedCards[i] = newPlacedCards[i + 1];
-      //     }
-      //   } else {
-      //     for (let i = draggedItem.sourceIndex; i > targetIndex; i--) {
-      //       newPlacedCards[i] = newPlacedCards[i - 1];
-      //     }
-      //   }
-      //   newPlacedCards[targetIndex] = removed;
-      // }
-
+  
+      // Swap items between source and target
       [newPlacedCards[targetIndex], newPlacedCards[draggedItem.sourceIndex]] = [
         newPlacedCards[draggedItem.sourceIndex],
         newPlacedCards[targetIndex],
       ];
     }
-
+  
     setPlacedCards(newPlacedCards);
     setDraggedItem(null);
   };
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!selectedCountry) {
