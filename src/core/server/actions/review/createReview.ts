@@ -84,7 +84,7 @@ export const createReviewAction = async ({
       }
     });
 
-    return { success: "Review added successfully." };
+    return { success: "Wait for admin to approve your review" };
   } catch (error: any) {
     return {
       error: error.message?.includes("Unique constraint failed")

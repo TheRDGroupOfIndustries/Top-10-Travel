@@ -78,22 +78,22 @@ const AdminReport = ({ report }: { report: ReportData }) => {
                 {company.name} ({company.type})
               </CardTitle>
               <div className="text-sm flex items-center sm:items-start gap-2 flex-wrap mt-4 max-w-sm lg:max-w-lg">
-                <Badge className="text-mainColor font-semibold bg-slate-700">
+                <Badge className="text-white font-semibold bg-slate-700">
                   Total reviews: {company.reviews}
                 </Badge>
-                <Badge className="text-mainColor font-semibold bg-slate-700">
+                <Badge className="text-white font-semibold bg-slate-700">
                   Rating: {company.rating.toFixed(1)}
                 </Badge>
-                <Badge className="text-mainColor font-semibold bg-slate-700">
+                <Badge className="text-white font-semibold bg-slate-700">
                   Country Priority: {company.priority}
                 </Badge>
-                <Badge className="text-mainColor font-semibold bg-slate-700">
+                <Badge className="text-white font-semibold bg-slate-700">
                   City Priority: {company.city_priority}
                 </Badge>
-                <Badge className="text-mainColor font-semibold bg-slate-700">
+                <Badge className="text-white font-semibold bg-slate-700">
                   Country : {company.country}
                 </Badge>
-                <Badge className="text-mainColor font-semibold bg-slate-700">
+                <Badge className="text-white font-semibold bg-slate-700">
                   City : {company.city}
                 </Badge>
               </div>
@@ -107,7 +107,7 @@ const AdminReport = ({ report }: { report: ReportData }) => {
             />
           </CardHeader>
           <CardContent>
-            <h2 className="mb-1">All Reviews:</h2>
+            <h2 className="mb-1">All Recommendations:</h2>
             <Table>
               <TableHeader>
                 <TableRow className="bg-[#c2c2c2] hover:bg-[#c2c2c2] text-white">

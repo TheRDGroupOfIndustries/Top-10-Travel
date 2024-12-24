@@ -626,7 +626,8 @@ const AgencyForm = () => {
         {currentStep === 7 ? <FinalStep loading={isPending} /> : null}
       </form>
       <div className="mt-5 pt-5">
-        <div className="flex justify-between">
+        <div className="flex justify-between gap-4">
+          { <a href="/"><Button className="">Cancel</Button></a> }
           {currentStep > 0 && <Button onClick={() => prev()}>Prev</Button>}
           {currentStep < 7 && (
             <Button

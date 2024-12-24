@@ -20,7 +20,6 @@ export default function ReviewDialog({
   name,
   info,
   revalidate,
-  yourComments
 }: {
   name: string;
   info:
@@ -28,7 +27,7 @@ export default function ReviewDialog({
     | { type: "Dmc"; dmcId: string, dmcName: string }
     | { type: "Hotel"; hotelId: string, hotelName: string };
   revalidate: (info: any) => void;
-  yourComments: boolean
+  yourComments?: boolean
 }) {
   const [response, setResponse] = useState<{
     error?: string;
@@ -71,7 +70,7 @@ export default function ReviewDialog({
           className="rounded-md w-fit text-white hover:text-white bg-mainColor hover:bg-mainColorSecondary"
         >
           <PlusCircle className="mr-2" />
-          {yourComments ? "You can't add a review" : "Add a Review"}
+          Add a Review
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
@@ -82,7 +81,7 @@ export default function ReviewDialog({
           <span className="text-red-500">{response.error}</span>
         )}
         {response.success && (
-          <span className="text-green-500">{response.success}</span>
+          <span className="text-orange-400">{response.success}</span>
         )}
         <form
           onSubmit={handleSubmit}
