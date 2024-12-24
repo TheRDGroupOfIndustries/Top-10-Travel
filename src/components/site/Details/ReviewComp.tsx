@@ -130,7 +130,6 @@ function ReviewsComponent({
       }));
       // console.log(userRole)
     }
-    console.log(userRole)
     if (session) {
       getuserRole();
     }
