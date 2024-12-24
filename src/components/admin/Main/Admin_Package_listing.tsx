@@ -75,7 +75,7 @@ export type Company = {
   }[];
 };
 
-async function deleteListing(id: string, type: string) {
+async function deleteListing(id: string, type: any) {
   const ask = window.confirm("Do you really want to delete ?")
 
   if (ask) {
