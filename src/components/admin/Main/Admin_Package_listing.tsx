@@ -76,11 +76,17 @@ export type Company = {
 };
 
 async function deleteListing(id: string, type: string) {
-  // @ts-expect-error
-  const res = await deleteCompany({ id, type });
-  if (res.success) {
-    toast.success(res.success);
-  } else toast.error(res.error);
+  const ask = window.confirm("Do you really want to delete ?")
+
+  if (ask) {
+    const res = await deleteCompany({ id, type });
+    if (res.success) {
+      toast.success(res.success);
+    } else toast.error(res.error);
+  }
+  else {
+    return null;
+  }
 }
 
 export const columns: ColumnDef<Company>[] = [

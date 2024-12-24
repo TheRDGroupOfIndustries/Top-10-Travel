@@ -55,10 +55,16 @@ export type Company = {
   state_priority: number;
 };
 async function deleteListing(id: string) {
-  const res = await deleteInfluencerAdminAction({ id });
-  if (res.success) {
-    toast.success(res.success);
-  } else toast.error(res.error);
+  const ask = window.confirm("Do you want to delete?")
+  if (ask) {
+    const res = await deleteInfluencerAdminAction({ id });
+    if (res.success) {
+      toast.success(res.success);
+    } else toast.error(res.error);
+  }
+  else {
+    return null;
+  }
 }
 export const columns: ColumnDef<Company>[] = [
   {
