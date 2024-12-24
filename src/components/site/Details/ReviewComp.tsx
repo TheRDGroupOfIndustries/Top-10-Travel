@@ -122,12 +122,15 @@ function ReviewsComponent({
   useEffect(() => {
     const getuserRole = async () => {
       const userRole = await axios.get(`/api/agency?id=${session?.user.id}`)
+      // console.log(userRole.data.userRole.Agency)
       setUserRole((prev) => ({
         ...prev,
         Agency: userRole.data.userRole.Agency,
         Dmc: userRole.data.userRole.Dmc
       }));
+      // console.log(userRole)
     }
+    console.log(userRole)
     if (session) {
       getuserRole();
     }
@@ -223,7 +226,11 @@ function ReviewsComponent({
         ) : null}
 
 
-        {userRole.Agency.length > 0 || userRole.Dmc.length > 0 && (
+        {userRole.Agency.length > 0 && (
+          <ReviewDialog revalidate={revalidate} info={info} name={name} yourComments={yourComments} />
+        )}
+      
+        {userRole.Dmc.length > 0 && (
           <ReviewDialog revalidate={revalidate} info={info} name={name} yourComments={yourComments} />
         )}
       </div>
