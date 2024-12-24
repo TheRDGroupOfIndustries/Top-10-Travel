@@ -333,7 +333,7 @@ const AgencyForm = () => {
           await processForm(getValues());
         }}
       >
-        <Step1 register={register} errors={errors} hidden={currentStep !== 0} />
+        <Step1 register={register} errors={errors} setValue={setValue} hidden={currentStep !== 0} />
 
         <Step2
           register={register}

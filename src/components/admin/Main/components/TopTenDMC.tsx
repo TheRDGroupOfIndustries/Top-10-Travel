@@ -34,7 +34,7 @@ const TopTenDMC = () => {
   const clearError = () => {
     setTimeout(() => setError(""), 3000);
   };
-
+// Singapore Singapore
   useEffect(() => {
     const fetchData = async () => {
       const [cityOrder, allCities] = await Promise.all([

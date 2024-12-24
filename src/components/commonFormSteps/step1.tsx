@@ -10,12 +10,14 @@ const Step1 = ({
   hidden,
   dmc,
   hotel,
+  setValue,
 }: {
   register: any;
   errors: any;
   hidden?: boolean;
   dmc?: boolean;
   hotel?: boolean;
+  setValue?: any
 }) => {
   return (
     <div className={cn(hidden ? "hidden" : "")}>
@@ -83,7 +85,12 @@ const Step1 = ({
           )}
         </Label>
         <Input
-          {...register("city")}
+         {...register("city", {
+          onChange: (e:any) => {
+            const trimmedValue = e.target.value.trim();
+            setValue("city", trimmedValue);
+          },
+        })}
           id="city"
           type="text"
           placeholder="City"

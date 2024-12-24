@@ -33,7 +33,7 @@ const InfluencerForm = () => {
   });
   const { update } = useSession();
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    setFormData({ ...formData, [e.target.name]: e.target.value.trim() });
   };
   const [file, setFile] = useState<File | null>(null);
   const router = useRouter();
