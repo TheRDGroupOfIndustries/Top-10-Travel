@@ -5,6 +5,7 @@ import { notFound } from "next/navigation";
 export const revalidate = 3600;
 
 const AgencyPage = async ({ params }: { params: { agencyId: string } }) => {
+
   const agency = await db.agency.findUnique({
     where: {
       id: params.agencyId,

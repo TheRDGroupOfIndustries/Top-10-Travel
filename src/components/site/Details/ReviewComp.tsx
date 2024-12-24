@@ -4,6 +4,7 @@ import ReviewDialog from "@/components/company/ReviewForm/ReviewFormDialog";
 import StarRating from "@/components/reusable/StarRating";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
+import { db } from "@/core/client/db";
 import axios from "axios";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useSession } from "next-auth/react";
@@ -46,6 +47,11 @@ function ReviewsComponent({
 
   const { data: session, status } = useSession();
   const [yourComments, setYourComments] = useState(false);
+  const [userRole, setUserRole] = useState({
+    Agency: [],
+    Dmc: [],
+  });
+
 
   const nextPage = () => {
     if (currentPage < Math.ceil(reviews.length / itemsPerPage)) {
@@ -112,6 +118,21 @@ function ReviewsComponent({
       controller.abort();
     };
   }, [info]);
+
+  useEffect(() => {
+    const getuserRole = async () => {
+      const userRole = await axios.get(`/api/agency?id=${session?.user.id}`)
+      setUserRole((prev) => ({
+        ...prev,
+        Agency: userRole.data.userRole.Agency,
+        Dmc: userRole.data.userRole.Dmc
+      }));
+    }
+    if (session) {
+      getuserRole();
+    }
+  }, [session])
+
 
   return (
     <div className="flex flex-col shadow shadow-black/50 rounded-lg gap-8 py-12 sm:px-8 px-4">
@@ -201,8 +222,8 @@ function ReviewsComponent({
           </div>
         ) : null}
 
-        {/* Review dialog */}
-        {session?.user.role === "Influencer" && (
+
+        {userRole.Agency.length > 0 || userRole.Dmc.length > 0 && (
           <ReviewDialog revalidate={revalidate} info={info} name={name} yourComments={yourComments} />
         )}
       </div>
