@@ -2,7 +2,6 @@ import nodemailer from "nodemailer";
 import { getSignupTemplate } from "./mailTemplates";
 import getSessionorRedirect from "../utils/getSessionorRedirect";
 
-// Function to create the transporter dynamically once session is available
 async function createTransporter() {
   // const session = await getSessionorRedirect(); // Wait for session data
 
@@ -10,9 +9,9 @@ async function createTransporter() {
     // host: process.env.SMTP_HOST,
     host: process.env.SMTP_HOST,  
     port: Number(process.env.SMTP_PORT),
-    secure: false, // upgrade later with STARTTLS
+    secure: false,
     auth: {
-      user: process.env.SMTP_USER, // Use session email or fallback
+      user: process.env.SMTP_USER,
       pass: process.env.SMTP_PASSWORD,
     },
   });

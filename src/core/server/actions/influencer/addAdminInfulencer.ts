@@ -53,17 +53,8 @@ export const createInfluencerDataAction = async ({values, form}:{
         user: { connect: { id: session.user.id } },
       },
     });
-    
-    await db.user.update({
-      where: { id: session.user.id },
-      data: { role: "Influencer" },
-    });
 
-    await sendMail({
-      toEmail: session.user.email,
-      ...getInfluencerCreateTemplate(res.name),
-    });
-    return { success: "Influencer Account created successfully." };
+    return { success: true };
   }  catch (error: unknown) {
     console.log(error);
 
