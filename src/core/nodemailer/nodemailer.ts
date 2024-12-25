@@ -9,7 +9,7 @@ async function createTransporter() {
     // host: process.env.SMTP_HOST,
     host: process.env.SMTP_HOST,  
     port: Number(process.env.SMTP_PORT),
-    secure: false,
+    secure: true,
     auth: {
       user: process.env.SMTP_USER,
       pass: process.env.SMTP_PASSWORD,
@@ -37,6 +37,8 @@ export async function sendMail({
       subject, // Email subject
       text, // Plaintext body
     });
+
+    console.log("transporter", transporter);
 
     console.log("Email sended successfully.");
     return true; // Email sent successfully
