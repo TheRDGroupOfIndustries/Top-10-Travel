@@ -47,7 +47,12 @@ function ReviewsComponent({
 
   const { data: session, status } = useSession();
   const [yourComments, setYourComments] = useState(false);
-  const [userRole, setUserRole] = useState({
+  type UserRole = {
+    Agency: { name: string; isCertified: boolean }[];
+    Dmc: { name: string; isCertified: boolean }[];
+  };
+  
+  const [userRole, setUserRole] = useState<UserRole>({
     Agency: [],
     Dmc: [],
   });
