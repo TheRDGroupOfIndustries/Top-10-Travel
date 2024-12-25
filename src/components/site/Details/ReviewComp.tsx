@@ -163,7 +163,7 @@ function ReviewsComponent({
           <div className="flex flex-col gap-2">
             <div className="flex items-center">
               {/* Reviewer image */}
-              <div className="h-[48px] w-[48px] rounded-full relative">
+              {/* <div className="h-[48px] w-[48px] rounded-full relative"> */}
               {/* {
                 userRole.Agency.length > 0 && userRole.Agency[0].images.length > 0 && (
                   <Image
@@ -184,7 +184,7 @@ function ReviewsComponent({
                   />
                 )
               } */}
-              </div>
+              {/* </div> */}
               {/* Reviewer information */}
               <div className="flex flex-col justify-center px-2">
                 <div className="font-medium xl:leading-6 leading-4 xl:text-2xl text-xl">
