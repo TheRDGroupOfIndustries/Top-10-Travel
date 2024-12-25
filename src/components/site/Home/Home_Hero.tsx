@@ -321,14 +321,14 @@ function HomeHero() {
           initial={{ y: 50, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.8, delay: 1.4, type: "spring" }}
-          className={`w-full pt-14 md:pt-10 lg:overflow-hidden lg:pt-24 md:max-w-[430px] lg:max-w-[730px]`}
+          className={`w-full pt-14 md:pt-10 lg:overflow-hidden lg:pt-24 md:max-w-[430px] lg:max-w-[730px] flex flex-col justify-center items-center`}
           // ${
           //   isSticky && selectedCountry
           //     ? "fixed top-0 z-40 left-0 lg:pt-[3.8rem] pb-2 md:pt-[3.8rem] bg-white/80 backdrop-blur-md lg:overflow-visible md:max-w-full lg:max-w-full md:w-full px-2 md:px-3 lg:px-6 xl:px-8"
           //     : ""
           // }
         >
-          <div className="w-full ml-1 xs:ml-4 flex items-end justify-start">
+          <div className="w-full ml-1 xs:ml-4 flex items-end justify-center">
             <div className="relative max-w-48 xs:max-w-60 h-7 xs:h-9 flex items-center justify-center">
               <Image
                 src={"/Hero_Filter_Large.png"}
@@ -457,7 +457,6 @@ function HomeHero() {
         <video
           // ref={videoRef}
           autoPlay
-          loop
           muted
           className="absolute left-0 right-0 top-0 bottom-0 h-full w-full  object-cover"
           style={{
