@@ -271,7 +271,11 @@ function HomeHero() {
       ref={divref}
       className="relative w-full h-fit min-h-[50vh] md:max-h-screen min-[768]:h-[calc(100vh+60px)] max-[820]:h-fit lg:h-fit  pt-10 lg:pt-0 px-2 md:px-3 lg:px-6 xl:px-8 "
     >
-      <div className="h-full flex flex-col md:gap-3 lg:gap-0 gap-1.5 items-center justify-center pt-16 md:pt-24 lg:pt-32 pb-24 xl:pt-40 w-full overflow-x-hidden">
+      <motion.div 
+      initial={{ y: 50, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: 2.7, delay: 2.5, type: "spring" }}
+      className="h-full flex flex-col md:gap-3 lg:gap-0 gap-1.5 items-center justify-center pt-16 md:pt-24 lg:pt-32 pb-24 xl:pt-40 w-full overflow-x-hidden">
         <h3
           id="firstLine"
           aria-hidden
@@ -443,7 +447,7 @@ function HomeHero() {
           </div>
         </motion.div>
         <div ref={elementRef} className="h-[1px] w-[1px]"></div>
-      </div>
+      </motion.div>
 
       <div
         ref={scope}
