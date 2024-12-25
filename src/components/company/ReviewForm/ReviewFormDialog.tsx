@@ -53,7 +53,7 @@ export default function ReviewDialog({
       revalidate(info);
       setTimeout(() => {
         setIsOpen(false);
-      }, 1000);
+      }, 1600);
     }
   };
 

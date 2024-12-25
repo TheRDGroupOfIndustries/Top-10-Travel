@@ -15,11 +15,6 @@ export const createReviewAction = async ({
 }) => {
   const session = await getSessionorRedirect();
 
-  // Role Check
-  if (session.user.role !== "Influencer") {
-    return { error: "Only users with the 'Influencer' role can create reviews." };
-  }
-
   let config: any;
   let typeName: "agencyName" | "dmcName" | "hotelName";
   let name: string;
