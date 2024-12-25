@@ -164,7 +164,7 @@ function ReviewsComponent({
             <div className="flex items-center">
               {/* Reviewer image */}
               <div className="h-[48px] w-[48px] rounded-full relative">
-              {
+              {/* {
                 userRole.Agency.length > 0 && userRole.Agency[0].images.length > 0 && (
                   <Image
                     src={userRole.Agency[0]?.images[0] ?? "/stockUser.png"}
@@ -183,14 +183,13 @@ function ReviewsComponent({
                     layout="fill"
                   />
                 )
-              }
+              } */}
               </div>
               {/* Reviewer information */}
               <div className="flex flex-col justify-center px-2">
                 <div className="font-medium xl:leading-6 leading-4 xl:text-2xl text-xl">
                 
-                  {userRole.Agency.length > 0 && userRole.Agency[0]?.name}
-                  {userRole.Dmc.length > 0 && userRole.Dmc[0]?.name}
+                  {review.name}
                 </div>
                 {/* Star rating component */}
                 <StarRating
