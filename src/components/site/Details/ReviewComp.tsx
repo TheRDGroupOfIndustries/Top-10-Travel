@@ -48,8 +48,8 @@ function ReviewsComponent({
   const { data: session, status } = useSession();
   const [yourComments, setYourComments] = useState(false);
   type UserRole = {
-    Agency: { name: string; isCertified: boolean }[];
-    Dmc: { name: string; isCertified: boolean }[];
+    Agency: { name: string; isCertified: boolean, images: string[] }[];
+    Dmc: { name: string; isCertified: boolean, images: string[] }[];
   };
   
   const [userRole, setUserRole] = useState<UserRole>({
@@ -164,17 +164,33 @@ function ReviewsComponent({
             <div className="flex items-center">
               {/* Reviewer image */}
               <div className="h-[48px] w-[48px] rounded-full relative">
-                <Image
-                  src={review.user.image ?? "/stockUser.png"}
-                  alt="Review img"
-                  className="object-cover rounded-full"
-                  layout="fill"
-                />
+              {
+                userRole.Agency.length > 0 && userRole.Agency[0].images.length > 0 && (
+                  <Image
+                    src={userRole.Agency[0]?.images[0] ?? "/stockUser.png"}
+                    alt="Review img"
+                    className="object-cover rounded-full"
+                    layout="fill"
+                  />
+                )
+              }
+              {
+                userRole.Dmc.length > 0 && userRole.Dmc[0].images.length > 0 && (
+                  <Image
+                    src={userRole.Dmc[0]?.images[0] ?? "/stockUser.png"}
+                    alt="Review img"
+                    className="object-cover rounded-full"
+                    layout="fill"
+                  />
+                )
+              }
               </div>
               {/* Reviewer information */}
               <div className="flex flex-col justify-center px-2">
                 <div className="font-medium xl:leading-6 leading-4 xl:text-2xl text-xl">
-                  {userRole.Agency.length > 0 ? userRole.Agency[0].name : "Loading..."}
+                
+                  {userRole.Agency.length > 0 && userRole.Agency[0]?.name}
+                  {userRole.Dmc.length > 0 && userRole.Dmc[0]?.name}
                 </div>
                 {/* Star rating component */}
                 <StarRating
@@ -189,13 +205,12 @@ function ReviewsComponent({
               </div>
             </div>
             {/* Review content */}
-            <div className="font-medium text-sm leading-[21px]">
+            <div className="font-medium text-sm leading-[21px] mt-2">
               {review.review}
             </div>
           </div>
         </div>
-      ))}
-      <div className="flex items-center justify-between">
+      ))}      <div className="flex items-center justify-between">
         {/* Pagination */}
         {reviews.length > 2 ? (
           <div className="flex justify-end gap-2">

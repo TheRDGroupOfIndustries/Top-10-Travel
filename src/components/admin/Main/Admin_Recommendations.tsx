@@ -100,8 +100,8 @@ const AdminRecommendations = ({ data }: { data: DATA[] }) => {
           <TableHeader>
             <TableRow className="bg-[#c2c2c2] hover:bg-[#c2c2c2] text-white">
               <TableHead className="text-white w-[45px]"></TableHead>
-              <TableHead className="text-white">Influencer</TableHead>
-              <TableHead className="text-white">Agency&Dmc</TableHead>
+              <TableHead className="text-white">By Agency & Dmc </TableHead>
+              <TableHead className="text-white">To Agency & Dmc</TableHead>
               <TableHead className="text-white">Content</TableHead>
               <TableHead className="text-white">Approve</TableHead>
               <TableHead className="text-white">Decline</TableHead>
