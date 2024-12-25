@@ -128,7 +128,7 @@ function ReviewsComponent({
         Agency: userRole.data.userRole.Agency,
         Dmc: userRole.data.userRole.Dmc
       }));
-      // console.log(userRole)
+      console.log(userRole.data.userRole.Agency)
     }
     if (session) {
       getuserRole();
@@ -169,7 +169,7 @@ function ReviewsComponent({
               {/* Reviewer information */}
               <div className="flex flex-col justify-center px-2">
                 <div className="font-medium xl:leading-6 leading-4 xl:text-2xl text-xl">
-                  {review.name}
+                  {userRole.Agency.length > 0 ? userRole.Agency[0].name : "Loading..."}
                 </div>
                 {/* Star rating component */}
                 <StarRating
@@ -225,12 +225,12 @@ function ReviewsComponent({
         ) : null}
 
 
-        {userRole.Agency.length > 0 && (
-          <ReviewDialog revalidate={revalidate} info={info} name={name} yourComments={yourComments} />
+        {userRole.Agency.length > 0 && userRole.Agency[0].isCertified && (
+          <ReviewDialog revalidate={revalidate} info={info} name={name} yourComments={yourComments} userName={userRole.Agency[0].name} />
         )}
       
-        {userRole.Dmc.length > 0 && (
-          <ReviewDialog revalidate={revalidate} info={info} name={name} yourComments={yourComments} />
+        {userRole.Dmc.length > 0 && userRole.Dmc[0].isCertified && (
+          <ReviewDialog revalidate={revalidate} info={info} name={name} yourComments={yourComments} userName={userRole.Dmc[0].name} />
         )}
       </div>
     </div>

@@ -20,6 +20,7 @@ export default function ReviewDialog({
   name,
   info,
   revalidate,
+  userName
 }: {
   name: string;
   info:
@@ -28,6 +29,7 @@ export default function ReviewDialog({
     | { type: "Hotel"; hotelId: string, hotelName: string };
   revalidate: (info: any) => void;
   yourComments?: boolean
+  userName: string
 }) {
   const [response, setResponse] = useState<{
     error?: string;
@@ -117,7 +119,7 @@ export default function ReviewDialog({
             <Input
               id="name"
               name="name"
-              defaultValue={session?.user?.name}
+              defaultValue={userName}
               disabled
               type="text"
               placeholder="Enter your name"
