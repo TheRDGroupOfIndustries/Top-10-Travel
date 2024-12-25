@@ -235,7 +235,7 @@ export default function AdminPackagelisting({
         />
         {/* Influencer */}
         
-        <Link href="/auth/influencer" className="ml-auto inline-block">
+        <Link href="/admin/create-influencer" className="ml-auto inline-block">
           <Button
             variant="outline"
             className="bg-[#F3F3F3] hover:bg-[#dbdbdb] border-mainColor"

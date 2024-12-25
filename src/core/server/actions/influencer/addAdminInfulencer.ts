@@ -7,7 +7,7 @@ import { InfluencerData } from "@prisma/client";
 import sharp from "sharp";
 import { uploadImageDefaultName } from "../../cloudinary/cloudinary";
 
-export const createInfluencerDataAction = async ({values, form}:{
+export const AdminCreateInfluencer = async ({values, form}:{
   values: Pick<
     InfluencerData,
     | "name"
