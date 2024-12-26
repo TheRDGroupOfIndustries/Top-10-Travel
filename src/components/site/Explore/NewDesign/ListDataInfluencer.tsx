@@ -76,7 +76,7 @@ function ListDataInfluencer({
             viewport={{ once: true }}
           >
             {`${title}${
-              selectedCountry && ", " + selectedCountry.toUpperCase()
+              selectedCountry && " " + selectedCountry.toUpperCase()
             }${selectedState && "-" + selectedState.toUpperCase()}`}
           </motion.span>
         </h1>
