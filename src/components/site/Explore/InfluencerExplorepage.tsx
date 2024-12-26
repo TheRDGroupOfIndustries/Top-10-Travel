@@ -23,6 +23,7 @@ type Data = {
   state: string;
   description: string;
   speciality: string;
+  state_priority: number;
 }[];
 const InfluencerExploreMore = ({ data }: { data: Data }) => {
   const searchParams = useSearchParams();

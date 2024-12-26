@@ -17,6 +17,7 @@ type Data = {
   state: string;
   description: string;
   speciality: string;
+  state_priority: number;
 }[];
 
 function ListDataInfluencer({
@@ -35,7 +36,26 @@ function ListDataInfluencer({
 
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = data?.slice(indexOfFirstItem, indexOfLastItem);
+  const currentItems = data?.sort((a, b) => {
+    // If both have city_priority, compare them
+    if (a.state_priority !== undefined && b.state_priority !== undefined) {
+      // Treat 0 as the lowest priority (last)
+      if (a.state_priority === 0) return 1;
+      if (b.state_priority === 0) return -1;
+
+      // Otherwise, compare city priorities normally
+      return a.state_priority - b.state_priority;
+    }
+
+    // Items with non-zero state_priority come first
+    if (a.state_priority !== undefined && a.state_priority !== 0) return -1;
+    if (b.state_priority !== undefined && b.state_priority !== 0) return 1;
+
+    // If no city_priority, maintain original order
+    return 0;
+  }).slice(indexOfFirstItem, indexOfLastItem);
+
+  
 
   useEffect(() => {
     setCurrentPage(1);

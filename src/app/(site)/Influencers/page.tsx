@@ -5,7 +5,7 @@ import HotelHeroImg from "@/resources/images/Hotels-Hero.png";
 import { redirect } from "next/navigation";
 
 // cache the page for one hour for ISR
-export const revalidate = 3600;
+// export const revalidate = 3600;
 
 const Page = async () => {
   const allInf = await db.influencerData.findMany({
@@ -15,6 +15,7 @@ const Page = async () => {
       name: true,
       image: true,
       state: true,
+      state_priority: true,
       country: true,
       description: true,
       speciality: true,
