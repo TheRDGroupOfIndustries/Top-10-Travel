@@ -1,6 +1,9 @@
 import Admin_Influencer_Listing from "@/components/admin/Main/Admin_Influencer_Listing";
 import { db } from "@/core/client/db";
 
+export const revalidate = 60;
+export const dynamic = "force-dynamic";
+
 
 const getAllListing = async () => {
   return await db.influencerData.findMany({
