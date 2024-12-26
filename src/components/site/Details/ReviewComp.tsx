@@ -244,11 +244,11 @@ function ReviewsComponent({
         ) : null}
 
 
-        {userRole.Agency.length > 0 && userRole.Agency[0].isCertified && (
+        {userRole.Agency.length > 0 && (
           <ReviewDialog revalidate={revalidate} info={info} name={name} yourComments={yourComments} userName={userRole.Agency[0].name} />
         )}
       
-        {userRole.Dmc.length > 0 && userRole.Dmc[0].isCertified && (
+        {userRole.Dmc.length > 0 && (
           <ReviewDialog revalidate={revalidate} info={info} name={name} yourComments={yourComments} userName={userRole.Dmc[0].name} />
         )}
       </div>
