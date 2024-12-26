@@ -4,6 +4,8 @@ import { db } from "@/core/client/db";
 import HotelHeroImg from "@/resources/images/Hotels-Hero.png";
 import { redirect } from "next/navigation";
 
+export const revalidate = 60;
+export const dynamic = "force-dynamic";
 
 const Page = async () => {
   const allInf = await db.influencerData.findMany({
@@ -23,6 +25,8 @@ const Page = async () => {
     orderBy: { priority: "desc" },
   });
 
+  console.log(allInf);
+  
   return <InfluencerExploreMore data={allInf} />;
 };
 export default Page;
