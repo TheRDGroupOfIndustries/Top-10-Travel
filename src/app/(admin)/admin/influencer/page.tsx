@@ -1,10 +1,9 @@
 import Admin_Influencer_Listing from "@/components/admin/Main/Admin_Influencer_Listing";
 import { db } from "@/core/client/db";
-import { unstable_cache } from "next/cache";
 
-const getAllListing = unstable_cache(
-  async () => {
-    return await db.influencerData.findMany({
+
+const getAllListing = async () => {
+  return await db.influencerData.findMany({
       select: {
         id: true,
         name: true,
@@ -17,11 +16,8 @@ const getAllListing = unstable_cache(
         userId: true,
         speciality: true,
       },
-    });
-  }
-  // undefined,
-  // { revalidate: 300, tags: ["admin-influencer"] }
-);
+  })
+}
 
 async function Page() {
   const listings = await getAllListing();
