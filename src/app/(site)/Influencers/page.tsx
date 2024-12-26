@@ -9,7 +9,9 @@ import { redirect } from "next/navigation";
 
 const Page = async () => {
   const allInf = await db.influencerData.findMany({
-    where: {},
+    where: {
+      isCertified: true,
+    },
     select: {
       id: true,
       name: true,
