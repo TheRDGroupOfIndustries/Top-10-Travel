@@ -146,7 +146,7 @@ const InfluencerExploreMore = ({ data }: { data: Data }) => {
         selectedCountry={selectedCountry}
         selectedState={selectedCity}
         data={filteredData}
-        title={`TOP TRAVEL INFLUENCERS`}
+        title={`ok`}
       />)}
     </div>
   );
