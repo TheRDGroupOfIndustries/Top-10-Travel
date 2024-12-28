@@ -4,7 +4,6 @@ import { NextRequest, NextResponse } from "next/server";
 export const revalidate = 180;
 
 export const GET = async (request: NextRequest) => {
-  //   console.log(await db.influencerData.findMany());
   const { searchParams } = new URL(request.url);
   let country = searchParams.get("country");
   if (!country)

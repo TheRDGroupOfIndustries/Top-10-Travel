@@ -271,11 +271,7 @@ function HomeHero() {
       ref={divref}
       className="relative w-full h-fit min-h-[50vh] md:max-h-screen min-[768]:h-[calc(100vh+60px)] max-[820]:h-fit lg:h-fit  pt-10 lg:pt-0 px-2 md:px-3 lg:px-6 xl:px-8 "
     >
-      <motion.div 
-      initial={{ y: 50, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 2.7, delay: 2.5, type: "spring" }}
-      className="h-full flex flex-col md:gap-3 lg:gap-0 gap-1.5 items-center justify-center pt-16 md:pt-24 lg:pt-32 pb-24 xl:pt-40 w-full overflow-x-hidden">
+      <div className="h-full flex flex-col md:gap-3 lg:gap-0 gap-1.5 justify-start pt-16 md:pt-24 lg:pt-32 pb-24 xl:pt-40 w-full overflow-x-hidden">
         <h3
           id="firstLine"
           aria-hidden
@@ -305,7 +301,7 @@ function HomeHero() {
         </h1>
         <p
           id="thirdLine"
-          className="font-semibold leading-normal overflow-hidden sm:leading-6 md:leading-[30px] lg:leading-[39px] text-[16px] sm:text-lg md:text-2xl xl:text-3xl w-7/12 md:w-7/12 lg:w-full text-center"
+          className="font-semibold leading-normal overflow-hidden sm:leading-6 md:leading-[30px] lg:leading-[39px] text-[16px] sm:text-lg md:text-2xl xl:text-3xl w-7/12 md:w-7/12 lg:w-full"
         >
           <motion.span
             className="inline-block"
@@ -321,14 +317,14 @@ function HomeHero() {
           initial={{ y: 50, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.8, delay: 1.4, type: "spring" }}
-          className={`w-full pt-14 md:pt-10 lg:overflow-hidden lg:pt-24 md:max-w-[430px] lg:max-w-[730px] flex flex-col justify-center items-center`}
+          className={`w-full pt-14 md:pt-10 lg:overflow-hidden lg:pt-24 md:max-w-[430px] lg:max-w-[730px]`}
           // ${
           //   isSticky && selectedCountry
           //     ? "fixed top-0 z-40 left-0 lg:pt-[3.8rem] pb-2 md:pt-[3.8rem] bg-white/80 backdrop-blur-md lg:overflow-visible md:max-w-full lg:max-w-full md:w-full px-2 md:px-3 lg:px-6 xl:px-8"
           //     : ""
           // }
         >
-          <div className="w-full ml-1 xs:ml-4 flex items-end justify-center">
+          <div className="w-full ml-1 xs:ml-4 flex items-end justify-start">
             <div className="relative max-w-48 xs:max-w-60 h-7 xs:h-9 flex items-center justify-center">
               <Image
                 src={"/Hero_Filter_Large.png"}
@@ -447,25 +443,52 @@ function HomeHero() {
           </div>
         </motion.div>
         <div ref={elementRef} className="h-[1px] w-[1px]"></div>
-      </motion.div>
+      </div>
 
       <div
         ref={scope}
-        className="absolute -z-20 left-0 right-0 top-0 bottom-0 md:h-full w-[100%] "
+        className="absolute -z-20 right-0 top-0 bottom-0 md:h-full w-[45%] md:w-[45%] lg:w-[40%] xl:w-[35%]"
       >
         {/* <Image src={HeroEllipse} alt="Hero Image" height={912} width={562} priority /> */}
         <video
           // ref={videoRef}
           autoPlay
+          loop
           muted
-          className="absolute left-0 right-0 top-0 bottom-0 h-full w-full  object-cover"
+          className="absolute right-0 top-0 bottom-0 h-full w-[85%] object-cover"
           style={{
+            clipPath: "ellipse(100% 53% at 100% 47%)",
           }}
         >
-          <source src="/map.mp4" type="video/mp4" />
+          <source src="/sky_video.mp4" type="video/mp4" />
           Your browser does not support the video tag.
         </video>
-        
+        <AnimatePresence>
+          <motion.div
+            id="smallBalloon"
+            className="absolute top-[16%] lg:top-[18%] xl:top-[18%] xl:-left-7 w-[40%] xl:h-[35%] lg:h-[30%] md:h-[25%] sm:h-[20%] h-[15%]"
+            style={{ opacity: 0 }}
+          >
+            <Image
+              src={Hot_Air_Balloon}
+              alt="Hero Image"
+              height={250}
+              width={250}
+            />
+          </motion.div>
+          <motion.div
+            id="bigBalloon"
+            className="absolute top-[40%] sm:top-[53%] lg:top-[45%] xl:-left-5 md:-left-10 w-[70%] xl:h-[32%] lg:h-[27%] md:h-[22%] sm:h-[17%] h-[12%]"
+            style={{ opacity: 0 }}
+          >
+            <Image
+              src={Hot_Air_Balloon}
+              alt="Hero Image"
+              height={400}
+              width={400}
+            />
+          </motion.div>
+        </AnimatePresence>
       </div>
     </div>
   );

@@ -133,7 +133,7 @@ export const columns: ColumnDef<Company>[] = [
   },
   {
     accessorKey: "isCertified",
-    header: "Is Certified",
+    header: "Rigestered",
   },
   {
     accessorKey: "country",

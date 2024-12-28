@@ -17,7 +17,7 @@ const AboutusComp = async () => {
         <div className="text-slate-850 font-semibold text-4xl lg:text-5xl">
           {aboutContent?.title}
         </div>
-        <div className="text-slate-800 mt-auto xl:text-lg">
+        <div className="text-slate-800 mt-auto xl:text-lg text-justify">
           {aboutContent?.content}
         </div>
       </div>
@@ -26,9 +26,10 @@ const AboutusComp = async () => {
         <div className="relative rounded-2xl h-1/2 w-full">
           <Image
             src={aboutContent?.imageURL || ""}
-            className="rounded-2xl"
+            className="rounded-2xl w-full h-full object-cover"
             alt={"travel image"}
-            fill
+            width={1080}
+            height={1080}
           />
         </div>
 
