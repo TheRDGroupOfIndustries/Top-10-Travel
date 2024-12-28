@@ -13,12 +13,12 @@ const InfluencerDetails = ({ data }: { data: InfluencerData }) => {
           <div className="flex flex-col gap-10 flex-1">
             <div className="grid gap-4">
               {/* Main Image */}
-              <div className="relative w-full h-64 md:h-96 lg:h-[450px]">
+              <div className="relative w-full h-[90vh] sm:h-[450px]">
                 <AnimatedImage
-                  className="rounded-lg object-cover"
+                  className="rounded-lg w-full h-full object-cover sm:object-contain"
                   src={data?.image!}
                   alt="main image"
-                  fill
+                  fill={false}
                 />
               </div>
             </div>

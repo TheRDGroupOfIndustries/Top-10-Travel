@@ -86,7 +86,7 @@ const Details = ({
                   src={getValidUrl(data?.images[0] ?? "")}
                   alt="main image"
                   fill
-                  className="rounded-lg object-cover"
+                  className="rounded-lg w-full h-full object-cover"
                 />
               </div>
 

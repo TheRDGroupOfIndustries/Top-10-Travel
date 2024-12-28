@@ -37,7 +37,8 @@ const AnimatedImage: FC<AnimatedImageProps> = ({
       <Image
         src={src}
         alt={alt}
-        fill
+        width={1080}
+        height={1080}
         className={cn("w-full h-full object-cover", className)}
       />
     </motion.div>
