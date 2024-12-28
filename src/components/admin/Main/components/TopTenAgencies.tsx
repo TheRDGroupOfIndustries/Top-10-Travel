@@ -1,4 +1,3 @@
-"use client";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { HomeContext } from "@/hooks/context/HomeContext";
@@ -139,7 +138,6 @@ const TopTenAgencies = () => {
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
-    console.log("submit");
     e.preventDefault();
     if (!selectedCountry) {
       toast.error("Please select a country first")
@@ -151,16 +149,13 @@ const TopTenAgencies = () => {
     if(Array.from(formData.entries()).length > 0) {
       setBtnMessage("Saving Images");
 
-      
-        // const response = await axios.post(`/api/topten/image-upload`, {
-        //   formData
-        // });
-
         const response = await fetch("/api/topten/image-upload", {
           method: "POST",
           body: formData,
         });
 
+        console.log(response);
+        
         
     }
 
@@ -178,8 +173,6 @@ const TopTenAgencies = () => {
             image: card.image || card.images[0],
           };
         });
-
-      // console.log("cityOrder:", cityOrder);
 
       const response = await axios.put(`/api/topten?role=Agency`, {
         cityOrder,

@@ -1,4 +1,3 @@
-"use client";
 import HomeCards from "@/components/reusable/HomeCards";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";

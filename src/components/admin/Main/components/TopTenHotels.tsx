@@ -1,4 +1,3 @@
-"use client";
 import HomeCards from "@/components/reusable/HomeCards";
 import HomeCompanySkeleton from "@/components/reusable/HomeCompanySkeleton";
 import {
