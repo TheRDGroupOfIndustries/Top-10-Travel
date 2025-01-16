@@ -135,7 +135,7 @@ const EditListingForm = ({ company }: { company: Company }) => {
           )}
           <div className="space-y-2">
             <label htmlFor="isCertified" className="text-sm font-medium">
-              Rigestered
+            Registered
             </label>
             <Select
               defaultValue={String(company.isCertified)}
