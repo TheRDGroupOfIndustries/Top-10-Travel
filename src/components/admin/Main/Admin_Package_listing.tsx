@@ -1,4 +1,4 @@
-"use client";
+Registered"use client";
 
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import {
