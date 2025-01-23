@@ -1,21 +1,21 @@
 "use client";
 
-import {
-  FaFacebook,
-  FaInstagram,
-  FaXTwitter,
-  FaYoutube,
-} from "react-icons/fa6";
-import { signIn, signOut, useSession } from "next-auth/react";
 import { TextGenerateEffect } from "@/components/ui/text-generate-effect";
 import { sendContactEmail } from "@/core/server/actions/contact/contact";
 import useMutation from "@/hooks/useMutation";
 import emailIcon from "@/resources/icons/EmailIcon.png";
 import phoneIcon from "@/resources/icons/PhoneIcon.png";
 import { motion } from "framer-motion";
+import { signIn, signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
+import {
+  FaFacebook,
+  FaInstagram,
+  FaXTwitter,
+  FaYoutube,
+} from "react-icons/fa6";
 import { toast } from "sonner";
 
 const linksArr = [
@@ -45,35 +45,45 @@ const ContactUsComp = () => {
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     // if(session.status === "authenticated" ) {
-      const obj = {
-        firstName: firstName,
-        lastName: lastName,
-        email: email,
-        contact: contact,
-        message: message,
-      };
+    if (
+      !firstName.trim() ||
+      !lastName.trim() ||
+      !email.trim() ||
+      !contact.trim() ||
+      !message.trim()
+    ) {
+      toast.error("All fields are required.");
+      return;
+    }
 
-      const { error, success } = await mutate({
-        name: obj.firstName + " " + obj.lastName,
-        email: obj.email,
-        phone: obj.contact,
-        message: obj.message,
-      });
+    const obj = {
+      firstName: firstName,
+      lastName: lastName,
+      email: email,
+      contact: contact,
+      message: message,
+    };
 
-      if (success) {
-        toast.success(success);
+    const { error, success } = await mutate({
+      name: obj.firstName + " " + obj.lastName,
+      email: obj.email,
+      phone: obj.contact,
+      message: obj.message,
+    });
 
-        setFirstName("");
-        setLastName("");
-        setEmail("");
-        setContact("");
-        setMessage("");
-      } else if (error) toast.error(error);
-    // } 
+    if (success) {
+      toast.success(success);
+
+      setFirstName("");
+      setLastName("");
+      setEmail("");
+      setContact("");
+      setMessage("");
+    } else if (error) toast.error(error);
+    // }
     // else {
     //    toast.error("You must log in to your account before proceeding.");
     // }
-    
   };
 
   return (
@@ -89,12 +99,14 @@ const ContactUsComp = () => {
       className="pt-20 border-red-800"
     >
       <div className="items-center flex gap-3 cinzel-font text-3xl md:text-5xl lg:text-[60px] font-[700] px-4 md:px-8 lg:px-[5%] md:pt-10">
-        <h1 className="font-thin mt-5">Contact <span className="text-mainColor">Us</span></h1>
+        <h1 className="font-thin mt-5">
+          Contact <span className="text-mainColor">Us</span>
+        </h1>
       </div>
       <div className="sm:text-xl text-gray-400 my-1 px-4 md:px-8 lg:px-[5%]">
         Have queries? Let&apos;s us help you!
       </div>
-      
+
       <div className="items-baseline flex flex-col gap-2 lg:gap-0 lg:flex-row justify-between px-4 md:px-8 lg:px-[5%] md:py-10">
         {/* left view  */}
         <div className="w-full order-2 lg:order-1 lg:w-[45%] border-red-700">
@@ -211,6 +223,7 @@ const ContactUsComp = () => {
                 <div>
                   <input
                     required
+                    type="number"
                     className="w-full lg:h-[63px] h-10 rounded-lg bg-slate-100 pl-5"
                     placeholder="Phone Number"
                     value={contact}

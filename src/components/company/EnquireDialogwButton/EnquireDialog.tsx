@@ -145,7 +145,7 @@ export default function EnquireDialog({
                     <Input
                       id="phoneNumber"
                       name="phoneNumber"
-                      type="text"
+                      type="number"
                       placeholder="Enter phone number"
                       required
                     />

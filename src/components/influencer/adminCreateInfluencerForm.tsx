@@ -12,7 +12,7 @@ import countries from "@/lib/countries.json";
 import IndiaStates from "@/lib/indiaState.json";
 import img from "@/resources/images/form/CompanyForm.png";
 import Image from "next/image";
-import { ChangeEvent, FormEvent, useMemo, useState } from "react";
+import { ChangeEvent, FormEvent, SetStateAction, useEffect, useMemo, useState } from "react";
 import { toast } from "sonner";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
@@ -21,8 +21,13 @@ import Link from "next/link";
 import { Textarea } from "../ui/textarea";
 import { useRouter } from "next/navigation";
 import { AdminCreateInfluencer } from "@/core/server/actions/influencer/addAdminInfulencer";
+import axios from "axios";
 
 const AdminCreateInfluencerForm = () => {
+  const [countries, setCountries] = useState([]);
+  const [cities, setCities] = useState([]);
+  const [selectedCountry, setSelectedCountry] = useState("");
+  const [selectedCity, setSelectedCity] = useState("");
   const [formData, setFormData] = useState({
     name: "",
     description: "",
@@ -62,6 +67,8 @@ const AdminCreateInfluencerForm = () => {
       values: {
         ...rest,
         socialLinks: linksArray,
+        country: selectedCountry,
+        state: selectedCity,
       },
       form: data,
     });
@@ -81,6 +88,35 @@ const AdminCreateInfluencerForm = () => {
     } else if (error) toast.error(error);
   };
 
+
+  useEffect(() => {
+    // Fetch all countries
+    axios
+      .get("https://countriesnow.space/api/v0.1/countries/positions")
+      .then((response) => {
+        const countryList = response.data.data.map((country: { name: any; }) => country.name);
+        setCountries(countryList);
+      })
+      .catch((error) => {
+        console.error("Error fetching countries:", error);
+      });
+  }, []);
+
+  const fetchCities = (country: SetStateAction<string>) => {
+    setSelectedCountry(country);
+    setSelectedCity(""); // Reset city when country changes
+
+    axios
+      .post("https://countriesnow.space/api/v0.1/countries/cities", {
+        country,
+      })
+      .then((response) => {
+        setCities(response.data.data || []);
+      })
+      .catch((error) => {
+        console.error("Error fetching cities:", error);
+      });
+  };
   return (
     <div className="min-h-screen flex flex-col relative bg-white text-black">
       <div className="w-full p-10 md:w-[100%] z-10 flex flex-col items-center justify-center">
@@ -172,44 +208,62 @@ const AdminCreateInfluencerForm = () => {
               required
             />
           </div>
+
+
           <div>
-            <label htmlFor="country" className="font-semibold">
-              Country
-            </label>
-            <Select
-              name="country"
-              required
-              onValueChange={(value) => {
-                setFormData((prev) => ({ ...prev, country: value }));
-              }}
-              value={formData.country}
-            >
-              <SelectTrigger className="w-full">
-                <SelectValue placeholder="Country" />
-              </SelectTrigger>
-              <SelectContent>
-                {countries.map((country) => (
-                  <SelectItem key={country.name} value={country.name}>
-                    {country.name}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </div>
-          <div className="w-full">
-            <label htmlFor="city" className="p-2 font-semibold">
-              City
-            </label>
-            <Input
-              id="city"
-              name="state"
-              type="text"
-              value={formData.state}
-              onChange={handleInputChange}
-              placeholder="Enter city name"
-              required
-            />
-          </div>
+        <label htmlFor="country" className="font-semibold">
+          Country
+        </label>
+        <select
+          id="country"
+          name="country"
+          value={selectedCountry}
+          onChange={(e) => fetchCities(e.target.value)}
+          className="w-full p-2 border rounded"
+          required
+        >
+          <option value="" disabled>
+            Select a Country
+          </option>
+          {countries.map((country, index) => (
+            <option key={index} value={country}>
+              {country}
+            </option>
+          ))}
+        </select>
+      </div>
+
+      <div className="mt-4">
+        <label htmlFor="city" className="font-semibold">
+          City
+        </label>
+        <select
+          id="city"
+          name="city"
+          value={selectedCity}
+          onChange={(e) => setSelectedCity(e.target.value)}
+          className="w-full p-2 border rounded"
+          required
+          disabled={!cities.length}
+        >
+          <option value="" disabled>
+            {cities.length ? "Select a City" : "No cities available"}
+          </option>
+          {cities.map((city, index) => (
+            <option key={index} value={city}>
+              {city}
+            </option>
+          ))}
+        </select>
+      </div>
+
+
+
+
+
+
+
+
           <Button
             type="submit"
             disabled={isPending}

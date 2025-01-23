@@ -1,8 +1,11 @@
+"use client";
 import countries from "@/lib/countries.json";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import { cn } from "@/lib/utils";
 import { Textarea } from "../ui/textarea";
+import { SetStateAction, useEffect, useState } from "react";
+import axios from "axios";
 
 const Step1 = ({
   register,
@@ -19,6 +22,44 @@ const Step1 = ({
   hotel?: boolean;
   setValue?: any
 }) => {
+  const [countries, setCountries] = useState([]);
+  const [cities, setCities] = useState([]);
+  const [selectedCountry, setSelectedCountry] = useState("");
+
+  
+
+  // Fetch countries on component load
+  useEffect(() => {
+    axios
+      .get("https://countriesnow.space/api/v0.1/countries/positions")
+      .then((response) => {
+        const countryList = response.data.data.map(({ name }: { name: string }) => ({
+          name,
+          code: name,
+        }));
+        setCountries(countryList);
+      })
+      .catch((error) => {
+        console.error("Error fetching countries:", error);
+      });
+  }, []);
+
+  // Fetch cities when a country is selected
+  const fetchCities = (country: SetStateAction<string>) => {
+    setSelectedCountry(country);
+
+    axios
+      .post("https://countriesnow.space/api/v0.1/countries/cities", {
+        country,
+      })
+      .then((response) => {
+        setCities(response.data.data || []);
+        setValue("city", ""); // Reset city when country changes
+      })
+      .catch((error) => {
+        console.error("Error fetching cities:", error);
+      });
+  };
   return (
     <div className={cn(hidden ? "hidden" : "")}>
       <div>
@@ -57,46 +98,64 @@ const Step1 = ({
           className="m-0 mt-1"
         />
       </div>
+
+           {/* Country Selector */}
       <div className="relative inline-block w-full max-w-xs">
-        <Label htmlFor={"country"} className="text-sm font-medium">
+        <label htmlFor="country" className="text-sm font-medium">
           Country
           {errors.country && (
             <p className="text-red-500 text-xs">{errors.country.message}</p>
           )}
-        </Label>
-
+        </label>
         <select
+          id="country"
           className="p-2 w-full block border rounded-lg max-w-xs"
-          {...register("country")}
-          defaultValue="India"
+          {...register("country", {
+            required: "Country is required",
+            onChange: (e: { target: { value: SetStateAction<string>; }; }) => fetchCities(e.target.value),
+          })}
+          defaultValue=""
         >
+          <option value="" disabled>
+            Select a Country
+          </option>
           {countries.map(({ code, name }) => (
-            <option key={code} value={name} className="max-w-[200px]">
+            <option key={code} value={name}>
               {name}
             </option>
           ))}
         </select>
       </div>
+
+      {/* City Selector */}
       <div>
-        <Label htmlFor={"city"} className="text-sm font-medium">
+        <label htmlFor="city" className="text-sm font-medium">
           City
           {errors.city && (
             <p className="text-red-500 text-xs">{errors.city.message}</p>
           )}
-        </Label>
-        <Input
-         {...register("city", {
-          onChange: (e:any) => {
-            const trimmedValue = e.target.value.trim();
-            setValue("city", trimmedValue);
-          },
-        })}
+        </label>
+        <select
           id="city"
-          type="text"
-          placeholder="City"
-          className="m-0 mt-1"
-        />
+          className="p-2 w-full block border rounded-lg max-w-xs"
+          {...register("city", {
+            required: "City is required",
+          })}
+          defaultValue=""
+          disabled={!cities.length}
+        >
+          <option value="" disabled>
+            {cities.length ? "Select a City" : "No cities available"}
+          </option>
+          {cities.map((city, index) => (
+            <option key={index} value={city}>
+              {city}
+            </option>
+          ))}
+        </select>
       </div>
+
+
       <div>
         <Label htmlFor={"contactPerson"} className="text-sm font-medium">
           Contact Person

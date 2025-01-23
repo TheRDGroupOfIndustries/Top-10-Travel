@@ -1,22 +1,15 @@
 "use client";
 
 import ButtonFancy from "@/components/reusable/ButtonFancy";
-import { LogOutIcon, MenuIcon, SearchIcon, SquareChartGantt, User } from "lucide-react";
-import { signIn, signOut, useSession } from "next-auth/react";
-import Link from "next/link";
-import { MdOutlineCreateNewFolder } from "react-icons/md";
-import React, { useContext, useEffect, useState } from "react";
-import { FcGoogle } from "react-icons/fc";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
-  DropdownMenuTrigger,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuSeparator,
+  DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { AnimatePresence, motion, useAnimate } from "framer-motion";
-import { Button } from "@/components/ui/button";
 import {
   Select,
   SelectContent,
@@ -26,9 +19,22 @@ import {
 } from "@/components/ui/select";
 import { HomeContext } from "@/hooks/context/HomeContext";
 import { cn } from "@/lib/utils";
-import { usePathname } from "next/navigation";
-import { ChevronDownIcon } from "lucide-react";
+import { AnimatePresence, motion, useAnimate } from "framer-motion";
+import {
+  ChevronDownIcon,
+  LogOutIcon,
+  MenuIcon,
+  SearchIcon,
+  SquareChartGantt,
+  User,
+} from "lucide-react";
+import { signIn, signOut, useSession } from "next-auth/react";
 import Image from "next/image";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import React, { useContext, useEffect, useState } from "react";
+import { FcGoogle } from "react-icons/fc";
+import { MdOutlineCreateNewFolder } from "react-icons/md";
 import { boxItems, MobileDropdown } from "./Home_Hero";
 
 const navMenus = [
@@ -64,6 +70,7 @@ function Navbar() {
     selectedCountry,
     setCountry,
     toggleVisible,
+    setVisible,
     allCities,
     isSticky,
     search,
@@ -72,21 +79,19 @@ function Navbar() {
     updateAllData,
   } = useContext(HomeContext);
   const route = usePathname();
-  
-  
+
   const session = useSession();
 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
-    window.scrollTo({
-      top: 0,
-    });
+    // window.scrollTo({
+    //   top: 0,
+    // });
   };
 
   const toggle = (key: "DMC" | "AGENCY" | "HOTEL" | "Influencer") => {
     toggleVisible(key);
   };
-  
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -136,7 +141,7 @@ function Navbar() {
                 <User size={18} />
                 <span>Admin Dashboard</span>
               </div>
-            </Link> 
+            </Link>
           </DropdownMenuItem>
 
           <DropdownMenuItem>
@@ -163,88 +168,157 @@ function Navbar() {
 
   return (
     <>
-      <nav className={cn("w-[100vw] fixed backdrop-blur-md bg-white/50 top-0 transition-all duration-300 z-[999] px-2 md:px-3 lg:px-6 xl:px-8")}>
+      <nav
+        className={cn(
+          "w-[100vw] fixed backdrop-blur-md bg-white/50 top-0 transition-all duration-300 z-[999] px-2 md:px-3 lg:px-6 xl:px-8"
+        )}
+      >
         {/* isSticky ? "backdrop-blur-md  bg-gradient-to-b from-white to-white/80": "" */}
 
         <div
-          className={`flex justify-between items-center z-[60] h-[60px] transition-transform duration-300`}>
-            <div className="relative h-6 xs:h-7 sm:h-8">
-              <Link href="/" className="flex gap-2" onClick={() => {
-                setCity("");
-              }}>
-                <img src="/roundLogo.jpg" className="rounded-full max-h-[40px]" alt="logo" />
-                <h1
-          id="secondLine"
-          className="uppercase font-cinzel font-bold text-xl mt-1"
+          className={`flex justify-between items-center z-[60] h-[60px] transition-transform duration-300`}
         >
-          <motion.span
-            className="inline-block"
-            initial={{ y: 50, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ duration: 0.8, delay: 0.4, type: "spring" }}
-          >
-            travel <span className="text-mainColor">Top 10</span>
-          </motion.span>
-        </h1>
-              </Link>
-            </div>
-
-            <ul className="hidden lg:flex gap-10 justify-end transition-all duration-300s items-center">
-              {navMenus.map((el, i) => (
-                <Link
-                  href={el.link}
-                  key={i}
-                  className={cn(
-                    "xl:text-lg font-medium",
-                    route === el.link ? "text-mainColor" : "cool-link"
-                  )}
-                  onClick={() => {
-                    window.scrollTo({
-                      top: 0,
-                    });
-                  }}
+          <div className="relative h-6 xs:h-7 sm:h-8">
+            <Link
+              href="/"
+              className="flex gap-2"
+              onClick={() => {
+                setCity("");
+                setVisible({
+                  AGENCY: true,
+                  DMC: true,
+                  HOTEL: true,
+                  Influencer: true,
+                });
+              }}
+            >
+              <img
+                src="/roundLogo.jpg"
+                className="rounded-full max-h-[40px]"
+                alt="logo"
+              />
+              <h1
+                id="secondLine"
+                className="uppercase font-cinzel font-bold text-xl mt-1"
+              >
+                <motion.span
+                  className="inline-block"
+                  initial={{ y: 50, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  transition={{ duration: 0.8, delay: 0.4, type: "spring" }}
                 >
-                  {el.title}
-                </Link>
-              ))}
+                  travel <span className="text-mainColor">Top 10</span>
+                </motion.span>
+              </h1>
+            </Link>
+          </div>
+
+          <ul className="hidden lg:flex gap-10 justify-end transition-all duration-300s items-center">
+            {navMenus.map((el, i) => (
+              <Link
+                href={el.link}
+                key={i}
+                className={cn(
+                  "xl:text-lg font-medium",
+                  route === el.link ? "text-mainColor" : "cool-link"
+                )}
+                onClick={() => {
+                  window.scrollTo({
+                    top: 0,
+                  });
+                }}
+              >
+                {el.title}
+              </Link>
+            ))}
 
             {search && route === "/" && (
               <span
                 className={cn(
-                  "xl:text-lg flex gap-2 items-center font-medium cursor-pointer", isSticky ? "text-mainColor": ""
+                  "xl:text-lg flex gap-2 items-center font-medium cursor-pointer",
+                  isSticky ? "text-mainColor" : ""
                 )}
                 onClick={() => {
-                  setSticky((prev: boolean) => !prev)
+                  setSticky((prev: boolean) => !prev);
                 }}
               >
-                Search  
+                Search
                 <SearchIcon className="animate-bounce w-4 h-4" />
               </span>
             )}
-            </ul>
+          </ul>
 
-            <div className="flex items-center gap-2 lg:hidden">
-              {search && route === "/" && (
+          <div className="flex items-center gap-2 lg:hidden">
+            {/* {search && route === "/" && (
               <Button
                 variant="blank"
                 size="icon"
                 className={cn(
-                  "xl:text-lg flex gap-2 items-center font-medium cursor-pointer", isSticky ? "text-mainColor": ""
+                  "xl:text-lg flex gap-2 items-center font-medium cursor-pointer",
+                  isSticky ? "text-mainColor" : ""
                 )}
                 onClick={() => {
-                  setSticky((prev: boolean) => !prev)
+                  setSticky((prev: boolean) => !prev);
                 }}
               >
-                <SearchIcon className="w-5 h-5" />
+                Search
+                <SearchIcon className="w-5 h-5  "  />
               </Button>
+            )} */}
+            {session.status !== "authenticated" ? (
+              <div onClick={() => signIn("google")}>
+                <ButtonFancy className="flex gap-1 items-center">
+                  <FcGoogle className="text-xl" />{" "}
+                  <span className="xs:inline-block hidden">Login</span>
+                </ButtonFancy>
+              </div>
+            ) : (
+              <DropdownMenu modal={false}>
+                <DropdownMenuTrigger asChild>
+                  <Avatar className="bg-slate-400 cursor-pointer">
+                    <AvatarImage src={session?.data?.user?.image} />
+                    <AvatarFallback>
+                      {session.data.user.name
+                        .split(" ")
+                        .map((word) => word[0].toUpperCase())
+                        .join("")
+                        .slice(0, 2)}
+                    </AvatarFallback>
+                  </Avatar>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent className="w-56">
+                  {renderMenuItem()}
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem
+                    className="cursor-pointer"
+                    onClick={() => signOut()}
+                  >
+                    <div className="flex items-center gap-2">
+                      <LogOutIcon size={18} />
+                      <span>Log Out</span>
+                    </div>
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
             )}
-              {session.status !== "authenticated" ? (
-                <div onClick={() => signIn("google")}>
-                  <ButtonFancy className="flex gap-1 items-center">
-                    <FcGoogle className="text-xl" /> <span className="xs:inline-block hidden">Login</span>
-                  </ButtonFancy>
-                </div>
-              ) : (
+            <div className="flex items-center">
+              <MenuIcon
+                onClick={toggleSidebar}
+                size={25}
+                className="cursor-pointer"
+              />
+            </div>
+          </div>
+
+          <div className="lg:flex gap-5 hidden">
+            {session.status !== "authenticated" ? (
+              <div onClick={() => signIn("google")}>
+                <ButtonFancy className="flex gap-1 items-center">
+                  <FcGoogle className="text-xl" /> Login
+                </ButtonFancy>
+              </div>
+            ) : (
+              <>
                 <DropdownMenu modal={false}>
                   <DropdownMenuTrigger asChild>
                     <Avatar className="bg-slate-400 cursor-pointer">
@@ -272,64 +346,21 @@ function Navbar() {
                     </DropdownMenuItem>
                   </DropdownMenuContent>
                 </DropdownMenu>
-              )}
-              <div className="flex items-center">
-                <MenuIcon
-                  onClick={toggleSidebar}
-                  size={25}
-                  className="cursor-pointer"
-                />
-              </div>
-            </div>
-
-            <div className="lg:flex gap-5 hidden">
-              {session.status !== "authenticated" ? (
-                <div onClick={() => signIn("google")}>
-                  <ButtonFancy className="flex gap-1 items-center">
-                    <FcGoogle className="text-xl" /> Login
-                  </ButtonFancy>
-                </div>
-              ) : (
-                <>
-                  <DropdownMenu modal={false}>
-                    <DropdownMenuTrigger asChild>
-                      <Avatar className="bg-slate-400 cursor-pointer">
-                        <AvatarImage src={session?.data?.user?.image} />
-                        <AvatarFallback>
-                          {session.data.user.name
-                            .split(" ")
-                            .map((word) => word[0].toUpperCase())
-                            .join("")
-                            .slice(0, 2)}
-                        </AvatarFallback>
-                      </Avatar>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent className="w-56">
-                      {renderMenuItem()}
-                      <DropdownMenuSeparator />
-                      <DropdownMenuItem
-                        className="cursor-pointer"
-                        onClick={() => signOut()}
-                      >
-                        <div className="flex items-center gap-2">
-                          <LogOutIcon size={18} />
-                          <span>Log Out</span>
-                        </div>
-                      </DropdownMenuItem>
-                    </DropdownMenuContent>
-                  </DropdownMenu>
-                </>
-              )}
-            </div>
+              </>
+            )}
+          </div>
         </div>
 
         <AnimatePresence>
-          {isSticky && <motion.div
-            initial={{ y: -30 }}
-            animate={{ y: 0 }}
-            // exit={{ y: -30 }}
-            className={cn(`w-full mx-auto pt-2 pb-2 z-[59] lg:overflow-hidden md:max-w-[430px] lg:max-w-[730px]`)}
-          >
+          {isSticky && (
+            <motion.div
+              initial={{ y: -30 }}
+              animate={{ y: 0 }}
+              // exit={{ y: -30 }}
+              className={cn(
+                `w-full mx-auto pt-2 pb-2 z-[59] lg:overflow-hidden md:max-w-[430px] lg:max-w-[730px]`
+              )}
+            >
               <div className="w-full ml-1 xs:ml-4 flex items-end justify-start">
                 <div className="relative max-w-48 xs:max-w-60 h-7 xs:h-9 flex items-center justify-center">
                   <Image
@@ -441,6 +472,12 @@ function Navbar() {
                 <div>
                   <Button
                     // onClick={handleFind}
+                    onClick={() => {
+                      setSticky((prev: boolean) => !prev);
+                      document
+                        .getElementById("TopTenAgencies")
+                        ?.scrollIntoView({ behavior: "smooth" });
+                    }}
                     className="bg-mainColor hover:bg-mainColor xs:hover:bg-mainColorSecondary inline-flex items-center text-xs xs:text-sm lg:gap-2 px-2 xs:py-0.5"
                   >
                     <SearchIcon className="xs:w-5 xs:h-5 w-4 h-4" />
@@ -448,10 +485,10 @@ function Navbar() {
                   </Button>
                 </div>
               </div>
-          </motion.div>}
+            </motion.div>
+          )}
         </AnimatePresence>
       </nav>
-
 
       {/* Sidebar */}
       <div

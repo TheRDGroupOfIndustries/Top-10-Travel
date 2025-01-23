@@ -120,23 +120,23 @@ export const AnimatedText = ({
 };
 
 export const boxItems = [
-    {
-      key: "AGENCY",
-      text: "Agencies",
-    },
-    {
-      key: "HOTEL",
-      text: "Hotels",
-    },
-    {
-      key: "DMC",
-      text: "DMCs",
-    },
-    {
-      key: "Influencer",
-      text: "Influencers",
-    },
-  ];
+  {
+    key: "AGENCY",
+    text: "Agencies",
+  },
+  {
+    key: "HOTEL",
+    text: "Hotels",
+  },
+  {
+    key: "DMC",
+    text: "DMCs",
+  },
+  {
+    key: "Influencer",
+    text: "Influencers",
+  },
+];
 
 function HomeHero() {
   const divref = useRef<HTMLDivElement>(null);
@@ -155,7 +155,7 @@ function HomeHero() {
     allCountries,
     updateAllData,
   } = useContext(HomeContext);
-  
+
   const elementRef = useRef<HTMLDivElement | null>(null);
 
   const handleScroll = () => {
@@ -205,17 +205,14 @@ function HomeHero() {
 
   // Adding visible to the dependency array to trigger on change
 
-  
-
   const toggle = (key: "DMC" | "AGENCY" | "HOTEL" | "Influencer") => {
     toggleVisible(key);
   };
 
   const handleFind = () => {
-    window.scrollBy({
-      top: divref.current?.clientHeight,
-      behavior: "smooth",
-    });
+    document
+      .getElementById("TopTenAgencies")
+      ?.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
   useLayoutEffect(() => {
@@ -309,7 +306,10 @@ function HomeHero() {
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.8, delay: 1, type: "spring" }}
           >
-           India&apos;s first and largest initiative,<br />dedicated to identifying the best of<span className="text-mainColor mr-1"> Travel Brands</span>
+            India&apos;s first and largest initiative,
+            <br />
+            dedicated to identifying the best of
+            <span className="text-mainColor mr-1"> Travel Brands</span>
           </motion.span>
         </p>
 

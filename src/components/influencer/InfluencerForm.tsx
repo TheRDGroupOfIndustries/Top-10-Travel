@@ -11,17 +11,29 @@ import useMutation from "@/hooks/useMutation";
 import countries from "@/lib/countries.json";
 import IndiaStates from "@/lib/indiaState.json";
 import img from "@/resources/images/form/CompanyForm.png";
+import axios from "axios";
+import { useSession } from "next-auth/react";
 import Image from "next/image";
-import { ChangeEvent, FormEvent, useMemo, useState } from "react";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import {
+  ChangeEvent,
+  FormEvent,
+  SetStateAction,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 import { toast } from "sonner";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
-import { useSession } from "next-auth/react";
-import Link from "next/link";
 import { Textarea } from "../ui/textarea";
-import { useRouter } from "next/navigation";
 
 const InfluencerForm = () => {
+  const [countries, setCountries] = useState([]);
+  const [cities, setCities] = useState([]);
+  const [selectedCountry, setSelectedCountry] = useState("");
+  const [selectedCity, setSelectedCity] = useState("");
   const [formData, setFormData] = useState({
     name: "",
     description: "",
@@ -33,7 +45,7 @@ const InfluencerForm = () => {
   });
   const { update } = useSession();
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value.trim() });
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
   const [file, setFile] = useState<File | null>(null);
   const router = useRouter();
@@ -61,6 +73,8 @@ const InfluencerForm = () => {
       values: {
         ...rest,
         socialLinks: linksArray,
+        state: selectedCity,
+        country: selectedCountry,
       },
       form: data,
     });
@@ -78,6 +92,39 @@ const InfluencerForm = () => {
       });
       router.push("/");
     } else if (error) toast.error(error);
+  };
+
+
+
+  useEffect(() => {
+    // Fetch all countries
+    axios
+      .get("https://countriesnow.space/api/v0.1/countries/positions")
+      .then((response) => {
+        const countryList = response.data.data.map(
+          (country: { name: any }) => country.name
+        );
+        setCountries(countryList);
+      })
+      .catch((error) => {
+        console.error("Error fetching countries:", error);
+      });
+  }, []);
+
+  const fetchCities = (country: SetStateAction<string>) => {
+    setSelectedCountry(country);
+    setSelectedCity(""); // Reset city when country changes
+
+    axios
+      .post("https://countriesnow.space/api/v0.1/countries/cities", {
+        country,
+      })
+      .then((response) => {
+        setCities(response.data.data || []);
+      })
+      .catch((error) => {
+        console.error("Error fetching cities:", error);
+      });
   };
 
   return (
@@ -203,39 +250,47 @@ const InfluencerForm = () => {
             <label htmlFor="country" className="font-semibold">
               Country
             </label>
-            <Select
+            <select
+              id="country"
               name="country"
+              value={selectedCountry}
+              onChange={(e) => fetchCities(e.target.value)}
+              className="w-full p-2 border rounded"
               required
-              onValueChange={(value) => {
-                setFormData((prev) => ({ ...prev, country: value }));
-              }}
-              value={formData.country}
             >
-              <SelectTrigger className="w-full">
-                <SelectValue placeholder="Country" />
-              </SelectTrigger>
-              <SelectContent>
-                {countries.map((country) => (
-                  <SelectItem key={country.name} value={country.name}>
-                    {country.name}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
+              <option value="" disabled>
+                Select a Country
+              </option>
+              {countries.map((country, index) => (
+                <option key={index} value={country}>
+                  {country}
+                </option>
+              ))}
+            </select>
           </div>
-          <div className="w-full">
-            <label htmlFor="city" className="p-2 font-semibold">
+
+          <div className="mt-4">
+            <label htmlFor="city" className="font-semibold">
               City
             </label>
-            <Input
+            <select
               id="city"
-              name="state"
-              type="text"
-              value={formData.state}
-              onChange={handleInputChange}
-              placeholder="Enter city name"
+              name="city"
+              value={selectedCity}
+              onChange={(e) => setSelectedCity(e.target.value)}
+              className="w-full p-2 border rounded"
               required
-            />
+              disabled={!cities.length}
+            >
+              <option value="" disabled>
+                {cities.length ? "Select a City" : "No cities available"}
+              </option>
+              {cities.map((city, index) => (
+                <option key={index} value={city}>
+                  {city}
+                </option>
+              ))}
+            </select>
           </div>
           <Button
             type="submit"

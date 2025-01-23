@@ -24,7 +24,7 @@ type Homecontext = {
   setSearch: (val: any) => void;
   setSticky: (val: any) => void;
   updateAllData: (data: any) => void;
-
+  setVisible: (val: any) => void;
   allAgencies: [];
   allDMC: [];
   allHotels: [];
@@ -42,7 +42,6 @@ export const HomeContextProvider = ({ children }: { children: ReactNode }) => {
 
   const [selectedCountry, setSelectedCountry] = useState("India");
   const [selectedCity, setSelectedCity] = useState("");
-  console.log("selectedCity", selectedCity);
   const [allCities, setAllCities] = useState<string[]>([]);
   const [allCountries, setAllCountries] = useState<string[]>([]);
   const [data, setData] = useState<any>();
@@ -158,7 +157,7 @@ export const HomeContextProvider = ({ children }: { children: ReactNode }) => {
         allCities,
         allCountries,
         updateAllData,
-
+        setVisible,
         allAgencies,
         allDMC,
         allHotels
