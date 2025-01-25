@@ -353,7 +353,6 @@ function HomeHero() {
                     visible[key] ? "text-white" : "text-black"
                   }`}
                   onClick={() => {
-                    // @ts-expect-error
                     // toggle(key)
                     const id = ''
                     if(key === 'AGENCY') {
