@@ -402,14 +402,14 @@ function HomeHero() {
                 </div>
               ))}
             </div>
-            <div className="  ">
+            <div className="  lg:mt-3 ">
               {/* <Image
                 src={"/Hero_Filter_Large.png"}
                 fill
                 className="absolute filter saturate-[1.] contrast-100"
                 alt="hero_filter_img"
               /> */}
-              <span className="text-black text-base xs:text-lg sm:text-2xl md:text-3xl lg:text-4xl font-semibold text-start  ">
+              <span className="text-black text-base xs:text-lg sm:text-2xl md:text-3xl lg:text-[3rem] font-semibold text-start   ">
                 FIND YOUR TOP 10
               </span>
             </div>
