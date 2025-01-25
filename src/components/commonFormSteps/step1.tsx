@@ -1,11 +1,11 @@
 "use client";
 import countries from "@/lib/countries.json";
+import { cn } from "@/lib/utils";
+import axios from "axios";
+import { SetStateAction, useEffect, useState } from "react";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
-import { cn } from "@/lib/utils";
 import { Textarea } from "../ui/textarea";
-import { SetStateAction, useEffect, useState } from "react";
-import axios from "axios";
 
 const Step1 = ({
   register,
@@ -20,23 +20,23 @@ const Step1 = ({
   hidden?: boolean;
   dmc?: boolean;
   hotel?: boolean;
-  setValue?: any
+  setValue?: any;
 }) => {
   const [countries, setCountries] = useState([]);
   const [cities, setCities] = useState([]);
   const [selectedCountry, setSelectedCountry] = useState("");
-
-  
 
   // Fetch countries on component load
   useEffect(() => {
     axios
       .get("https://countriesnow.space/api/v0.1/countries/positions")
       .then((response) => {
-        const countryList = response.data.data.map(({ name }: { name: string }) => ({
-          name,
-          code: name,
-        }));
+        const countryList = response.data.data.map(
+          ({ name }: { name: string }) => ({
+            name,
+            code: name,
+          })
+        );
         setCountries(countryList);
       })
       .catch((error) => {
@@ -99,7 +99,7 @@ const Step1 = ({
         />
       </div>
 
-           {/* Country Selector */}
+      {/* Country Selector */}
       <div className="relative inline-block w-full max-w-xs">
         <label htmlFor="country" className="text-sm font-medium">
           Country
@@ -112,7 +112,8 @@ const Step1 = ({
           className="p-2 w-full block border rounded-lg max-w-xs"
           {...register("country", {
             required: "Country is required",
-            onChange: (e: { target: { value: SetStateAction<string>; }; }) => fetchCities(e.target.value),
+            onChange: (e: { target: { value: SetStateAction<string> } }) =>
+              fetchCities(e.target.value),
           })}
           defaultValue=""
         >
@@ -155,7 +156,6 @@ const Step1 = ({
         </select>
       </div>
 
-
       <div>
         <Label htmlFor={"contactPerson"} className="text-sm font-medium">
           Contact Person
@@ -186,8 +186,20 @@ const Step1 = ({
           {...register("contactPhoneNumber")}
           id="contactPhoneNumber"
           type="number"
+          min="0"
           placeholder="ContactPhoneNumber"
           className="m-0 mt-1"
+          onKeyDown={(e) => {
+            if (
+              e.key === "-" ||
+              e.key === "e" ||
+              e.key === "." ||
+              e.key === ">" ||
+              e.key === "<"
+            ) {
+              e.preventDefault();
+            }
+          }}
         />
       </div>
       <div>

@@ -170,7 +170,7 @@ function Navbar() {
     <>
       <nav
         className={cn(
-          "w-[100vw] fixed backdrop-blur-md bg-white/50 top-0 transition-all duration-300 z-[999] px-2 md:px-3 lg:px-6 xl:px-8"
+          "w-[100vw] fixed backdrop-blur-md bg-white/50 top-0 transition-all duration-300 z-[99] px-2 md:px-3 lg:px-6 xl:px-8"
         )}
       >
         {/* isSticky ? "backdrop-blur-md  bg-gradient-to-b from-white to-white/80": "" */}

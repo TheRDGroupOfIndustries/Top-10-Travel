@@ -11,6 +11,7 @@ interface AnimatedImageProps {
   layout?: "fill" | "fixed" | "intrinsic" | "responsive";
   objectFit?: "contain" | "cover" | "fill" | "none" | "scale-down";
   className?: string;
+  onClick?: () => void;
 }
 
 const AnimatedImage: FC<AnimatedImageProps> = ({
@@ -20,6 +21,7 @@ const AnimatedImage: FC<AnimatedImageProps> = ({
   layout,
   objectFit,
   className,
+  onClick,
 }) => {
   return (
     <motion.div
@@ -35,6 +37,7 @@ const AnimatedImage: FC<AnimatedImageProps> = ({
       className="relative w-full h-full overflow-hidden"
     >
       <Image
+        onClick={()=>{onClick && onClick()}}
         src={src}
         alt={alt}
         width={1080}

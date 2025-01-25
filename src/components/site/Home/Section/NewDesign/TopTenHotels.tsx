@@ -109,7 +109,11 @@ function TopTenHotels() {
         visible.HOTEL ? "" : "hidden"
       )}
     >
-      <div className="w-full flex flex-col items-center justify-center gap-4">
+      <div
+      
+      
+        id = "TopTenHotels"
+        className="w-full flex flex-col items-center justify-center gap-4 scroll-my-14">
         <h1 className="text-xl lg:overflow-hidden sm:text-4xl font-bold text-center">
           <motion.span
             className="inline-block"

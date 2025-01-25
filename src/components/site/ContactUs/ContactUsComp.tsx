@@ -132,7 +132,7 @@ const ContactUsComp = () => {
           </div>
 
           <div className="text-[20px] font-[500] text-black mt-[13%] underline underline-offset-[20%]">
-            Customer Support
+          Follow us
             {/* logos */}
             <div className="flex gap-3 items-center mt-[2%]">
               {linksArr.map(({ href, icon }) => (

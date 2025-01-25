@@ -56,7 +56,16 @@ export const MobileDropdown = ({ items, visible, toggle }: any) => {
             <li
               key={key}
               onClick={() => {
-                toggle(key);
+                // toggle(key);
+                if(key === 'AGENCY') {
+                  document.getElementById("TopTenAgencies")?.scrollIntoView({ behavior: "smooth" });  
+                } else if(key === 'HOTEL') {
+                  document.getElementById("TopTenHotels")?.scrollIntoView({ behavior: "smooth" });
+                } else if(key === 'DMC') {
+                  document.getElementById("TopTenDMC")?.scrollIntoView({ behavior: "smooth" });
+                } else if(key === 'Influencer') {
+                  document.getElementById("Influencers")?.scrollIntoView({ behavior: "smooth" });
+                }
                 setIsOpen(false);
               }}
               className={`p-2 hover:bg-gray-100 cursor-pointer text-xs ${
@@ -317,25 +326,15 @@ function HomeHero() {
           initial={{ y: 50, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.8, delay: 1.4, type: "spring" }}
-          className={`w-full pt-14 md:pt-10 lg:overflow-hidden lg:pt-24 md:max-w-[430px] lg:max-w-[730px]`}
+          className={`w-full sm:max-w-[430px] pt-14 md:pt-10 lg:overflow-hidden lg:pt-24 md:max-w-[430px] lg:max-w-[730px]`}
           // ${
           //   isSticky && selectedCountry
           //     ? "fixed top-0 z-40 left-0 lg:pt-[3.8rem] pb-2 md:pt-[3.8rem] bg-white/80 backdrop-blur-md lg:overflow-visible md:max-w-full lg:max-w-full md:w-full px-2 md:px-3 lg:px-6 xl:px-8"
           //     : ""
           // }
         >
-          <div className="w-full ml-1 xs:ml-4 flex items-end justify-start">
-            <div className="relative max-w-48 xs:max-w-60 h-7 xs:h-9 flex items-center justify-center">
-              <Image
-                src={"/Hero_Filter_Large.png"}
-                fill
-                className="absolute filter saturate-[1.] contrast-100"
-                alt="hero_filter_img"
-              />
-              <span className="text-black z-10 px-3 xs:px-6 lg:text-sm text-[10px] leading-[14px] xs:text-xs font-semibold ">
-                FIND YOUR TOP 10
-              </span>
-            </div>
+          <div className="w-full  flex flex-row-reverse justify-end  lg:flex-col">
+            
 
             <div className="lg:hidden">
               <MobileDropdown
@@ -345,7 +344,7 @@ function HomeHero() {
               />
             </div>
 
-            <div className="hidden ml-5 lg:flex xl:gap-5 gap-4">
+            <div className="hidden lg:flex xl:gap-5 gap-4">
               {boxItems.map(({ key, text }) => (
                 <div
                   key={key}
@@ -353,9 +352,21 @@ function HomeHero() {
                     // @ts-expect-error
                     visible[key] ? "text-white" : "text-black"
                   }`}
-                  onClick={() =>
+                  onClick={() => {
                     // @ts-expect-error
-                    toggle(key)
+                    // toggle(key)
+                    const id = ''
+                    if(key === 'AGENCY') {
+                      document.getElementById("TopTenAgencies")?.scrollIntoView({ behavior: "smooth" });  
+                    } else if(key === 'HOTEL') {
+                      document.getElementById("TopTenHotels")?.scrollIntoView({ behavior: "smooth" });
+                    } else if(key === 'DMC') {
+                      document.getElementById("TopTenDMC")?.scrollIntoView({ behavior: "smooth" });
+                    } else if(key === 'Influencer') {
+                      document.getElementById("Influencers")?.scrollIntoView({ behavior: "smooth" });
+                    }
+                    
+                  }
                   }
                 >
                   {/* {
@@ -391,8 +402,19 @@ function HomeHero() {
                 </div>
               ))}
             </div>
+            <div className="  ">
+              {/* <Image
+                src={"/Hero_Filter_Large.png"}
+                fill
+                className="absolute filter saturate-[1.] contrast-100"
+                alt="hero_filter_img"
+              /> */}
+              <span className="text-black text-base xs:text-lg sm:text-2xl md:text-3xl lg:text-4xl font-semibold text-start  ">
+                FIND YOUR TOP 10
+              </span>
+            </div>
           </div>
-          <div className="md:max-w-3xl sm:max-w-sm xs:max-w-[320px] max-w-fit max-h-fit xs:h-12 sm:h-14 flex flex-col xs:flex-row gap-1 py-1 items-center justify-between rounded-lg px-1 xs:px-3 bg-gray-200">
+          {/* <div className="md:max-w-3xl sm:max-w-sm xs:max-w-[320px] max-w-fit max-h-fit xs:h-12 sm:h-14 flex flex-col xs:flex-row gap-1 py-1 items-center justify-between rounded-lg px-1 xs:px-3 bg-gray-200">
             <div className="flex items-center lg:gap-5 md:gap-2 xs:gap-1 gap-2">
               <Select
                 value={selectedCountry}
@@ -440,7 +462,7 @@ function HomeHero() {
                 Search
               </Button>
             </div>
-          </div>
+          </div> */}
         </motion.div>
         <div ref={elementRef} className="h-[1px] w-[1px]"></div>
       </div>

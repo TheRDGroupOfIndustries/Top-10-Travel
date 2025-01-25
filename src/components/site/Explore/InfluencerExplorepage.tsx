@@ -137,6 +137,12 @@ const InfluencerExploreMore = ({ data }: { data: Data }) => {
               Array.from({ length: 12 }).map((_, i: number) => (
                 <HomeCardsSkeleton index={i} key={i} />
               ))}
+
+            {city.length === 0 && !cardIsLoading && selectedCity === "" && (
+              <div className="w-full col-span-4 h-[60vh] flex flex-col items-center justify-center text-xl font-semibold text-slate-800">
+                <p className="text-center text-2xl  ">No data available for top 10 influencers in the selected country</p>
+              </div>
+            )}
           </div>
 
 

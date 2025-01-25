@@ -2,6 +2,13 @@
 
 import HotelCarousel from "@/components/hotel/HotelCarousel";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import AgencyImg from "@/resources/images/Agency-Hero.jpg";
 import DMCImg from "@/resources/images/DMC-Hero.jpg";
 import HotelsImg from "@/resources/images/Hotels-Hero.jpg";
@@ -83,12 +90,15 @@ function ListingHero({
   }, [selectedCountry, setSelectedState, countriesData, countries, pathname]);
 
   const clearFilters = () => {
-    setSelectedCountry("");
+    if (pathname.includes("/DMC")) {
+      setSelectedCountry("");
+      setSelectedState("");
+      return;
+    }
+    // setSelectedCountry("");
     setSelectedState("");
-    setStates([]);
+    // setStates([]);
   };
-
-
 
   const image =
     pathname === "/Hotels"
@@ -159,13 +169,13 @@ function ListingHero({
             type: "spring",
           }}
           viewport={{ once: true }}
-          className="flex flex-wrap lg:flex-row items-center justify-center gap-2"
+          className="flex flex-wrap md:flex-nowrap lg:flex-row items-center justify-center gap-2"
         >
           <span className="text-sm font-medium text-white px-5 py-[10px] bg-mainColor rounded-lg">
             Filter
           </span>
           <div className="relative">
-            <button
+            {/* <button
               onClick={() => setIsCountryOpen(!isCountryOpen)}
               className="w-[180px] bg-white border border-gray-300 rounded-md px-4 py-2 inline-flex items-center justify-between gap-2 text-black/50 text-sm"
             >
@@ -175,10 +185,10 @@ function ListingHero({
                   isCountryOpen ? "rotate-180" : ""
                 }`}
               />
-            </button>
-            {isCountryOpen && (
+            </button> */}
+            {/* {isCountryOpen && (
               <ul className="absolute z-10 w-[180px] mt-1 bg-white border border-gray-300 rounded-md shadow-lg">
-                <ScrollArea className="h-[250px] rounded-md">
+                <ScrollArea className="max-h-[250px] rounded-md">
                   {countries
                     ?.sort((a, b) => a.localeCompare(b))
                     .map((country) => (
@@ -192,49 +202,89 @@ function ListingHero({
                     ))}
                 </ScrollArea>
               </ul>
-            )}
-          </div>
-          {!pathname.includes("/DMC") && <div className="relative">
-            <button
-              onClick={() => setIsStateOpen(!isStateOpen)}
-              className="w-[180px] bg-white border border-gray-300 rounded-md px-4 py-2 inline-flex items-center justify-between gap-2 text-black/50 text-sm"
+            )} */}
+
+            <Select
+              value={selectedCountry}
+              onValueChange={(val) => handleCountryClick(val)}
             >
-              {selectedState || "Select City"}
-              <ChevronDown
-                className={`w-5 h-5 stroke-black/50 transition-transform duration-300 ${
-                  isStateOpen ? "rotate-180" : ""
-                }`}
-              />
-            </button>
-            {isStateOpen && (
-              <ul className="absolute z-10 w-[180px] mt-1 bg-white border border-gray-300 rounded-md shadow-lg">
-                <ScrollArea className="h-[250px] rounded-md">
-                  {!states.length && (
-                    <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer text-xs">
-                      No Cities
-                    </li>
-                  )}
-                  {states
-                    ?.sort((a, b) => a.localeCompare(b))
-                    .map((state) => (
-                      <li
-                        key={state}
-                        onClick={() => handleStateClick(state)}
-                        className="px-4 py-2 hover:bg-gray-100 cursor-pointer text-xs"
-                      >
-                        {state}
-                      </li>
-                    ))}
-                </ScrollArea>
-              </ul>
+              <SelectTrigger className="w-[180px] bg-white border border-gray-300 rounded-md px-4 py-2 inline-flex items-center justify-between gap-2 text-black/50 text-sm">
+                <SelectValue placeholder="Select Country" />
+              </SelectTrigger>
+              <SelectContent>
+                {countries
+                  ?.sort((a, b) => a.localeCompare(b))
+                  .map((country) => (
+                    <SelectItem key={country} value={country}>
+                      {country}
+                    </SelectItem>
+                  ))}
+              </SelectContent>
+            </Select>
+          </div>
+          <div className=" flex flex-row items-center flex-nowrap gap-2">
+            {!pathname.includes("/DMC") && (
+              <div className="relative">
+                {/* <button
+                  onClick={() => setIsStateOpen(!isStateOpen)}
+                  className="w-[180px] bg-white border border-gray-300 rounded-md px-4 py-2 inline-flex items-center justify-between gap-2 text-black/50 text-sm"
+                >
+                  {selectedState || "Select City"}
+                  <ChevronDown
+                    className={`w-5 h-5 stroke-black/50 transition-transform duration-300 ${
+                      isStateOpen ? "rotate-180" : ""
+                    }`}
+                  />
+                </button> */}
+                {/* {isStateOpen && (
+                  <ul className="absolute z-10 w-[180px] mt-1 bg-white border border-gray-300 rounded-md shadow-lg">
+                    <ScrollArea className="max-h-[250px] rounded-md">
+                      {!states.length && (
+                        <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer text-xs">
+                          No Cities
+                        </li>
+                      )}
+                      {states
+                        ?.sort((a, b) => a.localeCompare(b))
+                        .map((state) => (
+                          <li
+                            key={state}
+                            onClick={() => handleStateClick(state)}
+                            className="px-4 py-2 hover:bg-gray-100 cursor-pointer text-xs"
+                          >
+                            {state}
+                          </li>
+                        ))}
+                    </ScrollArea>
+                  </ul>
+                )} */}
+
+                <Select
+                  value={selectedState}
+                  onValueChange={(state) => handleStateClick(state)}
+                >
+                  <SelectTrigger className="w-[180px] bg-white border border-gray-300 rounded-md px-4 py-2 inline-flex items-center justify-between gap-2 text-black/50 text-sm">
+                    <SelectValue placeholder="Select city" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {states
+                      ?.sort((a, b) => a.localeCompare(b))
+                      .map((state) => (
+                        <SelectItem key={state} value={state}>
+                          {state}
+                        </SelectItem>
+                      ))}
+                  </SelectContent>
+                </Select>
+              </div>
             )}
-          </div>}
-          <button
-            onClick={clearFilters}
-            className="bg-white hover:border-black/50 border-transparent border-[1px] rounded-lg text-black/50 text-sm px-5 py-2"
-          >
-            Clear
-          </button>
+            <button
+              onClick={clearFilters}
+              className="bg-white hover:border-black/50 border-gray-300 border-[1px] rounded-lg text-black/50 text-sm px-5 py-2"
+            >
+              Clear
+            </button>
+          </div>
         </motion.div>
       </div>
     </div>

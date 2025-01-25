@@ -1,16 +1,18 @@
+"use client";
 import EnquireDialog from "@/components/company/EnquireDialogwButton/EnquireDialog";
 import { getIconFromName } from "@/components/reusable/Icons";
 import PhoneCallButton from "@/components/reusable/PhoneCallButton";
 import ShareButton from "@/components/reusable/shareButton";
-import { VscWorkspaceTrusted } from "react-icons/vsc";
-import { SiTrustpilot } from "react-icons/si";
 import StarRating from "@/components/reusable/StarRating";
 import { GetIconByTag } from "@/components/reusable/TagIcons";
 import { getValidUrl } from "@/lib/utils";
-import { FaStar } from "react-icons/fa6";
 import type { PastProject, SocialMediaLinks } from "@prisma/client";
 import Link from "next/link";
+import { useState } from "react";
+import { FaStar } from "react-icons/fa6";
+import { SiTrustpilot } from "react-icons/si";
 import { TbMapPin } from "react-icons/tb";
+import { VscWorkspaceTrusted } from "react-icons/vsc";
 import AnimatedImage from "./AnimatedImage";
 import PastProjects from "./PastProjects";
 import ReviewSSR from "./ReviewSSR";
@@ -43,9 +45,9 @@ const Details = ({
 }: {
   data: CompanyType;
   info:
-    | { type: "Agency"; agencyId: string, agencyName: string }
-    | { type: "Dmc"; dmcId: string, dmcName: string }
-    | { type: "Hotel"; hotelId: string, hotelName: string };
+    | { type: "Agency"; agencyId: string; agencyName: string }
+    | { type: "Dmc"; dmcId: string; dmcName: string }
+    | { type: "Hotel"; hotelId: string; hotelName: string };
 }) => {
   const socialPlatforms = [
     "facebook",
@@ -68,9 +70,7 @@ const Details = ({
   // @ts-ignore
   const TAGS: string[] = [...setOfTags];
 
-  console.log("info", info);
 
-  
 
   return (
     // <ClientSideDetails data={data} info={info} />
@@ -79,38 +79,7 @@ const Details = ({
       <div className="px-2 md:px-3 lg:px-6 xl:px-8">
         <div className="w-full flex xl:gap-12 gap-6 pb-16 border-b-black border-b-[1px]">
           <div className="w-full flex flex-col gap-10 flex-1">
-            <div className="grid gap-4">
-              {/* Main Image */}
-              <div className="relative rounded-lg w-full h-64 md:h-96 lg:h-[450px]">
-                <AnimatedImage
-                  src={getValidUrl(data?.images[0] ?? "")}
-                  alt="main image"
-                  fill
-                  className="rounded-lg w-full h-full object-cover"
-                />
-              </div>
-
-              {/* Grid of Thumbnails */}
-              <div className="grid grid-cols-2 md:grid-cols-4 sm:gap-4 gap-2">
-                {data?.images?.slice(1).map(
-                  (url, ind) =>
-                    ind < 4 && (
-                      <div
-                        key={url + ind}
-                        className="relative rounded-lg w-full h-32 sm:h-40"
-                      >
-                        <AnimatedImage
-                          src={getValidUrl(url)}
-                          alt={`gallery-image-${ind + 1}`}
-                          fill
-                          className="rounded-lg object-cover"
-                        />
-                      </div>
-                    )
-                )}
-              </div>
-            </div>
-
+            <DetailsPageImages data={data} />
             <div className="rounded-lg flex lg:hidden flex-col gap-4 py-10 sm:px-8 px-4 shadow shadow-black/50">
               <div className="flex flex-col gap-5">
                 <div className="flex flex-col gap-3">
@@ -249,9 +218,10 @@ const Details = ({
             </div>
 
             <div className="lg:hidden">
-              {info?.type !== "Hotel" && <ReviewSSR name={data?.name} info={info} />}
+              {info?.type !== "Hotel" && (
+                <ReviewSSR name={data?.name} info={info} />
+              )}
             </div>
-            
           </div>
 
           <div className="flex-1 lg:flex hidden flex-col gap-5 max-w-[509px]">
@@ -325,7 +295,9 @@ const Details = ({
               </div>
             </div>
 
-            {info?.type !== "Hotel" && <ReviewSSR name={data?.name} info={info} />}
+            {info?.type !== "Hotel" && (
+              <ReviewSSR name={data?.name} info={info} />
+            )}
           </div>
         </div>
       </div>
@@ -334,3 +306,43 @@ const Details = ({
 };
 
 export default Details;
+
+function DetailsPageImages({ data }: { data: CompanyType }) {
+  const [imageIndex, setImageIndex] = useState(0);
+  return (
+    <div className="grid gap-4">
+      {/* Main Image */}
+      <div className="relative rounded-lg w-full h-64 md:h-96 lg:h-[450px]">
+        <AnimatedImage
+          src={getValidUrl(data?.images[imageIndex] ?? "")}
+          alt="main image"
+          fill
+          className="rounded-lg w-full h-full object-cover"
+        />
+      </div>
+
+      {/* Grid of Thumbnails */}
+      <div className="grid grid-cols-2 md:grid-cols-4 sm:gap-4 gap-2">
+        {data?.images?.slice(1).map(
+          (url, ind) =>
+            ind < 4 && (
+              <div
+                key={url + ind}
+                className="relative rounded-lg w-full h-32 sm:h-40"
+              >
+                <AnimatedImage
+                  src={getValidUrl(url)}
+                  alt={`gallery-image-${ind + 1}`}
+                  fill
+                  className="rounded-lg object-cover"
+                  onClick={() => {
+                    setImageIndex(ind + 1);
+                  }}
+                />
+              </div>
+            )
+        )}
+      </div>
+    </div>
+  );
+}
