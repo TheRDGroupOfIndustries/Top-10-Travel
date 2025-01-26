@@ -232,7 +232,7 @@ function Navbar() {
               </Link>
             ))}
 
-            {search && route === "/" && (
+            {/* {search && route === "/" && (
               <span
                 className={cn(
                   "xl:text-lg flex gap-2 items-center font-medium cursor-pointer",
@@ -245,7 +245,7 @@ function Navbar() {
                 Search
                 <SearchIcon className="animate-bounce w-4 h-4" />
               </span>
-            )}
+            )} */}
           </ul>
 
           <div className="flex items-center gap-2 lg:hidden">
@@ -351,7 +351,7 @@ function Navbar() {
           </div>
         </div>
 
-        <AnimatePresence>
+        {/* <AnimatePresence>
           {isSticky && (
             <motion.div
               initial={{ y: -30 }}
@@ -405,7 +405,7 @@ function Navbar() {
                             alt="hero_filter_img"
                           />
                         )
-                      } */}
+                      } 
                       {
                         // @ts-ignore
                         visible[key] ? (
@@ -487,7 +487,7 @@ function Navbar() {
               </div>
             </motion.div>
           )}
-        </AnimatePresence>
+        </AnimatePresence> */}
       </nav>
 
       {/* Sidebar */}
@@ -528,12 +528,12 @@ function Navbar() {
       </div>
 
       {/* Overlay */}
-      {isSidebarOpen && (
+      {/* {isSidebarOpen && (
         <div
           className="fixed top-0 left-0 h-full w-full bg-black opacity-50 z-30"
           onClick={toggleSidebar}
         ></div>
-      )}
+      )} */}
     </>
   );
 }

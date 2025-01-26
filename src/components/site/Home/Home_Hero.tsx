@@ -22,64 +22,64 @@ import {
   useState,
 } from "react";
 
-// export const MobileDropdown = ({ items, visible, toggle }: any) => {
-//   const [isOpen, setIsOpen] = useState(false);
+export const MobileDropdown = ({ items, visible, toggle }: any) => {
+  const [isOpen, setIsOpen] = useState(false);
 
-//   return (
-//     <div className="relative w-full">
-//       <div
-//         onClick={() => setIsOpen(!isOpen)}
-//         className="relative ml-[3px] xs:ml-3 sm:ml-12 w-20 h-5 xs:w-24 xs:h-7 flex items-center justify-center cursor-pointer text-white"
-//       >
-//         {/* <div className="absolute -z-10 w-full h-full rounded-2xl"></div> */}
-//         <Image
-//           src={"/Hero_Filter_Small.png"}
-//           fill
-//           className="absolute -z-10"
-//           alt="hero_filter_img"
-//         />
-//         <span className="text-[10px] leading-[14px] xs:text-xs font-semibold">
-//           Select
-//         </span>
-//         <ChevronDownIcon
-//           className={cn(
-//             "w-4 h-4",
-//             isOpen
-//               ? "rotate-180 duration-150 transition-all"
-//               : "rotate-0 duration-150 transition-all"
-//           )}
-//         />
-//       </div>
-//       {isOpen && (
-//         <ul className="absolute right-0 w-fit bg-white border rounded-md overflow-hidden mt-1 z-50">
-//           {items.map(({ key, text }: any) => (
-//             <li
-//               key={key}
-//               onClick={() => {
-//                 // toggle(key);
-//                 if(key === 'AGENCY') {
-//                   document.getElementById("TopTenAgencies")?.scrollIntoView({ behavior: "smooth" });  
-//                 } else if(key === 'HOTEL') {
-//                   document.getElementById("TopTenHotels")?.scrollIntoView({ behavior: "smooth" });
-//                 } else if(key === 'DMC') {
-//                   document.getElementById("TopTenDMC")?.scrollIntoView({ behavior: "smooth" });
-//                 } else if(key === 'Influencer') {
-//                   document.getElementById("Influencers")?.scrollIntoView({ behavior: "smooth" });
-//                 }
-//                 setIsOpen(false);
-//               }}
-//               className={`p-2 hover:bg-gray-100 cursor-pointer text-xs ${
-//                 visible[key] ? "bg-mainColor text-white" : "text-black"
-//               }`}
-//             >
-//               {text}
-//             </li>
-//           ))}
-//         </ul>
-//       )}
-//     </div>
-//   );
-// };
+  return (
+    <div className="relative w-full">
+      <div
+        onClick={() => setIsOpen(!isOpen)}
+        className="relative ml-[3px] xs:ml-3 sm:ml-12 w-20 h-5 xs:w-24 xs:h-7 flex items-center justify-center cursor-pointer text-white"
+      >
+        {/* <div className="absolute -z-10 w-full h-full rounded-2xl"></div> */}
+        <Image
+          src={"/Hero_Filter_Small.png"}
+          fill
+          className="absolute -z-10"
+          alt="hero_filter_img"
+        />
+        <span className="text-[10px] leading-[14px] xs:text-xs font-semibold">
+          Select
+        </span>
+        <ChevronDownIcon
+          className={cn(
+            "w-4 h-4",
+            isOpen
+              ? "rotate-180 duration-150 transition-all"
+              : "rotate-0 duration-150 transition-all"
+          )}
+        />
+      </div>
+      {isOpen && (
+        <ul className="absolute right-0 w-fit bg-white border rounded-md overflow-hidden mt-1 z-50">
+          {items.map(({ key, text }: any) => (
+            <li
+              key={key}
+              onClick={() => {
+                // toggle(key);
+                if(key === 'AGENCY') {
+                  document.getElementById("TopTenAgencies")?.scrollIntoView({ behavior: "smooth" });  
+                } else if(key === 'HOTEL') {
+                  document.getElementById("TopTenHotels")?.scrollIntoView({ behavior: "smooth" });
+                } else if(key === 'DMC') {
+                  document.getElementById("TopTenDMC")?.scrollIntoView({ behavior: "smooth" });
+                } else if(key === 'Influencer') {
+                  document.getElementById("Influencers")?.scrollIntoView({ behavior: "smooth" });
+                }
+                setIsOpen(false);
+              }}
+              className={`p-2 hover:bg-gray-100 cursor-pointer text-xs ${
+                visible[key] ? "bg-mainColor text-white" : "text-black"
+              }`}
+            >
+              {text}
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
+  );
+};
 
 type AnimatedTextProps = {
   text: string;
