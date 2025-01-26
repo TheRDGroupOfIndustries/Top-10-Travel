@@ -22,64 +22,64 @@ import {
   useState,
 } from "react";
 
-export const MobileDropdown = ({ items, visible, toggle }: any) => {
-  const [isOpen, setIsOpen] = useState(false);
+// export const MobileDropdown = ({ items, visible, toggle }: any) => {
+//   const [isOpen, setIsOpen] = useState(false);
 
-  return (
-    <div className="relative w-full">
-      <div
-        onClick={() => setIsOpen(!isOpen)}
-        className="relative ml-[3px] xs:ml-3 sm:ml-12 w-20 h-5 xs:w-24 xs:h-7 flex items-center justify-center cursor-pointer text-white"
-      >
-        {/* <div className="absolute -z-10 w-full h-full rounded-2xl"></div> */}
-        <Image
-          src={"/Hero_Filter_Small.png"}
-          fill
-          className="absolute -z-10"
-          alt="hero_filter_img"
-        />
-        <span className="text-[10px] leading-[14px] xs:text-xs font-semibold">
-          Select
-        </span>
-        <ChevronDownIcon
-          className={cn(
-            "w-4 h-4",
-            isOpen
-              ? "rotate-180 duration-150 transition-all"
-              : "rotate-0 duration-150 transition-all"
-          )}
-        />
-      </div>
-      {isOpen && (
-        <ul className="absolute right-0 w-fit bg-white border rounded-md overflow-hidden mt-1 z-50">
-          {items.map(({ key, text }: any) => (
-            <li
-              key={key}
-              onClick={() => {
-                // toggle(key);
-                if(key === 'AGENCY') {
-                  document.getElementById("TopTenAgencies")?.scrollIntoView({ behavior: "smooth" });  
-                } else if(key === 'HOTEL') {
-                  document.getElementById("TopTenHotels")?.scrollIntoView({ behavior: "smooth" });
-                } else if(key === 'DMC') {
-                  document.getElementById("TopTenDMC")?.scrollIntoView({ behavior: "smooth" });
-                } else if(key === 'Influencer') {
-                  document.getElementById("Influencers")?.scrollIntoView({ behavior: "smooth" });
-                }
-                setIsOpen(false);
-              }}
-              className={`p-2 hover:bg-gray-100 cursor-pointer text-xs ${
-                visible[key] ? "bg-mainColor text-white" : "text-black"
-              }`}
-            >
-              {text}
-            </li>
-          ))}
-        </ul>
-      )}
-    </div>
-  );
-};
+//   return (
+//     <div className="relative w-full">
+//       <div
+//         onClick={() => setIsOpen(!isOpen)}
+//         className="relative ml-[3px] xs:ml-3 sm:ml-12 w-20 h-5 xs:w-24 xs:h-7 flex items-center justify-center cursor-pointer text-white"
+//       >
+//         {/* <div className="absolute -z-10 w-full h-full rounded-2xl"></div> */}
+//         <Image
+//           src={"/Hero_Filter_Small.png"}
+//           fill
+//           className="absolute -z-10"
+//           alt="hero_filter_img"
+//         />
+//         <span className="text-[10px] leading-[14px] xs:text-xs font-semibold">
+//           Select
+//         </span>
+//         <ChevronDownIcon
+//           className={cn(
+//             "w-4 h-4",
+//             isOpen
+//               ? "rotate-180 duration-150 transition-all"
+//               : "rotate-0 duration-150 transition-all"
+//           )}
+//         />
+//       </div>
+//       {isOpen && (
+//         <ul className="absolute right-0 w-fit bg-white border rounded-md overflow-hidden mt-1 z-50">
+//           {items.map(({ key, text }: any) => (
+//             <li
+//               key={key}
+//               onClick={() => {
+//                 // toggle(key);
+//                 if(key === 'AGENCY') {
+//                   document.getElementById("TopTenAgencies")?.scrollIntoView({ behavior: "smooth" });  
+//                 } else if(key === 'HOTEL') {
+//                   document.getElementById("TopTenHotels")?.scrollIntoView({ behavior: "smooth" });
+//                 } else if(key === 'DMC') {
+//                   document.getElementById("TopTenDMC")?.scrollIntoView({ behavior: "smooth" });
+//                 } else if(key === 'Influencer') {
+//                   document.getElementById("Influencers")?.scrollIntoView({ behavior: "smooth" });
+//                 }
+//                 setIsOpen(false);
+//               }}
+//               className={`p-2 hover:bg-gray-100 cursor-pointer text-xs ${
+//                 visible[key] ? "bg-mainColor text-white" : "text-black"
+//               }`}
+//             >
+//               {text}
+//             </li>
+//           ))}
+//         </ul>
+//       )}
+//     </div>
+//   );
+// };
 
 type AnimatedTextProps = {
   text: string;
@@ -326,33 +326,23 @@ function HomeHero() {
           initial={{ y: 50, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.8, delay: 1.4, type: "spring" }}
-          className={`w-full sm:max-w-[430px] pt-14 md:pt-10 lg:overflow-hidden lg:pt-24 md:max-w-[430px] lg:max-w-[730px]`}
+          className={`w-full sm:max-w-[430px] lg:overflow-hidden pt-4 md:max-w-[430px] lg:max-w-[730px]`}
           // ${
           //   isSticky && selectedCountry
           //     ? "fixed top-0 z-40 left-0 lg:pt-[3.8rem] pb-2 md:pt-[3.8rem] bg-white/80 backdrop-blur-md lg:overflow-visible md:max-w-full lg:max-w-full md:w-full px-2 md:px-3 lg:px-6 xl:px-8"
           //     : ""
           // }
         >
-          <div className="w-full  flex flex-row-reverse justify-end  lg:flex-col">
-            
-
-            <div className="lg:hidden">
-              <MobileDropdown
-                items={boxItems}
-                visible={visible}
-                toggle={toggle}
-              />
-            </div>
-
-            <div className="hidden lg:flex xl:gap-5 gap-4">
+          {/* <div className="w-full  flex flex-row-reverse justify-end  lg:flex-col"> */}
+              <p className="font-cinzel sm:text-3xl my-4 font-medium">Choose your prefrence!</p>
+            <div className="lg:flex flex-wrap gap-4">
               {boxItems.map(({ key, text }) => (
-                <div
-                  key={key}
-                  className={`relative w-24 h-7 text-center cursor-pointer ${
-                    // @ts-expect-error
-                    visible[key] ? "text-white" : "text-black"
-                  }`}
-                  onClick={() => {
+                <div key={key} className={`py-2 px-4 sm:px-8 mt-2 sm:mt-0 w-52 sm:w-auto cursor-pointer text-center flex justify-center items-center 
+                ${
+                  // @ts-expect-error
+                  visible[key] ? " text-white bg-red-500" : "text-black border border-red-400"} 
+                rounded-full`}
+                    onClick={() => {
                     // toggle(key)
                     const id = ''
                     if(key === 'AGENCY') {
@@ -364,55 +354,19 @@ function HomeHero() {
                     } else if(key === 'Influencer') {
                       document.getElementById("Influencers")?.scrollIntoView({ behavior: "smooth" });
                     }
-                    
                   }
                   }
                 >
-                  {/* {
-                    // @ts-ignore
-                    visible[key] && (
-                      <Image
-                        src={"/Hero_Filter_Small.png"}
-                        fill
-                        className="absolute -z-10  "
-                        alt="hero_filter_img"
-                      />
-                    )
-                  } */}
-                  {
-                    // @ts-ignore
-                    visible[key] ? (
-                      <Image
-                        src={"/Hero_Filter_Small.png"}
-                        fill
-                        className="absolute -z-10  "
-                        alt="hero_filter_img"
-                      />
-                    ) : (
-                      <Image
-                        src={"/Hero_Filter_Large.png"}
-                        fill
-                        className="absolute -z-10  "
-                        alt="hero_filter_img"
-                      />
-                    )
-                  }
-                  <span className="text-xs font-semibold">{text}</span>
+                  {text}
                 </div>
               ))}
             </div>
-            <div className="  lg:mt-3 ">
-              {/* <Image
-                src={"/Hero_Filter_Large.png"}
-                fill
-                className="absolute filter saturate-[1.] contrast-100"
-                alt="hero_filter_img"
-              /> */}
+            {/* <div className="  lg:mt-3 ">
               <span className="text-black text-base xs:text-lg sm:text-2xl md:text-3xl lg:text-[3rem] font-semibold text-start   ">
                 FIND YOUR TOP 10
               </span>
-            </div>
-          </div>
+            </div> */}
+          {/* </div> */}
           {/* <div className="md:max-w-3xl sm:max-w-sm xs:max-w-[320px] max-w-fit max-h-fit xs:h-12 sm:h-14 flex flex-col xs:flex-row gap-1 py-1 items-center justify-between rounded-lg px-1 xs:px-3 bg-gray-200">
             <div className="flex items-center lg:gap-5 md:gap-2 xs:gap-1 gap-2">
               <Select
