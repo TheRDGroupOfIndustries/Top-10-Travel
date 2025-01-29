@@ -188,7 +188,7 @@ const Step1 = ({
           type="number"
           min="0"
           placeholder="ContactPhoneNumber"
-          className="m-0 mt-1"
+          className="m-0 mt-1 appearance-none [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none [&::-moz-appearance:textfield]"
           onKeyDown={(e) => {
             if (
               e.key === "-" ||

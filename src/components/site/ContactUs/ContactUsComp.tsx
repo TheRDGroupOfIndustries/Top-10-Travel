@@ -132,7 +132,7 @@ const ContactUsComp = () => {
           </div>
 
           <div className="text-[20px] font-[500] text-black mt-[13%] underline underline-offset-[20%]">
-          Follow us
+            Follow us
             {/* logos */}
             <div className="flex gap-3 items-center mt-[2%]">
               {linksArr.map(({ href, icon }) => (
@@ -224,7 +224,7 @@ const ContactUsComp = () => {
                   <input
                     required
                     type="number"
-                    className="w-full lg:h-[63px] h-10 rounded-lg bg-slate-100 pl-5"
+                    className="w-full lg:h-[63px] h-10 rounded-lg bg-slate-100 pl-5 appearance-none [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none [&::-moz-appearance:textfield]"
                     placeholder="Phone Number"
                     value={contact}
                     onChange={(e: any) => {

@@ -145,7 +145,7 @@ const PastProjectInput = ({
           type="number"
           placeholder="Year"
           defaultValue={form.year === 0 ? undefined : form.year}
-          className="m-0 mt-1"
+          className="m-0 mt-1 appearance-none [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none [&::-moz-appearance:textfield]"
           min={1900}
           max={new Date().getFullYear()}
         />

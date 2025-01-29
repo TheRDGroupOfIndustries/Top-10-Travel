@@ -17,10 +17,9 @@ import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { useParams } from "next/navigation";
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import { TbPhoneCall } from "react-icons/tb";
 import { toast } from "sonner";
-import { useEffect } from "react"; 
 
 export default function EnquireDialog({
   images,
@@ -65,19 +64,18 @@ export default function EnquireDialog({
     // }
 
     setResponse(res);
-
   };
 
   useEffect(() => {
     response.success && toast.success(response.success);
     response.error && toast.error(response.error);
-  }, [response])
+  }, [response]);
 
   return (
     <div
       className={cn(
         "flex items-center justify-center",
-        type === "Details" ?  "flex-1"  : ""
+        type === "Details" ? "flex-1" : ""
       )}
     >
       <Modal>
@@ -146,6 +144,7 @@ export default function EnquireDialog({
                       id="phoneNumber"
                       name="phoneNumber"
                       type="number"
+                       className="appearance-none [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none [&::-moz-appearance:textfield]"
                       placeholder="Enter phone number"
                       required
                     />

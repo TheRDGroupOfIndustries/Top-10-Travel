@@ -135,7 +135,7 @@ const ClientRefInput = ({
           type="number"
           placeholder="Contact Phone"
           defaultValue={form.contactPhone}
-          className="m-0 mt-1"
+          className="m-0 mt-1 appearance-none [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none [&::-moz-appearance:textfield]"
         />
       </div>
       <div className="">
