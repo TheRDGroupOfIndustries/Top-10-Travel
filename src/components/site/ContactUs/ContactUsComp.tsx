@@ -43,14 +43,9 @@ const ContactUsComp = () => {
   const [message, setMessage] = useState("");
   // const session = useSession();
 
-  const [countries, setCountries] = useState<
-    { name: string; flag: string; dialCode: string }[]
-  >([]);
-  const [selectedDialCode, setSelectedDialCode] = useState("+91"); // Default to India
+
 
   const { mutate, isPending } = useMutation(sendContactEmail);
-
-  console.log("Countries:", `${selectedDialCode} ${contact}`);
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
@@ -70,7 +65,7 @@ const ContactUsComp = () => {
       firstName: firstName,
       lastName: lastName,
       email: email,
-      contact: `${selectedDialCode} ${contact}`,
+      contact: contact,
       message: message,
     };
 
@@ -95,27 +90,6 @@ const ContactUsComp = () => {
     //    toast.error("You must log in to your account before proceeding.");
     // }
   };
-
-  useEffect(() => {
-    const fetchCountries = async () => {
-      try {
-        const response = await fetch(
-          "https://countriesnow.space/api/v0.1/countries/info?returns=currency,flag,unicodeFlag,dialCode"
-        );
-        const data = await response.json();
-        if (data.data) {
-          const sortedCountries = data.data.sort((a: any, b: any) =>
-            a.name.localeCompare(b.name)
-          );
-          setCountries(sortedCountries);
-        }
-      } catch (error) {
-        console.error("Error fetching countries:", error);
-      }
-    };
-
-    fetchCountries();
-  }, []);
 
   return (
     <motion.div
@@ -254,23 +228,7 @@ const ContactUsComp = () => {
                 <div className="flex gap-2 contact-us">
               
 
-                  {/* <input
-                    required
-                    type="number" // Use text to control input manually
-                    
-                    inputMode="numeric" // Shows number keyboard on mobile
-                    className="w-full lg:h-[63px] h-10 rounded-lg bg-slate-100 pl-5 appearance-none [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none [&::-moz-appearance:textfield]"
-                    placeholder="Phone Number"
-                    value={contact}
-                    onChange={(e: any) => {
-                      let value = e.target.value.replace(/\D/g, ""); // Remove non-numeric characters
-                      if (value.length > 15) {
-                        value = value.slice(0, 15); // Trim input to 15 digits
-                      }
-                      setContact(value);
-                    }}
-                  /> */}
-
+  
                   <PhoneInput
                     defaultCountry="in"
                     value={contact}

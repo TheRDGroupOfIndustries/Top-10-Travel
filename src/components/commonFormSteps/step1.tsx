@@ -6,6 +6,8 @@ import { SetStateAction, useEffect, useState } from "react";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import { Textarea } from "../ui/textarea";
+import { PhoneInput } from "react-international-phone";
+import 'react-international-phone/style.css';
 
 const Step1 = ({
   register,
@@ -14,6 +16,7 @@ const Step1 = ({
   dmc,
   hotel,
   setValue,
+  watch, // Add this prop
 }: {
   register: any;
   errors: any;
@@ -21,10 +24,14 @@ const Step1 = ({
   dmc?: boolean;
   hotel?: boolean;
   setValue?: any;
+  watch?: any;
 }) => {
   const [countries, setCountries] = useState([]);
   const [cities, setCities] = useState([]);
   const [selectedCountry, setSelectedCountry] = useState("");
+
+  // Remove the phone state and use watch instead
+  const phoneNumber = watch?.("contactPhoneNumber") || "";
 
   // Fetch countries on component load
   useEffect(() => {
@@ -60,6 +67,12 @@ const Step1 = ({
         console.error("Error fetching cities:", error);
       });
   };
+
+  // Add useEffect to register the phone input
+  useEffect(() => {
+    register("contactPhoneNumber", { required: "Phone number is required" });
+  }, [register]);
+
   return (
     <div className={cn(hidden ? "hidden" : "")}>
       <div>
@@ -112,8 +125,10 @@ const Step1 = ({
           className="p-2 w-full block border rounded-lg max-w-xs"
           {...register("country", {
             required: "Country is required",
-            onChange: (e: { target: { value: SetStateAction<string> } }) =>
-              fetchCities(e.target.value),
+            onChange: (e: { target: { value: SetStateAction<string> } }) => {
+              fetchCities(e.target.value);
+              setValue("country", e.target.value); // Explicitly set the value
+            },
           })}
           defaultValue=""
         >
@@ -141,6 +156,9 @@ const Step1 = ({
           className="p-2 w-full block border rounded-lg max-w-xs"
           {...register("city", {
             required: "City is required",
+            onChange: (e: { target: { value: string } }) => {
+              setValue("city", e.target.value); // Explicitly set the value
+            },
           })}
           defaultValue=""
           disabled={!cities.length}
@@ -182,24 +200,13 @@ const Step1 = ({
             </p>
           )}
         </Label>
-        <Input
-          {...register("contactPhoneNumber")}
-          id="contactPhoneNumber"
-          type="number"
-          min="0"
-          placeholder="ContactPhoneNumber"
-          className="m-0 mt-1 appearance-none [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none [&::-moz-appearance:textfield]"
-          onKeyDown={(e) => {
-            if (
-              e.key === "-" ||
-              e.key === "e" ||
-              e.key === "." ||
-              e.key === ">" ||
-              e.key === "<"
-            ) {
-              e.preventDefault();
-            }
+        <PhoneInput
+          defaultCountry="in"
+          value={phoneNumber}
+          onChange={(phone) => {
+            setValue("contactPhoneNumber", phone, { shouldValidate: true });
           }}
+          className="m-0 mt-1"
         />
       </div>
       <div>

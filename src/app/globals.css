@@ -189,18 +189,30 @@
   @apply font-bold;
 }
 
+
+/* react-international-phone */
+
 .contact-us .react-international-phone-input-container{
-  @apply w-full lg:h-[63px] h-10 rounded-lg bg-slate-100 ;
+  @apply w-full lg:h-[63px] h-10 rounded-lg bg-slate-100  ;
 }
 .contact-us .react-international-phone-input{
-  @apply w-full  !bg-slate-100 lg:!h-[63px] !h-10 !border-none;
+  @apply w-full  !bg-slate-100 lg:!h-[63px] !h-10 !border-none !text-base;
 }
 .contact-us .react-international-phone-country-selector{
-  @apply  bg-slate-100 my-auto;
+  @apply  bg-slate-100 my-auto px-5 border-r;
 }
 .contact-us .react-international-phone-country-selector-button{
-  @apply  bg-slate-100 !border-t-0 !border-b-0;
+  @apply  bg-slate-100 !border-0;
 }
 .contact-us .react-international-phone-country-selector-button__button-content{
   @apply  bg-slate-100 ;
+}
+
+
+ .react-international-phone-input-container{
+  @apply !w-full   !rounded-lg;
+}
+
+.react-international-phone-input{
+  @apply !w-full !text-base;
 }

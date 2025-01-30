@@ -19,8 +19,9 @@ import Image from "next/image";
 import { useParams } from "next/navigation";
 import { FormEvent, useEffect, useState } from "react";
 import { TbPhoneCall } from "react-icons/tb";
+import { PhoneInput } from "react-international-phone";
+import 'react-international-phone/style.css';
 import { toast } from "sonner";
-
 
 export default function EnquireDialog({
   images,
@@ -47,43 +48,17 @@ export default function EnquireDialog({
   const params = useParams();
   const { isPending, mutate } = useMutation(createEnquiryAction);
 
-  const [countries, setCountries] = useState<
-    { name: string; flag: string; dialCode: string }[]
-  >([]);
-  const [selectedDialCode, setSelectedDialCode] = useState("+91"); // Default to India
+  const [message, setMessage] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
-
-  useEffect(() => {
-    const fetchCountries = async () => {
-      try {
-        const response = await fetch(
-          "https://countriesnow.space/api/v0.1/countries/info?returns=currency,flag,unicodeFlag,dialCode"
-        );
-        const data = await response.json();
-        if (data.data) {
-          const sortedCountries = data.data.sort((a: any, b: any) =>
-            a.name.localeCompare(b.name)
-          );
-          setCountries(sortedCountries);
-        }
-      } catch (error) {
-        console.error("Error fetching countries:", error);
-      }
-    };
-
-    fetchCountries();
-  }, []);
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // @ts-expect-error
-    const message = e.target[2].value;
-    const formattedPhoneNumber = `${selectedDialCode} ${phoneNumber}`;
+    if (!message || !phoneNumber) return;
 
     setResponse({});
 
     const res = await mutate({
-      values: { message, phoneNumber: formattedPhoneNumber },
+      values: { message, phoneNumber: phoneNumber },
       info,
     });
     setOpen(false);
@@ -159,58 +134,21 @@ export default function EnquireDialog({
                       </motion.div>
                     ))}
                 </div>
-                <div className="py-2 flex flex-wrap gap-x-4 gap-y-1 items-start justify-start max-w-sm mx-auto">
-                  <div className="w-full flex flex-col gap-[2px]">
+                <div className="py-2 flex-1 ">
+                  <div className="w-full flex flex-col gap-[2px] enquire-message">
                     <label htmlFor="phoneNumber" className="p-1">
                       Phone Number:
                     </label>
                     <div className="flex gap-2">
-                      {/* Country Selector */}
-                      <select
-                        className="p-2 border rounded-md w-[150px]"
-                        value={selectedDialCode}
-                        onChange={(e) => setSelectedDialCode(e.target.value)}
-                      >
-                        {countries.map((country) => (
-                          <option
-                            key={country.dialCode + country.name}
-                            value={country.dialCode}
-                            className="flex flex-row items-center gap-2"
-                          >
-                            <div className="flex items-center gap-2">
-                              {/* <Image
-                                src={`${country.flag}`}
-                                alt={country.name}
-                                width={20}
-                                height={15}
-                              /> */}
-                              {country.name} ({country.dialCode})
-                            </div>
-                          </option>
-                        ))}
-                      </select>
-
-                      {/* Phone Number Input */}
-                      <Input
-                        id="phoneNumber"
-                        name="phoneNumber"
-                        type="number"
-                        minLength={6}
-                        maxLength={15}
-                        className="appearance-none [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none [&::-moz-appearance:textfield]"
-                        placeholder="Enter phone number"
-                        onChange={(e: any) => {
-                          let value = e.target.value.replace(/\D/g, ""); // Remove non-numeric characters
-                          if (value.length > 15) {
-                            value = value.slice(0, 15); // Trim input to 15 digits
-                          }
-                        }}
-                        required
+                      <PhoneInput
+                        defaultCountry="in"
+                        value={phoneNumber}
+                        onChange={(phone) => setPhoneNumber(phone)}
                       />
                     </div>
                   </div>
 
-                  <div className="w-full flex flex-col gap-[2px]">
+                  <div className="w-full flex flex-col gap-[2px]  ">
                     <label htmlFor="message" className="p-1">
                       Message :-
                     </label>
@@ -218,6 +156,9 @@ export default function EnquireDialog({
                       id="message"
                       name="message"
                       placeholder="Enter message"
+                      value={message}
+                      onChange={(e) => setMessage(e.target.value)}
+                      className=" rounded-lg"
                       required
                     />
                   </div>
