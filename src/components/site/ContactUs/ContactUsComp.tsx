@@ -16,6 +16,8 @@ import {
   FaXTwitter,
   FaYoutube,
 } from "react-icons/fa6";
+import { PhoneInput } from "react-international-phone";
+import 'react-international-phone/style.css';
 import { toast } from "sonner";
 
 const linksArr = [
@@ -250,31 +252,9 @@ const ContactUsComp = () => {
                   />
                 </div>
                 <div className="flex gap-2">
-                  <select
-                    className="p-2 border rounded-md w-[150px] bg-slate-100 "
-                    value={selectedDialCode}
-                    onChange={(e) => setSelectedDialCode(e.target.value)}
-                  >
-                    {countries.map((country) => (
-                      <option
-                        key={country.dialCode + country.name}
-                        value={country.dialCode}
-                        className="flex flex-row items-center gap-2"
-                      >
-                        <div className="flex items-center gap-2">
-                          {/* <Image
-                                src={`${country.flag}`}
-                                alt={country.name}
-                                width={20}
-                                height={15}
-                              /> */}
-                          {country.name} ({country.dialCode})
-                        </div>
-                      </option>
-                    ))}
-                  </select>
+              
 
-                  <input
+                  {/* <input
                     required
                     type="number" // Use text to control input manually
                     
@@ -289,6 +269,12 @@ const ContactUsComp = () => {
                       }
                       setContact(value);
                     }}
+                  /> */}
+
+                  <PhoneInput
+                    defaultCountry="in"
+                    value={contact}
+                    onChange={(phone) => setContact(phone)}
                   />
                 </div>
                 <div>
