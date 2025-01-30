@@ -189,18 +189,18 @@
   @apply font-bold;
 }
 
-.react-international-phone-input-container{
+.contact-us .react-international-phone-input-container{
   @apply w-full lg:h-[63px] h-10 rounded-lg bg-slate-100 ;
 }
-.react-international-phone-input{
+.contact-us .react-international-phone-input{
   @apply w-full  !bg-slate-100 lg:!h-[63px] !h-10 !border-none;
 }
-.react-international-phone-country-selector{
+.contact-us .react-international-phone-country-selector{
   @apply  bg-slate-100 my-auto;
 }
-.react-international-phone-country-selector-button{
+.contact-us .react-international-phone-country-selector-button{
   @apply  bg-slate-100 !border-t-0 !border-b-0;
 }
-.react-international-phone-country-selector-button__button-content{
+.contact-us .react-international-phone-country-selector-button__button-content{
   @apply  bg-slate-100 ;
 }

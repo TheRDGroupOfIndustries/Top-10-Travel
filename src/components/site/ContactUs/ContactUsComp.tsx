@@ -251,7 +251,7 @@ const ContactUsComp = () => {
                     }}
                   />
                 </div>
-                <div className="flex gap-2">
+                <div className="flex gap-2 contact-us">
               
 
                   {/* <input
