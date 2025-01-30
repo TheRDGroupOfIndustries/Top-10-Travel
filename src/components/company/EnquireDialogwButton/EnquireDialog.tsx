@@ -64,7 +64,6 @@ export default function EnquireDialog({
             a.name.localeCompare(b.name)
           );
           setCountries(sortedCountries);
-          console.log("Countries fetched:", sortedCountries);
         }
       } catch (error) {
         console.error("Error fetching countries:", error);
@@ -195,10 +194,16 @@ export default function EnquireDialog({
                         id="phoneNumber"
                         name="phoneNumber"
                         type="number"
-                        min={6}
-                        max={15}
+                        minLength={6}
+                        maxLength={15}
                         className="appearance-none [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none [&::-moz-appearance:textfield]"
                         placeholder="Enter phone number"
+                        onChange={(e: any) => {
+                          let value = e.target.value.replace(/\D/g, ""); // Remove non-numeric characters
+                          if (value.length > 15) {
+                            value = value.slice(0, 15); // Trim input to 15 digits
+                          }
+                        }}
                         required
                       />
                     </div>
