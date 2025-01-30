@@ -62,6 +62,18 @@ const nextConfig = {
         hostname: "res.cloudinary.com",
         port: "",
       },
+      {
+        protocol: "https",
+        hostname: "upload.wikimedia.org",
+        port: "",
+      },
+    ],
+    domains: [
+      "i.pinimg.com",
+      "flowbite.s3.amazonaws.com",
+      "lh3.googleusercontent.com",
+      "www.google.com",
+      "upload.wikimedia.org" // Add this line
     ],
   },
 };
