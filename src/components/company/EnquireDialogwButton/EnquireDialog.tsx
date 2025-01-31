@@ -15,6 +15,7 @@ import { createEnquiryAction } from "@/core/server/actions/Enquiry/createEnquiry
 import useMutation from "@/hooks/useMutation";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
+import { useSession } from "next-auth/react";
 import Image from "next/image";
 import { useParams } from "next/navigation";
 import { FormEvent, useEffect, useState } from "react";
@@ -22,6 +23,8 @@ import { TbPhoneCall } from "react-icons/tb";
 import { PhoneInput } from "react-international-phone";
 import 'react-international-phone/style.css';
 import { toast } from "sonner";
+import { signIn } from "next-auth/react";
+import { FcGoogle } from "react-icons/fc";
 
 export default function EnquireDialog({
   images,
@@ -48,6 +51,8 @@ export default function EnquireDialog({
   const params = useParams();
   const { isPending, mutate } = useMutation(createEnquiryAction);
 
+  const session = useSession();
+
   const [message, setMessage] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
 
@@ -70,7 +75,40 @@ export default function EnquireDialog({
     response.error && toast.error(response.error);
   }, [response]);
 
-  return (
+  return session.status !== "authenticated" ? (
+    <div
+      className={cn(
+        "flex items-center justify-center",
+        type === "Details" ? "flex-1" : ""
+      )}
+    >
+      <Modal>
+        {type === "Details" ? (
+          <ModalTrigger className="w-full border-black border-[1px] rounded-full sm:text-xl min-[421px]:text-base text-xs font-medium transform hover:-translate-y-1 transition duration-200 hover:shadow-md">
+            Enquire now
+          </ModalTrigger>
+        ) : (
+          <ModalTrigger className="xs:text-lg text-base group flex bg-white text-mainColor border-mainColor border-[2px] rounded-md hover:bg-mainColor hover:text-white">
+            <span>Enquire now</span>
+            <TbPhoneCall size={20} className="stroke-2 ml-1" />
+          </ModalTrigger>
+        )}
+        <ModalBody className="!min-h-fit">
+          <div className="flex flex-col items-center justify-center p-6 space-y-4">
+            <h3 className="text-xl font-semibold">Sign in Required</h3>
+            <p className="text-center text-gray-600">Please sign in to send an enquiry</p>
+            <Button 
+              onClick={() => signIn("google")}
+              className="flex items-center gap-2 bg-white text-gray-700 border hover:bg-gray-50"
+            >
+              <FcGoogle className="text-xl" />
+              Sign in with Google
+            </Button>
+          </div>
+        </ModalBody>
+      </Modal>
+    </div>
+  ) : (
     <div
       className={cn(
         "flex items-center justify-center",
